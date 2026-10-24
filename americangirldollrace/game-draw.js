@@ -885,15 +885,57 @@ function moonBootPlacements(assetKey, kind, index) {
   return frame.map(foot => {
     const [fx, fy, size, , , , cy] = foot; // (feet.js also gives the turn in degrees)
     const pose = moonBootPose(kind, index, foot, frame);
+    // The boot view the owner picked for this foot in the same pose on
+    // other dolls wins (with the angle that view needed there).
+    const learned = learnedMoonBootView(kind, index, frame.length, moonBootRole(foot, frame));
+    const relearned = learned && (learned.cell !== pose.cell || learned.mirror !== pose.mirror);
     return {
-      cell: pose.cell,
+      cell: learned ? learned.cell : pose.cell,
       x: fx,
       y: cy ?? fy,
-      angle: pose.angle,
+      angle: relearned ? learned.angle : pose.angle,
       width: clamp(size, MOON_BOOT_FOOT_MIN, MOON_BOOT_FOOT_MAX) * MOON_BOOT_GROW * pose.size,
-      mirror: pose.mirror
+      mirror: learned ? learned.mirror : pose.mirror
     };
   });
+}
+
+// Which foot this is in a pose: the back one (further left, facing right),
+// the front one, or the only one; and whether it's lifted (well above the
+// other) or planted, so a lesson only carries over to a foot placed alike.
+function moonBootRole(foot, feet) {
+  if (feet.length !== 2) return "only";
+  const other = feet.find(f => f !== foot) || foot;
+  const side = foot[0] <= other[0] ? "back" : "front";
+  return side + ((foot[6] ?? foot[1]) < (other[6] ?? other[1]) - MOON_BOOT_LIFTED ? "-lifted" : "");
+}
+const MOON_BOOT_LIFTED = 30; // px above the other foot that counts as lifted
+
+// What the owner's hand-placed boots (MOON_BOOT_OVERRIDES) say about a pose
+// on every doll: for each foot role, the boot view (cell and mirroring)
+// picked most often, and the mean angle used with it. Null where no doll
+// has that pose placed by hand yet.
+let moonBootLessons = null;
+function learnedMoonBootView(kind, index, count, role) {
+  if (!moonBootLessons) {
+    moonBootLessons = {};
+    for (const [id, boots] of Object.entries(window.MOON_BOOT_OVERRIDES || {})) {
+      const [, sheet, frame] = id.split("/");
+      const sorted = boots.slice().sort((a, b) => a.x - b.x);
+      sorted.forEach((boot, n) => {
+        const other = sorted[1 - n];
+        const r = boots.length !== 2 ? "only" : (n === 0 ? "back" : "front") + (boot.y < other.y - MOON_BOOT_LIFTED ? "-lifted" : "");
+        const key = `${sheet}/${frame}/${boots.length}/${r}`;
+        const view = `${boot.cell}${boot.mirror ? "m" : ""}`;
+        const views = (moonBootLessons[key] ||= {});
+        (views[view] ||= []).push(boot.angle);
+      });
+    }
+  }
+  const views = moonBootLessons[`${kind}/${index}/${count}/${role}`];
+  if (!views) return null;
+  const [view, angles] = Object.entries(views).sort((a, b) => b[1].length - a[1].length)[0];
+  return { cell: parseInt(view, 10), mirror: view.endsWith("m"), angle: angles.reduce((s, a) => s + a, 0) / angles.length };
 }
 
 // The boot sheet's cells (image-requests.md §23 MB1, §26 MB2): side, three-
