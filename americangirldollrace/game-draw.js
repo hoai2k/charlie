@@ -328,6 +328,7 @@ function drawVictoryScene() {
   ctx.fillStyle = skyGradient;
   ctx.fillRect(0, 0, W, H);
   drawVictoryFireworks(elapsed);
+  drawStandingsBoard(elapsed);
   drawVictoryPodium(winner, elapsed);
   drawVictoryConfetti(elapsed);
   drawVictoryBanner(winner, elapsed);
@@ -357,6 +358,85 @@ function drawVictoryFireworks(elapsed) {
     }
     ctx.restore();
   }
+}
+
+// The standings so far, on a board that drops down on its ropes behind the
+// podium (to the right of it), ranked by points, with what each racer just
+// won. Rows fill in one after another once it has landed.
+function drawStandingsBoard(elapsed) {
+  const entries = [...(state.standings?.values() || [])].sort((a, b) => b.points - a.points || b.wins - a.wins);
+  if (!entries.length) return;
+  const rowH = 38, w = 330, h = 74 + entries.length * rowH;
+  const x = W - w - 26, restY = 96;
+  // Drop in with a little bounce, after the winner's moment.
+  const t = clamp((elapsed - STANDINGS_DROP_DELAY) / STANDINGS_DROP_TIME, 0, 1);
+  if (t <= 0) return;
+  const bounce = t < 1 ? 1 - Math.cos(t * Math.PI * 2.5) * Math.pow(1 - t, 2.2) : 1;
+  const y = -h - 20 + (restY + h + 20) * bounce;
+  ctx.save();
+  // Ropes from the top of the screen.
+  ctx.strokeStyle = "#8a6a43";
+  ctx.lineWidth = 4;
+  for (const rx of [x + 40, x + w - 40]) {
+    ctx.beginPath();
+    ctx.moveTo(rx, 0);
+    ctx.lineTo(rx, y + 8);
+    ctx.stroke();
+  }
+  ctx.shadowColor = "rgba(20, 20, 40, 0.35)";
+  ctx.shadowBlur = 18;
+  ctx.shadowOffsetY = 8;
+  ctx.fillStyle = "rgba(255, 250, 238, 0.95)";
+  roundRect(x, y, w, h, 18);
+  ctx.fill();
+  ctx.shadowColor = "transparent";
+  ctx.strokeStyle = "#f0c052";
+  ctx.lineWidth = 5;
+  roundRect(x, y, w, h, 18);
+  ctx.stroke();
+  ctx.fillStyle = "#b6427b";
+  ctx.font = "700 28px Fredoka, system-ui, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("Standings", x + w / 2, y + 34);
+  const rowsIn = (elapsed - STANDINGS_DROP_DELAY - STANDINGS_DROP_TIME) / STANDINGS_ROW_TIME;
+  entries.forEach((entry, i) => {
+    const show = clamp(rowsIn - i, 0, 1);
+    if (show <= 0) return;
+    const racer = entry.racer;
+    const ry = y + 62 + i * rowH;
+    ctx.save();
+    ctx.globalAlpha = show;
+    ctx.translate((1 - show) * 30, 0);
+    if (i % 2 === 0) {
+      ctx.fillStyle = "rgba(240, 192, 82, 0.16)";
+      roundRect(x + 12, ry, w - 24, rowH - 4, 10);
+      ctx.fill();
+    }
+    const mid = ry + (rowH - 4) / 2;
+    ctx.textAlign = "left";
+    ctx.font = "700 22px Fredoka, system-ui, sans-serif";
+    // Tied racers (same points and wins) share a place.
+    const place = entries.findIndex(e => e.points === entry.points && e.wins === entry.wins);
+    ctx.fillStyle = ["#c99a1b", "#8a97a6", "#b56f34"][place] || "#6a6478";
+    ctx.fillText(String(place + 1), x + 24, mid);
+    const head = getPortraitImage(racer.spriteKey);
+    if (head) ctx.drawImage(head, x + 46, mid - 16, 32, 32);
+    ctx.fillStyle = racer.ai ? "#4a4f5c" : slotColor(racer.playerIndex);
+    ctx.font = "700 20px Fredoka, system-ui, sans-serif";
+    ctx.fillText(racer.ai ? racer.name : `P${racer.playerIndex + 1} ${racer.name}`, x + 84, mid);
+    ctx.textAlign = "right";
+    ctx.fillStyle = "#3a3448";
+    ctx.font = "700 22px Fredoka, system-ui, sans-serif";
+    ctx.fillText(String(entry.points), x + w - 24, mid);
+    if (entry.gained) {
+      ctx.fillStyle = "#2f9e5b";
+      ctx.font = "700 15px Fredoka, system-ui, sans-serif";
+      ctx.fillText(`+${entry.gained}`, x + w - 62, mid);
+    }
+    ctx.restore();
+  });
+  ctx.restore();
 }
 
 // Falling confetti from assets/ui/confetti.webp (six 64px pieces in a row).

@@ -1041,3 +1041,29 @@ test('Amanda won\'t join a player who hit her once she was out for 20 s (another
   });
   assert.deepEqual(r, { snubbed: true, refused: true, otherJoined: true, forgiven: true, stillFollowing: true, furtherBack: true });
 });
+
+test('standings add up over a set of races (from the menu they start again), and Skip race goes to the next race', { skip: skip() }, async () => {
+  await onTrack('farm');
+  const r = await page.evaluate(() => {
+    resetStandings();
+    const first = state.racers.slice();
+    finishRace(first[1]); clearNextRaceTimer();
+    const after1 = [...state.standings.values()].map(e => e.points).sort((a, b) => b - a);
+    advanceBackground(); startRace(state.mode); state.racers.forEach(x => x.x = 5000);
+    state.racers[0].x = 5100; finishRace(state.racers[0]); clearNextRaceTimer();
+    const totals = [...state.standings.values()].map(e => e.points).sort((a, b) => b - a);
+    let drew = true; state.victoryStartTime = performance.now() - 5000;
+    try { drawStandingsBoard(5000); } catch (e) { drew = false; }
+    // Skip race from the pause menu.
+    advanceBackground(); startRace(state.mode);
+    const before = state.backgroundIndex;
+    togglePause(); document.querySelector('#skipRaceButton').click();
+    const skipped = state.backgroundIndex !== before && state.running && !state.paused && !state.done;
+    const noPoints = [...state.standings.values()].reduce((s, e) => s + e.points, 0) === totals.reduce((s, p) => s + p, 0);
+    resetStandings();
+    return { after1, totals, drew, skipped, noPoints, fresh: state.standings.size === 0 };
+  });
+  assert.deepEqual(r.after1, [10, 8]);
+  assert.deepEqual(r.totals, [18, 18]);
+  assert.deepEqual({ drew: r.drew, skipped: r.skipped, noPoints: r.noPoints, fresh: r.fresh }, { drew: true, skipped: true, noPoints: true, fresh: true });
+});

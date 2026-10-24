@@ -795,6 +795,7 @@
     for (const slot of lobby.slots) if (slot) slot.aFresh = false;
     stopLoop();
     GameAudio.unlock();
+    resetStandings(); // a new set of races
     startRace(mode);
   }
 

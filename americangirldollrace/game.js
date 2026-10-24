@@ -427,6 +427,9 @@ const STORM_CLOUD_END_PADDING = 260;
 const VICTORY_FIREWORK_COUNT = 7;
 const VICTORY_JUMP_HEIGHT = 74;
 const VICTORY_JUMP_SPEED = 0.006;
+const STANDINGS_DROP_DELAY = 1400; // ms into the celebration before the standings board drops in
+const STANDINGS_DROP_TIME = 900; // ms it takes to drop (with a bounce)
+const STANDINGS_ROW_TIME = 160; // ms between its rows appearing
 const LEGO_SPLIT_LINE_WIDTH = 8;
 const LEGO_SPLIT_LINE_FADE_SPEED = 7.5;
 const LEGO_CAMERA_TARGET_RATIO = 0.36;
@@ -1611,9 +1614,49 @@ function toggleFullscreen() {
   }
 }
 
+// Points for each place in a race, towards the standings board shown while
+// the next race loads (from the menu, a new set of races starts at zero).
+const STANDINGS_POINTS = [10, 8, 6, 5, 4, 3, 2, 1];
+
+function resetStandings() {
+  state.standings = new Map();
+}
+
+// Each racer's place in this race adds to her total: players by their slot,
+// computer racers by their doll (they keep it from race to race).
+function addToStandings(order) {
+  state.standings ||= new Map();
+  for (const entry of state.standings.values()) entry.gained = 0;
+  order.forEach((racer, place) => {
+    const key = racer.ai ? `cpu:${racer.name}` : `p${racer.playerIndex}`;
+    const entry = state.standings.get(key) || { points: 0, wins: 0 };
+    entry.racer = racer;
+    entry.gained = STANDINGS_POINTS[place] || 0;
+    entry.points += entry.gained;
+    if (place === 0) entry.wins += 1;
+    state.standings.set(key, entry);
+  });
+}
+
+// Straight to the next race, from the pause menu (no points for this one).
+function skipRace() {
+  if (!state.running) return;
+  GameAudio.play("ui_unpause");
+  stopGameplayAudioLoops();
+  stopMenuAnimationLoop();
+  hideControllerPointers();
+  clearNextRaceTimer();
+  state.running = false;
+  state.paused = false;
+  pausePanel.classList.add("hidden");
+  advanceBackground();
+  startRace(state.mode);
+}
+
 function finishRace(winner) {
   // Places for the podium and the HUD, decided before the slots are compacted.
   state.finishOrder = state.racers.slice().sort((a, b) => (b === winner) - (a === winner) || b.x - a.x);
+  addToStandings(state.finishOrder);
   clearJoinPickers();
   compactSlotsForNextRace();
   state.running = false;
@@ -2468,6 +2511,7 @@ pauseFullscreenButton.addEventListener("click", () => {
   toggleFullscreen().then(updatePauseCorner);
 });
 document.querySelector("#pauseSettingsDone").addEventListener("click", () => openPauseSettings(false));
+document.querySelector("#skipRaceButton").addEventListener("click", skipRace);
 for (const slider of pauseSettings.querySelectorAll("input[type=range]")) {
   slider.addEventListener("input", () => {
     GameAudio.setVolume(slider.dataset.bus, Number(slider.value) / 100 * PAUSE_SLIDER_SCALE[slider.dataset.bus]);
