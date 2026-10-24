@@ -83,11 +83,18 @@ function monsterSpeed(monster) {
   return monster.riding ? MOUNTED_MONSTER_SPEED : MONSTER_SPEED;
 }
 
-// Running, any mount gets past a troll, except in the Horse Show (where the
-// trolls ride too and only a unicorn or gryphon can).
+// Running, any mount gets past the plain troll and the ice giant, except in
+// the Horse Show (where the trolls ride too); the other boards' monsters
+// (skeleton, scarecrow…) pull her off anything but a unicorn or gryphon.
+// The giant still plucks her out of the air (flying or mid-jump), whatever
+// she rides.
 function mountOutrunsMonster(racer, monster) {
-  const passes = mountBeatsTrolls(racer.horseType) || !isAlwaysMountedTrack();
-  return isMounted(racer) && passes && Math.abs(racer.speed || 0) > monsterSpeed(monster);
+  if (!isMounted(racer)) return false;
+  const key = getTrackMonsterKey();
+  if (key === "icetroll" && racer.z > 20) return false;
+  const plain = !key || key === "icetroll";
+  const passes = mountBeatsTrolls(racer.horseType) || (plain && !isAlwaysMountedTrack());
+  return passes && Math.abs(racer.speed || 0) > monsterSpeed(monster);
 }
 
 const DEFAULT_MOUNT_ODDS = { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 };

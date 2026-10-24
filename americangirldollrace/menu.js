@@ -746,6 +746,9 @@
   function startFrom(device) {
     if (lobby.screen !== "title") return;
     GameAudio.unlock();
+    // START goes full screen, where the browser allows it (a key, click or
+    // tap does; a controller button can't, and iPhone Safari has none).
+    if (!fullscreenElement() && canFullscreen() && !window.BrowserChrome?.scrollTrick) toggleFullscreen();
     sound("ui_click");
     show("select");
     if (device?.startsWith("pad")) join(device, true);

@@ -446,6 +446,8 @@ const MELT_TIME = 2.4; // s a melting pile takes to become a puddle
 const PUDDLE_REACH_X = 80; // px (times a giant's size) either side of the middle that splashes
 const SPECIAL_COOLDOWN = 15; // s a special (game-specials.js) takes to recharge
 const SPECIAL_COOLDOWN_AGAIN = 10; // once she's chosen the same one again
+const SPECIAL_SNOW_STOCK = 5; // a "snowballs" special: a stock of this many…
+const SPECIAL_SNOW_REGEN = 3; // …and one back every this many seconds
 const SPECIAL_PICK_TIME = 10; // s she has to choose one after winning a board
 const MONSTER_SPEED = 150;
 const MONSTER_LANE_SPEED = 130;
@@ -1288,7 +1290,9 @@ function ensureHudCardParts(card) {
   const bar = document.createElement("span");
   bar.className = "hud-special-bar";
   bar.append(document.createElement("i"));
-  special.append(icon, bar);
+  const count = document.createElement("b");
+  count.className = "hud-special-count";
+  special.append(icon, bar, count);
   card.append(badge, face, text, special);
 }
 
@@ -1304,9 +1308,13 @@ function updateHudSpecial(card, racer) {
     drawSpecialIcon(icon, special.kind);
     icon.dataset.drawn = specialIcon(special.kind)?.image ? "1" : "";
   }
-  const charge = 1 - clamp((racer.specialWait || 0) / special.cooldown, 0, 1);
+  // (Snowballs: the bar fills toward the next one; the count is how many.)
+  const stock = specialStock(racer);
+  const charge = stock ? (stock.ammo >= SPECIAL_SNOW_STOCK ? 1 : stock.regen / SPECIAL_SNOW_REGEN)
+    : 1 - clamp((racer.specialWait || 0) / special.cooldown, 0, 1);
   box.querySelector("i").style.width = `${charge * 100}%`;
-  box.classList.toggle("ready", charge >= 1);
+  box.querySelector(".hud-special-count").textContent = stock ? String(stock.ammo) : "";
+  box.classList.toggle("ready", stock ? stock.ammo > 0 : charge >= 1);
 }
 
 function ordinal(place) {

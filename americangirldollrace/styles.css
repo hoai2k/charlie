@@ -1617,3 +1617,19 @@ html.ios-scroll.ios-scroll-play, html.ios-scroll.ios-scroll-play body { overflow
   width: 100%;
   background: var(--slot-color, #fff);
 }
+
+/* A snowballs special: how many she has left, on the icon's corner. */
+.hud-special { position: relative; }
+.hud-special-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 14px;
+  font-size: 11px;
+  line-height: 14px;
+  text-align: center;
+  color: #fff;
+  border-radius: 7px;
+  background: var(--slot-color, #f4a);
+}
+.hud-special-count:empty { display: none; }

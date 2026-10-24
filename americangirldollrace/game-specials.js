@@ -7,10 +7,13 @@
 // What's offered grows with her wins: the first, speed or high jump; the
 // second, speed, high jump or the EMP; from the third, roller skates, a pogo
 // stick or the EMP of the board she just won (and the EMP she has, if it's
-// from another board). A new choice replaces the one she had; choosing the
+// from another board); from the fourth, that board's "snowballs" too (and
+// whatever she has). A new choice replaces the one she had; choosing the
 // same again shortens its recharge (SPECIAL_COOLDOWN to SPECIAL_COOLDOWN_AGAIN).
 // Kinds: "speed", "jump", "emp" (the original lightning), "skates", "pogo",
-// and "emp:<track key>" (that board's own EMP).
+// "emp:<track key>" (that board's own EMP) and "snow:<track key>" (that
+// board's throwables, whatever board she's on: a stock of SPECIAL_SNOW_STOCK,
+// one back every SPECIAL_SNOW_REGEN s).
 
 // Her special, by player (like the standings): { kind, cooldown, wins }.
 function playerSpecial(racer) {
@@ -23,7 +26,9 @@ function specialChoices(wins, boardKey, current) {
   if (wins === 2) return ["speed", "jump", "emp"];
   const own = `emp:${boardKey}`;
   const choices = ["skates", "pogo", own];
-  if (current && current.startsWith("emp") && current !== own) choices.push(current);
+  if (wins >= 4) choices.push(`snow:${boardKey}`);
+  const keeps = wins >= 4 ? Boolean(current) : Boolean(current?.startsWith("emp"));
+  if (keeps && !choices.includes(current)) choices.push(current);
   return choices;
 }
 
@@ -33,8 +38,12 @@ function specialName(kind) {
   if (kind === "skates") return "Roller Skates";
   if (kind === "pogo") return "Pogo Stick";
   if (kind === "emp") return "EMP";
-  const track = kind.slice(4);
-  const label = TRACK_THEMES[track]?.labels?.emp;
+  const track = kind.slice(5 - kind.startsWith("emp:"));
+  const label = TRACK_THEMES[track]?.labels?.[kind.startsWith("snow:") ? "snowball" : "emp"];
+  if (kind.startsWith("snow:")) {
+    const board = BACKGROUNDS.find(b => b.key === track)?.name || TRACK_THEMES[track]?.name || track;
+    return `${titleCase(label || "snowballs")} (${board})`;
+  }
   const board = BACKGROUNDS.find(b => b.key === track)?.name || TRACK_THEMES[track]?.name || track;
   return label ? `${titleCase(label)} (${board})` : `EMP (${board})`;
 }
@@ -64,6 +73,10 @@ function specialIcon(kind) {
   if (kind === "emp") return generic(2);
   if (kind === "skates") return trackCell(SKATES_ICON_TRACK, 1) || generic(1);
   if (kind === "pogo") return trackCell(POGO_ICON_TRACK, 0) || generic(0);
+  if (kind.startsWith("snow:")) {
+    const track = kind.slice(5);
+    return (TRACK_THEMES[track]?.art?.includes("powerups") && trackCell(track, 4)) || generic(4);
+  }
   const track = kind.slice(4);
   return (TRACK_THEMES[track]?.art?.includes("powerups") && trackCell(track, 2)) || generic(2);
 }
@@ -83,6 +96,7 @@ function useSpecial(racer) {
   const special = playerSpecial(racer);
   if (!special || racer.specialWait > 0 || racer.finished || racer.grabbedBy || racer.frogTimer > 0) return false;
   const kind = special.kind;
+  if (kind.startsWith("snow:")) return throwSpecialSnowball(racer, kind.slice(5));
   const type = kind === "speed" || kind === "skates" ? "boost" : kind === "jump" || kind === "pogo" ? "jump" : "emp";
   if (!canRacerUsePowerups(racer, type)) return false;
   if (kind === "speed" || kind === "skates") {
@@ -108,8 +122,32 @@ function useSpecial(racer) {
   return true;
 }
 
+// A "snowballs" special: one of that board's throwables from her stock.
+function throwSpecialSnowball(racer, track) {
+  const stock = specialStock(racer);
+  if (!stock || stock.ammo < 1) return false;
+  // (Whoever can throw her pickups' snowballs can throw these: as with X.)
+  if (isMounted(racer) && racer.horseType !== "unicorn" && !canMountedRacerThrowSnowballs(racer) && !isAlwaysMountedTrack()) return false;
+  stock.ammo -= 1;
+  launchSnowball(racer, track);
+  racer.powerupMessage = `${specialName(`snow:${track}`).replace(/ \(.*/, "").toUpperCase()} x${stock.ammo}`;
+  return true;
+}
+
+// Her snowballs stock (full at each race's start), or null for other specials.
+function specialStock(racer) {
+  if (!playerSpecial(racer)?.kind?.startsWith("snow:")) return null;
+  racer.specialStock ||= { ammo: SPECIAL_SNOW_STOCK, regen: 0 };
+  return racer.specialStock;
+}
+
 function updateSpecialCharge(racer, dt) {
   racer.specialWait = Math.max(0, (racer.specialWait || 0) - dt);
+  const stock = specialStock(racer);
+  if (!stock) return;
+  if (stock.ammo >= SPECIAL_SNOW_STOCK) { stock.regen = 0; return; }
+  stock.regen += dt;
+  if (stock.regen >= SPECIAL_SNOW_REGEN) { stock.regen -= SPECIAL_SNOW_REGEN; stock.ammo += 1; }
 }
 
 // After a board: a human winner counts the win, and (once the celebration's
@@ -147,7 +185,8 @@ function openSpecialPicker(offer, next) {
     const name = document.createElement("span");
     name.textContent = specialName(kind);
     const note = document.createElement("small");
-    note.textContent = kind === special.kind ? `Yours · faster: ${SPECIAL_COOLDOWN_AGAIN} s` : `${SPECIAL_COOLDOWN} s`;
+    note.textContent = kind.startsWith("snow:") ? `${kind === special.kind ? "Yours · " : ""}${SPECIAL_SNOW_STOCK}, +1 every ${SPECIAL_SNOW_REGEN} s`
+      : kind === special.kind ? `Yours · faster: ${SPECIAL_COOLDOWN_AGAIN} s` : `${SPECIAL_COOLDOWN} s`;
     card.append(icon, name, note);
     card.addEventListener("click", () => { specialPicker.at = n; chooseSpecial(); });
     drawSpecialIcon(icon, kind);

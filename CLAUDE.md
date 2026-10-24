@@ -185,7 +185,10 @@ hook to get round it.
   picks a power-up of her own after the celebration (10 s, her controls, her
   current one selected), used with Y (R / `/` / pad Y / touch Special) and
   recharging (15 s, 10 s once she picks the same again); kept per player
-  (`state.playerSpecials`, like the standings) for the session.
+  (`state.playerSpecials`, like the standings) for the session. From the
+  fourth win a board's "snowballs" are offered too (`snow:<board>`: 5 in
+  stock, one back every 3 s); thrown projectiles carry their board
+  (`projectile.track`) for art and behaviour.
 - `americangirldollrace/intake/` is the owner's drop folder for the race (see
   its README). Songs not tied to one board are listed in `TRACK_GENERAL_MUSIC`
   in `tracks.js`; "Forest Fairy Spin" is Fairy Woods' song (it replaced

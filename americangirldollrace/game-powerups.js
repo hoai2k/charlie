@@ -464,9 +464,11 @@ function hasActivePowerup(racer, type) {
   return false;
 }
 
-function launchSnowball(racer) {
-  if (racer.snowballs <= 0) return;
-  racer.snowballs -= 1;
+// (track: a special's throw of another board's "snowballs"; otherwise this
+// board's, from her pickups.)
+function launchSnowball(racer, track = null) {
+  if (!track && racer.snowballs <= 0) return;
+  if (!track) racer.snowballs -= 1;
   sfx("snowball_throw", racer.x);
   racerVoice(racer, "taunt", { chance: 0.15 });
   // Thrown from the hand of whatever pose she's in (standing, skates, pogo
@@ -475,10 +477,11 @@ function launchSnowball(racer) {
   const groundY = racer.y + 54;
   // Momentum: running the way she throws adds her speed to the throw
   // (bubbles just float off at their own pace).
-  const carry = projectileLanding() === "pop" ? 0 : Math.max(0, (racer.speed || 0) * racer.facing);
+  const carry = projectileLanding({ track }) === "pop" ? 0 : Math.max(0, (racer.speed || 0) * racer.facing);
   const vx = racer.facing * (SNOWBALL_SPEED + carry);
   state.projectiles.push({
     owner: racer,
+    track,
     x: hand ? hand.x : racer.x + racer.facing * 44,
     y: racer.y + 32,
     groundY,
@@ -498,7 +501,7 @@ function updateProjectiles(dt) {
     projectile.x += projectile.vx * dt;
     projectile.distance += Math.abs(projectile.vx) * dt;
     // Toward the end of its throw it drops to the ground (bubbles stay up).
-    const drop = projectileLanding() === "pop" ? 0
+    const drop = projectileLanding(projectile) === "pop" ? 0
       : clamp((projectile.distance / projectile.range - SNOWBALL_ARC_START) / (1 - SNOWBALL_ARC_START), 0, 1);
     projectile.height = 1 - drop * drop;
     projectile.drawY = projectile.groundY !== undefined
@@ -541,15 +544,28 @@ function updateProjectiles(dt) {
   state.projectiles = state.projectiles.filter(projectile => projectile.distance < projectile.range);
 }
 
-function projectileLanding() {
-  return getTrackTheme().projectileLanding || "roll";
+// A thrown thing (or what it left on the ground) behaves and looks like its
+// own board's: this one's, unless it carries another (item.track).
+function projectileTheme(item) {
+  return TRACK_THEMES[item?.track] || getTrackTheme();
+}
+
+function projectileLanding(item) {
+  return projectileTheme(item).projectileLanding || "roll";
+}
+
+function projectileArt(item) {
+  const track = item?.track || getCurrentBackground().key;
+  if (item?.track && TRACK_THEMES[track]?.art?.includes("projectile")) loadArtOnce(trackArtKey(track, "projectile"), `assets/tracks/${track}/projectile.webp`);
+  return images[trackArtKey(track, "projectile")] || null;
 }
 
 // A throw that missed everyone, where it comes down (see tracks.js
 // projectileLanding): a splash, a melting pile of snow, a pop in the air, or
 // it rolls along the ground to a stop.
 function landProjectile(projectile) {
-  const landing = projectileLanding();
+  const landing = projectileLanding(projectile);
+  const track = projectile.track;
   const x = projectile.x;
   const groundY = projectile.groundY ?? projectile.y + 22;
   if (landing === "water") {
@@ -562,17 +578,17 @@ function landProjectile(projectile) {
   } else if (landing === "snow") {
     sfx("snowball_hit", x, { gain: 0.5 });
     spawnParticles(x, groundY, 0, 6, { kind: "puff", color: "#f4fbff", speed: 70, lift: 30, life: 0.5, size: 10, gravity: 0 });
-    state.thrownLeftovers.push({ kind: "snow", x, groundY, life: SNOW_PILE_LIFE });
+    state.thrownLeftovers.push({ kind: "snow", track, x, groundY, life: SNOW_PILE_LIFE });
   } else {
     sfx("snowball_hit", x, { gain: 0.4 });
-    addRolledThrowable({ x, groundY, vx: projectile.vx * 0.45, spin: projectile.distance * 0.02, hop: 0, vhop: 160 });
+    addRolledThrowable({ track, x, groundY, vx: projectile.vx * 0.45, spin: projectile.distance * 0.02, hop: 0, vhop: 160 });
   }
 }
 
 // A thrown apple (or the like) on the ground: it stays there until someone
 // steps on it (only the newest THROWN_ROLL_KEEP stay).
 function addRolledThrowable(item) {
-  if (getTrackTheme().stickyProjectile) item = { ...item, vx: item.vx * STICKY_ROLL, vhop: Math.min(item.vhop, 70), sticky: true };
+  if (projectileTheme(item).stickyProjectile) item = { ...item, vx: item.vx * STICKY_ROLL, vhop: Math.min(item.vhop, 70), sticky: true };
   state.thrownLeftovers.push({ kind: "roll", life: Infinity, squished: false, age: 0, ...item });
   const rolling = state.thrownLeftovers.filter(other => other.kind === "roll" && !other.squished);
   if (rolling.length > THROWN_ROLL_KEEP) rolling[0].life = 0;
@@ -629,7 +645,7 @@ function drawThrownLeftover(item) {
   ctx.globalAlpha = fade;
   if (item.squished) {
     // Squashed flat where it was stepped on.
-    const art = getTrackArt("projectile");
+    const art = projectileArt(item);
     const size = SNOWBALL_RADIUS * 2.6;
     ctx.translate(x, item.groundY - 3);
     ctx.scale(1.6, 0.32);
@@ -659,7 +675,7 @@ function drawThrownLeftover(item) {
   }
   ctx.translate(x, item.groundY - SNOWBALL_RADIUS - item.hop);
   ctx.rotate(item.spin);
-  const art = getTrackArt("projectile");
+  const art = projectileArt(item);
   const size = SNOWBALL_RADIUS * 2.6;
   if (art) ctx.drawImage(art, -size / 2, -size / 2, size, size);
   else {
@@ -674,17 +690,17 @@ function drawThrownLeftover(item) {
 // A hit: water balloons burst into a splash, snowballs just thud.
 function projectileImpact(projectile, groundY) {
   projectile.burst = true;
-  if (projectileLanding() === "roll") {
+  if (projectileLanding(projectile) === "roll") {
     // An apple (or the like) bounces back off whoever it hit and drops to
     // the ground, where it stays.
     sfx("snowball_hit", projectile.x);
     const height = Math.max(0, projectile.groundY - SNOWBALL_RADIUS - (projectile.drawY - projectile.z * 0.28 * (projectile.height ?? 1)));
     // It starts back off her and rolls a little further, so it lands clear.
     const back = -Math.sign(projectile.vx) || -1;
-    addRolledThrowable({ x: projectile.x + back * 30, groundY: projectile.groundY ?? groundY, vx: back * 180, spin: projectile.distance * 0.02, hop: height, vhop: 260 });
+    addRolledThrowable({ track: projectile.track, x: projectile.x + back * 30, groundY: projectile.groundY ?? groundY, vx: back * 180, spin: projectile.distance * 0.02, hop: height, vhop: 260 });
     return;
   }
-  if (projectileLanding() !== "water") {
+  if (projectileLanding(projectile) !== "water") {
     sfx("snowball_hit", projectile.x);
     return;
   }
@@ -989,11 +1005,11 @@ function drawSnowball(projectile) {
   if (x < -80 || x > viewWidth + 80) return;
   ctx.save();
   ctx.translate(x, projectile.drawY - projectile.z * 0.28 * (projectile.height ?? 1));
-  const projectileArt = getTrackArt("projectile");
-  if (projectileArt) {
+  const art = projectileArt(projectile);
+  if (art) {
     const size = SNOWBALL_RADIUS * 2.6;
     ctx.rotate(projectile.distance * 0.02);
-    ctx.drawImage(projectileArt, -size / 2, -size / 2, size, size);
+    ctx.drawImage(art, -size / 2, -size / 2, size, size);
     ctx.restore();
     return;
   }

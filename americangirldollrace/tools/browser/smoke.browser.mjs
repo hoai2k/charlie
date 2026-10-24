@@ -210,6 +210,24 @@ test('the magic wand waits for X, then casts the way the player aims (or faces);
   assert.deepEqual([r.right.hit, r.left.hit, r.none.hit], ['monster ahead', 'racer behind', 'monster ahead']);
 });
 
+test('a running horse gets past the troll and the ice giant, not the other monsters; the giant plucks her from a jump or the air', { skip: skip() }, async () => {
+  const r = {};
+  for (const key of ['farm', 'winter', 'wizard', 'autumn', 'horseshow']) {
+    await onTrack(key);
+    r[key] = await page.evaluate(() => {
+      startRace('two'); state.running = false;
+      const [a] = state.racers; Object.assign(a, { horseType: 'horse', horseTimer: 12, speed: 600, z: 0 });
+      const m = spawnMonster(a.x + 100, a.y, { active: true, riding: false }); m.riding = false; m.state = 'walk';
+      const run = mountOutrunsMonster(a, m);
+      a.z = 120; const jump = mountOutrunsMonster(a, m);
+      Object.assign(a, { horseType: 'pegasus' }); const fly = mountOutrunsMonster(a, m);
+      return [run, jump, fly].join();
+    });
+  }
+  assert.deepEqual(r, { farm: 'true,true,true', winter: 'true,false,false', wizard: 'false,false,false', autumn: 'false,false,false', horseshow: 'false,false,false' });
+  await onTrack('farm');
+});
+
 test('an EMP special never zaps her: with nobody about it fizzles', { skip: skip() }, async () => {
   await onTrack('farm');
   const r = await page.evaluate(() => {
@@ -706,7 +724,7 @@ test('Winter ice giant: twice a troll, staggers (not falls) until the 7th hit, l
   assert.deepEqual(errors, []);
 });
 
-test('specials: a board win offers speed or high jump; Y uses it and it recharges; the same again recharges faster; later wins offer skates, pogo and EMPs', { skip: skip() }, async () => {
+test('specials: a board win offers speed or high jump; Y uses it and it recharges; the same again recharges faster; later wins offer skates, pogo and EMPs, then the board\'s snowballs (5, one back every 3 s)', { skip: skip() }, async () => {
   await onTrack('farm');
   const r = await page.evaluate(async () => {
     state.playerSpecials = new Map();
@@ -733,13 +751,25 @@ test('specials: a board win offers speed or high jump; Y uses it and it recharge
     out.second = await won(); out.defaultsToHers = specialPicker.choices[specialPicker.at] === 'jump'; chooseSpecial();
     out.secondPick = [special.kind, special.cooldown];
     setBackground('town'); out.third = await won(); chooseSpecial(2);
-    setBackground('farm'); out.fourth = await won(); closeSpecialPicker();
+    setBackground('farm'); out.fourth = await won();
+    // Snowballs (the Farm's apples), thrown on another board: 5, one back every 3 s.
+    chooseSpecial(specialPicker.choices.indexOf('snow:farm'));
+    setBackground('town'); startRace('two'); state.running = true; startPanel.classList.add('hidden');
+    const c = state.racers[0]; c.x = 3000; state.monsters = []; state.obstacles = []; keys.clear();
+    keys.add('KeyR'); update(1 / 60); keys.delete('KeyR'); update(1 / 60);
+    keys.add('KeyR'); update(1 / 60); keys.delete('KeyR'); update(1 / 60);
+    out.snow = { thrown: state.projectiles.filter(p => p.track === 'farm').length, left: specialStock(c).ammo };
+    for (let i = 0; i < 60 * 3.1; i++) update(1 / 60);
+    out.snow.back = specialStock(c).ammo;
+    updateHud(); out.snow.hud = document.querySelector('#playerOneHud .hud-special-count').textContent;
+    state.running = false; setBackground('farm');
     return out;
   });
   assert.deepEqual(r, {
     first: ['speed', 'jump'], firstPick: ['jump', 15], used: true, notTwice: true, recharged: true, hudBar: true,
     second: ['speed', 'jump', 'emp'], defaultsToHers: true, secondPick: ['jump', 10],
-    third: ['skates', 'pogo', 'emp:town'], fourth: ['skates', 'pogo', 'emp:farm', 'emp:town']
+    third: ['skates', 'pogo', 'emp:town'], fourth: ['skates', 'pogo', 'emp:farm', 'snow:farm', 'emp:town'],
+    snow: { thrown: 2, left: 3, back: 4, hud: '4' }
   });
 });
 
