@@ -658,7 +658,7 @@ test('Toy Room marshmallows barely roll, and stepping on one holds her an instan
   assert.ok(r.squished && r.stuckFrames >= 12 && r.stuckFrames <= 24, JSON.stringify(r));
 });
 
-test('pickups are spread evenly: every third of a board has each kind, none piling up', { skip: skip() }, async () => {
+test('pickups are spread evenly: each half of a board has each kind, none piling up', { skip: skip() }, async () => {
   await onTrack('wizard');
   const r = await page.evaluate(() => {
     const problems = [];
@@ -667,8 +667,8 @@ test('pickups are spread evenly: every third of a board has each kind, none pili
     for (let race = 0; race < 40; race++) {
       const xs = Array.from({ length: 12 + (race % 8) }, (_, i) => 1000 + i * 700);
       const types = dealPowerupTypes(xs, kinds, kinds, weights);
-      for (let third = 0; third < 3; third++) {
-        const here = types.filter((t, i) => Math.min(2, Math.floor((xs[i] - xs[0]) / (xs.at(-1) - xs[0] + 1) * 3)) === third);
+      for (let half = 0; half < 2; half++) {
+        const here = types.filter((t, i) => Math.min(1, Math.floor((xs[i] - xs[0]) / (xs.at(-1) - xs[0] + 1) * 2)) === half);
         const counts = Object.fromEntries(kinds.map(k => [k, here.filter(t => t === k).length]));
         if (here.length >= kinds.length && kinds.some(k => !counts[k])) problems.push(`lacks a kind: ${JSON.stringify(counts)}`);
         if (Math.max(...Object.values(counts)) > Math.ceil(here.length * 0.5)) problems.push(`piles up: ${JSON.stringify(counts)}`);
@@ -679,14 +679,14 @@ test('pickups are spread evenly: every third of a board has each kind, none pili
   assert.deepEqual(r, []);
 });
 
-test('every board has its normal mount in each third (the rover on Moon Base)', { skip: skip() }, async () => {
+test('every board has its normal mount in each half (the rover on Moon Base)', { skip: skip() }, async () => {
   await onTrack('space');
   const r = await page.evaluate(() => {
     let missing = 0;
     for (let race = 0; race < 6; race++) {
       state.difficulty = 'normal'; state.specials = 'none'; startRace('two'); state.running = false;
-      // (one in each third: at least three a race)
-      if (state.powerups.filter(p => p.type === 'horse' && p.horseType === 'moon_buggy').length < 3) missing++;
+      // (one in each half)
+      for (const half of [0, 1]) if (!state.powerups.some(p => p.part === half && p.type === 'horse' && p.horseType === 'moon_buggy')) missing++;
     }
     return missing;
   });

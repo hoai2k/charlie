@@ -87,14 +87,15 @@ function makePowerups() {
     }
   }
 
-  // Where they go, then what each is: dealt per third of the board, so every
-  // third has some of each kind and none piles up (POWERUP_THIRDS).
+  // Where they go, then what each is: dealt per half of the board, so each
+  // half has some of each kind and none piles up (POWERUP_PARTS), with room
+  // for chance in where they fall within it.
   const xs = [];
   for (let x = POWERUP_START_X + Math.random() * 260; x < FINISH - POWERUP_END_PADDING; x += POWERUP_MIN_GAP + Math.random() * POWERUP_RANDOM_GAP) xs.push(x);
   const each = powerupTypes.filter(type => type !== "monster");
   const parts = powerupParts(xs, each.length);
   const types = dealPowerupTypes(xs, each, powerupTypes, POWERUP_WEIGHTS, parts);
-  const thirdOf = x => partOf(xs, x, parts);
+  const partAt = x => partOf(xs, x, parts);
   xs.forEach((x, index) => {
     const selectedType = types[index];
     const spawnY = randomPowerupY();
@@ -103,18 +104,18 @@ function makePowerups() {
       state.monsters.push(spawnMonster(spawnX, spawnY, { active: false }));
     } else {
       const powerupType = selectedType === "monster" ? trackTypes[index % trackTypes.length] : selectedType;
-      powerups.push({ ...makePowerup(powerupType, spawnX, spawnY), third: thirdOf(x) });
+      powerups.push({ ...makePowerup(powerupType, spawnX, spawnY), part: partAt(x) });
     }
   });
-  // Each third's mount pickups include the board's own normal mount (the
+  // Each half's mount pickups include the board's own normal mount (the
   // horse, or its baseMount: the Moon Base rover, the Toy Room rocking horse),
   // whatever special mounts the rest turned out to be.
   const normal = getTrackTheme().baseMount || "horse";
   const mountSpecial = state.specials === "unicorn" || isFlyingMountType(state.specials) || isHorsingAroundMode();
-  // (By the third each was dealt in, not where it was nudged to.)
+  // (By the half each was dealt in, not where it was nudged to.)
   if (!isAlwaysMountedTrack() && !mountSpecial && xs.length) {
-    for (let third = 0; third < parts; third += 1) {
-      const mounts = powerups.filter(p => p.type === "horse" && p.third === third);
+    for (let part = 0; part < parts; part += 1) {
+      const mounts = powerups.filter(p => p.type === "horse" && p.part === part);
       const normals = Array.isArray(normal) ? normal : [normal];
       if (mounts.length && !mounts.some(p => normals.includes(p.horseType))) {
         mounts[0].horseType = normals[Math.floor(Math.random() * normals.length)];
@@ -130,21 +131,21 @@ function partOf(xs, x, parts) {
   return Math.min(parts - 1, Math.floor((x - from) / span * parts));
 }
 
-// Thirds (POWERUP_THIRDS), or halves when a third would have fewer pickups
-// than there are kinds (so each part still has one of everything).
+// Halves (POWERUP_PARTS), or the whole board as one when a half would have
+// fewer pickups than there are kinds (so each part still has one of everything).
 function powerupParts(xs, kinds) {
   const short = parts => Array.from({ length: parts }, (_, part) => xs.filter(x => partOf(xs, x, parts) === part).length).some(n => n < kinds);
-  return short(POWERUP_THIRDS) ? 2 : POWERUP_THIRDS;
+  return short(POWERUP_PARTS) ? 1 : POWERUP_PARTS;
 }
 
-// The kinds for pickups at xs: each third of the board is dealt on its own,
+// The kinds for pickups at xs: each half of the board is dealt on its own,
 // with one of every kind in `each` first (as room allows), then the rest drawn
 // by weight, a kind's weight halving each time it's drawn there, so a run of
-// one kind can't happen by chance; then shuffled within the third.
-function dealPowerupTypes(xs, each, all, weights, parts = POWERUP_THIRDS) {
+// one kind can't happen by chance; then shuffled within the half.
+function dealPowerupTypes(xs, each, all, weights, parts = POWERUP_PARTS) {
   const out = new Array(xs.length);
-  for (let third = 0; third < parts; third += 1) {
-    const slots = xs.map((x, i) => i).filter(i => partOf(xs, xs[i], parts) === third);
+  for (let part = 0; part < parts; part += 1) {
+    const slots = xs.map((x, i) => i).filter(i => partOf(xs, xs[i], parts) === part);
     // (A part still too short keeps its mount: each has the board's own.)
     const deck = each.slice().sort(() => Math.random() - 0.5).sort((a, b) => (b === "horse") - (a === "horse")).slice(0, slots.length);
     const left = Object.fromEntries(all.map(type => [type, (weights[type] || 1) * (deck.includes(type) ? 0.5 : 1)]));
