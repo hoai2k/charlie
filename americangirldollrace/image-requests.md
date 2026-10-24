@@ -1315,3 +1315,36 @@ two cells over the stagger once it's listed).
 
 Acceptance: on Winter, push the ice giant: he rocks back (cell 1) and
 catches himself (cell 2), and only the seventh push knocks him down.
+
+## 33. Requested: puddles lying on the ground (match the oil's angle)
+
+Each track's "oil" pickup (cell 4 of its power-up sheet) lies still on the
+track, so it must look like a puddle **lying on the ground seen from a low
+angle**, not looked down on from above. The angle to match is the original
+**black oil puddle in `assets/icons_alpha.webp` (x 1700–2199)**: a glossy
+pool foreshortened into a wide, low shape (its main pool about **0.55× as
+tall as it is wide**), a slightly darker rim along its lower edge so it reads
+as a thin layer on the ground, and its few droplets lying on the same ground
+plane beside it, with nothing standing up out of it or flying above it.
+
+Measured main-pool height ÷ width (the oil is 0.56): Village, Toy Room,
+Fairy, Night Festival, Wizard School, Pumpkin Patch and Candy Land are close
+enough to keep. Redo **only cell 4 (x 768–1023)** of these, keeping the
+other four cells pixel-identical:
+
+| # | Track (key) | Oil label | Now | Redraw as |
+| --- | --- | --- | --- | --- |
+| P1 | Farm (`farm`) | MUD | 0.80, top-down, with mud splashes flying up | A thick, glossy brown mud puddle lying flat on the ground at the oil's angle, a few mud blobs lying beside it; no splashes in the air. |
+| P2 | Horse Show (`horseshow`) | WATER JUMP | 0.71, top-down ring of mud with splashes up | A shallow blue water puddle with a muddy edge, lying flat at the oil's angle, like the water jump on a show course; no splashes in the air. |
+| P3 | Moon Base (`space`) | SPACE GOO | 0.73, a round blob from above | Bright green glowing goo spread flat on the ground at the oil's angle, a few goo drops lying beside it. |
+| P4 | Fairy Woods (`woods`) | MOSSY BOG | 0.79, top-down with grass blades and drops sticking up | A dark, boggy puddle with moss patches and a fallen leaf floating on it, lying flat at the oil's angle; no grass or drops standing up out of it. |
+| P5 | Cloud Kingdom (`clouds`) | RAIN PUDDLE | the pool is right, but raindrops hang in the air above it | The same blue rain puddle with the floating drops removed (a couple of small droplets may lie beside it on the ground). |
+| P6 | Winter (`winter`) | ICE | the shape is close, but the cracked sheet is drawn from straight above | A slick patch of ice lying flat at the oil's angle, glossy with a few foreshortened crack lines and a pale rim, reading as ice on the ground, not a cracked tile seen from above. |
+
+Same style, size (about 220 px wide) and outline weight as the other
+cells. In the same commit bump each changed track's `powerupArtVersion` in
+`tracks.js` (add one where there's none).
+
+Acceptance: at race size (about 68 px across), each puddle reads as lying
+flat on the track like the black oil puddle, and a doll slides or sticks
+in it as before.
