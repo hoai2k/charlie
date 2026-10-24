@@ -1,0 +1,44 @@
+{
+  "track": "farm",
+  "changedCell": 3,
+  "unchangedCells": [
+    0,
+    1,
+    2,
+    4
+  ],
+  "sourceBounds": [
+    182,
+    142,
+    1579,
+    870
+  ],
+  "mainPoolSourceBounds": [
+    182,
+    142,
+    1519,
+    813
+  ],
+  "mainPoolHeightOverWidth": 0.5018698578908003,
+  "uniformScale": 0.16454749439042632,
+  "offset": [
+    18,
+    85
+  ],
+  "mainPoolCenter": [
+    128,
+    140
+  ],
+  "mainPoolTargetWidth": 220,
+  "cellBounds": [
+    18,
+    85,
+    248,
+    205
+  ],
+  "sheetSize": [
+    1280,
+    256
+  ],
+  "sha256": "6ad10be8ccc668e3f24aad6fce05721ac2629eadd3093b6f1aa2ac10b3525db3"
+}

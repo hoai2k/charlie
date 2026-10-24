@@ -1352,3 +1352,5 @@ cells. In the same commit bump each changed track's `powerupArtVersion` in
 Acceptance: at race size (about 68 px across), each puddle reads as lying
 flat on the track like the black oil puddle, and a doll slides or sticks
 in it as before.
+
+**P1/P3/P4 art delivered (2026-10-24):** Farm mud, Moon Base goo and Fairy Woods bog oil cells redrawn at the oil ground angle, no flying splashes/upright grass. Measured main-pool height/width0.502/0.601/0.519. Only cell3 changed; other four cells RGBA pixel-identical. Sources, exact ImageGen prompts, deterministic exporter, reports and actual68px drawing review in `tools/tracks/puddles-low-angle/`. Art-only handoff: gameplay agent bumps powerupArtVersion for these tracks.
