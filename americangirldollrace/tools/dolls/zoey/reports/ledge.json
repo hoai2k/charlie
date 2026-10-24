@@ -3,9 +3,9 @@
   "frames": [
     {
       "bounds": [
-        43,
-        29,
-        375,
+        56,
+        59,
+        362,
         409
       ],
       "source": "sources/zoey/ledge.webp",
@@ -15,7 +15,7 @@
         411.0,
         719
       ],
-      "packedScale": 0.5492957746478874,
+      "packedScale": 0.5070422535211268,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -23,20 +23,20 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        374,
-        144
+        361,
+        165
       ],
       "wandTip": null,
       "corner": [
-        307.32,
-        156.87
+        299.76,
+        176.27
       ]
     },
     {
       "bounds": [
-        102,
-        33,
-        316,
+        110,
+        62,
+        308,
         409
       ],
       "source": "sources/zoey/ledge.webp",
@@ -46,7 +46,7 @@
         306.0,
         693
       ],
-      "packedScale": 0.5492957746478874,
+      "packedScale": 0.5070422535211268,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -54,20 +54,20 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        312,
-        276
+        304,
+        286
       ],
       "wandTip": null,
       "corner": [
-        237.01,
-        198.62
+        234.86,
+        214.8
       ]
     },
     {
       "bounds": [
-        75,
-        95,
-        343,
+        85,
+        119,
+        332,
         409
       ],
       "source": "sources/zoey/ledge.webp",
@@ -77,7 +77,7 @@
         369.0,
         586
       ],
-      "packedScale": 0.5492957746478874,
+      "packedScale": 0.5070422535211268,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -85,16 +85,16 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        307,
-        158
+        299,
+        178
       ],
       "wandTip": null,
       "corner": [
-        221.63,
-        402.96
+        220.66,
+        403.42
       ]
     }
   ],
-  "sha256": "a59e143e7ac29d50c79390ecb75d7777399c9b6b0180ab547799f3517396f966",
-  "maskSha256": "8cb3a375fee01a95f733a2335dc9e6d76195e2e7e984d6017c221baf26e64913"
+  "sha256": "a88991e39767864a0bf43e031f8897f7b4d8f9aa3b9415adfab7e94b11de903c",
+  "maskSha256": "bae4f83cef2a12e88c4bed9f4e336dd59f1bec3382de2b061dfb30663f4d4038"
 }

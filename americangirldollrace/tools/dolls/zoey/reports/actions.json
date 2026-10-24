@@ -3,9 +3,9 @@
   "frames": [
     {
       "bounds": [
-        110,
-        22,
-        329,
+        118,
+        52,
+        320,
         409
       ],
       "source": "sources/zoey/special-wand.webp",
@@ -15,7 +15,7 @@
         400,
         714
       ],
-      "packedScale": 0.5492957746478874,
+      "packedScale": 0.5070422535211268,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -23,19 +23,19 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        295,
-        100
+        288,
+        124
       ],
       "wandTip": [
-        315,
-        27
+        307,
+        57
       ]
     },
     {
       "bounds": [
-        103,
-        21,
-        359,
+        111,
+        51,
+        347,
         409
       ],
       "source": "sources/zoey/special-wand.webp",
@@ -45,7 +45,7 @@
         330,
         715
       ],
-      "packedScale": 0.5492957746478874,
+      "packedScale": 0.5070422535211268,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -53,19 +53,19 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        357,
-        127
+        345,
+        149
       ],
       "wandTip": [
-        352,
-        131
+        341,
+        153
       ]
     },
     {
       "bounds": [
-        99,
-        21,
-        341,
+        107,
+        51,
+        330,
         409
       ],
       "source": "sources/zoey/special-wand.webp",
@@ -75,7 +75,7 @@
         302,
         714
       ],
-      "packedScale": 0.5492957746478874,
+      "packedScale": 0.5070422535211268,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -83,19 +83,19 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        339,
-        128
+        328,
+        149
       ],
       "wandTip": [
-        334,
-        134
+        324,
+        155
       ]
     },
     {
       "bounds": [
-        24,
-        42,
-        402,
+        39,
+        71,
+        388,
         409
       ],
       "source": "sources/zoey/special-surf.webp",
@@ -105,7 +105,7 @@
         370,
         691
       ],
-      "packedScale": 0.5383098591549296,
+      "packedScale": 0.4969014084507042,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -113,16 +113,16 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        369,
-        207
+        358,
+        223
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        17,
-        45,
-        390,
+        32,
+        73,
+        376,
         409
       ],
       "source": "sources/zoey/special-surf.webp",
@@ -132,7 +132,7 @@
         371,
         691
       ],
-      "packedScale": 0.5383098591549296,
+      "packedScale": 0.4969014084507042,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -140,16 +140,16 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        338,
-        281
+        328,
+        290
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        52,
-        35,
-        393,
+        64,
+        64,
+        379,
         409
       ],
       "source": "sources/zoey/special-surf.webp",
@@ -159,7 +159,7 @@
         325,
         704
       ],
-      "packedScale": 0.5383098591549296,
+      "packedScale": 0.4969014084507042,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -167,16 +167,16 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        341,
-        278
+        331,
+        288
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        90,
-        55,
-        379,
+        99,
+        82,
+        365,
         409
       ],
       "source": "sources/zoey/special-other.webp",
@@ -186,24 +186,24 @@
         320,
         704
       ],
-      "packedScale": 0.5163380281690141,
+      "packedScale": 0.4766197183098591,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
       "baseline": 409,
-      "targetY": 366.7512676056338,
-      "offsetX": 38.72535211267606,
+      "targetY": 358.847323943662,
+      "offsetX": 35.746478873239425,
       "hand": [
-        345,
-        184
+        334,
+        202
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        33,
-        57,
-        397,
+        47,
+        84,
+        383,
         409
       ],
       "source": "sources/zoey/special-other.webp",
@@ -213,7 +213,7 @@
         384,
         710
       ],
-      "packedScale": 0.5163380281690141,
+      "packedScale": 0.4766197183098591,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -221,16 +221,16 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        396,
-        225
+        382,
+        239
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        51,
-        56,
-        400,
+        63,
+        83,
+        385,
         409
       ],
       "source": "sources/zoey/special-other.webp",
@@ -240,7 +240,7 @@
         331,
         697
       ],
-      "packedScale": 0.5163380281690141,
+      "packedScale": 0.4766197183098591,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -248,12 +248,12 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        380,
-        153
+        366,
+        163
       ],
       "wandTip": null
     }
   ],
-  "sha256": "c6a295406cef8dcc628dea04e557c20693d2486e19df0f8de6246c0eb87da33e",
-  "maskSha256": "5db4fb95fc4f46c8111ed8842211ea4260eb5c8651eab2bdba29eeea80eaa94d"
+  "sha256": "ef2664f863c7dcf0dd12deb49982271ce5c9cee19194db2dbf2768f65ebd208e",
+  "maskSha256": "5b80694c6a5b90cfeda446e1eef1767b91e76257110ecbe0c42afa2b6ca8cbc9"
 }

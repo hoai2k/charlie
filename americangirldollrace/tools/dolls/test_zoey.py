@@ -44,7 +44,7 @@ class ZoeyTests(unittest.TestCase):
         for f in data['frames']:
             self.assertTrue(all(0<v<418 for v in f['corner']))
             self.assertEqual(f['scale'],1)
-            self.assertAlmostEqual(f['packedScale']*f['scale'],390/710,places=6)
+            self.assertAlmostEqual(f['packedScale']*f['scale'],json.loads((build.GAME/'tools/dolls/manifests/zoey.json').read_text())['standingHeight']/710,places=6)
 
     def test_secondary_accents_are_disjoint_and_identity_is_protected(self):
         manifest=json.loads((build.HERE/'manifests/zoey.json').read_text())

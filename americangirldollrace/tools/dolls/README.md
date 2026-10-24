@@ -232,7 +232,10 @@ sheet.
 
 ## Zoey
 
-Zoey's approved reference is `sources/zoey/canonical.webp`. Rebuild her complete
+Zoey's approved reference is `sources/zoey/canonical.webp`. She is a little
+smaller than average: her manifest's `standingHeight` is 360 (the others use
+390), and her build sizes her toys, actions and ledge poses from it too.
+Rebuild her complete
 character with `python3 americangirldollrace/tools/dolls/zoey/build.py`, then
 rerun `measure_hands.py`, `measure_feet.py` and the cache stamper. She has twelve
 race frames, portrait/wave/cheer/ride, twelve skating/pogo frames, nine special

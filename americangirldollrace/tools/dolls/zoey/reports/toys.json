@@ -3,9 +3,9 @@
   "frames": [
     {
       "bounds": [
-        27,
-        31,
-        370,
+        41,
+        60,
+        358,
         409
       ],
       "source": "sources/zoey/toy-skate.webp",
@@ -15,7 +15,7 @@
         430,
         704
       ],
-      "packedScale": 0.5492957746478874,
+      "packedScale": 0.5070422535211268,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -23,16 +23,16 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        369,
-        203
+        357,
+        219
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        102,
-        29,
-        340,
+        110,
+        59,
+        330,
         409
       ],
       "source": "sources/zoey/toy-skate.webp",
@@ -42,7 +42,7 @@
         261,
         700
       ],
-      "packedScale": 0.5492957746478874,
+      "packedScale": 0.5070422535211268,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -50,16 +50,16 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        338,
-        205
+        328,
+        221
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        7,
-        31,
-        331,
+        22,
+        60,
+        321,
         409
       ],
       "source": "sources/zoey/toy-skate.webp",
@@ -69,7 +69,7 @@
         415,
         704
       ],
-      "packedScale": 0.5492957746478874,
+      "packedScale": 0.5070422535211268,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -77,16 +77,16 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        329,
-        179
+        319,
+        196
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        110,
-        21,
-        312,
+        117,
+        51,
+        303,
         409
       ],
       "source": "sources/zoey/toy-skate-actions.webp",
@@ -96,7 +96,7 @@
         350,
         713
       ],
-      "packedScale": 0.5492957746478874,
+      "packedScale": 0.5070422535211268,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -104,16 +104,16 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        310,
-        234
+        301,
+        247
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        6,
-        32,
-        389,
+        14,
+        61,
+        367,
         409
       ],
       "source": "sources/zoey/toy-skate-actions.webp",
@@ -123,24 +123,24 @@
         462,
         694
       ],
-      "packedScale": 0.5492957746478874,
+      "packedScale": 0.5070422535211268,
       "scale": 1.0,
       "renderScale": 1.0,
-      "anchorX": 232.92957746478874,
+      "anchorX": 225,
       "baseline": 409,
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        388,
-        172
+        366,
+        190
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        40,
-        88,
-        403,
+        53,
+        112,
+        388,
         409
       ],
       "source": "sources/zoey/toy-skate-actions.webp",
@@ -150,7 +150,7 @@
         366,
         671
       ],
-      "packedScale": 0.5492957746478874,
+      "packedScale": 0.5070422535211268,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -158,16 +158,16 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        402,
-        268
+        387,
+        278
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        127,
-        56,
-        288,
+        134,
+        83,
+        283,
         409
       ],
       "source": "sources/zoey/toy-pogo.webp",
@@ -177,7 +177,7 @@
         435,
         708
       ],
-      "packedScale": 0.6042253521126761,
+      "packedScale": 0.5577464788732395,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -185,16 +185,16 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        286,
-        277
+        281,
+        287
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        139,
-        9,
-        280,
+        140,
+        19,
+        278,
         409
       ],
       "source": "sources/zoey/toy-pogo.webp",
@@ -204,24 +204,24 @@
         318,
         710
       ],
-      "packedScale": 0.5722460658082976,
-      "scale": 1.0558838028169015,
-      "renderScale": 1.0558838028169015,
+      "packedScale": 0.5577464788732395,
+      "scale": 1.0,
+      "renderScale": 1.0,
       "anchorX": 225,
       "baseline": 409,
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        271,
-        152
+        269,
+        159
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        138,
-        28,
-        293,
+        143,
+        58,
+        286,
         409
       ],
       "source": "sources/zoey/toy-pogo.webp",
@@ -231,7 +231,7 @@
         337,
         647
       ],
-      "packedScale": 0.6042253521126761,
+      "packedScale": 0.5577464788732395,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -239,16 +239,16 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        291,
-        253
+        284,
+        265
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        130,
-        9,
-        294,
+        136,
+        39,
+        288,
         409
       ],
       "source": "sources/zoey/toy-pogo-actions.webp",
@@ -258,24 +258,24 @@
         350,
         710
       ],
-      "packedScale": 0.5698005698005698,
-      "scale": 1.002574647887324,
-      "renderScale": 1.002574647887324,
+      "packedScale": 0.5273239436619719,
+      "scale": 1.0,
+      "renderScale": 1.0,
       "anchorX": 225,
       "baseline": 409,
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        288,
-        167
+        283,
+        187
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        77,
-        9,
-        360,
+        87,
+        37,
+        350,
         409
       ],
       "source": "sources/zoey/toy-pogo-actions.webp",
@@ -285,24 +285,24 @@
         403,
         713
       ],
-      "packedScale": 0.5673758865248227,
-      "scale": 1.0068591549295776,
-      "renderScale": 1.0068591549295776,
+      "packedScale": 0.5273239436619719,
+      "scale": 1.0,
+      "renderScale": 1.0,
       "anchorX": 225,
       "baseline": 409,
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        358,
-        98
+        348,
+        120
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        24,
-        101,
-        408,
+        39,
+        124,
+        393,
         409
       ],
       "source": "sources/zoey/toy-pogo-actions.webp",
@@ -312,7 +312,7 @@
         396,
         634
       ],
-      "packedScale": 0.5712676056338029,
+      "packedScale": 0.5273239436619719,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -320,12 +320,12 @@
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        345,
-        171
+        335,
+        189
       ],
       "wandTip": null
     }
   ],
-  "sha256": "7c61b2b45910d82a96676511f6753e703b5980e423afe7cbf49796c1c1a8ec24",
-  "maskSha256": "2f6a1445370087ffbd739d56ad2fb98df2f824b93a332508e544e32b22784c47"
+  "sha256": "7ff6f61e6f4fccd5f176b2bdb58399d0cb5d6887b020d1bfa785bb534766a564",
+  "maskSha256": "049712271e8c860a671e13a69d74386a56913719ace32e24e5627dbc618c83cd"
 }
