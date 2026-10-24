@@ -314,6 +314,7 @@
     if (!el) {
       el = document.createElement("div");
       el.className = "lb-slot enter";
+      el.dataset.id = id; // p0…, join, c0…
       el.addEventListener("pointerdown", event => { event.preventDefault(); tapStall(id); });
       el.addEventListener("animationend", event => { if (event.target === el) el.classList.remove("enter"); });
       $("#lbSlots").appendChild(el);
@@ -839,7 +840,21 @@
     if (id[0] !== "p") return;
     const index = Number(id.slice(1));
     lobby.touchFocus = index;
-    if (lobby.slots[index].locked) back(index);
+    // Her chosen doll: back to choosing. Not chosen yet: a keyboard player
+    // (added by a click) leaves.
+    const slot = lobby.slots[index];
+    if (slot.locked || slot.device === "wasd" || slot.device === "arrows") back(index);
+    if (!lobby.slots[index]) lobby.touchFocus = null;
+  }
+
+  // Escape: the last keyboard player in, a step at a time: her doll un-chosen,
+  // then she leaves; then the one before her.
+  function escapeKeyboardPlayer() {
+    const index = lobby.slots.findLastIndex(slot => slot && (slot.device === "wasd" || slot.device === "arrows"));
+    if (index < 0) return false;
+    back(index);
+    if (lobby.touchFocus === index && !lobby.slots[index]) lobby.touchFocus = null;
+    return true;
   }
 
   function tapCard(cardIndex) {
@@ -868,8 +883,7 @@
   root.querySelectorAll(".lb-set-row").forEach(row => {
     row.addEventListener("pointerdown", () => { lobby.setRow = Number(row.dataset.row); renderSettings(); });
     // Fullscreen needs a real click/tap, so the whole row toggles it.
-    if (row.dataset.row === "4") row.addEventListener("click", () => changeSetting(4, 1));
-    if (row.dataset.row === "4") return;
+    if (row.id === "lbFullscreenRow") { row.addEventListener("click", () => changeSetting(Number(row.dataset.row), 1)); return; }
     row.querySelectorAll(".lb-arrow").forEach(arrow => arrow.addEventListener("pointerdown", event => {
       event.preventDefault();
       event.stopPropagation();
@@ -885,6 +899,7 @@
   window.addEventListener("keydown", event => {
     if (!isMenuOpen() || event.repeat) return;
     if (event.code === "Escape" && lobby.settingsOpen) { openSettings(false); return; }
+    if (event.code === "Escape" && lobby.screen === "select") { event.preventDefault(); escapeKeyboardPlayer(); return; }
     for (const [scheme, map] of Object.entries(KEYMAP)) {
       const action = map[event.code];
       if (!action) continue;
@@ -1020,6 +1035,10 @@
 
   // ---------- hooks used by game.js ----------
   window.Lobby = {
+    // Who's in (for tests): device and whether her doll is chosen.
+    players() {
+      return lobby.slots.filter(Boolean).map(slot => `${slot.device}${slot.locked ? "+" : ""}`);
+    },
     refreshSettings() {
       if (fullscreenElement()) lobby.fullscreenNote = "";
       if (lobby.settingsOpen) renderSettings();

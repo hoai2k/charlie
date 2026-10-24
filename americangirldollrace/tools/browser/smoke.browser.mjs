@@ -474,6 +474,24 @@ test('Moon Base gives a rover with nine calibrated rider frames in either direct
   assert.deepEqual(errors,[]);
 });
 
+test('lobby: clicking Random adds keyboard players; Escape un-picks then removes each in turn; clicking an unpicked keyboard player removes her', { skip: skip() }, async () => {
+  await page.evaluate(() => { state.running = false; startPanel.classList.remove('hidden'); Lobby.showSelect(); });
+  const players = () => page.evaluate(() => Lobby.players().join(' '));
+  const esc = async () => { await page.keyboard.press('Escape'); return players(); };
+  for (let i = 0; i < 8 && (await players()); i++) await esc(); // start empty
+  const random = async () => page.evaluate(() => { const cards = document.querySelectorAll('#lbGrid .lb-card'); cards[cards.length - 1].dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })); });
+  await random(); await random();
+  const added = await players();
+  const steps = [await esc(), await esc(), await esc(), await esc()];
+  // Clicking her stall: a picked one goes back to choosing, then she leaves.
+  await random();
+  const stall = () => page.evaluate(() => document.querySelector('#lbSlots .lb-slot[data-id^="p"]')?.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })));
+  await stall(); const unpicked = await players();
+  await stall(); const gone = await players();
+  assert.deepEqual({ added, steps, unpicked, gone }, { added: 'wasd+ arrows+', steps: ['wasd+ arrows', 'wasd+', 'wasd', ''], unpicked: 'wasd', gone: '' });
+  assert.deepEqual(errors, []);
+});
+
 test('in the menu settings, left/right change a setting and A closes it', { skip: skip() }, async () => {
   await page.evaluate(() => { state.running = false; startPanel.classList.remove('hidden'); Lobby.showSelect(); });
   const key = async code => { await page.keyboard.down(code); await page.keyboard.up(code); };
@@ -495,6 +513,9 @@ test('in the menu settings, left/right change a setting and A closes it', { skip
   assert.equal(await page.evaluate(() => [state.coop, document.querySelector('#lbCoopVal').textContent.startsWith('Co-op')].join()), 'true,true');
   await key('KeyA');
   assert.equal(await page.evaluate(() => state.coop), false);
+  // Monster difficulty's arrows (clicked): Medium → Hard → back.
+  const skillArrow = d => page.evaluate(d => { document.querySelector(`#lbSkillRow .lb-arrow[data-d="${d}"]`).dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })); return state.monsterSkill; }, d);
+  assert.deepEqual([await skillArrow(1), await skillArrow(-1)], ['hard', 'medium']);
   await key('Space');
   assert.deepEqual(errors, []);
 });
