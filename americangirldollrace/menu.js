@@ -13,11 +13,12 @@
  */
 (() => {
   // Top row first, then the bottom row (the grid splits the list in half).
-  // Dolls added later go at the end of the bottom row, before Penelope.
+  // Dolls added later go at the end of the bottom row, before the secret
+  // dolls (Amanda and Penelope, shown with All Dolls).
   const ROSTER_ORDER = [...new Set([
-    "juliette", "whirlpool", "kaya", "claudia", "lily", "amanda", "marisol", "felicity",
-    "cinnamon", "barbie", "rumi", "mira", "hermione", "luna",
-    ...Object.keys(window.EXTRA_DOLLS || {}), "penelope"
+    "juliette", "whirlpool", "kaya", "claudia", "lily", "cinnamon", "marisol", "felicity",
+    "barbie", "rumi", "mira", "zoey", "hermione", "luna",
+    ...Object.keys(window.EXTRA_DOLLS || {}), "amanda", "penelope"
   ])];
   const RANDOM = "random";
   const COLS = 5;
@@ -25,7 +26,7 @@
   const MAX_CPUS = 3;
   const SETTING_ROWS = 5;
   const SPECIAL_KEYS = ["none", "unicorn", "pegasus", "griffon", "broom", "all-dolls", "horsing", "amanda-mode"];
-  const SPECIAL_NAMES = ["None", "All Unicorns", "All Pegasi", "All Gryphons", "All Brooms", "All Dolls (adds Penelope)", "Horsing Around", "Amanda Mode"];
+  const SPECIAL_NAMES = ["None", "All Unicorns", "All Pegasi", "All Gryphons", "All Brooms", "All Dolls (adds Amanda and Penelope)", "Horsing Around", "Amanda Mode"];
   const GLYPHS = { A: 0, B: 1, X: 2, Y: 3, LB: 4, RB: 5 };
   const PAD_BUTTONS = { 0: "a", 1: "b", 2: "x", 3: "y", 9: "start", 12: "up", 13: "down", 14: "left", 15: "right" };
   const KEYMAP = {

@@ -863,7 +863,7 @@ test('Fairy Woods: fairy wings are worn over her own poses and fly like a broom'
     Object.assign(a, { x: 3000, y: PATH_TOP + 90, z: 0, vy: 0, horseType: 'wings', horseTimer: 30, facing: 1 });
     const drawn = () => {
       let wings = 0, sheet = false, horse = false;
-      const original = window.drawWingStandIn, arts = [getSharedArt('fairy_wings'), getSharedArt('fairy_wing_single')], draw = ctx.drawImage.bind(ctx);
+      const original = window.drawWingStandIn, arts = [getWingArt('fairy_wings'), getWingArt('fairy_wing_single')], draw = ctx.drawImage.bind(ctx);
       window.drawWingStandIn = (...args) => { wings += 1; return original(...args); };
       ctx.drawImage = (...args) => {
         if (arts.includes(args[0])) wings += 2;
@@ -931,9 +931,9 @@ test('Fairy Woods: fliers in wings push each other in the air, and a winged trol
       if (m.z > 0 && m.state !== 'grab') heldWhileFalling = false;
       if (a.grabbedBy !== m) thrownAt = m.z;
     }
-    let wings = 0; const original = window.drawWingStandIn, art = getSharedArt('fairy_wings'), draw = ctx.drawImage.bind(ctx);
+    let wings = 0; const original = window.drawWingStandIn, arts = [getWingArt('fairy_wings'), getWingArt('fairy_wing_single')], draw = ctx.drawImage.bind(ctx);
     window.drawWingStandIn = (...args) => { wings += 1; return original(...args); };
-    ctx.drawImage = (...args) => { if (art && args[0] === art) wings += 2; return draw(...args); };
+    ctx.drawImage = (...args) => { if (arts.includes(args[0])) wings += 2; return draw(...args); };
     state.camera = m.x - 400;
     try { drawMonster(m); } finally { window.drawWingStandIn = original; ctx.drawImage = draw; }
     const plain = spawnMonster(3000, a.y, { winged: false });
@@ -994,4 +994,15 @@ test('fairy wings turn up on the Fairy board only once found in Fairy Woods that
   });
   assert.deepEqual(before, { wings: 0, found: false });
   assert.ok(after.wings > 40 && after.stored, JSON.stringify(after));
+});
+
+test('roster: Cinnamon in Amanda\'s old top-row spot, Zoey after Mira, Amanda a secret doll like Penelope', { skip: skip() }, async () => {
+  await onTrack('farm');
+  const r = await page.evaluate(() => ({
+    visible: getVisibleCharacterEntries().map(([key]) => key),
+    amandaHidden: Boolean(characters.amanda.hidden), zoey: Boolean(characters.zoey?.image)
+  }));
+  assert.equal(r.amandaHidden, true);
+  assert.equal(r.zoey, true);
+  assert.ok(!r.visible.includes('amanda') && !r.visible.includes('penelope') && r.visible.includes('zoey'), r.visible.join());
 });

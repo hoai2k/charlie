@@ -635,6 +635,7 @@ const characters = {
     spriteKey: "amanda",
     color: "#263d8f",
     riderYOffset: 85,
+    hidden: true, // a secret doll, like Penelope (All Dolls shows her)
     image: () => images.amanda
   },
   penelope: {

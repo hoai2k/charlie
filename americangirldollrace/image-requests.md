@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current art queue:** clear. FW2 twilight wing art is delivered; registration/integration remains with the other agent. SW2, MB2, FW1, TF1 and all15 ledge sheets are integrated and checked.
+> **Current art queue:** clear. FW2 twilight wings and Zoey (a new doll, not requested here) are delivered, in the game and checked; SW2, MB2, FW1, TF1 and all fifteen ledge sheets too.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1145,6 +1145,21 @@ ImageGen prompts, sources, deterministic registration/export, alpha/geometry
 report and all15-doll/troll race-scale woodland review. FW1 stays byte-for-byte
 unchanged; FW2 alpha0..191 and every outline/root/phase matches FW1.
 Per owner, gameplay registration is left to the integration agent.
+
+**FW2 in the game and checked:** listed as `"fairy_wings_twilight"` and
+`"fairy_wing_single_twilight"`; Fairy Woods (`wingStyle: "twilight"`) uses
+them, the Fairy board keeps FW1. At race size they glow and read clearly on
+dark- and light-haired dolls (Whirlpool, Juliette), the winged trolls and
+the pickup, and sit well with the toadstools and fireflies. Accepted.
+
+**Zoey (new doll, delivered outside this list) checked in game:** her
+sprites, actions, toys, ledge sheet, portraits and masks are registered.
+She matches the other dolls' size and baseline in every pose (checked
+beside Lily and Mira), wears moon boots and fairy wings well, rides horse,
+unicorn and broom in the right seat, and hangs, climbs and kneels on the
+cloud edge. Roster: she follows Mira in the bottom row, Cinnamon takes
+Amanda's place in the top row, and Amanda is now a secret doll like
+Penelope (All Dolls shows both). No corrections needed.
 
 ## 28. Art delivered: flying troll
 

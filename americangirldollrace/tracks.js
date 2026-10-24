@@ -110,7 +110,7 @@
 // TRACK_SHARED_ART lists delivered sheets at assets/<name>_sprites.webp that
 // several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs)
 // and "frog" (§10).
-window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "rooster_crow", "crow", "moon_boot", "fairy_wings", "fairy_wing_single", "troll_flying"];
+window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "rooster_crow", "crow", "moon_boot", "fairy_wings", "fairy_wing_single", "troll_flying", "fairy_wings_twilight", "fairy_wing_single_twilight"];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: {
