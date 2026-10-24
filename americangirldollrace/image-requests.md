@@ -1289,3 +1289,5 @@ text. In the same commit add `"snowman"` to `TRACK_SHARED_ART` in
 
 Acceptance: on Winter, take the EMP: the snowman pops up and runs into each
 girl and troll near you, knocking them over, then runs off the screen.
+
+**SM1/SM2 art delivered (2026-10-24):** four 512px running snowman frames at `assets/snowman_sprites.webp`, common scale and feet at y490; EMP cell2 in Winter powerups replaced, all other cells decoded RGBA pixel-identical. Sources, exact ImageGen prompts, exporter and alpha/anchor reports in `tools/effects/winter/`. Art-only handoff: gameplay agent adds `snowman` to shared art and bumps the Winter icon cache version. Verified with the actual silent drawing functions; 36 unit and55 browser checks passed.
