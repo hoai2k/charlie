@@ -172,9 +172,13 @@ hook to get round it.
   leaves the queue; take in "Looks right" poses too (their boots as
   exported) so they leave it as well. Then run
   `python3 americangirldollrace/tools/dolls/fit_moon_boots.py`: it re-guesses
-  every pose not yet placed (learning from the new ones) and fits each boot
-  to cover the whole shoe, into `moon-boot-guesses.js` (`--check` scores the
-  guesses against the owner's boots, each doll left out).
+  every pose not yet placed and fits each boot to cover the whole shoe, into
+  `moon-boot-guesses.js` (`--check` scores the guesses against the owner's
+  boots, each doll left out). Its guesses carry the owner's boots over from
+  the same pose on the other dolls by matching her legs
+  (`tools/dolls/transfer_moon_boots.py`), so a **new doll needs no hand
+  fitting**: after `measure_feet.py`, run `fit_moon_boots.py` and her boots
+  are placed.
 - `americangirldollrace/intake/` is the owner's drop folder for the race (see
   its README). Songs not tied to one board are listed in `TRACK_GENERAL_MUSIC`
   in `tracks.js`; "Forest Fairy Spin" is Fairy Woods' song (it replaced

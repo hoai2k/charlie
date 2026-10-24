@@ -151,8 +151,8 @@ function updateCaughtAmanda(obstacle, dt) {
 }
 
 // Tagged: she hops off her fence and follows that player for the rest of the
-// race at her own running speed (a rider can leave her behind; she just keeps
-// coming), hopping hurdles and pushing other racers and monsters out of the way.
+// race at her own running speed (a rider or a speed boost leaves her behind;
+// she just keeps coming), hopping hurdles and pushing other racers and monsters out of the way.
 function joinAmanda(obstacle, leader) {
   obstacle.amandaState = "hidden";
   obstacle.amandaReveal = 0;
@@ -179,6 +179,8 @@ function joinAmanda(obstacle, leader) {
     finished: false,
     timesPushed: 0,
     runningAway: false,
+    // Where everyone rides (the Horse Show) she rides too, at a horse's pace.
+    mounted: isAlwaysMountedTrack(),
     clock: 0,
     trail: [] // where her player has been: { t, x, y }
   };
@@ -220,11 +222,10 @@ function allyFallAndSlide(ally, dt) {
   }
 }
 
-// Someone pushed her: she stumbles back; the fifth push and she's had enough
+// Someone pushed her: she stumbles back; the fifth hit and she's had enough
 // and runs off the way she came, out of the race.
 function pushAmandaAlly(ally, attacker, direction) {
   if (ally.runningAway || ally.grabbedBy || ally.fallBackTimer > 0.2) return;
-  ally.timesPushed += 1;
   // Her own player pushed her: she keeps following, but further back.
   if (attacker === ally.leader) ally.leaderHits = (ally.leaderHits || 0) + 1;
   ally.fallBackTimer = 0.55;
@@ -232,7 +233,15 @@ function pushAmandaAlly(ally, attacker, direction) {
   ally.knockbackX = direction * PUSH_FORCE;
   ally.vy = Math.max(ally.vy, 160);
   sfx("amanda_bonk", ally.x);
-  if (ally.timesPushed >= AMANDA_ALLY_MAX_PUSHES) {
+  amandaAllyHit(ally);
+}
+
+// Every hit while she follows counts, whoever lands it (a racer's push, a
+// troll throwing her); the fifth and she's had enough. (Hits in or on her
+// fence, before she joined, don't count.)
+function amandaAllyHit(ally) {
+  ally.timesPushed += 1;
+  if (ally.timesPushed >= AMANDA_ALLY_MAX_PUSHES && !ally.runningAway) {
     ally.runningAway = true;
     GameAudio.voice("amanda", "hit", { worldX: ally.x, chance: 1 });
   }
@@ -245,9 +254,14 @@ function updateAmandaAlly(dt) {
   ally.hitTimer = Math.max(0, ally.hitTimer - dt);
   ally.frameTime += dt * (ally.moving ? 9.5 : 3.2);
   ally.frame = Math.floor(ally.frameTime) % 3;
-  // A monster has her: it moves her about (updateMonsterGrabSequence).
+  // A monster has her: it moves her about (updateMonsterGrabSequence). Her
+  // horse bolts.
   if (ally.grabbedBy) {
     ally.moving = false;
+    if (ally.mounted) {
+      ally.mounted = false;
+      state.runawayHorses.push({ x: ally.x, y: ally.y, facing: -(ally.grabbedBy.facing || 1), frameTime: 0, frame: 0 });
+    }
     return;
   }
   if (ally.fallBackTimer > 0) {
@@ -291,16 +305,22 @@ function updateAmandaAlly(dt) {
   const goalY = enemy ? enemy.y : waiting ? ally.y : clamp(behind.y + 24, TRACK_TOP, TRACK_BOTTOM);
   const dx = goalX - ally.x;
   const dy = goalY - ally.y;
-  const speed = Math.max(AMANDA_ALLY_SPEED, Math.abs(leader.speed || 0)) * AMANDA_ALLY_CATCH_UP;
+  // Her own running speed, not her player's: ride off on a horse and she falls behind.
+  const speed = (ally.mounted ? HORSE_AI_RUN_SPEED : AMANDA_ALLY_SPEED) * AMANDA_ALLY_CATCH_UP;
   const step = Math.sign(dx) * Math.min(Math.abs(dx), speed * dt);
   const laneStep = Math.sign(dy) * Math.min(Math.abs(dy), PLAYER_LANE_SPEED * dt);
   // She runs (and her legs move) whenever she's actually going somewhere.
   ally.moving = Math.abs(step) > 20 * dt || Math.abs(laneStep) > 20 * dt;
   ally.x = clamp(ally.x + step, 40, FINISH);
   ally.y = clamp(ally.y + laneStep, TRACK_TOP, TRACK_BOTTOM);
-  if (Math.abs(dx) > 4) ally.facing = dx < 0 ? -1 : 1;
+  // She faces whoever she's fighting (and the foe she's waiting on, and the
+  // way she pushed while she's still pushing), else the way she goes.
+  const facingFoe = enemy || ally.foe;
+  if (ally.pushTimer > 0) {
+    // (keep facing the way she pushed)
+  } else if (facingFoe && Math.abs(facingFoe.x - ally.x) < 160) ally.facing = facingFoe.x < ally.x ? -1 : 1;
+  else if (Math.abs(dx) > 4) ally.facing = dx < 0 ? -1 : 1;
   else if (!enemy && !ally.moving) ally.facing = leader.facing || ally.facing;
-  if (enemy && Math.abs(enemy.x - ally.x) < 160) ally.facing = enemy.x < ally.x ? -1 : 1;
   // Hop any hurdle in her way.
   if (ally.z === 0 && Math.abs(step) > 0) {
     const footY = ally.y + 54;
@@ -319,8 +339,11 @@ function updateAmandaAlly(dt) {
   ally.pushTimer = 0.3;
   ally.pushCooldown = AMANDA_ALLY_PUSH_COOLDOWN;
   sfx("amanda_shove", ally.x);
-  if (state.monsters.includes(enemy)) applyMonsterKnockback(enemy, ally.facing, { unhorse: true });
-  else applyPushHit(ally, enemy, ally.facing);
+  // Always away from her, towards where she faces.
+  const away = Math.sign(ex) || ally.facing;
+  ally.facing = away;
+  if (state.monsters.includes(enemy)) applyMonsterKnockback(enemy, away, { unhorse: true });
+  else applyPushHit(ally, enemy, away);
 }
 
 function drawAmandaAlly(ally) {
@@ -335,6 +358,18 @@ function drawAmandaAlly(ally) {
   ctx.fill();
   ctx.restore();
   const fallen = ally.grabbedBy || ally.fallBackTimer > 0;
+  if (ally.mounted && !fallen) {
+    // On her horse, drawn like a riding racer.
+    const amanda = characters.amanda;
+    drawRacer({
+      name: "Amanda", spriteKey: "amanda", sheet: images.amanda, color: amanda?.color, showLabel: true,
+      x: ally.x, y: ally.y, z: ally.z, speed: ally.moving ? 1 : 0, moving: ally.moving, frame: ally.frame, facing: ally.facing,
+      jumpStarted: ally.z > 0, jumpFrame: 1, landingTimer: 0, pushTimer: ally.pushTimer, fallBackTimer: 0, fallBackFacing: 1,
+      horseType: "horse", horseTimer: Infinity, riderXOffset: amanda?.riderXOffset ?? DEFAULT_RIDER_X_OFFSET, riderYOffset: amanda?.riderYOffset ?? DEFAULT_RIDER_Y_OFFSET,
+      highJumpStacks: [], speedBoostStacks: [], rideToys: []
+    });
+    return;
+  }
   const [row, col] = fallen ? [3, 2] : ally.pushTimer > 0 ? [3, 1] : ally.z > 0 ? [2, 1] : ally.moving ? [1, ally.frame] : [0, ally.frame];
   drawFacingImage(images.amanda, col * FRAME, row * FRAME, FRAME, FRAME,
     screenX - SPRITE_ANCHOR_X * scale, ally.y + 54 - SPRITE_ANCHOR_Y * scale - ally.z,

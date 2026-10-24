@@ -269,3 +269,13 @@ mask protection for dark hair, skin, white socks and pink shoes. Toy strip
 calibration restores the same anatomical scale after packing; action reports
 include painted wand-tip coordinates. Sources, exact built-in ImageGen prompts,
 alpha review, masks and deterministic reports are under this directory.
+
+## Moon boots for a new doll
+
+After her sheets are built and `measure_feet.py` / `measure_poses.py` have
+run, `python3 tools/dolls/fit_moon_boots.py` places her moon boots: the
+owner's hand-placed boots on the same pose of the other dolls are carried
+over by matching her legs (`transfer_moon_boots.py`), then fitted to cover her
+whole shoe, into `moon-boot-guesses.js`. Check them in the workbench's
+verification queue; anything the owner corrects goes into
+`moon-boot-overrides.js`.

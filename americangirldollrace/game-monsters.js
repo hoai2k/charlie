@@ -41,12 +41,22 @@ function getTrollMountImage() {
   return images[mount] || images.horse;
 }
 
-// On a track with a trollMount the first troll rides and the rest each have
-// a TROLL_RIDING_CHANCE; on foot they still grab riders there.
+// On a track with a trollMount every troll rides but the one waiting at the
+// finish, who stands; on foot they still grab riders there.
 function makeMonsters() {
-  return getMonsterSpawnXs(state.difficulty).map((x, index) => (
-    spawnMonster(x, PATH_TOP + 26 + Math.random() * (TRACK_BOTTOM - PATH_TOP - 52), { active: false, riding: index === 0 || rollTrollRiding() })
+  const xs = getMonsterSpawnXs(state.difficulty);
+  return xs.map((x, index) => (
+    spawnMonster(x, PATH_TOP + 26 + Math.random() * (TRACK_BOTTOM - PATH_TOP - 52), { active: false, riding: index < xs.length - 1 })
   ));
+}
+
+// More trolls the further along the boards she is (the same each time a board
+// comes round): MONSTER_COUNTS_BY_DIFFICULTY on the first board, one more
+// every MONSTER_BOARDS_PER_EXTRA boards.
+function monsterCount(difficulty) {
+  const base = MONSTER_COUNTS_BY_DIFFICULTY[difficulty] ?? MONSTER_COUNTS_BY_DIFFICULTY.normal;
+  if (base === 0) return 0;
+  return base + Math.floor((state.backgroundIndex || 0) / MONSTER_BOARDS_PER_EXTRA);
 }
 
 function rollTrollRiding() {
@@ -54,14 +64,15 @@ function rollTrollRiding() {
 }
 
 function getMonsterSpawnXs(difficulty) {
-  const count = MONSTER_COUNTS_BY_DIFFICULTY[difficulty] ?? MONSTER_COUNTS_BY_DIFFICULTY.normal;
+  const count = monsterCount(difficulty);
   if (count === 0) return [];
 
   const finishMonsterX = FINISH - 120;
   const spreadEndX = finishMonsterX - MONSTER_WAIT_FROM_BOARD_END * 0.25;
   const positions = [];
+  // The first a third of the way in (MONSTER_COURSE_START_X), the last at the finish.
   for (let index = 0; index < count - 1; index += 1) {
-    const progress = (index + 1) / count;
+    const progress = index / (count - 1);
     // Ease toward the finish so each successive course section is denser.
     const endBiasedProgress = 1 - Math.pow(1 - progress, 1.35);
     positions.push(MONSTER_COURSE_START_X + (spreadEndX - MONSTER_COURSE_START_X) * endBiasedProgress);
@@ -271,6 +282,8 @@ function updateMonsters(dt) {
       continue;
     }
 
+    if (monsterRemount(monster, dt)) continue;
+
     const target = getMonsterTarget(monster);
     monster.target = target;
     if (!target) {
@@ -411,6 +424,7 @@ function updateMonsterGrabSequence(monster, dt) {
       target.hitTimer = 0.35;
       target.knockbackX = throwDirection * MONSTER_THROW_FORCE;
       target.jumpStarted = false;
+      if (target === state.amandaAlly) amandaAllyHit(target); // (it counts towards her running off)
     }
     monster.target = null;
     monster.state = "walk";
@@ -541,6 +555,32 @@ function shakeOffSand(racer, dt) {
 }
 const SAND_COLORS = ["#e3c68a", "#cfa863", "#f0dcae"];
 
+// Knocked off his horse, a troll goes back to it and climbs on again, as
+// long as nobody is close enough to grab it first. True while he's at it.
+function monsterRemount(monster, dt) {
+  if (monster.riding || !monster.active || !getTrackTheme().trollMount) return false;
+  const horse = state.powerups.find(p => p.loose && !p.taken && p.horseType === "skeleton_horse"
+    && Math.abs(p.x - monster.x) < TROLL_REMOUNT_RANGE && Math.abs(p.y - 54 - monster.y) < 160);
+  if (!horse) return false;
+  const contested = state.racers.some(r => !r.finished && Math.abs(r.x - horse.x) < TROLL_REMOUNT_CLEAR && Math.abs(r.y + 54 - horse.y) < 80);
+  if (contested) return false;
+  const dx = horse.x - monster.x;
+  const dy = horse.y - 54 - monster.y;
+  if (Math.hypot(dx, dy) < 26) {
+    horse.taken = true;
+    monster.riding = true;
+    monster.state = "walk";
+    sfx("skeleton_horse_whinny", monster.x, { gain: 0.8 });
+    return true;
+  }
+  monster.state = "walk";
+  monster.target = null;
+  monster.facing = dx < 0 ? -1 : 1;
+  monster.x += Math.sign(dx) * Math.min(Math.abs(dx), MONSTER_SPEED * 1.2 * dt);
+  monster.y += Math.sign(dy) * Math.min(Math.abs(dy), MONSTER_LANE_SPEED * dt);
+  return true;
+}
+
 function isMonsterVisible(monster) {
   return isWorldXVisibleInAnyView(monster.x);
 }
@@ -580,10 +620,12 @@ function unhorseMonster(monster, direction) {
   monster.restTimer = 0;
   monster.z = 0;
   monster.vy = 0;
-  if (getTrackTheme().trollMount === "skeleton_horse" && images.skeleton_horse) {
-    // His skeleton horse stays, for anyone to ride (game-mounts.js bumps).
+  if (getTrackTheme().trollMount === "skeleton_horse") {
+    // His skeleton horse stays, for anyone to ride (game-mounts.js bumps),
+    // after a moment flashing (so whoever knocked him off doesn't take it at
+    // once), and he goes back for it if nobody's by it (monsterRemount).
     const facing = direction < 0 ? -1 : 1;
-    state.powerups.push(makeLooseMount("skeleton_horse", monster.x + facing * 80, monster.y + 54, SKELETON_HORSE_TIME, facing));
+    state.powerups.push({ ...makeLooseMount("skeleton_horse", monster.x + facing * 80, monster.y + 54, SKELETON_HORSE_TIME, facing), cooldown: LOOSE_MOUNT_COOLDOWN });
     sfx("troll_unhorsed", monster.x);
     sfx("skeleton_horse_whinny", monster.x, { gain: 0.8 });
     return;

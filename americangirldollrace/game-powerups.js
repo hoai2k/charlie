@@ -87,26 +87,13 @@ function makePowerups() {
     }
   }
 
-  // Calculate the total sum of all weights
-  const totalWeight = powerupTypes.reduce((sum, type) => sum + (POWERUP_WEIGHTS[type] || 1.0), 0);
-
-  let x = POWERUP_START_X + Math.random() * 260;
-  for (let index = 0; x < FINISH - POWERUP_END_PADDING; index += 1) {
-    
-    // --- START WEIGHTED SELECTION ---
-    let randomNum = Math.random() * totalWeight;
-    let selectedType = powerupTypes[0]; // Fallback
-
-    for (const type of powerupTypes) {
-      const weight = POWERUP_WEIGHTS[type] || 1.0; // Default to 1 if not set
-      if (randomNum < weight) {
-        selectedType = type;
-        break;
-      }
-      randomNum -= weight;
-    }
-    // --- END WEIGHTED SELECTION ---
-
+  // Where they go, then what each is: dealt per third of the board, so every
+  // third has some of each kind and none piles up (POWERUP_THIRDS).
+  const xs = [];
+  for (let x = POWERUP_START_X + Math.random() * 260; x < FINISH - POWERUP_END_PADDING; x += POWERUP_MIN_GAP + Math.random() * POWERUP_RANDOM_GAP) xs.push(x);
+  const types = dealPowerupTypes(xs, powerupTypes.filter(type => type !== "monster"), powerupTypes, POWERUP_WEIGHTS);
+  xs.forEach((x, index) => {
+    const selectedType = types[index];
     const spawnY = randomPowerupY();
     const spawnX = clearOfHurdles(x + (Math.random() - 0.5) * 90, spawnY);
     if (selectedType === "monster" && spawnX >= MONSTER_COURSE_START_X) {
@@ -115,9 +102,46 @@ function makePowerups() {
       const powerupType = selectedType === "monster" ? trackTypes[index % trackTypes.length] : selectedType;
       powerups.push(makePowerup(powerupType, spawnX, spawnY));
     }
-    x += POWERUP_MIN_GAP + Math.random() * POWERUP_RANDOM_GAP;
+  });
+  // Each third's mount pickups include the board's own normal mount (the
+  // horse, or its baseMount: the Moon Base rover, the Toy Room rocking horse),
+  // whatever special mounts the rest turned out to be.
+  const normal = getTrackTheme().baseMount || "horse";
+  const mountSpecial = state.specials === "unicorn" || isFlyingMountType(state.specials) || isHorsingAroundMode();
+  if (!isAlwaysMountedTrack() && !mountSpecial && xs.length) {
+    const from = xs[0], span = Math.max(1, xs.at(-1) - from + 1);
+    for (let third = 0; third < POWERUP_THIRDS; third += 1) {
+      const mounts = powerups.filter(p => p.type === "horse" && Math.min(POWERUP_THIRDS - 1, Math.floor((p.x - from) / span * POWERUP_THIRDS)) === third);
+      const normals = Array.isArray(normal) ? normal : [normal];
+      if (mounts.length && !mounts.some(p => normals.includes(p.horseType))) {
+        mounts[0].horseType = normals[Math.floor(Math.random() * normals.length)];
+      }
+    }
   }
   return powerups;
+}
+
+// The kinds for pickups at xs: each third of the board is dealt on its own,
+// with one of every kind in `each` first (as room allows), then the rest drawn
+// by weight, a kind's weight halving each time it's drawn there, so a run of
+// one kind can't happen by chance; then shuffled within the third.
+function dealPowerupTypes(xs, each, all, weights) {
+  const out = new Array(xs.length);
+  const from = xs[0] ?? 0, span = Math.max(1, (xs.at(-1) ?? 0) - from + 1);
+  for (let third = 0; third < POWERUP_THIRDS; third += 1) {
+    const slots = xs.map((x, i) => i).filter(i => Math.min(POWERUP_THIRDS - 1, Math.floor((xs[i] - from) / span * POWERUP_THIRDS)) === third);
+    const deck = each.slice().sort(() => Math.random() - 0.5).slice(0, slots.length);
+    const left = Object.fromEntries(all.map(type => [type, (weights[type] || 1) * (deck.includes(type) ? 0.5 : 1)]));
+    while (deck.length < slots.length) {
+      let pick = Math.random() * Object.values(left).reduce((sum, w) => sum + w, 0);
+      const type = all.find(t => (pick -= left[t]) < 0) || all[0];
+      deck.push(type);
+      left[type] *= 0.5;
+    }
+    deck.sort(() => Math.random() - 0.5);
+    slots.forEach((slot, n) => { out[slot] = deck[n]; });
+  }
+  return out;
 }
 
 function makePowerup(type, x, y, options = {}) {
@@ -278,13 +302,14 @@ function getJumpPower(racer) {
 
 function applyPowerup(racer, powerupOrType) {
   const type = typeof powerupOrType === "string" ? powerupOrType : powerupOrType.type;
-  if (hasActivePowerup(racer, type)) return false;
+  const pickupMount = type === "horse" && typeof powerupOrType !== "string" ? powerupOrType.horseType : null;
+  if (hasActivePowerup(racer, type) && !combinesWithWings(racer, pickupMount)) return false;
   // A spare or left-behind mount is only for someone without one.
   // (A troll's skeleton horse may be swapped for a plain horse, though.)
   const swapForSkeleton = powerupOrType.horseType === "skeleton_horse" && racer.horseType === "horse";
-  if (type === "horse" && powerupOrType.loose && isMounted(racer) && !swapForSkeleton) return false;
+  if (type === "horse" && powerupOrType.loose && isMounted(racer) && !swapForSkeleton && !combinesWithWings(racer, pickupMount)) return false;
   // A unicorn rider keeps her unicorn rather than swap it for another mount.
-  if (type === "horse" && isMounted(racer) && racer.horseType === "unicorn") return false;
+  if (type === "horse" && isMounted(racer) && racer.horseType === "unicorn" && !combinesWithWings(racer, pickupMount)) return false;
   playPowerupAudio(racer, type, typeof powerupOrType === "string" ? null : powerupOrType);
   const itemEffect = (type === "boost" || type === "jump") && getTrackTheme().itemEffects?.[type];
   if (itemEffect && !isMounted(racer)) return applyItemEffect(racer, itemEffect, type);
@@ -372,7 +397,14 @@ function applyPowerup(racer, powerupOrType) {
   } else if (type === "snowball") {
     racer.snowballs += SNOWBALL_PICKUP_COUNT;
     racer.powerupMessage = `${pickupLook("snowball").label} x${racer.snowballs}`;
+  } else if (type === "horse" && combinesWithWings(racer, pickupMount) && pickupMount === "wings") {
+    // Wings over the mount she rides: she keeps it, and it flies.
+    racer.wingsTimer = powerupOrType.mountTime ?? horseDurationForType("wings");
+    racer.powerupMessage = mountLabel("wings");
+    noteMountFound("wings");
   } else if (type === "horse") {
+    // A mount under her wings: she keeps them on, with the time they had left.
+    if (combinesWithWings(racer, pickupMount)) racer.wingsTimer = racer.horseTimer;
     const loose = typeof powerupOrType === "string" ? null : powerupOrType.mountTime;
     racer.horseType = typeof powerupOrType === "string" ? chooseHorseType() : powerupOrType.horseType || "horse";
     racer.horseTimer = loose !== undefined && loose !== null ? loose : horseDurationForType(racer.horseType);
@@ -509,6 +541,7 @@ function landProjectile(projectile) {
 // A thrown apple (or the like) on the ground: it stays there until someone
 // steps on it (only the newest THROWN_ROLL_KEEP stay).
 function addRolledThrowable(item) {
+  if (getTrackTheme().stickyProjectile) item = { ...item, vx: item.vx * STICKY_ROLL, vhop: Math.min(item.vhop, 70), sticky: true };
   state.thrownLeftovers.push({ kind: "roll", life: Infinity, squished: false, age: 0, ...item });
   const rolling = state.thrownLeftovers.filter(other => other.kind === "roll" && !other.squished);
   if (rolling.length > THROWN_ROLL_KEEP) rolling[0].life = 0;
@@ -523,6 +556,11 @@ function squishRolledThrowable(item) {
   item.life = THROWN_SQUISH_TIME;
   item.vx = 0;
   sfx("sticky_squelch", item.x, { gain: 0.6 });
+  // A marshmallow holds her foot an instant as it smooshes.
+  if (item.sticky && state.racers.includes(foot)) {
+    foot.stuckTimer = STICKY_HOLD_TIME;
+    foot.speed = (foot.speed || 0) * 0.2;
+  }
 }
 
 function updateThrownLeftovers(dt) {
@@ -536,7 +574,7 @@ function updateThrownLeftovers(dt) {
     // Rolls on, bounces a little, slows down, and stops at hurdles.
     item.x += item.vx * dt;
     item.spin += (item.vx / SNOWBALL_RADIUS) * dt;
-    item.vx *= Math.pow(0.35, dt);
+    item.vx *= Math.pow(item.sticky ? 0.01 : 0.35, dt);
     item.hop = Math.max(0, item.hop + item.vhop * dt);
     // (hop is screen px above the ground, under the game's own gravity)
     item.vhop = item.hop > 0 ? item.vhop - GRAVITY * dt : Math.abs(item.vhop) > THROWN_BOUNCE_MIN ? -item.vhop * THROWN_BOUNCE : 0;
@@ -770,6 +808,7 @@ function dropPowerupNear(type, x, y, dropStartY) {
 
 function updatePowerupDrops(dt) {
   for (const powerup of state.powerups) {
+    if (powerup.cooldown > 0) powerup.cooldown = Math.max(0, powerup.cooldown - dt);
     if (!isPowerupDropping(powerup)) continue;
     powerup.dropTimer += dt;
     if (powerup.dropTimer >= powerup.dropDuration) {

@@ -4,9 +4,11 @@
 The owner's rules for a moon boot (the workbench's verification queue):
 line it up with the shin, and cover the whole foot and shoe, so nothing of
 her own shoes or boots shows round it, with as small a boot as does that.
-The game guesses each boot from the measured feet, the rules and the owner's
-look-alike poses (game-draw.js moonBootPlacements, run here through
-moon_boot_guesses.mjs); this draws each guessed boot over the pose's pixels
+Each boot is first guessed from the owner's boots on the same pose of the
+other dolls, carried over by matching her legs (transfer_moon_boots.py), or
+failing that, as the game guesses it from the measured feet and rules
+(game-draw.js moonBootPlacements, run here through moon_boot_guesses.mjs).
+For a new doll this is all it takes: her boots come out placed. This draws each guessed boot over the pose's pixels
 and moves, sizes and turns it a little until it covers her foot: the leg
 within FIT_REACH of the foot's middle, along her figure. Turning stays
 within FIT_TURN of the guess (the shin), and the boot as narrow as covers.
@@ -22,6 +24,7 @@ import numpy as np
 from PIL import Image
 from scipy import signal
 from measure_feet import legs, geodesic, LOOSE, LOOSE_ACTIONS
+from transfer_moon_boots import transfer, owner_boots
 
 GAME = Path(__file__).resolve().parents[2]
 F = 418
@@ -33,7 +36,7 @@ FOOT_MID = 34
 SOLE = 244
 
 FIT_REACH = 0.13   # her foot: the leg this far (share of her height) round the figure from its middle
-FIT_COVER = 0.985  # share of it a boot must cover (anti-aliased edges aside)
+FIT_COVER = 0.95  # share of it a boot must cover (anti-aliased edges aside)
 FIT_MOVE = 14      # half-size px the boot may move from the guess
 FIT_TURN = [-0.1, -0.05, 0, 0.05, 0.1]  # radians it may turn from the guess
 FIT_WIDTHS = np.arange(1, 1.61, 0.05)  # times the guessed width (never narrower: the guessed widths are the owner's)
@@ -123,9 +126,20 @@ def coverage(sheet, target, boot):
 
 
 def guesses(check):
+    """A guess for each pose: the owner's boots on that pose of other dolls,
+    carried over by matching her legs (transfer_moon_boots.py), else the
+    game's own guess (from the measured feet and rules). With check, the
+    owner's poses, each guessed with that doll's own boots left out."""
     out = subprocess.run(['node', str(GAME / 'tools/dolls/moon_boot_guesses.mjs')] + (['--check'] if check else []),
                          check=True, capture_output=True, text=True).stdout
-    return json.loads(out)
+    raw = json.loads(out)
+    owner = owner_boots()
+    for pose in raw:
+        key, kind, index = pose.split('/')
+        carried = transfer(key, kind, int(index), owner, leave_out=key if check else None)
+        if carried:
+            raw[pose] = carried
+    return raw
 
 
 def pose_image(key, kind, index):

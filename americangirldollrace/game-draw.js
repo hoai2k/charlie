@@ -758,7 +758,11 @@ function drawRacer(racer) {
       const box = actionFrameBox(racer, 0, 2 * FRAME, riderX, riderY, riderW, riderH);
       drawFacingImage(actions, 0, 2 * FRAME, FRAME, FRAME, box.x, box.y, box.w, box.h, drawFacing, screenX);
     }
-    else drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
+    else {
+      // Wings worn in the saddle, behind her.
+      if (wearsWingsOver(racer)) drawFairyWings(racer, racer.sheet, 0, 3 * FRAME, riderX, riderY, riderW, drawFacing, screenX);
+      drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
+    }
     // Her moon boots stay on in the saddle (her riding frame, sprites 9).
     if (racer.moonBootsTimer > 0 && !(racer.pushTimer > 0 && actions)) drawMoonBootsOn(racer, "sprites", 9, riderX, riderY, riderW, drawFacing, screenX);
     ctx.restore();

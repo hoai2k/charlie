@@ -12,9 +12,16 @@ function isAlwaysMountedTrack() {
 // Whether this racer can pick up and use power-ups: on foot, anywhere riders
 // may (Horse Show, Horsing Around), on a broomstick or with fairy wings,
 // which she runs with, or on a unicorn.
-function canRacerUsePowerups(racer) {
-  return !isMounted(racer) || canMountedRacersUsePowerups() || isCarriedMount(racer.horseType) || racer.horseType === "unicorn";
+// Riders don't take power-ups, except where everyone rides, on a carried
+// mount (broom, toys) or a unicorn, and on mounts with power-ups of their own
+// (MOUNT_POWERUPS: given a type, whether a rider can take that one).
+function canRacerUsePowerups(racer, type = null) {
+  if (!isMounted(racer) || canMountedRacersUsePowerups() || isCarriedMount(racer.horseType) || racer.horseType === "unicorn") return true;
+  return Boolean(type && MOUNT_POWERUPS[racer.horseType]?.includes(type));
 }
+const MOUNT_POWERUPS = {
+  reindeer: ["boost", "jump", "emp"] // a reindeer picks up speed, leaps and zaps
+};
 
 function canMountedRacersUsePowerups() {
   return isHorsingAroundMode() || isAlwaysMountedTrack();
@@ -22,6 +29,26 @@ function canMountedRacersUsePowerups() {
 
 function isHorsingAroundMode() {
   return state.specials === "horsing";
+}
+
+// Fairy wings can also be worn over another mount where both are on a board
+// (racer.wingsTimer: picked up while riding, or a mount picked up while in
+// wings): she wears them in the saddle and her mount flies with them.
+function wearsWingsOver(racer) {
+  return racer.wingsTimer > 0 && isMounted(racer) && racer.horseType !== "wings";
+}
+
+// Whether a mount pickup goes with what she has on: wings over a mount she
+// rides (not a broom or other carried mount), or a mount under her wings.
+function combinesWithWings(racer, pickupType) {
+  if (!isMounted(racer) || !pickupType) return false;
+  if (pickupType === "wings") return racer.horseType !== "wings" && !isCarriedMount(racer.horseType) && !(racer.wingsTimer > 0);
+  return racer.horseType === "wings" && !isCarriedMount(pickupType);
+}
+
+// Flying: a flying mount, or any mount with wings worn over it.
+function canFly(racer) {
+  return isFlyingMountType(racer.horseType) || wearsWingsOver(racer);
 }
 
 function isFlyingMountType(type) {
@@ -160,7 +187,7 @@ function horseDurationForType(horseType) {
 
 function getHorseJumpPower(racer) {
   if (racer.moonBootsTimer > 0) return HORSE_JUMP_POWER * MOON_BOOTS_JUMP_SCALE;
-  if (!canRacerUsePowerups(racer)) return HORSE_JUMP_POWER;
+  if (!canRacerUsePowerups(racer, "jump")) return HORSE_JUMP_POWER;
   const stacks = racer.highJumpStacks.length;
   return stacks > 0 ? HORSE_JUMP_POWER * (1 + stacks * 0.35) : HORSE_JUMP_POWER;
 }
@@ -177,6 +204,12 @@ function dismountIntoPickup(racer) {
   GameAudio.stopLoop(racerLoopId(racer, "mount"));
   state.powerups.push(makeLooseMount(horseType, racer.x, racer.y + 54, remaining, racer.facing));
   sfx(horseType === "unicorn" ? "unicorn_whinny_magic" : "horse_whinny", racer.x, { gain: 0.8 });
+  // Wings worn over it stay on her.
+  if (racer.wingsTimer > 0 && horseType !== "wings") {
+    racer.horseType = "wings";
+    racer.horseTimer = racer.wingsTimer;
+    racer.wingsTimer = 0;
+  }
 }
 
 function makeLooseMount(horseType, x, y, mountTime, facing = 1) {
@@ -365,6 +398,8 @@ function drawRainbowBeam(beam) {
 
 // A riderless mount standing where it was left, waiting to be ridden again.
 function drawLooseMount(powerup, screenX, t) {
+  // (Flashing while it's out of reach, just after a troll was knocked off it.)
+  if (powerup.cooldown > 0 && Math.floor(performance.now() / 110) % 2 === 0) return;
   const groundY = powerupDrawY(powerup);
   const horseScale = racerDepthScale({ y: groundY - 54 }) * 1.08;
   const calibration = getMountFrameCalibration(powerup.horseType, 0, 0);
@@ -518,7 +553,8 @@ function drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX) {
   const k = w / FRAME;
   const t = performance.now() / 1000 + (racer.playerIndex || 0) * 0.37;
   const flying = isWingFlying(racer);
-  const flashing = racer.horseTimer < HORSE_FLASH_TIME && Math.floor(performance.now() / 110) % 2 === 0;
+  const wingTime = wearsWingsOver(racer) ? racer.wingsTimer : racer.horseTimer;
+  const flashing = wingTime < HORSE_FLASH_TIME && Math.floor(performance.now() / 110) % 2 === 0;
   if (flashing) return;
   const rootX = screenX + (x + rx * k - screenX) * facing;
   const rootY = y + ry * k;

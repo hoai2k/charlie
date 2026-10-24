@@ -25,6 +25,9 @@
 // plain horse on a track (the rest of a mount pickup's roll). `beachBalls` is
 // how many kickable beach balls are spread along the track (art: "beachball",
 // 256×256 alpha, optional; drawn in code until then).
+// `stickyProjectile`: a thrown one that rolls (projectileLanding "roll") is
+// sticky, like a marshmallow: it barely rolls before it stops, and whoever
+// steps on it is held for an instant as it smooshes.
 // `projectileLanding` is what a thrown "snowball" does when it misses: it
 // arcs down to the ground, then "water" (balloons) bursts into a splash
 // (also on a hit), "snow" leaves a little pile that melts away, "pop"
@@ -173,7 +176,8 @@ window.TRACK_THEMES = {
     sounds: { emp: "pickup_toy_drum", jump: "pickup_jack_in_box", boost: "windup_release" },
     baseMount: "rocking_horse",
     mountOdds: { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 },
-    itemEffects: { boost: "windupCars" }
+    itemEffects: { boost: "windupCars" },
+    stickyProjectile: true // marshmallows: barely roll, and hold whoever steps on one
   },
   candy: {
     monster: "candytroll",

@@ -454,6 +454,140 @@ test('Amanda runs after her player a moment behind and stands beside her when sh
   assert.equal(r.stopped, true);
 });
 
+test('Amanda keeps her own pace (a rider leaves her behind), pushes and faces a troll the way it is, and a troll throwing her counts as a hit', { skip: skip() }, async () => {
+  await onTrack('town');
+  const r = await page.evaluate(() => {
+    const a = state.racers[0]; state.amandaAlly = null;
+    joinAmanda({ x: a.x - 100, y: a.y + 36, amandaState: 'sitting' }, a);
+    for (let i = 0; i < 60; i++) update(1 / 60);
+    // On horseback her player pulls away from her.
+    a.horseType = 'horse'; a.horseTimer = 30;
+    const start = a.x - state.amandaAlly.x;
+    keys.clear(); keys.add('KeyD'); for (let i = 0; i < 180; i++) update(1 / 60); keys.clear();
+    const lagged = a.x - state.amandaAlly.x > start + 150;
+    a.horseTimer = 0; a.horseType = null;
+    // A troll on her player's left: she pushes it left, facing it the whole time.
+    const ally = state.amandaAlly; ally.x = a.x - 60; ally.y = a.y; ally.z = 0; ally.knockbackX = 0; ally.fallBackTimer = 0;
+    const m = spawnMonster(a.x - 200, a.y, { active: true, riding: false }); m.x = a.x - 200; m.y = a.y; m.riding = false; m.state = 'walk'; state.monsters = [m];
+    let pushedLeft = false, faced = true;
+    for (let i = 0; i < 120; i++) {
+      update(1 / 60);
+      if (m.state === 'fall' && !pushedLeft) pushedLeft = m.knockbackX < 0;
+      if (ally.pushTimer > 0 && ally.facing > 0) faced = false;
+    }
+    // A troll's throw counts towards her running off.
+    const before = ally.timesPushed; m.state = 'throw'; m.timer = 0; m.target = ally; ally.grabbedBy = m; updateMonsters(1 / 60);
+    return { lagged, pushedLeft, faced, counted: ally.timesPushed === before + 1 };
+  });
+  assert.deepEqual(r, { lagged: true, pushedLeft: true, faced: true, counted: true });
+});
+
+test('a reindeer rider picks up speed, jump and EMP power-ups (and sits on its back, not above it)', { skip: skip() }, async () => {
+  await onTrack('winter');
+  const r = await page.evaluate(() => {
+    const a = state.racers[0];
+    const took = ['boost', 'jump', 'emp'].map(type => {
+      Object.assign(a, { horseType: 'reindeer', horseTimer: 30, speedBoostStacks: [], speedBoostTimer: 0, highJumpStacks: [], highJumpTimer: 0, empTimer: 0, z: 0 });
+      state.powerups = [makePowerup(type, a.x, a.y + 54)]; update(1 / 60);
+      return state.powerups[0].taken === true && a.horseType === 'reindeer';
+    });
+    const seat = MOUNT_FRAME_CALIBRATION.reindeer[0][0][1];
+    return { took, seated: seat > 270 };
+  });
+  assert.deepEqual(r, { took: [true, true, true], seated: true });
+});
+
+test('fairy wings go on over a mount (and a mount under wings): she keeps both, flies, and keeps her wings when her mount goes', { skip: skip() }, async () => {
+  await onTrack('woods');
+  const r = await page.evaluate(() => {
+    const a = state.racers[0];
+    Object.assign(a, { horseType: 'unicorn', horseTimer: 20, wingsTimer: 0, z: 0, vy: 0 });
+    const over = applyPowerup(a, { ...makePowerup('horse', a.x, a.y + 54), horseType: 'wings' });
+    const kept = a.horseType === 'unicorn' && a.wingsTimer > 0 && canFly(a) && isWinged(a);
+    let wingsDrawn = 0; const draw = drawFairyWings; drawFairyWings = (...args) => { wingsDrawn++; return draw(...args); };
+    try { state.camera = a.x - 300; drawRacer(a); } finally { drawFairyWings = draw; }
+    a.horseTimer = 0.01; update(1 / 60);
+    const fliesOn = a.horseType === 'wings' && a.horseTimer > 0;
+    const under = applyPowerup(a, { ...makePowerup('horse', a.x, a.y + 54), horseType: 'horse' });
+    return { over, kept, wingsDrawn: wingsDrawn > 0, fliesOn, under, both: a.horseType === 'horse' && a.wingsTimer > 0 };
+  });
+  assert.deepEqual(r, { over: true, kept: true, wingsDrawn: true, fliesOn: true, under: true, both: true });
+});
+
+test('Horse Show: riding trolls from a third of the way in and one standing at the finish; a knocked-off troll\'s horse flashes out of reach, then he climbs back on; Amanda rides', { skip: skip() }, async () => {
+  await onTrack('horseshow');
+  const r = await page.evaluate(() => {
+    state.difficulty = 'normal'; startRace('two'); state.running = false;
+    const trolls = makeMonsters().map(m => [Math.round(m.x / FINISH * 100), m.riding]);
+    state.obstacles = []; state.powerups = [];
+    const [a, b] = state.racers; b.x = 500; b.ai = false; a.x = 7000; a.y = PATH_TOP + 90;
+    const m = spawnMonster(8300, a.y, { active: true, riding: true }); m.x = 8300; m.y = a.y; m.riding = true; m.state = 'walk'; state.monsters = [m];
+    applyMonsterKnockback(m, 1, { unhorse: true });
+    const horse = state.powerups.find(p => p.horseType === 'skeleton_horse');
+    const flashing = horse?.cooldown > 0;
+    let remounted = false; for (let i = 0; i < 600 && !remounted; i++) { a.x = 7000; update(1 / 60); remounted = m.riding; }
+    state.amandaAlly = null; joinAmanda({ x: a.x - 100, y: a.y + 36, amandaState: 'sitting' }, a);
+    return { count: trolls.length, firstAt: trolls[0][0], riding: trolls.slice(0, -1).every(t => t[1]) && !trolls.at(-1)[1], flashing, remounted, amandaRides: state.amandaAlly.mounted };
+  });
+  assert.ok(r.count >= 4, `trolls: ${r.count}`);
+  assert.ok(r.firstAt >= 30 && r.firstAt <= 40, `first troll at ${r.firstAt}%`);
+  assert.deepEqual({ ...r, count: 0, firstAt: 0 }, { count: 0, firstAt: 0, riding: true, flashing: true, remounted: true, amandaRides: true });
+});
+
+test('Toy Room marshmallows barely roll, and stepping on one holds her an instant', { skip: skip() }, async () => {
+  await onTrack('toyroom');
+  const r = await page.evaluate(() => {
+    const a = state.racers[0]; state.thrownLeftovers = [];
+    addRolledThrowable({ x: a.x + 300, groundY: a.y + 54, vx: 400, spin: 0, hop: 0, vhop: 160 });
+    const item = state.thrownLeftovers[0];
+    for (let i = 0; i < 120; i++) updateThrownLeftovers(1 / 60);
+    const rolled = item.x - (a.x + 300);
+    item.x = a.x + 60; item.age = 1;
+    keys.clear(); keys.add('KeyD');
+    let stuckFrames = 0, squished = false;
+    for (let i = 0; i < 90; i++) { const x0 = a.x; update(1 / 60); squished ||= item.squished; if (squished && a.x - x0 < 0.5) stuckFrames++; }
+    keys.clear();
+    return { rolled: Math.round(rolled), squished, stuckFrames };
+  });
+  assert.ok(r.rolled > 0 && r.rolled < 60, `rolled ${r.rolled}px`);
+  assert.ok(r.squished && r.stuckFrames >= 12 && r.stuckFrames <= 24, JSON.stringify(r));
+});
+
+test('pickups are spread evenly: every third of a board has each kind, none piling up', { skip: skip() }, async () => {
+  await onTrack('wizard');
+  const r = await page.evaluate(() => {
+    const problems = [];
+    const kinds = [...new Set(trackPowerupTypes(POWERUP_TYPES))];
+    const weights = { jump: 0.7, boost: 1.2, horse: 0.7 };
+    for (let race = 0; race < 40; race++) {
+      const xs = Array.from({ length: 12 + (race % 8) }, (_, i) => 1000 + i * 700);
+      const types = dealPowerupTypes(xs, kinds, kinds, weights);
+      for (let third = 0; third < 3; third++) {
+        const here = types.filter((t, i) => Math.min(2, Math.floor((xs[i] - xs[0]) / (xs.at(-1) - xs[0] + 1) * 3)) === third);
+        const counts = Object.fromEntries(kinds.map(k => [k, here.filter(t => t === k).length]));
+        if (here.length >= kinds.length && kinds.some(k => !counts[k])) problems.push(`lacks a kind: ${JSON.stringify(counts)}`);
+        if (Math.max(...Object.values(counts)) > Math.ceil(here.length * 0.5)) problems.push(`piles up: ${JSON.stringify(counts)}`);
+      }
+    }
+    return problems;
+  });
+  assert.deepEqual(r, []);
+});
+
+test('every board has its normal mount in each third (the rover on Moon Base)', { skip: skip() }, async () => {
+  await onTrack('space');
+  const r = await page.evaluate(() => {
+    let missing = 0;
+    for (let race = 0; race < 6; race++) {
+      state.difficulty = 'normal'; state.specials = 'none'; startRace('two'); state.running = false;
+      // (one in each third: at least three a race)
+      if (state.powerups.filter(p => p.type === 'horse' && p.horseType === 'moon_buggy').length < 3) missing++;
+    }
+    return missing;
+  });
+  assert.equal(r, 0);
+});
+
 test('rover hops as it drives, tilts in the air and squashes on landing with its rider; pickup stays smaller', { skip: skip() }, async () => {
   await onTrack('space');
   const r = await page.evaluate(async () => {
@@ -645,10 +779,10 @@ test('the workbench runs: any player, still targets, every power-up and mount dr
   // The verification queue opens in the viewer's place with the moon-boot poses to check.
   await bench.waitForFunction(() => !document.querySelector('#verifyOpen').disabled, null, { timeout: 30000 });
   await bench.click('#verifyOpen');
-  const queue = await bench.evaluate(() => ({ open: document.body.classList.contains('verifying'), items: verify.items.length, first: verify.items[0]?.id, startsAfterPlaced: !inGame(verify.items[verify.at]), boots: verify.boots.length }));
+  const queue = await bench.evaluate(() => ({ open: document.body.classList.contains('verifying'), items: verify.items.length, first: verify.items[0]?.id, startsAfterPlaced: verify.items.length ? !inGame(verify.items[verify.at]) : true, boots: verify.boots.length }));
   // (The queue shrinks as the owner works through it; poses placed by hand are never in it.)
-  assert.ok(queue.open && (queue.items === 0 || (!queue.first.startsWith('barbie/') && queue.startsAfterPlaced && queue.boots >= 1)), JSON.stringify(queue));
-  await bench.click('#vClose');
+  assert.ok(queue.items === 0 || (queue.open && !queue.first.startsWith('barbie/') && queue.startsAfterPlaced && queue.boots >= 1), JSON.stringify(queue));
+  if (queue.open) await bench.click('#vClose');
   const r = await frame.evaluate(async () => {
     const tick = n => { for (let i = 0; i < n; i++) update(1 / 60); };
     Bench.setup('festival');
@@ -785,6 +919,7 @@ test('Cloud Kingdom: a bumpy cloud floor with gaps; walk into one and fall, jump
     const [a, b] = state.racers; state.obstacles = []; state.monsters = [];
     const run = jump => {
       a.x = gap.start - 300; a.y = PATH_TOP + 90; a.z = 0; a.vy = 0; a.cloudFalling = false; a.facing = 1; a.landingTimer = 0; a.jumpStarted = false;
+      a.snowballs = 3; a.highJumpStacks = [5]; a.highJumpTimer = 5; // (lost if she falls)
       b.x = a.x - 200;
       keys.clear(); keys.add('KeyD');
       let pressed = 0, fell = false, back = false, runningOff = false;
@@ -796,7 +931,7 @@ test('Cloud Kingdom: a bumpy cloud floor with gaps; walk into one and fall, jump
         if (fell && !a.cloudFalling) { back = a.x < gap.start && a.z === 0; break; }
       }
       keys.clear();
-      return { fell, back, past: a.x > gap.end, runningOff };
+      return { fell, back, past: a.x > gap.end, runningOff, kept: a.snowballs > 0 && a.highJumpTimer > 0 };
     };
     return {
       gaps: floor.gaps.length > 2, narrow: gap.end - gap.start < 160,
@@ -805,7 +940,7 @@ test('Cloud Kingdom: a bumpy cloud floor with gaps; walk into one and fall, jump
     };
   });
   assert.deepEqual(r, { gaps: true, narrow: true, gentle: true, bumpy: true,
-    walk: { fell: true, back: true, past: false, runningOff: true }, jump: { fell: false, back: false, past: true, runningOff: false } });
+    walk: { fell: true, back: true, past: false, runningOff: true, kept: false }, jump: { fell: false, back: false, past: true, runningOff: false, kept: true } });
 });
 
 test('Cloud floor art uses all six cells at varied widths and keeps open jumping gaps', { skip: skip() }, async () => {
@@ -872,7 +1007,7 @@ test('on the clouds a doll bounces as she runs and sinks in a little standing st
   assert.deepEqual(r, { bounces: true, sunk: true });
 });
 
-test('Cloud Kingdom: riders fall through gaps too, but a pegasus rider can fly back up', { skip: skip() }, async () => {
+test('Cloud Kingdom: riders fall through gaps too (and come back without their mount), but a pegasus rider can fly back up', { skip: skip() }, async () => {
   await onTrack('clouds', { gaps: true });
   const r = await page.evaluate(() => {
     const gap = state.cloudFloor.gaps[1];
@@ -894,7 +1029,7 @@ test('Cloud Kingdom: riders fall through gaps too, but a pegasus rider can fly b
     };
     return { horse: ride('horse', false), pegasus: ride('pegasus', true) };
   });
-  assert.deepEqual(r.horse, { fell: true, flewBack: false, mounted: true });
+  assert.deepEqual(r.horse, { fell: true, flewBack: false, mounted: false });
   assert.equal(r.pegasus.fell, true);
   assert.equal(r.pegasus.flewBack, true, 'a pegasus flies back up out of the gap');
 });

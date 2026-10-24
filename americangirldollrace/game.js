@@ -161,8 +161,17 @@ const MOUNT_FRAME_CALIBRATION = {
 // Themed ground mounts (tracks.js mountOdds) ride like the horse. Their sheets
 // use (226, 242), or their measured MOUNT_ART seats (the lower Apollo rover).
 const THEMED_MOUNT_TYPES = ["pony", "reindeer", "rocking_horse", "carousel_horse", "moon_buggy"];
+// The reindeer is drawn lower in its cells: its seats, measured like the
+// others' (the top of its back over the saddle, plus 15 px).
+const THEMED_MOUNT_SEATS = {
+  reindeer: [
+    [[226, 279, 0], [226, 281, 0], [226, 280, 0]],
+    [[226, 288, 0], [226, 276, 0], [226, 289, 0]],
+    [[226, 276, 0], [226, 290, 0], [226, 280, 0]]
+  ]
+};
 for (const type of THEMED_MOUNT_TYPES) {
-  MOUNT_FRAME_CALIBRATION[type] = window.MOUNT_ART?.[type]?.calibration || [0, 1, 2].map(() => [0, 1, 2].map(() => [226, 242, 0]));
+  MOUNT_FRAME_CALIBRATION[type] = window.MOUNT_ART?.[type]?.calibration || THEMED_MOUNT_SEATS[type] || [0, 1, 2].map(() => [0, 1, 2].map(() => [226, 242, 0]));
 }
 const MOUNT_SEAT_REFERENCE = { x: 225, y: 228.67 };
 const PUSH_COOLDOWN = 0.72;
@@ -407,6 +416,13 @@ const MONSTER_COUNTS_BY_DIFFICULTY = {
   extra: 4,
   "too-many": 8
 };
+const MONSTER_BOARDS_PER_EXTRA = 2.5; // one more troll every this many boards along (4 by the Horse Show)
+const LOOSE_MOUNT_COOLDOWN = 1.4; // s a troll's horse flashes, out of reach, after he's knocked off it
+const TROLL_REMOUNT_RANGE = 600; // px: a troll on foot goes back to his horse this near
+const TROLL_REMOUNT_CLEAR = 130; // unless a racer is this close to it (she'd get it first)
+const STICKY_ROLL = 0.25; // a sticky throwable (tracks.js stickyProjectile) rolls off with this share of the speed
+const STICKY_HOLD_TIME = 0.3; // s stepping on one holds her
+const POWERUP_THIRDS = 3; // the board is dealt its pickups in this many parts, each with some of every kind
 const MONSTER_SPEED = 150;
 const MONSTER_LANE_SPEED = 130;
 const MONSTER_SIGHT_RANGE = 1300; // px, about a screen: farther away than this, a monster stops chasing
@@ -1396,7 +1412,7 @@ let wizardMountsUnlockedOn = null;
 
 // Flying mounts share hold-to-glide physics and the legacy animation flag.
 function updateRacerVerticalMotion(racer, mounted, jumpHeld, dt) {
-  const holding = mounted && isFlyingMountType(racer.horseType) && jumpHeld && racer.z > 0;
+  const holding = mounted && canFly(racer) && jumpHeld && racer.z > 0;
   racer.z += racer.vy * dt;
   if (holding && racer.z >= PEGASUS_HOVER_Z) {
     racer.z = PEGASUS_HOVER_Z;
@@ -1769,6 +1785,7 @@ function update(dt) {
     if (racer.finished) continue;
     const input = racer.ai ? aiInput(racer) : playerInput(racer.playerIndex, gamepads);
     racer.hitTimer = Math.max(0, racer.hitTimer - dt);
+    racer.stuckTimer = Math.max(0, (racer.stuckTimer || 0) - dt);
     const previousFrozenTimer = racer.frozenTimer;
     racer.frozenTimer = Math.max(0, racer.frozenTimer - dt);
     if (previousFrozenTimer > 0 && racer.frozenTimer === 0) {
@@ -1785,11 +1802,21 @@ function update(dt) {
     racer.pushCooldown = Math.max(0, racer.pushCooldown - dt);
     racer.mountBumpCooldown = Math.max(0, racer.mountBumpCooldown - dt);
     racer.fallBackTimer = Math.max(0, racer.fallBackTimer - dt);
+    if (racer.wingsTimer > 0) {
+      racer.wingsTimer = Math.max(0, racer.wingsTimer - dt);
+      if (racer.wingsTimer === 0 && racer.horseType !== "wings") sfx("mount_expire_poof", racer.x);
+    }
     if (Number.isFinite(racer.horseTimer)) {
       const previousHorseTimer = racer.horseTimer;
       racer.horseTimer = Math.max(0, racer.horseTimer - dt);
       if (previousHorseTimer > HORSE_FLASH_TIME && racer.horseTimer <= HORSE_FLASH_TIME) {
         sfx("mount_expire_warning", racer.x);
+      }
+      // Her mount runs out under her wings: she flies on in them.
+      if (previousHorseTimer > 0 && racer.horseTimer === 0 && racer.wingsTimer > 0 && racer.horseType !== "wings") {
+        racer.horseType = "wings";
+        racer.horseTimer = racer.wingsTimer;
+        racer.wingsTimer = 0;
       }
       if (previousHorseTimer > 0 && racer.horseTimer === 0) {
         sfx("mount_expire_poof", racer.x);
@@ -1829,6 +1856,11 @@ function update(dt) {
       input.vertical = 0;
       input.jump = false;
     }
+    // Stuck in a marshmallow for an instant.
+    if (racer.stuckTimer > 0 && racer.z < 1) {
+      input.horizontal = 0;
+      input.vertical = 0;
+    }
     if (mounted && racer.horseType !== "unicorn" && !canMountedRacerThrowSnowballs(racer) && !isAlwaysMountedTrack()) input.push = false;
     const frog = racer.frogTimer > 0;
     const surfing = racer.surfTimer > 0 && !mounted && !frog && !(racer.frozenTimer > 0 || racer.fallBackTimer > 0 || oilAffectsRacer);
@@ -1852,7 +1884,7 @@ function update(dt) {
     }
     if (racer.playerIndex === 0) updateTouchControlsVisibility();
 
-    const boostMult = canRacerUsePowerups(racer) ? getBoostMultiplier(racer) : 1;
+    const boostMult = canRacerUsePowerups(racer, "boost") ? getBoostMultiplier(racer) : 1;
     const runSpeed = mounted ? (racer.ai ? HORSE_AI_RUN_SPEED : HORSE_RUN_SPEED) : (racer.ai ? AI_RUN_SPEED : PLAYER_RUN_SPEED);
     let forward = input.horizontal * runSpeed * boostMult;
     if (oilAffectsRacer) {
@@ -1973,7 +2005,8 @@ function update(dt) {
     for (const powerup of state.powerups) {
       if (powerup.taken) continue;
       if (isPowerupDropping(powerup)) continue;
-      if (!canRacerUsePowerups(racer)) continue;
+      if (!canRacerUsePowerups(racer, powerup.type)) continue;
+      if (powerup.cooldown > 0) continue;
       if (racer.ai && racer.x > getHumanLeadX()) continue;
       const reachX = powerup.loose ? LOOSE_MOUNT_PICKUP_X : 34;
       const close = Math.abs(racer.x - powerup.x) < reachX && Math.abs(racer.y + 54 - powerup.y) < 34 && racer.z < 80;
@@ -2149,7 +2182,7 @@ function resolveObstacleCollisions(racer, previousX, previousY, previousZ) {
 // Wearing fairy wings she can push in the air too: anyone at about her
 // height, including other fliers in wings.
 function isWinged(racer) {
-  return isMounted(racer) && racer.horseType === "wings";
+  return isMounted(racer) && (racer.horseType === "wings" || racer.wingsTimer > 0);
 }
 
 function pushReachesHeight(attacker, other) {
