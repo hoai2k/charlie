@@ -1006,3 +1006,39 @@ test('roster: Cinnamon in Amanda\'s old top-row spot, Zoey after Mira, Amanda a 
   assert.equal(r.zoey, true);
   assert.ok(!r.visible.includes('amanda') && !r.visible.includes('penelope') && r.visible.includes('zoey'), r.visible.join());
 });
+
+test('Amanda won\'t join a player who hit her once she was out for 20 s (another player can), and follows a pusher further back', { skip: skip() }, async () => {
+  await onTrack('town');
+  const r = await page.evaluate(() => {
+    const fence = { x: 8500, y: PATH_TOP + 60, hitW: HURDLE_HIT_W, hitH: HURDLE_HIT_H, amandaHazard: true, amandaState: 'sitting', amandaTimer: 0, amandaReveal: 0, amandaCooldown: 0, amandaFacing: -1, amandaTarget: null };
+    state.obstacles = [fence]; state.amandaCaught = fence; state.amandaAlly = null; state.monsters = [];
+    const [a, b] = state.racers; b.x = 3000;
+    // She's out: a pushes her.
+    Object.assign(a, { x: 8460, y: PATH_TOP + 60 + 18 - 54, facing: 1, pushTimer: 0, pushCooldown: 0 }); a.pushedTargets.clear();
+    performPushAttack(a);
+    const snubbed = fence.amandaSnubs?.has(a);
+    // Walking up to her within 20 s: she won't come.
+    a.x = 8400; keys.clear(); keys.add('KeyD');
+    for (let i = 0; i < 40; i++) { update(1 / 60); if (a.x > 8440) a.x = 8400; }
+    keys.clear();
+    const refused = !state.amandaAlly;
+    // Another player walking up is fine.
+    b.ai = false; Object.assign(b, { x: 8450, y: a.y, facing: 1, moving: true, speed: 200, pushTimer: 0, z: 0 });
+    updateCaughtAmanda(fence, 1 / 60);
+    const otherJoined = state.amandaAlly?.leader === b;
+    b.ai = true; b.x = 2000;
+    // After 20 s she'd come to a again.
+    const fence2 = { ...fence, amandaState: 'sitting', amandaSnubs: new Map([[a, 0.5]]) };
+    updateCaughtAmanda(fence2, 1);
+    const forgiven = !fence2.amandaSnubs.has(a);
+    // Following a, and a pushes her: she follows further back.
+    state.amandaAlly = null; joinAmanda(fence, a); const ally = state.amandaAlly;
+    Object.assign(a, { x: 9400 }); for (let i = 0; i < 240; i++) { b.x = 2000; update(1 / 60); }
+    const near = Math.abs(a.x - ally.x);
+    pushAmandaAlly(ally, a, 1);
+    for (let i = 0; i < 300; i++) { b.x = 2000; update(1 / 60); }
+    const far = Math.abs(a.x - ally.x);
+    return { snubbed, refused, otherJoined, forgiven, stillFollowing: state.amandaAlly === ally && !ally.runningAway, furtherBack: far > near + 40 };
+  });
+  assert.deepEqual(r, { snubbed: true, refused: true, otherJoined: true, forgiven: true, stillFollowing: true, furtherBack: true });
+});

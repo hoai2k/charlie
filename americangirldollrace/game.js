@@ -209,6 +209,10 @@ const AMANDA_ALLY_FIGHT_RANGE = 800; // and keeps fighting one until it's this f
 const AMANDA_ALLY_PUSH_RANGE = 96;
 const AMANDA_ALLY_PUSH_COOLDOWN = 1.1;
 const AMANDA_ALLY_MAX_PUSHES = 5; // pushed this often, she runs off out of the race
+const AMANDA_SNUB_TIME = 20; // s she won't join a player who hit her once she was out of her fence
+const AMANDA_ALLY_WARY_GAP = 70; // px further away she stands for each push from her own player
+const AMANDA_ALLY_WARY_DELAY = 0.35; // s further behind she follows for each
+const AMANDA_ALLY_WARY_STEPS = 2; // (counting up to this many pushes)
 const OIL_SLIDE_DURATION = 1.5;
 const OIL_SLIDE_SPEED = 430;
 const SNOWBALL_PICKUP_COUNT = 5;
@@ -2113,7 +2117,7 @@ function performPushAttack(attacker) {
   }
   const amanda = amandaAt(attacker.x + attacker.facing * reach * 0.6, attacker.y + 54, reach * 0.6 + AMANDA_HIT_RANGE_X);
   if (amanda && !attacker.pushedTargets.has(amanda) && attacker.z <= 64 && (amanda.x - attacker.x) * attacker.facing > -10) {
-    hitAmanda(amanda, attacker.facing);
+    hitAmanda(amanda, attacker.facing, attacker);
     attacker.pushedTargets.add(amanda);
   }
   const ally = state.amandaAlly;

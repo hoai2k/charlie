@@ -245,7 +245,7 @@ function fireRainbowBeam(racer) {
   });
   for (const obstacle of state.obstacles) {
     const ahead = racer.facing > 0 ? obstacle.x > startX && obstacle.x < endX : obstacle.x < startX && obstacle.x > endX;
-    if (ahead && amandaAt(obstacle.x, racer.y + 54, 1) === obstacle) hitAmanda(obstacle, racer.facing);
+    if (ahead && amandaAt(obstacle.x, racer.y + 54, 1) === obstacle) hitAmanda(obstacle, racer.facing, racer);
   }
   for (const monster of state.monsters) {
     if (monster.state === "sleeping" || monster.state === "ground") continue;

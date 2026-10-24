@@ -120,9 +120,16 @@ function pushRacersFromAmandaHazard(obstacle) {
 
 function updateCaughtAmanda(obstacle, dt) {
   obstacle.amandaTimer += dt;
+  // Players who hit her once she was out, and how long she won't join them.
+  const snubs = obstacle.amandaSnubs ||= new Map();
+  for (const [racer, left] of snubs) {
+    if (left - dt <= 0) snubs.delete(racer);
+    else snubs.set(racer, left - dt);
+  }
   if (obstacle.amandaState === "sitting") {
-    // A player who walks up to her (not pushing) tags her: she joins that player.
-    const tagger = state.racers.find(racer => !racer.ai && !racer.finished && !racer.grabbedBy && racer.moving
+    // A player who walks up to her (not pushing) tags her: she joins that
+    // player, unless that player hit her a moment ago.
+    const tagger = state.racers.find(racer => !racer.ai && !racer.finished && !racer.grabbedBy && racer.moving && !snubs.has(racer)
       && racer.pushTimer === 0 && racer.z < 100
       && Math.abs(racer.x - obstacle.x) < AMANDA_TAG_RANGE_X
       && Math.abs(racer.y + 54 - (obstacle.y + 18)) < AMANDA_HIT_RANGE_Y
@@ -218,6 +225,8 @@ function allyFallAndSlide(ally, dt) {
 function pushAmandaAlly(ally, attacker, direction) {
   if (ally.runningAway || ally.grabbedBy || ally.fallBackTimer > 0.2) return;
   ally.timesPushed += 1;
+  // Her own player pushed her: she keeps following, but further back.
+  if (attacker === ally.leader) ally.leaderHits = (ally.leaderHits || 0) + 1;
   ally.fallBackTimer = 0.55;
   ally.fallBackFacing = -direction;
   ally.knockbackX = direction * PUSH_FORCE;
@@ -261,7 +270,9 @@ function updateAmandaAlly(dt) {
   const leader = ally.leader;
   ally.clock += dt;
   ally.trail.push({ t: ally.clock, x: leader.x, y: leader.y });
-  while (ally.trail.length > 2 && ally.trail[1].t <= ally.clock - AMANDA_ALLY_FOLLOW_DELAY) ally.trail.shift();
+  // Pushed by her player, she keeps further back (more so the more often).
+  const wary = Math.min(ally.leaderHits || 0, AMANDA_ALLY_WARY_STEPS);
+  while (ally.trail.length > 2 && ally.trail[1].t <= ally.clock - AMANDA_ALLY_FOLLOW_DELAY - wary * AMANDA_ALLY_WARY_DELAY) ally.trail.shift();
   ally.pushTimer = Math.max(0, ally.pushTimer - dt);
   ally.pushCooldown = Math.max(0, ally.pushCooldown - dt);
   const enemy = leader.finished ? null : amandaAllyTarget(ally);
@@ -274,7 +285,7 @@ function updateAmandaAlly(dt) {
   // She keeps behind her player while she runs, and stays on her side when she stops.
   const leaderDir = Math.abs(leader.speed || 0) > 20 ? Math.sign(leader.speed) : 0;
   const side = leaderDir ? -leaderDir : Math.sign(ally.x - leader.x) || -(leader.facing || 1);
-  const besideX = leader.x + side * AMANDA_ALLY_STAND_GAP;
+  const besideX = leader.x + side * (AMANDA_ALLY_STAND_GAP + wary * AMANDA_ALLY_WARY_GAP);
   const followX = side < 0 ? Math.min(behind.x, besideX) : Math.max(behind.x, besideX);
   const goalX = enemy ? enemy.x - Math.sign(enemy.x - ally.x || 1) * 40 : waiting ? ally.x : followX;
   const goalY = enemy ? enemy.y : waiting ? ally.y : clamp(behind.y + 24, TRACK_TOP, TRACK_BOTTOM);
@@ -351,7 +362,14 @@ function amandaAt(x, groundY, rangeX = AMANDA_HIT_RANGE_X) {
   }) || null;
 }
 
-function hitAmanda(obstacle, direction) {
+// Hit once she's out of her fence (sitting on it, or tumbling and climbing
+// back up), she won't join whoever hit her for a while (anyone else still
+// can tag her).
+function hitAmanda(obstacle, direction, attacker = null) {
+  if (attacker && AMANDA_CAUGHT_STATES.includes(obstacle.amandaState)) {
+    (obstacle.amandaSnubs ||= new Map()).set(attacker, AMANDA_SNUB_TIME);
+    GameAudio.voice("amanda", "hit", { worldX: obstacle.x, chance: 0.7 });
+  }
   if (obstacle.amandaState === "sitting" || obstacle.amandaState === "bonked") {
     obstacle.amandaState = "bonked";
     obstacle.amandaTimer = 0;

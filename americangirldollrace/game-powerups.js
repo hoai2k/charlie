@@ -448,7 +448,7 @@ function updateProjectiles(dt) {
     const amanda = projectile.distance < projectile.range && amandaAt(projectile.x, projectile.groundY);
     if (amanda && !projectile.hitTargets.has(amanda)) {
       projectileImpact(projectile, amanda.y + 18);
-      hitAmanda(amanda, Math.sign(projectile.vx) || 1);
+      hitAmanda(amanda, Math.sign(projectile.vx) || 1, projectile.owner);
       projectile.hitTargets.add(amanda);
       projectile.distance = projectile.range;
       continue;
