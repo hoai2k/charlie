@@ -482,7 +482,7 @@ window.RIDE_TOY_FRAMES = {
       225,
       225,
       225,
-      225,
+      225.35774647887322,
       225,
       225,
       225,
@@ -499,7 +499,7 @@ window.RIDE_TOY_FRAMES = {
       1.0,
       1.0,
       1.0,
-      1.0,
+      1.0179802816901409,
       1.0,
       1.0,
       1.0,
@@ -2992,9 +2992,9 @@ window.ACTION_FRAMES = {
   "zoey": [
     {
       "bounds": [
-        118,
-        52,
-        320,
+        114,
+        36,
+        325,
         409
       ],
       "source": "sources/zoey/special-wand.webp",
@@ -3004,7 +3004,7 @@ window.ACTION_FRAMES = {
         400,
         714
       ],
-      "packedScale": 0.5070422535211268,
+      "packedScale": 0.5295774647887324,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -3012,19 +3012,19 @@ window.ACTION_FRAMES = {
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        288,
-        124
+        292,
+        111
       ],
       "wandTip": [
-        307,
-        57
+        311,
+        41
       ]
     },
     {
       "bounds": [
-        111,
-        51,
-        347,
+        107,
+        35,
+        354,
         409
       ],
       "source": "sources/zoey/special-wand.webp",
@@ -3034,7 +3034,7 @@ window.ACTION_FRAMES = {
         330,
         715
       ],
-      "packedScale": 0.5070422535211268,
+      "packedScale": 0.5295774647887324,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -3042,19 +3042,19 @@ window.ACTION_FRAMES = {
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        345,
-        149
+        352,
+        137
       ],
       "wandTip": [
-        341,
-        153
+        347,
+        142
       ]
     },
     {
       "bounds": [
-        107,
-        51,
-        330,
+        103,
+        35,
+        336,
         409
       ],
       "source": "sources/zoey/special-wand.webp",
@@ -3064,7 +3064,7 @@ window.ACTION_FRAMES = {
         302,
         714
       ],
-      "packedScale": 0.5070422535211268,
+      "packedScale": 0.5295774647887324,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -3072,19 +3072,19 @@ window.ACTION_FRAMES = {
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        328,
-        149
+        334,
+        138
       ],
       "wandTip": [
-        324,
-        155
+        330,
+        143
       ]
     },
     {
       "bounds": [
-        39,
-        71,
-        388,
+        31,
+        56,
+        395,
         409
       ],
       "source": "sources/zoey/special-surf.webp",
@@ -3094,7 +3094,7 @@ window.ACTION_FRAMES = {
         370,
         691
       ],
-      "packedScale": 0.4969014084507042,
+      "packedScale": 0.5189859154929577,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -3102,16 +3102,16 @@ window.ACTION_FRAMES = {
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        358,
-        223
+        363,
+        214
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        32,
-        73,
-        376,
+        24,
+        58,
+        384,
         409
       ],
       "source": "sources/zoey/special-surf.webp",
@@ -3121,7 +3121,7 @@ window.ACTION_FRAMES = {
         371,
         691
       ],
-      "packedScale": 0.4969014084507042,
+      "packedScale": 0.5189859154929577,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -3129,16 +3129,16 @@ window.ACTION_FRAMES = {
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        328,
-        290
+        334,
+        286
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        64,
-        64,
-        379,
+        57,
+        48,
+        386,
         409
       ],
       "source": "sources/zoey/special-surf.webp",
@@ -3148,7 +3148,7 @@ window.ACTION_FRAMES = {
         325,
         704
       ],
-      "packedScale": 0.4969014084507042,
+      "packedScale": 0.5189859154929577,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -3156,16 +3156,16 @@ window.ACTION_FRAMES = {
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        331,
-        288
+        335,
+        282
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        99,
-        82,
-        365,
+        94,
+        68,
+        372,
         409
       ],
       "source": "sources/zoey/special-other.webp",
@@ -3175,24 +3175,24 @@ window.ACTION_FRAMES = {
         320,
         704
       ],
-      "packedScale": 0.4766197183098591,
+      "packedScale": 0.4978028169014084,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
       "baseline": 409,
-      "targetY": 358.847323943662,
-      "offsetX": 35.746478873239425,
+      "targetY": 363.06276056338027,
+      "offsetX": 37.335211267605644,
       "hand": [
-        334,
-        202
+        339,
+        191
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        47,
-        84,
-        383,
+        40,
+        69,
+        390,
         409
       ],
       "source": "sources/zoey/special-other.webp",
@@ -3202,7 +3202,7 @@ window.ACTION_FRAMES = {
         384,
         710
       ],
-      "packedScale": 0.4766197183098591,
+      "packedScale": 0.4978028169014084,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -3210,16 +3210,16 @@ window.ACTION_FRAMES = {
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        382,
-        239
+        389,
+        231
       ],
       "wandTip": null
     },
     {
       "bounds": [
-        63,
-        83,
-        385,
+        57,
+        69,
+        394,
         409
       ],
       "source": "sources/zoey/special-other.webp",
@@ -3229,7 +3229,7 @@ window.ACTION_FRAMES = {
         331,
         697
       ],
-      "packedScale": 0.4766197183098591,
+      "packedScale": 0.4978028169014084,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -3237,7 +3237,7 @@ window.ACTION_FRAMES = {
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        366,
+        375,
         163
       ],
       "wandTip": null
@@ -3250,9 +3250,9 @@ window.LEDGE_FRAMES = {
   "zoey": [
     {
       "bounds": [
-        56,
-        59,
-        362,
+        49,
+        43,
+        369,
         409
       ],
       "source": "sources/zoey/ledge.webp",
@@ -3262,7 +3262,7 @@ window.LEDGE_FRAMES = {
         411.0,
         719
       ],
-      "packedScale": 0.5070422535211268,
+      "packedScale": 0.5295774647887324,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -3270,20 +3270,20 @@ window.LEDGE_FRAMES = {
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        361,
-        165
+        368,
+        154
       ],
       "wandTip": null,
       "corner": [
-        299.76,
-        176.27
+        303.79,
+        165.92
       ]
     },
     {
       "bounds": [
-        110,
-        62,
-        308,
+        106,
+        46,
+        313,
         409
       ],
       "source": "sources/zoey/ledge.webp",
@@ -3293,7 +3293,7 @@ window.LEDGE_FRAMES = {
         306.0,
         693
       ],
-      "packedScale": 0.5070422535211268,
+      "packedScale": 0.5295774647887324,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -3301,20 +3301,20 @@ window.LEDGE_FRAMES = {
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        304,
-        286
+        309,
+        280
       ],
       "wandTip": null,
       "corner": [
-        234.86,
-        214.8
+        236.01,
+        206.17
       ]
     },
     {
       "bounds": [
-        85,
-        119,
-        332,
+        80,
+        107,
+        338,
         409
       ],
       "source": "sources/zoey/ledge.webp",
@@ -3324,7 +3324,7 @@ window.LEDGE_FRAMES = {
         369.0,
         586
       ],
-      "packedScale": 0.5070422535211268,
+      "packedScale": 0.5295774647887324,
       "scale": 1.0,
       "renderScale": 1.0,
       "anchorX": 225,
@@ -3332,13 +3332,13 @@ window.LEDGE_FRAMES = {
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        299,
-        178
+        303,
+        168
       ],
       "wandTip": null,
       "corner": [
-        220.66,
-        403.42
+        221.18,
+        403.17
       ]
     }
   ]
@@ -3562,16 +3562,16 @@ window.LEDGE_ANCHORS = {
   ],
   "zoey": [
     [
-      299.76,
-      176.27
+      303.79,
+      165.92
     ],
     [
-      234.86,
-      214.8
+      236.01,
+      206.17
     ],
     [
-      220.66,
-      403.42
+      221.18,
+      403.17
     ]
   ]
 };

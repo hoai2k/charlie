@@ -413,6 +413,7 @@ const WING_ROOT = [330, 300];
 const WING_SCALE = 0.72; // the wing sheet's cells against her frame
 const WING_FRONT_SCALE = 0.85; // a facing pair spreads both ways, so a little smaller
 const WING_TORSO_HALF = 0.15; // at most this share of her height either side of her middle is torso
+const WING_CHEST_BACK = 0.2; // running, the middle of her chest is this share of her height behind her face
 const wingRootCache = new Map();
 
 // Her back at shoulder-blade height in each cell of a sheet (frame px,
@@ -420,6 +421,9 @@ const wingRootCache = new Map();
 // once per sheet from its pixels. In each row of a band about two fifths of
 // the way down her figure, the torso is the solid run through her middle
 // (the middle of her hips), so arms held out clear of her body don't count.
+// Also the middle of her chest seen side on (4th value): long hair flying
+// behind her runs into that span, but never covers her face, so it's measured
+// back from the front of her face (the cheek and nose rows).
 function wingRoot(image, sx, sy) {
   let cells = wingRootCache.get(image);
   if (!cells) {
@@ -459,7 +463,13 @@ function wingRoot(image, sx, sy) {
             right += Math.min(r, middle + WING_TORSO_HALF * height);
             rows += 1;
           }
-          if (rows) cells.set(`${cx},${cy}`, [left / rows, right / rows, (from + to) / 2]);
+          const faces = [];
+          for (let y = Math.round(top + 0.1 * height); y <= top + 0.22 * height; y += 2) {
+            for (let x = FRAME - 1; x > 0; x -= 1) if (solid(x, y)) { faces.push(x); break; }
+          }
+          faces.sort((a, b) => a - b);
+          const chest = faces.length ? faces[Math.floor(faces.length / 2)] - WING_CHEST_BACK * height : null;
+          if (rows) cells.set(`${cx},${cy}`, [left / rows, right / rows, (from + to) / 2, chest]);
         }
       }
     } catch (error) {
@@ -501,8 +511,10 @@ function isWingFlying(racer) {
 
 // Wings for her pose (cell sx, sy of image) drawn at (x, y) w px wide.
 function drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX) {
-  const [left, right, ry] = wingRoot(image, sx, sy);
-  const rx = left + (right - left) * WING_ROOT_ACROSS[wingView(racer, image, sy)];
+  const [left, right, ry, chest] = wingRoot(image, sx, sy);
+  // Running (sprites row 2), on the middle of her chest, whatever her hair does behind her.
+  const running = image === racer.sheet && sy === FRAME && chest != null;
+  const rx = running ? chest : left + (right - left) * WING_ROOT_ACROSS[wingView(racer, image, sy)];
   const k = w / FRAME;
   const t = performance.now() / 1000 + (racer.playerIndex || 0) * 0.37;
   const flying = isWingFlying(racer);

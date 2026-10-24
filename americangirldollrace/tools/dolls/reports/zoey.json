@@ -1,16 +1,16 @@
 {
   "key": "zoey",
-  "standingHeight": 360,
+  "standingHeight": 376,
   "baseline": 409,
   "frames": {
     "idle-0": {
       "bounds": [
-        130,
-        49,
-        298,
+        127,
+        33,
+        302,
         409
       ],
-      "scale": 0.5070422535211268,
+      "scale": 0.5295774647887324,
       "anchor": [
         209.0,
         409
@@ -22,12 +22,12 @@
     },
     "idle-1": {
       "bounds": [
-        148,
-        51,
-        302,
+        145,
+        35,
+        305,
         409
       ],
-      "scale": 0.5070422535211268,
+      "scale": 0.5295774647887324,
       "anchor": [
         209.0,
         409
@@ -39,12 +39,12 @@
     },
     "idle-2": {
       "bounds": [
-        165,
-        49,
-        331,
+        163,
+        33,
+        336,
         409
       ],
-      "scale": 0.5070422535211268,
+      "scale": 0.5295774647887324,
       "anchor": [
         209.0,
         409
@@ -56,12 +56,12 @@
     },
     "run-0": {
       "bounds": [
-        45,
-        50,
-        352,
+        37,
+        34,
+        357,
         409
       ],
-      "scale": 0.5070422535211268,
+      "scale": 0.5295774647887324,
       "anchor": [
         209.0,
         409
@@ -73,12 +73,12 @@
     },
     "run-1": {
       "bounds": [
-        121,
-        57,
-        327,
+        117,
+        41,
+        332,
         409
       ],
-      "scale": 0.5070422535211268,
+      "scale": 0.5295774647887324,
       "anchor": [
         209.0,
         409
@@ -90,12 +90,12 @@
     },
     "run-2": {
       "bounds": [
-        68,
-        78,
-        320,
+        62,
+        63,
+        326,
         409
       ],
-      "scale": 0.27380281690140845,
+      "scale": 0.2859718309859155,
       "anchor": [
         209.0,
         409
@@ -107,12 +107,12 @@
     },
     "jump-0": {
       "bounds": [
-        114,
-        114,
-        317,
+        110,
+        101,
+        322,
         409
       ],
-      "scale": 0.4867605633802817,
+      "scale": 0.508394366197183,
       "anchor": [
         209.0,
         409
@@ -124,12 +124,12 @@
     },
     "jump-1": {
       "bounds": [
-        84,
-        118,
-        338,
+        78,
+        105,
+        343,
         409
       ],
-      "scale": 0.4867605633802817,
+      "scale": 0.508394366197183,
       "anchor": [
         209.0,
         409
@@ -141,12 +141,12 @@
     },
     "jump-2": {
       "bounds": [
-        101,
-        121,
-        311,
+        97,
+        109,
+        317,
         409
       ],
-      "scale": 0.4867605633802817,
+      "scale": 0.508394366197183,
       "anchor": [
         209.0,
         409
@@ -158,12 +158,12 @@
     },
     "ride": {
       "bounds": [
-        161,
-        41,
-        381,
-        352
+        159,
+        32,
+        388,
+        357
       ],
-      "scale": 0.26873239436619717,
+      "scale": 0.28067605633802817,
       "anchor": [
         209,
         264
@@ -175,12 +175,12 @@
     },
     "push": {
       "bounds": [
-        39,
-        84,
-        334,
+        32,
+        69,
+        340,
         409
       ],
-      "scale": 0.46647887323943665,
+      "scale": 0.48721126760563377,
       "anchor": [
         209.0,
         409
@@ -192,12 +192,12 @@
     },
     "fall": {
       "bounds": [
-        80,
-        123,
-        381,
+        74,
+        110,
+        388,
         409
       ],
-      "scale": 0.46647887323943665,
+      "scale": 0.48721126760563377,
       "anchor": [
         209.0,
         409
@@ -209,12 +209,12 @@
     },
     "wave": {
       "bounds": [
-        131,
-        51,
-        300,
+        127,
+        35,
+        304,
         409
       ],
-      "scale": 0.5070422535211268,
+      "scale": 0.5295774647887324,
       "anchor": [
         209.0,
         409
@@ -226,12 +226,12 @@
     },
     "cheer": {
       "bounds": [
-        144,
-        51,
-        313,
+        141,
+        35,
+        318,
         409
       ],
-      "scale": 0.5070422535211268,
+      "scale": 0.5295774647887324,
       "anchor": [
         209.0,
         409
@@ -285,15 +285,15 @@
     }
   },
   "sha256": {
-    "assets/doll_zoey_sprites.webp": "90466f4e9399ea87a84f62607e765a122460408c618ec4f905fff0952a22980b",
-    "assets/masks/zoey_sheet_mask.webp": "3825617d91e6d4b2400a48344c4ae340d771402be76fd545cef929335d223d8d",
+    "assets/doll_zoey_sprites.webp": "0a953b230793be112af2c9c192ec09af2afecb73aad8d19981f6dd4834268c81",
+    "assets/masks/zoey_sheet_mask.webp": "03de7f95274480358c9297d4ecdb1190c5c273810f0cc9ed146f4747181680e5",
     "assets/portraits/zoey.webp": "81054004f5977788284632ace27dc6d2a4ffd7c2f3600d0b3664888664231dfa",
     "assets/masks/zoey_portrait_mask.webp": "f2810e3b3e95063e198b45138c7870e694d5dc8a4eab437c64ea69a2f7f4e864",
-    "assets/portraits/zoey_wave.webp": "70d9102400d5e5f6213e8fc3cbd0efee3cde42da4e5a772b22b6fbade833b144",
-    "assets/masks/zoey_wave_mask.webp": "6557c401d557f61ed7283af16fc626c30c6ef0ac36a161cfe90b9f34acde8664",
-    "assets/portraits/zoey_cheer.webp": "f7bd3dfc4fe1b1d6c73365cea64c66bdba28f887f3167235e0810aa86c2be2c5",
-    "assets/masks/zoey_cheer_mask.webp": "cd9a9a6d6dd3304b405be48cee3f541bd992705ede8e0a13f3aca8a52896527a",
-    "assets/portraits/zoey_ride.webp": "98685f7888dfdc79adf27068e4f76b51dda371d89862b5bd6d88e97a80f64ab6",
-    "assets/masks/zoey_ride_mask.webp": "4dbb0e7faa10208b7bce44215fb7341cccbeb1676a0b94d661a97f1affddfccf"
+    "assets/portraits/zoey_wave.webp": "0023814da0281023be0020879268a19f022877a434bbafdfe1dd874e8ea3194d",
+    "assets/masks/zoey_wave_mask.webp": "c4be7d7e5a465e1d89961b70c16d68ada4f154ef11b79507ac3a4c6530872308",
+    "assets/portraits/zoey_cheer.webp": "3a3aa00982cfdd119734f51b6e646fd09f6b4e5724d11e4df895ad1c02082571",
+    "assets/masks/zoey_cheer_mask.webp": "66d002fd21566420f3bf4b3f07936b260d30df5397d3bf0fcf0c75c51f7217d5",
+    "assets/portraits/zoey_ride.webp": "b37af16cc1d4d147d9b0802dbabbd0c13b22be04459f2ac9a1c5c6bb79d894ec",
+    "assets/masks/zoey_ride_mask.webp": "4245284e7ca0f729178f1a852a8d47946b0c1143c7c79e8741a7a3eca204e10f"
   }
 }
