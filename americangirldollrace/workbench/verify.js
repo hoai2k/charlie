@@ -10,7 +10,7 @@
 // moon-boot-overrides.js) leave the queue. The game's sound is off while
 // the queue is open.
 const SPRITE_FRAMES = ["Idle 1", "Idle 2", "Idle 3", "Run 1", "Run 2", "Run 3", "Jump crouch", "Jump (in the air)", "Landing", "Riding", "Push", "Knocked over"];
-const ACTION_FRAMES = { 6: "Push from the saddle", 7: "Stuck in a puddle" };
+const ACTION_FRAMES = ["Wand raised", "Casting", "Wand follow-through", "Surf balance", "Surf carve", "Surf wobble", "Push from the saddle", "Stuck in a puddle", "Moon-boots float"];
 const BOOT_VIEWS = ["Side", "Three-quarter", "Front", "Back three-quarter", "Sole", "Pointed toe", "Inside (toe left)"];
 // Poses a doll wears moon boots in that most need checking: running, in the
 // air, riding, pushing and knocked over (standing and crouching are simple).
@@ -47,7 +47,7 @@ function verifyDolls() {
   for (const [key, character] of Object.entries(game.Bench.characters)) {
     if (!character.image) continue;
     const asset = game.dollAssetKey(key);
-    if (!seen.has(asset)) seen.set(asset, { asset, key, name: character.name });
+    if (!seen.has(asset)) seen.set(asset, { asset, key, name: character.name, allPoses: Boolean(character.verifyAllMoonBoots) });
   }
   const dolls = [...seen.values()];
   dolls.sort((a, b) => (b.asset === FIRST_DOLL) - (a.asset === FIRST_DOLL));
@@ -59,12 +59,13 @@ function buildVerifyQueue() {
   const hasActions = asset => (game.ACTION_SHEETS || []).includes(asset);
   for (const doll of verifyDolls()) {
     if (!game.DOLL_FEET?.[doll.asset]) continue;
-    const sprites = doll.asset === FIRST_DOLL ? SPRITE_FRAMES.map((_, i) => i) : CHECK_SPRITES;
+    const sprites = doll.allPoses || doll.asset === FIRST_DOLL ? SPRITE_FRAMES.map((_, i) => i) : CHECK_SPRITES;
     for (const index of sprites) items.push({ ...doll, kind: "sprites", index, label: SPRITE_FRAMES[index] });
-    if (hasActions(doll.asset)) for (const index of CHECK_ACTIONS) items.push({ ...doll, kind: "actions", index, label: ACTION_FRAMES[index] });
+    const actions = doll.allPoses ? [0,1,2,3,4,5,6,7] : CHECK_ACTIONS;
+    if (hasActions(doll.asset)) for (const index of actions) items.push({ ...doll, kind: "actions", index, label: ACTION_FRAMES[index] });
   }
   for (const doll of verifyDolls()) {
-    if (!game.DOLL_FEET?.[doll.asset] || doll.asset === FIRST_DOLL) continue;
+    if (!game.DOLL_FEET?.[doll.asset] || doll.allPoses || doll.asset === FIRST_DOLL) continue;
     for (const index of CHECK_LATER) items.push({ ...doll, kind: "sprites", index, label: SPRITE_FRAMES[index] });
   }
   for (const item of items) item.id = `${item.asset}/${item.kind}/${item.index}`;

@@ -1,0 +1,131 @@
+{
+  "assetKey": "annie",
+  "sourceAnatomicalRatio": 0.5157891233026234,
+  "frames": [
+    {
+      "bounds": [
+        70,
+        56,
+        411,
+        409
+      ],
+      "packedScale": 0.5078130028391807,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        280.5,
+        701
+      ],
+      "placement": [
+        70,
+        56,
+        411,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        677,
+        701
+      ],
+      "sourceScale": 0.5078130028391807,
+      "hand": [
+        410,
+        177
+      ],
+      "wandTip": null,
+      "ledgeContact": [
+        352.42,
+        183.12
+      ]
+    },
+    {
+      "bounds": [
+        74,
+        53,
+        359,
+        409
+      ],
+      "packedScale": 0.5078130028391807,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        272.0,
+        708
+      ],
+      "placement": [
+        74,
+        53,
+        359,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        568,
+        708
+      ],
+      "sourceScale": 0.5078130028391807,
+      "hand": [
+        358,
+        247
+      ],
+      "wandTip": null,
+      "ledgeContact": [
+        296.53,
+        241.45
+      ]
+    },
+    {
+      "bounds": [
+        48,
+        106,
+        309,
+        409
+      ],
+      "packedScale": 0.5078130028391807,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        322.5,
+        604
+      ],
+      "placement": [
+        48,
+        105,
+        309,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        520,
+        604
+      ],
+      "sourceScale": 0.5078130028391807,
+      "hand": [
+        299,
+        167
+      ],
+      "wandTip": null,
+      "ledgeContact": [
+        212.72,
+        390.78
+      ]
+    }
+  ],
+  "sha256": "b52e9b7bf2558acebf5de59721f51154456e7b32825ad1fbe2a10488242dd679",
+  "maskSha256": "fd8e3c93f3560fd5da89ca757eafd2b91e3608994eafbf4a4dd5a2fcc4458473"
+}

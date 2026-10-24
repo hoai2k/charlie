@@ -1,0 +1,285 @@
+{
+  "key": "annie",
+  "standingHeight": 382,
+  "baseline": 409,
+  "frames": {
+    "idle-0": {
+      "bounds": [
+        125,
+        27,
+        300,
+        409
+      ],
+      "scale": 0.9845360824742269,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        91.0,
+        394
+      ]
+    },
+    "idle-1": {
+      "bounds": [
+        124,
+        26,
+        303,
+        409
+      ],
+      "scale": 0.9845360824742269,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        92.5,
+        395
+      ]
+    },
+    "idle-2": {
+      "bounds": [
+        115,
+        26,
+        294,
+        409
+      ],
+      "scale": 0.9845360824742269,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        101.5,
+        395
+      ]
+    },
+    "run-0": {
+      "bounds": [
+        87,
+        10,
+        384,
+        409
+      ],
+      "scale": 1.105263157894737,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        116.5,
+        367
+      ]
+    },
+    "run-1": {
+      "bounds": [
+        100,
+        39,
+        361,
+        409
+      ],
+      "scale": 1.105263157894737,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        105.0,
+        341
+      ]
+    },
+    "run-2": {
+      "bounds": [
+        74,
+        11,
+        378,
+        409
+      ],
+      "scale": 1.105263157894737,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        128.5,
+        366
+      ]
+    },
+    "jump-0": {
+      "bounds": [
+        85,
+        97,
+        342,
+        409
+      ],
+      "scale": 1.0614339876161796,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        123.0,
+        300
+      ]
+    },
+    "jump-1": {
+      "bounds": [
+        89,
+        86,
+        380,
+        409
+      ],
+      "scale": 1.0614339876161796,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        119.0,
+        310
+      ]
+    },
+    "jump-2": {
+      "bounds": [
+        67,
+        105,
+        360,
+        409
+      ],
+      "scale": 1.0614339876161796,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        139.5,
+        293
+      ]
+    },
+    "ride": {
+      "bounds": [
+        118,
+        48,
+        387,
+        360
+      ],
+      "scale": 0.9733290796778019,
+      "anchor": [
+        209,
+        264
+      ],
+      "sourceAnchor": [
+        99.84,
+        227.48999999999998
+      ]
+    },
+    "push": {
+      "bounds": [
+        82,
+        78,
+        374,
+        409
+      ],
+      "scale": 0.9733290796778019,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        136.0,
+        346
+      ]
+    },
+    "fall": {
+      "bounds": [
+        55,
+        144,
+        345,
+        409
+      ],
+      "scale": 0.9733290796778019,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        164.0,
+        278
+      ]
+    },
+    "wave": {
+      "bounds": [
+        84,
+        43,
+        291,
+        409
+      ],
+      "scale": 0.5168366665168693,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        248.0,
+        715
+      ]
+    },
+    "cheer": {
+      "bounds": [
+        105,
+        43,
+        298,
+        409
+      ],
+      "scale": 0.5168366665168693,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        206.5,
+        714
+      ]
+    }
+  },
+  "runtime": {
+    "name": "Annie",
+    "color": "#d72b35",
+    "hidden": true,
+    "verifyAllMoonBoots": true,
+    "spriteKey": "annie",
+    "jumpScale": 1,
+    "riderXOffset": 8.28,
+    "riderYOffset": 122.164,
+    "outfitData": {
+      "stats": {
+        "h": 0.463855,
+        "L": 0.568647,
+        "C": 0.225368,
+        "beta": 0.7,
+        "tintNeutral": false
+      },
+      "outfits": [
+        "blue",
+        "mint",
+        "purple",
+        "pink",
+        "orange",
+        "teal",
+        "yellow"
+      ]
+    }
+  },
+  "sha256": {
+    "assets/doll_annie_sprites.webp": "dcd72a08b8396316fc6a19d45aa14a9c5a7e873eb418f11c074584ac602139ec",
+    "assets/masks/annie_sheet_mask.webp": "2af41be9fabeeef26d39efeea0c597d18eac0308c11ccdc153a342bc569f9988",
+    "assets/portraits/annie.webp": "a75d3bb13a3a96de6b6dfd9bfcbbe7755232e42e91896d57ff8839dd6a358c76",
+    "assets/masks/annie_portrait_mask.webp": "8aa5644dc71a96a0c876bbcb8b88f5b2ff346bd2d4674404358232da4cb9e277",
+    "assets/portraits/annie_wave.webp": "e7470ad612762e9669283464eccfc49ac7544d3a99d88d914830c060c148ff58",
+    "assets/masks/annie_wave_mask.webp": "788ea64973e9dd3882973bbca4919be5908c39a1601d331087fd7f046cff011d",
+    "assets/portraits/annie_cheer.webp": "ecb483113bdf2fdd640e3770c25ac5802f9d306001a792ed93677f6cd8079f88",
+    "assets/masks/annie_cheer_mask.webp": "5c5c59acb38789340430cb2167a5d038fa4a6fde16917aa95c89bad2395a116b",
+    "assets/portraits/annie_ride.webp": "5fbd0069092fdf271c8ba50bb12a12135e0e6fd075f92a12d84660121c290770",
+    "assets/masks/annie_ride_mask.webp": "9153203521bb488c9cecd5d53fc2239987b04155840a795ade11d495240dfa8d"
+  }
+}

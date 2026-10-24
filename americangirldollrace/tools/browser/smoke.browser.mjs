@@ -1102,6 +1102,11 @@ test('the workbench runs: any player, still targets, every power-up and mount dr
   const queue = await bench.evaluate(() => ({ open: document.body.classList.contains('verifying'), items: verify.items.length, first: verify.items[0]?.id, startsAfterPlaced: verify.items.length ? !inGame(verify.items[verify.at]) : true, boots: verify.boots.length }));
   // (The queue shrinks as the owner works through it; poses placed by hand are never in it.)
   assert.ok(queue.items === 0 || (queue.open && !queue.first.startsWith('barbie/') && queue.startsAfterPlaced && queue.boots >= 1), JSON.stringify(queue));
+  const hidden = await bench.evaluate(() => ['annie', 'katniss'].map(key => ({
+    key, listed: Boolean(game.Bench.characters[key]?.hidden),
+    queued: verify.items.filter(item => item.asset === key).length
+  })));
+  for (const doll of hidden) { assert.ok(doll.listed, doll.key); assert.equal(doll.queued, 20, doll.key); }
   if (queue.open) await bench.click('#vClose');
   const r = await frame.evaluate(async () => {
     const tick = n => { for (let i = 0; i < n; i++) update(1 / 60); };
@@ -1570,4 +1575,34 @@ test('standings add up over a set of races (from the menu they start again), Ski
   assert.deepEqual(r.after1, [10, 8]);
   assert.deepEqual(r.totals, [18, 18]);
   assert.deepEqual({ drew: r.drew, skipped: r.skipped, noPoints: r.noPoints, restarted: r.restarted, fresh: r.fresh }, { drew: true, skipped: true, noPoints: true, restarted: true, fresh: true });
+});
+
+
+test('Annie and Katniss are hidden until All Dolls and have complete playable art', { skip: skip() }, async () => {
+  await onTrack('farm');
+  const result = await page.evaluate(async () => {
+    const saved = state.specials;
+    state.specials = 'none';
+    const normal = getVisibleCharacterEntries().map(([key]) => key);
+    state.specials = 'all-dolls';
+    const all = getVisibleCharacterEntries().map(([key]) => key);
+    state.specials = saved;
+    const art = [];
+    for (const key of ['annie', 'katniss']) {
+      const doll = characters[key];
+      const image = doll.image();
+      if (!image.complete) await new Promise(resolve => image.addEventListener('load', resolve, { once: true }));
+      const racer = makeRacer(doll.name, key, image, 0, 3000, PATH_TOP + 90, false, doll.color, 500, doll.riderYOffset, doll.riderXOffset);
+      for (const kind of ['toys', 'actions', 'ledge']) await loadArtOnce(`${kind}_${key}`, `assets/doll_${key}_${kind}.webp`);
+      for (const facing of [-1, 1]) { racer.facing = facing; drawRacer(racer); }
+      art.push({ key, sheet: [image.naturalWidth, image.naturalHeight], feet: DOLL_FEET[key].sprites.length,
+        toys: RIDE_TOY_SHEETS.includes(key), actions: ACTION_SHEETS.includes(key), ledge: LEDGE_SHEETS.includes(key),
+        grips: Boolean(BROOM_ART.carryHands[key]), hidden: doll.hidden });
+    }
+    return { normal, all, art };
+  });
+  for (const doll of result.art) {
+    assert.ok(!result.normal.includes(doll.key) && result.all.includes(doll.key));
+    assert.deepEqual(doll, { key: doll.key, sheet: [1254, 1672], feet: 12, toys: true, actions: true, ledge: true, grips: true, hidden: true });
+  }
 });

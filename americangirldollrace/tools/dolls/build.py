@@ -94,6 +94,21 @@ def neutral_mask(src, chin, raised_sleeves=()):
 
 
 def clothing_mask(src, spec, mode):
+    if mode in ('annie-red', 'katniss-jacket'):
+        a = np.asarray(src).astype(np.float32)
+        r,g,b,alpha = [a[:,:,i] for i in range(4)]
+        if mode == 'annie-red':
+            # Red fabric has more blue than copper hair or warm vinyl skin.
+            weight = np.clip((r-g-25)/20,0,1)*np.clip((r-b-25)/20,0,1)*np.clip((b-g*.85)/6,0,1)
+            weight *= alpha>16
+        else:
+            weight = np.array(neutral_mask(src, spec['chin']).getchannel('R'))/255.
+            weight *= np.clip((b-g+5)/7,0,1)  # cool charcoal, not olive trousers
+        weight[:round(spec['chin'])] = 0
+        weight[round(spec['garmentBottom']):] = 0
+        for x0,y0,x1,y1 in spec.get('protectedRegions',[]):weight[y0:y1,x0:x1]=0
+        out=np.zeros_like(a,dtype=np.uint8);out[:,:,0]=np.round(weight*255);out[:,:,3]=255
+        return Image.fromarray(out)
     if mode == 'teal-top':
         # Zoey: R is the teal top; B independently selects yellow cloth/shoe
         # accents. G remains reserved for dyed hair. Gold jewellery stays fixed.
@@ -265,6 +280,10 @@ def build(manifest):
         report['ride']['seat'] = manifest['poses']['ride']['seatFrame']
     seat = report['ride'].get('seat', report['ride']['anchor'])
     runtime = {k: manifest[k] for k in ['name', 'color']}
+    if manifest.get('hidden'):
+        runtime['hidden'] = True
+    if manifest.get('verifyAllMoonBoots'):
+        runtime['verifyAllMoonBoots'] = True
     if asset_key != key:
         runtime['assetKey'] = asset_key
     runtime.update(spriteKey=key, jumpScale=1,

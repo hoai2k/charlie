@@ -1107,6 +1107,256 @@
           409
         ]
       }
+    ],
+    "annie": [
+      {
+        "bounds": [
+          70,
+          56,
+          411,
+          409
+        ],
+        "packedScale": 0.5078130028391807,
+        "scale": 1.0,
+        "renderScale": 1.0,
+        "anchorX": 225,
+        "baseline": 409,
+        "targetY": 409,
+        "offsetX": 0,
+        "sourceAnchor": [
+          280.5,
+          701
+        ],
+        "placement": [
+          70,
+          56,
+          411,
+          409
+        ],
+        "sourceBounds": [
+          6,
+          6,
+          677,
+          701
+        ],
+        "sourceScale": 0.5078130028391807,
+        "hand": [
+          410,
+          177
+        ],
+        "wandTip": null,
+        "ledgeContact": [
+          352.42,
+          183.12
+        ]
+      },
+      {
+        "bounds": [
+          74,
+          53,
+          359,
+          409
+        ],
+        "packedScale": 0.5078130028391807,
+        "scale": 1.0,
+        "renderScale": 1.0,
+        "anchorX": 225,
+        "baseline": 409,
+        "targetY": 409,
+        "offsetX": 0,
+        "sourceAnchor": [
+          272.0,
+          708
+        ],
+        "placement": [
+          74,
+          53,
+          359,
+          409
+        ],
+        "sourceBounds": [
+          6,
+          6,
+          568,
+          708
+        ],
+        "sourceScale": 0.5078130028391807,
+        "hand": [
+          358,
+          247
+        ],
+        "wandTip": null,
+        "ledgeContact": [
+          296.53,
+          241.45
+        ]
+      },
+      {
+        "bounds": [
+          48,
+          106,
+          309,
+          409
+        ],
+        "packedScale": 0.5078130028391807,
+        "scale": 1.0,
+        "renderScale": 1.0,
+        "anchorX": 225,
+        "baseline": 409,
+        "targetY": 409,
+        "offsetX": 0,
+        "sourceAnchor": [
+          322.5,
+          604
+        ],
+        "placement": [
+          48,
+          105,
+          309,
+          409
+        ],
+        "sourceBounds": [
+          6,
+          6,
+          520,
+          604
+        ],
+        "sourceScale": 0.5078130028391807,
+        "hand": [
+          299,
+          167
+        ],
+        "wandTip": null,
+        "ledgeContact": [
+          212.72,
+          390.78
+        ]
+      }
+    ],
+    "katniss": [
+      {
+        "bounds": [
+          38,
+          75,
+          387,
+          409
+        ],
+        "packedScale": 0.4827057370671635,
+        "scale": 1.0,
+        "renderScale": 1.0,
+        "anchorX": 225,
+        "baseline": 409,
+        "targetY": 409,
+        "offsetX": 0,
+        "sourceAnchor": [
+          360.0,
+          697
+        ],
+        "placement": [
+          38,
+          75,
+          387,
+          409
+        ],
+        "sourceBounds": [
+          6,
+          6,
+          730,
+          697
+        ],
+        "sourceScale": 0.4827057370671635,
+        "hand": [
+          385,
+          178
+        ],
+        "wandTip": null,
+        "ledgeContact": [
+          328.19,
+          195.53
+        ]
+      },
+      {
+        "bounds": [
+          81,
+          67,
+          340,
+          409
+        ],
+        "packedScale": 0.4827057370671635,
+        "scale": 1.0,
+        "renderScale": 1.0,
+        "anchorX": 225,
+        "baseline": 409,
+        "targetY": 409,
+        "offsetX": 0,
+        "sourceAnchor": [
+          272.0,
+          715
+        ],
+        "placement": [
+          81,
+          67,
+          340,
+          409
+        ],
+        "sourceBounds": [
+          6,
+          6,
+          543,
+          715
+        ],
+        "sourceScale": 0.4827057370671635,
+        "hand": [
+          339,
+          256
+        ],
+        "wandTip": null,
+        "ledgeContact": [
+          282.79,
+          248.15
+        ]
+      },
+      {
+        "bounds": [
+          43,
+          92,
+          298,
+          409
+        ],
+        "packedScale": 0.4827057370671635,
+        "scale": 1.0,
+        "renderScale": 1.0,
+        "anchorX": 225,
+        "baseline": 409,
+        "targetY": 409,
+        "offsetX": 0,
+        "sourceAnchor": [
+          349.0,
+          662
+        ],
+        "placement": [
+          43,
+          92,
+          298,
+          409
+        ],
+        "sourceBounds": [
+          6,
+          6,
+          534,
+          662
+        ],
+        "sourceScale": 0.4827057370671635,
+        "hand": [
+          272,
+          297
+        ],
+        "wandTip": null,
+        "ledgeContact": [
+          204.0,
+          390.0
+        ]
+      }
     ]
   }
 }

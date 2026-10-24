@@ -279,3 +279,35 @@ over by matching her legs (`transfer_moon_boots.py`), then fitted to cover her
 whole shoe, into `moon-boot-guesses.js`. Check them in the workbench's
 verification queue; anything the owner corrects goes into
 `moon-boot-overrides.js`.
+
+
+## Annie and Katniss (hidden racers)
+
+Both dolls use their retained `sources/<key>/canonical.webp` reference and are
+hidden from the ordinary roster. All Dolls reveals them; Random includes them.
+The workbench always lists them. Each has twelve race frames, four menu images,
+twelve skate/pogo frames, nine special actions and three cloud-ledge phases.
+Their `verifyAllMoonBoots` flag queues all twelve race poses and the eight action
+poses without baked boots. These are initial fitted guesses, awaiting the owner's
+review; no owner-approved placements are invented.
+
+Rebuild from the retained built-in ImageGen atlases and exact prompts:
+
+```sh
+python3 americangirldollrace/tools/dolls/hidden/build.py
+python3 americangirldollrace/tools/dolls/measure_hands.py
+python3 americangirldollrace/tools/dolls/measure_feet.py
+python3 americangirldollrace/tools/dolls/measure_poses.py
+python3 americangirldollrace/tools/dolls/fit_moon_boots.py
+node americangirldollrace/tools/stamp/stamp.mjs
+```
+
+The `annie-red` mask selects her dress while protecting copper curls, skin,
+white collar/belt/socks and black shoes. The `katniss-jacket` mask selects cool
+charcoal while protecting her braid, olive trousers, boots and gold pin. Both
+retain seven alternate outfit colours. Source anatomical scale, rider seat,
+broom hands, throw hands, wand tips and ledge contacts are retained in manifests
+and `hidden/reports/`. Alpha margins and hashes are checked during export.
+Actual game-renderer contact sheets there cover mounts, toys, spells, boots,
+ledge phases and a mirrored alternate outfit. Generation prompts are in
+`hidden/prompts.json`; raster creation used the built-in ImageGen tool.

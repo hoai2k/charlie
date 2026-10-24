@@ -22,7 +22,9 @@ window.RIDE_TOY_SHEETS = [
   "felicity",
   "luna",
   "marisol-v2",
-  "zoey"
+  "zoey",
+  "annie",
+  "katniss"
 ];
 // Packed frame calibration preserves anatomy when long hair or fall poses need more room.
 window.RIDE_TOY_FRAMES = {
@@ -505,6 +507,66 @@ window.RIDE_TOY_FRAMES = {
       1.0,
       1.0
     ]
+  },
+  "annie": {
+    "anchorX": [
+      225,
+      225,
+      225,
+      225,
+      208.81395348837208,
+      214.7986798679868,
+      225,
+      225,
+      225,
+      225,
+      225,
+      201.96449704142012
+    ],
+    "scale": [
+      1.2639480514238948,
+      1.2900472737246829,
+      1.2788618927386308,
+      1.293775734053367,
+      1.2825903530673148,
+      1.1297234795912687,
+      1.2527626704378425,
+      1.3608880199696802,
+      1.2378488291231062,
+      1.4130864645712569,
+      1.4130864645712569,
+      1.2602195910952105
+    ]
+  },
+  "katniss": {
+    "anchorX": [
+      229.32394366197184,
+      225,
+      231.85507246376812,
+      225,
+      225,
+      164.84210526315792,
+      225,
+      225,
+      225,
+      225,
+      225,
+      151.80952380952385
+    ],
+    "scale": [
+      1.0751326255135125,
+      1.1023895089772353,
+      1.0448471994427095,
+      1.105418051584316,
+      1.0599899124781111,
+      1.0357615716214685,
+      1.0357615716214685,
+      1.0811897107276733,
+      1.0,
+      1.0963324237630747,
+      1.0721040829064323,
+      1.2083885002250467
+    ]
   }
 };
 // Dolls (asset keys) whose actions sheet is delivered: wand casting, surfing,
@@ -525,7 +587,9 @@ window.ACTION_SHEETS = [
   "felicity",
   "luna",
   "marisol-v2",
-  "zoey"
+  "zoey",
+  "annie",
+  "katniss"
 ];
 window.ACTION_ART_VERSION = "20261022-marisol-v2";
 window.ACTION_FRAMES = {
@@ -3242,6 +3306,694 @@ window.ACTION_FRAMES = {
       ],
       "wandTip": null
     }
+  ],
+  "annie": [
+    {
+      "bounds": [
+        98,
+        41,
+        390,
+        409
+      ],
+      "packedScale": 0.9314782982607271,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        125.5,
+        401
+      ],
+      "placement": [
+        98,
+        41,
+        390,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        319,
+        401
+      ],
+      "sourceScale": 0.9314782982607271,
+      "hand": [
+        342,
+        115
+      ],
+      "wandTip": [
+        384,
+        53
+      ]
+    },
+    {
+      "bounds": [
+        64,
+        39,
+        412,
+        409
+      ],
+      "packedScale": 0.9314782982607271,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 204.91094756655585,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        140.5,
+        403
+      ],
+      "placement": [
+        64,
+        39,
+        412,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        380,
+        403
+      ],
+      "sourceScale": 0.9314782982607271,
+      "hand": [
+        409,
+        150
+      ],
+      "wandTip": [
+        405,
+        152
+      ]
+    },
+    {
+      "bounds": [
+        80,
+        40,
+        395,
+        409
+      ],
+      "packedScale": 0.9314782982607271,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        144.0,
+        402
+      ],
+      "placement": [
+        80,
+        40,
+        395,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        344,
+        402
+      ],
+      "sourceScale": 0.9314782982607271,
+      "hand": [
+        393,
+        221
+      ],
+      "wandTip": [
+        389,
+        222
+      ]
+    },
+    {
+      "bounds": [
+        52,
+        67,
+        412,
+        409
+      ],
+      "packedScale": 0.9314782982607271,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 224.00625268090076,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        173.0,
+        373
+      ],
+      "placement": [
+        52,
+        67,
+        412,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        392,
+        373
+      ],
+      "sourceScale": 0.9314782982607271,
+      "hand": [
+        384,
+        192
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        27,
+        71,
+        405,
+        409
+      ],
+      "packedScale": 0.9314782982607271,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        201.5,
+        370
+      ],
+      "placement": [
+        27,
+        70,
+        405,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        412,
+        370
+      ],
+      "sourceScale": 0.9314782982607271,
+      "hand": [
+        403,
+        229
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        70,
+        57,
+        412,
+        409
+      ],
+      "packedScale": 0.9314782982607271,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 211.8970348035113,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        141.0,
+        384
+      ],
+      "placement": [
+        70,
+        57,
+        412,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        373,
+        384
+      ],
+      "sourceScale": 0.9314782982607271,
+      "hand": [
+        366,
+        201
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        113,
+        41,
+        372,
+        409
+      ],
+      "packedScale": 0.9314782982607271,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 378.0595176220261,
+      "offsetX": 7.582233347842305,
+      "sourceAnchor": [
+        109.0,
+        401
+      ],
+      "placement": [
+        113,
+        41,
+        373,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        285,
+        401
+      ],
+      "sourceScale": 0.9314782982607271,
+      "hand": [
+        370,
+        152
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        79,
+        52,
+        412,
+        409
+      ],
+      "packedScale": 0.9314782982607271,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 208.1711216104684,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        127.0,
+        389
+      ],
+      "placement": [
+        79,
+        52,
+        412,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        363,
+        389
+      ],
+      "sourceScale": 0.9314782982607271,
+      "hand": [
+        410,
+        199
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        38,
+        53,
+        366,
+        409
+      ],
+      "packedScale": 0.9314782982607271,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        190.0,
+        388
+      ],
+      "placement": [
+        38,
+        53,
+        367,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        359,
+        388
+      ],
+      "sourceScale": 0.9314782982607271,
+      "hand": [
+        353,
+        134
+      ],
+      "wandTip": null
+    }
+  ],
+  "katniss": [
+    {
+      "bounds": [
+        92,
+        9,
+        412,
+        409
+      ],
+      "packedScale": 0.9569377990430622,
+      "scale": 1.0511339612882302,
+      "renderScale": 1.0511339612882302,
+      "anchorX": 213.16746411483254,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        115.5,
+        424
+      ],
+      "placement": [
+        92,
+        9,
+        412,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        340,
+        424
+      ],
+      "sourceScale": 1.0058698194145743,
+      "hand": [
+        363,
+        95
+      ],
+      "wandTip": [
+        406,
+        37
+      ]
+    },
+    {
+      "bounds": [
+        36,
+        9,
+        412,
+        409
+      ],
+      "packedScale": 0.963855421686747,
+      "scale": 1.0435899376426208,
+      "renderScale": 1.0435899376426208,
+      "anchorX": 158.12048192771084,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        118.0,
+        421
+      ],
+      "placement": [
+        34,
+        9,
+        412,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        398,
+        421
+      ],
+      "sourceScale": 1.0058698194145743,
+      "hand": [
+        410,
+        127
+      ],
+      "wandTip": [
+        406,
+        126
+      ]
+    },
+    {
+      "bounds": [
+        80,
+        9,
+        407,
+        409
+      ],
+      "packedScale": 0.9592326139088729,
+      "scale": 1.0486192867396937,
+      "renderScale": 1.0486192867396937,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        140.0,
+        423
+      ],
+      "placement": [
+        80,
+        9,
+        407,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        347,
+        423
+      ],
+      "sourceScale": 1.0058698194145743,
+      "hand": [
+        349,
+        116
+      ],
+      "wandTip": [
+        400,
+        72
+      ]
+    },
+    {
+      "bounds": [
+        29,
+        61,
+        408,
+        409
+      ],
+      "packedScale": 1.0058698194145743,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        184.5,
+        352
+      ],
+      "placement": [
+        29,
+        61,
+        408,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        383,
+        352
+      ],
+      "sourceScale": 1.0058698194145743,
+      "hand": [
+        373,
+        230
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        6,
+        44,
+        392,
+        409
+      ],
+      "packedScale": 1.0058698194145743,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 242.2854904517918,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        225.0,
+        369
+      ],
+      "placement": [
+        6,
+        44,
+        392,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        390,
+        369
+      ],
+      "sourceScale": 1.0058698194145743,
+      "hand": [
+        390,
+        239
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        42,
+        37,
+        412,
+        409
+      ],
+      "packedScale": 1.0058698194145743,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 210.73211900645194,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        158.0,
+        376
+      ],
+      "placement": [
+        42,
+        37,
+        412,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        374,
+        376
+      ],
+      "sourceScale": 1.0058698194145743,
+      "hand": [
+        390,
+        162
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        124,
+        9,
+        412,
+        409
+      ],
+      "packedScale": 0.9900990099009901,
+      "scale": 1.01592851760872,
+      "renderScale": 1.01592851760872,
+      "anchorX": 214.63366336633663,
+      "baseline": 409,
+      "targetY": 389.97513618348125,
+      "offsetX": -23.577588567077637,
+      "sourceAnchor": [
+        81.5,
+        410
+      ],
+      "placement": [
+        124,
+        9,
+        412,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        297,
+        410
+      ],
+      "sourceScale": 1.0058698194145743,
+      "hand": [
+        384,
+        134
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        102,
+        9,
+        407,
+        409
+      ],
+      "packedScale": 0.9852216748768473,
+      "scale": 1.0209578667057928,
+      "renderScale": 1.0209578667057928,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        114.5,
+        412
+      ],
+      "placement": [
+        102,
+        9,
+        407,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        316,
+        412
+      ],
+      "sourceScale": 1.0058698194145743,
+      "hand": [
+        405,
+        163
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        34,
+        22,
+        412,
+        409
+      ],
+      "packedScale": 1.0058698194145743,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 211.23505391615925,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        166.5,
+        391
+      ],
+      "placement": [
+        34,
+        22,
+        412,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        382,
+        391
+      ],
+      "sourceScale": 1.0058698194145743,
+      "hand": [
+        396,
+        136
+      ],
+      "wandTip": null
+    }
   ]
 };
 
@@ -3573,6 +4325,34 @@ window.LEDGE_ANCHORS = {
       221.18,
       403.17
     ]
+  ],
+  "annie": [
+    [
+      352.42,
+      183.12
+    ],
+    [
+      296.53,
+      241.45
+    ],
+    [
+      212.72,
+      390.78
+    ]
+  ],
+  "katniss": [
+    [
+      328.19,
+      195.53
+    ],
+    [
+      282.79,
+      248.15
+    ],
+    [
+      204.0,
+      390.0
+    ]
   ]
 };
 
@@ -3592,5 +4372,7 @@ window.LEDGE_SHEETS = [
   "penelope",
   "rumi-v2",
   "whirlpool",
-  "zoey"
+  "zoey",
+  "annie",
+  "katniss"
 ];

@@ -19,6 +19,24 @@ window.DOLL_HANDS = {
    132
   ]
  },
+ "annie": {
+  "stand": [
+   373,
+   187
+  ],
+  "ride": [
+   339,
+   192
+  ],
+  "skate": [
+   410,
+   166
+  ],
+  "pogo": [
+   363,
+   102
+  ]
+ },
  "barbie": {
   "stand": [
    334,
@@ -135,6 +153,24 @@ window.DOLL_HANDS = {
   "pogo": [
    362,
    102
+  ]
+ },
+ "katniss": {
+  "stand": [
+   403,
+   153
+  ],
+  "ride": [
+   360,
+   172
+  ],
+  "skate": [
+   399,
+   108
+  ],
+  "pogo": [
+   375,
+   88
   ]
  },
  "kaya": {

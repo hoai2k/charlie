@@ -273,6 +273,62 @@ window.EXTRA_DOLLS = {
         ]
       }
     }
+  },
+  "annie": {
+    "name": "Annie",
+    "color": "#d72b35",
+    "hidden": true,
+    "verifyAllMoonBoots": true,
+    "spriteKey": "annie",
+    "jumpScale": 1,
+    "riderXOffset": 8.28,
+    "riderYOffset": 122.164,
+    "outfitData": {
+      "stats": {
+        "h": 0.463855,
+        "L": 0.568647,
+        "C": 0.225368,
+        "beta": 0.7,
+        "tintNeutral": false
+      },
+      "outfits": [
+        "blue",
+        "mint",
+        "purple",
+        "pink",
+        "orange",
+        "teal",
+        "yellow"
+      ]
+    }
+  },
+  "katniss": {
+    "name": "Katniss",
+    "color": "#778359",
+    "hidden": true,
+    "verifyAllMoonBoots": true,
+    "spriteKey": "katniss",
+    "jumpScale": 1,
+    "riderXOffset": 8.28,
+    "riderYOffset": 122.164,
+    "outfitData": {
+      "stats": {
+        "h": -0.293619,
+        "L": 0.276348,
+        "C": 0.01036,
+        "beta": 0.7,
+        "tintNeutral": true
+      },
+      "outfits": [
+        "blue",
+        "mint",
+        "purple",
+        "pink",
+        "orange",
+        "teal",
+        "yellow"
+      ]
+    }
   }
 };
 for (const key of Object.keys(window.EXTRA_DOLLS)) {
