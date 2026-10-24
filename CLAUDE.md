@@ -137,7 +137,9 @@ hook to get round it.
 - Race track themes live in `americangirldollrace/tracks.js`: per-track art in
   `assets/tracks/<key>/` (hurdle, power-up skins, projectile, card), mount odds,
   power-up names, and new tracks that join the rotation once their background
-  is listed. Each track's `dirtTop` keeps racers' feet on the painted path.
+  is listed. `TRACK_ORDER` there is the race order; `TRACKS_RESTING` takes a
+  board out of the rotation (Castles, for now) while the workbench still lists
+  it at the end. Each track's `dirtTop` keeps racers' feet on the painted path.
   Horse Show riding rules (everyone mounted, mount swaps, troll on a horse,
   longer course) are `tracks.js` flags; see its header comment.
   Briefs are in `americangirldollrace/image-requests.md` §5.

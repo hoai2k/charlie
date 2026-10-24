@@ -111,8 +111,10 @@ function visibleCloudGap(gap, footY) {
 function cloudGapAt(x, footY = PATH_TOP + 144) {
   for (const gap of state.cloudFloor?.gaps || []) {
     if (x < gap.start - 200 || x > gap.end + 200) continue;
+    // (A little before her middle is past the edge she's already off: right
+    // at the edge is too close. She can catch the edge as she drops.)
     const seen = visibleCloudGap(gap, footY);
-    if (x > seen.start && x < seen.end) return seen;
+    if (x > seen.start - CLOUD_EDGE_MARGIN && x < seen.end + CLOUD_EDGE_MARGIN) return seen;
   }
   return null;
 }
@@ -193,7 +195,7 @@ function catchCloudLedge(racer, horizontal) {
   const gap = racer.cloudFallGap;
   const side = horizontal > 0 ? 1 : -1; // the cloud she's reaching for: ahead (1) or behind (-1)
   const edgeX = side > 0 ? gap.end : gap.start;
-  if (Math.abs(edgeX - racer.x) > LEDGE_REACH_X) return false;
+  if (Math.abs(edgeX - racer.x) > LEDGE_REACH_X + CLOUD_EDGE_MARGIN) return false; // (she drops a little short of the edge, so reaches that much further)
   racer.ledge = { side, edgeX, t: 0 };
   racer.facing = side;
   racer.vy = 0;

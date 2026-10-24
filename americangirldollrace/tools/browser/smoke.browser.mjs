@@ -89,7 +89,7 @@ test('the page loads silently with no errors or missing files', { skip: skip() }
 
 test('every track races for a few seconds with no errors', { skip: skip() }, async () => {
   const keys = await page.evaluate(() => BACKGROUNDS.map(b => b.key));
-  assert.ok(keys.length >= 15);
+  assert.ok(keys.length >= 14);
   for (const key of keys) {
     const moved = await page.evaluate(async key => {
       setBackground(key); await new Promise(r => setTimeout(r, 300));
@@ -692,9 +692,32 @@ test('beaten piles: knocked-down trolls lie head first the way they were hit, th
   assert.deepEqual(errors, []);
 });
 
+test('board order: Autumn where Castles was, Winter after Night Festival; Castles rests (workbench only)', { skip: skip() }, async () => {
+  const keys = await page.evaluate(() => BACKGROUNDS.map(b => b.key));
+  assert.deepEqual(keys.slice(0, 5), ['farm', 'fairy', 'town', 'autumn', 'horseshow']);
+  assert.equal(keys.at(-1), 'winter');
+  assert.equal(keys.indexOf('winter'), keys.indexOf('festival') + 1);
+  assert.ok(!keys.includes('castles'));
+});
+
+test("Winter's snowman EMP runs into the troll and the girls near, knocks them over, then runs off", { skip: skip() }, async () => {
+  await onTrack('winter');
+  const r = await page.evaluate(async () => {
+    for (let i = 0; i < 50 && !getTrackArt('powerups'); i++) await new Promise(r => setTimeout(r, 100));
+    const [a, b] = state.racers; b.x = a.x + 250; b.y = a.y + 30; b.ai = false;
+    const m = spawnMonster(a.x + 420, a.y - 20, { active: true, riding: false }); m.x = a.x + 420; m.y = a.y - 20; m.state = 'walk'; state.monsters = [m];
+    state.powerups = [makePowerup('emp', a.x, a.y + 54)];
+    let girl = false, troll = false, self = false;
+    for (let i = 0; i < 600 && (i < 2 || state.empArcs.length); i++) { update(1 / 60); girl ||= b.empDizzy && b.fallBackTimer > 0; troll ||= m.state === 'fall'; self ||= a.fallBackTimer > 0; drawScene(0); }
+    return { girl, troll, self, gone: state.empArcs.length === 0 };
+  });
+  assert.deepEqual(r, { girl: true, troll: true, self: false, gone: true });
+  assert.deepEqual(errors, []);
+});
+
 test('lightning EMPs show the original icon and shock; the others play their own effect and leave you dizzy', { skip: skip() }, async () => {
   const seen = {};
-  for (const track of ['clouds', 'space', 'winter', 'festival', 'candy', 'farm', 'town', 'castles', 'autumn', 'woods']) {
+  for (const track of ['clouds', 'space', 'winter', 'festival', 'candy', 'farm', 'town', 'autumn', 'woods']) {
     await onTrack(track);
     seen[track] = await page.evaluate(async () => {
       for (let i = 0; i < 50 && !getTrackArt('powerups'); i++) await new Promise(r => setTimeout(r, 100));
@@ -707,10 +730,10 @@ test('lightning EMPs show the original icon and shock; the others play their own
       return { style, icon: pickupLook('emp').sheet ? 'own' : 'original', hit: dizzy ? 'dizzy' : 'shocked', done: state.empArcs.length === 0 };
     });
   }
-  for (const track of ['clouds', 'winter']) assert.deepEqual(seen[track], { style: 'lightning', icon: 'original', hit: 'shocked', done: true }, track);
+  assert.deepEqual(seen.clouds, { style: 'lightning', icon: 'original', hit: 'shocked', done: true }, 'clouds');
   // Moon Base's laser bolts shock, from its own laser-gun trigger.
   assert.deepEqual(seen.space, { style: 'laser', icon: 'own', hit: 'shocked', done: true }, 'space');
-  const styles = { festival: 'firework', candy: 'poprocks', farm: 'rooster', town: 'bell', castles: 'gong', autumn: 'crows', woods: 'acorns' };
+  const styles = { festival: 'firework', candy: 'poprocks', farm: 'rooster', town: 'bell', autumn: 'crows', woods: 'acorns', winter: 'snowman' };
   for (const [track, style] of Object.entries(styles)) assert.deepEqual(seen[track], { style, icon: 'own', hit: 'dizzy', done: true }, track);
   assert.deepEqual(errors, []);
 });
@@ -776,6 +799,7 @@ test('the workbench runs: any player, still targets, every power-up and mount dr
   await bench.waitForFunction(() => document.querySelectorAll('#mounts .tile').length > 0, null, { timeout: 30000 });
   const frame = bench.frames().find(f => f.url().includes('index.html'));
   assert.equal(await frame.evaluate(() => getComputedStyle(document.querySelector('#startPanel')).display), 'none', 'no title screen in the workbench');
+  assert.equal(await frame.evaluate(() => BACKGROUNDS.at(-1).key), 'castles', 'resting boards (Castles) still in the workbench, at the end');
   // The verification queue opens in the viewer's place with the moon-boot poses to check.
   await bench.waitForFunction(() => !document.querySelector('#verifyOpen').disabled, null, { timeout: 30000 });
   await bench.click('#verifyOpen');
@@ -1120,15 +1144,15 @@ test('Fairy Woods: fliers in wings push each other in the air, and a winged trol
   assert.deepEqual(r, { fellTogether: true, airPush: true, groundCantReach: true, flewUp: true, grabbed: true, droppedWings: true, wingsDrawn: true, plainStays: true, share: 0.5 });
 });
 
-test('Cloud Kingdom: no shadows or oil; off the cloud once her middle passes its visible edge; catch the edge and climb back; sink to the eyes standing still', { skip: skip() }, async () => {
+test('Cloud Kingdom: no shadows or oil; off the cloud once her middle is right at its visible edge; catch the edge and climb back; sink to the eyes standing still', { skip: skip() }, async () => {
   await onTrack('clouds', { gaps: true });
   const r = await page.evaluate(async () => {
     for (let i = 0; i < 50 && !getTrackArt('floor'); i++) await new Promise(r => setTimeout(r, 100));
     const gap = state.cloudFloor.gaps[1];
     const [a, b] = state.racers; state.obstacles = []; state.monsters = []; b.x = gap.start - 1500;
     const y = PATH_TOP + 10, seen = visibleCloudGap(gap, y + 54);
-    // Standing just short of the visible edge she's on the cloud; just past it she's off.
-    const on = !cloudGapAt(seen.start - 3, y + 54), off = !!cloudGapAt(seen.start + 3, y + 54);
+    // Standing a little short of the visible edge she's on the cloud; right at it she's off.
+    const on = !cloudGapAt(seen.start - CLOUD_EDGE_MARGIN - 3, y + 54), off = !!cloudGapAt(seen.start - CLOUD_EDGE_MARGIN + 3, y + 54);
     // Run off and press on towards the far edge: she catches it and climbs up.
     Object.assign(a, { x: gap.start - 150, y: PATH_TOP + 90, z: 0, vy: 0, facing: 1, cloudFalling: false, ledge: null, landingTimer: 0, jumpStarted: false });
     keys.clear(); keys.add('KeyD');

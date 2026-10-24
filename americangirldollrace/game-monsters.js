@@ -52,11 +52,11 @@ function makeMonsters() {
 
 // More trolls the further along the boards she is (the same each time a board
 // comes round): MONSTER_COUNTS_BY_DIFFICULTY on the first board, one more
-// every MONSTER_BOARDS_PER_EXTRA boards.
+// every MONSTER_BOARDS_PER_EXTRA boards, up to MONSTER_MAX_EXTRA more.
 function monsterCount(difficulty) {
   const base = MONSTER_COUNTS_BY_DIFFICULTY[difficulty] ?? MONSTER_COUNTS_BY_DIFFICULTY.normal;
   if (base === 0) return 0;
-  return base + Math.floor((state.backgroundIndex || 0) / MONSTER_BOARDS_PER_EXTRA);
+  return base + Math.min(MONSTER_MAX_EXTRA, Math.floor((state.backgroundIndex || 0) / MONSTER_BOARDS_PER_EXTRA));
 }
 
 function rollTrollRiding() {
@@ -260,7 +260,6 @@ function updateMonsters(dt) {
     }
 
     if (monster.state === "ground") {
-      updateLightsOut(monster, dt);
       monster.timer -= dt;
       if (monster.timer <= 0) monster.state = "sleeping";
       continue;
@@ -666,7 +665,7 @@ function stunMonsterWithEmp(monster, { dizzy = false } = {}) {
   monster.knockbackX = 0;
 }
 
-// Once he's a pile, a monster's lights (the scarecrow's jack-o'-lantern, monsters.js
+// Once he's a pile (sleeping, not while still falling), a monster's lights (the scarecrow's jack-o'-lantern, monsters.js
 // `lights`) flicker out to dark over LIGHTS_OUT_TIME: sputtering back now and then,
 // less often as they fade.
 function updateLightsOut(monster, dt) {

@@ -344,6 +344,13 @@ const LASER_BOLT_LENGTH = 46; // px long each bolt is
 const LASER_TIME = 1.4; // s the trigger fires and fades
 const LIGHTNING_ARC_MAX = 160; // px an EMP's bolts arc up on their way to a target
 const EMP_CROW_TIME = 0.6; // s a crow takes to reach its target
+const SNOWMAN_POP_TIME = 0.35; // s Winter's EMP snowman takes to pop up before he runs
+const SNOWMAN_SPEED = 620; // px/s he runs
+const SNOWMAN_LANE_SPEED = 300;
+const SNOWMAN_REACH_X = 50; // px: whoever he runs into this close goes over
+const SNOWMAN_REACH_Y = 34;
+const SNOWMAN_HEIGHT = 190; // screen px tall at the near edge of the track (his sheet, once it's in)
+const SNOWMAN_MAX_TIME = 14; // s at most before he's gone
 const ROVER_BOUNCE = 12; // sprite px the moon buggy hops over each bump as it drives
 const ROVER_BUMP_SPACING = 45; // bumps come every pi times this many world px (about 4 a second at full speed)
 const ROVER_LANDING_TIME = 0.35; // s its landing squash and recoil last
@@ -377,6 +384,7 @@ const CLOUD_DEEP_SINK = 365; // frame px further she sinks, staying still, until
 const CLOUD_DEEP_TIME = 6; // s to sink that far
 const CLOUD_RISE_TIME = 2.2; // s of moving to rise all the way back out
 const CLOUD_DEEP_SLOW = 0.8; // share of her speed lost that deep (less as she rises)
+const CLOUD_EDGE_MARGIN = 16; // px short of a cloud's visible edge she already drops off it
 const LEDGE_REACH_X = 70; // px from a gap's edge she can catch it, pressing towards it
 const LEDGE_REACH_DEPTH = 130; // px she can have fallen and still catch it
 const LEDGE_HANG_TIME = 0.4; // s she hangs on before climbing
@@ -416,7 +424,8 @@ const MONSTER_COUNTS_BY_DIFFICULTY = {
   extra: 4,
   "too-many": 8
 };
-const MONSTER_BOARDS_PER_EXTRA = 2.5; // one more troll every this many boards along (4 by the Horse Show)
+const MONSTER_BOARDS_PER_EXTRA = 2; // one more troll every this many boards along (4 by the Horse Show)
+const MONSTER_MAX_EXTRA = 4; // and at most this many more than on the first board
 const LOOSE_MOUNT_COOLDOWN = 1.4; // s a troll's horse flashes, out of reach, after he's knocked off it
 const TROLL_REMOUNT_RANGE = 600; // px: a troll on foot goes back to his horse this near
 const TROLL_REMOUNT_CLEAR = 130; // unless a racer is this close to it (she'd get it first)
@@ -564,6 +573,17 @@ for (const [key, theme] of Object.entries(TRACK_THEMES)) {
   const imageKey = ownBackground ? trackArtKey(key, "background") : standIn.imageKey;
   const dirtTop = ownBackground ? theme.dirtTop : standIn.dirtTop;
   BACKGROUNDS.push({ key, name: theme.name, imageKey, music, dirtTop });
+}
+// The boards in race order (tracks.js TRACK_ORDER; any not listed keep their
+// place after), less those resting out of the rotation (TRACKS_RESTING),
+// which only the workbench lists, at the end, to try out.
+{
+  const order = window.TRACK_ORDER || [];
+  const rank = background => (order.includes(background.key) ? order.indexOf(background.key) : order.length);
+  BACKGROUNDS.sort((a, b) => rank(a) - rank(b));
+  const resting = BACKGROUNDS.filter(background => (window.TRACKS_RESTING || []).includes(background.key));
+  for (const background of resting) BACKGROUNDS.splice(BACKGROUNDS.indexOf(background), 1);
+  if (document.documentElement.classList.contains("workbench")) BACKGROUNDS.push(...resting);
 }
 const startingBackground = "farm";
 const NEXT_RACE_DELAY = 3600;
@@ -2509,10 +2529,8 @@ gameMode.addEventListener("change", () => {
   state.mode = gameMode.value;
   updateModeLabels();
 });
-for (const background of BACKGROUNDS) {
-  if (backgroundSelect.querySelector(`option[value="${background.key}"]`)) continue;
-  backgroundSelect.append(new Option(background.name, background.key));
-}
+// (In board order, without the resting ones.)
+backgroundSelect.replaceChildren(...BACKGROUNDS.map(background => new Option(background.name, background.key, background.key === startingBackground, background.key === startingBackground)));
 backgroundSelect.addEventListener("change", () => setBackground(backgroundSelect.value));
 settingsButton.addEventListener("click", toggleSettingsPanel);
 difficultySelect.addEventListener("change", () => setDifficulty(difficultySelect.value));

@@ -343,7 +343,11 @@ function applyPowerup(racer, powerupOrType) {
     const style = empStyle();
     const visibleMonsters = state.monsters.filter(monster => monster.active && isMonsterEmpTarget(monster) && inRange(monster));
     const hit = [];
-    if (visibleMonsters.length > 0) {
+    if (style === "snowman") {
+      // The snowman runs into everyone near: trolls and the other girls.
+      hit.push(...visibleMonsters.filter(monster => monster.state !== "sleeping" && monster.state !== "ground"));
+      hit.push(...state.racers.filter(other => other !== racer && !other.finished && inRange(other)));
+    } else if (visibleMonsters.length > 0) {
       hit.push(...visibleMonsters.filter(monster => monster.state !== "sleeping" && monster.state !== "ground"));
     } else {
       hit.push(...state.racers.filter(other => other !== racer && !other.finished && inRange(other)));
@@ -360,14 +364,17 @@ function applyPowerup(racer, powerupOrType) {
     if (hit.length) {
       // The effect starts at the trigger she took, not at her.
       const from = typeof powerupOrType === "string" ? null : { x: powerupOrType.x, y: powerupDrawY(powerupOrType) - 26 };
+      const start = from || { x: racer.x + (racer.facing || 1) * 40, y: racer.y + 28 };
       state.empArcs.push({
         from,
         source: racer,
         targets: hit,
-        pending: style === "lightning" ? [] : [...hit],
+        // (The snowman knocks each over himself as he reaches them.)
+        pending: style === "lightning" || style === "snowman" ? [] : [...hit],
         t: 0,
         style,
-        wand: /WAND/.test(label)
+        wand: /WAND/.test(label),
+        snowman: style === "snowman" ? { x: start.x, y: typeof powerupOrType === "string" ? racer.y + 54 : powerupOrType.y, facing: racer.facing || 1, knocked: new Set(), gone: false } : null
       });
     }
   } else if (type === "oil") {

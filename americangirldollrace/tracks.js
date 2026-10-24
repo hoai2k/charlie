@@ -41,7 +41,8 @@
 // a heavy ring spread out from the trigger; "crows" fly to each one and
 // circle her head; "acorns" are flung in an arc to bonk each one; "laser"
 // guns (the trigger) swell and fade as they fire a volley of short red bolts
-// at each one, which shocks rather than dazes.
+// at each one, which shocks rather than dazes; "snowman" pops up and runs
+// into every girl and troll near, knocking them over, then runs off.
 // `powerupArtVersion`: that track's power-up sheet's cache stamp; bump it
 // when the sheet changes (else config.js's shared one applies).
 // `cloudFloor`: the course is a row of bumpy clouds with the odd gap to jump
@@ -113,6 +114,10 @@
 // TRACK_SHARED_ART lists delivered sheets at assets/<name>_sprites.webp that
 // several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs)
 // and "frog" (§10).
+// The boards in race order, and those resting out of the rotation for now
+// (the workbench still lists them, at the end).
+window.TRACK_ORDER = ["farm", "fairy", "town", "autumn", "horseshow", "toyroom", "candy", "beach", "wizard", "clouds", "space", "woods", "festival", "winter"];
+window.TRACKS_RESTING = ["castles"];
 window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "rooster_crow", "crow", "moon_boot", "fairy_wings", "fairy_wing_single", "troll_flying", "fairy_wings_twilight", "fairy_wing_single_twilight"];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
@@ -142,10 +147,10 @@ window.TRACK_THEMES = {
   },
   winter: {
     projectileLanding: "snow",
-    empStyle: "lightning",
+    empStyle: "snowman",
+    monster: "icetroll", // (his sheet is requested: image-requests.md §30; the troll until then)
     art: ["powerups", "projectile", "hurdle"],
-    labels: { jump: "SKI JUMP", boost: "SLED", emp: "THUNDERSNOW", oil: "ICE", snowball: "SNOWBALLS" },
-    sounds: { emp: "storm_lightning" },
+    labels: { jump: "SKI JUMP", boost: "SLED", emp: "SNOWMAN", oil: "ICE", snowball: "SNOWBALLS" },
     mountOdds: { reindeer: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   castles: {
