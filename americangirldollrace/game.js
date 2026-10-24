@@ -421,6 +421,9 @@ const POWERUP_TEXT_COLORS = {
 const MOUNTED_MONSTER_JUMP_CHANCE = 0.6;
 const MOUNTED_MONSTER_BALK_TIME = 0.7;
 const MOUNTED_MONSTER_JUMP_LOOKAHEAD = 110;
+// First time round, boards before this one (Farm, Fairy Woods) have only the
+// troll at the end; the Village brings the second.
+const TROLLS_FROM_BOARD = 2;
 const MONSTER_COUNTS_BY_DIFFICULTY = {
   none: 0,
   normal: 2,

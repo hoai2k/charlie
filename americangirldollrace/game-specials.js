@@ -99,7 +99,7 @@ function useSpecial(racer) {
     racer.highJumpTimer = Math.max(...racer.highJumpStacks);
     if (pogo) addRideToy(racer, "pogo", duration);
     sfx(pogo ? "pickup_pogo" : "powerup_pickup_generic", racer.x);
-  } else if (!applyPowerup(racer, { type: "emp", x: racer.x, y: racer.y + 54, empStyle: specialEmpStyle(kind), empLabel: specialName(kind).toUpperCase() })) {
+  } else if (!applyPowerup(racer, { type: "emp", x: racer.x, y: racer.y + 54, empStyle: specialEmpStyle(kind), empLabel: specialName(kind).toUpperCase(), special: true })) {
     return false;
   }
   racer.powerupMessage = specialName(kind).toUpperCase();

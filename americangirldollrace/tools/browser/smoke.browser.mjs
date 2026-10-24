@@ -160,10 +160,11 @@ test('an EMP reaches a screen width, and backfires with nobody in range', { skip
   assert.deepEqual(r.far, { self: true, other: false });
 });
 
-test('trolls pull riders off horses but a running unicorn bowls them over', { skip: skip() }, async () => {
+test('a running horse gets past a troll (not in the Horse Show), a standing one is pulled off; a running unicorn bowls them over', { skip: skip() }, async () => {
   await onTrack('farm');
   const r = await page.evaluate(() => {
-    const run = (mount, running) => {
+    const run = (mount, running, board = 'farm') => {
+      if (getCurrentBackground().key !== board) setBackground(board);
       startRace('two'); state.running = false; state.obstacles = []; state.powerups = [];
       const [a, b] = state.racers; b.x = 1000; a.x = 8100; a.y = PATH_TOP + 90; a.z = 0; a.facing = 1; a.horseType = mount; a.horseTimer = 12;
       const m = spawnMonster(8300, a.y, { active: true, riding: false }); m.x = 8300; m.y = a.y; m.riding = false; m.state = 'walk'; state.monsters = [m];
@@ -173,9 +174,13 @@ test('trolls pull riders off horses but a running unicorn bowls them over', { sk
       keys.clear();
       return { grabbed, knocked, left: state.powerups.filter(q => q.loose).map(q => q.horseType).join() };
     };
-    return { horse: run('horse', true), unicornRunning: run('unicorn', true), unicornStanding: run('unicorn', false) };
+    const out = { horse: run('horse', true), horseStanding: run('horse', false), horseShow: run('horse', true, 'horseshow'), unicornRunning: run('unicorn', true), unicornStanding: run('unicorn', false) };
+    setBackground('farm');
+    return out;
   });
-  assert.deepEqual(r.horse, { grabbed: true, knocked: false, left: 'horse' });
+  assert.deepEqual(r.horse, { grabbed: false, knocked: false, left: '' });
+  assert.deepEqual(r.horseStanding, { grabbed: true, knocked: false, left: 'horse' });
+  assert.equal(r.horseShow.grabbed, true);
   assert.equal(r.unicornRunning.knocked, true);
   assert.equal(r.unicornRunning.grabbed, false);
   assert.deepEqual(r.unicornStanding, { grabbed: true, knocked: false, left: 'unicorn' });
@@ -203,6 +208,22 @@ test('the magic wand waits for X, then casts the way the player aims (or faces);
   });
   for (const k of ['right', 'left', 'none']) assert.deepEqual({ ...r[k], hit: undefined }, { waited: true, second: false, hit: undefined, pushed: false }, k);
   assert.deepEqual([r.right.hit, r.left.hit, r.none.hit], ['monster ahead', 'racer behind', 'monster ahead']);
+});
+
+test('an EMP special never zaps her: with nobody about it fizzles', { skip: skip() }, async () => {
+  await onTrack('farm');
+  const r = await page.evaluate(() => {
+    startRace('two'); state.running = false; state.obstacles = []; state.monsters = []; state.powerups = [];
+    const [a, b] = state.racers; a.x = 8100; a.y = PATH_TOP + 90; b.x = 9800; b.y = PATH_TOP + 110; a.ai = false;
+    state.playerSpecials = new Map([[`p${a.playerIndex}`, { kind: 'emp', cooldown: 15, wins: 2 }]]); a.specialWait = 0;
+    const used = useSpecial(a);
+    let self = false;
+    for (let i = 0; i < 120; i++) { update(1 / 60); self ||= a.frozenTimer > 0 || a.fallBackTimer > 0 || Boolean(a.empDizzy); }
+    state.playerSpecials = new Map();
+    return { used, self, message: a.powerupMessage };
+  });
+  assert.deepEqual({ used: r.used, self: r.self }, { used: true, self: false });
+  assert.doesNotMatch(r.message || '', /OOPS/);
 });
 
 test('Co-op (settings): an EMP only zaps trolls, and with none about just goes off', { skip: skip() }, async () => {
@@ -565,7 +586,7 @@ test('Horse Show: riding trolls from half way (first time round) and one standin
     state.amandaAlly = null; joinAmanda({ x: a.x - 100, y: a.y + 36, amandaState: 'sitting' }, a);
     return { count: trolls.length, firstAt: trolls[0][0], riding: trolls.slice(0, -1).every(t => t[1]) && !trolls.at(-1)[1], flashing, remounted, amandaRides: state.amandaAlly.mounted };
   });
-  assert.ok(r.count >= 4, `trolls: ${r.count}`);
+  assert.ok(r.count >= 3, `trolls: ${r.count}`);
   assert.ok(r.firstAt >= 48 && r.firstAt <= 52, `first troll at ${r.firstAt}% (half way, the first time round)`);
   assert.deepEqual({ ...r, count: 0, firstAt: 0 }, { count: 0, firstAt: 0, riding: true, flashing: true, remounted: true, amandaRides: true });
 });
@@ -624,7 +645,7 @@ test('every board has its normal mount in each third (the rover on Moon Base)', 
   assert.equal(r, 0);
 });
 
-test('trolls are a screen apart; first time round from half way, rising to as many as the last board fits; then as many as fit from a third', { skip: skip() }, async () => {
+test('trolls are a screen apart; first time round one at the end until the Village, then from half way, rising to as many as the last board fits; then as many as fit from a third', { skip: skip() }, async () => {
   const r = await page.evaluate(() => {
     const keep = [state.backgroundIndex, state.boardRound]; state.difficulty = 'normal';
     const rows = [];
@@ -643,11 +664,11 @@ test('trolls are a screen apart; first time round from half way, rising to as ma
   // (A giant counts as 1.5 trolls: further apart, and fewer of him.)
   for (const row of r) assert.ok(row.gap >= 1280 * row.w - 1, `${row.round} ${row.key}: gap ${row.gap}`);
   const first = r.filter(row => row.round === 0), later = r.filter(row => row.round === 1);
-  assert.equal(first[0].n, 2);
+  assert.deepEqual(first.slice(0, 3).map(row => [row.key, row.n]), [['farm', 1], ['fairy', 1], ['town', 2]]);
   const lastRow = first.at(-1);
   assert.ok(Math.abs(lastRow.n * lastRow.w - r.normal) <= 1, `the last board fits as many as it can (${lastRow.n} x ${lastRow.w})`);
   for (let i = 1; i < first.length; i++) assert.ok(first[i].n >= first[i - 1].n || first[i].fits < first[i - 1].n, 'they keep rising');
-  for (const row of first) assert.ok(row.first > 0.33 && row.first <= 0.51, `${row.key} first at ${row.first}`);
+  for (const row of first.filter(row => row.n > 1)) assert.ok(row.first > 0.33 && row.first <= 0.51, `${row.key} first at ${row.first}`);
   for (const row of later) assert.ok(row.n === row.fits && row.first < 0.36, `${row.key}: ${row.n} of ${row.fits}`);
 });
 

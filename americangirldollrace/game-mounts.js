@@ -83,8 +83,11 @@ function monsterSpeed(monster) {
   return monster.riding ? MOUNTED_MONSTER_SPEED : MONSTER_SPEED;
 }
 
+// Running, any mount gets past a troll, except in the Horse Show (where the
+// trolls ride too and only a unicorn or gryphon can).
 function mountOutrunsMonster(racer, monster) {
-  return isMounted(racer) && mountBeatsTrolls(racer.horseType) && Math.abs(racer.speed || 0) > monsterSpeed(monster);
+  const passes = mountBeatsTrolls(racer.horseType) || !isAlwaysMountedTrack();
+  return isMounted(racer) && passes && Math.abs(racer.speed || 0) > monsterSpeed(monster);
 }
 
 const DEFAULT_MOUNT_ODDS = { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 };

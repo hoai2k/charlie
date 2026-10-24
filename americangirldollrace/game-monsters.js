@@ -77,9 +77,13 @@ function normalTrollCount() {
   const base = MONSTER_COUNTS_BY_DIFFICULTY.normal;
   const fits = trollCapacity(FINISH, trollSpacing());
   if ((state.boardRound || 0) > 0) return fits;
+  // First time round the first boards have just the one at the end; more
+  // join from the Village on (TROLLS_FROM_BOARD), rising to the last board.
+  const index = state.backgroundIndex || 0;
+  if (index < TROLLS_FROM_BOARD) return 1;
   const last = BACKGROUNDS.length - 1;
   const lastFits = trollCapacity(BASE_FINISH * (TRACK_THEMES[BACKGROUNDS[last]?.key]?.lengthScale || 1));
-  const along = last > 0 ? clamp(state.backgroundIndex || 0, 0, last) / last : 1;
+  const along = last > TROLLS_FROM_BOARD ? clamp(index - TROLLS_FROM_BOARD, 0, last - TROLLS_FROM_BOARD) / (last - TROLLS_FROM_BOARD) : 1;
   return Math.max(1, Math.min(fits, Math.round((base + (lastFits - base) * along) / trollWeight())));
 }
 

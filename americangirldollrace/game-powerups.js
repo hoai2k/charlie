@@ -370,8 +370,9 @@ function applyPowerup(racer, powerupOrType) {
       hit.push(...state.racers.filter(other => other !== racer && !other.finished && inRange(other)));
     }
     const label = powerupOrType.empLabel || pickupLook("emp").label;
-    if (!hit.length && state.coop) {
-      // Co-op with no troll near: a harmless burst where it went off.
+    if (!hit.length && (state.coop || powerupOrType.special)) {
+      // Co-op, or her own special, with nobody to hit: a harmless burst
+      // where it went off (it never zaps her).
       const at = typeof powerupOrType === "string" ? { x: racer.x, y: racer.y + 54 } : { x: powerupOrType.x, y: powerupOrType.y ?? racer.y + 54 };
       spawnParticles(at.x, at.y, 40, 26, { color: "#fff27a", speed: 260, lift: 220, life: 0.55, size: 5 });
       spawnParticles(at.x, at.y, 30, 6, { kind: "puff", color: "#e8f4ff", speed: 120, lift: 70, life: 0.5, size: 18, gravity: 0 });
