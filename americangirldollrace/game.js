@@ -744,6 +744,7 @@ const state = {
   windupCars: [],
   difficulty: "normal",
   specials: "none",
+  coop: false, // Co-op (settings): EMPs only ever hit the trolls
   playerSpecials: new Map(), // each player's own special, won by winning boards (game-specials.js)
   boardRound: 0, // times round all the boards (each more trolls; see normalTrollCount)
   cameraMode: "lego",
@@ -1940,6 +1941,13 @@ function update(dt) {
       input.horizontal = 0;
       input.vertical = 0;
     }
+    // X with the wand ready casts it (mounted or not), instead of a push.
+    if (racer.spellAim && !racer.ai && input.push && !racer.wandPushHeld && !(racer.frogTimer > 0)) {
+      castReadySpell(racer, input);
+      racer.pushCooldown = Math.max(racer.pushCooldown, PUSH_COOLDOWN);
+    }
+    racer.wandPushHeld = Boolean(input.push);
+    if (racer.castTimer > 0) input.push = false;
     if (mounted && racer.horseType !== "unicorn" && !canMountedRacerThrowSnowballs(racer) && !isAlwaysMountedTrack()) input.push = false;
     const frog = racer.frogTimer > 0;
     const surfing = racer.surfTimer > 0 && !mounted && !frog && !(racer.frozenTimer > 0 || racer.fallBackTimer > 0 || oilAffectsRacer);

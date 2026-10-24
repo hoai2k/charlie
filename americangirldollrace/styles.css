@@ -709,10 +709,12 @@ button:focus-visible {
 #lbRaceText { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 22px; font-weight: 700; }
 
 /* settings */
-#lbSettings { inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; background: rgba(30, 15, 40, 0.55); transition: opacity 0.25s ease; }
+#lbSettings { inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; transition: opacity 0.25s ease; }
+/* The scrim reaches past the 16:9 stage to the panel's edges (which clip it). */
+#lbSettings::before { content: ""; position: absolute; inset: -3000px; z-index: -1; background: rgba(30, 15, 40, 0.55); }
 #lbSetPanel { width: 720px; padding: 18px 26px 14px; }
 #lbSetPanel h2 { margin: 0 0 4px; text-align: center; font-size: 32px; }
-.lb-set-row { display: flex; align-items: center; gap: 16px; height: 96px; cursor: pointer; padding: 0 14px; border: 4px solid transparent; border-radius: 16px; }
+.lb-set-row { display: flex; align-items: center; gap: 16px; height: 88px; cursor: pointer; padding: 0 14px; border: 4px solid transparent; border-radius: 16px; }
 .lb-set-row.focus { border-color: #2a6fdb; background: rgba(42, 111, 219, 0.08); }
 .lb-icon { position: relative; flex: none; width: 160px; height: 90px; display: flex; align-items: center; justify-content: center; gap: 2px; }
 #lbTrackThumb { position: relative; border: 3px solid #fff; border-radius: 10px; box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25); }

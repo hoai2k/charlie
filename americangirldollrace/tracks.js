@@ -104,7 +104,8 @@
 // noPowerups: power-up kinds this track never hands out (the Toy Room has no
 // EMP, since its wind-up cars do much the same).
 // itemEffects: a speed or high-jump pickup that does its own thing instead:
-// "spellBook" (frog the nearest racer or monster), "surfboard" (ride a wave
+// "spellBook" (a wand held until X, which frogs the racer or monster she
+// aims at; one at a time), "surfboard" (ride a wave
 // over hurdles), "windupCars" (cars that bump whoever they meet).
 // moonBoots: the high-jump pickup is moon boots: low gravity for a while, so
 // jumps float over several hurdles (Moon Base).

@@ -320,8 +320,10 @@ function applyPowerup(racer, powerupOrType) {
   if (type === "horse" && powerupOrType.loose && isMounted(racer) && !swapForSkeleton && !combinesWithWings(racer, pickupMount)) return false;
   // A unicorn rider keeps her unicorn rather than swap it for another mount.
   if (type === "horse" && isMounted(racer) && racer.horseType === "unicorn" && !combinesWithWings(racer, pickupMount)) return false;
-  playPowerupAudio(racer, type, typeof powerupOrType === "string" ? null : powerupOrType);
   const itemEffect = (type === "boost" || type === "jump") && getTrackTheme().itemEffects?.[type];
+  // One wand at a time: she can't pick up another until she's used it.
+  if (itemEffect === "spellBook" && !isMounted(racer) && (racer.spellAim || racer.castTimer > 0)) return false;
+  playPowerupAudio(racer, type, typeof powerupOrType === "string" ? null : powerupOrType);
   if (itemEffect && !isMounted(racer)) return applyItemEffect(racer, itemEffect, type);
   if (type === "boost") {
     const toy = getRideToy("boost");
@@ -354,7 +356,11 @@ function applyPowerup(racer, powerupOrType) {
     const style = powerupOrType.empStyle || empStyle();
     const visibleMonsters = state.monsters.filter(monster => monster.active && isMonsterEmpTarget(monster) && inRange(monster));
     const hit = [];
-    if (style === "snowman") {
+    const awake = visibleMonsters.filter(monster => monster.state !== "sleeping" && monster.state !== "ground");
+    if (state.coop) {
+      // Co-op: it's only ever for the trolls; with none about it just goes off.
+      hit.push(...awake);
+    } else if (style === "snowman") {
       // The snowman runs into everyone near: trolls and the other girls.
       hit.push(...visibleMonsters.filter(monster => monster.state !== "sleeping" && monster.state !== "ground"));
       hit.push(...state.racers.filter(other => other !== racer && !other.finished && inRange(other)));
@@ -364,7 +370,13 @@ function applyPowerup(racer, powerupOrType) {
       hit.push(...state.racers.filter(other => other !== racer && !other.finished && inRange(other)));
     }
     const label = powerupOrType.empLabel || pickupLook("emp").label;
-    if (!hit.length) {
+    if (!hit.length && state.coop) {
+      // Co-op with no troll near: a harmless burst where it went off.
+      const at = typeof powerupOrType === "string" ? { x: racer.x, y: racer.y + 54 } : { x: powerupOrType.x, y: powerupOrType.y ?? racer.y + 54 };
+      spawnParticles(at.x, at.y, 40, 26, { color: "#fff27a", speed: 260, lift: 220, life: 0.55, size: 5 });
+      spawnParticles(at.x, at.y, 30, 6, { kind: "puff", color: "#e8f4ff", speed: 120, lift: 70, life: 0.5, size: 18, gravity: 0 });
+      racer.powerupMessage = label;
+    } else if (!hit.length) {
       // Nobody around to zap: it zaps her instead.
       hit.push(racer);
       racer.powerupMessage = `${label}: OOPS!`;

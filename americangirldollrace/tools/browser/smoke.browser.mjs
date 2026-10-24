@@ -181,22 +181,50 @@ test('trolls pull riders off horses but a running unicorn bowls them over', { sk
   assert.deepEqual(r.unicornStanding, { grabbed: true, knocked: false, left: 'unicorn' });
 });
 
-test('the spell book casts the way the player aims', { skip: skip() }, async () => {
+test('the magic wand waits for X, then casts the way the player aims (or faces); one wand at a time', { skip: skip() }, async () => {
   await onTrack('wizard');
   const r = await page.evaluate(() => {
     const cast = key => {
       startRace('two'); state.running = false; state.obstacles = []; state.powerups = []; state.monsters = [];
-      const [a, b] = state.racers; a.x = 8150; a.y = PATH_TOP + 90; b.x = 8000; b.y = PATH_TOP + 110; b.ai = false;
+      const [a, b] = state.racers; a.x = 8150; a.y = PATH_TOP + 90; a.facing = 1; b.x = 8000; b.y = PATH_TOP + 110; b.ai = false;
       const m = spawnMonster(8500, a.y, { active: true }); m.x = 8500; m.y = a.y; m.state = 'walk'; state.monsters = [m];
-      keys.clear(); if (key) keys.add(key);
-      applyPowerup(a, 'jump');
-      for (let i = 0; i < 120 && !state.spells.length; i++) { m.x = 8500 + (a.x - 8150); update(1 / 60); }
       keys.clear();
-      const t = state.spells[0]?.target; return t === b ? 'racer behind' : t === m ? 'monster ahead' : String(t);
+      applyPowerup(a, 'jump');
+      const step = () => { m.x = 8500 + (a.x - 8150); update(1 / 60); };
+      for (let i = 0; i < 200; i++) step(); // (it used to go off by itself after 1.6 s)
+      const waited = state.spells.length === 0 && Boolean(a.spellAim);
+      const second = applyPowerup(a, 'jump');
+      if (key) keys.add(key);
+      keys.add('KeyF'); step(); keys.clear();
+      const t = state.spells[0]?.target;
+      return { waited, second, hit: t === b ? 'racer behind' : t === m ? 'monster ahead' : String(t), pushed: a.pushTimer > 0 };
     };
     return { right: cast('KeyD'), left: cast('KeyA'), none: cast(null) };
   });
-  assert.deepEqual(r, { right: 'monster ahead', left: 'racer behind', none: 'racer behind' });
+  for (const k of ['right', 'left', 'none']) assert.deepEqual({ ...r[k], hit: undefined }, { waited: true, second: false, hit: undefined, pushed: false }, k);
+  assert.deepEqual([r.right.hit, r.left.hit, r.none.hit], ['monster ahead', 'racer behind', 'monster ahead']);
+});
+
+test('Co-op (settings): an EMP only zaps trolls, and with none about just goes off', { skip: skip() }, async () => {
+  await onTrack('farm');
+  const r = await page.evaluate(() => {
+    const run = (dx, troll) => {
+      state.coop = true;
+      startRace('two'); state.running = false; state.obstacles = []; state.monsters = [];
+      const [a, b] = state.racers; a.x = 8100; a.y = PATH_TOP + 90; b.x = 8100 + dx; b.y = PATH_TOP + 110;
+      let m = null;
+      if (troll) { m = spawnMonster(8500, a.y, { active: true }); m.x = 8500; m.y = a.y; m.state = 'walk'; state.monsters = [m]; }
+      state.powerups = [makePowerup('emp', 8100, a.y + 54)];
+      let self = false, other = false, hitTroll = false;
+      for (let i = 0; i < 120; i++) { update(1 / 60); self ||= a.frozenTimer > 0 || a.fallBackTimer > 0; other ||= b.frozenTimer > 0 || Boolean(b.empDizzy); hitTroll ||= Boolean(m && m.state !== 'walk' && m.state !== 'chase'); }
+      state.coop = false;
+      return { taken: state.powerups.length === 0 || state.powerups[0].taken, self, other, hitTroll };
+    };
+    return { racerNear: run(1100, false), alone: run(1500, false), troll: run(1100, true) };
+  });
+  assert.deepEqual(r.racerNear, { taken: true, self: false, other: false, hitTroll: false });
+  assert.deepEqual(r.alone, { taken: true, self: false, other: false, hitTroll: false });
+  assert.deepEqual(r.troll, { taken: true, self: false, other: false, hitTroll: true });
 });
 
 test('wind-up cars drive toward the closest character, else forward; no EMPs on the Toy Room', { skip: skip() }, async () => {
@@ -391,6 +419,14 @@ test('in the menu settings, left/right change a setting and A closes it', { skip
   await key('Space');
   assert.equal(await open(), false, 'A closes settings');
   assert.equal(await page.evaluate(() => state.difficulty), after, 'A leaves the setting alone');
+  // The Play row (4 down from Track): Competitive ⇄ Co-op.
+  await key('KeyR');
+  await page.evaluate(() => { document.querySelector('#lbCoopRow').dispatchEvent(new Event('pointerdown')); });
+  await key('KeyD');
+  assert.equal(await page.evaluate(() => [state.coop, document.querySelector('#lbCoopVal').textContent.startsWith('Co-op')].join()), 'true,true');
+  await key('KeyA');
+  assert.equal(await page.evaluate(() => state.coop), false);
+  await key('Space');
   assert.deepEqual(errors, []);
 });
 

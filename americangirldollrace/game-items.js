@@ -107,17 +107,31 @@ function pickSpellTarget(caster, dirX = 0, dirY = 0) {
     || closest(candidates);
 }
 
-// While the wand sparkles, the stick (or the AI's steering) picks the way.
+// The wand sparkles in her hand until she presses X (push): then the spell
+// goes the way the stick points, or the way she's facing (the ring on the
+// ground shows who it would hit). A computer racer's steering picks the way
+// and it goes off by itself.
 function updateSpellAim(racer, input, dt) {
   const aim = racer.spellAim;
   if (!aim) return;
   aim.t += dt;
+  if (!racer.ai) {
+    const stick = Math.hypot(input.horizontal, input.vertical) > 0.3;
+    aim.preview = stick ? pickSpellTarget(racer, input.horizontal, input.vertical) : pickSpellTarget(racer, racer.facing || 1, 0);
+    return;
+  }
   aim.x += input.horizontal * dt;
   aim.y += input.vertical * dt;
   aim.preview = pickSpellTarget(racer, aim.x, aim.y);
   const chosen = Math.hypot(aim.x, aim.y) >= SPELL_AIM_COMMIT;
   if (!chosen && aim.t < SPELL_AIM_TIME) return;
   castSpell(racer, chosen ? pickSpellTarget(racer, aim.x, aim.y) : pickSpellTarget(racer));
+}
+
+// X with the wand ready: the spell instead of a push or a throw.
+function castReadySpell(racer, input) {
+  updateSpellAim(racer, input, 0);
+  castSpell(racer, racer.spellAim.preview || null);
 }
 
 function castSpell(racer, target) {
