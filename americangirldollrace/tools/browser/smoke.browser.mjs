@@ -492,6 +492,27 @@ test('lobby: clicking Random adds keyboard players; Escape un-picks then removes
   assert.deepEqual(errors, []);
 });
 
+test('choose screen: corner buttons (sound, settings, full screen) at the bottom right, moving up when the players fill the bottom; no full screen row in settings', { skip: skip() }, async () => {
+  await page.evaluate(() => { state.running = false; startPanel.classList.remove('hidden'); Lobby.showSelect(); });
+  for (let i = 0; i < 8 && (await page.evaluate(() => Lobby.players().length)); i++) await page.keyboard.press('Escape');
+  const where = () => page.evaluate(() => {
+    const c = document.querySelector('#lbCorner'), box = c.getBoundingClientRect(), stage = document.querySelector('.lb-stage').getBoundingClientRect();
+    return box.bottom > stage.top + stage.height * 0.8 ? 'bottom' : 'up';
+  });
+  const few = await where();
+  // (Tests are always silent, so watch what it asks for.)
+  const muted = await page.evaluate(() => { const asked = []; const real = GameAudio.setMuted; GameAudio.setMuted = v => { asked.push(v); real(v); }; document.querySelector('#lbSoundButton').click(); GameAudio.setMuted = real; return [asked.length === 1 && asked[0] === false, document.querySelector('#lbSoundButton').classList.contains('off') === GameAudio.isMuted]; });
+  const opens = await page.evaluate(() => { document.querySelector('#lbCornerSettings').click(); const open = !document.querySelector('#lbSettings').classList.contains('off'); document.querySelector('#lbCornerSettings').click(); return open && Boolean(document.querySelector('#lbFullscreenRow')) === false; });
+  // Fill the bottom: both keyboard players and three computer racers.
+  await page.keyboard.press('Space'); await page.keyboard.press('Enter');
+  await page.keyboard.press('KeyR'); for (let i = 0; i < 3; i++) await page.keyboard.press('KeyS'); for (let i = 0; i < 4; i++) await page.keyboard.press('KeyD'); await page.keyboard.press('KeyR');
+  const many = await where();
+  await page.keyboard.press('KeyR'); for (let i = 0; i < 3; i++) await page.keyboard.press('KeyS'); for (let i = 0; i < 4; i++) await page.keyboard.press('KeyA'); await page.keyboard.press('KeyR');
+  for (let i = 0; i < 8 && (await page.evaluate(() => Lobby.players().length)); i++) await page.keyboard.press('Escape');
+  assert.deepEqual({ few, muted, opens, many }, { few: 'bottom', muted: [true, true], opens: true, many: 'up' });
+  assert.deepEqual(errors, []);
+});
+
 test('in the menu settings, left/right change a setting and A closes it', { skip: skip() }, async () => {
   await page.evaluate(() => { state.running = false; startPanel.classList.remove('hidden'); Lobby.showSelect(); });
   const key = async code => { await page.keyboard.down(code); await page.keyboard.up(code); };

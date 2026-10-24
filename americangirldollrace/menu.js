@@ -24,7 +24,7 @@
   const COLS = 5;
   const STALL = 157;
   const MAX_CPUS = 3;
-  const SETTING_ROWS = 7;
+  const SETTING_ROWS = 6;
   const MONSTER_SKILLS = [["easy", "Easy", "No grabbing riders; sometimes they miss you"], ["medium", "Medium", "Horses run past trolls and the ice giant"], ["hard", "Hard", "Any monster pulls you off any mount"]];
   const SPECIAL_KEYS = ["none", "unicorn", "pegasus", "griffon", "broom", "all-dolls", "horsing", "amanda-mode"];
   const SPECIAL_NAMES = ["None", "All Unicorns", "All Pegasi", "All Gryphons", "All Brooms", "All Dolls", "Horsing Around", "Amanda Mode"];
@@ -368,6 +368,7 @@
         renderCpu(el, lobby.cpus[cpu], bounceId === id, cpuOutfits()[cpu]);
       }
     });
+    placeCorner();
   }
 
   function renderPlayer(el, index, bounce) {
@@ -521,7 +522,6 @@
     $("#lbCoopVal").innerHTML = state.coop
       ? 'Co-op<span class="lb-set-note">EMPs only zap the trolls</span>'
       : 'Competitive<span class="lb-set-note">EMPs zap other racers too</span>';
-    $("#lbFullscreenVal").innerHTML = `${fullscreenElement() ? "On" : "Off"}${lobby.fullscreenNote ? `<span class="lb-set-note">${lobby.fullscreenNote}</span>` : ""}`;
     root.querySelectorAll(".lb-set-row").forEach(row => row.classList.toggle("focus", Number(row.dataset.row) === lobby.setRow));
   }
 
@@ -698,21 +698,6 @@
       state.monsterSkill = MONSTER_SKILLS[clamp(index + d, 0, MONSTER_SKILLS.length - 1)][0];
     } else if (row === 5) {
       state.coop = !state.coop;
-    } else if (row === 6) {
-      lobby.fullscreenNote = "";
-      // iPhone Safari can't go fullscreen: point at the swipe-up hint instead.
-      if (window.BrowserChrome?.scrollTrick) {
-        lobby.fullscreenNote = "Swipe up, or Share → Add to Home Screen";
-        window.BrowserChrome.flashHint();
-        renderSettings();
-        return;
-      }
-      const wanted = !fullscreenElement();
-      toggleFullscreen().then(on => {
-        // (Refused: say how else, or that it can't.)
-        if (wanted && !on) lobby.fullscreenNote = canFullscreen() ? "Press again, or click or tap here" : "Not available in this browser";
-        renderSettings();
-      });
     } else if (row === 3) {
       const room = MAX_PLAYERS - humanCount();
       const n = clamp(lobby.cpus.length + d, 0, Math.min(MAX_CPUS, room));
@@ -741,6 +726,7 @@
       buildGrid();
       autoJoinFirstPad();
       renderAll();
+      updateCorner();
     }
   }
 
@@ -877,13 +863,45 @@
     if (lobby.touchFocus < 0) lobby.touchFocus = null;
   }
 
+  // Corner buttons (as when paused): sound, settings, full screen.
+  function updateCorner() {
+    $("#lbSoundButton").classList.toggle("off", GameAudio.isMuted);
+    $("#lbSoundButton").setAttribute("aria-pressed", String(!GameAudio.isMuted));
+    $("#lbFullscreenButton").classList.toggle("on", Boolean(fullscreenElement()));
+    $("#lbFullscreenButton").hidden = !canFullscreen() && !window.BrowserChrome?.scrollTrick;
+  }
+
+  // Bottom right, unless the players' stalls along the bottom reach it: then
+  // up under the top-right box (in portrait, a column beside the logo).
+  function placeCorner() {
+    const corner = $("#lbCorner");
+    const width = corner.offsetWidth + 30;
+    const crowded = [...lobby.stallEls.values()].some(el => parseFloat(el.style.bottom) < 120 && parseFloat(el.style.left) + el.offsetWidth > lobby.stageW - width);
+    corner.classList.toggle("corner-up", crowded);
+    const box = $("#lbTopRight");
+    corner.style.top = crowded && !root.classList.contains("portrait") ? `${box.offsetTop + box.offsetHeight + 12}px` : "";
+  }
+
+  $("#lbSoundButton").addEventListener("click", () => {
+    GameAudio.unlock();
+    GameAudio.setMuted(!GameAudio.isMuted);
+    if (!GameAudio.isMuted) sound("ui_click");
+    updateCorner();
+  });
+  $("#lbCornerSettings").addEventListener("click", () => { GameAudio.unlock(); openSettings(!lobby.settingsOpen); });
+  $("#lbFullscreenButton").addEventListener("click", () => {
+    GameAudio.unlock();
+    // iPhone Safari can't go full screen: point at the swipe-up hint instead.
+    if (window.BrowserChrome?.scrollTrick && !canFullscreen()) { window.BrowserChrome.flashHint(); return; }
+    sound("ui_fullscreen");
+    toggleFullscreen().then(updateCorner);
+  });
+
   $("#lbSettingsBtn").addEventListener("pointerdown", event => { event.preventDefault(); GameAudio.unlock(); openSettings(true); });
   $("#lbSetDone").addEventListener("pointerdown", event => { event.preventDefault(); openSettings(false); });
   $("#lbSettings").addEventListener("pointerdown", event => { if (event.target.id === "lbSettings") openSettings(false); });
   root.querySelectorAll(".lb-set-row").forEach(row => {
     row.addEventListener("pointerdown", () => { lobby.setRow = Number(row.dataset.row); renderSettings(); });
-    // Fullscreen needs a real click/tap, so the whole row toggles it.
-    if (row.id === "lbFullscreenRow") { row.addEventListener("click", () => changeSetting(Number(row.dataset.row), 1)); return; }
     row.querySelectorAll(".lb-arrow").forEach(arrow => arrow.addEventListener("pointerdown", event => {
       event.preventDefault();
       event.stopPropagation();
@@ -1040,8 +1058,8 @@
       return lobby.slots.filter(Boolean).map(slot => `${slot.device}${slot.locked ? "+" : ""}`);
     },
     refreshSettings() {
-      if (fullscreenElement()) lobby.fullscreenNote = "";
       if (lobby.settingsOpen) renderSettings();
+      updateCorner();
     },
     // Before "Main Menu" resets the race, remember who was playing so the
     // select screen comes back with the same players (unlocked to re-pick).
@@ -1090,5 +1108,5 @@
   startLoop();
 })();
 
-document.addEventListener("fullscreenchange", () => document.querySelector("#lbFullscreenVal") && window.Lobby?.refreshSettings?.());
+document.addEventListener("fullscreenchange", () => window.Lobby?.refreshSettings?.());
 document.addEventListener("webkitfullscreenchange", () => window.Lobby?.refreshSettings?.());

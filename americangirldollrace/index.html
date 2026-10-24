@@ -28,7 +28,7 @@
     <link rel="preload" as="image" href="assets/ui/title_hero_lily.webp" fetchpriority="high">
     <link rel="preload" as="image" href="assets/ui/title_hero_rumi.webp" fetchpriority="high">
     <link rel="preload" as="image" href="assets/ui/title_hero_kaya.webp" fetchpriority="high">
-    <link rel="stylesheet" href="styles.css?v=20beca0c">
+    <link rel="stylesheet" href="styles.css?v=d76ad14e">
 
   </head>
   <body>
@@ -90,6 +90,19 @@
               </div>
               <div class="lb-abs" id="lbGrid"></div>
               <div class="lb-abs" id="lbSlots"></div>
+              <!-- Corner buttons, as when paused: sound, settings, full screen (bottom
+                   right; up under the top-right box when players fill the bottom) -->
+              <div class="lb-abs" id="lbCorner">
+                <button type="button" class="corner-button sound-toggle" id="lbSoundButton" aria-label="Sound on or off">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path class="fill" d="M8 18h8l10-9v30l-10-9H8z"/><g class="sound-waves"><path d="M32 17a9 9 0 0 1 0 14"/><path d="M36.5 12.5a15 15 0 0 1 0 23"/></g><g class="sound-off"><path d="M32 18l12 12M44 18L32 30"/></g></svg>
+                </button>
+                <button type="button" class="corner-button" id="lbCornerSettings" aria-label="Settings">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path class="fill" d="M21 4h6l1 5.5 4.2 1.8 4.6-3.2 4.2 4.2-3.2 4.6 1.8 4.2L45 21v6l-5.5 1-1.8 4.2 3.2 4.6-4.2 4.2-4.6-3.2-4.2 1.8L27 45h-6l-1-5.5-4.2-1.8-4.6 3.2-4.2-4.2 3.2-4.6L8.4 28 3 27v-6l5.5-1 1.8-4.2-3.2-4.6 4.2-4.2 4.6 3.2L20 9z"/><circle class="hole" cx="24" cy="24" r="7"/></svg>
+                </button>
+                <button type="button" class="corner-button fs-toggle" id="lbFullscreenButton" aria-label="Full screen">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><g class="fs-enter"><path d="M6 17V6h11M31 6h11v11M42 31v11H31M17 42H6V31"/></g><g class="fs-exit"><path d="M17 6v11H6M42 17H31V6M31 42V31h11M6 31h11v11"/></g></svg>
+                </button>
+              </div>
               <!-- Phone (no controller): computer racers right on the select screen -->
               <div class="lb-abs lb-panel" id="lbCpuChip"><span class="lb-cpu-btn" id="lbCpuLess">−</span><span class="lb-ai-mini"></span><span id="lbCpuCount"></span><span class="lb-cpu-btn" id="lbCpuMore">+</span></div>
               <div class="lb-abs" id="lbRaceBar"><div id="lbRaceFill"></div><div id="lbRaceText"></div></div>
@@ -103,7 +116,6 @@
                   <div class="lb-set-row" data-row="3"><div class="lb-icon" id="lbCpuIcons"></div><div class="lb-txt"><div class="lb-panel-title">Computer racers</div><div class="lb-val" id="lbCpuVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
                   <div class="lb-set-row" data-row="4" id="lbSkillRow"><div class="lb-icon"><div class="lb-screen-icon" id="lbSkillIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">Monster difficulty</div><div class="lb-val" id="lbSkillVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
                   <div class="lb-set-row" data-row="5" id="lbCoopRow"><div class="lb-icon"><div class="lb-screen-icon" id="lbCoopIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">Play</div><div class="lb-val" id="lbCoopVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
-                  <div class="lb-set-row" data-row="6" id="lbFullscreenRow"><div class="lb-icon"><div class="lb-screen-icon">⛶</div></div><div class="lb-txt"><div class="lb-panel-title">Full screen</div><div class="lb-val" id="lbFullscreenVal"></div></div><span class="lb-arrow" data-d="1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
                   <div id="lbSetFoot">▲▼ choose · ◀▶ change · <span class="lb-glyph" data-g="A"></span> done <span id="lbSetDone">Done</span></div>
                 </div>
               </div>
@@ -318,13 +330,13 @@
           </div>
           <!-- Corner buttons (bottom right) while paused: sound on/off, settings, full screen -->
           <div class="pause-corner" id="pauseCorner">
-            <button type="button" class="corner-button" id="pauseSoundButton" aria-label="Sound on or off">
+            <button type="button" class="corner-button sound-toggle" id="pauseSoundButton" aria-label="Sound on or off">
               <svg viewBox="0 0 48 48" aria-hidden="true"><path class="fill" d="M8 18h8l10-9v30l-10-9H8z"/><g class="sound-waves"><path d="M32 17a9 9 0 0 1 0 14"/><path d="M36.5 12.5a15 15 0 0 1 0 23"/></g><g class="sound-off"><path d="M32 18l12 12M44 18L32 30"/></g></svg>
             </button>
             <button type="button" class="corner-button" id="pauseSettingsButton" aria-label="Settings">
               <svg viewBox="0 0 48 48" aria-hidden="true"><path class="fill" d="M21 4h6l1 5.5 4.2 1.8 4.6-3.2 4.2 4.2-3.2 4.6 1.8 4.2L45 21v6l-5.5 1-1.8 4.2 3.2 4.6-4.2 4.2-4.6-3.2-4.2 1.8L27 45h-6l-1-5.5-4.2-1.8-4.6 3.2-4.2-4.2 3.2-4.6L8.4 28 3 27v-6l5.5-1 1.8-4.2-3.2-4.6 4.2-4.2 4.6 3.2L20 9z"/><circle class="hole" cx="24" cy="24" r="7"/></svg>
             </button>
-            <button type="button" class="corner-button" id="pauseFullscreenButton" aria-label="Full screen">
+            <button type="button" class="corner-button fs-toggle" id="pauseFullscreenButton" aria-label="Full screen">
               <svg viewBox="0 0 48 48" aria-hidden="true"><g class="fs-enter"><path d="M6 17V6h11M31 6h11v11M42 31v11H31M17 42H6V31"/></g><g class="fs-exit"><path d="M17 6v11H6M42 17H31V6M31 42V31h11M6 31h11v11"/></g></svg>
             </button>
           </div>
@@ -369,7 +381,7 @@
     <script src="game-terrain.js?v=a2a839bf"></script>
     <script src="game-specials.js?v=9070ab14"></script>
     <script src="game.js?v=86e4b411"></script>
-    <script src="menu.js?v=1a0822d5"></script>
+    <script src="menu.js?v=b239007d"></script>
     <script src="chrome.js?v=d5f7c463"></script>
 
 

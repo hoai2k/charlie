@@ -953,15 +953,15 @@ button:focus-visible {
   outline: none;
 }
 
-#pauseSoundButton .sound-off,
-#pauseSoundButton.off .sound-waves,
-#pauseFullscreenButton .fs-exit,
-#pauseFullscreenButton.on .fs-enter {
+.sound-toggle .sound-off,
+.sound-toggle.off .sound-waves,
+.fs-toggle .fs-exit,
+.fs-toggle.on .fs-enter {
   display: none;
 }
 
-#pauseSoundButton.off .sound-off,
-#pauseFullscreenButton.on .fs-exit {
+.sound-toggle.off .sound-off,
+.fs-toggle.on .fs-exit {
   display: inline;
 }
 
@@ -1636,3 +1636,10 @@ html.ios-scroll.ios-scroll-play, html.ios-scroll.ios-scroll-play body { overflow
 
 /* Seven settings rows: the icons shrink to fit the shorter rows. */
 .lb-set-row .lb-icon { transform: scale(0.8); }
+
+/* Choose screen: the corner buttons, bottom right; menu.js moves them up
+   under the top-right box (.corner-up) when the players' stalls reach them. */
+#lbCorner { right: 18px; bottom: 16px; z-index: 4; display: flex; gap: 12px; transition: opacity 0.2s ease; }
+#lbCorner .corner-button { cursor: pointer; }
+#lbCorner.corner-up { bottom: auto; }
+.start-panel.lobby.portrait #lbCorner.corner-up { top: 12px; right: 12px; flex-direction: column; }
