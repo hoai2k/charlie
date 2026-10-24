@@ -597,19 +597,52 @@ test('trolls are a screen apart; first time round from half way, rising to as ma
       for (const bg of BACKGROUNDS) {
         setBackground(bg.key);
         const xs = getMonsterSpawnXs('normal');
-        rows.push({ round, key: bg.key, n: xs.length, fits: trollCapacity(FINISH), first: xs[0] / FINISH, gap: Math.min(...xs.slice(1).map((x, i) => x - xs[i])) });
+        rows.push({ round, key: bg.key, n: xs.length, w: trollWeight(), fits: trollCapacity(FINISH, trollSpacing()), first: xs[0] / FINISH, gap: Math.min(...xs.slice(1).map((x, i) => x - xs[i])) });
       }
     }
     [state.backgroundIndex, state.boardRound] = keep; setBackground(BACKGROUNDS[keep[0]].key);
-    return rows;
-  });
-  for (const row of r) assert.ok(row.gap >= 1280 - 1, `${row.round} ${row.key}: gap ${row.gap}`);
+    rows.normal = trollCapacity(BASE_FINISH);
+    return { rows, normal: trollCapacity(BASE_FINISH) };
+  }).then(({ rows, normal }) => Object.assign(rows, { normal }));
+  // (A giant counts as 1.5 trolls: further apart, and fewer of him.)
+  for (const row of r) assert.ok(row.gap >= 1280 * row.w - 1, `${row.round} ${row.key}: gap ${row.gap}`);
   const first = r.filter(row => row.round === 0), later = r.filter(row => row.round === 1);
   assert.equal(first[0].n, 2);
-  assert.equal(first.at(-1).n, first.at(-1).fits, 'the last board fits as many as it can');
+  const lastRow = first.at(-1);
+  assert.ok(Math.abs(lastRow.n * lastRow.w - r.normal) <= 1, `the last board fits as many as it can (${lastRow.n} x ${lastRow.w})`);
   for (let i = 1; i < first.length; i++) assert.ok(first[i].n >= first[i - 1].n || first[i].fits < first[i - 1].n, 'they keep rising');
   for (const row of first) assert.ok(row.first > 0.33 && row.first <= 0.51, `${row.key} first at ${row.first}`);
   for (const row of later) assert.ok(row.n === row.fits && row.first < 0.36, `${row.key}: ${row.n} of ${row.fits}`);
+});
+
+test('Winter ice giant: twice a troll, staggers (not falls) until the 7th hit, lifts and throws further, melts to a puddle when stepped in, splashes', { skip: skip() }, async () => {
+  await onTrack('winter');
+  const r = await page.evaluate(async () => {
+    getSharedArt('icetroll_melt');
+    for (let i = 0; i < 60 && !(images.icetroll && images.icetroll_melt); i++) await new Promise(r => setTimeout(r, 100));
+    const a = state.racers[0];
+    const m = spawnMonster(a.x + 250, a.y, { active: true, riding: false }); m.x = a.x + 250; m.y = a.y; m.state = 'walk'; state.monsters = [m];
+    const size = monsterDef().scale, weight = trollWeight();
+    let maxZ = 0; for (let i = 0; i < 300 && !(m.state === 'throw'); i++) { update(1 / 60); maxZ = Math.max(maxZ, a.z); }
+    for (let i = 0; i < 120; i++) update(1 / 60);
+    a.grabbedBy = null; a.fallBackTimer = 0; m.target = null;
+    let staggers = 0, fellEarly = false;
+    for (let hit = 1; hit <= 7; hit++) {
+      m.state = 'walk'; applyMonsterKnockback(m, 1);
+      if (hit < 7) { staggers += m.staggered ? 1 : 0; fellEarly ||= monsterFrame(m).row === 3; for (let i = 0; i < 30; i++) { update(1 / 60); m.target = null; } }
+    }
+    for (let i = 0; i < 120; i++) update(1 / 60);
+    const pile = m.state;
+    a.x = m.x - 40; a.y = m.y; a.z = 0; update(1 / 60);
+    const melting = m.melt != null;
+    a.x = m.x - 600; for (let i = 0; i < 200; i++) update(1 / 60);
+    state.particles = []; a.x = m.x - 120; keys.add('KeyD'); for (let i = 0; i < 20; i++) update(1 / 60); keys.clear();
+    const splashes = state.particles.filter(p => p.kind === 'drop').length;
+    drawScene(0);
+    return { size, weight, lifted: maxZ > 200, staggers, fellEarly, pile, melting, melted: m.melt === 1, splashes: splashes > 0 };
+  });
+  assert.deepEqual(r, { size: 2, weight: 1.5, lifted: true, staggers: 6, fellEarly: false, pile: 'sleeping', melting: true, melted: true, splashes: true });
+  assert.deepEqual(errors, []);
 });
 
 test('rover hops as it drives, tilts in the air and squashes on landing with its rider; pickup stays smaller', { skip: skip() }, async () => {

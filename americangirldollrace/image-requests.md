@@ -1295,3 +1295,23 @@ girl and troll near you, knocking them over, then runs off the screen.
 **IT1 art delivered (2026-10-24):** `assets/icetroll_sprites.webp` has all twelve poses in the original troll layout, first idle height343 and all baselines407, transparent margins, ending in a broken-ice/snow heap with head on top. Sources, exact built-in ImageGen prompt, exporter, report, hand anchors and runtime-scale review with held Lily are in `tools/effects/winter/`. Art-only handoff: integration agent registers `icetroll`, using `grabHands: [[300,230],[295,110],[323,120]]`, scale1 and no snores/dissipate/sparks.
 
 **Owner revision delivered (2026-10-24):** IT1 final defeated cell is a faceless/headless heap of ice and snow; the other11 cells and hand anchors are unchanged. IT2 `assets/icetroll_melt_sprites.webp` (2508×418, six418px cells, alpha) progresses from that exact pile through melting ice to water only. Shared scale/center, baseline407 and sprite anchor193409 throughout. Exact first-frame match prevents a transition pop. Sources, prompt, calibrated exporter, unchanged-cell hashes and Winter race-scale animation review are in `tools/effects/winter/`. This supersedes the original head-on-pile brief; gameplay integration remains with the other agent.
+
+**In the game and checked:** the ice troll (`monsters.js` `icetroll`, the delivered grab hands) is Winter's monster, drawn at twice a troll's height as an ice giant: he lifts a doll overhead at his hands and throws her further, staggers (code tilt until IT3) until the seventh push, and his heap plays the six melt cells to a puddle when stepped in, steaming, with splashes for anyone running through. The snowman (`TRACK_SHARED_ART`) runs in the SM1 cycle and the SM2 icon shows on Winter's EMP pickup (cache stamp bumped).
+
+## 32. Requested: the ice giant's stagger
+
+The ice troll is now a giant (twice a troll's height) who takes 7 knock-backs.
+The first six only rock him back on his heels; today that's his idle cell
+tilted back in code. A real stagger pose would read better.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| IT3 | `assets/icetroll_stagger_sprites.webp` | 836×418 (2 cells of 418), alpha | The ice troll from `assets/icetroll_sprites.webp`, same scale, facing and foot baseline (407), still on his feet: (1) **rocked back** from a blow to his chest, leaning back, arms flung up and out, one foot lifting, surprised; (2) **catching himself**, leaning forward again, arms coming down, both feet planted, grumpy. |
+
+Rules: his feet at the same place as in his idle cell; nothing touching a
+cell edge; no shadow, ground or text. In the same commit add
+`"icetroll_stagger"` to `TRACK_SHARED_ART` in `tracks.js` (the game plays the
+two cells over the stagger once it's listed).
+
+Acceptance: on Winter, push the ice giant: he rocks back (cell 1) and
+catches himself (cell 2), and only the seventh push knocks him down.

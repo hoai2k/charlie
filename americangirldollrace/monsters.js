@@ -22,6 +22,15 @@
 //              [cell of row 4, centre x, centre y, radius] (frame pixels)
 //   sandPile   its pile is sand: walking through it kicks sand up and leaves
 //              patches on her that shake off as she goes (game-monsters.js)
+//   knockbacks how many knock-backs beat it (default MONSTER_SLEEP_KNOCKBACKS, 5)
+//   giant      a big one (with `scale`): his knock-backs are a stagger, not a
+//              fall, until the last; he lifts girls higher (at his hands)
+//              and throws them further
+//   melts      his pile melts into a puddle once someone steps in it (with
+//              steam), and anyone walking through the puddle splashes; the
+//              value is his melt sheet's key, used once it's listed in
+//              TRACK_SHARED_ART (until then drawn in code); `stagger` the
+//              same for a stagger sheet
 //   lightning  now and then throws a lightning bolt (cloudtroll_lightning
 //              attack frames; the bolt itself is drawn in code)
 // Bump when any monster sheet changes, so browsers don't pair a cached sheet
@@ -59,6 +68,14 @@ window.MONSTERS = {
     grabHands: [[330, 230], [285, 90], [330, 185]],
     defeated: "dissipate",
     lightning: true
+  },
+  icetroll: {
+    scale: 2, // an ice giant, twice a troll's height
+    giant: true,
+    knockbacks: 7, // (a troll takes 5)
+    grabHands: [[300, 230], [295, 110], [323, 120]],
+    melts: "icetroll_melt", // six cells, heap to water (image-requests.md §30 IT2)
+    stagger: "icetroll_stagger" // requested: §32
   },
   sandtroll: {
     sandPile: true,

@@ -58,18 +58,29 @@ function makeMonsters() {
 // as many as the last board fits from a third of the way along. From the
 // second time round, every board has as many as fit from a third of the way.
 // ("Extra" and "Too many" add their extra trolls on top, closer together.)
-function trollCapacity(finish) {
-  return Math.floor((finish - 120 - (finish / 3 + 120)) / TROLL_SPACING) + 1;
+// (A giant counts as GIANT_TROLL_WEIGHT trolls: that much further apart, and
+// that many fewer of him.)
+function trollWeight() {
+  // (From the board's monster, whether or not his sheet has loaded yet.)
+  return window.MONSTERS?.[getTrackTheme().monster]?.giant ? GIANT_TROLL_WEIGHT : 1;
+}
+
+function trollSpacing() {
+  return TROLL_SPACING * trollWeight();
+}
+
+function trollCapacity(finish, spacing = TROLL_SPACING) {
+  return Math.floor((finish - 120 - (finish / 3 + 120)) / spacing) + 1;
 }
 
 function normalTrollCount() {
   const base = MONSTER_COUNTS_BY_DIFFICULTY.normal;
-  const fits = trollCapacity(FINISH);
+  const fits = trollCapacity(FINISH, trollSpacing());
   if ((state.boardRound || 0) > 0) return fits;
   const last = BACKGROUNDS.length - 1;
   const lastFits = trollCapacity(BASE_FINISH * (TRACK_THEMES[BACKGROUNDS[last]?.key]?.lengthScale || 1));
   const along = last > 0 ? clamp(state.backgroundIndex || 0, 0, last) / last : 1;
-  return Math.min(fits, Math.round(base + (lastFits - base) * along));
+  return Math.max(1, Math.min(fits, Math.round((base + (lastFits - base) * along) / trollWeight())));
 }
 
 function monsterCount(difficulty) {
@@ -92,7 +103,7 @@ function getMonsterSpawnXs(difficulty) {
     return Array.from({ length: count }, (_, i) => MONSTER_COURSE_START_X + (end - MONSTER_COURSE_START_X) * i / (count - 1));
   }
   const earliest = MONSTER_COURSE_START_X;
-  const start = (state.boardRound || 0) > 0 ? earliest : clamp(end - (count - 1) * TROLL_SPACING, earliest, Math.max(earliest, FINISH / 2));
+  const start = (state.boardRound || 0) > 0 ? earliest : clamp(end - (count - 1) * trollSpacing(), earliest, Math.max(earliest, FINISH / 2));
   return Array.from({ length: count }, (_, i) => start + (end - start) * i / (count - 1));
 }
 
@@ -253,6 +264,7 @@ function updateMonsters(dt) {
     if (monster.state === "sleeping") {
       updateDefeatedSparks(monster, dt);
       updateLightsOut(monster, dt);
+      if (monsterDef().melts) updateMeltingPile(monster, dt);
       if (monsterDef().sandPile) checkSandPile(monster, dt);
       if (monsterDef().particles && !monster.scattered) checkCandyPile(monster);
       continue;
@@ -261,7 +273,7 @@ function updateMonsters(dt) {
     if (monster.state === "fall") {
       monster.timer -= dt;
       if (monster.timer <= 0) {
-        if (monster.knockedBacks >= MONSTER_SLEEP_KNOCKBACKS) {
+        if (monster.knockedBacks >= monsterKnockbacks()) {
           monster.state = "ground";
           monster.timer = 1;
           // (A candy troll's sweets fly only when someone runs into his pile.)
@@ -331,10 +343,12 @@ function updateMonsters(dt) {
 
     if (riding) updateMountedMonsterJump(monster, Math.sign(dx), dt);
 
-    const grabRangeX = riding ? MOUNTED_MONSTER_GRAB_RANGE_X : MONSTER_GRAB_RANGE_X;
+    // (A giant reaches further, along the ground and up after fliers.)
+    const reach = giantSize() > 1 ? giantSize() * GIANT_REACH : 1;
+    const grabRangeX = riding ? MOUNTED_MONSTER_GRAB_RANGE_X : MONSTER_GRAB_RANGE_X * reach;
     const unbeatable = mountOutrunsMonster(target, monster);
-    const reachesHeight = monster.winged ? Math.abs(target.z - monster.z) < 70 : monster.z < 20 && target.z < 80;
-    if (reachesHeight && Math.abs(dx) < grabRangeX && Math.abs(dy) < MONSTER_GRAB_RANGE_Y && !unbeatable) {
+    const reachesHeight = monster.winged ? Math.abs(target.z - monster.z) < 70 : monster.z < 20 && target.z < 80 * reach;
+    if (reachesHeight && Math.abs(dx) < grabRangeX && Math.abs(dy) < MONSTER_GRAB_RANGE_Y * reach && !unbeatable) {
       if (isMounted(target)) dismountIntoPickup(target);
       monster.state = "grab";
       monster.timer = 0.24;
@@ -430,13 +444,15 @@ function updateMonsterGrabSequence(monster, dt) {
     if (target && target.grabbedBy === monster) {
       target.grabbedBy = null;
       target.x = clamp(monster.x + 56 * monster.facing, 40, FINISH);
-      target.z = 78;
-      target.vy = 170;
+      // (A giant lets go from high up, at his hands, and harder: she flies further.)
+      const size = giantSize();
+      target.z = size > 1 ? Math.max(78, target.z) : 78;
+      target.vy = 170 * size;
       const throwDirection = monster.x > FINISH - MONSTER_FINISH_BACK_THROW_DISTANCE ? -1 : monster.facing;
       target.fallBackTimer = 0.85;
       target.fallBackFacing = -throwDirection;
       target.hitTimer = 0.35;
-      target.knockbackX = throwDirection * MONSTER_THROW_FORCE;
+      target.knockbackX = throwDirection * MONSTER_THROW_FORCE * size;
       target.jumpStarted = false;
       if (target === state.amandaAlly) amandaAllyHit(target); // (it counts towards her running off)
     }
@@ -595,6 +611,100 @@ function monsterRemount(monster, dt) {
   return true;
 }
 
+// Knock-backs it takes to beat this track's monster (monsters.js knockbacks).
+function monsterKnockbacks() {
+  return monsterDef().knockbacks || MONSTER_SLEEP_KNOCKBACKS;
+}
+
+// How much bigger than a troll a giant is (monsters.js giant), else 1.
+function giantSize() {
+  return monsterDef().giant ? monsterDef().scale || 1 : 1;
+}
+
+// A melting monster's pile (monsters.js melts): someone steps in it and it
+// melts away into a puddle over MELT_TIME, steaming; then anyone running
+// through the puddle splashes.
+function updateMeltingPile(monster, dt) {
+  const size = giantSize();
+  const near = (who, reach) => !who.finished && (who.z || 0) < 6 && Math.abs(who.x - monster.x) < reach * size && Math.abs(who.y - monster.y) < CANDY_PILE_REACH_Y * 1.2;
+  if (monster.melt == null) {
+    if (!state.racers.some(r => near(r, CANDY_PILE_REACH_X))) return;
+    monster.melt = 0;
+    sfx("ice_melt", monster.x);
+  }
+  const groundY = monster.y + 54;
+  if (monster.melt < 1) {
+    monster.melt = Math.min(1, monster.melt + dt / MELT_TIME);
+    monster.steamTimer = (monster.steamTimer || 0) - dt;
+    if (monster.steamTimer <= 0) {
+      monster.steamTimer = 0.05;
+      const k = racerDepthScale(monster) * size;
+      spawnParticles(monster.x + (Math.random() - 0.5) * 120 * k, groundY, (20 + Math.random() * 70 * (1 - monster.melt)) * k, 1,
+        { kind: "puff", color: Math.random() < 0.5 ? "#ffffff" : "#e3edf5", speed: 18, lift: 50, gravity: -40, life: 1.1 + Math.random() * 0.6, size: (8 + Math.random() * 8) * k * 2 });
+    }
+    return;
+  }
+  // The puddle: splashes round the feet of anyone running through it.
+  for (const racer of state.racers) {
+    if (!racer.moving || !near(racer, PUDDLE_REACH_X)) continue;
+    racer.splashTimer = (racer.splashTimer || 0) - dt;
+    if (racer.splashTimer > 0) continue;
+    racer.splashTimer = 0.16;
+    spawnParticles(racer.x + (Math.random() - 0.5) * 20, racer.y + 54, 2, 9,
+      { kind: "drop", color: Math.random() < 0.5 ? "#cfeaff" : "#7fc0ee", speed: 110, lift: 220, gravity: 1100, life: 0.5, size: 4.5 });
+    sfx("puddle_splash", racer.x, { gain: 0.5, throttleKey: "puddle" });
+  }
+}
+
+// His pile melting into a puddle, and the puddle: his melt sheet once it's in
+// (cells from heap to puddle, the last the puddle), else the pile sinking and
+// fading into a puddle drawn in code.
+function drawMeltingPile(monster, sx, sy, drawX, drawY, drawW, drawH, drawFacing, screenX, scale) {
+  const melt = monster.melt;
+  const groundY = monster.y + 54;
+  const art = getSharedArt(monsterDef().melts);
+  if (art?.complete && art.width) {
+    const cells = Math.max(1, Math.round(art.width / FRAME));
+    const n = Math.min(cells - 1, Math.floor(melt * (cells - 1) + 0.0001));
+    drawFacingImage(art, n * FRAME, 0, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
+    return;
+  }
+  // The puddle, spreading as he melts.
+  const w = 165 * scale * (0.5 + 0.5 * melt), h = 30 * scale * (0.5 + 0.5 * melt);
+  ctx.save();
+  ctx.globalAlpha *= Math.min(1, melt * 1.6) * 0.8;
+  const water = ctx.createRadialGradient(screenX, groundY - 6, 0, screenX, groundY - 6, w);
+  water.addColorStop(0, "rgba(120, 186, 232, 0.9)");
+  water.addColorStop(0.75, "rgba(86, 156, 214, 0.85)");
+  water.addColorStop(1, "rgba(70, 130, 200, 0.6)");
+  ctx.fillStyle = water;
+  ctx.strokeStyle = "rgba(60, 112, 170, 0.8)";
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.ellipse(screenX, groundY - 6, w, h, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  // Glints on the water.
+  ctx.strokeStyle = "rgba(255, 255, 255, 0.85)";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.ellipse(screenX - w * 0.25, groundY - 10, w * 0.35, h * 0.32, 0, Math.PI * 1.1, Math.PI * 1.85);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.ellipse(screenX + w * 0.35, groundY - 2, w * 0.15, h * 0.18, 0, Math.PI * 1.15, Math.PI * 1.8);
+  ctx.stroke();
+  ctx.restore();
+  if (melt >= 1) return;
+  // The heap slumping down into it.
+  ctx.save();
+  ctx.globalAlpha *= 1 - melt;
+  ctx.translate(0, groundY);
+  ctx.scale(1, 1 - 0.8 * melt);
+  ctx.translate(0, -groundY);
+  drawFacingImage(getMonsterImage(), sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
+  ctx.restore();
+}
+
 function isMonsterVisible(monster) {
   return isWorldXVisibleInAnyView(monster.x);
 }
@@ -625,6 +735,12 @@ function applyMonsterKnockback(monster, direction, { unhorse = false } = {}) {
   monster.timer = 0.55;
   monster.knockbackX = direction * PUSH_FORCE;
   monster.facing = direction < 0 ? -1 : 1;
+  // A giant only staggers back a little, until the blow that fells him.
+  monster.staggered = Boolean(monsterDef().giant) && monster.knockedBacks < monsterKnockbacks();
+  if (monster.staggered) {
+    monster.timer = GIANT_STAGGER_TIME;
+    monster.knockbackX *= GIANT_KNOCKBACK;
+  }
 }
 
 // Pushed or hit off his horse (see applyMonsterKnockback), a troll carries on on foot and the horse bolts
@@ -768,6 +884,28 @@ function drawMonster(monster) {
   // left (facing -1) draws them unflipped and stays head-first the way he was hit, pile and all.
   const knockedDown = monster.state === "fall" || monster.state === "ground" || monster.state === "sleeping";
   const drawFacing = knockedDown ? -monster.facing : monster.facing;
+  if (monsterDef().melts && monster.melt != null) {
+    drawMeltingPile(monster, sx, sy, drawX, drawY, drawW, drawH, drawFacing, screenX, scale);
+    ctx.restore();
+    return;
+  }
+  if (monster.state === "fall" && monster.staggered) {
+    // Staggering: rocked back on his heels (away from whoever hit him) and
+    // forward again; his stagger sheet once it's in.
+    const t = 1 - clamp(monster.timer / GIANT_STAGGER_TIME, 0, 1);
+    const tilt = monster.facing * GIANT_STAGGER_TILT * Math.sin(Math.PI * t);
+    const feetY = visualY + 58;
+    ctx.translate(screenX, feetY);
+    ctx.rotate(tilt);
+    ctx.translate(-screenX, -feetY);
+    const staggerArt = getSharedArt(monsterDef().stagger);
+    if (staggerArt?.complete && staggerArt.width) {
+      const cells = Math.max(1, Math.round(staggerArt.width / FRAME));
+      drawFacingImage(staggerArt, Math.min(cells - 1, Math.floor(t * cells)) * FRAME, 0, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
+      ctx.restore();
+      return;
+    }
+  }
   if (monster.frogTimer > 0) {
     drawFrog(screenX, monster.y + 54, racerDepthScale(monster), true, monster.frogPhase || 0, monster.facing);
     ctx.restore();
@@ -982,6 +1120,7 @@ function monsterDrawY(monster) {
 
 function monsterFrame(monster) {
   if (monster.state === "drop") return { row: 0, col: 0 };
+  if (monster.state === "fall" && monster.staggered) return { row: 0, col: 0 }; // (rocked back on his feet; drawMonster tilts him)
   if (monster.state === "fall") return { row: 3, col: 0 };
   if (monster.state === "ground") return { row: 3, col: 1 };
   if (monster.state === "sleeping") return { row: 3, col: 2 };

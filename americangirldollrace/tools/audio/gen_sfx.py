@@ -38,6 +38,9 @@ SOUNDS = {
     'amanda_caught': ('A cartoon girl tumbling out of a hiding spot: a surprised little squeak and a soft thump onto grass, playful children\'s game, no words', 1.0, 3),
     'amanda_bonk': ('A soft cartoon bonk on the head with a tiny girlish squeak, playful and harmless, children\'s game, no words', 0.6, 3),
     'bubble_pop': ('A single soap bubble popping in the air: a tiny bright wet pop with a soft sparkle, cartoon, children\'s game', 0.5, 3),
+    # Winter's ice troll: his heap melting, and splashing through the puddle
+    'ice_melt': ('A heap of ice and snow melting fast: a soft steamy hiss with little crackles and drips, gentle, cartoon, children\'s game', 2.2, 2),
+    'puddle_splash': ('A small cartoon footstep splashing through a shallow puddle of water, a light quick splish, children\'s game', 0.7, 3),
     # Sticky puddles
     'sticky_squelch': ('Feet stepping into a thick gooey sticky puddle of honey, a wet slow squelch, cartoon', 0.8, 2),
     # Horse Show trolls

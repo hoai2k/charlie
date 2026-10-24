@@ -118,7 +118,7 @@
 // (the workbench still lists them, at the end).
 window.TRACK_ORDER = ["farm", "fairy", "town", "autumn", "horseshow", "toyroom", "candy", "beach", "wizard", "clouds", "space", "woods", "festival", "winter"];
 window.TRACKS_RESTING = ["castles"];
-window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "rooster_crow", "crow", "moon_boot", "fairy_wings", "fairy_wing_single", "troll_flying", "fairy_wings_twilight", "fairy_wing_single_twilight"];
+window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "rooster_crow", "crow", "moon_boot", "fairy_wings", "fairy_wing_single", "troll_flying", "fairy_wings_twilight", "fairy_wing_single_twilight", "snowman", "icetroll_melt"];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: {
@@ -148,7 +148,8 @@ window.TRACK_THEMES = {
   winter: {
     projectileLanding: "snow",
     empStyle: "snowman",
-    monster: "icetroll", // (his sheet is requested: image-requests.md §30; the troll until then)
+    monster: "icetroll",
+    powerupArtVersion: "20261024-snowman1",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "SKI JUMP", boost: "SLED", emp: "SNOWMAN", oil: "ICE", snowball: "SNOWBALLS" },
     mountOdds: { reindeer: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
