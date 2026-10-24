@@ -514,10 +514,10 @@ test('fairy wings go on over a mount (and a mount under wings): she keeps both, 
   assert.deepEqual(r, { over: true, kept: true, wingsDrawn: true, fliesOn: true, under: true, both: true });
 });
 
-test('Horse Show: riding trolls from a third of the way in and one standing at the finish; a knocked-off troll\'s horse flashes out of reach, then he climbs back on; Amanda rides', { skip: skip() }, async () => {
+test('Horse Show: riding trolls from half way (first time round) and one standing at the finish; a knocked-off troll\'s horse flashes out of reach, then he climbs back on; Amanda rides', { skip: skip() }, async () => {
   await onTrack('horseshow');
   const r = await page.evaluate(() => {
-    state.difficulty = 'normal'; startRace('two'); state.running = false;
+    state.difficulty = 'normal'; state.boardRound = 0; startRace('two'); state.running = false;
     const trolls = makeMonsters().map(m => [Math.round(m.x / FINISH * 100), m.riding]);
     state.obstacles = []; state.powerups = [];
     const [a, b] = state.racers; b.x = 500; b.ai = false; a.x = 7000; a.y = PATH_TOP + 90;
@@ -530,7 +530,7 @@ test('Horse Show: riding trolls from a third of the way in and one standing at t
     return { count: trolls.length, firstAt: trolls[0][0], riding: trolls.slice(0, -1).every(t => t[1]) && !trolls.at(-1)[1], flashing, remounted, amandaRides: state.amandaAlly.mounted };
   });
   assert.ok(r.count >= 4, `trolls: ${r.count}`);
-  assert.ok(r.firstAt >= 30 && r.firstAt <= 40, `first troll at ${r.firstAt}%`);
+  assert.ok(r.firstAt >= 48 && r.firstAt <= 52, `first troll at ${r.firstAt}% (half way, the first time round)`);
   assert.deepEqual({ ...r, count: 0, firstAt: 0 }, { count: 0, firstAt: 0, riding: true, flashing: true, remounted: true, amandaRides: true });
 });
 
@@ -586,6 +586,30 @@ test('every board has its normal mount in each third (the rover on Moon Base)', 
     return missing;
   });
   assert.equal(r, 0);
+});
+
+test('trolls are a screen apart; first time round from half way, rising to as many as the last board fits; then as many as fit from a third', { skip: skip() }, async () => {
+  const r = await page.evaluate(() => {
+    const keep = [state.backgroundIndex, state.boardRound]; state.difficulty = 'normal';
+    const rows = [];
+    for (const round of [0, 1]) {
+      state.boardRound = round;
+      for (const bg of BACKGROUNDS) {
+        setBackground(bg.key);
+        const xs = getMonsterSpawnXs('normal');
+        rows.push({ round, key: bg.key, n: xs.length, fits: trollCapacity(FINISH), first: xs[0] / FINISH, gap: Math.min(...xs.slice(1).map((x, i) => x - xs[i])) });
+      }
+    }
+    [state.backgroundIndex, state.boardRound] = keep; setBackground(BACKGROUNDS[keep[0]].key);
+    return rows;
+  });
+  for (const row of r) assert.ok(row.gap >= 1280 - 1, `${row.round} ${row.key}: gap ${row.gap}`);
+  const first = r.filter(row => row.round === 0), later = r.filter(row => row.round === 1);
+  assert.equal(first[0].n, 2);
+  assert.equal(first.at(-1).n, first.at(-1).fits, 'the last board fits as many as it can');
+  for (let i = 1; i < first.length; i++) assert.ok(first[i].n >= first[i - 1].n || first[i].fits < first[i - 1].n, 'they keep rising');
+  for (const row of first) assert.ok(row.first > 0.33 && row.first <= 0.51, `${row.key} first at ${row.first}`);
+  for (const row of later) assert.ok(row.n === row.fits && row.first < 0.36, `${row.key}: ${row.n} of ${row.fits}`);
 });
 
 test('rover hops as it drives, tilts in the air and squashes on landing with its rider; pickup stays smaller', { skip: skip() }, async () => {

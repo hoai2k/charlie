@@ -50,13 +50,32 @@ function makeMonsters() {
   ));
 }
 
-// More trolls the further along the boards she is (the same each time a board
-// comes round): MONSTER_COUNTS_BY_DIFFICULTY on the first board, one more
-// every MONSTER_BOARDS_PER_EXTRA boards, up to MONSTER_MAX_EXTRA more.
+// Trolls are at least a screen apart (TROLL_SPACING), so she meets one at a
+// time, with the last waiting at the finish. The first time round the boards
+// they start half way along (spread back towards a third of the way when
+// there are too many to fit), and there are more the further along the
+// boards she is: MONSTER_COUNTS_BY_DIFFICULTY on the first, rising evenly to
+// as many as the last board fits from a third of the way along. From the
+// second time round, every board has as many as fit from a third of the way.
+// ("Extra" and "Too many" add their extra trolls on top, closer together.)
+function trollCapacity(finish) {
+  return Math.floor((finish - 120 - (finish / 3 + 120)) / TROLL_SPACING) + 1;
+}
+
+function normalTrollCount() {
+  const base = MONSTER_COUNTS_BY_DIFFICULTY.normal;
+  const fits = trollCapacity(FINISH);
+  if ((state.boardRound || 0) > 0) return fits;
+  const last = BACKGROUNDS.length - 1;
+  const lastFits = trollCapacity(BASE_FINISH * (TRACK_THEMES[BACKGROUNDS[last]?.key]?.lengthScale || 1));
+  const along = last > 0 ? clamp(state.backgroundIndex || 0, 0, last) / last : 1;
+  return Math.min(fits, Math.round(base + (lastFits - base) * along));
+}
+
 function monsterCount(difficulty) {
   const base = MONSTER_COUNTS_BY_DIFFICULTY[difficulty] ?? MONSTER_COUNTS_BY_DIFFICULTY.normal;
   if (base === 0) return 0;
-  return base + Math.min(MONSTER_MAX_EXTRA, Math.floor((state.backgroundIndex || 0) / MONSTER_BOARDS_PER_EXTRA));
+  return normalTrollCount() + Math.max(0, base - MONSTER_COUNTS_BY_DIFFICULTY.normal);
 }
 
 function rollTrollRiding() {
@@ -66,19 +85,15 @@ function rollTrollRiding() {
 function getMonsterSpawnXs(difficulty) {
   const count = monsterCount(difficulty);
   if (count === 0) return [];
-
-  const finishMonsterX = FINISH - 120;
-  const spreadEndX = finishMonsterX - MONSTER_WAIT_FROM_BOARD_END * 0.25;
-  const positions = [];
-  // The first a third of the way in (MONSTER_COURSE_START_X), the last at the finish.
-  for (let index = 0; index < count - 1; index += 1) {
-    const progress = index / (count - 1);
-    // Ease toward the finish so each successive course section is denser.
-    const endBiasedProgress = 1 - Math.pow(1 - progress, 1.35);
-    positions.push(MONSTER_COURSE_START_X + (spreadEndX - MONSTER_COURSE_START_X) * endBiasedProgress);
+  const end = FINISH - 120;
+  if (count === 1) return [end];
+  if (difficulty !== "normal") {
+    // Extra trolls: spread from a third of the way, as close as they must.
+    return Array.from({ length: count }, (_, i) => MONSTER_COURSE_START_X + (end - MONSTER_COURSE_START_X) * i / (count - 1));
   }
-  positions.push(finishMonsterX);
-  return positions;
+  const earliest = MONSTER_COURSE_START_X;
+  const start = (state.boardRound || 0) > 0 ? earliest : clamp(end - (count - 1) * TROLL_SPACING, earliest, Math.max(earliest, FINISH / 2));
+  return Array.from({ length: count }, (_, i) => start + (end - start) * i / (count - 1));
 }
 
 function spawnMonster(x, y, options = {}) {

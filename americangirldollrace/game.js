@@ -424,8 +424,7 @@ const MONSTER_COUNTS_BY_DIFFICULTY = {
   extra: 4,
   "too-many": 8
 };
-const MONSTER_BOARDS_PER_EXTRA = 2; // one more troll every this many boards along (4 by the Horse Show)
-const MONSTER_MAX_EXTRA = 4; // and at most this many more than on the first board
+const TROLL_SPACING = EXPECTED_VIEW_WIDTH; // trolls at least a screen apart, so she meets one at a time
 const LOOSE_MOUNT_COOLDOWN = 1.4; // s a troll's horse flashes, out of reach, after he's knocked off it
 const TROLL_REMOUNT_RANGE = 600; // px: a troll on foot goes back to his horse this near
 const TROLL_REMOUNT_CLEAR = 130; // unless a racer is this close to it (she'd get it first)
@@ -732,6 +731,7 @@ const state = {
   windupCars: [],
   difficulty: "normal",
   specials: "none",
+  boardRound: 0, // times round all the boards (each more trolls; see normalTrollCount)
   cameraMode: "lego",
   stormCloud: null,
   stormTimer: 0,
@@ -1177,6 +1177,8 @@ function toggleSettingsPanel() {
 
 function advanceBackground() {
   state.backgroundIndex = (state.backgroundIndex + 1) % BACKGROUNDS.length;
+  // (Back to the first board: another time round, with more trolls.)
+  if (state.backgroundIndex === 0) state.boardRound = (state.boardRound || 0) + 1;
 }
 
 function getSelectedCharacter(select, fallback) {
