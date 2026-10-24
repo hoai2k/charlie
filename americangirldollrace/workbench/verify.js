@@ -4,9 +4,11 @@
 // sheet), mirror or resize it, drag it to move it and drag the handle on its
 // ring to turn it. Export downloads everything checked as a JSON file to
 // send back; its boots go into moon-boot-overrides.js as they are.
-// Progress is kept in this browser (localStorage) until exported.
-
-const VERIFY_STORE = "agdr.verify.moonBoots";
+// Nothing is kept between visits: a reload starts afresh, so a batch is
+// never sent twice. The export holds only the poses touched this visit
+// (changed, or marked Looks right). Poses already taken into the game (in
+// moon-boot-overrides.js) leave the queue. The game's sound is off while
+// the queue is open.
 const SPRITE_FRAMES = ["Idle 1", "Idle 2", "Idle 3", "Run 1", "Run 2", "Run 3", "Jump crouch", "Jump (in the air)", "Landing", "Riding", "Push", "Knocked over"];
 const ACTION_FRAMES = { 6: "Push from the saddle", 7: "Stuck in a puddle" };
 const BOOT_VIEWS = ["Side", "Three-quarter", "Front", "Back three-quarter", "Sole", "Pointed toe", "Inside (toe left)"];
@@ -33,13 +35,11 @@ const v$ = selector => document.querySelector(selector);
 const viewCanvas = v$("#vCanvas");
 const vctx = viewCanvas.getContext("2d");
 
-function loadVerifyProgress() {
-  try { verify.results = JSON.parse(localStorage.getItem(VERIFY_STORE) || "{}") || {}; } catch (error) { verify.results = {}; }
-}
+// (Checked this visit only; the export is what counts.)
+function saveVerifyProgress() {}
 
-function saveVerifyProgress() {
-  try { localStorage.setItem(VERIFY_STORE, JSON.stringify(verify.results)); } catch (error) { /* kept for this visit only */ }
-}
+// Placed by hand in the game already (an earlier batch).
+const inGame = item => Boolean(game.MOON_BOOT_OVERRIDES?.[item.id]);
 
 // Every doll in the roster once (by asset key), Barbie first.
 function verifyDolls() {
@@ -68,7 +68,8 @@ function buildVerifyQueue() {
     for (const index of CHECK_LATER) items.push({ ...doll, kind: "sprites", index, label: SPRITE_FRAMES[index] });
   }
   for (const item of items) item.id = `${item.asset}/${item.kind}/${item.index}`;
-  return items;
+  // Poses already taken into the game are done.
+  return items.filter(item => !inGame(item));
 }
 
 const copyBoots = boots => boots.map(boot => ({ ...boot }));
@@ -132,7 +133,7 @@ function renderVerifyStatus() {
   const edited = verify.items.filter(item => verify.results[item.id]?.status === "edited").length;
   const item = verify.items[verify.at];
   const state = verify.results[item.id]?.status;
-  v$("#vStatus").innerHTML = `${verify.at + 1} / ${verify.items.length} · <b>${done}</b> checked (${edited} changed)` +
+  v$("#vStatus").innerHTML = `${verify.at + 1} / ${verify.items.length} left · <b>${done}</b> to export (${edited} changed)` +
     (state ? ` · this one: <b>${state === "ok" ? "looks right" : "changed"}</b>` : "");
   const select = v$("#vJump");
   for (const option of select.options) {
@@ -438,6 +439,7 @@ v$("#vZoom").addEventListener("change", drawVerify);
 v$("#vClose").addEventListener("click", () => {
   recordItem();
   document.body.classList.remove("verifying");
+  game.GameAudio?.setMuted(Boolean(verify.wasMuted), false);
   frame.contentWindow.focus();
 });
 
@@ -495,7 +497,6 @@ v$("#vExport").addEventListener("click", () => {
 // ---------- opening ----------
 v$("#verifyOpen").addEventListener("click", () => {
   if (!verify.items.length) {
-    loadVerifyProgress();
     verify.items = buildVerifyQueue();
     const select = v$("#vJump");
     select.innerHTML = "";
@@ -504,11 +505,16 @@ v$("#verifyOpen").addEventListener("click", () => {
       option.value = String(i);
       select.append(option);
     });
-    // Start at the first pose not yet checked.
-    const next = verify.items.findIndex(item => !verify.results[item.id]);
-    verify.at = next < 0 ? 0 : next;
+    verify.at = 0;
+  }
+  if (!verify.items.length) {
+    v$("#verifyOpen").textContent = "Verification Queue: all done";
+    return;
   }
   document.body.classList.add("verifying");
+  // Quiet while checking (not remembered: the race's own setting stays).
+  verify.wasMuted = game.GameAudio?.isMuted;
+  game.GameAudio?.setMuted(true, false);
   bootArt();
   openItem(verify.at);
 });

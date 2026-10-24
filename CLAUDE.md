@@ -168,7 +168,9 @@ hook to get round it.
   exports a JSON file; integrate its boots into
   `americangirldollrace/moon-boot-overrides.js` (keyed
   `<asset>/<sprites|actions>/<frame>`), which `moonBootPlacements` in
-  game-draw.js prefers over the measured feet.
+  game-draw.js prefers over the measured feet. A pose in the overrides
+  leaves the queue; take in "Looks right" poses too (their boots as
+  exported) so they leave it as well.
 - `americangirldollrace/intake/` is the owner's drop folder for the race (see
   its README). Songs not tied to one board are listed in `TRACK_GENERAL_MUSIC`
   in `tracks.js`; "Forest Fairy Spin" is Fairy Woods' song (it replaced

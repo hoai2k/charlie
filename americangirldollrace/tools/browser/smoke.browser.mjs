@@ -602,9 +602,8 @@ test('the workbench runs: any player, still targets, every power-up and mount dr
   // The verification queue opens in the viewer's place with the moon-boot poses to check.
   await bench.waitForFunction(() => !document.querySelector('#verifyOpen').disabled, null, { timeout: 30000 });
   await bench.click('#verifyOpen');
-  const queue = await bench.evaluate(() => ({ open: document.body.classList.contains('verifying'), items: verify.items.length, first: verify.items[0]?.id, boots: verify.boots.length }));
-  assert.ok(queue.open && queue.items > 50 && queue.first === 'barbie/sprites/0' && queue.boots === 2, JSON.stringify(queue));
-  await bench.evaluate(() => localStorage.removeItem('agdr.verify.moonBoots'));
+  const queue = await bench.evaluate(() => ({ open: document.body.classList.contains('verifying'), items: verify.items.length, first: verify.items[0]?.id, startsAfterPlaced: !inGame(verify.items[verify.at]), boots: verify.boots.length }));
+  assert.ok(queue.open && queue.items > 50 && !queue.first.startsWith('barbie/') && queue.startsAfterPlaced && queue.boots >= 1, JSON.stringify(queue));
   await bench.click('#vClose');
   const r = await frame.evaluate(async () => {
     const tick = n => { for (let i = 0; i < n; i++) update(1 / 60); };

@@ -566,14 +566,15 @@ const GameAudio = (() => {
     }
   }
 
-  // Sound on/off (the pause screen's speaker button); remembered per device.
-  function setMuted(value) {
+  // Sound on/off (the pause screen's speaker button); remembered per device
+  // unless `remember` is false (the workbench's verification queue).
+  function setMuted(value, remember = true) {
     muted = Boolean(window.RACE_TEST_SILENT || value);
     if (muted) stopAll();
     refreshLiveVolumes();
     updateMusicVolume();
     try {
-      if (!window.RACE_TEST_SILENT) window.localStorage?.setItem(`${STORAGE_KEY}:muted`, muted ? "1" : "0");
+      if (!window.RACE_TEST_SILENT && remember) window.localStorage?.setItem(`${STORAGE_KEY}:muted`, muted ? "1" : "0");
     } catch (error) {
       /* not fatal */
     }
