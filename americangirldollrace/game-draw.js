@@ -910,11 +910,13 @@ function moonBootRole(foot, feet) {
   return side + ((foot[6] ?? foot[1]) < (other[6] ?? other[1]) - MOON_BOOT_LIFTED ? "-lifted" : "");
 }
 const MOON_BOOT_LIFTED = 30; // px above the other foot that counts as lifted
+const MOON_BOOT_LESSON_DOLLS = 2; // dolls placed by hand in a pose before their boot views carry over
 
 // What the owner's hand-placed boots (MOON_BOOT_OVERRIDES) say about a pose
 // on every doll: for each foot role, the boot view (cell and mirroring)
-// picked most often, and the mean angle used with it. Null where no doll
-// has that pose placed by hand yet.
+// picked most often, and the mean angle used with it. Null until at least
+// MOON_BOOT_LESSON_DOLLS dolls have that pose placed by hand (one doll's
+// pose can be unusual: Barbie's are), so the rules above hold till then.
 let moonBootLessons = null;
 function learnedMoonBootView(kind, index, count, role) {
   if (!moonBootLessons) {
@@ -933,7 +935,7 @@ function learnedMoonBootView(kind, index, count, role) {
     }
   }
   const views = moonBootLessons[`${kind}/${index}/${count}/${role}`];
-  if (!views) return null;
+  if (!views || Object.values(views).reduce((n, angles) => n + angles.length, 0) < MOON_BOOT_LESSON_DOLLS) return null;
   const [view, angles] = Object.entries(views).sort((a, b) => b[1].length - a[1].length)[0];
   return { cell: parseInt(view, 10), mirror: view.endsWith("m"), angle: angles.reduce((s, a) => s + a, 0) / angles.length };
 }
