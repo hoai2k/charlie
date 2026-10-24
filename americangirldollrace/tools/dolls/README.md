@@ -69,7 +69,8 @@ menu roster by hand.
    node --test americangirldollrace/tools/dolls/recolor.test.mjs
    ```
 
-   The only exporter dependencies are Pillow and NumPy. No image API calls,
+   Exporter dependencies are Pillow and NumPy; Zoey's accent-mask component
+   protection also uses SciPy. No image API calls,
    downloaded segmentation model, or local source PNG paths are needed to rebuild.
 5. Review `reports/<key>-poses.jpg` on both backgrounds, the mask overlay,
    and the game itself. Check selection, wave/cheer, outfit variants, running,
@@ -239,9 +240,10 @@ actions and three cloud-ledge phases. Her rider was redrawn looking forward
 right, following the owner's correction. All sources and exact built-in
 ImageGen prompts are retained; `zoey/prompts.json` records the generation round.
 
-The `teal-top` mask changes only her top for seven alternate colours. Measured
-Oklab statistics are in her manifest; black hair, skin, navy/yellow trousers,
-straps/tassel and footwear stay fixed. The ledge renderer supports alternate
+The `teal-top` mask uses R for her top and B for yellow trouser/sneaker accents.
+Each of seven alternate outfits has a contrasting secondary colour. Her original
+teal/yellow outfit stays unchanged; skate wheels and prop hardware remain fixed. Measured
+Oklab statistics are in her manifest; black hair, skin, navy fabric, turquoise straps/tassel and gold jewellery stay fixed. The ledge renderer supports alternate
 outfits and explicit contact/scale calibration, so the hang, pull-up and
 kneeling recovery retain her anatomical scale without clipping the sheet.
 Hand, broom-grip, seat, wand-tip and cloud-contact calibration is retained in

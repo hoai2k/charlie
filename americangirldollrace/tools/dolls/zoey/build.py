@@ -73,6 +73,10 @@ def pack(im, spec, desired, contact=None):
     frame.alpha_composite(im.crop(b).resize(size, Image.Resampling.LANCZOS), xy)
     mask = Image.new('RGB', (418,418))
     source_mask = B.clothing_mask(im, spec, 'teal-top').convert('RGB')
+    if spec.get('skates'):
+        a = np.array(source_mask)
+        a[round(b[3]-(b[3]-b[1])*.25):,:,2] = 0  # white skates/yellow wheels are hardware
+        source_mask = Image.fromarray(a)
     mask.paste(source_mask.crop(b).resize(size, Image.Resampling.LANCZOS), xy)
     return frame, mask, (factor, anchor, target), desired/factor
 
@@ -109,6 +113,7 @@ def supplement(kind, groups, common):
         for cell, (hip,chin,hem,contact) in enumerate(measurements):
             im, offset = source(name, cell)
             spec={'hipX':hip+offset,'chin':chin,'garmentBottom':hem}
+            if name.startswith('toy-skate'):spec['skates']=True
             contact = [contact[0]+offset,contact[1]] if contact else None
             frame,mask,transform,render = pack(im,spec,common*ratio,contact)
             n=len(frames)

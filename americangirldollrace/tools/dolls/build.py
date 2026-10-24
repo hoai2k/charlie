@@ -95,8 +95,8 @@ def neutral_mask(src, chin, raised_sleeves=()):
 
 def clothing_mask(src, spec, mode):
     if mode == 'teal-top':
-        # Zoey: tint the turquoise top only; keep skin, navy/yellow trousers,
-        # shoes, hardware and the lower turquoise straps/tassel unchanged.
+        # Zoey: R is the teal top; B independently selects yellow cloth/shoe
+        # accents. G remains reserved for dyed hair. Gold jewellery stays fixed.
         a = np.asarray(src).astype(np.float32)
         r, g, b, alpha = [a[:, :, i] for i in range(4)]
         weight = np.clip((g-r-18)/12, 0, 1) * np.clip((b-r-12)/10, 0, 1)
@@ -107,6 +107,19 @@ def clothing_mask(src, spec, mode):
             weight[y0:y1, x0:x1] = 0
         out = np.zeros_like(a, dtype=np.uint8)
         out[:, :, 0] = np.round(weight * 255).astype(np.uint8)
+        yellow = np.clip((g-b-65)/20, 0, 1) * np.clip((g-r*.72)/15, 0, 1)
+        yellow *= (r>g) & (b<g*.6) & (alpha>16)
+        yellow[:round(spec['garmentBottom'])] = 0
+        # Small isolated gold charms near the waistband are not trouser fabric.
+        from scipy import ndimage
+        labels, _ = ndimage.label(yellow > .1)
+        body = bounds(src)
+        cutoff = spec['garmentBottom'] + (body[3]-body[1])*.2
+        small = np.count_nonzero(alpha>128)*.008
+        for label, region in enumerate(ndimage.find_objects(labels), 1):
+            if region and region[0].stop < cutoff and np.count_nonzero(labels[region]==label)<small:
+                yellow[labels==label] = 0
+        out[:, :, 2] = np.round(yellow * 255).astype(np.uint8)
         out[:, :, 3] = 255
         return Image.fromarray(out)
     if mode == 'marisol-varsity':

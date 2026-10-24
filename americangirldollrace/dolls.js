@@ -254,7 +254,24 @@ window.EXTRA_DOLLS = {
         "orange",
         "blue",
         "yellow"
-      ]
+      ],
+      "secondary": {
+        "stats": {
+          "h": 1.630951,
+          "L": 0.840034,
+          "C": 0.16579,
+          "beta": 0.7
+        },
+        "outfits": [
+          "teal",
+          "mint",
+          "berry",
+          "orange",
+          "blue",
+          "pink",
+          "purple"
+        ]
+      }
     }
   }
 };

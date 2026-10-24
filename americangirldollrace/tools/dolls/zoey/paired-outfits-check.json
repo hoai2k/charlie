@@ -1,0 +1,348 @@
+{
+  "counts": [
+    {
+      "kind": "sheet",
+      "n": 1,
+      "accent": 37994,
+      "primary": 14778,
+      "unmasked": 0
+    },
+    {
+      "kind": "sheet",
+      "n": 2,
+      "accent": 37994,
+      "primary": 14785,
+      "unmasked": 0
+    },
+    {
+      "kind": "sheet",
+      "n": 3,
+      "accent": 37994,
+      "primary": 14567,
+      "unmasked": 0
+    },
+    {
+      "kind": "sheet",
+      "n": 4,
+      "accent": 37994,
+      "primary": 14752,
+      "unmasked": 0
+    },
+    {
+      "kind": "sheet",
+      "n": 5,
+      "accent": 37994,
+      "primary": 14779,
+      "unmasked": 0
+    },
+    {
+      "kind": "sheet",
+      "n": 6,
+      "accent": 37994,
+      "primary": 14583,
+      "unmasked": 0
+    },
+    {
+      "kind": "sheet",
+      "n": 7,
+      "accent": 37994,
+      "primary": 14780,
+      "unmasked": 0
+    },
+    {
+      "kind": "wave",
+      "n": 1,
+      "accent": 3774,
+      "primary": 1545,
+      "unmasked": 0
+    },
+    {
+      "kind": "wave",
+      "n": 2,
+      "accent": 3774,
+      "primary": 1546,
+      "unmasked": 0
+    },
+    {
+      "kind": "wave",
+      "n": 3,
+      "accent": 3774,
+      "primary": 1512,
+      "unmasked": 0
+    },
+    {
+      "kind": "wave",
+      "n": 4,
+      "accent": 3774,
+      "primary": 1543,
+      "unmasked": 0
+    },
+    {
+      "kind": "wave",
+      "n": 5,
+      "accent": 3774,
+      "primary": 1545,
+      "unmasked": 0
+    },
+    {
+      "kind": "wave",
+      "n": 6,
+      "accent": 3774,
+      "primary": 1501,
+      "unmasked": 0
+    },
+    {
+      "kind": "wave",
+      "n": 7,
+      "accent": 3774,
+      "primary": 1545,
+      "unmasked": 0
+    },
+    {
+      "kind": "cheer",
+      "n": 1,
+      "accent": 3706,
+      "primary": 1461,
+      "unmasked": 0
+    },
+    {
+      "kind": "cheer",
+      "n": 2,
+      "accent": 3706,
+      "primary": 1463,
+      "unmasked": 0
+    },
+    {
+      "kind": "cheer",
+      "n": 3,
+      "accent": 3706,
+      "primary": 1442,
+      "unmasked": 0
+    },
+    {
+      "kind": "cheer",
+      "n": 4,
+      "accent": 3706,
+      "primary": 1461,
+      "unmasked": 0
+    },
+    {
+      "kind": "cheer",
+      "n": 5,
+      "accent": 3706,
+      "primary": 1462,
+      "unmasked": 0
+    },
+    {
+      "kind": "cheer",
+      "n": 6,
+      "accent": 3706,
+      "primary": 1440,
+      "unmasked": 0
+    },
+    {
+      "kind": "cheer",
+      "n": 7,
+      "accent": 3706,
+      "primary": 1463,
+      "unmasked": 0
+    },
+    {
+      "kind": "ride",
+      "n": 1,
+      "accent": 3330,
+      "primary": 639,
+      "unmasked": 0
+    },
+    {
+      "kind": "ride",
+      "n": 2,
+      "accent": 3330,
+      "primary": 639,
+      "unmasked": 0
+    },
+    {
+      "kind": "ride",
+      "n": 3,
+      "accent": 3330,
+      "primary": 629,
+      "unmasked": 0
+    },
+    {
+      "kind": "ride",
+      "n": 4,
+      "accent": 3330,
+      "primary": 638,
+      "unmasked": 0
+    },
+    {
+      "kind": "ride",
+      "n": 5,
+      "accent": 3330,
+      "primary": 639,
+      "unmasked": 0
+    },
+    {
+      "kind": "ride",
+      "n": 6,
+      "accent": 3330,
+      "primary": 627,
+      "unmasked": 0
+    },
+    {
+      "kind": "ride",
+      "n": 7,
+      "accent": 3330,
+      "primary": 639,
+      "unmasked": 0
+    },
+    {
+      "kind": "toys",
+      "n": 1,
+      "accent": 28577,
+      "primary": 13658,
+      "unmasked": 0
+    },
+    {
+      "kind": "toys",
+      "n": 2,
+      "accent": 28577,
+      "primary": 13664,
+      "unmasked": 0
+    },
+    {
+      "kind": "toys",
+      "n": 3,
+      "accent": 28577,
+      "primary": 13484,
+      "unmasked": 0
+    },
+    {
+      "kind": "toys",
+      "n": 4,
+      "accent": 28577,
+      "primary": 13641,
+      "unmasked": 0
+    },
+    {
+      "kind": "toys",
+      "n": 5,
+      "accent": 28577,
+      "primary": 13664,
+      "unmasked": 0
+    },
+    {
+      "kind": "toys",
+      "n": 6,
+      "accent": 28577,
+      "primary": 13464,
+      "unmasked": 0
+    },
+    {
+      "kind": "toys",
+      "n": 7,
+      "accent": 28577,
+      "primary": 13664,
+      "unmasked": 0
+    },
+    {
+      "kind": "actions",
+      "n": 1,
+      "accent": 32335,
+      "primary": 11837,
+      "unmasked": 0
+    },
+    {
+      "kind": "actions",
+      "n": 2,
+      "accent": 32335,
+      "primary": 11840,
+      "unmasked": 0
+    },
+    {
+      "kind": "actions",
+      "n": 3,
+      "accent": 32335,
+      "primary": 11651,
+      "unmasked": 0
+    },
+    {
+      "kind": "actions",
+      "n": 4,
+      "accent": 32335,
+      "primary": 11824,
+      "unmasked": 0
+    },
+    {
+      "kind": "actions",
+      "n": 5,
+      "accent": 32335,
+      "primary": 11838,
+      "unmasked": 0
+    },
+    {
+      "kind": "actions",
+      "n": 6,
+      "accent": 32335,
+      "primary": 11655,
+      "unmasked": 0
+    },
+    {
+      "kind": "actions",
+      "n": 7,
+      "accent": 32335,
+      "primary": 11839,
+      "unmasked": 0
+    },
+    {
+      "kind": "ledge",
+      "n": 1,
+      "accent": 9528,
+      "primary": 2393,
+      "unmasked": 0
+    },
+    {
+      "kind": "ledge",
+      "n": 2,
+      "accent": 9528,
+      "primary": 2397,
+      "unmasked": 0
+    },
+    {
+      "kind": "ledge",
+      "n": 3,
+      "accent": 9528,
+      "primary": 2335,
+      "unmasked": 0
+    },
+    {
+      "kind": "ledge",
+      "n": 4,
+      "accent": 9528,
+      "primary": 2390,
+      "unmasked": 0
+    },
+    {
+      "kind": "ledge",
+      "n": 5,
+      "accent": 9528,
+      "primary": 2393,
+      "unmasked": 0
+    },
+    {
+      "kind": "ledge",
+      "n": 6,
+      "accent": 9528,
+      "primary": 2331,
+      "unmasked": 0
+    },
+    {
+      "kind": "ledge",
+      "n": 7,
+      "accent": 9528,
+      "primary": 2396,
+      "unmasked": 0
+    }
+  ],
+  "errors": []
+}
