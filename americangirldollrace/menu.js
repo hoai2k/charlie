@@ -863,7 +863,7 @@
     if (lobby.touchFocus < 0) lobby.touchFocus = null;
   }
 
-  // Corner buttons (as when paused): sound, settings, full screen.
+  // Corner buttons (as when paused, less the gear: Settings is up top): sound, full screen.
   function updateCorner() {
     $("#lbSoundButton").classList.toggle("off", GameAudio.isMuted);
     $("#lbSoundButton").setAttribute("aria-pressed", String(!GameAudio.isMuted));
@@ -888,7 +888,6 @@
     if (!GameAudio.isMuted) sound("ui_click");
     updateCorner();
   });
-  $("#lbCornerSettings").addEventListener("click", () => { GameAudio.unlock(); openSettings(!lobby.settingsOpen); });
   $("#lbFullscreenButton").addEventListener("click", () => {
     GameAudio.unlock();
     // iPhone Safari can't go full screen: point at the swipe-up hint instead.

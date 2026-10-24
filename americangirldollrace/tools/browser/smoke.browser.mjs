@@ -492,7 +492,7 @@ test('lobby: clicking Random adds keyboard players; Escape un-picks then removes
   assert.deepEqual(errors, []);
 });
 
-test('choose screen: corner buttons (sound, settings, full screen) at the bottom right, moving up when the players fill the bottom; no full screen row in settings', { skip: skip() }, async () => {
+test('choose screen: corner buttons (sound, full screen; no gear) at the bottom right, never over a player (up top when they reach it); no full screen row in settings', { skip: skip() }, async () => {
   await page.evaluate(() => { state.running = false; startPanel.classList.remove('hidden'); Lobby.showSelect(); });
   for (let i = 0; i < 8 && (await page.evaluate(() => Lobby.players().length)); i++) await page.keyboard.press('Escape');
   const where = () => page.evaluate(() => {
@@ -502,14 +502,24 @@ test('choose screen: corner buttons (sound, settings, full screen) at the bottom
   const few = await where();
   // (Tests are always silent, so watch what it asks for.)
   const muted = await page.evaluate(() => { const asked = []; const real = GameAudio.setMuted; GameAudio.setMuted = v => { asked.push(v); real(v); }; document.querySelector('#lbSoundButton').click(); GameAudio.setMuted = real; return [asked.length === 1 && asked[0] === false, document.querySelector('#lbSoundButton').classList.contains('off') === GameAudio.isMuted]; });
-  const opens = await page.evaluate(() => { document.querySelector('#lbCornerSettings').click(); const open = !document.querySelector('#lbSettings').classList.contains('off'); document.querySelector('#lbCornerSettings').click(); return open && Boolean(document.querySelector('#lbFullscreenRow')) === false; });
+  // (No gear here: the Settings button is up top.)
+  const opens = await page.evaluate(() => !document.querySelector('#lbCorner #lbCornerSettings') && document.querySelectorAll('#lbCorner .corner-button').length === 2 && !document.querySelector('#lbFullscreenRow'));
   // Fill the bottom: both keyboard players and three computer racers.
   await page.keyboard.press('Space'); await page.keyboard.press('Enter');
   await page.keyboard.press('KeyR'); for (let i = 0; i < 3; i++) await page.keyboard.press('KeyS'); for (let i = 0; i < 4; i++) await page.keyboard.press('KeyD'); await page.keyboard.press('KeyR');
-  const many = await where();
+  // Never over a stall, landscape or upright (it moves up when they reach it).
+  const clear = () => page.evaluate(() => {
+    const c = document.querySelector('#lbCorner').getBoundingClientRect();
+    return [...document.querySelectorAll('#lbSlots .lb-slot')].every(el => { const r = el.getBoundingClientRect(); return r.right <= c.left || r.left >= c.right || r.bottom <= c.top || r.top >= c.bottom; });
+  });
+  const many = [await clear()];
+  const size = page.viewportSize();
+  await page.setViewportSize({ width: 600, height: 900 }); await page.waitForTimeout(400);
+  many.push(await clear());
+  await page.setViewportSize(size); await page.waitForTimeout(400);
   await page.keyboard.press('KeyR'); for (let i = 0; i < 3; i++) await page.keyboard.press('KeyS'); for (let i = 0; i < 4; i++) await page.keyboard.press('KeyA'); await page.keyboard.press('KeyR');
   for (let i = 0; i < 8 && (await page.evaluate(() => Lobby.players().length)); i++) await page.keyboard.press('Escape');
-  assert.deepEqual({ few, muted, opens, many }, { few: 'bottom', muted: [true, true], opens: true, many: 'up' });
+  assert.deepEqual({ few, muted, opens, many }, { few: 'bottom', muted: [true, true], opens: true, many: [true, true] });
   assert.deepEqual(errors, []);
 });
 
