@@ -14,6 +14,9 @@ const BOOT_VIEWS = ["Side", "Three-quarter", "Front", "Back three-quarter", "Sol
 // air, riding, pushing and knocked over (standing and crouching are simple).
 const CHECK_SPRITES = [3, 4, 5, 7, 9, 10, 11];
 const CHECK_ACTIONS = [6];
+// Added later, at the end of the queue (so checked poses keep their place):
+// crouching and landing, where a low bag or skirt can be taken for a foot.
+const CHECK_LATER = [6, 8];
 const FIRST_DOLL = "barbie"; // reported off: all her poses, first
 
 const verify = {
@@ -59,6 +62,10 @@ function buildVerifyQueue() {
     const sprites = doll.asset === FIRST_DOLL ? SPRITE_FRAMES.map((_, i) => i) : CHECK_SPRITES;
     for (const index of sprites) items.push({ ...doll, kind: "sprites", index, label: SPRITE_FRAMES[index] });
     if (hasActions(doll.asset)) for (const index of CHECK_ACTIONS) items.push({ ...doll, kind: "actions", index, label: ACTION_FRAMES[index] });
+  }
+  for (const doll of verifyDolls()) {
+    if (!game.DOLL_FEET?.[doll.asset] || doll.asset === FIRST_DOLL) continue;
+    for (const index of CHECK_LATER) items.push({ ...doll, kind: "sprites", index, label: SPRITE_FRAMES[index] });
   }
   for (const item of items) item.id = `${item.asset}/${item.kind}/${item.index}`;
   return items;

@@ -561,7 +561,7 @@ const images = {
   backgroundTown: loadImage("assets/background_village.webp"),
   backgroundWinter: loadImage("assets/background_winter.webp"),
   whirlpool: loadImage("assets/doll_whirlpool_sprites.webp"),
-  juliette: loadImage("assets/doll_juliette_sprites.webp"),
+  juliette: loadImage(`assets/doll_juliette_sprites.webp?v=${window.GAME_CONFIG?.dollArtVersion || "1"}`),
   claudia: loadImage("assets/doll_claudia_sprites.webp"),
   kaya: loadImage("assets/doll_kaya_sprites.webp"),
   lily: loadImage("assets/doll_lily_sprites.webp"),
