@@ -27,7 +27,7 @@
   const SETTING_ROWS = 7;
   const MONSTER_SKILLS = [["easy", "Easy", "No grabbing riders; sometimes they miss you"], ["medium", "Medium", "Horses run past trolls and the ice giant"], ["hard", "Hard", "Any monster pulls you off any mount"]];
   const SPECIAL_KEYS = ["none", "unicorn", "pegasus", "griffon", "broom", "all-dolls", "horsing", "amanda-mode"];
-  const SPECIAL_NAMES = ["None", "All Unicorns", "All Pegasi", "All Gryphons", "All Brooms", "All Dolls (adds Amanda and Penelope)", "Horsing Around", "Amanda Mode"];
+  const SPECIAL_NAMES = ["None", "All Unicorns", "All Pegasi", "All Gryphons", "All Brooms", "All Dolls", "Horsing Around", "Amanda Mode"];
   const GLYPHS = { A: 0, B: 1, X: 2, Y: 3, LB: 4, RB: 5 };
   const PAD_BUTTONS = { 0: "a", 1: "b", 2: "x", 3: "y", 9: "start", 12: "up", 13: "down", 14: "left", 15: "right" };
   const KEYMAP = {
