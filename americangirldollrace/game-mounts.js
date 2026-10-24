@@ -527,6 +527,7 @@ function drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX) {
   ctx.translate(rootX, rootY);
   ctx.scale(facing < 0 ? -1 : 1, 1);
   const view = wingView(racer, image, sy);
+  drawWingGlow(racer, k, t, view, flying, rootX, rootY, facing);
   const single = view === 2 ? getWingArt("fairy_wing_single") : null;
   const index = flying ? 2 + Math.floor(t * 18) % 4 : Math.floor(t * 5) % 2;
   if (single?.complete && single.width) {
@@ -551,6 +552,48 @@ function drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX) {
     drawWingStandIn(k, beat, 1, 1);
   }
   ctx.restore();
+}
+
+// A fairy glow behind her wings (drawn at their root, in the wings' own
+// space: facing right, wings back to the left): a soft light that breathes,
+// brighter as they beat, and sparkles that drift off them now and then, in
+// the colours of this track's wings.
+const WING_GLOW = {
+  pastel: { glow: ["rgba(255, 196, 240, 0.9)", "rgba(214, 196, 255, 0.55)"], sparkles: ["#fff6ff", "#ffc8f0", "#d9ccff", "#c6fff6"] },
+  twilight: { glow: ["rgba(186, 132, 255, 0.9)", "rgba(120, 214, 255, 0.55)"], sparkles: ["#ffffff", "#d7b8ff", "#9fe8ff", "#ffe7a8"] }
+};
+const WING_SPARKLE_EVERY = 0.07; // seconds between sparkles on the ground (three times as often flying)
+function drawWingGlow(racer, k, t, view, flying, rootX, rootY, facing) {
+  const style = WING_GLOW[getTrackTheme().wingStyle] || WING_GLOW.pastel;
+  const size = 512 * k * WING_SCALE;
+  const cx = view === 2 ? 0 : -0.3 * size, cy = -0.25 * size;
+  const pulse = 0.75 + 0.25 * Math.sin(t * (flying ? 9 : 3));
+  ctx.save();
+  ctx.globalCompositeOperation = "lighter";
+  ctx.globalAlpha *= pulse * (flying ? 1 : 0.75);
+  const radius = size * (view === 2 ? 1 : 0.85);
+  const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+  glow.addColorStop(0, style.glow[0]);
+  glow.addColorStop(0.45, style.glow[1]);
+  glow.addColorStop(1, "rgba(0, 0, 0, 0)");
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+  // Sparkles: world-space particles from a spot on the wings, timed by the
+  // clock (drawing happens every frame, not every update).
+  const now = performance.now() / 1000;
+  if (!state.running || now < (racer.wingSparkleAt || 0)) return;
+  racer.wingSparkleAt = now + WING_SPARKLE_EVERY / (flying ? 3 : 1) * (0.6 + Math.random() * 0.8);
+  const across = view === 2 ? (Math.random() - 0.5) * 1.1 : -(0.05 + Math.random() * 0.5);
+  const sx = rootX + across * size * facing;
+  const sy = rootY - Math.random() * 0.5 * size;
+  const groundY = racer.y + 54;
+  spawnParticles(sx + state.camera, groundY, groundY - sy, 1, {
+    kind: "spark", color: style.sparkles[Math.floor(Math.random() * style.sparkles.length)],
+    speed: 25, lift: flying ? 10 : 40, gravity: 40, life: 0.9 + Math.random() * 0.7, size: (3.5 + Math.random() * 3.5) * k * 2.4, fallThrough: true
+  });
 }
 
 // One code-drawn wing (upper and lower lobe) rising up and back from the
