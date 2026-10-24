@@ -264,19 +264,36 @@
         "orange",
         "blue",
         "yellow"
-      ]
+      ],
+      "secondary": {
+        "stats": {
+          "h": 1.630951,
+          "L": 0.840034,
+          "C": 0.16579,
+          "beta": 0.7
+        },
+        "outfits": [
+          "teal",
+          "mint",
+          "berry",
+          "orange",
+          "blue",
+          "pink",
+          "purple"
+        ]
+      }
     }
   },
   "sha256": {
     "assets/doll_zoey_sprites.webp": "d0dd62618355dfb02a7da526f5d49a37ee05a695a8ed5b35e503da009729444b",
-    "assets/masks/zoey_sheet_mask.webp": "db2723fd328be9eb9b360cafe3250fe54498c603a534ee062d1f3f80d10a652d",
+    "assets/masks/zoey_sheet_mask.webp": "2453d333d45fa289c6eb567d37d1299b42e41d7e0a4dcc86a7ac1906f0dfcf80",
     "assets/portraits/zoey.webp": "2c07660ab22ea10bd567420b5c5af68df4a700411a7cbbf0e7e36729154cf0f1",
-    "assets/masks/zoey_portrait_mask.webp": "cba1cf8129fc9121ae61f555350f249dc9ce4812dfe57b7ef68021e1e8780f4b",
+    "assets/masks/zoey_portrait_mask.webp": "f2810e3b3e95063e198b45138c7870e694d5dc8a4eab437c64ea69a2f7f4e864",
     "assets/portraits/zoey_wave.webp": "74f8792aea894aa423956992c2a92ee4b2514b41c35e866094b259fe13432779",
-    "assets/masks/zoey_wave_mask.webp": "bd2c8b6ced1ff70bdfee79d55f29f3ff2db5d1d38ec0419d6069936cf8219695",
+    "assets/masks/zoey_wave_mask.webp": "38b6d2465a3e014c708b2d6dd9f55a7ef5e84a16cbdbaa494ff0dfa81425f6b0",
     "assets/portraits/zoey_cheer.webp": "7523a000d93dfb6481bb2eabe588466825df70d2b527750977b7eefa4211347a",
-    "assets/masks/zoey_cheer_mask.webp": "7149d3b2cf131f5b29061fa61e1fdee75f2b75090c35e6995c4ae3e9677200b9",
+    "assets/masks/zoey_cheer_mask.webp": "90cf674c26b134b8b9342a7c4bb0a0533b820e29e65b48f79ec8330ee9f70ffe",
     "assets/portraits/zoey_ride.webp": "8b9a1087b6409105b678e64752929653cdb9b003d6b935159ed0fa21fd0084a2",
-    "assets/masks/zoey_ride_mask.webp": "4bb1b8fea51dafc0de0810b84bc5e90a1cafc4c4db9a8dc8a94e0be8a3c3e7cd"
+    "assets/masks/zoey_ride_mask.webp": "a2cc26a86c24170ae8ceef0d1a82ee0a63bc4e303338c9e552dafa6deeeb63ae"
   }
 }

@@ -46,5 +46,37 @@ class ZoeyTests(unittest.TestCase):
             self.assertEqual(f['scale'],1)
             self.assertAlmostEqual(f['packedScale']*f['scale'],390/710,places=6)
 
+    def test_secondary_accents_are_disjoint_and_identity_is_protected(self):
+        manifest=json.loads((build.HERE/'manifests/zoey.json').read_text())
+        secondary=manifest['outfitData']['secondary']['outfits']
+        self.assertEqual(len(set(secondary)),7)
+        for primary,accent in zip(manifest['outfitData']['outfits'],secondary):
+            self.assertNotEqual(primary,accent)
+        for kind in ['sheet','portrait','wave','cheer','ride','toys','actions','ledge']:
+            file=f'assets/doll_zoey_{"sprites" if kind=="sheet" else kind}.webp' if kind in ['sheet','toys','actions','ledge'] else f'assets/portraits/zoey{"" if kind=="portrait" else "_"+kind}.webp'
+            a=np.array(Image.open(build.GAME/file).convert('RGBA')).astype(float)
+            mask=np.array(Image.open(build.GAME/f'assets/masks/zoey_{kind}_mask.webp').convert('RGB'))
+            # Resampling can blend adjacent cloth edges; their solid interiors
+            # must never belong to both recolour regions.
+            self.assertFalse(np.any((mask[:,:,0]>64)&(mask[:,:,2]>64)),kind)
+            if kind!='portrait':self.assertGreater(np.count_nonzero(mask[:,:,2]>128),100,kind)
+            # Check the head area geometrically: shadowed yellow textile can
+            # share skin-like RGB after resizing, so RGB alone is ambiguous.
+            if kind!='portrait':
+                for y in range(0,a.shape[0],418):
+                    for x in range(0,a.shape[1],418):
+                        cell=Image.fromarray(a[y:y+418,x:x+418].astype(np.uint8))
+                        bb=build.bounds(cell)
+                        head_end=bb[1]+round((bb[3]-bb[1])*.25)
+                        self.assertEqual(mask[y+bb[1]:y+head_end,x:x+418,2].max(initial=0),0,(kind,x,y))
+
+    def test_yellow_channel_does_not_select_skin_or_gold_above_hem(self):
+        values=[[[225,165,115,255],[245,210,30,255]],
+                [[225,165,115,255],[245,210,30,255]]]
+        image=Image.fromarray(np.array(values,dtype=np.uint8))
+        mask=np.array(build.clothing_mask(image,{'chin':0,'garmentBottom':1},'teal-top'))
+        self.assertEqual(mask[0,:,2].tolist(),[0,0])
+        self.assertEqual(mask[1,:,2].tolist(),[0,255])
+
 
 if __name__=='__main__':unittest.main()

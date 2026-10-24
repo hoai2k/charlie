@@ -84,11 +84,13 @@
     return name ? data.palette[name] : null;
   }
 
-  function lutFor(key, n) {
-    const id = `${key}|${n}`;
+  function lutFor(key, n, secondary = false) {
+    const id = `${key}|${n}|${secondary}`;
     if (!luts.has(id)) {
       const doll = dollData(key);
-      luts.set(id, window.DollRecolor.buildLut(doll.stats, hexToRgb(colorOf(key, n))));
+      const stats = secondary ? doll.secondary.stats : doll.stats;
+      const color = secondary ? data.palette[doll.secondary.outfits[n - 1]] : colorOf(key, n);
+      luts.set(id, window.DollRecolor.buildLut(stats, hexToRgb(color)));
     }
     return luts.get(id);
   }
@@ -105,6 +107,15 @@
     const pixels = g.getImageData(0, 0, canvas.width, canvas.height);
     const doll = dollData(key);
     window.DollRecolor.recolorPixelsLut(pixels.data, mask, doll.stats, hexToRgb(colorOf(key, n)), pixels.data, lutFor(key, n));
+    const secondaryColor = data.palette[doll.secondary?.outfits[n - 1]];
+    if (secondaryColor) {
+      // Optional B-channel accents get a separate target; the ordinary R/G
+      // clothing and dyed-hair behavior is unchanged for all existing dolls.
+      const accents = new Uint8ClampedArray(mask.length);
+      for (let i = 0; i < mask.length; i += 4) accents[i] = mask[i + 2];
+      window.DollRecolor.recolorPixelsLut(pixels.data, accents, doll.secondary.stats,
+        hexToRgb(secondaryColor), pixels.data, lutFor(key, n, true));
+    }
     g.putImageData(pixels, 0, 0);
     // Some code checks .src/.complete like an <img>; give the canvas both.
     canvas.complete = true;

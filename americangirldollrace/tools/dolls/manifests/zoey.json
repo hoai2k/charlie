@@ -12,7 +12,7 @@
   ],
   "mask": {
     "mode": "teal-top",
-    "note": "Only teal top; preserve hair, face, pants, tassel, arm pouch and sneakers."
+    "note": "R: teal top. B: yellow trouser and shoe accents; retain skin, hair, navy fabric, turquoise straps, gold charm and toy hardware."
   },
   "outfitData": {
     "stats": {
@@ -29,7 +29,24 @@
       "orange",
       "blue",
       "yellow"
-    ]
+    ],
+    "secondary": {
+      "stats": {
+        "h": 1.630951,
+        "L": 0.840034,
+        "C": 0.16579,
+        "beta": 0.7
+      },
+      "outfits": [
+        "teal",
+        "mint",
+        "berry",
+        "orange",
+        "blue",
+        "pink",
+        "purple"
+      ]
+    }
   },
   "personality": "Upbeat mischievous rapper, springy athletic run, friendly wave and proud one-fist cheer.",
   "poses": {
