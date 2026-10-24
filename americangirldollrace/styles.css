@@ -792,6 +792,16 @@ button:focus-visible {
   gap: 12px;
 }
 
+/* Two buttons side by side (Restart and Skip). */
+.pause-pair {
+  display: flex;
+  gap: 12px;
+}
+
+.pause-pair button {
+  flex: 1;
+}
+
 .pause-buttons button {
   display: flex;
   align-items: center;

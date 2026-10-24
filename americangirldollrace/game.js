@@ -1638,8 +1638,17 @@ function addToStandings(order) {
   });
 }
 
-// Straight to the next race, from the pause menu (no points for this one).
+// From the pause menu: Skip goes straight to the next race, Restart runs
+// this one again from the start, its song too (no points either way).
 function skipRace() {
+  leaveRace(true);
+}
+
+function restartRace() {
+  leaveRace(false);
+}
+
+function leaveRace(next) {
   if (!state.running) return;
   GameAudio.play("ui_unpause");
   stopGameplayAudioLoops();
@@ -1649,7 +1658,8 @@ function skipRace() {
   state.running = false;
   state.paused = false;
   pausePanel.classList.add("hidden");
-  advanceBackground();
+  if (next) advanceBackground();
+  else restartSong();
   startRace(state.mode);
 }
 
@@ -2512,6 +2522,7 @@ pauseFullscreenButton.addEventListener("click", () => {
 });
 document.querySelector("#pauseSettingsDone").addEventListener("click", () => openPauseSettings(false));
 document.querySelector("#skipRaceButton").addEventListener("click", skipRace);
+document.querySelector("#restartRaceButton").addEventListener("click", restartRace);
 for (const slider of pauseSettings.querySelectorAll("input[type=range]")) {
   slider.addEventListener("input", () => {
     GameAudio.setVolume(slider.dataset.bus, Number(slider.value) / 100 * PAUSE_SLIDER_SCALE[slider.dataset.bus]);

@@ -229,6 +229,15 @@ function rememberSongPosition(element) {
   if (src && element.currentTime > 0 && !element.ended) songPositions.set(src, element.currentTime);
 }
 
+// The board's song back to its start (restarting a race), forgetting where
+// it was left.
+function restartSong() {
+  songPositions.delete(music.getAttribute("src"));
+  cancelMusicFade(music);
+  music.currentTime = 0;
+  music.resumePending = false;
+}
+
 // Seek a newly loaded song to where it was left; returns whether it resumes.
 function resumeSongPosition(element) {
   const position = songPositions.get(element.getAttribute("src")) || 0;

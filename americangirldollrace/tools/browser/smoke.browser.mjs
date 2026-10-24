@@ -1042,7 +1042,7 @@ test('Amanda won\'t join a player who hit her once she was out for 20 s (another
   assert.deepEqual(r, { snubbed: true, refused: true, otherJoined: true, forgiven: true, stillFollowing: true, furtherBack: true });
 });
 
-test('standings add up over a set of races (from the menu they start again), and Skip race goes to the next race', { skip: skip() }, async () => {
+test('standings add up over a set of races (from the menu they start again), Skip goes to the next race and Restart runs this one again with its song from the start', { skip: skip() }, async () => {
   await onTrack('farm');
   const r = await page.evaluate(() => {
     resetStandings();
@@ -1060,10 +1060,15 @@ test('standings add up over a set of races (from the menu they start again), and
     togglePause(); document.querySelector('#skipRaceButton').click();
     const skipped = state.backgroundIndex !== before && state.running && !state.paused && !state.done;
     const noPoints = [...state.standings.values()].reduce((s, e) => s + e.points, 0) === totals.reduce((s, p) => s + p, 0);
+    // Restart: same board again, its song from the start.
+    const board = state.backgroundIndex; state.racers[0].x = 3000;
+    music.currentTime = 30;
+    togglePause(); document.querySelector('#restartRaceButton').click();
+    const restarted = state.backgroundIndex === board && state.running && !state.paused && state.racers[0].x < 1000 && music.currentTime < 1;
     resetStandings();
-    return { after1, totals, drew, skipped, noPoints, fresh: state.standings.size === 0 };
+    return { after1, totals, drew, skipped, noPoints, restarted, fresh: state.standings.size === 0 };
   });
   assert.deepEqual(r.after1, [10, 8]);
   assert.deepEqual(r.totals, [18, 18]);
-  assert.deepEqual({ drew: r.drew, skipped: r.skipped, noPoints: r.noPoints, fresh: r.fresh }, { drew: true, skipped: true, noPoints: true, fresh: true });
+  assert.deepEqual({ drew: r.drew, skipped: r.skipped, noPoints: r.noPoints, restarted: r.restarted, fresh: r.fresh }, { drew: true, skipped: true, noPoints: true, restarted: true, fresh: true });
 });
