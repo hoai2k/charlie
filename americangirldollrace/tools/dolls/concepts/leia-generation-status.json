@@ -1,0 +1,10 @@
+{
+  "tool": "built-in image_gen",
+  "status": "Not generated: output moderation rejected both requests, category other; no more specific reason provided. No Leia asset or runtime registration created.",
+  "request": "Princess Leia from the original 1977 Star Wars, in a white gown and side buns, as a vinyl play doll.",
+  "lastPrompt": "Create a full-body product photograph of an 18-inch vinyl play doll based on Princess Leia from the original 1977 Star Wars. Use the attached Marisol doll only as reference for the manufactured toy style, rounded doll face, inset glass eyes, molded hands and sturdy doll proportions. Leia has fair vinyl skin, brown inset eyes, a composed confident expression, and dark brown hair center-parted into the two classic round coiled buns covering her ears. She wears her iconic white high-neck long-sleeved flowing gown with hood down behind the shoulders, a white waist belt with geometric silver plaques, and white boots visible under the ankle-length hem. Miniature sewn white fabric and smooth satin vinyl. Single doll standing neutrally, both empty hands visible, all hair and footwear in frame with generous margin. Clearly a vinyl toy throughout, with simplified molded facial features. Clean transparent background. No floor or shadow, no props, no text. Match the supplied doll reference's visual style while keeping Leia's costume and identity.",
+  "requestIds": [
+    "b564f379-886d-4ca0-9e00-7ea48a051d6b",
+    "68c95113-46ce-4e1b-b4b7-52e17acb5d39"
+  ]
+}
