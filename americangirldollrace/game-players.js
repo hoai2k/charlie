@@ -53,6 +53,7 @@ function playerInput(index, gamepads) {
   const left = keyboard.left;
   const jump = keyboard.jump;
   const push = keyboard.push;
+  let wantsSpecial = keyboard.special;
   let horizontal = (right ? 1 : 0) - (left ? 1 : 0);
   let vertical = (down ? 1 : 0) - (up ? 1 : 0);
   let wantsJump = jump;
@@ -63,6 +64,7 @@ function playerInput(index, gamepads) {
     vertical += touchInput.vertical;
     wantsJump = wantsJump || touchInput.jump;
     wantsPush = wantsPush || touchInput.push;
+    wantsSpecial = wantsSpecial || touchInput.special;
   }
 
   if (pad) {
@@ -75,13 +77,15 @@ function playerInput(index, gamepads) {
     vertical += dpadY;
     wantsJump = wantsJump || pad.buttons[0]?.pressed;
     wantsPush = wantsPush || pad.buttons[2]?.pressed;
+    wantsSpecial = wantsSpecial || pad.buttons[3]?.pressed;
   }
 
   return {
     horizontal: clamp(horizontal, -1, 1),
     vertical: clamp(vertical, -1, 1),
     jump: wantsJump,
-    push: wantsPush
+    push: wantsPush,
+    special: Boolean(wantsSpecial)
   };
 }
 
@@ -102,7 +106,8 @@ function wasdInput() {
     left: keys.has("KeyA"),
     right: keys.has("KeyD"),
     jump: keys.has("Space"),
-    push: keys.has("KeyF")
+    push: keys.has("KeyF"),
+    special: keys.has("KeyR")
   };
 }
 
@@ -113,12 +118,13 @@ function arrowsInput() {
     left: keys.has("ArrowLeft"),
     right: keys.has("ArrowRight"),
     jump: keys.has("Enter"),
-    push: keys.has("ShiftLeft") || keys.has("ShiftRight")
+    push: keys.has("ShiftLeft") || keys.has("ShiftRight"),
+    special: keys.has("Slash")
   };
 }
 
 function emptyKeyboardInput() {
-  return { up: false, down: false, left: false, right: false, jump: false, push: false };
+  return { up: false, down: false, left: false, right: false, jump: false, push: false, special: false };
 }
 
 function isMenuOpen() {
@@ -937,8 +943,10 @@ function clearTouchInput() {
   clearTouchMove();
   touchInput.jump = false;
   touchInput.push = false;
+  touchInput.special = false;
   touchJumpButton.classList.remove("pressed");
   touchPushButton.classList.remove("pressed");
+  touchSpecialButton.classList.remove("pressed");
 }
 
 function updateTouchControlsVisibility() {
@@ -948,6 +956,7 @@ function updateTouchControlsVisibility() {
   touchControls.classList.toggle("hidden", !visible);
   touchPauseButton.classList.toggle("hidden", !visible);
   touchPushButton.classList.toggle("hidden", !showPush);
+  touchSpecialButton.classList.toggle("hidden", !(visible && playerSpecial(player)?.kind));
   if (player && player.snowballs > 0) {
     touchPushButton.textContent = "Throw";
   } else {

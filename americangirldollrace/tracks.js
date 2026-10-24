@@ -25,6 +25,9 @@
 // plain horse on a track (the rest of a mount pickup's roll). `beachBalls` is
 // how many kickable beach balls are spread along the track (art: "beachball",
 // 256×256 alpha, optional; drawn in code until then).
+// `stickyProjectile`: a thrown one that rolls (projectileLanding "roll") is
+// sticky, like a marshmallow: it barely rolls before it stops, and whoever
+// steps on it is held for an instant as it smooshes.
 // `projectileLanding` is what a thrown "snowball" does when it misses: it
 // arcs down to the ground, then "water" (balloons) bursts into a splash
 // (also on a hit), "snow" leaves a little pile that melts away, "pop"
@@ -38,7 +41,8 @@
 // a heavy ring spread out from the trigger; "crows" fly to each one and
 // circle her head; "acorns" are flung in an arc to bonk each one; "laser"
 // guns (the trigger) swell and fade as they fire a volley of short red bolts
-// at each one, which shocks rather than dazes.
+// at each one, which shocks rather than dazes; "snowman" pops up and runs
+// into every girl and troll near, knocking them over, then runs off.
 // `powerupArtVersion`: that track's power-up sheet's cache stamp; bump it
 // when the sheet changes (else config.js's shared one applies).
 // `cloudFloor`: the course is a row of bumpy clouds with the odd gap to jump
@@ -100,7 +104,8 @@
 // noPowerups: power-up kinds this track never hands out (the Toy Room has no
 // EMP, since its wind-up cars do much the same).
 // itemEffects: a speed or high-jump pickup that does its own thing instead:
-// "spellBook" (frog the nearest racer or monster), "surfboard" (ride a wave
+// "spellBook" (a wand held until X, which frogs the racer or monster she
+// aims at; one at a time), "surfboard" (ride a wave
 // over hurdles), "windupCars" (cars that bump whoever they meet).
 // moonBoots: the high-jump pickup is moon boots: low gravity for a while, so
 // jumps float over several hurdles (Moon Base).
@@ -110,10 +115,15 @@
 // TRACK_SHARED_ART lists delivered sheets at assets/<name>_sprites.webp that
 // several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs)
 // and "frog" (§10).
-window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "rooster_crow", "crow", "moon_boot", "fairy_wings", "fairy_wing_single", "troll_flying"];
+// The boards in race order, and those resting out of the rotation for now
+// (the workbench still lists them, at the end).
+window.TRACK_ORDER = ["farm", "fairy", "town", "autumn", "horseshow", "toyroom", "candy", "beach", "wizard", "clouds", "space", "woods", "festival", "winter"];
+window.TRACKS_RESTING = ["castles"];
+window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "rooster_crow", "crow", "moon_boot", "fairy_wings", "fairy_wing_single", "troll_flying", "fairy_wings_twilight", "fairy_wing_single_twilight", "snowman", "icetroll_melt", "icetroll_stagger"];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: {
+    powerupArtVersion: "20261024-puddle1",
     empStyle: "rooster",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "HAY BOUNCE", boost: "CARROT", emp: "ROOSTER", oil: "MUD", snowball: "APPLES" },
@@ -139,10 +149,11 @@ window.TRACK_THEMES = {
   },
   winter: {
     projectileLanding: "snow",
-    empStyle: "lightning",
+    empStyle: "snowman",
+    monster: "icetroll",
+    powerupArtVersion: "20261024-puddle1",
     art: ["powerups", "projectile", "hurdle"],
-    labels: { jump: "SKI JUMP", boost: "SLED", emp: "THUNDERSNOW", oil: "ICE", snowball: "SNOWBALLS" },
-    sounds: { emp: "storm_lightning" },
+    labels: { jump: "SKI JUMP", boost: "SLED", emp: "SNOWMAN", oil: "ICE", snowball: "SNOWBALLS" },
     mountOdds: { reindeer: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   castles: {
@@ -153,6 +164,7 @@ window.TRACK_THEMES = {
     mountOdds: { unicorn: 0.1, pegasus: 0.1, griffon: 0.15, broom: 0.05 }
   },
   horseshow: {
+    powerupArtVersion: "20261024-puddle1",
     empStyle: "bell",
     name: "Horse Show", music: "assets/music/Race to the Ribbon Horse Race.mp3", dirtTop: 502, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "SPRINGBOARD", boost: "HORSESHOE", emp: "STARTER BELL", oil: "WATER JUMP", snowball: "SUGAR CUBES" },
@@ -173,7 +185,8 @@ window.TRACK_THEMES = {
     sounds: { emp: "pickup_toy_drum", jump: "pickup_jack_in_box", boost: "windup_release" },
     baseMount: "rocking_horse",
     mountOdds: { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 },
-    itemEffects: { boost: "windupCars" }
+    itemEffects: { boost: "windupCars" },
+    stickyProjectile: true // marshmallows: barely roll, and hold whoever steps on one
   },
   candy: {
     monster: "candytroll",
@@ -186,7 +199,7 @@ window.TRACK_THEMES = {
   beach: {
     noPowerups: ["emp", "horse"], // the surfboard stands in for both
     monster: "sandtroll",
-    powerupArtVersion: "20261023-seaweed1",
+    powerupArtVersion: "20261024-puddle1",
     name: "Beach", music: "assets/music/Ride the Beach Tide.mp3", dirtTop: 514, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle", "wave"],
     labels: { jump: "POOL SPRING", boost: "SURFBOARD", emp: "CONCH SHELL", oil: "SEAWEED", snowball: "WATER BALLOONS" },
     projectileLanding: "water",
@@ -217,6 +230,7 @@ window.TRACK_THEMES = {
     sounds: { emp: "pickup_crows" }
   },
   clouds: {
+    powerupArtVersion: "20261024-puddle1",
     cloudFloor: true,
     monster: "cloudtroll",
     projectileLanding: "snow",
@@ -232,13 +246,14 @@ window.TRACK_THEMES = {
     monster: "robot",
     empStyle: "laser",
     moonBoots: true,
-    powerupArtVersion: "20261023-laser1",
+    powerupArtVersion: "20261024-puddle1",
     name: "Moon Base", music: "assets/music/Pocketful of Comets Moon Base.mp3", dirtTop: 487, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "MOON BOOTS", boost: "ROCKET", emp: "LASER", oil: "SPACE GOO", snowball: "MOON ROCKS" },
     sounds: { emp: "pickup_laser" }
   },
   // Twilight woodland track with its own looped art and song.
   woods: {
+    powerupArtVersion: "20261024-puddle1",
     empStyle: "acorns",
     name: "Fairy Woods", music: "assets/music/Forest Fairy Spin.mp3", dirtTop: 480, loopMode: "repeat", art: ["background", "card", "hurdle", "powerups", "projectile"],
     labels: { jump: "MUSHROOM", boost: "FIREFLIES", emp: "ACORN TOSS", oil: "MOSSY BOG", snowball: "ACORNS" },

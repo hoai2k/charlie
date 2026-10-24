@@ -151,7 +151,7 @@ def main():
     path=G/'dolls.js';registry=read_assignment(path,'EXTRA_DOLLS',{})
     registry['zoey']=runtime;assignment(path,'EXTRA_DOLLS',registry)
     ref,_=B.source_frame(manifest,'idle-0');bb=B.bounds(ref)
-    common=390/(bb[3]-bb[1])
+    common=manifest['standingHeight']/(bb[3]-bb[1])  # her toys, actions and ledge poses at her own height
     # (hip, chin, top hem, optional contact) in original square-cell pixels.
     toy=supplement('toys',[
         ('toy-skate',1,[(430,215,325,None),(325,215,325,None),(300,215,325,None)]),

@@ -1,0 +1,160 @@
+{
+  "frames": [
+    {
+      "sourceBounds": [
+        10,
+        10,
+        511,
+        242
+      ],
+      "scale": 0.6107784431137725,
+      "offset": [
+        57,
+        265
+      ],
+      "bounds": [
+        57,
+        265,
+        363,
+        407
+      ]
+    },
+    {
+      "sourceBounds": [
+        10,
+        10,
+        493,
+        224
+      ],
+      "scale": 0.6107784431137725,
+      "offset": [
+        62,
+        276
+      ],
+      "bounds": [
+        62,
+        276,
+        357,
+        407
+      ]
+    },
+    {
+      "sourceBounds": [
+        10,
+        10,
+        505,
+        165
+      ],
+      "scale": 0.6107784431137725,
+      "offset": [
+        59,
+        312
+      ],
+      "bounds": [
+        59,
+        312,
+        361,
+        407
+      ]
+    },
+    {
+      "sourceBounds": [
+        10,
+        10,
+        499,
+        144
+      ],
+      "scale": 0.6107784431137725,
+      "offset": [
+        60,
+        325
+      ],
+      "bounds": [
+        60,
+        325,
+        359,
+        407
+      ]
+    },
+    {
+      "sourceBounds": [
+        10,
+        10,
+        479,
+        128
+      ],
+      "scale": 0.6107784431137725,
+      "offset": [
+        67,
+        335
+      ],
+      "bounds": [
+        67,
+        335,
+        353,
+        407
+      ]
+    },
+    {
+      "sourceBounds": [
+        10,
+        10,
+        488,
+        125
+      ],
+      "scale": 0.6107784431137725,
+      "offset": [
+        64,
+        337
+      ],
+      "bounds": [
+        64,
+        337,
+        356,
+        407
+      ]
+    }
+  ],
+  "commonScale": 0.6107784431137725,
+  "spriteAnchor": [
+    193,
+    409
+  ],
+  "pileCenterX": 210,
+  "baseline": 407,
+  "firstFrameEqualsDefeatedCell": true,
+  "unchangedMonsterCells": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "unchangedCellRgbaHashes": [
+    "39cb1424d5b39b7e012ae3d83520c53f76a191ef99a86384896e4610d3cc3d9c",
+    "1650b575c7d22fde51647eced1c747c17975b57775389299bbc11318acf5ceaa",
+    "a818ad4a9d03788c58a075e8d8c9c5106b92db66b040eae89b2fffec6e8e0932",
+    "e3c3cbe9466fe3b02f424018ad59d8c7491dce6b1932141810c46bf9dc22df88",
+    "39544fa6c4d0d51fe17f4402a05303bf6c684671651e92e6140545689a084e79",
+    "56d9e2cbc68f0be9031364afe954ae495a680049b1aa5e3dd70263c3dd0a51a9",
+    "60c50245323906d8296030cf6fc59221ca317558f2185d15694409a1530ab30b",
+    "fb2a32bdda15704740fb578bbe7baa0b8551e987e40f5e22d646fe457cbd6376",
+    "6d16a4ec831c937c3d13e2e65f1ae93d664ddfaa11c7d466590f1b79b338a39d",
+    "51cf016e1add85d44fb668c2c6f6144c2fbf52fbf4a7d5095de5c47de0983274",
+    "5cdf04f1273883cb88d92b2b8fa225b7fcd0a83ad7d7300aeccb9f8336a6508f"
+  ],
+  "sequence": [
+    "faceless ice heap",
+    "wet heap",
+    "half melted",
+    "few chunks",
+    "tiny remnants",
+    "water only"
+  ]
+}

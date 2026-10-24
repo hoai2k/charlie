@@ -107,17 +107,31 @@ function pickSpellTarget(caster, dirX = 0, dirY = 0) {
     || closest(candidates);
 }
 
-// While the wand sparkles, the stick (or the AI's steering) picks the way.
+// The wand sparkles in her hand until she presses X (push): then the spell
+// goes the way the stick points, or the way she's facing (the ring on the
+// ground shows who it would hit). A computer racer's steering picks the way
+// and it goes off by itself.
 function updateSpellAim(racer, input, dt) {
   const aim = racer.spellAim;
   if (!aim) return;
   aim.t += dt;
+  if (!racer.ai) {
+    const stick = Math.hypot(input.horizontal, input.vertical) > 0.3;
+    aim.preview = stick ? pickSpellTarget(racer, input.horizontal, input.vertical) : pickSpellTarget(racer, racer.facing || 1, 0);
+    return;
+  }
   aim.x += input.horizontal * dt;
   aim.y += input.vertical * dt;
   aim.preview = pickSpellTarget(racer, aim.x, aim.y);
   const chosen = Math.hypot(aim.x, aim.y) >= SPELL_AIM_COMMIT;
   if (!chosen && aim.t < SPELL_AIM_TIME) return;
   castSpell(racer, chosen ? pickSpellTarget(racer, aim.x, aim.y) : pickSpellTarget(racer));
+}
+
+// X with the wand ready: the spell instead of a push or a throw.
+function castReadySpell(racer, input) {
+  updateSpellAim(racer, input, 0);
+  castSpell(racer, racer.spellAim.preview || null);
 }
 
 function castSpell(racer, target) {
@@ -168,6 +182,7 @@ function isFlungEmp(arc) {
 
 function empArcDuration(arc) {
   if (arc.style === "lightning") return EMP_ARC_TIME;
+  if (arc.style === "snowman") return arc.snowman.gone ? 0 : Infinity;
   if (arc.style === "laser") return LASER_TIME;
   if (arc.style === "crows") return EMP_EFFECT_TIME + 0.3;
   if (isFlungEmp(arc)) return EMP_EFFECT_TIME;
@@ -207,6 +222,10 @@ function updateEmpArcs(dt) {
     }
     if (arc.style === "laser") {
       updateEmpLasers(arc, from, before);
+      continue;
+    }
+    if (arc.style === "snowman") {
+      updateEmpSnowman(arc, dt, before);
       continue;
     }
     if (arc.style === "lightning") {
@@ -313,7 +332,8 @@ function drawEmpArcs() {
     if (isFlungEmp(arc)) drawEmpRockets(arc, from);
     else if (arc.style === "laser") drawEmpLasers(arc, from);
     else if (arc.style === "crows") drawEmpCrows(arc, from);
-    else if (arc.style !== "lightning") drawEmpWaves(arc, from);
+    else if (arc.style === "snowman") drawEmpSnowman(arc);
+    else if (arc.style !== "lightning" && arc.style !== "snowman") drawEmpWaves(arc, from);
     if (arc.style !== "lightning") continue;
     const alpha = Math.max(0, 1 - arc.t / EMP_ARC_TIME);
     // The button flashes where the bolts start.
@@ -770,6 +790,147 @@ function frogPoof(x, groundY, big) {
 
 // The shared frog sheet once listed in TRACK_SHARED_ART, else null (an emoji
 // stands in).
+// Winter's EMP: a snowman pops up from the trigger in a puff of snow, runs to
+// each girl and troll it caught in turn (and bowls over anyone else he runs
+// into on the way), knocking them over, then runs off the screen.
+function updateEmpSnowman(arc, dt, before) {
+  const man = arc.snowman;
+  if (before === 0) {
+    sfx("snowball_hit", man.x, { gain: 0.8 });
+    spawnParticles(man.x, man.y, 0, 14, { kind: "puff", color: "#f4fbff", speed: 120, lift: 90, life: 0.6, size: 11, gravity: 0 });
+  }
+  if (arc.t < SNOWMAN_POP_TIME || man.gone) return;
+  const standing = who => state.monsters.includes(who) ? !["sleeping", "ground"].includes(who.state) && who.active : !who.finished;
+  const next = arc.targets.find(who => !man.knocked.has(who) && standing(who) && (state.racers.includes(who) || state.monsters.includes(who)));
+  // Off the screen once he's done: on the way he was going (away from her).
+  if (!next) man.leaving ||= Math.sign(man.x - arc.source.x) || man.facing;
+  const goalX = next ? next.x : man.x + man.leaving * 1000;
+  const goalY = next ? next.y + 54 : man.y;
+  const dx = goalX - man.x, dy = goalY - man.y;
+  man.facing = dx < 0 ? -1 : 1;
+  man.x += Math.sign(dx) * Math.min(Math.abs(dx), SNOWMAN_SPEED * dt);
+  man.y += Math.sign(dy) * Math.min(Math.abs(dy), SNOWMAN_LANE_SPEED * dt);
+  // Whoever he runs into goes over (once each), the girl who sent him only
+  // if he was sent at her (nobody else near).
+  const bowled = [...state.racers, ...state.monsters].filter(who => !man.knocked.has(who) && standing(who)
+    && (who !== arc.source || arc.targets.includes(who))
+    && Math.abs(who.x - man.x) < SNOWMAN_REACH_X && Math.abs(who.y + 54 - man.y) < SNOWMAN_REACH_Y && (who.z || 0) < 60);
+  for (const who of bowled) {
+    man.knocked.add(who);
+    empHitTarget({ x: man.x - man.facing * 20 }, who, "snowman");
+    sfx("snowball_hit", who.x, { gain: 0.9, throttleKey: "snowman" });
+    spawnParticles(who.x, who.y + 54, 30, 10, { kind: "puff", color: "#f4fbff", speed: 140, lift: 120, life: 0.5, size: 9, gravity: 200 });
+  }
+  if (man.leaving && !isWorldXVisibleInAnyView(man.x - man.leaving * 150)) man.gone = true;
+  if (arc.t > SNOWMAN_MAX_TIME) man.gone = true;
+}
+
+// The snowman: his sheet once it's in (image-requests.md §31 SM1, a run
+// cycle), else drawn in code: three snowballs, coal eyes, a carrot nose, a
+// red scarf and twig arms, bobbing as he runs.
+function drawEmpSnowman(arc) {
+  const man = arc.snowman;
+  if (man.gone) return;
+  const x = man.x - state.camera;
+  if (x < -200 || x > getWorldViewportWidth() + 200) return;
+  const k = racerDepthScale({ y: man.y - 54 }) / 0.45 * 0.85;
+  const pop = clamp(arc.t / SNOWMAN_POP_TIME, 0, 1);
+  const grow = pop < 1 ? 0.3 + 0.7 * pop * (2 - pop) : 1;
+  const running = pop >= 1;
+  const step = arc.t * 14;
+  const bob = running ? Math.abs(Math.sin(step)) * 8 * k : 0;
+  ctx.save();
+  // His shadow.
+  ctx.globalAlpha = floorShadowAlpha(0.25);
+  ctx.fillStyle = "#142027";
+  ctx.beginPath();
+  ctx.ellipse(x, man.y - 2, 40 * k * grow, 10 * k * grow, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalAlpha = 1;
+  const art = getSharedArt("snowman");
+  if (art?.complete && art.width) {
+    const cell = art.height;
+    const frame = running ? Math.floor(step / 1.6) % Math.max(1, Math.round(art.width / cell)) : 0;
+    const size = SNOWMAN_HEIGHT * k * grow * cell / 400;
+    drawFacingImage(art, frame * cell, 0, cell, cell, x - size / 2, man.y - size * (490 / 512) - bob, size, size, man.facing, x);
+    ctx.restore();
+    return;
+  }
+  ctx.translate(x, man.y - bob);
+  ctx.scale(man.facing * k * grow, k * grow);
+  const ball = (cx, cy, r) => {
+    const g = ctx.createRadialGradient(cx - r * 0.35, cy - r * 0.4, r * 0.2, cx, cy, r);
+    g.addColorStop(0, "#ffffff");
+    g.addColorStop(1, "#cfe3f2");
+    ctx.fillStyle = g;
+    ctx.strokeStyle = "#a9c8de";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+  };
+  // Twig feet, stepping.
+  ctx.strokeStyle = "#5b3a1e";
+  ctx.lineWidth = 4;
+  ctx.lineCap = "round";
+  const swing = running ? Math.sin(step) * 10 : 0;
+  for (const s of [-1, 1]) {
+    ctx.beginPath();
+    ctx.moveTo(s * 12, -14);
+    ctx.lineTo(s * 12 + swing * s, 0);
+    ctx.lineTo(s * 12 + swing * s + 9, 0);
+    ctx.stroke();
+  }
+  ball(0, -40, 34);
+  // Twig arms, waving.
+  const wave = running ? Math.sin(step + 1) * 0.5 : 0.3;
+  for (const s of [-1, 1]) {
+    ctx.save();
+    ctx.translate(s * 22, -96);
+    ctx.rotate(s * (0.9 + wave * s));
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, -38);
+    ctx.moveTo(0, -26);
+    ctx.lineTo(s * 8, -34);
+    ctx.stroke();
+    ctx.restore();
+  }
+  ball(0, -96, 26);
+  ball(0, -140, 20);
+  // Scarf, flying out behind.
+  ctx.fillStyle = "#d8344a";
+  ctx.beginPath();
+  ctx.ellipse(0, -121, 21, 6, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(-12, -122);
+  ctx.quadraticCurveTo(-30, -118 + Math.sin(step * 0.7) * 5, -44, -110 + Math.sin(step) * 6);
+  ctx.lineTo(-40, -102 + Math.sin(step) * 6);
+  ctx.quadraticCurveTo(-26, -112, -8, -116);
+  ctx.fill();
+  // Coal eyes and smile, a carrot nose.
+  ctx.fillStyle = "#1d1d24";
+  for (const [ex, ey] of [[4, -146], [13, -146], [2, -133], [8, -131], [14, -132], [19, -135]]) {
+    ctx.beginPath();
+    ctx.arc(ex, ey, ex < 15 && ey < -140 ? 2.6 : 1.6, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.fillStyle = "#f08a24";
+  ctx.beginPath();
+  ctx.moveTo(14, -142);
+  ctx.lineTo(34, -138);
+  ctx.lineTo(14, -137);
+  ctx.closePath();
+  ctx.fill();
+  // A little black top hat.
+  ctx.fillStyle = "#24242c";
+  ctx.fillRect(-16, -162, 32, 4);
+  ctx.fillRect(-10, -182, 20, 21);
+  ctx.restore();
+}
+
 function getSharedArt(name) {
   if (!(window.TRACK_SHARED_ART || []).includes(name)) return null;
   loadArtOnce(name, `assets/${name}_sprites.webp`);

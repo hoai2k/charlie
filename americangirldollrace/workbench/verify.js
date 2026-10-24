@@ -4,9 +4,11 @@
 // sheet), mirror or resize it, drag it to move it and drag the handle on its
 // ring to turn it. Export downloads everything checked as a JSON file to
 // send back; its boots go into moon-boot-overrides.js as they are.
-// Progress is kept in this browser (localStorage) until exported.
-
-const VERIFY_STORE = "agdr.verify.moonBoots";
+// Nothing is kept between visits: a reload starts afresh, so a batch is
+// never sent twice. The export holds only the poses touched this visit
+// (changed, or marked Looks right). Poses already taken into the game (in
+// moon-boot-overrides.js) leave the queue. The game's sound is off while
+// the queue is open.
 const SPRITE_FRAMES = ["Idle 1", "Idle 2", "Idle 3", "Run 1", "Run 2", "Run 3", "Jump crouch", "Jump (in the air)", "Landing", "Riding", "Push", "Knocked over"];
 const ACTION_FRAMES = { 6: "Push from the saddle", 7: "Stuck in a puddle" };
 const BOOT_VIEWS = ["Side", "Three-quarter", "Front", "Back three-quarter", "Sole", "Pointed toe", "Inside (toe left)"];
@@ -14,6 +16,9 @@ const BOOT_VIEWS = ["Side", "Three-quarter", "Front", "Back three-quarter", "Sol
 // air, riding, pushing and knocked over (standing and crouching are simple).
 const CHECK_SPRITES = [3, 4, 5, 7, 9, 10, 11];
 const CHECK_ACTIONS = [6];
+// Added later, at the end of the queue (so checked poses keep their place):
+// crouching and landing, where a low bag or skirt can be taken for a foot.
+const CHECK_LATER = [6, 8];
 const FIRST_DOLL = "barbie"; // reported off: all her poses, first
 
 const verify = {
@@ -30,13 +35,11 @@ const v$ = selector => document.querySelector(selector);
 const viewCanvas = v$("#vCanvas");
 const vctx = viewCanvas.getContext("2d");
 
-function loadVerifyProgress() {
-  try { verify.results = JSON.parse(localStorage.getItem(VERIFY_STORE) || "{}") || {}; } catch (error) { verify.results = {}; }
-}
+// (Checked this visit only; the export is what counts.)
+function saveVerifyProgress() {}
 
-function saveVerifyProgress() {
-  try { localStorage.setItem(VERIFY_STORE, JSON.stringify(verify.results)); } catch (error) { /* kept for this visit only */ }
-}
+// Placed by hand in the game already (an earlier batch).
+const inGame = item => Boolean(game.MOON_BOOT_OVERRIDES?.[item.id]);
 
 // Every doll in the roster once (by asset key), Barbie first.
 function verifyDolls() {
@@ -60,15 +63,21 @@ function buildVerifyQueue() {
     for (const index of sprites) items.push({ ...doll, kind: "sprites", index, label: SPRITE_FRAMES[index] });
     if (hasActions(doll.asset)) for (const index of CHECK_ACTIONS) items.push({ ...doll, kind: "actions", index, label: ACTION_FRAMES[index] });
   }
+  for (const doll of verifyDolls()) {
+    if (!game.DOLL_FEET?.[doll.asset] || doll.asset === FIRST_DOLL) continue;
+    for (const index of CHECK_LATER) items.push({ ...doll, kind: "sprites", index, label: SPRITE_FRAMES[index] });
+  }
   for (const item of items) item.id = `${item.asset}/${item.kind}/${item.index}`;
-  return items;
+  // Poses already taken into the game are done.
+  return items.filter(item => !inGame(item));
 }
 
 const copyBoots = boots => boots.map(boot => ({ ...boot }));
 const sameBoots = (a, b) => JSON.stringify(roundBoots(a)) === JSON.stringify(roundBoots(b));
 const roundBoots = boots => boots.map(boot => ({
   cell: boot.cell, x: Math.round(boot.x * 10) / 10, y: Math.round(boot.y * 10) / 10,
-  angle: Math.round(boot.angle * 1000) / 1000, width: Math.round(boot.width * 10) / 10, mirror: Boolean(boot.mirror)
+  angle: Math.round(boot.angle * 1000) / 1000, width: Math.round(boot.width * 10) / 10, mirror: Boolean(boot.mirror),
+  ...(boot.layer ? { layer: boot.layer } : {})
 }));
 
 function originalBoots(item) {
@@ -124,7 +133,7 @@ function renderVerifyStatus() {
   const edited = verify.items.filter(item => verify.results[item.id]?.status === "edited").length;
   const item = verify.items[verify.at];
   const state = verify.results[item.id]?.status;
-  v$("#vStatus").innerHTML = `${verify.at + 1} / ${verify.items.length} · <b>${done}</b> checked (${edited} changed)` +
+  v$("#vStatus").innerHTML = `${verify.at + 1} / ${verify.items.length} left · <b>${done}</b> to export (${edited} changed)` +
     (state ? ` · this one: <b>${state === "ok" ? "looks right" : "changed"}</b>` : "");
   const select = v$("#vJump");
   for (const option of select.options) {
@@ -133,7 +142,7 @@ function renderVerifyStatus() {
     option.textContent = `${mark}${it.name} · ${it.label}${it.kind === "actions" ? " (actions)" : ""}`;
   }
   const boot = verify.boots[verify.selected];
-  for (const id of ["#vMirror", "#vSmaller", "#vBigger", "#vDelete"]) v$(id).disabled = !boot;
+  for (const id of ["#vMirror", "#vFront", "#vSmaller", "#vBigger", "#vDelete"]) v$(id).disabled = !boot;
 }
 
 function renderViewButtons() {
@@ -223,7 +232,8 @@ function drawVerify() {
   vctx.imageSmoothingQuality = "high";
   vctx.drawImage(sheet, sx, sy, FRAME, FRAME, layout.ox, layout.oy, FRAME * layout.scale, FRAME * layout.scale);
   const size = art.height;
-  verify.boots.forEach(boot => {
+  // Further foot first, as the game draws them (moonBootsFarToNear).
+  game.moonBootsFarToNear(verify.boots).forEach(boot => {
     const t = bootTransform(boot, layout);
     vctx.save();
     vctx.translate(t.x, t.y);
@@ -295,8 +305,10 @@ function canvasPoint(event) {
 }
 
 function bootAt(point, layout) {
-  for (let i = verify.boots.length - 1; i >= 0; i -= 1) {
-    const boot = verify.boots[i];
+  // The nearest boot (drawn last, on top) is picked first.
+  const order = game.moonBootsFarToNear(verify.boots).reverse();
+  for (const boot of order) {
+    const i = verify.boots.indexOf(boot);
     const t = bootTransform(boot, layout);
     const dx = point.x - t.x, dy = point.y - t.y;
     const c = Math.cos(-boot.angle), s = Math.sin(-boot.angle);
@@ -395,6 +407,13 @@ v$("#vMirror").addEventListener("click", () => {
   const boot = verify.boots[verify.selected];
   if (boot) { boot.mirror = !boot.mirror; changed(); }
 });
+v$("#vFront").addEventListener("click", () => {
+  const boot = verify.boots[verify.selected];
+  if (!boot) return;
+  // In front of every other boot in this pose.
+  boot.layer = Math.max(0, ...verify.boots.filter(b => b !== boot).map(b => b.layer || 0)) + 1;
+  changed();
+});
 v$("#vSmaller").addEventListener("click", () => resizeBoot(1 / 1.06));
 v$("#vBigger").addEventListener("click", () => resizeBoot(1.06));
 v$("#vDelete").addEventListener("click", () => {
@@ -420,6 +439,7 @@ v$("#vZoom").addEventListener("change", drawVerify);
 v$("#vClose").addEventListener("click", () => {
   recordItem();
   document.body.classList.remove("verifying");
+  game.GameAudio?.setMuted(Boolean(verify.wasMuted), false);
   frame.contentWindow.focus();
 });
 
@@ -477,7 +497,6 @@ v$("#vExport").addEventListener("click", () => {
 // ---------- opening ----------
 v$("#verifyOpen").addEventListener("click", () => {
   if (!verify.items.length) {
-    loadVerifyProgress();
     verify.items = buildVerifyQueue();
     const select = v$("#vJump");
     select.innerHTML = "";
@@ -486,11 +505,16 @@ v$("#verifyOpen").addEventListener("click", () => {
       option.value = String(i);
       select.append(option);
     });
-    // Start at the first pose not yet checked.
-    const next = verify.items.findIndex(item => !verify.results[item.id]);
-    verify.at = next < 0 ? 0 : next;
+    verify.at = 0;
+  }
+  if (!verify.items.length) {
+    v$("#verifyOpen").textContent = "Verification Queue: all done";
+    return;
   }
   document.body.classList.add("verifying");
+  // Quiet while checking (not remembered: the race's own setting stays).
+  verify.wasMuted = game.GameAudio?.isMuted;
+  game.GameAudio?.setMuted(true, false);
   bootArt();
   openItem(verify.at);
 });

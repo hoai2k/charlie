@@ -12,9 +12,16 @@ function isAlwaysMountedTrack() {
 // Whether this racer can pick up and use power-ups: on foot, anywhere riders
 // may (Horse Show, Horsing Around), on a broomstick or with fairy wings,
 // which she runs with, or on a unicorn.
-function canRacerUsePowerups(racer) {
-  return !isMounted(racer) || canMountedRacersUsePowerups() || isCarriedMount(racer.horseType) || racer.horseType === "unicorn";
+// Riders don't take power-ups, except where everyone rides, on a carried
+// mount (broom, toys) or a unicorn, and on mounts with power-ups of their own
+// (MOUNT_POWERUPS: given a type, whether a rider can take that one).
+function canRacerUsePowerups(racer, type = null) {
+  if (!isMounted(racer) || canMountedRacersUsePowerups() || isCarriedMount(racer.horseType) || racer.horseType === "unicorn") return true;
+  return Boolean(type && MOUNT_POWERUPS[racer.horseType]?.includes(type));
 }
+const MOUNT_POWERUPS = {
+  reindeer: ["boost", "jump", "emp"] // a reindeer picks up speed, leaps and zaps
+};
 
 function canMountedRacersUsePowerups() {
   return isHorsingAroundMode() || isAlwaysMountedTrack();
@@ -22,6 +29,26 @@ function canMountedRacersUsePowerups() {
 
 function isHorsingAroundMode() {
   return state.specials === "horsing";
+}
+
+// Fairy wings can also be worn over another mount where both are on a board
+// (racer.wingsTimer: picked up while riding, or a mount picked up while in
+// wings): she wears them in the saddle and her mount flies with them.
+function wearsWingsOver(racer) {
+  return racer.wingsTimer > 0 && isMounted(racer) && racer.horseType !== "wings";
+}
+
+// Whether a mount pickup goes with what she has on: wings over a mount she
+// rides (not a broom or other carried mount), or a mount under her wings.
+function combinesWithWings(racer, pickupType) {
+  if (!isMounted(racer) || !pickupType) return false;
+  if (pickupType === "wings") return racer.horseType !== "wings" && !isCarriedMount(racer.horseType) && !(racer.wingsTimer > 0);
+  return racer.horseType === "wings" && !isCarriedMount(pickupType);
+}
+
+// Flying: a flying mount, or any mount with wings worn over it.
+function canFly(racer) {
+  return isFlyingMountType(racer.horseType) || wearsWingsOver(racer);
 }
 
 function isFlyingMountType(type) {
@@ -56,28 +83,43 @@ function monsterSpeed(monster) {
   return monster.riding ? MOUNTED_MONSTER_SPEED : MONSTER_SPEED;
 }
 
+// Running, any mount gets past the plain troll and the ice giant, except in
+// the Horse Show (where the trolls ride too); the other boards' monsters
+// (skeleton, scarecrow…) pull her off anything but a unicorn or gryphon.
+// The giant still plucks her out of the air (flying or mid-jump), whatever
+// she rides.
+// Monster difficulty (settings) changes that: on Easy no monster pulls her
+// off any mount; on Hard every monster can, off any mount (no running past).
 function mountOutrunsMonster(racer, monster) {
-  return isMounted(racer) && mountBeatsTrolls(racer.horseType) && Math.abs(racer.speed || 0) > monsterSpeed(monster);
+  if (!isMounted(racer)) return false;
+  if (state.monsterSkill === "easy") return true;
+  if (state.monsterSkill === "hard") return false;
+  const key = getTrackMonsterKey();
+  if (key === "icetroll" && racer.z > 20) return false;
+  const plain = !key || key === "icetroll";
+  const passes = mountBeatsTrolls(racer.horseType) || (plain && !isAlwaysMountedTrack());
+  return passes && Math.abs(racer.speed || 0) > monsterSpeed(monster);
 }
 
 const DEFAULT_MOUNT_ODDS = { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 };
 
-function chooseHorseType() {
+// (theme: another board's odds, for a mount special won there.)
+function chooseHorseType(theme = getTrackTheme()) {
   if (state.specials === "unicorn") return "unicorn";
   if (isFlyingMountType(state.specials)) return state.specials;
-  const odds = { ...(getTrackTheme().mountOdds || DEFAULT_MOUNT_ODDS) };
+  const odds = { ...(theme.mountOdds || DEFAULT_MOUNT_ODDS) };
   // Gryphons and broomsticks only turn up elsewhere once a Wizard School race
   // has been finished on this device; their chance goes to the plain horse.
-  if (!getTrackTheme().unlocksWizardMounts && !areWizardMountsUnlocked()) {
+  if (!theme.unlocksWizardMounts && !areWizardMountsUnlocked()) {
     for (const type of WIZARD_MOUNTS) delete odds[type];
   }
   // Mounts this track hands out only once they've been found elsewhere
   // today (fairy wings on the Fairy board, after Fairy Woods).
-  for (const [type, chance] of Object.entries(getTrackTheme().foundMountOdds || {})) {
+  for (const [type, chance] of Object.entries(theme.foundMountOdds || {})) {
     if (isMountFoundToday(type)) odds[type] = chance;
   }
   // Everyone already rides a horse there, so the pickup is always a special mount.
-  const total = isAlwaysMountedTrack() ? Object.values(odds).reduce((sum, chance) => sum + chance, 0) : 1;
+  const total = theme.startMounted ? Object.values(odds).reduce((sum, chance) => sum + chance, 0) : 1;
   let roll = Math.random() * total;
   for (const [type, chance] of Object.entries(odds)) {
     if (roll < chance) return type;
@@ -85,7 +127,7 @@ function chooseHorseType() {
   }
   // A track's baseMount stands in for the horse: the Toy Room's rocking horse,
   // or a pick from a list (Wizard School's gryphons and broomsticks).
-  const base = getTrackTheme().baseMount;
+  const base = theme.baseMount;
   if (Array.isArray(base)) return base[Math.floor(Math.random() * base.length)];
   return base || "horse";
 }
@@ -160,7 +202,7 @@ function horseDurationForType(horseType) {
 
 function getHorseJumpPower(racer) {
   if (racer.moonBootsTimer > 0) return HORSE_JUMP_POWER * MOON_BOOTS_JUMP_SCALE;
-  if (!canRacerUsePowerups(racer)) return HORSE_JUMP_POWER;
+  if (!canRacerUsePowerups(racer, "jump")) return HORSE_JUMP_POWER;
   const stacks = racer.highJumpStacks.length;
   return stacks > 0 ? HORSE_JUMP_POWER * (1 + stacks * 0.35) : HORSE_JUMP_POWER;
 }
@@ -177,6 +219,12 @@ function dismountIntoPickup(racer) {
   GameAudio.stopLoop(racerLoopId(racer, "mount"));
   state.powerups.push(makeLooseMount(horseType, racer.x, racer.y + 54, remaining, racer.facing));
   sfx(horseType === "unicorn" ? "unicorn_whinny_magic" : "horse_whinny", racer.x, { gain: 0.8 });
+  // Wings worn over it stay on her.
+  if (racer.wingsTimer > 0 && horseType !== "wings") {
+    racer.horseType = "wings";
+    racer.horseTimer = racer.wingsTimer;
+    racer.wingsTimer = 0;
+  }
 }
 
 function makeLooseMount(horseType, x, y, mountTime, facing = 1) {
@@ -245,7 +293,7 @@ function fireRainbowBeam(racer) {
   });
   for (const obstacle of state.obstacles) {
     const ahead = racer.facing > 0 ? obstacle.x > startX && obstacle.x < endX : obstacle.x < startX && obstacle.x > endX;
-    if (ahead && amandaAt(obstacle.x, racer.y + 54, 1) === obstacle) hitAmanda(obstacle, racer.facing);
+    if (ahead && amandaAt(obstacle.x, racer.y + 54, 1) === obstacle) hitAmanda(obstacle, racer.facing, racer);
   }
   for (const monster of state.monsters) {
     if (monster.state === "sleeping" || monster.state === "ground") continue;
@@ -365,6 +413,8 @@ function drawRainbowBeam(beam) {
 
 // A riderless mount standing where it was left, waiting to be ridden again.
 function drawLooseMount(powerup, screenX, t) {
+  // (Flashing while it's out of reach, just after a troll was knocked off it.)
+  if (powerup.cooldown > 0 && Math.floor(performance.now() / 110) % 2 === 0) return;
   const groundY = powerupDrawY(powerup);
   const horseScale = racerDepthScale({ y: groundY - 54 }) * 1.08;
   const calibration = getMountFrameCalibration(powerup.horseType, 0, 0);
@@ -413,6 +463,7 @@ const WING_ROOT = [330, 300];
 const WING_SCALE = 0.72; // the wing sheet's cells against her frame
 const WING_FRONT_SCALE = 0.85; // a facing pair spreads both ways, so a little smaller
 const WING_TORSO_HALF = 0.15; // at most this share of her height either side of her middle is torso
+const WING_CHEST_BACK = 0.2; // running, the middle of her chest is this share of her height behind her face
 const wingRootCache = new Map();
 
 // Her back at shoulder-blade height in each cell of a sheet (frame px,
@@ -420,6 +471,9 @@ const wingRootCache = new Map();
 // once per sheet from its pixels. In each row of a band about two fifths of
 // the way down her figure, the torso is the solid run through her middle
 // (the middle of her hips), so arms held out clear of her body don't count.
+// Also the middle of her chest seen side on (4th value): long hair flying
+// behind her runs into that span, but never covers her face, so it's measured
+// back from the front of her face (the cheek and nose rows).
 function wingRoot(image, sx, sy) {
   let cells = wingRootCache.get(image);
   if (!cells) {
@@ -459,7 +513,13 @@ function wingRoot(image, sx, sy) {
             right += Math.min(r, middle + WING_TORSO_HALF * height);
             rows += 1;
           }
-          if (rows) cells.set(`${cx},${cy}`, [left / rows, right / rows, (from + to) / 2]);
+          const faces = [];
+          for (let y = Math.round(top + 0.1 * height); y <= top + 0.22 * height; y += 2) {
+            for (let x = FRAME - 1; x > 0; x -= 1) if (solid(x, y)) { faces.push(x); break; }
+          }
+          faces.sort((a, b) => a - b);
+          const chest = faces.length ? faces[Math.floor(faces.length / 2)] - WING_CHEST_BACK * height : null;
+          if (rows) cells.set(`${cx},${cy}`, [left / rows, right / rows, (from + to) / 2, chest]);
         }
       }
     } catch (error) {
@@ -501,12 +561,15 @@ function isWingFlying(racer) {
 
 // Wings for her pose (cell sx, sy of image) drawn at (x, y) w px wide.
 function drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX) {
-  const [left, right, ry] = wingRoot(image, sx, sy);
-  const rx = left + (right - left) * WING_ROOT_ACROSS[wingView(racer, image, sy)];
+  const [left, right, ry, chest] = wingRoot(image, sx, sy);
+  // Running (sprites row 2), on the middle of her chest, whatever her hair does behind her.
+  const running = image === racer.sheet && sy === FRAME && chest != null;
+  const rx = running ? chest : left + (right - left) * WING_ROOT_ACROSS[wingView(racer, image, sy)];
   const k = w / FRAME;
   const t = performance.now() / 1000 + (racer.playerIndex || 0) * 0.37;
   const flying = isWingFlying(racer);
-  const flashing = racer.horseTimer < HORSE_FLASH_TIME && Math.floor(performance.now() / 110) % 2 === 0;
+  const wingTime = wearsWingsOver(racer) ? racer.wingsTimer : racer.horseTimer;
+  const flashing = wingTime < HORSE_FLASH_TIME && Math.floor(performance.now() / 110) % 2 === 0;
   if (flashing) return;
   const rootX = screenX + (x + rx * k - screenX) * facing;
   const rootY = y + ry * k;
@@ -515,6 +578,7 @@ function drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX) {
   ctx.translate(rootX, rootY);
   ctx.scale(facing < 0 ? -1 : 1, 1);
   const view = wingView(racer, image, sy);
+  drawWingGlow(racer, k, t, view, flying, rootX, rootY, facing);
   const single = view === 2 ? getWingArt("fairy_wing_single") : null;
   const index = flying ? 2 + Math.floor(t * 18) % 4 : Math.floor(t * 5) % 2;
   if (single?.complete && single.width) {
@@ -539,6 +603,48 @@ function drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX) {
     drawWingStandIn(k, beat, 1, 1);
   }
   ctx.restore();
+}
+
+// A fairy glow behind her wings (drawn at their root, in the wings' own
+// space: facing right, wings back to the left): a soft light that breathes,
+// brighter as they beat, and sparkles that drift off them now and then, in
+// the colours of this track's wings.
+const WING_GLOW = {
+  pastel: { glow: ["rgba(255, 196, 240, 0.9)", "rgba(214, 196, 255, 0.55)"], sparkles: ["#fff6ff", "#ffc8f0", "#d9ccff", "#c6fff6"] },
+  twilight: { glow: ["rgba(186, 132, 255, 0.9)", "rgba(120, 214, 255, 0.55)"], sparkles: ["#ffffff", "#d7b8ff", "#9fe8ff", "#ffe7a8"] }
+};
+const WING_SPARKLE_EVERY = 0.07; // seconds between sparkles on the ground (three times as often flying)
+function drawWingGlow(racer, k, t, view, flying, rootX, rootY, facing) {
+  const style = WING_GLOW[getTrackTheme().wingStyle] || WING_GLOW.pastel;
+  const size = 512 * k * WING_SCALE;
+  const cx = view === 2 ? 0 : -0.3 * size, cy = -0.25 * size;
+  const pulse = 0.75 + 0.25 * Math.sin(t * (flying ? 9 : 3));
+  ctx.save();
+  ctx.globalCompositeOperation = "lighter";
+  ctx.globalAlpha *= pulse * (flying ? 1 : 0.75);
+  const radius = size * (view === 2 ? 1 : 0.85);
+  const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+  glow.addColorStop(0, style.glow[0]);
+  glow.addColorStop(0.45, style.glow[1]);
+  glow.addColorStop(1, "rgba(0, 0, 0, 0)");
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+  // Sparkles: world-space particles from a spot on the wings, timed by the
+  // clock (drawing happens every frame, not every update).
+  const now = performance.now() / 1000;
+  if (!state.running || now < (racer.wingSparkleAt || 0)) return;
+  racer.wingSparkleAt = now + WING_SPARKLE_EVERY / (flying ? 3 : 1) * (0.6 + Math.random() * 0.8);
+  const across = view === 2 ? (Math.random() - 0.5) * 1.1 : -(0.05 + Math.random() * 0.5);
+  const sx = rootX + across * size * facing;
+  const sy = rootY - Math.random() * 0.5 * size;
+  const groundY = racer.y + 54;
+  spawnParticles(sx + state.camera, groundY, groundY - sy, 1, {
+    kind: "spark", color: style.sparkles[Math.floor(Math.random() * style.sparkles.length)],
+    speed: 25, lift: flying ? 10 : 40, gravity: 40, life: 0.9 + Math.random() * 0.7, size: (3.5 + Math.random() * 3.5) * k * 2.4, fallThrough: true
+  });
 }
 
 // One code-drawn wing (upper and lower lobe) rising up and back from the

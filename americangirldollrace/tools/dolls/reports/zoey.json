@@ -1,16 +1,16 @@
 {
   "key": "zoey",
-  "standingHeight": 390,
+  "standingHeight": 376,
   "baseline": 409,
   "frames": {
     "idle-0": {
       "bounds": [
-        124,
-        19,
-        306,
+        127,
+        33,
+        302,
         409
       ],
-      "scale": 0.5492957746478874,
+      "scale": 0.5295774647887324,
       "anchor": [
         209.0,
         409
@@ -22,12 +22,12 @@
     },
     "idle-1": {
       "bounds": [
-        143,
-        21,
-        309,
+        145,
+        35,
+        305,
         409
       ],
-      "scale": 0.5492957746478874,
+      "scale": 0.5295774647887324,
       "anchor": [
         209.0,
         409
@@ -39,12 +39,12 @@
     },
     "idle-2": {
       "bounds": [
-        161,
-        19,
-        341,
+        163,
+        33,
+        336,
         409
       ],
-      "scale": 0.5492957746478874,
+      "scale": 0.5295774647887324,
       "anchor": [
         209.0,
         409
@@ -56,12 +56,12 @@
     },
     "run-0": {
       "bounds": [
-        31,
-        20,
-        363,
+        37,
+        34,
+        357,
         409
       ],
-      "scale": 0.5492957746478874,
+      "scale": 0.5295774647887324,
       "anchor": [
         209.0,
         409
@@ -73,12 +73,12 @@
     },
     "run-1": {
       "bounds": [
-        113,
-        28,
-        336,
+        117,
+        41,
+        332,
         409
       ],
-      "scale": 0.5492957746478874,
+      "scale": 0.5295774647887324,
       "anchor": [
         209.0,
         409
@@ -90,12 +90,12 @@
     },
     "run-2": {
       "bounds": [
-        56,
-        50,
-        329,
+        62,
+        63,
+        326,
         409
       ],
-      "scale": 0.2966197183098592,
+      "scale": 0.2859718309859155,
       "anchor": [
         209.0,
         409
@@ -107,12 +107,12 @@
     },
     "jump-0": {
       "bounds": [
-        106,
-        89,
-        326,
+        110,
+        101,
+        322,
         409
       ],
-      "scale": 0.5273239436619719,
+      "scale": 0.508394366197183,
       "anchor": [
         209.0,
         409
@@ -124,12 +124,12 @@
     },
     "jump-1": {
       "bounds": [
-        73,
-        94,
-        348,
+        78,
+        105,
+        343,
         409
       ],
-      "scale": 0.5273239436619719,
+      "scale": 0.508394366197183,
       "anchor": [
         209.0,
         409
@@ -141,12 +141,12 @@
     },
     "jump-2": {
       "bounds": [
-        92,
         97,
-        320,
+        109,
+        317,
         409
       ],
-      "scale": 0.5273239436619719,
+      "scale": 0.508394366197183,
       "anchor": [
         209.0,
         409
@@ -158,12 +158,12 @@
     },
     "ride": {
       "bounds": [
-        157,
-        23,
-        395,
-        360
+        159,
+        32,
+        388,
+        357
       ],
-      "scale": 0.2911267605633803,
+      "scale": 0.28067605633802817,
       "anchor": [
         209,
         264
@@ -175,12 +175,12 @@
     },
     "push": {
       "bounds": [
-        25,
-        57,
-        344,
+        32,
+        69,
+        340,
         409
       ],
-      "scale": 0.5053521126760564,
+      "scale": 0.48721126760563377,
       "anchor": [
         209.0,
         409
@@ -192,12 +192,12 @@
     },
     "fall": {
       "bounds": [
-        69,
-        99,
-        395,
+        74,
+        110,
+        388,
         409
       ],
-      "scale": 0.5053521126760564,
+      "scale": 0.48721126760563377,
       "anchor": [
         209.0,
         409
@@ -209,12 +209,12 @@
     },
     "wave": {
       "bounds": [
-        124,
-        21,
-        307,
+        127,
+        35,
+        304,
         409
       ],
-      "scale": 0.5492957746478874,
+      "scale": 0.5295774647887324,
       "anchor": [
         209.0,
         409
@@ -226,12 +226,12 @@
     },
     "cheer": {
       "bounds": [
-        138,
-        21,
-        321,
+        141,
+        35,
+        318,
         409
       ],
-      "scale": 0.5492957746478874,
+      "scale": 0.5295774647887324,
       "anchor": [
         209.0,
         409
@@ -285,15 +285,15 @@
     }
   },
   "sha256": {
-    "assets/doll_zoey_sprites.webp": "d0dd62618355dfb02a7da526f5d49a37ee05a695a8ed5b35e503da009729444b",
-    "assets/masks/zoey_sheet_mask.webp": "2453d333d45fa289c6eb567d37d1299b42e41d7e0a4dcc86a7ac1906f0dfcf80",
-    "assets/portraits/zoey.webp": "2c07660ab22ea10bd567420b5c5af68df4a700411a7cbbf0e7e36729154cf0f1",
+    "assets/doll_zoey_sprites.webp": "0a953b230793be112af2c9c192ec09af2afecb73aad8d19981f6dd4834268c81",
+    "assets/masks/zoey_sheet_mask.webp": "03de7f95274480358c9297d4ecdb1190c5c273810f0cc9ed146f4747181680e5",
+    "assets/portraits/zoey.webp": "81054004f5977788284632ace27dc6d2a4ffd7c2f3600d0b3664888664231dfa",
     "assets/masks/zoey_portrait_mask.webp": "f2810e3b3e95063e198b45138c7870e694d5dc8a4eab437c64ea69a2f7f4e864",
-    "assets/portraits/zoey_wave.webp": "74f8792aea894aa423956992c2a92ee4b2514b41c35e866094b259fe13432779",
-    "assets/masks/zoey_wave_mask.webp": "38b6d2465a3e014c708b2d6dd9f55a7ef5e84a16cbdbaa494ff0dfa81425f6b0",
-    "assets/portraits/zoey_cheer.webp": "7523a000d93dfb6481bb2eabe588466825df70d2b527750977b7eefa4211347a",
-    "assets/masks/zoey_cheer_mask.webp": "90cf674c26b134b8b9342a7c4bb0a0533b820e29e65b48f79ec8330ee9f70ffe",
-    "assets/portraits/zoey_ride.webp": "8b9a1087b6409105b678e64752929653cdb9b003d6b935159ed0fa21fd0084a2",
-    "assets/masks/zoey_ride_mask.webp": "a2cc26a86c24170ae8ceef0d1a82ee0a63bc4e303338c9e552dafa6deeeb63ae"
+    "assets/portraits/zoey_wave.webp": "0023814da0281023be0020879268a19f022877a434bbafdfe1dd874e8ea3194d",
+    "assets/masks/zoey_wave_mask.webp": "c4be7d7e5a465e1d89961b70c16d68ada4f154ef11b79507ac3a4c6530872308",
+    "assets/portraits/zoey_cheer.webp": "3a3aa00982cfdd119734f51b6e646fd09f6b4e5724d11e4df895ad1c02082571",
+    "assets/masks/zoey_cheer_mask.webp": "66d002fd21566420f3bf4b3f07936b260d30df5397d3bf0fcf0c75c51f7217d5",
+    "assets/portraits/zoey_ride.webp": "b37af16cc1d4d147d9b0802dbabbd0c13b22be04459f2ac9a1c5c6bb79d894ec",
+    "assets/masks/zoey_ride_mask.webp": "4245284e7ca0f729178f1a852a8d47946b0c1143c7c79e8741a7a3eca204e10f"
   }
 }

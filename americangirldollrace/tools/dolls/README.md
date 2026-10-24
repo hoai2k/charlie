@@ -232,7 +232,11 @@ sheet.
 
 ## Zoey
 
-Zoey's approved reference is `sources/zoey/canonical.webp`. Rebuild her complete
+Zoey's approved reference is `sources/zoey/canonical.webp`. She stands
+about average height: her manifest's `standingHeight` is 376 (the others use
+390, but that counts their taller hair; she has none piled up, so hers is
+matched by eye and head height), and her build sizes her toys, actions and ledge poses from it too.
+Rebuild her complete
 character with `python3 americangirldollrace/tools/dolls/zoey/build.py`, then
 rerun `measure_hands.py`, `measure_feet.py` and the cache stamper. She has twelve
 race frames, portrait/wave/cheer/ride, twelve skating/pogo frames, nine special
@@ -265,3 +269,13 @@ mask protection for dark hair, skin, white socks and pink shoes. Toy strip
 calibration restores the same anatomical scale after packing; action reports
 include painted wand-tip coordinates. Sources, exact built-in ImageGen prompts,
 alpha review, masks and deterministic reports are under this directory.
+
+## Moon boots for a new doll
+
+After her sheets are built and `measure_feet.py` / `measure_poses.py` have
+run, `python3 tools/dolls/fit_moon_boots.py` places her moon boots: the
+owner's hand-placed boots on the same pose of the other dolls are carried
+over by matching her legs (`transfer_moon_boots.py`), then fitted to cover her
+whole shoe, into `moon-boot-guesses.js`. Check them in the workbench's
+verification queue; anything the owner corrects goes into
+`moon-boot-overrides.js`.

@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current art queue:** clear. FW2 twilight wing art is delivered; registration/integration remains with the other agent. SW2, MB2, FW1, TF1 and all15 ledge sheets are integrated and checked.
+> **Current art queue:** clear. FW2 twilight wings and Zoey (a new doll, not requested here) are delivered, in the game and checked; SW2, MB2, FW1, TF1 and all fifteen ledge sheets too.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1146,6 +1146,21 @@ report and all15-doll/troll race-scale woodland review. FW1 stays byte-for-byte
 unchanged; FW2 alpha0..191 and every outline/root/phase matches FW1.
 Per owner, gameplay registration is left to the integration agent.
 
+**FW2 in the game and checked:** listed as `"fairy_wings_twilight"` and
+`"fairy_wing_single_twilight"`; Fairy Woods (`wingStyle: "twilight"`) uses
+them, the Fairy board keeps FW1. At race size they glow and read clearly on
+dark- and light-haired dolls (Whirlpool, Juliette), the winged trolls and
+the pickup, and sit well with the toadstools and fireflies. Accepted.
+
+**Zoey (new doll, delivered outside this list) checked in game:** her
+sprites, actions, toys, ledge sheet, portraits and masks are registered.
+She matches the other dolls' size and baseline in every pose (checked
+beside Lily and Mira), wears moon boots and fairy wings well, rides horse,
+unicorn and broom in the right seat, and hangs, climbs and kneels on the
+cloud edge. Roster: she follows Mira in the bottom row, Cinnamon takes
+Amanda's place in the top row, and Amanda is now a secret doll like
+Penelope (All Dolls shows both). No corrections needed.
+
 ## 28. Art delivered: flying troll
 
 Half of Fairy Woods' trolls wear fairy wings and fly up after girls in the
@@ -1230,3 +1245,117 @@ retains her moon purse; hair/skin/accessories are protected in the masks.
 Gameplay registration and live acceptance are left to the integration agent.
 
 **In the game and checked (all fifteen dolls):** `LEDGE_SHEETS`, `LEDGE_ART_VERSION` and `LEDGE_ANCHORS` (from the anchors JSON) in `doll-art.js`, outfits through `DollOutfits` ("ledge"). The hug hold, climb and kneel sit on the cloud edge.
+
+## 30. Requested: an ice troll for Winter
+
+Winter gets its own troll, like Pumpkin Patch's scarecrow and Moon Base's
+robot. The game already asks for him (`tracks.js` winter `monster:
+"icetroll"`) and uses him as soon as his sheet is in.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| IT1 | `assets/icetroll_sprites.webp` | 1254×1672 (3×4 of 418), alpha | An **ice troll** in the same painted, slightly photoreal style as `assets/monster_sprites.webp` (look at them side by side): the troll's build and grumpy-funny face, but made of frosty blue-white ice and packed snow, with icicles for hair and beard, frost on his shoulders, a lumpy snowdrift belly and chunky ice-crystal fingers and toes. Kid-friendly: grumpy and silly, not scary. |
+
+**Use exactly the troll sheet's layout, scale, facing (right) and foot
+baseline**, cell for cell: row 1 idle (3 frames of a slight sway); row 2
+walk (3 frames); row 3 **grab** (lunging, arms out), **lift** (arms
+overhead), **throw** (arms flung forward), hands empty (the game draws the
+doll); row 4 **knocked over** (falling backwards, head to the left, like
+the troll's), **collapsing**, and **defeated**: a **heap of broken ice
+chunks and snow, with no head or face**, then melting into water (owner revision2026-10-24). No
+shadow, ground or text; nothing touching a cell edge.
+
+When it lands, add an `icetroll` entry to `monsters.js` (measure its
+grab-hand points; `defeated`/`particles` as fits) and check it in game.
+
+Acceptance: on Winter, he walks in, grabs and throws a doll held in his
+hands, and after five knock-backs ends as his ice heap.
+
+## 31. Requested: Winter's snowman EMP
+
+Winter's EMP is now a **snowman** that pops up from the trigger, runs about
+knocking everyone over, then runs off the screen. He's drawn in code until
+this lands.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| SM1 | `assets/snowman_sprites.webp` | 2048×512 (4 cells of 512), alpha | A cheeky **running snowman**, in the painted style of the dolls and track art: three snowballs (big bottom, middle, head), coal eyes and smile, a carrot nose, a red-and-white striped scarf flying behind, a little black top hat, twig arms, and small stubby twig feet. Facing right, mid-run: cells 1–4 are one run cycle (feet and twig arms swinging, body bobbing and squashing a little, scarf flapping). |
+| SM2 | Winter's power-up sheet, EMP cell | as the current cell | The EMP trigger as a **snowman's head and scarf peeking out of a snowdrift** (or a little snowman toy with a big red button), to match the new effect (it's a lightning cloud now). Same size, angle and style as the sheet's other icons. |
+
+SM1 rules: his feet at the bottom middle of each cell (about x 256, y 490),
+the same size in every cell (about 400 px tall); no shadow, snow, ground or
+text. In the same commit add `"snowman"` to `TRACK_SHARED_ART` in
+`tracks.js`.
+
+Acceptance: on Winter, take the EMP: the snowman pops up and runs into each
+girl and troll near you, knocking them over, then runs off the screen.
+
+**SM1/SM2 art delivered (2026-10-24):** four 512px running snowman frames at `assets/snowman_sprites.webp`, common scale and feet at y490; EMP cell2 in Winter powerups replaced, all other cells decoded RGBA pixel-identical. Sources, exact ImageGen prompts, exporter and alpha/anchor reports in `tools/effects/winter/`. Art-only handoff: gameplay agent adds `snowman` to shared art and bumps the Winter icon cache version. Verified with the actual silent drawing functions; 36 unit and55 browser checks passed.
+
+**IT1 art delivered (2026-10-24):** `assets/icetroll_sprites.webp` has all twelve poses in the original troll layout, first idle height343 and all baselines407, transparent margins, ending in a broken-ice/snow heap with head on top. Sources, exact built-in ImageGen prompt, exporter, report, hand anchors and runtime-scale review with held Lily are in `tools/effects/winter/`. Art-only handoff: integration agent registers `icetroll`, using `grabHands: [[300,230],[295,110],[323,120]]`, scale1 and no snores/dissipate/sparks.
+
+**Owner revision delivered (2026-10-24):** IT1 final defeated cell is a faceless/headless heap of ice and snow; the other11 cells and hand anchors are unchanged. IT2 `assets/icetroll_melt_sprites.webp` (2508×418, six418px cells, alpha) progresses from that exact pile through melting ice to water only. Shared scale/center, baseline407 and sprite anchor193409 throughout. Exact first-frame match prevents a transition pop. Sources, prompt, calibrated exporter, unchanged-cell hashes and Winter race-scale animation review are in `tools/effects/winter/`. This supersedes the original head-on-pile brief; gameplay integration remains with the other agent.
+
+**In the game and checked:** the ice troll (`monsters.js` `icetroll`, the delivered grab hands) is Winter's monster, drawn at twice a troll's height as an ice giant: he lifts a doll overhead at his hands and throws her further, staggers (code tilt until IT3) until the seventh push, and his heap plays the six melt cells to a puddle when stepped in, steaming, with splashes for anyone running through. The snowman (`TRACK_SHARED_ART`) runs in the SM1 cycle and the SM2 icon shows on Winter's EMP pickup (cache stamp bumped).
+
+## 32. Requested: the ice giant's stagger
+
+The ice troll is now a giant (twice a troll's height) who takes 7 knock-backs.
+The first six only rock him back on his heels; today that's his idle cell
+tilted back in code. A real stagger pose would read better.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| IT3 | `assets/icetroll_stagger_sprites.webp` | 836×418 (2 cells of 418), alpha | The ice troll from `assets/icetroll_sprites.webp`, same scale, facing and foot baseline (407), still on his feet: (1) **rocked back** from a blow to his chest, leaning back, arms flung up and out, one foot lifting, surprised; (2) **catching himself**, leaning forward again, arms coming down, both feet planted, grumpy. |
+
+Rules: his feet at the same place as in his idle cell; nothing touching a
+cell edge; no shadow, ground or text. In the same commit add
+`"icetroll_stagger"` to `TRACK_SHARED_ART` in `tracks.js` (the game plays the
+two cells over the stagger once it's listed).
+
+Acceptance: on Winter, push the ice giant: he rocks back (cell 1) and
+catches himself (cell 2), and only the seventh push knocks him down.
+
+**IT3 art delivered (2026-10-24):** `assets/icetroll_stagger_sprites.webp`, two418px cells (836×418), rocked back then catching himself. One anatomical source scale, right-facing, planted rear sole150407 and transparent cell margins; original idle and all other sheets unchanged. Exact prompts/corrected source, exporter, placement report and actual giant-scale drawing review in `tools/effects/winter/`. Art-only handoff: integration agent adds `icetroll_stagger` to shared art. Current drawMonster already selects the two cells and applies its fallback tilt as well; review includes this behavior.
+
+## 33. Requested: puddles lying on the ground (match the oil's angle)
+
+Each track's "oil" pickup (cell 4 of its power-up sheet) lies still on the
+track, so it must look like a puddle **lying on the ground seen from a low
+angle**, not looked down on from above. The angle to match is the original
+**black oil puddle in `assets/icons_alpha.webp` (x 1700–2199)**: a glossy
+pool foreshortened into a wide, low shape (its main pool about **0.55× as
+tall as it is wide**), a slightly darker rim along its lower edge so it reads
+as a thin layer on the ground, and its few droplets lying on the same ground
+plane beside it, with nothing standing up out of it or flying above it.
+
+Measured main-pool height ÷ width (the oil is 0.56; the Beach seaweed is
+the other way, too flat at 0.20): Village, Toy Room,
+Fairy, Night Festival, Wizard School, Pumpkin Patch and Candy Land are close
+enough to keep. Redo **only cell 4 (x 768–1023)** of these, keeping the
+other four cells pixel-identical:
+
+| # | Track (key) | Oil label | Now | Redraw as |
+| --- | --- | --- | --- | --- |
+| P1 | Farm (`farm`) | MUD | 0.80, top-down, with mud splashes flying up | A thick, glossy brown mud puddle lying flat on the ground at the oil's angle, a few mud blobs lying beside it; no splashes in the air. |
+| P2 | Horse Show (`horseshow`) | WATER JUMP | 0.71, top-down ring of mud with splashes up | A shallow blue water puddle with a muddy edge, lying flat at the oil's angle, like the water jump on a show course; no splashes in the air. |
+| P3 | Moon Base (`space`) | SPACE GOO | 0.73, a round blob from above | Bright green glowing goo spread flat on the ground at the oil's angle, a few goo drops lying beside it. |
+| P4 | Fairy Woods (`woods`) | MOSSY BOG | 0.79, top-down with grass blades and drops sticking up | A dark, boggy puddle with moss patches and a fallen leaf floating on it, lying flat at the oil's angle; no grass or drops standing up out of it. |
+| P5 | Cloud Kingdom (`clouds`) | RAIN PUDDLE | the pool is right, but raindrops hang in the air above it | The same blue rain puddle with the floating drops removed (a couple of small droplets may lie beside it on the ground). |
+| P7 | Beach (`beach`) | SEAWEED | 0.20: so flat it reads as a thin strip, not a patch on the sand | The same slippery seaweed (glossy green and olive kelp ribbons in a bright, shiny film of seawater with white glints), redrawn at the oil's angle: a wide, low patch about 0.55× as tall as wide, the ribbons lying flat in the water, with no bushy clumps or height. Keep SW2's light, bright greens so it stands out on the sand. |
+| P6 | Winter (`winter`) | ICE | the shape is close, but the cracked sheet is drawn from straight above | A slick patch of ice lying flat at the oil's angle, glossy with a few foreshortened crack lines and a pale rim, reading as ice on the ground, not a cracked tile seen from above. |
+
+Same style, size (about 220 px wide) and outline weight as the other
+cells. In the same commit bump each changed track's `powerupArtVersion` in
+`tracks.js` (add one where there's none).
+
+Acceptance: at race size (about 68 px across), each puddle reads as lying
+flat on the track like the black oil puddle, and a doll slides or sticks
+in it as before.
+
+**P1/P3/P4 art delivered (2026-10-24):** Farm mud, Moon Base goo and Fairy Woods bog oil cells redrawn at the oil ground angle, no flying splashes/upright grass. Measured main-pool height/width0.502/0.601/0.519. Only cell3 changed; other four cells RGBA pixel-identical. Sources, exact ImageGen prompts, deterministic exporter, reports and actual68px drawing review in `tools/tracks/puddles-low-angle/`. Art-only handoff: gameplay agent bumps powerupArtVersion for these tracks.
+
+**P2/P5/P6/P7 art delivered (2026-10-24):** Horse Show water jump, Cloud Kingdom rain, Winter ice and Beach seaweed redrawn at ground angle. Measured main-pool height/width0.571/0.559/0.553/0.537. Rain drops lie on the ground, ice cracks are thin surface lines, and Beach is a wet kelp patch rather than a0.20-ratio strip. Only cell3 changed; each sheet’s other four cells remain RGBA pixel-identical. Sources, exact built-in ImageGen prompts/corrections, exporter, reports and actual68px before/after review are in `tools/tracks/puddles-low-angle/`. All P1–P7 art is delivered; gameplay agent handles powerupArtVersion updates.
+
+**In the game and checked (§32, §33):** the seven redrawn puddles (Farm, Horse Show, Moon Base, Fairy Woods, Cloud Kingdom, Winter, Beach) now measure 0.50–0.60 tall to wide against the black oil's 0.56, with nothing floating above them, and read as lying on the track at race size; each track's `powerupArtVersion` bumped. The ice giant's stagger poses (`icetroll_stagger`, in `TRACK_SHARED_ART`) play over his first six knock-backs, rocked back then catching himself, replacing the code tilt.
+

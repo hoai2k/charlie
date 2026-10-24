@@ -186,6 +186,10 @@ window.AUDIO_MANIFEST = {
    2,
    3
   ],
+  "ice_melt": [
+   1,
+   2
+  ],
   "jump_land_heavy": [
    1,
    2
@@ -383,6 +387,11 @@ window.AUDIO_MANIFEST = {
   "powerup_stack": [
    1,
    2
+  ],
+  "puddle_splash": [
+   1,
+   2,
+   3
   ],
   "push_impact": [
    1,

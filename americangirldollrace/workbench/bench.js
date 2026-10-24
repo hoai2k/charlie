@@ -59,6 +59,9 @@
 
   function monsterImage(key) {
     if (key === "troll") return images.monster;
+    // Its own particles too (the candy troll's sweets), whatever the track.
+    const particles = window.MONSTERS?.[key]?.particles;
+    if (particles) loadArtOnce(particles, `assets/${particles}.webp`);
     loadArtOnce(key, monsterSheetUrl(key));
     return images[key] || null;
   }

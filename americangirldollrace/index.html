@@ -28,7 +28,7 @@
     <link rel="preload" as="image" href="assets/ui/title_hero_lily.webp" fetchpriority="high">
     <link rel="preload" as="image" href="assets/ui/title_hero_rumi.webp" fetchpriority="high">
     <link rel="preload" as="image" href="assets/ui/title_hero_kaya.webp" fetchpriority="high">
-    <link rel="stylesheet" href="styles.css?v=150232ea">
+    <link rel="stylesheet" href="styles.css?v=d76ad14e">
 
   </head>
   <body>
@@ -90,6 +90,16 @@
               </div>
               <div class="lb-abs" id="lbGrid"></div>
               <div class="lb-abs" id="lbSlots"></div>
+              <!-- Corner buttons, as when paused: sound and full screen (bottom
+                   right; up under the top-right box when players fill the bottom) -->
+              <div class="lb-abs" id="lbCorner">
+                <button type="button" class="corner-button sound-toggle" id="lbSoundButton" aria-label="Sound on or off">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path class="fill" d="M8 18h8l10-9v30l-10-9H8z"/><g class="sound-waves"><path d="M32 17a9 9 0 0 1 0 14"/><path d="M36.5 12.5a15 15 0 0 1 0 23"/></g><g class="sound-off"><path d="M32 18l12 12M44 18L32 30"/></g></svg>
+                </button>
+                <button type="button" class="corner-button fs-toggle" id="lbFullscreenButton" aria-label="Full screen">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><g class="fs-enter"><path d="M6 17V6h11M31 6h11v11M42 31v11H31M17 42H6V31"/></g><g class="fs-exit"><path d="M17 6v11H6M42 17H31V6M31 42V31h11M6 31h11v11"/></g></svg>
+                </button>
+              </div>
               <!-- Phone (no controller): computer racers right on the select screen -->
               <div class="lb-abs lb-panel" id="lbCpuChip"><span class="lb-cpu-btn" id="lbCpuLess">−</span><span class="lb-ai-mini"></span><span id="lbCpuCount"></span><span class="lb-cpu-btn" id="lbCpuMore">+</span></div>
               <div class="lb-abs" id="lbRaceBar"><div id="lbRaceFill"></div><div id="lbRaceText"></div></div>
@@ -98,10 +108,11 @@
                 <div class="lb-panel" id="lbSetPanel">
                   <h2>Settings</h2>
                   <div class="lb-set-row" data-row="0"><div class="lb-icon"><div class="lb-atlas" id="lbTrackThumb"></div></div><div class="lb-txt"><div class="lb-panel-title">Track</div><div class="lb-val" id="lbTrackVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
-                  <div class="lb-set-row" data-row="1"><div class="lb-icon"><div class="lb-atlas" id="lbMonsterIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">Monsters</div><div class="lb-val" id="lbMonsterVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
+                  <div class="lb-set-row" data-row="1"><div class="lb-icon"><div class="lb-atlas" id="lbMonsterIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">How many monsters</div><div class="lb-val" id="lbMonsterVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
                   <div class="lb-set-row" data-row="2"><div class="lb-icon"><div class="lb-atlas" id="lbSpecialIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">Specials</div><div class="lb-val" id="lbSpecialVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
                   <div class="lb-set-row" data-row="3"><div class="lb-icon" id="lbCpuIcons"></div><div class="lb-txt"><div class="lb-panel-title">Computer racers</div><div class="lb-val" id="lbCpuVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
-                  <div class="lb-set-row" data-row="4" id="lbFullscreenRow"><div class="lb-icon"><div class="lb-screen-icon">⛶</div></div><div class="lb-txt"><div class="lb-panel-title">Full screen</div><div class="lb-val" id="lbFullscreenVal"></div></div><span class="lb-arrow" data-d="1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
+                  <div class="lb-set-row" data-row="4" id="lbSkillRow"><div class="lb-icon"><div class="lb-screen-icon" id="lbSkillIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">Monster difficulty</div><div class="lb-val" id="lbSkillVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
+                  <div class="lb-set-row" data-row="5" id="lbCoopRow"><div class="lb-icon"><div class="lb-screen-icon" id="lbCoopIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">Play</div><div class="lb-val" id="lbCoopVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
                   <div id="lbSetFoot">▲▼ choose · ◀▶ change · <span class="lb-glyph" data-g="A"></span> done <span id="lbSetDone">Done</span></div>
                 </div>
               </div>
@@ -306,19 +317,23 @@
             <label class="pause-slider"><span>Music</span><input type="range" min="0" max="100" step="5" data-bus="music"></label>
             <label class="pause-slider"><span>Sounds</span><input type="range" min="0" max="100" step="5" data-bus="sfx"></label>
             <div class="pause-buttons">
+              <div class="pause-pair">
+                <button id="restartRaceButton" type="button" class="secondary"><span class="pause-icon">↺</span>Restart</button>
+                <button id="skipRaceButton" type="button" class="secondary"><span class="pause-icon">⏭</span>Skip</button>
+              </div>
               <button id="pauseSettingsDone" type="button" class="secondary">Done</button>
             </div>
             <div class="pause-hint">◀ ▶ change · <span class="lb-glyph pause-glyph-a"></span>Done · B back</div>
           </div>
           <!-- Corner buttons (bottom right) while paused: sound on/off, settings, full screen -->
           <div class="pause-corner" id="pauseCorner">
-            <button type="button" class="corner-button" id="pauseSoundButton" aria-label="Sound on or off">
+            <button type="button" class="corner-button sound-toggle" id="pauseSoundButton" aria-label="Sound on or off">
               <svg viewBox="0 0 48 48" aria-hidden="true"><path class="fill" d="M8 18h8l10-9v30l-10-9H8z"/><g class="sound-waves"><path d="M32 17a9 9 0 0 1 0 14"/><path d="M36.5 12.5a15 15 0 0 1 0 23"/></g><g class="sound-off"><path d="M32 18l12 12M44 18L32 30"/></g></svg>
             </button>
             <button type="button" class="corner-button" id="pauseSettingsButton" aria-label="Settings">
               <svg viewBox="0 0 48 48" aria-hidden="true"><path class="fill" d="M21 4h6l1 5.5 4.2 1.8 4.6-3.2 4.2 4.2-3.2 4.6 1.8 4.2L45 21v6l-5.5 1-1.8 4.2 3.2 4.6-4.2 4.2-4.6-3.2-4.2 1.8L27 45h-6l-1-5.5-4.2-1.8-4.6 3.2-4.2-4.2 3.2-4.6L8.4 28 3 27v-6l5.5-1 1.8-4.2-3.2-4.6 4.2-4.2 4.6 3.2L20 9z"/><circle class="hole" cx="24" cy="24" r="7"/></svg>
             </button>
-            <button type="button" class="corner-button" id="pauseFullscreenButton" aria-label="Full screen">
+            <button type="button" class="corner-button fs-toggle" id="pauseFullscreenButton" aria-label="Full screen">
               <svg viewBox="0 0 48 48" aria-hidden="true"><g class="fs-enter"><path d="M6 17V6h11M31 6h11v11M42 31v11H31M17 42H6V31"/></g><g class="fs-exit"><path d="M17 6v11H6M42 17H31V6M31 42V31h11M6 31h11v11"/></g></svg>
             </button>
           </div>
@@ -326,6 +341,7 @@
         <div class="touch-controls hidden" id="touchControls" aria-label="Touch controls">
           <button class="touch-button" id="touchJumpButton" type="button">Jump</button>
           <button class="touch-button" id="touchPushButton" type="button">Push</button>
+          <button class="touch-button hidden" id="touchSpecialButton" type="button">Special</button>
         </div>
         <button class="touch-pause hidden" id="touchPauseButton" type="button">Pause</button>
         <audio id="music" src="assets/music/Plastic Shoes.mp3" preload="auto" loop></audio>
@@ -333,33 +349,36 @@
       </section>
     </main>
     <div id="barsHint" hidden><span class="bars-arrow" aria-hidden="true">↑</span> Swipe up to hide Safari’s bars · or Share → Add to Home Screen</div>
-    <script src="config.js?v=81dc0cfb"></script>
-    <script src="tracks.js?v=a63f1e03"></script>
-    <script src="doll-art.js?v=8be2b66e"></script>
-    <script src="assets/audio/manifest.js?v=8761a783"></script>
-    <script src="audio.js?v=baeb1965"></script>
+    <script src="config.js?v=7af12a9a"></script>
+    <script src="tracks.js?v=62d55527"></script>
+    <script src="doll-art.js?v=a8d1d43d"></script>
+    <script src="assets/audio/manifest.js?v=3a5e9bf6"></script>
+    <script src="audio.js?v=72872ef9"></script>
     <script src="recolor.js?v=5528ab6f"></script>
     <script src="dolls.js?v=846bceeb"></script>
-    <script src="hands.js?v=da943020"></script>
-    <script src="feet.js?v=78a32d31"></script>
-    <script src="moon-boot-overrides.js?v=72341134"></script>
+    <script src="hands.js?v=fc164a74"></script>
+    <script src="feet.js?v=2829c9c9"></script>
+    <script src="pose-shapes.js?v=5799bfda"></script>
+    <script src="moon-boot-overrides.js?v=5a8fb92c"></script>
+    <script src="moon-boot-guesses.js?v=e66e02b3"></script>
     <script src="outfits.js?v=e9dc41bc"></script>
     <script src="mounts.js?v=2acd152f"></script>
-    <script src="broom.js?v=f70f0bc0"></script>
+    <script src="broom.js?v=15d330fc"></script>
     <script src="troll-art.js?v=aa876994"></script>
-    <script src="monsters.js?v=bca58a8b"></script>
-    <script src="game-audio.js?v=be0135e4"></script>
-    <script src="game-monsters.js?v=a14b555c"></script>
-    <script src="game-amanda.js?v=1b793956"></script>
-    <script src="game-mounts.js?v=8fdfc326"></script>
-    <script src="game-powerups.js?v=4d29382a"></script>
-    <script src="game-items.js?v=48dc5bb6"></script>
+    <script src="monsters.js?v=26201cf6"></script>
+    <script src="game-audio.js?v=863a5660"></script>
+    <script src="game-monsters.js?v=679311b4"></script>
+    <script src="game-amanda.js?v=15383cb2"></script>
+    <script src="game-mounts.js?v=00b3ffa5"></script>
+    <script src="game-powerups.js?v=e9e84dcd"></script>
+    <script src="game-items.js?v=fb6fe35d"></script>
     <script src="game-camera.js?v=bb0b2f96"></script>
-    <script src="game-players.js?v=f943bea6"></script>
-    <script src="game-draw.js?v=32f7026e"></script>
-    <script src="game-terrain.js?v=d4b08ec4"></script>
-    <script src="game.js?v=7a3cf16f"></script>
-    <script src="menu.js?v=0438cd86"></script>
+    <script src="game-players.js?v=19b723aa"></script>
+    <script src="game-draw.js?v=367eda31"></script>
+    <script src="game-terrain.js?v=a2a839bf"></script>
+    <script src="game-specials.js?v=9070ab14"></script>
+    <script src="game.js?v=86e4b411"></script>
+    <script src="menu.js?v=b21527a3"></script>
     <script src="chrome.js?v=d5f7c463"></script>
 
 

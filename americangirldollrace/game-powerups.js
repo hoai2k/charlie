@@ -87,37 +87,78 @@ function makePowerups() {
     }
   }
 
-  // Calculate the total sum of all weights
-  const totalWeight = powerupTypes.reduce((sum, type) => sum + (POWERUP_WEIGHTS[type] || 1.0), 0);
-
-  let x = POWERUP_START_X + Math.random() * 260;
-  for (let index = 0; x < FINISH - POWERUP_END_PADDING; index += 1) {
-    
-    // --- START WEIGHTED SELECTION ---
-    let randomNum = Math.random() * totalWeight;
-    let selectedType = powerupTypes[0]; // Fallback
-
-    for (const type of powerupTypes) {
-      const weight = POWERUP_WEIGHTS[type] || 1.0; // Default to 1 if not set
-      if (randomNum < weight) {
-        selectedType = type;
-        break;
-      }
-      randomNum -= weight;
-    }
-    // --- END WEIGHTED SELECTION ---
-
+  // Where they go, then what each is: dealt per half of the board, so each
+  // half has some of each kind and none piles up (POWERUP_PARTS), with room
+  // for chance in where they fall within it.
+  const xs = [];
+  for (let x = POWERUP_START_X + Math.random() * 260; x < FINISH - POWERUP_END_PADDING; x += POWERUP_MIN_GAP + Math.random() * POWERUP_RANDOM_GAP) xs.push(x);
+  const each = powerupTypes.filter(type => type !== "monster");
+  const parts = powerupParts(xs, each.length);
+  const types = dealPowerupTypes(xs, each, powerupTypes, POWERUP_WEIGHTS, parts);
+  const partAt = x => partOf(xs, x, parts);
+  xs.forEach((x, index) => {
+    const selectedType = types[index];
     const spawnY = randomPowerupY();
     const spawnX = clearOfHurdles(x + (Math.random() - 0.5) * 90, spawnY);
     if (selectedType === "monster" && spawnX >= MONSTER_COURSE_START_X) {
       state.monsters.push(spawnMonster(spawnX, spawnY, { active: false }));
     } else {
       const powerupType = selectedType === "monster" ? trackTypes[index % trackTypes.length] : selectedType;
-      powerups.push(makePowerup(powerupType, spawnX, spawnY));
+      powerups.push({ ...makePowerup(powerupType, spawnX, spawnY), part: partAt(x) });
     }
-    x += POWERUP_MIN_GAP + Math.random() * POWERUP_RANDOM_GAP;
+  });
+  // Each half's mount pickups include the board's own normal mount (the
+  // horse, or its baseMount: the Moon Base rover, the Toy Room rocking horse),
+  // whatever special mounts the rest turned out to be.
+  const normal = getTrackTheme().baseMount || "horse";
+  const mountSpecial = state.specials === "unicorn" || isFlyingMountType(state.specials) || isHorsingAroundMode();
+  // (By the half each was dealt in, not where it was nudged to.)
+  if (!isAlwaysMountedTrack() && !mountSpecial && xs.length) {
+    for (let part = 0; part < parts; part += 1) {
+      const mounts = powerups.filter(p => p.type === "horse" && p.part === part);
+      const normals = Array.isArray(normal) ? normal : [normal];
+      if (mounts.length && !mounts.some(p => normals.includes(p.horseType))) {
+        mounts[0].horseType = normals[Math.floor(Math.random() * normals.length)];
+      }
+    }
   }
   return powerups;
+}
+
+// Which part of the board (of `parts`) a pickup at x was dealt in.
+function partOf(xs, x, parts) {
+  const from = xs[0] ?? 0, span = Math.max(1, (xs.at(-1) ?? 0) - from + 1);
+  return Math.min(parts - 1, Math.floor((x - from) / span * parts));
+}
+
+// Halves (POWERUP_PARTS), or the whole board as one when a half would have
+// fewer pickups than there are kinds (so each part still has one of everything).
+function powerupParts(xs, kinds) {
+  const short = parts => Array.from({ length: parts }, (_, part) => xs.filter(x => partOf(xs, x, parts) === part).length).some(n => n < kinds);
+  return short(POWERUP_PARTS) ? 1 : POWERUP_PARTS;
+}
+
+// The kinds for pickups at xs: each half of the board is dealt on its own,
+// with one of every kind in `each` first (as room allows), then the rest drawn
+// by weight, a kind's weight halving each time it's drawn there, so a run of
+// one kind can't happen by chance; then shuffled within the half.
+function dealPowerupTypes(xs, each, all, weights, parts = POWERUP_PARTS) {
+  const out = new Array(xs.length);
+  for (let part = 0; part < parts; part += 1) {
+    const slots = xs.map((x, i) => i).filter(i => partOf(xs, xs[i], parts) === part);
+    // (A part still too short keeps its mount: each has the board's own.)
+    const deck = each.slice().sort(() => Math.random() - 0.5).sort((a, b) => (b === "horse") - (a === "horse")).slice(0, slots.length);
+    const left = Object.fromEntries(all.map(type => [type, (weights[type] || 1) * (deck.includes(type) ? 0.5 : 1)]));
+    while (deck.length < slots.length) {
+      let pick = Math.random() * Object.values(left).reduce((sum, w) => sum + w, 0);
+      const type = all.find(t => (pick -= left[t]) < 0) || all[0];
+      deck.push(type);
+      left[type] *= 0.5;
+    }
+    deck.sort(() => Math.random() - 0.5);
+    slots.forEach((slot, n) => { out[slot] = deck[n]; });
+  }
+  return out;
 }
 
 function makePowerup(type, x, y, options = {}) {
@@ -252,13 +293,17 @@ function getBoostMultiplier(racer) {
 }
 
 function pogoStompMonsters(racer, previousZ, mounted) {
-  if (mounted || racer.vy > 0 || previousZ < POGO_STOMP_HEAD_Z || racer.z > POGO_STOMP_HEAD_Z) return;
+  if (mounted || racer.vy > 0) return;
   if (!racer.rideToys.some(toy => toy.type === "pogo")) return;
+  // (A giant's head is that much higher, and he's that much wider.)
+  const size = giantSize();
+  const headZ = POGO_STOMP_HEAD_Z * size;
+  if (previousZ < headZ || racer.z > headZ) return;
   for (const monster of state.monsters) {
     if (!monster.active || ["sleeping", "ground", "fall", "drop"].includes(monster.state)) continue;
-    if (Math.abs(monster.x - racer.x) > POGO_STOMP_RANGE_X || Math.abs(monster.y - racer.y) > POGO_STOMP_RANGE_Y) continue;
+    if (Math.abs(monster.x - racer.x) > POGO_STOMP_RANGE_X * size || Math.abs(monster.y - racer.y) > POGO_STOMP_RANGE_Y) continue;
     stunMonsterWithEmp(monster, { dizzy: true });
-    racer.z = POGO_STOMP_HEAD_Z;
+    racer.z = headZ;
     racer.vy = getJumpPower(racer) * POGO_STOMP_BOUNCE;
     racer.jumpStarted = true;
     racer.jumpFrame = 0;
@@ -273,20 +318,29 @@ function pogoStompMonsters(racer, previousZ, mounted) {
 function getJumpPower(racer) {
   if (racer.moonBootsTimer > 0) return JUMP_POWER * MOON_BOOTS_JUMP_SCALE;
   const stacks = racer.highJumpStacks.length;
-  return stacks > 0 ? JUMP_POWER * (1 + stacks * 0.35) : JUMP_POWER;
+  const power = stacks > 0 ? JUMP_POWER * (1 + stacks * 0.35) : JUMP_POWER;
+  // On a pogo stick right by a giant she springs high enough to land on his head.
+  if (giantSize() > 1 && racer.rideToys?.some(toy => toy.type === "pogo")
+    && state.monsters.some(m => m.active && !["sleeping", "ground", "drop"].includes(m.state) && Math.abs(m.x - racer.x) < GIANT_POGO_REACH && Math.abs(m.y - racer.y) < POGO_STOMP_RANGE_Y * 2)) {
+    return Math.max(power, Math.sqrt(2 * GRAVITY * (POGO_STOMP_HEAD_Z * giantSize() + GIANT_POGO_CLEAR)));
+  }
+  return power;
 }
 
 function applyPowerup(racer, powerupOrType) {
   const type = typeof powerupOrType === "string" ? powerupOrType : powerupOrType.type;
-  if (hasActivePowerup(racer, type)) return false;
+  const pickupMount = type === "horse" && typeof powerupOrType !== "string" ? powerupOrType.horseType : null;
+  if (hasActivePowerup(racer, type) && !combinesWithWings(racer, pickupMount)) return false;
   // A spare or left-behind mount is only for someone without one.
   // (A troll's skeleton horse may be swapped for a plain horse, though.)
   const swapForSkeleton = powerupOrType.horseType === "skeleton_horse" && racer.horseType === "horse";
-  if (type === "horse" && powerupOrType.loose && isMounted(racer) && !swapForSkeleton) return false;
+  if (type === "horse" && powerupOrType.loose && isMounted(racer) && !swapForSkeleton && !combinesWithWings(racer, pickupMount)) return false;
   // A unicorn rider keeps her unicorn rather than swap it for another mount.
-  if (type === "horse" && isMounted(racer) && racer.horseType === "unicorn") return false;
-  playPowerupAudio(racer, type, typeof powerupOrType === "string" ? null : powerupOrType);
+  if (type === "horse" && isMounted(racer) && racer.horseType === "unicorn" && !combinesWithWings(racer, pickupMount)) return false;
   const itemEffect = (type === "boost" || type === "jump") && getTrackTheme().itemEffects?.[type];
+  // One wand at a time: she can't pick up another until she's used it.
+  if (itemEffect === "spellBook" && !isMounted(racer) && (racer.spellAim || racer.castTimer > 0)) return false;
+  playPowerupAudio(racer, type, typeof powerupOrType === "string" ? null : powerupOrType);
   if (itemEffect && !isMounted(racer)) return applyItemEffect(racer, itemEffect, type);
   if (type === "boost") {
     const toy = getRideToy("boost");
@@ -312,19 +366,35 @@ function applyPowerup(racer, powerupOrType) {
     racer.powerupMessage = racer.highJumpStacks.length > 1 ? `${label} x${racer.highJumpStacks.length}` : label;
   } else if (type === "emp") {
     racer.empTimer = 0.45;
-    racer.powerupMessage = pickupLook("emp").label;
+    // (A special EMP brings its own board's style and name: game-specials.js.)
+    racer.powerupMessage = powerupOrType.empLabel || pickupLook("emp").label;
     const originX = typeof powerupOrType === "string" ? racer.x : powerupOrType.x;
     const inRange = target => Math.abs(target.x - originX) <= EMP_RANGE;
-    const style = empStyle();
+    const style = powerupOrType.empStyle || empStyle();
     const visibleMonsters = state.monsters.filter(monster => monster.active && isMonsterEmpTarget(monster) && inRange(monster));
     const hit = [];
-    if (visibleMonsters.length > 0) {
+    const awake = visibleMonsters.filter(monster => monster.state !== "sleeping" && monster.state !== "ground");
+    if (state.coop) {
+      // Co-op: it's only ever for the trolls; with none about it just goes off.
+      hit.push(...awake);
+    } else if (style === "snowman") {
+      // The snowman runs into everyone near: trolls and the other girls.
+      hit.push(...visibleMonsters.filter(monster => monster.state !== "sleeping" && monster.state !== "ground"));
+      hit.push(...state.racers.filter(other => other !== racer && !other.finished && inRange(other)));
+    } else if (visibleMonsters.length > 0) {
       hit.push(...visibleMonsters.filter(monster => monster.state !== "sleeping" && monster.state !== "ground"));
     } else {
       hit.push(...state.racers.filter(other => other !== racer && !other.finished && inRange(other)));
     }
-    const label = pickupLook("emp").label;
-    if (!hit.length) {
+    const label = powerupOrType.empLabel || pickupLook("emp").label;
+    if (!hit.length && (state.coop || powerupOrType.special)) {
+      // Co-op, or her own special, with nobody to hit: a harmless burst
+      // where it went off (it never zaps her).
+      const at = typeof powerupOrType === "string" ? { x: racer.x, y: racer.y + 54 } : { x: powerupOrType.x, y: powerupOrType.y ?? racer.y + 54 };
+      spawnParticles(at.x, at.y, 40, 26, { color: "#fff27a", speed: 260, lift: 220, life: 0.55, size: 5 });
+      spawnParticles(at.x, at.y, 30, 6, { kind: "puff", color: "#e8f4ff", speed: 120, lift: 70, life: 0.5, size: 18, gravity: 0 });
+      racer.powerupMessage = label;
+    } else if (!hit.length) {
       // Nobody around to zap: it zaps her instead.
       hit.push(racer);
       racer.powerupMessage = `${label}: OOPS!`;
@@ -335,14 +405,17 @@ function applyPowerup(racer, powerupOrType) {
     if (hit.length) {
       // The effect starts at the trigger she took, not at her.
       const from = typeof powerupOrType === "string" ? null : { x: powerupOrType.x, y: powerupDrawY(powerupOrType) - 26 };
+      const start = from || { x: racer.x + (racer.facing || 1) * 40, y: racer.y + 28 };
       state.empArcs.push({
         from,
         source: racer,
         targets: hit,
-        pending: style === "lightning" ? [] : [...hit],
+        // (The snowman knocks each over himself as he reaches them.)
+        pending: style === "lightning" || style === "snowman" ? [] : [...hit],
         t: 0,
         style,
-        wand: /WAND/.test(label)
+        wand: /WAND/.test(label),
+        snowman: style === "snowman" ? { x: start.x, y: typeof powerupOrType === "string" ? racer.y + 54 : powerupOrType.y, facing: racer.facing || 1, knocked: new Set(), gone: false } : null
       });
     }
   } else if (type === "oil") {
@@ -372,7 +445,14 @@ function applyPowerup(racer, powerupOrType) {
   } else if (type === "snowball") {
     racer.snowballs += SNOWBALL_PICKUP_COUNT;
     racer.powerupMessage = `${pickupLook("snowball").label} x${racer.snowballs}`;
+  } else if (type === "horse" && combinesWithWings(racer, pickupMount) && pickupMount === "wings") {
+    // Wings over the mount she rides: she keeps it, and it flies.
+    racer.wingsTimer = powerupOrType.mountTime ?? horseDurationForType("wings");
+    racer.powerupMessage = mountLabel("wings");
+    noteMountFound("wings");
   } else if (type === "horse") {
+    // A mount under her wings: she keeps them on, with the time they had left.
+    if (combinesWithWings(racer, pickupMount)) racer.wingsTimer = racer.horseTimer;
     const loose = typeof powerupOrType === "string" ? null : powerupOrType.mountTime;
     racer.horseType = typeof powerupOrType === "string" ? chooseHorseType() : powerupOrType.horseType || "horse";
     racer.horseTimer = loose !== undefined && loose !== null ? loose : horseDurationForType(racer.horseType);
@@ -401,9 +481,11 @@ function hasActivePowerup(racer, type) {
   return false;
 }
 
-function launchSnowball(racer) {
-  if (racer.snowballs <= 0) return;
-  racer.snowballs -= 1;
+// (track: a special's throw of another board's "snowballs"; otherwise this
+// board's, from her pickups.)
+function launchSnowball(racer, track = null) {
+  if (!track && racer.snowballs <= 0) return;
+  if (!track) racer.snowballs -= 1;
   sfx("snowball_throw", racer.x);
   racerVoice(racer, "taunt", { chance: 0.15 });
   // Thrown from the hand of whatever pose she's in (standing, skates, pogo
@@ -412,10 +494,11 @@ function launchSnowball(racer) {
   const groundY = racer.y + 54;
   // Momentum: running the way she throws adds her speed to the throw
   // (bubbles just float off at their own pace).
-  const carry = projectileLanding() === "pop" ? 0 : Math.max(0, (racer.speed || 0) * racer.facing);
+  const carry = projectileLanding({ track }) === "pop" ? 0 : Math.max(0, (racer.speed || 0) * racer.facing);
   const vx = racer.facing * (SNOWBALL_SPEED + carry);
   state.projectiles.push({
     owner: racer,
+    track,
     x: hand ? hand.x : racer.x + racer.facing * 44,
     y: racer.y + 32,
     groundY,
@@ -435,7 +518,7 @@ function updateProjectiles(dt) {
     projectile.x += projectile.vx * dt;
     projectile.distance += Math.abs(projectile.vx) * dt;
     // Toward the end of its throw it drops to the ground (bubbles stay up).
-    const drop = projectileLanding() === "pop" ? 0
+    const drop = projectileLanding(projectile) === "pop" ? 0
       : clamp((projectile.distance / projectile.range - SNOWBALL_ARC_START) / (1 - SNOWBALL_ARC_START), 0, 1);
     projectile.height = 1 - drop * drop;
     projectile.drawY = projectile.groundY !== undefined
@@ -448,7 +531,7 @@ function updateProjectiles(dt) {
     const amanda = projectile.distance < projectile.range && amandaAt(projectile.x, projectile.groundY);
     if (amanda && !projectile.hitTargets.has(amanda)) {
       projectileImpact(projectile, amanda.y + 18);
-      hitAmanda(amanda, Math.sign(projectile.vx) || 1);
+      hitAmanda(amanda, Math.sign(projectile.vx) || 1, projectile.owner);
       projectile.hitTargets.add(amanda);
       projectile.distance = projectile.range;
       continue;
@@ -478,15 +561,28 @@ function updateProjectiles(dt) {
   state.projectiles = state.projectiles.filter(projectile => projectile.distance < projectile.range);
 }
 
-function projectileLanding() {
-  return getTrackTheme().projectileLanding || "roll";
+// A thrown thing (or what it left on the ground) behaves and looks like its
+// own board's: this one's, unless it carries another (item.track).
+function projectileTheme(item) {
+  return TRACK_THEMES[item?.track] || getTrackTheme();
+}
+
+function projectileLanding(item) {
+  return projectileTheme(item).projectileLanding || "roll";
+}
+
+function projectileArt(item) {
+  const track = item?.track || getCurrentBackground().key;
+  if (item?.track && TRACK_THEMES[track]?.art?.includes("projectile")) loadArtOnce(trackArtKey(track, "projectile"), `assets/tracks/${track}/projectile.webp`);
+  return images[trackArtKey(track, "projectile")] || null;
 }
 
 // A throw that missed everyone, where it comes down (see tracks.js
 // projectileLanding): a splash, a melting pile of snow, a pop in the air, or
 // it rolls along the ground to a stop.
 function landProjectile(projectile) {
-  const landing = projectileLanding();
+  const landing = projectileLanding(projectile);
+  const track = projectile.track;
   const x = projectile.x;
   const groundY = projectile.groundY ?? projectile.y + 22;
   if (landing === "water") {
@@ -499,16 +595,17 @@ function landProjectile(projectile) {
   } else if (landing === "snow") {
     sfx("snowball_hit", x, { gain: 0.5 });
     spawnParticles(x, groundY, 0, 6, { kind: "puff", color: "#f4fbff", speed: 70, lift: 30, life: 0.5, size: 10, gravity: 0 });
-    state.thrownLeftovers.push({ kind: "snow", x, groundY, life: SNOW_PILE_LIFE });
+    state.thrownLeftovers.push({ kind: "snow", track, x, groundY, life: SNOW_PILE_LIFE });
   } else {
     sfx("snowball_hit", x, { gain: 0.4 });
-    addRolledThrowable({ x, groundY, vx: projectile.vx * 0.45, spin: projectile.distance * 0.02, hop: 0, vhop: 160 });
+    addRolledThrowable({ track, x, groundY, vx: projectile.vx * 0.45, spin: projectile.distance * 0.02, hop: 0, vhop: 160 });
   }
 }
 
 // A thrown apple (or the like) on the ground: it stays there until someone
 // steps on it (only the newest THROWN_ROLL_KEEP stay).
 function addRolledThrowable(item) {
+  if (projectileTheme(item).stickyProjectile) item = { ...item, vx: item.vx * STICKY_ROLL, vhop: Math.min(item.vhop, 70), sticky: true };
   state.thrownLeftovers.push({ kind: "roll", life: Infinity, squished: false, age: 0, ...item });
   const rolling = state.thrownLeftovers.filter(other => other.kind === "roll" && !other.squished);
   if (rolling.length > THROWN_ROLL_KEEP) rolling[0].life = 0;
@@ -523,6 +620,11 @@ function squishRolledThrowable(item) {
   item.life = THROWN_SQUISH_TIME;
   item.vx = 0;
   sfx("sticky_squelch", item.x, { gain: 0.6 });
+  // A marshmallow holds her foot an instant as it smooshes.
+  if (item.sticky && state.racers.includes(foot)) {
+    foot.stuckTimer = STICKY_HOLD_TIME;
+    foot.speed = (foot.speed || 0) * 0.2;
+  }
 }
 
 function updateThrownLeftovers(dt) {
@@ -536,7 +638,7 @@ function updateThrownLeftovers(dt) {
     // Rolls on, bounces a little, slows down, and stops at hurdles.
     item.x += item.vx * dt;
     item.spin += (item.vx / SNOWBALL_RADIUS) * dt;
-    item.vx *= Math.pow(0.35, dt);
+    item.vx *= Math.pow(item.sticky ? 0.01 : 0.35, dt);
     item.hop = Math.max(0, item.hop + item.vhop * dt);
     // (hop is screen px above the ground, under the game's own gravity)
     item.vhop = item.hop > 0 ? item.vhop - GRAVITY * dt : Math.abs(item.vhop) > THROWN_BOUNCE_MIN ? -item.vhop * THROWN_BOUNCE : 0;
@@ -560,7 +662,7 @@ function drawThrownLeftover(item) {
   ctx.globalAlpha = fade;
   if (item.squished) {
     // Squashed flat where it was stepped on.
-    const art = getTrackArt("projectile");
+    const art = projectileArt(item);
     const size = SNOWBALL_RADIUS * 2.6;
     ctx.translate(x, item.groundY - 3);
     ctx.scale(1.6, 0.32);
@@ -590,7 +692,7 @@ function drawThrownLeftover(item) {
   }
   ctx.translate(x, item.groundY - SNOWBALL_RADIUS - item.hop);
   ctx.rotate(item.spin);
-  const art = getTrackArt("projectile");
+  const art = projectileArt(item);
   const size = SNOWBALL_RADIUS * 2.6;
   if (art) ctx.drawImage(art, -size / 2, -size / 2, size, size);
   else {
@@ -605,17 +707,17 @@ function drawThrownLeftover(item) {
 // A hit: water balloons burst into a splash, snowballs just thud.
 function projectileImpact(projectile, groundY) {
   projectile.burst = true;
-  if (projectileLanding() === "roll") {
+  if (projectileLanding(projectile) === "roll") {
     // An apple (or the like) bounces back off whoever it hit and drops to
     // the ground, where it stays.
     sfx("snowball_hit", projectile.x);
     const height = Math.max(0, projectile.groundY - SNOWBALL_RADIUS - (projectile.drawY - projectile.z * 0.28 * (projectile.height ?? 1)));
     // It starts back off her and rolls a little further, so it lands clear.
     const back = -Math.sign(projectile.vx) || -1;
-    addRolledThrowable({ x: projectile.x + back * 30, groundY: projectile.groundY ?? groundY, vx: back * 180, spin: projectile.distance * 0.02, hop: height, vhop: 260 });
+    addRolledThrowable({ track: projectile.track, x: projectile.x + back * 30, groundY: projectile.groundY ?? groundY, vx: back * 180, spin: projectile.distance * 0.02, hop: height, vhop: 260 });
     return;
   }
-  if (projectileLanding() !== "water") {
+  if (projectileLanding(projectile) !== "water") {
     sfx("snowball_hit", projectile.x);
     return;
   }
@@ -770,6 +872,7 @@ function dropPowerupNear(type, x, y, dropStartY) {
 
 function updatePowerupDrops(dt) {
   for (const powerup of state.powerups) {
+    if (powerup.cooldown > 0) powerup.cooldown = Math.max(0, powerup.cooldown - dt);
     if (!isPowerupDropping(powerup)) continue;
     powerup.dropTimer += dt;
     if (powerup.dropTimer >= powerup.dropDuration) {
@@ -919,11 +1022,11 @@ function drawSnowball(projectile) {
   if (x < -80 || x > viewWidth + 80) return;
   ctx.save();
   ctx.translate(x, projectile.drawY - projectile.z * 0.28 * (projectile.height ?? 1));
-  const projectileArt = getTrackArt("projectile");
-  if (projectileArt) {
+  const art = projectileArt(projectile);
+  if (art) {
     const size = SNOWBALL_RADIUS * 2.6;
     ctx.rotate(projectile.distance * 0.02);
-    ctx.drawImage(projectileArt, -size / 2, -size / 2, size, size);
+    ctx.drawImage(art, -size / 2, -size / 2, size, size);
     ctx.restore();
     return;
   }

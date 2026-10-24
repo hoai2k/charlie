@@ -13,19 +13,21 @@
  */
 (() => {
   // Top row first, then the bottom row (the grid splits the list in half).
-  // Dolls added later go at the end of the bottom row, before Penelope.
+  // Dolls added later go at the end of the bottom row, before the secret
+  // dolls (Amanda and Penelope, shown with All Dolls).
   const ROSTER_ORDER = [...new Set([
-    "juliette", "whirlpool", "kaya", "claudia", "lily", "amanda", "marisol", "felicity",
-    "cinnamon", "barbie", "rumi", "mira", "hermione", "luna",
-    ...Object.keys(window.EXTRA_DOLLS || {}), "penelope"
+    "juliette", "whirlpool", "kaya", "claudia", "lily", "cinnamon", "marisol", "felicity",
+    "barbie", "rumi", "mira", "zoey", "hermione", "luna",
+    ...Object.keys(window.EXTRA_DOLLS || {}), "amanda", "penelope"
   ])];
   const RANDOM = "random";
   const COLS = 5;
   const STALL = 157;
   const MAX_CPUS = 3;
-  const SETTING_ROWS = 5;
+  const SETTING_ROWS = 6;
+  const MONSTER_SKILLS = [["easy", "Easy", "No grabbing riders; sometimes they miss you"], ["medium", "Medium", "Horses run past trolls and the ice giant"], ["hard", "Hard", "Any monster pulls you off any mount"]];
   const SPECIAL_KEYS = ["none", "unicorn", "pegasus", "griffon", "broom", "all-dolls", "horsing", "amanda-mode"];
-  const SPECIAL_NAMES = ["None", "All Unicorns", "All Pegasi", "All Gryphons", "All Brooms", "All Dolls (adds Penelope)", "Horsing Around", "Amanda Mode"];
+  const SPECIAL_NAMES = ["None", "All Unicorns", "All Pegasi", "All Gryphons", "All Brooms", "All Dolls", "Horsing Around", "Amanda Mode"];
   const GLYPHS = { A: 0, B: 1, X: 2, Y: 3, LB: 4, RB: 5 };
   const PAD_BUTTONS = { 0: "a", 1: "b", 2: "x", 3: "y", 9: "start", 12: "up", 13: "down", 14: "left", 15: "right" };
   const KEYMAP = {
@@ -312,6 +314,7 @@
     if (!el) {
       el = document.createElement("div");
       el.className = "lb-slot enter";
+      el.dataset.id = id; // p0…, join, c0…
       el.addEventListener("pointerdown", event => { event.preventDefault(); tapStall(id); });
       el.addEventListener("animationend", event => { if (event.target === el) el.classList.remove("enter"); });
       $("#lbSlots").appendChild(el);
@@ -365,6 +368,7 @@
         renderCpu(el, lobby.cpus[cpu], bounceId === id, cpuOutfits()[cpu]);
       }
     });
+    placeCorner();
   }
 
   function renderPlayer(el, index, bounce) {
@@ -511,7 +515,13 @@
       ? lobby.cpus.map(() => `<div class="lb-ai-icon" style="width:${n > 2 ? 48 : 64}px"></div>`).join("")
       : `<span class="lb-none">none</span>`;
     $("#lbCpuVal").textContent = n ? String(n) : "Off";
-    $("#lbFullscreenVal").innerHTML = `${fullscreenElement() ? "On" : "Off"}${lobby.fullscreenNote ? `<span class="lb-set-note">${lobby.fullscreenNote}</span>` : ""}`;
+    const skill = MONSTER_SKILLS.find(([key]) => key === state.monsterSkill) || MONSTER_SKILLS[1];
+    $("#lbSkillIcon").textContent = { easy: "🙂", medium: "😠", hard: "👹" }[skill[0]];
+    $("#lbSkillVal").innerHTML = `${skill[1]}<span class="lb-set-note">${skill[2]}</span>`;
+    $("#lbCoopIcon").textContent = state.coop ? "🤝" : "🏆";
+    $("#lbCoopVal").innerHTML = state.coop
+      ? 'Co-op<span class="lb-set-note">EMPs only zap the trolls</span>'
+      : 'Competitive<span class="lb-set-note">EMPs zap other racers too</span>';
     root.querySelectorAll(".lb-set-row").forEach(row => row.classList.toggle("focus", Number(row.dataset.row) === lobby.setRow));
   }
 
@@ -684,20 +694,10 @@
       setSpecials(SPECIAL_KEYS[(index + d + SPECIAL_KEYS.length) % SPECIAL_KEYS.length]);
       buildGrid();
     } else if (row === 4) {
-      lobby.fullscreenNote = "";
-      // iPhone Safari can't go fullscreen: point at the swipe-up hint instead.
-      if (window.BrowserChrome?.scrollTrick) {
-        lobby.fullscreenNote = "Swipe up, or Share → Add to Home Screen";
-        window.BrowserChrome.flashHint();
-        renderSettings();
-        return;
-      }
-      const wanted = !fullscreenElement();
-      toggleFullscreen().then(on => {
-        // Browsers refuse fullscreen from a controller button; say how instead.
-        if (wanted && !on) lobby.fullscreenNote = canFullscreen() ? "Click or tap here to switch" : "Not available in this browser";
-        renderSettings();
-      });
+      const index = Math.max(0, MONSTER_SKILLS.findIndex(([key]) => key === state.monsterSkill));
+      state.monsterSkill = MONSTER_SKILLS[clamp(index + d, 0, MONSTER_SKILLS.length - 1)][0];
+    } else if (row === 5) {
+      state.coop = !state.coop;
     } else if (row === 3) {
       const room = MAX_PLAYERS - humanCount();
       const n = clamp(lobby.cpus.length + d, 0, Math.min(MAX_CPUS, room));
@@ -726,6 +726,7 @@
       buildGrid();
       autoJoinFirstPad();
       renderAll();
+      updateCorner();
     }
   }
 
@@ -736,9 +737,18 @@
     if (pad) join(`pad${pad.index}`, true);
   }
 
+  function tryStartFullscreen() {
+    if (fullscreenElement() || !canFullscreen() || window.BrowserChrome?.scrollTrick) { lobby.wantFullscreen = false; return; }
+    lobby.wantFullscreen = true;
+    toggleFullscreen().then(on => { if (on) lobby.wantFullscreen = false; });
+  }
+
   function startFrom(device) {
     if (lobby.screen !== "title") return;
     GameAudio.unlock();
+    // START goes full screen (a key, click, tap or controller button; not on
+    // iPhone Safari, which has none). Refused, it tries again on the next press.
+    tryStartFullscreen();
     sound("ui_click");
     show("select");
     if (device?.startsWith("pad")) join(device, true);
@@ -794,6 +804,7 @@
     for (const slot of lobby.slots) if (slot) slot.aFresh = false;
     stopLoop();
     GameAudio.unlock();
+    resetStandings(); // a new set of races
     startRace(mode);
   }
 
@@ -815,7 +826,21 @@
     if (id[0] !== "p") return;
     const index = Number(id.slice(1));
     lobby.touchFocus = index;
-    if (lobby.slots[index].locked) back(index);
+    // Her chosen doll: back to choosing. Not chosen yet: a keyboard player
+    // (added by a click) leaves.
+    const slot = lobby.slots[index];
+    if (slot.locked || slot.device === "wasd" || slot.device === "arrows") back(index);
+    if (!lobby.slots[index]) lobby.touchFocus = null;
+  }
+
+  // Escape: the last keyboard player in, a step at a time: her doll un-chosen,
+  // then she leaves; then the one before her.
+  function escapeKeyboardPlayer() {
+    const index = lobby.slots.findLastIndex(slot => slot && (slot.device === "wasd" || slot.device === "arrows"));
+    if (index < 0) return false;
+    back(index);
+    if (lobby.touchFocus === index && !lobby.slots[index]) lobby.touchFocus = null;
+    return true;
   }
 
   function tapCard(cardIndex) {
@@ -838,14 +863,44 @@
     if (lobby.touchFocus < 0) lobby.touchFocus = null;
   }
 
+  // Corner buttons (as when paused, less the gear: Settings is up top): sound, full screen.
+  function updateCorner() {
+    $("#lbSoundButton").classList.toggle("off", GameAudio.isMuted);
+    $("#lbSoundButton").setAttribute("aria-pressed", String(!GameAudio.isMuted));
+    $("#lbFullscreenButton").classList.toggle("on", Boolean(fullscreenElement()));
+    $("#lbFullscreenButton").hidden = !canFullscreen() && !window.BrowserChrome?.scrollTrick;
+  }
+
+  // Bottom right, unless the players' stalls along the bottom reach it: then
+  // up under the top-right box (in portrait, a column beside the logo).
+  function placeCorner() {
+    const corner = $("#lbCorner");
+    const width = corner.offsetWidth + 30;
+    const crowded = [...lobby.stallEls.values()].some(el => parseFloat(el.style.bottom) < 120 && parseFloat(el.style.left) + el.offsetWidth > lobby.stageW - width);
+    corner.classList.toggle("corner-up", crowded);
+    const box = $("#lbTopRight");
+    corner.style.top = crowded && !root.classList.contains("portrait") ? `${box.offsetTop + box.offsetHeight + 12}px` : "";
+  }
+
+  $("#lbSoundButton").addEventListener("click", () => {
+    GameAudio.unlock();
+    GameAudio.setMuted(!GameAudio.isMuted);
+    if (!GameAudio.isMuted) sound("ui_click");
+    updateCorner();
+  });
+  $("#lbFullscreenButton").addEventListener("click", () => {
+    GameAudio.unlock();
+    // iPhone Safari can't go full screen: point at the swipe-up hint instead.
+    if (window.BrowserChrome?.scrollTrick && !canFullscreen()) { window.BrowserChrome.flashHint(); return; }
+    sound("ui_fullscreen");
+    toggleFullscreen().then(updateCorner);
+  });
+
   $("#lbSettingsBtn").addEventListener("pointerdown", event => { event.preventDefault(); GameAudio.unlock(); openSettings(true); });
   $("#lbSetDone").addEventListener("pointerdown", event => { event.preventDefault(); openSettings(false); });
   $("#lbSettings").addEventListener("pointerdown", event => { if (event.target.id === "lbSettings") openSettings(false); });
   root.querySelectorAll(".lb-set-row").forEach(row => {
     row.addEventListener("pointerdown", () => { lobby.setRow = Number(row.dataset.row); renderSettings(); });
-    // Fullscreen needs a real click/tap, so the whole row toggles it.
-    if (row.dataset.row === "4") row.addEventListener("click", () => changeSetting(4, 1));
-    if (row.dataset.row === "4") return;
     row.querySelectorAll(".lb-arrow").forEach(arrow => arrow.addEventListener("pointerdown", event => {
       event.preventDefault();
       event.stopPropagation();
@@ -861,6 +916,7 @@
   window.addEventListener("keydown", event => {
     if (!isMenuOpen() || event.repeat) return;
     if (event.code === "Escape" && lobby.settingsOpen) { openSettings(false); return; }
+    if (event.code === "Escape" && lobby.screen === "select") { event.preventDefault(); escapeKeyboardPlayer(); return; }
     for (const [scheme, map] of Object.entries(KEYMAP)) {
       const action = map[event.code];
       if (!action) continue;
@@ -881,6 +937,7 @@
   window.addEventListener("blur", () => lobby.heldActions.clear());
 
   function press(device, action) {
+    if (lobby.wantFullscreen && !lobby.settingsOpen) tryStartFullscreen();
     if (lobby.screen === "title") { startFrom(device); return; }
     if (lobby.settingsOpen) {
       // A closes the menu like B; left/right change the chosen setting.
@@ -995,9 +1052,13 @@
 
   // ---------- hooks used by game.js ----------
   window.Lobby = {
+    // Who's in (for tests): device and whether her doll is chosen.
+    players() {
+      return lobby.slots.filter(Boolean).map(slot => `${slot.device}${slot.locked ? "+" : ""}`);
+    },
     refreshSettings() {
-      if (fullscreenElement()) lobby.fullscreenNote = "";
       if (lobby.settingsOpen) renderSettings();
+      updateCorner();
     },
     // Before "Main Menu" resets the race, remember who was playing so the
     // select screen comes back with the same players (unlocked to re-pick).
@@ -1046,5 +1107,5 @@
   startLoop();
 })();
 
-document.addEventListener("fullscreenchange", () => document.querySelector("#lbFullscreenVal") && window.Lobby?.refreshSettings?.());
+document.addEventListener("fullscreenchange", () => window.Lobby?.refreshSettings?.());
 document.addEventListener("webkitfullscreenchange", () => window.Lobby?.refreshSettings?.());

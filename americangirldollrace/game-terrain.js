@@ -111,8 +111,10 @@ function visibleCloudGap(gap, footY) {
 function cloudGapAt(x, footY = PATH_TOP + 144) {
   for (const gap of state.cloudFloor?.gaps || []) {
     if (x < gap.start - 200 || x > gap.end + 200) continue;
+    // (A little before her middle is past the edge she's already off: right
+    // at the edge is too close. She can catch the edge as she drops.)
     const seen = visibleCloudGap(gap, footY);
-    if (x > seen.start && x < seen.end) return seen;
+    if (x > seen.start - CLOUD_EDGE_MARGIN && x < seen.end + CLOUD_EDGE_MARGIN) return seen;
   }
   return null;
 }
@@ -177,7 +179,7 @@ function cloudFallForward(racer, dt) {
 
 // A flier pressing jump in the gap flies back up (until she's out of sight).
 function cloudFallRescue(racer, jumping) {
-  if (!jumping || !isMounted(racer) || !isFlyingMountType(racer.horseType)) return false;
+  if (!jumping || !isMounted(racer) || !canFly(racer)) return false;
   if (racer.z < -CLOUD_RESCUE_DEPTH || racer.vy > HORSE_JUMP_POWER * 0.5) return false;
   racer.vy = HORSE_JUMP_POWER;
   racer.cloudRescued = true;
@@ -193,7 +195,7 @@ function catchCloudLedge(racer, horizontal) {
   const gap = racer.cloudFallGap;
   const side = horizontal > 0 ? 1 : -1; // the cloud she's reaching for: ahead (1) or behind (-1)
   const edgeX = side > 0 ? gap.end : gap.start;
-  if (Math.abs(edgeX - racer.x) > LEDGE_REACH_X) return false;
+  if (Math.abs(edgeX - racer.x) > LEDGE_REACH_X + CLOUD_EDGE_MARGIN) return false; // (she drops a little short of the edge, so reaches that much further)
   racer.ledge = { side, edgeX, t: 0 };
   racer.facing = side;
   racer.vy = 0;
@@ -249,7 +251,10 @@ function drawLedgeRacer(racer, scale) {
   const ledge = racer.ledge;
   const phase = cloudLedgePhase(racer);
   const surfaceY = racer.y + 54;
-  const edgeX = ledge.edgeX - state.camera;
+  // Drawn against the cloud's edge as it looks at her depth (its puffs round
+  // off short of the gap's edge), so she lies on it with no space between.
+  const seen = racer.cloudFallGap ? visibleCloudGap(racer.cloudFallGap, surfaceY) : null;
+  const edgeX = (seen ? (ledge.side > 0 ? seen.end : seen.start) : ledge.edgeX) - state.camera;
   const w = FRAME * scale;
   const sheet = getLedgeSheet(racer);
   if (sheet?.complete && sheet.width) {
@@ -289,6 +294,22 @@ function updateCloudFall(racer, dt) {
   racer.landingTimer = 0;
   racer.joinFlashTimer = 1;
   sfx("mount_expire_poof", racer.x, { gain: 0.8 });
+  loseRacerPowerups(racer);
+}
+
+// Fallen off the cloud, she comes back with nothing: whatever power-ups and
+// mount she had fell with her.
+function loseRacerPowerups(racer) {
+  Object.assign(racer, {
+    speedBoostStacks: [], speedBoostTimer: 0, highJumpStacks: [], highJumpTimer: 0,
+    moonBootsTimer: 0, rideToys: [], snowballs: 0, oilTimer: 0, surfTimer: 0, wingsTimer: 0,
+    pegasusGliding: false, spellAim: null
+  });
+  if (isMounted(racer) && !isAlwaysMountedTrack()) {
+    racer.horseTimer = 0;
+    racer.horseType = "horse";
+    GameAudio.stopLoop(racerLoopId(racer, "mount"));
+  }
 }
 
 // Drawing someone falling through a gap: below the floor's surface she shows

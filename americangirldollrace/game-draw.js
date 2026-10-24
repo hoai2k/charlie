@@ -6,6 +6,7 @@
 function spawnParticles(x, y, z, count, options = {}) {
   // fallThrough: it doesn't stop on the ground but drops on off the screen.
   const { color = "#ffffff", kind = "spark", speed = 160, lift = 300, life = 0.6, size = 5, gravity = 900, dirX = 0, fallThrough = false } = options;
+  if (kind === "candy") loadArtOnce("candy_particles", "assets/candy_particles.webp"); // (normally loaded with the Candy track)
   for (let i = 0; i < count; i += 1) {
     const angle = Math.random() * Math.PI * 2;
     state.particles.push({
@@ -65,6 +66,11 @@ function drawParticles() {
       ctx.beginPath();
       ctx.arc(-p.size * 0.3, -p.size * 0.1, p.size * 0.28, 0, Math.PI * 2);
       ctx.fill();
+    } else if (p.kind === "grain") {
+      // A grain of sand: a tiny plain square.
+      ctx.globalAlpha = Math.min(1, t * 3);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(x - p.size / 2, y - p.size / 2, p.size, p.size);
     } else if (p.kind === "dot") {
       // A plain glowing dot (EMP triggers other than the wand).
       ctx.globalAlpha = Math.min(1, t * 1.6);
@@ -209,7 +215,8 @@ function drawWorldScene() {
       ...state.rainbowBeams.map(beam => ({ type: "rainbow", y: beam.owner ? beam.owner.y + 54.5 : beam.y, item: beam })),
       ...(state.stormCloud ? [{ type: "storm", y: TRACK_TOP - 220, item: state.stormCloud }] : []),
       ...(state.rewardCloud ? [{ type: "rewardCloud", y: TRACK_TOP - 230, item: state.rewardCloud }] : []),
-      ...state.monsters.map(monster => ({ type: "monster", y: monster.y + 56, item: monster })),
+      // (A melting heap is a puddle on the ground: drawn under anyone near it.)
+      ...state.monsters.map(monster => ({ type: "monster", y: monster.melt != null ? monster.y + 56 - 60 : monster.y + 56, item: monster })),
       ...state.runawayHorses.map(horse => ({ type: "runawayHorse", y: horse.y + 56, item: horse })),
       ...state.beachBalls.map(ball => ({ type: "beachBall", y: ball.y, item: ball })),
       ...state.windupCars.map(car => ({ type: "windupCar", y: car.y, item: car })),
@@ -328,6 +335,7 @@ function drawVictoryScene() {
   ctx.fillStyle = skyGradient;
   ctx.fillRect(0, 0, W, H);
   drawVictoryFireworks(elapsed);
+  drawStandingsBoard(elapsed);
   drawVictoryPodium(winner, elapsed);
   drawVictoryConfetti(elapsed);
   drawVictoryBanner(winner, elapsed);
@@ -357,6 +365,85 @@ function drawVictoryFireworks(elapsed) {
     }
     ctx.restore();
   }
+}
+
+// The standings so far, on a board that drops down on its ropes behind the
+// podium (to the right of it), ranked by points, with what each racer just
+// won. Rows fill in one after another once it has landed.
+function drawStandingsBoard(elapsed) {
+  const entries = [...(state.standings?.values() || [])].sort((a, b) => b.points - a.points || b.wins - a.wins);
+  if (!entries.length) return;
+  const rowH = 38, w = 330, h = 74 + entries.length * rowH;
+  const x = W - w - 26, restY = 96;
+  // Drop in with a little bounce, after the winner's moment.
+  const t = clamp((elapsed - STANDINGS_DROP_DELAY) / STANDINGS_DROP_TIME, 0, 1);
+  if (t <= 0) return;
+  const bounce = t < 1 ? 1 - Math.cos(t * Math.PI * 2.5) * Math.pow(1 - t, 2.2) : 1;
+  const y = -h - 20 + (restY + h + 20) * bounce;
+  ctx.save();
+  // Ropes from the top of the screen.
+  ctx.strokeStyle = "#8a6a43";
+  ctx.lineWidth = 4;
+  for (const rx of [x + 40, x + w - 40]) {
+    ctx.beginPath();
+    ctx.moveTo(rx, 0);
+    ctx.lineTo(rx, y + 8);
+    ctx.stroke();
+  }
+  ctx.shadowColor = "rgba(20, 20, 40, 0.35)";
+  ctx.shadowBlur = 18;
+  ctx.shadowOffsetY = 8;
+  ctx.fillStyle = "rgba(255, 250, 238, 0.95)";
+  roundRect(x, y, w, h, 18);
+  ctx.fill();
+  ctx.shadowColor = "transparent";
+  ctx.strokeStyle = "#f0c052";
+  ctx.lineWidth = 5;
+  roundRect(x, y, w, h, 18);
+  ctx.stroke();
+  ctx.fillStyle = "#b6427b";
+  ctx.font = "700 28px Fredoka, system-ui, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("Standings", x + w / 2, y + 34);
+  const rowsIn = (elapsed - STANDINGS_DROP_DELAY - STANDINGS_DROP_TIME) / STANDINGS_ROW_TIME;
+  entries.forEach((entry, i) => {
+    const show = clamp(rowsIn - i, 0, 1);
+    if (show <= 0) return;
+    const racer = entry.racer;
+    const ry = y + 62 + i * rowH;
+    ctx.save();
+    ctx.globalAlpha = show;
+    ctx.translate((1 - show) * 30, 0);
+    if (i % 2 === 0) {
+      ctx.fillStyle = "rgba(240, 192, 82, 0.16)";
+      roundRect(x + 12, ry, w - 24, rowH - 4, 10);
+      ctx.fill();
+    }
+    const mid = ry + (rowH - 4) / 2;
+    ctx.textAlign = "left";
+    ctx.font = "700 22px Fredoka, system-ui, sans-serif";
+    // Tied racers (same points and wins) share a place.
+    const place = entries.findIndex(e => e.points === entry.points && e.wins === entry.wins);
+    ctx.fillStyle = ["#c99a1b", "#8a97a6", "#b56f34"][place] || "#6a6478";
+    ctx.fillText(String(place + 1), x + 24, mid);
+    const head = getPortraitImage(racer.spriteKey);
+    if (head) ctx.drawImage(head, x + 46, mid - 16, 32, 32);
+    ctx.fillStyle = racer.ai ? "#4a4f5c" : slotColor(racer.playerIndex);
+    ctx.font = "700 20px Fredoka, system-ui, sans-serif";
+    ctx.fillText(racer.ai ? racer.name : `P${racer.playerIndex + 1} ${racer.name}`, x + 84, mid);
+    ctx.textAlign = "right";
+    ctx.fillStyle = "#3a3448";
+    ctx.font = "700 22px Fredoka, system-ui, sans-serif";
+    ctx.fillText(String(entry.points), x + w - 24, mid);
+    if (entry.gained) {
+      ctx.fillStyle = "#2f9e5b";
+      ctx.font = "700 15px Fredoka, system-ui, sans-serif";
+      ctx.fillText(`+${entry.gained}`, x + w - 62, mid);
+    }
+    ctx.restore();
+  });
+  ctx.restore();
 }
 
 // Falling confetti from assets/ui/confetti.webp (six 64px pieces in a row).
@@ -672,7 +759,11 @@ function drawRacer(racer) {
       const box = actionFrameBox(racer, 0, 2 * FRAME, riderX, riderY, riderW, riderH);
       drawFacingImage(actions, 0, 2 * FRAME, FRAME, FRAME, box.x, box.y, box.w, box.h, drawFacing, screenX);
     }
-    else drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
+    else {
+      // Wings worn in the saddle, behind her.
+      if (wearsWingsOver(racer)) drawFairyWings(racer, racer.sheet, 0, 3 * FRAME, riderX, riderY, riderW, drawFacing, screenX);
+      drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
+    }
     // Her moon boots stay on in the saddle (her riding frame, sprites 9).
     if (racer.moonBootsTimer > 0 && !(racer.pushTimer > 0 && actions)) drawMoonBootsOn(racer, "sprites", 9, riderX, riderY, riderW, drawFacing, screenX);
     ctx.restore();
@@ -818,7 +909,52 @@ function drawRacerBody(racer, image, sx, sy, x, y, w, h, facing, screenX) {
   if (isMounted(racer) && racer.horseType === "wings" && !racer.grabbedBy) drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX);
   drawFacingImage(image, sx, sy, FRAME, FRAME, x, y, w, h, facing, screenX);
   if (racer.moonBootsTimer > 0) drawMoonBoots(racer, image, sx, sy, x, y, w, facing, screenX);
+  if (racer.sand > 0) drawSandPatches(racer, image, sx, sy, x, y, w, h, facing, screenX);
   racer.lastBody = { image, sx, sy, dx: x - screenX, dy: y - (racer.y - racer.z), w, h, facing };
+}
+
+// Sand on her from a sand troll's pile (racer.sand, checkSandPile): patches
+// mostly on her legs and hem, fewer higher up, kept to her figure in this pose.
+// Each patch goes when the sand left drops below its share, so they shake off
+// one by one.
+const sandCanvas = document.createElement("canvas");
+function drawSandPatches(racer, image, sx, sy, x, y, w, h, facing, screenX) {
+  if (!racer.sandPatches) {
+    racer.sandPatches = Array.from({ length: 26 }, () => {
+      const up = Math.random() ** 1.7 * 250;
+      return {
+        x: SPRITE_ANCHOR_X + (Math.random() - 0.5) * (70 + up * 0.25),
+        y: SPRITE_ANCHOR_Y - 6 - up,
+        r: 9 + Math.random() * 14,
+        share: Math.random() * 0.95,
+        grains: Array.from({ length: 5 }, () => [(Math.random() - 0.5) * 1.6, (Math.random() - 0.5) * 1.2, 0.35 + Math.random() * 0.4])
+      };
+    });
+  }
+  sandCanvas.width = FRAME;
+  sandCanvas.height = FRAME;
+  const c = sandCanvas.getContext("2d");
+  for (const patch of racer.sandPatches) {
+    if (racer.sand <= patch.share) continue;
+    c.fillStyle = "rgba(230, 196, 128, 0.92)";
+    c.beginPath();
+    for (const [gx, gy, gr] of patch.grains) {
+      c.moveTo(patch.x + gx * patch.r + gr * patch.r, patch.y + gy * patch.r);
+      c.arc(patch.x + gx * patch.r, patch.y + gy * patch.r, gr * patch.r, 0, Math.PI * 2);
+    }
+    c.fill();
+    // Grains: darker and lighter specks.
+    for (const [gx, gy, gr] of patch.grains) {
+      c.fillStyle = "rgba(168, 128, 66, 0.8)";
+      c.fillRect(patch.x + gx * patch.r * 0.8, patch.y + gy * patch.r * 0.8, 3, 3);
+      c.fillStyle = "rgba(250, 232, 190, 0.9)";
+      c.fillRect(patch.x + (gx + gr) * patch.r * 0.6, patch.y + (gy - gr) * patch.r * 0.6, 2, 2);
+    }
+  }
+  c.globalCompositeOperation = "destination-in";
+  c.drawImage(image, sx, sy, FRAME, FRAME, 0, 0, FRAME, FRAME);
+  c.globalCompositeOperation = "source-over";
+  drawFacingImage(sandCanvas, 0, 0, FRAME, FRAME, x, y, w, h, facing, screenX);
 }
 
 // Moon boots over her feet in this pose (feet.js, measured per frame by
@@ -844,7 +980,8 @@ function drawMoonBootsOn(racer, kind, index, x, y, w, facing, screenX) {
     ctx.scale(-1, 1);
     ctx.translate(-screenX, 0);
   }
-  for (const boot of boots) {
+  // The further foot (higher up the picture) first, so the nearer boot is in front of it.
+  for (const boot of moonBootsFarToNear(boots)) {
     const bootW = boot.width * scale;
     const k = bootW / MOON_BOOT_CELL_WIDTHS[boot.cell];
     ctx.save();
@@ -864,29 +1001,139 @@ function drawMoonBootsOn(racer, kind, index, x, y, w, facing, screenX) {
   ctx.restore();
 }
 
+// (A boot the owner brought to the front in the verification queue has a
+// higher `layer`.)
+function moonBootsFarToNear(boots) {
+  return boots.slice().sort((a, b) => (a.layer || 0) - (b.layer || 0) || a.y - b.y);
+}
+
 // Where each moon boot goes on frame `index` of a doll's `kind` sheet
-// (frame px, facing right): { cell, x, y, angle, width, mirror }, with (x, y)
+// (frame px, facing right): { cell, x, y, angle, width, mirror, layer? }, with (x, y)
 // the middle of the foot it covers (the boot turns about it), its angle in
 // radians, and its width in frame px. From MOON_BOOT_OVERRIDES where the
-// owner set it by hand (the workbench's verification queue), else worked
-// out from the measured feet (feet.js).
+// owner set it by hand (the workbench's verification queue), else from
+// MOON_BOOT_GUESSES (what follows, fitted to cover her foot by
+// tools/dolls/fit_moon_boots.py), else worked out from the measured feet
+// (feet.js).
 function moonBootPlacements(assetKey, kind, index) {
-  const set = window.MOON_BOOT_OVERRIDES?.[`${assetKey}/${kind}/${index}`];
+  const id = `${assetKey}/${kind}/${index}`;
+  const set = window.MOON_BOOT_OVERRIDES?.[id] || window.MOON_BOOT_GUESSES?.[id];
   if (set) return set;
   const frame = window.DOLL_FEET?.[assetKey]?.[kind]?.[index];
   if (!frame) return [];
   return frame.map(foot => {
-    const [fx, fy, size, angle, view, , cy] = foot; // (feet.js also gives the turn in degrees)
-    const look = moonBootView(kind, index, foot, frame);
+    const [fx, fy, size, , , , cy, shin] = foot; // (feet.js also gives the turn in degrees)
+    const pose = moonBootPose(kind, index, foot, frame);
+    // The boot view the owner picked for this foot in the same pose on
+    // other dolls wins (with the angle that view needed there).
+    const learned = learnedMoonBootView(assetKey, kind, index, frame.length, moonBootRole(foot, frame));
+    const relearned = learned && (learned.cell !== pose.cell || learned.mirror !== pose.mirror);
+    const cell = learned ? learned.cell : pose.cell;
+    // The boot follows her shin (the owner's rule: line it up with the shin,
+    // then cover shin and foot), turned as the owner turned it against the
+    // shin in that pose, or as each view sits on a shin generally.
+    const turn = learned?.turn ?? MOON_BOOT_SHIN_TURN[cell];
+    let angle = relearned ? learned.angle : pose.angle;
+    if (shin != null && turn != null) angle += (shin + turn - angle) * (learned ? MOON_BOOT_SHIN_WEIGHT_LEARNED : MOON_BOOT_SHIN_WEIGHT);
     return {
-      cell: look.cell,
-      x: fx,
-      y: cy ?? fy,
-      angle: view !== "front" && look.cell !== 4 ? angle * (view === "side" ? 1 : 0.6) - look.tilt : 0,
-      width: clamp(size, MOON_BOOT_FOOT_MIN, MOON_BOOT_FOOT_MAX) * MOON_BOOT_GROW,
-      mirror: Boolean(look.mirror)
+      cell,
+      x: fx + (learned ? learned.shift[0] * size * MOON_BOOT_SHIFT_WEIGHT : 0),
+      y: (cy ?? fy) + (learned ? learned.shift[1] * size * MOON_BOOT_SHIFT_WEIGHT : 0),
+      angle,
+      width: clamp(size, MOON_BOOT_FOOT_MIN, MOON_BOOT_FOOT_MAX) * MOON_BOOT_GROW * pose.size,
+      mirror: learned ? learned.mirror : pose.mirror
     };
   });
+}
+
+// Which foot this is in a pose: the back one (further left, facing right),
+// the front one, or the only one; and whether it's lifted (well above the
+// other) or planted, so a lesson only carries over to a foot placed alike.
+function moonBootRole(foot, feet) {
+  if (feet.length !== 2) return "only";
+  const other = feet.find(f => f !== foot) || foot;
+  const side = foot[0] <= other[0] ? "back" : "front";
+  return side + ((foot[6] ?? foot[1]) < (other[6] ?? other[1]) - MOON_BOOT_LIFTED ? "-lifted" : "");
+}
+const MOON_BOOT_SHIN_TURN = { 0: 0.28, 1: 0.3, 5: 0.35 }; // each view's angle on a shin pointing up (fitted to the owner's boots)
+// How far the boot turns to her measured shin (feet.js) from the angle the
+// owner's look-alike poses or the rules give: checked against the owner's
+// boots with each doll left out, the shin helps most as an equal partner to
+// a lesson; on its own (no lesson) the rules do better, as the measured shin
+// wanders where a dress or a sock hides her leg.
+const MOON_BOOT_SHIN_WEIGHT = 0;
+const MOON_BOOT_SHIN_WEIGHT_LEARNED = 0.5;
+const MOON_BOOT_SHIFT_WEIGHT = 0.8; // how much of the owner's shift off the foot (up her shin) a lesson carries over
+const MOON_BOOT_SAME_FOOT = 30; // px: a hand-placed boot this close to a measured foot covers it
+const MOON_BOOT_LIFTED = 30; // px above the other foot that counts as lifted
+const MOON_BOOT_MATCH_SAME_FRAME = 0.2; // leg silhouettes this alike (share of pixels differing) count as the same pose
+const MOON_BOOT_MATCH_OTHER_FRAME = 0.12; // (stricter between different frames)
+
+// What the owner's hand-placed boots (MOON_BOOT_OVERRIDES) say about this
+// pose: the hand-placed poses (any doll, any frame of the same sheet kind,
+// with as many boots) whose leg silhouettes (pose-shapes.js) look most like
+// it, close enough to count (a looser bar for the same frame number, which
+// is usually the same move). For this foot role, the view (cell and
+// mirroring) most of them picked, and the mean angle used with it; null if
+// none is close enough, so an unusual pose (Barbie has some) teaches nothing
+// it shouldn't.
+function learnedMoonBootView(assetKey, kind, index, count, role) {
+  const shape = window.DOLL_POSE_SHAPES?.[assetKey]?.[kind]?.[index];
+  if (!shape) return null;
+  const votes = {};
+  const turns = {};
+  const shifts = {};
+  const skip = window.MOON_BOOT_NOT_LESSONS || [];
+  for (const [id, boots] of Object.entries(window.MOON_BOOT_OVERRIDES || {})) {
+    const [doll, sheet, frame] = id.split("/");
+    if (doll === assetKey || sheet !== kind || boots.length !== count || skip.includes(id)) continue;
+    const other = window.DOLL_POSE_SHAPES?.[doll]?.[sheet]?.[Number(frame)];
+    if (!other) continue;
+    const distance = poseShapeDistance(shape, other);
+    if (distance > (Number(frame) === index ? MOON_BOOT_MATCH_SAME_FRAME : MOON_BOOT_MATCH_OTHER_FRAME)) continue;
+    const sorted = boots.slice().sort((a, b) => a.x - b.x);
+    sorted.forEach((boot, n) => {
+      const partner = sorted[1 - n];
+      const r = count !== 2 ? "only" : (n === 0 ? "back" : "front") + (boot.y < partner.y - MOON_BOOT_LIFTED ? "-lifted" : "");
+      if (r !== role) return;
+      // (A pointed toe the owner picked early on counts as three-quarter:
+      // now the owner sticks to side and three-quarter, the views most poses need.)
+      const view = `${boot.cell === 5 ? 1 : boot.cell}${boot.mirror ? "m" : ""}`;
+      (votes[view] ||= []).push(boot.angle);
+      // How far from her shin the owner turned it (the shin of the foot it covers there).
+      const under = moonBootFootUnder(doll, sheet, Number(frame), boot);
+      if (under?.[7] != null) (turns[view] ||= []).push(boot.angle - under[7]);
+      // Where on the foot the owner set it (to cover shin and foot), as a share of the foot's size.
+      if (under) (shifts[view] ||= []).push([(boot.x - under[0]) / under[2], (boot.y - (under[6] ?? under[1])) / under[2]]);
+    });
+  }
+  const best = Object.entries(votes).sort((a, b) => b[1].length - a[1].length)[0];
+  if (!best) return null;
+  const [view, angles] = best;
+  const mean = list => list.reduce((s, a) => s + a, 0) / list.length;
+  const shift = shifts[view] ? [mean(shifts[view].map(s => s[0])), mean(shifts[view].map(s => s[1]))] : [0, 0];
+  return { cell: parseInt(view, 10), mirror: view.endsWith("m"), angle: mean(angles), turn: turns[view] ? mean(turns[view]) : null, shift };
+}
+
+// The measured foot (feet.js) a hand-placed boot covers: the nearest one, if
+// it's close enough to be the same foot.
+function moonBootFootUnder(assetKey, kind, index, boot) {
+  let best = null, gap = MOON_BOOT_SAME_FOOT;
+  for (const foot of window.DOLL_FEET?.[assetKey]?.[kind]?.[index] || []) {
+    const d = Math.hypot(foot[0] - boot.x, (foot[6] ?? foot[1]) - boot.y);
+    if (d < gap) { gap = d; best = foot; }
+  }
+  return best;
+}
+
+// The share of pixels where two leg silhouettes (64 hex digits each) differ.
+function poseShapeDistance(a, b) {
+  let differ = 0;
+  for (let i = 0; i < a.length; i += 1) {
+    let x = parseInt(a[i], 16) ^ parseInt(b[i], 16);
+    while (x) { differ += x & 1; x >>= 1; }
+  }
+  return differ / (a.length * 4);
 }
 
 // The boot sheet's cells (image-requests.md §23 MB1, §26 MB2): side, three-
@@ -896,25 +1143,40 @@ function moonBootPlacements(assetKey, kind, index) {
 const MOON_BOOT_CELL_WIDTHS = [150, 130, 110, 150, 92, 120, 150];
 const MOON_BOOT_CELL_VIEWS = ["side", "three", "front", "side", "front", "side", "side"]; // for the code-drawn stand-in
 
-// Which boot view suits this foot: a foot kicked up behind her mid-stride
-// shows the back of the boot; one pointing well down, the pointed toe;
-// soles up as she tumbles, the sole; her back foot planted in a stride,
-// the inside of the boot (mirrored to point her way); otherwise the view
-// measured from the foot. tilt: how far the art's own boot already leans
-// (radians), taken off the foot's angle.
-function moonBootView(kind, index, foot, frame) {
+// The boot for this foot: its view (cell), angle (radians), whether it's
+// mirrored, and a size share. The rules follow how the owner placed
+// Barbie's boots by hand (the workbench's verification queue): standing,
+// both feet three-quarter, splayed out (the back one mirrored) and a little
+// smaller; running, a back foot kicked up turned well over, sole to the
+// back; crouching and landing, toes a little down; in the air, both turned
+// toes down (the back one more), three-quarter like nearly every boot the
+// owner places; riding, three-quarter and level; pushing,
+// the back foot tipped further; knocked over, a gentler turn with the lower
+// foot three-quarter. Otherwise the view and angle measured from the foot.
+function moonBootPose(kind, index, foot, frame) {
   const [fx, fy, , angle, view] = foot;
-  const base = { cell: view === "side" ? 0 : view === "three" ? 1 : 2, tilt: 0 };
-  if (kind !== "sprites") return base;
-  if (index === 11 && view !== "side") return { cell: 4, tilt: 0 }; // knocked over, soles towards us
-  if (view === "side" && angle > 0.45) return { cell: 5, tilt: 0.6 };
+  const measured = view === "front" ? 0 : angle * (view === "side" ? 1 : 0.6);
+  const pose = { cell: view === "side" ? 0 : view === "three" ? 1 : 2, angle: measured, mirror: false, size: 1 };
+  if (kind !== "sprites") return pose;
   const other = frame.find(f => f !== foot);
-  const running = index >= 3 && index <= 5;
-  if (running && other && fx < other[0]) {
-    if (fy < other[1] - 40) return { cell: 3, tilt: 0 };
-    if (view === "side") return { cell: 6, tilt: 0, mirror: true };
+  const back = Boolean(other) && fx < other[0];
+  const raisedBy = other ? other[1] - fy : 0; // px above the other foot
+  const pointed = view === "side" && angle > 0.45;
+  if (index <= 2) {
+    // (A foot lifted behind her while she stands turns sole up.)
+    return raisedBy > 40 ? { ...pose, cell: 1, angle: 1.6, size: 0.84 } : { ...pose, cell: 1, mirror: back, size: 0.84 };
   }
-  return base;
+  if (index <= 5) {
+    if (back && raisedBy > 12) return { ...pose, cell: 1, angle: pointed ? 1.45 : 1.25 };
+    if (back && view === "side") return { ...pose, cell: 1 }; // (the owner picks three-quarter for a back foot)
+  }
+  if (index === 6 || index === 8) return { ...pose, angle: Math.max(measured, 0.3) };
+  if (index === 7) return { ...pose, cell: 1, angle: back ? 1.3 : 0.75 };
+  if (index === 9) return { ...pose, cell: 1, angle: -0.05, size: 0.92 };
+  if (index === 10) return back ? { ...pose, cell: 1, angle: measured + 0.4 } : { ...pose, angle: measured + 0.15 };
+  if (index === 11) return { ...pose, cell: other && fy > other[1] ? 1 : 0, angle: Math.max(measured, -0.6), size: 0.9 };
+  if (pointed) return { ...pose, cell: 1, angle: measured - 0.6 };
+  return pose;
 }
 
 // A chunky white moon boot, its sole's bottom centre at the origin, toe right.

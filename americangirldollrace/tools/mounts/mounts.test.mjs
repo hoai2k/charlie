@@ -4,10 +4,10 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 const game=new URL('../../',import.meta.url);
 import { gameSource as source } from '../game-source.mjs';
-const names=['isAlwaysMountedTrack','isFlyingMountType','isSpecialMountType','chooseHorseType','updateRacerVerticalMotion','horseDurationForType','mountLoopKey','bumpMonstersWithSpecialMounts','mountBeatsTrolls','monsterSpeed','mountOutrunsMonster','isMounted','broomRideBlend'];
+const names=['isAlwaysMountedTrack','isFlyingMountType','canFly','wearsWingsOver','isCarriedMount','isSpecialMountType','chooseHorseType','updateRacerVerticalMotion','horseDurationForType','mountLoopKey','bumpMonstersWithSpecialMounts','mountBeatsTrolls','monsterSpeed','mountOutrunsMonster','isMounted','broomRideBlend'];
 function setup(){
   const math=Object.create(Math);
-  const c={Math:math,characters:{},getTrackTheme:()=>({}),clamp:(n,a,b)=>Math.max(a,Math.min(b,n)),state:{specials:'none',racers:[],monsters:[]},GRAVITY:2100,PEGASUS_HOVER_Z:940**2/(2*2100),HORSE_DURATION:10,UNICORN_DURATION_MULTIPLIER:1.2,PEGASUS_DURATION_MULTIPLIER:1.2,MONSTER_SPEED:150,MOUNTED_MONSTER_SPEED:515,
+  const c={Math:math,characters:{},getTrackTheme:()=>({}),getTrackMonsterKey:()=>null,clamp:(n,a,b)=>Math.max(a,Math.min(b,n)),state:{specials:'none',racers:[],monsters:[]},GRAVITY:2100,PEGASUS_HOVER_Z:940**2/(2*2100),HORSE_DURATION:10,UNICORN_DURATION_MULTIPLIER:1.2,PEGASUS_DURATION_MULTIPLIER:1.2,MONSTER_SPEED:150,MOUNTED_MONSTER_SPEED:515,
     isHorsingAroundMode:()=>c.state.specials==='horsing',applyMonsterKnockback:(m,d)=>{m.hit=d;},isRacerRunningAtMonster:()=>true,
     WIZARD_MOUNTS:['griffon','broom'],wizardUnlocked:true,areWizardMountsUnlocked:()=>c.wizardUnlocked};
   vm.createContext(c);

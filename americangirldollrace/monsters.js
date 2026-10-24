@@ -18,6 +18,19 @@
 //   defeated   how it's defeated: "sparks" drawn over its defeated pose, or
 //              "dissipate" (it fades away and leaves nothing)
 //   particles  a sheet of 8 particle sprites (128px cells) it bursts into
+//   lights     glowing lights in its knocked-down cells that flicker out once it's a pile:
+//              [cell of row 4, centre x, centre y, radius] (frame pixels)
+//   sandPile   its pile is sand: walking through it kicks sand up and leaves
+//              patches on her that shake off as she goes (game-monsters.js)
+//   knockbacks how many knock-backs beat it (default MONSTER_SLEEP_KNOCKBACKS, 5)
+//   giant      a big one (with `scale`): his knock-backs are a stagger, not a
+//              fall, until the last; he lifts girls higher (at his hands)
+//              and throws them further
+//   melts      his pile melts into a puddle once someone steps in it (with
+//              steam), and anyone walking through the puddle splashes; the
+//              value is his melt sheet's key, used once it's listed in
+//              TRACK_SHARED_ART (until then drawn in code); `stagger` the
+//              same for a stagger sheet
 //   lightning  now and then throws a lightning bolt (cloudtroll_lightning
 //              attack frames; the bolt itself is drawn in code)
 // Bump when any monster sheet changes, so browsers don't pair a cached sheet
@@ -31,6 +44,7 @@ window.MONSTERS = {
   },
   scarecrow: {
     scale: 1.15, // the sheet height includes its tall hat
+    lights: [[1, 107, 332, 26], [2, 217, 320, 34]], // the jack-o'-lantern
     grabHands: [[354, 177], [305, 117], [339, 132]]
   },
   skeleton: {
@@ -55,7 +69,16 @@ window.MONSTERS = {
     defeated: "dissipate",
     lightning: true
   },
+  icetroll: {
+    scale: 2, // an ice giant, twice a troll's height
+    giant: true,
+    knockbacks: 7, // (a troll takes 5)
+    grabHands: [[300, 230], [295, 110], [323, 120]],
+    melts: "icetroll_melt", // six cells, heap to water (image-requests.md §30 IT2)
+    stagger: "icetroll_stagger" // requested: §32
+  },
   sandtroll: {
+    sandPile: true,
     grabHands: [[325, 180], [282, 56], [350, 135]]
   }
 };

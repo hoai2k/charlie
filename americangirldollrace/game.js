@@ -18,6 +18,7 @@ const pauseFullscreenButton = document.querySelector("#pauseFullscreenButton");
 const menuButton = document.querySelector("#menuButton");
 const touchJumpButton = document.querySelector("#touchJumpButton");
 const touchPushButton = document.querySelector("#touchPushButton");
+const touchSpecialButton = document.querySelector("#touchSpecialButton");
 const touchPauseButton = document.querySelector("#touchPauseButton");
 const touchControls = document.querySelector("#touchControls");
 let music = document.querySelector("#music");
@@ -161,8 +162,17 @@ const MOUNT_FRAME_CALIBRATION = {
 // Themed ground mounts (tracks.js mountOdds) ride like the horse. Their sheets
 // use (226, 242), or their measured MOUNT_ART seats (the lower Apollo rover).
 const THEMED_MOUNT_TYPES = ["pony", "reindeer", "rocking_horse", "carousel_horse", "moon_buggy"];
+// The reindeer is drawn lower in its cells: its seats, measured like the
+// others' (the top of its back over the saddle, plus 15 px).
+const THEMED_MOUNT_SEATS = {
+  reindeer: [
+    [[226, 279, 0], [226, 281, 0], [226, 280, 0]],
+    [[226, 288, 0], [226, 276, 0], [226, 289, 0]],
+    [[226, 276, 0], [226, 290, 0], [226, 280, 0]]
+  ]
+};
 for (const type of THEMED_MOUNT_TYPES) {
-  MOUNT_FRAME_CALIBRATION[type] = window.MOUNT_ART?.[type]?.calibration || [0, 1, 2].map(() => [0, 1, 2].map(() => [226, 242, 0]));
+  MOUNT_FRAME_CALIBRATION[type] = window.MOUNT_ART?.[type]?.calibration || THEMED_MOUNT_SEATS[type] || [0, 1, 2].map(() => [0, 1, 2].map(() => [226, 242, 0]));
 }
 const MOUNT_SEAT_REFERENCE = { x: 225, y: 228.67 };
 const PUSH_COOLDOWN = 0.72;
@@ -198,6 +208,9 @@ const AMANDA_HIT_RANGE_Y = 60;
 // Tag the sitting Amanda (walk up to her without pushing) and she follows you.
 const AMANDA_TAG_RANGE_X = 70;
 const AMANDA_ALLY_SPEED = PLAYER_RUN_SPEED;
+const LIGHTS_OUT_TIME = 2.2; // seconds for a beaten scarecrow's jack-o'-lantern to flicker out
+const SAND_PILE_REACH_X = 80; // walking this close to a beaten sand troll's pile gets her sandy
+const SAND_SHAKE_TIME = 2.2; // seconds of moving for the sand to shake off her
 const CANDY_PILE_REACH_X = 70; // walk this close to a beaten candy troll's pile to scatter it
 const CANDY_PILE_REACH_Y = 46;
 const CANDY_CELEBRATE_TIME = 0.8; // s she cheers (running on)
@@ -209,6 +222,10 @@ const AMANDA_ALLY_FIGHT_RANGE = 800; // and keeps fighting one until it's this f
 const AMANDA_ALLY_PUSH_RANGE = 96;
 const AMANDA_ALLY_PUSH_COOLDOWN = 1.1;
 const AMANDA_ALLY_MAX_PUSHES = 5; // pushed this often, she runs off out of the race
+const AMANDA_SNUB_TIME = 20; // s she won't join a player who hit her once she was out of her fence
+const AMANDA_ALLY_WARY_GAP = 70; // px further away she stands for each push from her own player
+const AMANDA_ALLY_WARY_DELAY = 0.35; // s further behind she follows for each
+const AMANDA_ALLY_WARY_STEPS = 2; // (counting up to this many pushes)
 const OIL_SLIDE_DURATION = 1.5;
 const OIL_SLIDE_SPEED = 430;
 const SNOWBALL_PICKUP_COUNT = 5;
@@ -252,6 +269,8 @@ const POGO_STOMP_HEAD_Z = 150; // her feet passing down through his head height
 const POGO_STOMP_RANGE_X = 75;
 const POGO_STOMP_RANGE_Y = 46;
 const POGO_STOMP_BOUNCE = 1.25; // times her jump power
+const GIANT_POGO_REACH = 260; // px: a pogo hop this near a giant springs up over his head
+const GIANT_POGO_CLEAR = 50; // (and this much above it)
 // Moon boots (tracks.js moonBoots, Moon Base): the high-jump pickup lowers
 // the racer's gravity instead, so softer jumps float over several hurdles.
 const MOON_BOOTS_DURATION = 10;
@@ -314,7 +333,7 @@ const EMP_ROCKET_TIME = 0.55; // s a firework/pop rocks rocket takes to dive ont
 const EMP_WAVE_TIME = 0.8; // s a sound wave takes to spread to the farthest target
 const MOON_BOOT_GROW = 1.55; // a moon boot is this much bigger than the foot it covers
 const MOON_BOOT_FOOT_MIN = 44; // the foot sizes (frame px) a moon boot is scaled from, at least
-const MOON_BOOT_FOOT_MAX = 64; // and at most (a long measurement is part of her leg)
+const MOON_BOOT_FOOT_MAX = 56; // and at most (a long measurement is part of her leg; the owner's hand-placed boots top out about here)
 const MOON_BOOT_FOOT_MID = 34; // px up from its sole, in the boot art, that sits on the foot's middle
 // The crackles on someone shocked match what shocked her.
 const LASER_SHOCK_COLOR = "#ff4d64"; // a Moon Base laser's red
@@ -328,6 +347,13 @@ const LASER_BOLT_LENGTH = 46; // px long each bolt is
 const LASER_TIME = 1.4; // s the trigger fires and fades
 const LIGHTNING_ARC_MAX = 160; // px an EMP's bolts arc up on their way to a target
 const EMP_CROW_TIME = 0.6; // s a crow takes to reach its target
+const SNOWMAN_POP_TIME = 0.35; // s Winter's EMP snowman takes to pop up before he runs
+const SNOWMAN_SPEED = 620; // px/s he runs
+const SNOWMAN_LANE_SPEED = 300;
+const SNOWMAN_REACH_X = 50; // px: whoever he runs into this close goes over
+const SNOWMAN_REACH_Y = 34;
+const SNOWMAN_HEIGHT = 190; // screen px tall at the near edge of the track (his sheet, once it's in)
+const SNOWMAN_MAX_TIME = 14; // s at most before he's gone
 const ROVER_BOUNCE = 12; // sprite px the moon buggy hops over each bump as it drives
 const ROVER_BUMP_SPACING = 45; // bumps come every pi times this many world px (about 4 a second at full speed)
 const ROVER_LANDING_TIME = 0.35; // s its landing squash and recoil last
@@ -361,6 +387,7 @@ const CLOUD_DEEP_SINK = 365; // frame px further she sinks, staying still, until
 const CLOUD_DEEP_TIME = 6; // s to sink that far
 const CLOUD_RISE_TIME = 2.2; // s of moving to rise all the way back out
 const CLOUD_DEEP_SLOW = 0.8; // share of her speed lost that deep (less as she rises)
+const CLOUD_EDGE_MARGIN = 16; // px short of a cloud's visible edge she already drops off it
 const LEDGE_REACH_X = 70; // px from a gap's edge she can catch it, pressing towards it
 const LEDGE_REACH_DEPTH = 130; // px she can have fallen and still catch it
 const LEDGE_HANG_TIME = 0.4; // s she hangs on before climbing
@@ -394,12 +421,39 @@ const POWERUP_TEXT_COLORS = {
 const MOUNTED_MONSTER_JUMP_CHANCE = 0.6;
 const MOUNTED_MONSTER_BALK_TIME = 0.7;
 const MOUNTED_MONSTER_JUMP_LOOKAHEAD = 110;
+// First time round, boards before this one (Farm, Fairy Woods) have only the
+// troll at the end; the Village brings the second.
+const TROLLS_FROM_BOARD = 2;
+// Easy monsters (settings): a little less reach, and the first time she's in
+// reach, this chance he misses her and can't grab her for a moment.
+const EASY_MONSTER_REACH = 0.8;
+const EASY_MONSTER_MISS_CHANCE = 0.5;
+const EASY_MONSTER_MISS_TIME = 1.2;
 const MONSTER_COUNTS_BY_DIFFICULTY = {
   none: 0,
   normal: 2,
   extra: 4,
   "too-many": 8
 };
+const TROLL_SPACING = EXPECTED_VIEW_WIDTH; // trolls at least a screen apart, so she meets one at a time
+const LOOSE_MOUNT_COOLDOWN = 1.4; // s a troll's horse flashes, out of reach, after he's knocked off it
+const TROLL_REMOUNT_RANGE = 600; // px: a troll on foot goes back to his horse this near
+const TROLL_REMOUNT_CLEAR = 130; // unless a racer is this close to it (she'd get it first)
+const STICKY_ROLL = 0.25; // a sticky throwable (tracks.js stickyProjectile) rolls off with this share of the speed
+const STICKY_HOLD_TIME = 0.3; // s stepping on one holds her
+const POWERUP_PARTS = 2; // the board is dealt its pickups in halves, each with some of every kind
+const GIANT_TROLL_WEIGHT = 1.5; // a giant counts as this many trolls (how many, and how far apart)
+const GIANT_REACH = 1.25; // he reaches this much further again than his size (along, across and up)
+const GIANT_STAGGER_TIME = 0.4; // s a giant (monsters.js giant) staggers when knocked back
+const GIANT_KNOCKBACK = 0.35; // of a troll's knock-back distance
+const GIANT_STAGGER_TILT = 0.16; // radians he rocks back
+const MELT_TIME = 2.4; // s a melting pile takes to become a puddle
+const PUDDLE_REACH_X = 80; // px (times a giant's size) either side of the middle that splashes
+const SPECIAL_COOLDOWN = 15; // s a special (game-specials.js) takes to recharge
+const SPECIAL_COOLDOWN_AGAIN = 10; // once she's chosen the same one again
+const SPECIAL_SNOW_STOCK = 5; // a "snowballs" special: a stock of this many…
+const SPECIAL_SNOW_REGEN = 3; // …and one back every this many seconds
+const SPECIAL_PICK_TIME = 10; // s she has to choose one after winning a board
 const MONSTER_SPEED = 150;
 const MONSTER_LANE_SPEED = 130;
 const MONSTER_SIGHT_RANGE = 1300; // px, about a screen: farther away than this, a monster stops chasing
@@ -423,6 +477,9 @@ const STORM_CLOUD_END_PADDING = 260;
 const VICTORY_FIREWORK_COUNT = 7;
 const VICTORY_JUMP_HEIGHT = 74;
 const VICTORY_JUMP_SPEED = 0.006;
+const STANDINGS_DROP_DELAY = 1400; // ms into the celebration before the standings board drops in
+const STANDINGS_DROP_TIME = 900; // ms it takes to drop (with a bounce)
+const STANDINGS_ROW_TIME = 160; // ms between its rows appearing
 const LEGO_SPLIT_LINE_WIDTH = 8;
 const LEGO_SPLIT_LINE_FADE_SPEED = 7.5;
 const LEGO_CAMERA_TARGET_RATIO = 0.36;
@@ -539,6 +596,17 @@ for (const [key, theme] of Object.entries(TRACK_THEMES)) {
   const dirtTop = ownBackground ? theme.dirtTop : standIn.dirtTop;
   BACKGROUNDS.push({ key, name: theme.name, imageKey, music, dirtTop });
 }
+// The boards in race order (tracks.js TRACK_ORDER; any not listed keep their
+// place after), less those resting out of the rotation (TRACKS_RESTING),
+// which only the workbench lists, at the end, to try out.
+{
+  const order = window.TRACK_ORDER || [];
+  const rank = background => (order.includes(background.key) ? order.indexOf(background.key) : order.length);
+  BACKGROUNDS.sort((a, b) => rank(a) - rank(b));
+  const resting = BACKGROUNDS.filter(background => (window.TRACKS_RESTING || []).includes(background.key));
+  for (const background of resting) BACKGROUNDS.splice(BACKGROUNDS.indexOf(background), 1);
+  if (document.documentElement.classList.contains("workbench")) BACKGROUNDS.push(...resting);
+}
 const startingBackground = "farm";
 const NEXT_RACE_DELAY = 3600;
 const PAUSE_MUSIC_FADE_MS = 350;
@@ -557,7 +625,7 @@ const images = {
   backgroundTown: loadImage("assets/background_village.webp"),
   backgroundWinter: loadImage("assets/background_winter.webp"),
   whirlpool: loadImage("assets/doll_whirlpool_sprites.webp"),
-  juliette: loadImage("assets/doll_juliette_sprites.webp"),
+  juliette: loadImage(`assets/doll_juliette_sprites.webp?v=${window.GAME_CONFIG?.dollArtVersion || "1"}`),
   claudia: loadImage("assets/doll_claudia_sprites.webp"),
   kaya: loadImage("assets/doll_kaya_sprites.webp"),
   lily: loadImage("assets/doll_lily_sprites.webp"),
@@ -635,6 +703,7 @@ const characters = {
     spriteKey: "amanda",
     color: "#263d8f",
     riderYOffset: 85,
+    hidden: true, // a secret doll, like Penelope (All Dolls shows her)
     image: () => images.amanda
   },
   penelope: {
@@ -685,6 +754,10 @@ const state = {
   windupCars: [],
   difficulty: "normal",
   specials: "none",
+  coop: false, // Co-op (settings): EMPs only ever hit the trolls
+  monsterSkill: "medium", // Monster difficulty (settings): easy, medium, hard
+  playerSpecials: new Map(), // each player's own special, won by winning boards (game-specials.js)
+  boardRound: 0, // times round all the boards (each more trolls; see normalTrollCount)
   cameraMode: "lego",
   stormCloud: null,
   stormTimer: 0,
@@ -735,7 +808,8 @@ const touchInput = {
   horizontal: 0,
   vertical: 0,
   jump: false,
-  push: false
+  push: false,
+  special: false
 };
 
 let menuAnimationFrame = null;
@@ -1130,6 +1204,8 @@ function toggleSettingsPanel() {
 
 function advanceBackground() {
   state.backgroundIndex = (state.backgroundIndex + 1) % BACKGROUNDS.length;
+  // (Back to the first board: another time round, with more trolls.)
+  if (state.backgroundIndex === 0) state.boardRound = (state.boardRound || 0) + 1;
 }
 
 function getSelectedCharacter(select, fallback) {
@@ -1212,7 +1288,39 @@ function ensureHudCardParts(card) {
   const text = document.createElement("span");
   text.className = "hud-text";
   text.append(...card.children);
-  card.append(badge, face, text);
+  // Her special (once she's won one): its icon over a bar that fills as it recharges.
+  const special = document.createElement("span");
+  special.className = "hud-special hidden";
+  const icon = document.createElement("canvas");
+  icon.width = icon.height = 52;
+  const bar = document.createElement("span");
+  bar.className = "hud-special-bar";
+  bar.append(document.createElement("i"));
+  const count = document.createElement("b");
+  count.className = "hud-special-count";
+  special.append(icon, bar, count);
+  card.append(badge, face, text, special);
+}
+
+function updateHudSpecial(card, racer) {
+  const box = card?.querySelector(".hud-special");
+  if (!box) return;
+  const special = playerSpecial(racer);
+  box.classList.toggle("hidden", !special?.kind);
+  if (!special?.kind) return;
+  const icon = box.querySelector("canvas");
+  if (icon.dataset.kind !== special.kind || !icon.dataset.drawn) {
+    icon.dataset.kind = special.kind;
+    drawSpecialIcon(icon, special.kind);
+    icon.dataset.drawn = specialIcon(special.kind)?.image ? "1" : "";
+  }
+  // (Snowballs: the bar fills toward the next one; the count is how many.)
+  const stock = specialStock(racer);
+  const charge = stock ? (stock.ammo >= SPECIAL_SNOW_STOCK ? 1 : stock.regen / SPECIAL_SNOW_REGEN)
+    : 1 - clamp((racer.specialWait || 0) / special.cooldown, 0, 1);
+  box.querySelector("i").style.width = `${charge * 100}%`;
+  box.querySelector(".hud-special-count").textContent = stock ? String(stock.ammo) : "";
+  box.classList.toggle("ready", stock ? stock.ammo > 0 : charge >= 1);
 }
 
 function ordinal(place) {
@@ -1385,7 +1493,7 @@ let wizardMountsUnlockedOn = null;
 
 // Flying mounts share hold-to-glide physics and the legacy animation flag.
 function updateRacerVerticalMotion(racer, mounted, jumpHeld, dt) {
-  const holding = mounted && isFlyingMountType(racer.horseType) && jumpHeld && racer.z > 0;
+  const holding = mounted && canFly(racer) && jumpHeld && racer.z > 0;
   racer.z += racer.vy * dt;
   if (holding && racer.z >= PEGASUS_HOVER_Z) {
     racer.z = PEGASUS_HOVER_Z;
@@ -1405,6 +1513,8 @@ function updateRacerVerticalMotion(racer, mounted, jumpHeld, dt) {
  * ---------------------------------------------------------------------------*/
 
 function startRace(mode = gameMode.value) {
+  closeSpecialPicker();
+  state.afterCelebration = null;
   clearJoinPickers();
   stopMenuAnimationLoop();
   hideControllerPointers();
@@ -1542,6 +1652,7 @@ function resetFinishMenuInput() {
 
 function updateFinishMenu() {
   if (finishPanel.classList.contains("hidden")) return;
+  if (specialPicker.open) { finishMenu.primed = false; return; }
   for (const pad of connectedGamepads(navigator.getGamepads ? navigator.getGamepads() : [])) {
     const prev = finishMenu.prev.get(pad.index) || [];
     const pressed = button => Boolean(pad.buttons[button]?.pressed) && !prev[button] && finishMenu.primed;
@@ -1555,6 +1666,8 @@ function updateFinishMenu() {
 }
 
 function returnToMenu() {
+  closeSpecialPicker();
+  state.afterCelebration = null;
   window.Lobby?.captureFromRace();
   clearNextRaceTimer();
   clearJoinPickers();
@@ -1591,7 +1704,7 @@ function canFullscreen() {
 }
 
 // Resolves to whether the frame is fullscreen afterwards. Browsers only allow
-// entering fullscreen from a click/tap/key press, not a controller button.
+// entering fullscreen from a press (click, tap, key or controller button).
 function toggleFullscreen() {
   const target = document.querySelector(".game-frame");
   try {
@@ -1606,9 +1719,59 @@ function toggleFullscreen() {
   }
 }
 
+// Points for each place in a race, towards the standings board shown while
+// the next race loads (from the menu, a new set of races starts at zero).
+const STANDINGS_POINTS = [10, 8, 6, 5, 4, 3, 2, 1];
+
+function resetStandings() {
+  state.standings = new Map();
+}
+
+// Each racer's place in this race adds to her total: players by their slot,
+// computer racers by their doll (they keep it from race to race).
+function addToStandings(order) {
+  state.standings ||= new Map();
+  for (const entry of state.standings.values()) entry.gained = 0;
+  order.forEach((racer, place) => {
+    const key = racer.ai ? `cpu:${racer.name}` : `p${racer.playerIndex}`;
+    const entry = state.standings.get(key) || { points: 0, wins: 0 };
+    entry.racer = racer;
+    entry.gained = STANDINGS_POINTS[place] || 0;
+    entry.points += entry.gained;
+    if (place === 0) entry.wins += 1;
+    state.standings.set(key, entry);
+  });
+}
+
+// From the pause menu: Skip goes straight to the next race, Restart runs
+// this one again from the start, its song too (no points either way).
+function skipRace() {
+  leaveRace(true);
+}
+
+function restartRace() {
+  leaveRace(false);
+}
+
+function leaveRace(next) {
+  if (!state.running) return;
+  GameAudio.play("ui_unpause");
+  stopGameplayAudioLoops();
+  stopMenuAnimationLoop();
+  hideControllerPointers();
+  clearNextRaceTimer();
+  state.running = false;
+  state.paused = false;
+  pausePanel.classList.add("hidden");
+  if (next) advanceBackground();
+  else restartSong();
+  startRace(state.mode);
+}
+
 function finishRace(winner) {
   // Places for the podium and the HUD, decided before the slots are compacted.
   state.finishOrder = state.racers.slice().sort((a, b) => (b === winner) - (a === winner) || b.x - a.x);
+  addToStandings(state.finishOrder);
   clearJoinPickers();
   compactSlotsForNextRace();
   state.running = false;
@@ -1641,10 +1804,20 @@ function finishRace(winner) {
   updateHud();
   startMenuAnimationLoop();
   clearNextRaceTimer();
-  state.nextRaceTimer = setTimeout(() => {
+  // A human winner picks her special (game-specials.js) before the next board.
+  const offer = noteSpecialWin(winner);
+  const next = () => {
     advanceBackground();
     startRace(state.mode);
-  }, NEXT_RACE_DELAY);
+  };
+  // (Race now goes the same way: to the picker first.)
+  state.afterCelebration = () => {
+    state.afterCelebration = null;
+    clearNextRaceTimer();
+    if (offer) openSpecialPicker(offer, next);
+    else next();
+  };
+  state.nextRaceTimer = setTimeout(state.afterCelebration, NEXT_RACE_DELAY);
 }
 
 function loop(time) {
@@ -1708,6 +1881,7 @@ function update(dt) {
     if (racer.finished) continue;
     const input = racer.ai ? aiInput(racer) : playerInput(racer.playerIndex, gamepads);
     racer.hitTimer = Math.max(0, racer.hitTimer - dt);
+    racer.stuckTimer = Math.max(0, (racer.stuckTimer || 0) - dt);
     const previousFrozenTimer = racer.frozenTimer;
     racer.frozenTimer = Math.max(0, racer.frozenTimer - dt);
     if (previousFrozenTimer > 0 && racer.frozenTimer === 0) {
@@ -1724,11 +1898,21 @@ function update(dt) {
     racer.pushCooldown = Math.max(0, racer.pushCooldown - dt);
     racer.mountBumpCooldown = Math.max(0, racer.mountBumpCooldown - dt);
     racer.fallBackTimer = Math.max(0, racer.fallBackTimer - dt);
+    if (racer.wingsTimer > 0) {
+      racer.wingsTimer = Math.max(0, racer.wingsTimer - dt);
+      if (racer.wingsTimer === 0 && racer.horseType !== "wings") sfx("mount_expire_poof", racer.x);
+    }
     if (Number.isFinite(racer.horseTimer)) {
       const previousHorseTimer = racer.horseTimer;
       racer.horseTimer = Math.max(0, racer.horseTimer - dt);
       if (previousHorseTimer > HORSE_FLASH_TIME && racer.horseTimer <= HORSE_FLASH_TIME) {
         sfx("mount_expire_warning", racer.x);
+      }
+      // Her mount runs out under her wings: she flies on in them.
+      if (previousHorseTimer > 0 && racer.horseTimer === 0 && racer.wingsTimer > 0 && racer.horseType !== "wings") {
+        racer.horseType = "wings";
+        racer.horseTimer = racer.wingsTimer;
+        racer.wingsTimer = 0;
       }
       if (previousHorseTimer > 0 && racer.horseTimer === 0) {
         sfx("mount_expire_poof", racer.x);
@@ -1736,6 +1920,7 @@ function update(dt) {
       }
     }
     racer.unicornBeamCooldown = Math.max(0, racer.unicornBeamCooldown - dt);
+    updateSpecialCharge(racer, dt);
     if (racer.joinFlashTimer > 0) racer.joinFlashTimer = Math.max(0, racer.joinFlashTimer - dt);
     if (racer.horseTimer === 0) {
       racer.horseType = "horse";
@@ -1768,6 +1953,18 @@ function update(dt) {
       input.vertical = 0;
       input.jump = false;
     }
+    // Stuck in a marshmallow for an instant.
+    if (racer.stuckTimer > 0 && racer.z < 1) {
+      input.horizontal = 0;
+      input.vertical = 0;
+    }
+    // X with the wand ready casts it (mounted or not), instead of a push.
+    if (racer.spellAim && !racer.ai && input.push && !racer.wandPushHeld && !(racer.frogTimer > 0)) {
+      castReadySpell(racer, input);
+      racer.pushCooldown = Math.max(racer.pushCooldown, PUSH_COOLDOWN);
+    }
+    racer.wandPushHeld = Boolean(input.push);
+    if (racer.castTimer > 0) input.push = false;
     if (mounted && racer.horseType !== "unicorn" && !canMountedRacerThrowSnowballs(racer) && !isAlwaysMountedTrack()) input.push = false;
     const frog = racer.frogTimer > 0;
     const surfing = racer.surfTimer > 0 && !mounted && !frog && !(racer.frozenTimer > 0 || racer.fallBackTimer > 0 || oilAffectsRacer);
@@ -1775,6 +1972,10 @@ function update(dt) {
       input.jump = false;
       if (frog) input.push = false;
     }
+
+    // Her special (Y), when she's won one and it's charged.
+    if (input.special && !racer.specialHeld) useSpecial(racer);
+    racer.specialHeld = Boolean(input.special);
 
     if (input.push && racer.pushCooldown === 0 && racer.pushTimer === 0) {
       racer.pushTimer = PUSH_ACTIVE_TIME;
@@ -1791,7 +1992,7 @@ function update(dt) {
     }
     if (racer.playerIndex === 0) updateTouchControlsVisibility();
 
-    const boostMult = canRacerUsePowerups(racer) ? getBoostMultiplier(racer) : 1;
+    const boostMult = canRacerUsePowerups(racer, "boost") ? getBoostMultiplier(racer) : 1;
     const runSpeed = mounted ? (racer.ai ? HORSE_AI_RUN_SPEED : HORSE_RUN_SPEED) : (racer.ai ? AI_RUN_SPEED : PLAYER_RUN_SPEED);
     let forward = input.horizontal * runSpeed * boostMult;
     if (oilAffectsRacer) {
@@ -1912,7 +2113,8 @@ function update(dt) {
     for (const powerup of state.powerups) {
       if (powerup.taken) continue;
       if (isPowerupDropping(powerup)) continue;
-      if (!canRacerUsePowerups(racer)) continue;
+      if (!canRacerUsePowerups(racer, powerup.type)) continue;
+      if (powerup.cooldown > 0) continue;
       if (racer.ai && racer.x > getHumanLeadX()) continue;
       const reachX = powerup.loose ? LOOSE_MOUNT_PICKUP_X : 34;
       const close = Math.abs(racer.x - powerup.x) < reachX && Math.abs(racer.y + 54 - powerup.y) < 34 && racer.z < 80;
@@ -2088,7 +2290,7 @@ function resolveObstacleCollisions(racer, previousX, previousY, previousZ) {
 // Wearing fairy wings she can push in the air too: anyone at about her
 // height, including other fliers in wings.
 function isWinged(racer) {
-  return isMounted(racer) && racer.horseType === "wings";
+  return isMounted(racer) && (racer.horseType === "wings" || racer.wingsTimer > 0);
 }
 
 function pushReachesHeight(attacker, other) {
@@ -2112,7 +2314,7 @@ function performPushAttack(attacker) {
   }
   const amanda = amandaAt(attacker.x + attacker.facing * reach * 0.6, attacker.y + 54, reach * 0.6 + AMANDA_HIT_RANGE_X);
   if (amanda && !attacker.pushedTargets.has(amanda) && attacker.z <= 64 && (amanda.x - attacker.x) * attacker.facing > -10) {
-    hitAmanda(amanda, attacker.facing);
+    hitAmanda(amanda, attacker.facing, attacker);
     attacker.pushedTargets.add(amanda);
   }
   const ally = state.amandaAlly;
@@ -2133,11 +2335,16 @@ function performPushAttack(attacker) {
     attacker.pushedTargets.add(ball);
   }
   for (const monster of state.monsters) {
-    if (monster.state === "sleeping" || monster.state === "ground" || attacker.pushedTargets.has(monster)) continue;
+    if (monster.state === "ground" || attacker.pushedTargets.has(monster)) continue;
     const dx = monster.x - attacker.x;
     const dy = (monster.y + 54) - (attacker.y + 54);
     const inFront = attacker.facing > 0 ? dx > 2 && dx < reach + 28 : dx < -2 && dx > -reach - 28;
     if (!inFront || Math.abs(dy) > PUSH_RANGE_Y + 18 || !pushReachesHeight(attacker, monster)) continue;
+    if (monster.state === "sleeping") {
+      // A candy troll's pile scatters when pushed, as when walked into.
+      if (monsterDef().particles && !monster.scattered) scatterCandyPile(monster, attacker);
+      continue;
+    }
     applyMonsterKnockback(monster, attacker.facing, { unhorse: true });
     attacker.pushedTargets.add(monster);
   }
@@ -2264,6 +2471,7 @@ function updateHud() {
       text = status === "Racing" ? ordinal(place) : `${ordinal(place)} · ${status}`;
     }
     playerStatuses[index].textContent = text;
+    updateHudSpecial(playerHuds[index], racer);
   }
 }
 
@@ -2384,6 +2592,7 @@ gameFrame.addEventListener("pointercancel", event => {
 });
 bindTouchActionButton(touchJumpButton, "jump");
 bindTouchActionButton(touchPushButton, "push");
+bindTouchActionButton(touchSpecialButton, "special");
 touchPauseButton.addEventListener("pointerdown", event => {
   if (!isTouchDevice()) return;
   event.preventDefault();
@@ -2410,10 +2619,8 @@ gameMode.addEventListener("change", () => {
   state.mode = gameMode.value;
   updateModeLabels();
 });
-for (const background of BACKGROUNDS) {
-  if (backgroundSelect.querySelector(`option[value="${background.key}"]`)) continue;
-  backgroundSelect.append(new Option(background.name, background.key));
-}
+// (In board order, without the resting ones.)
+backgroundSelect.replaceChildren(...BACKGROUNDS.map(background => new Option(background.name, background.key, background.key === startingBackground, background.key === startingBackground)));
 backgroundSelect.addEventListener("change", () => setBackground(backgroundSelect.value));
 settingsButton.addEventListener("click", toggleSettingsPanel);
 difficultySelect.addEventListener("change", () => setDifficulty(difficultySelect.value));
@@ -2444,6 +2651,8 @@ for (const select of [...characterSelects, gameMode, difficultySelect, specialsS
 fullscreenButton.addEventListener("click", () => GameAudio.play("ui_fullscreen"));
 
 restartButton.addEventListener("click", () => {
+  if (specialPicker.open) return; // (she's choosing her special: A is hers)
+  if (state.afterCelebration) return state.afterCelebration();
   clearNextRaceTimer();
   advanceBackground();
   startRace(state.mode);
@@ -2463,6 +2672,8 @@ pauseFullscreenButton.addEventListener("click", () => {
   toggleFullscreen().then(updatePauseCorner);
 });
 document.querySelector("#pauseSettingsDone").addEventListener("click", () => openPauseSettings(false));
+document.querySelector("#skipRaceButton").addEventListener("click", skipRace);
+document.querySelector("#restartRaceButton").addEventListener("click", restartRace);
 for (const slider of pauseSettings.querySelectorAll("input[type=range]")) {
   slider.addEventListener("input", () => {
     GameAudio.setVolume(slider.dataset.bus, Number(slider.value) / 100 * PAUSE_SLIDER_SCALE[slider.dataset.bus]);
