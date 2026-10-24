@@ -24,7 +24,8 @@
   const COLS = 5;
   const STALL = 157;
   const MAX_CPUS = 3;
-  const SETTING_ROWS = 6;
+  const SETTING_ROWS = 7;
+  const MONSTER_SKILLS = [["easy", "Easy", "No grabbing riders; sometimes they miss you"], ["medium", "Medium", "Horses run past trolls and the ice giant"], ["hard", "Hard", "Any monster pulls you off any mount"]];
   const SPECIAL_KEYS = ["none", "unicorn", "pegasus", "griffon", "broom", "all-dolls", "horsing", "amanda-mode"];
   const SPECIAL_NAMES = ["None", "All Unicorns", "All Pegasi", "All Gryphons", "All Brooms", "All Dolls (adds Amanda and Penelope)", "Horsing Around", "Amanda Mode"];
   const GLYPHS = { A: 0, B: 1, X: 2, Y: 3, LB: 4, RB: 5 };
@@ -512,6 +513,9 @@
       ? lobby.cpus.map(() => `<div class="lb-ai-icon" style="width:${n > 2 ? 48 : 64}px"></div>`).join("")
       : `<span class="lb-none">none</span>`;
     $("#lbCpuVal").textContent = n ? String(n) : "Off";
+    const skill = MONSTER_SKILLS.find(([key]) => key === state.monsterSkill) || MONSTER_SKILLS[1];
+    $("#lbSkillIcon").textContent = { easy: "🙂", medium: "😠", hard: "👹" }[skill[0]];
+    $("#lbSkillVal").innerHTML = `${skill[1]}<span class="lb-set-note">${skill[2]}</span>`;
     $("#lbCoopIcon").textContent = state.coop ? "🤝" : "🏆";
     $("#lbCoopVal").innerHTML = state.coop
       ? 'Co-op<span class="lb-set-note">EMPs only zap the trolls</span>'
@@ -689,8 +693,11 @@
       setSpecials(SPECIAL_KEYS[(index + d + SPECIAL_KEYS.length) % SPECIAL_KEYS.length]);
       buildGrid();
     } else if (row === 4) {
-      state.coop = !state.coop;
+      const index = Math.max(0, MONSTER_SKILLS.findIndex(([key]) => key === state.monsterSkill));
+      state.monsterSkill = MONSTER_SKILLS[clamp(index + d, 0, MONSTER_SKILLS.length - 1)][0];
     } else if (row === 5) {
+      state.coop = !state.coop;
+    } else if (row === 6) {
       lobby.fullscreenNote = "";
       // iPhone Safari can't go fullscreen: point at the swipe-up hint instead.
       if (window.BrowserChrome?.scrollTrick) {

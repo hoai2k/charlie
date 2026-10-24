@@ -228,6 +228,36 @@ test('a running horse gets past the troll and the ice giant, not the other monst
   await onTrack('farm');
 });
 
+test('Monster difficulty (settings): Easy never pulls riders off and sometimes misses; Hard pulls anyone off any mount', { skip: skip() }, async () => {
+  await onTrack('wizard');
+  const r = await page.evaluate(() => {
+    const out = { default: state.monsterSkill };
+    const outruns = (skill, mount) => {
+      state.monsterSkill = skill; startRace('two'); state.running = false;
+      const [a] = state.racers; Object.assign(a, { horseType: mount, horseTimer: 12, speed: 600, z: 0 });
+      const m = spawnMonster(a.x + 100, a.y, { active: true, riding: false }); m.riding = false; m.state = 'walk';
+      return mountOutrunsMonster(a, m);
+    };
+    out.easyHorse = outruns('easy', 'horse'); out.hardUnicorn = outruns('hard', 'unicorn'); out.mediumHorse = outruns('medium', 'horse');
+    // On foot, an easy skeleton misses about half the time (then can't grab her for a moment).
+    let grabs = 0;
+    const real = Math.random; let n = 0; Math.random = () => (n++ % 2 ? 0.9 : 0.1);
+    for (let i = 0; i < 4; i++) {
+      state.monsterSkill = 'easy'; startRace('two'); state.running = false; state.obstacles = []; state.powerups = [];
+      const [a, b] = state.racers; b.x = 500; a.x = 8100; a.y = PATH_TOP + 90; a.horseTimer = 0; a.horseType = null;
+      const m = spawnMonster(8160, a.y, { active: true, riding: false }); m.x = 8160; m.y = a.y; m.riding = false; m.state = 'walk'; state.monsters = [m];
+      n = i; let grabbed = false;
+      for (let f = 0; f < 30; f++) { a.x = 8100; update(1 / 60); grabbed ||= Boolean(a.grabbedBy); }
+      grabs += grabbed;
+    }
+    Math.random = real; state.monsterSkill = 'medium';
+    out.easyGrabs = grabs;
+    return out;
+  });
+  assert.deepEqual(r, { default: 'medium', easyHorse: true, hardUnicorn: false, mediumHorse: false, easyGrabs: 2 });
+  await onTrack('farm');
+});
+
 test('an EMP special never zaps her: with nobody about it fizzles', { skip: skip() }, async () => {
   await onTrack('farm');
   const r = await page.evaluate(() => {
@@ -724,7 +754,7 @@ test('Winter ice giant: twice a troll, staggers (not falls) until the 7th hit, l
   assert.deepEqual(errors, []);
 });
 
-test('specials: a board win offers speed or high jump; Y uses it and it recharges; the same again recharges faster; later wins offer skates, pogo and EMPs, then the board\'s snowballs (5, one back every 3 s)', { skip: skip() }, async () => {
+test('specials: a board win offers speed or high jump; Y uses it and it recharges; the same again recharges faster; later wins offer skates, pogo and EMPs, then the board\'s snowballs (5, one back every 3 s), then its mount', { skip: skip() }, async () => {
   await onTrack('farm');
   const r = await page.evaluate(async () => {
     state.playerSpecials = new Map();
@@ -762,6 +792,14 @@ test('specials: a board win offers speed or high jump; Y uses it and it recharge
     for (let i = 0; i < 60 * 3.1; i++) update(1 / 60);
     out.snow.back = specialStock(c).ammo;
     updateHud(); out.snow.hud = document.querySelector('#playerOneHud .hud-special-count').textContent;
+    state.running = false;
+    // Fifth win (Winter): its reindeer joins the choices; Y rides off on one.
+    setBackground('winter'); out.fifth = await won();
+    chooseSpecial(specialPicker.choices.indexOf('mount:winter'));
+    setBackground('farm'); startRace('two'); state.running = true; startPanel.classList.add('hidden');
+    const d = state.racers[0]; d.x = 3000; state.monsters = []; state.obstacles = []; keys.clear();
+    keys.add('KeyR'); update(1 / 60); keys.delete('KeyR'); update(1 / 60);
+    out.mount = [d.horseType, d.horseTimer > 0, d.specialWait > 14];
     state.running = false; setBackground('farm');
     return out;
   });
@@ -769,7 +807,8 @@ test('specials: a board win offers speed or high jump; Y uses it and it recharge
     first: ['speed', 'jump'], firstPick: ['jump', 15], used: true, notTwice: true, recharged: true, hudBar: true,
     second: ['speed', 'jump', 'emp'], defaultsToHers: true, secondPick: ['jump', 10],
     third: ['skates', 'pogo', 'emp:town'], fourth: ['skates', 'pogo', 'emp:farm', 'snow:farm', 'emp:town'],
-    snow: { thrown: 2, left: 3, back: 4, hud: '4' }
+    snow: { thrown: 2, left: 3, back: 4, hud: '4' },
+    fifth: ['skates', 'pogo', 'emp:winter', 'snow:winter', 'mount:winter', 'snow:farm'], mount: ['reindeer', true, true]
   });
 });
 

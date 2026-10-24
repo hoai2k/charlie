@@ -88,8 +88,12 @@ function monsterSpeed(monster) {
 // (skeleton, scarecrow…) pull her off anything but a unicorn or gryphon.
 // The giant still plucks her out of the air (flying or mid-jump), whatever
 // she rides.
+// Monster difficulty (settings) changes that: on Easy no monster pulls her
+// off any mount; on Hard every monster can, off any mount (no running past).
 function mountOutrunsMonster(racer, monster) {
   if (!isMounted(racer)) return false;
+  if (state.monsterSkill === "easy") return true;
+  if (state.monsterSkill === "hard") return false;
   const key = getTrackMonsterKey();
   if (key === "icetroll" && racer.z > 20) return false;
   const plain = !key || key === "icetroll";

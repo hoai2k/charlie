@@ -424,6 +424,11 @@ const MOUNTED_MONSTER_JUMP_LOOKAHEAD = 110;
 // First time round, boards before this one (Farm, Fairy Woods) have only the
 // troll at the end; the Village brings the second.
 const TROLLS_FROM_BOARD = 2;
+// Easy monsters (settings): a little less reach, and the first time she's in
+// reach, this chance he misses her and can't grab her for a moment.
+const EASY_MONSTER_REACH = 0.8;
+const EASY_MONSTER_MISS_CHANCE = 0.5;
+const EASY_MONSTER_MISS_TIME = 1.2;
 const MONSTER_COUNTS_BY_DIFFICULTY = {
   none: 0,
   normal: 2,
@@ -750,6 +755,7 @@ const state = {
   difficulty: "normal",
   specials: "none",
   coop: false, // Co-op (settings): EMPs only ever hit the trolls
+  monsterSkill: "medium", // Monster difficulty (settings): easy, medium, hard
   playerSpecials: new Map(), // each player's own special, won by winning boards (game-specials.js)
   boardRound: 0, // times round all the boards (each more trolls; see normalTrollCount)
   cameraMode: "lego",

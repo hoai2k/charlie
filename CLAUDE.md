@@ -187,8 +187,11 @@ hook to get round it.
   recharging (15 s, 10 s once she picks the same again); kept per player
   (`state.playerSpecials`, like the standings) for the session. From the
   fourth win a board's "snowballs" are offered too (`snow:<board>`: 5 in
-  stock, one back every 3 s); thrown projectiles carry their board
-  (`projectile.track`) for art and behaviour.
+  stock, one back every 3 s), from the fifth its mount (`mount:<board>`,
+  `trackSpecialMount`); thrown projectiles carry their board
+  (`projectile.track`) for art and behaviour. Settings also hold Monster
+  difficulty (`state.monsterSkill`: easy/medium/hard, who can pull riders
+  off and whether monsters sometimes miss) and Play (`state.coop`).
 - `americangirldollrace/intake/` is the owner's drop folder for the race (see
   its README). Songs not tied to one board are listed in `TRACK_GENERAL_MUSIC`
   in `tracks.js`; "Forest Fairy Spin" is Fairy Woods' song (it replaced

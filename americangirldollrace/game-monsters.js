@@ -217,6 +217,23 @@ function updateDefeatedSparks(monster, dt) {
   }
 }
 
+// Easy monsters: the first time she comes within reach he may miss her
+// (EASY_MONSTER_MISS_CHANCE), and then can't grab her for a moment, so she
+// can sometimes run on past.
+function monsterMisses(monster, target, dt) {
+  if (state.monsterSkill !== "easy") return false;
+  monster.misses ||= new Map();
+  const left = monster.misses.get(target);
+  if (left === undefined) {
+    const missed = Math.random() < EASY_MONSTER_MISS_CHANCE;
+    monster.misses.set(target, missed ? EASY_MONSTER_MISS_TIME : 0);
+    return missed;
+  }
+  if (left > 0) { monster.misses.set(target, left - dt); return true; }
+  // (Out of reach again, she gets another chance next time: see updateMonsters.)
+  return false;
+}
+
 function updateMonsters(dt) {
   updateMonsterBolts(dt);
   state.racers.forEach(racer => shakeOffSand(racer, dt));
@@ -316,6 +333,8 @@ function updateMonsters(dt) {
 
     const target = getMonsterTarget(monster);
     monster.target = target;
+    // (Easy: anyone well out of his reach gets a fresh chance he'll miss.)
+    for (const [who] of monster.misses || []) if (Math.abs(who.x - monster.x) > MONSTER_GRAB_RANGE_X * 3) monster.misses.delete(who);
     if (!target) {
       // Nobody in sight: he waits, and gives a shout when he spots someone.
       monster.state = "idle";
@@ -348,11 +367,12 @@ function updateMonsters(dt) {
     if (riding) updateMountedMonsterJump(monster, Math.sign(dx), dt);
 
     // (A giant reaches further, along the ground and up after fliers.)
-    const reach = giantSize() > 1 ? giantSize() * GIANT_REACH : 1;
+    // (Easy monsters reach a little less, and sometimes miss: monsterMisses.)
+    const reach = (giantSize() > 1 ? giantSize() * GIANT_REACH : 1) * (state.monsterSkill === "easy" ? EASY_MONSTER_REACH : 1);
     const grabRangeX = riding ? MOUNTED_MONSTER_GRAB_RANGE_X : MONSTER_GRAB_RANGE_X * reach;
     const unbeatable = mountOutrunsMonster(target, monster);
     const reachesHeight = monster.winged ? Math.abs(target.z - monster.z) < 70 : monster.z < 20 && target.z < 80 * reach;
-    if (reachesHeight && Math.abs(dx) < grabRangeX && Math.abs(dy) < MONSTER_GRAB_RANGE_Y * reach && !unbeatable) {
+    if (reachesHeight && Math.abs(dx) < grabRangeX && Math.abs(dy) < MONSTER_GRAB_RANGE_Y * reach && !unbeatable && !monsterMisses(monster, target, dt)) {
       if (isMounted(target)) dismountIntoPickup(target);
       monster.state = "grab";
       monster.timer = 0.24;
