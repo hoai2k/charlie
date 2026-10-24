@@ -311,3 +311,33 @@ and `hidden/reports/`. Alpha margins and hashes are checked during export.
 Actual game-renderer contact sheets there cover mounts, toys, spells, boots,
 ledge phases and a mirrored alternate outfit. Generation prompts are in
 `hidden/prompts.json`; raster creation used the built-in ImageGen tool.
+
+
+## Cornsilk (hidden plush racer)
+
+Cornsilk uses the owner's selected **first** concept, byte-identical to
+`sources/cornsilk/canonical-candidate-v1.webp`, as `canonical.webp`.
+She is an oatmeal terry-plush rabbit, with stitched features and long floppy
+ears. She has the same complete action set as the dolls, appears through
+All Dolls or Random, and is always available in the workbench. Her fur stays
+natural: `no-clothing` exports zero recolour masks and one appearance.
+
+```sh
+python3 americangirldollrace/tools/dolls/cornsilk/build.py
+python3 americangirldollrace/tools/dolls/measure_hands.py
+python3 americangirldollrace/tools/dolls/measure_feet.py
+python3 americangirldollrace/tools/dolls/measure_poses.py
+python3 americangirldollrace/tools/dolls/cornsilk/fit_boots.py
+node americangirldollrace/tools/stamp/stamp.mjs
+```
+
+All source atlases and exact built-in ImageGen prompts are retained.
+`cornsilk/calibration.json` records anatomical group scales and paw, saddle,
+chest and ledge points. Paw positions are exported into the manifest's
+`throwHandsFrame`, so the shared hand-measurement command preserves them.
+Explicit `DOLL_WING_ROOTS` attach wings below her long ears. Ledge frame
+metadata restores anatomical scale around the measured contact point.
+`cornsilk/reports/` contains hashes, anchors, galleries and actual game renders.
+Her twenty applicable moon-boot poses have initial fitted guesses and remain
+in the Verification Queue for the owner's review; her painted float boots
+are excluded. The character-specific fitter preserves all other racers' fits.

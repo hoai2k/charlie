@@ -560,8 +560,21 @@ function isWingFlying(racer) {
 }
 
 // Wings for her pose (cell sx, sy of image) drawn at (x, y) w px wide.
+function racerWingRoot(racer, image, sx, sy) {
+  const roots = window.DOLL_WING_ROOTS?.[dollAssetKey(racer.spriteKey)];
+  if (roots) {
+    const kind = image === racer.sheet ? "sprites"
+      : image === getActionSheet(racer) ? "actions"
+      : image === getRideToySheet(racer) ? "toys"
+      : image === getLedgeSheet(racer) ? "ledge" : null;
+    const point = roots[kind]?.[Math.round(sy / FRAME) * 3 + Math.round(sx / FRAME)];
+    if (point) return point;
+  }
+  return wingRoot(image, sx, sy);
+}
+
 function drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX) {
-  const [left, right, ry, chest] = wingRoot(image, sx, sy);
+  const [left, right, ry, chest] = racerWingRoot(racer, image, sx, sy);
   // Running (sprites row 2), on the middle of her chest, whatever her hair does behind her.
   const running = image === racer.sheet && sy === FRAME && chest != null;
   const rx = running ? chest : left + (right - left) * WING_ROOT_ACROSS[wingView(racer, image, sy)];

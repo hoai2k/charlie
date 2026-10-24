@@ -94,6 +94,9 @@ def neutral_mask(src, chin, raised_sleeves=()):
 
 
 def clothing_mask(src, spec, mode):
+    if mode == 'no-clothing':
+        # Unclothed plush racers keep their original fur and prop colours.
+        return Image.new('RGBA', src.size, (0, 0, 0, 255))
     if mode in ('annie-red', 'katniss-jacket'):
         a = np.asarray(src).astype(np.float32)
         r,g,b,alpha = [a[:,:,i] for i in range(4)]

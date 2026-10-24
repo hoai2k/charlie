@@ -261,7 +261,9 @@ function drawLedgeRacer(racer, scale) {
     // Each pose's point on the cloud's edge (LEDGE_ANCHORS) goes on the edge.
     const col = { hang: 0, climb: 1, top: 2 }[phase];
     const [ax, ay] = window.LEDGE_ANCHORS?.[dollAssetKey(racer.spriteKey)]?.[col] || [300, 230];
-    drawFacingImage(sheet, col * FRAME, 0, FRAME, FRAME, edgeX - ax * scale, surfaceY - ay * scale, w, w, ledge.side, edgeX);
+    const poseScale = scale * (window.LEDGE_FRAMES?.[dollAssetKey(racer.spriteKey)]?.[col]?.renderScale || 1);
+    const poseW = FRAME * poseScale;
+    drawFacingImage(sheet, col * FRAME, 0, FRAME, FRAME, edgeX - ax * poseScale, surfaceY - ay * poseScale, poseW, poseW, ledge.side, edgeX);
     return;
   }
   const x = racer.x - state.camera;

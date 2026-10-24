@@ -329,6 +329,25 @@ window.EXTRA_DOLLS = {
         "yellow"
       ]
     }
+  },
+  "cornsilk": {
+    "name": "Cornsilk",
+    "color": "#b6a07a",
+    "hidden": true,
+    "verifyAllMoonBoots": true,
+    "spriteKey": "cornsilk",
+    "jumpScale": 1,
+    "riderXOffset": 8.28,
+    "riderYOffset": 122.164,
+    "outfitData": {
+      "stats": {
+        "h": 1.25,
+        "L": 0.72,
+        "C": 0.055,
+        "beta": 0.7
+      },
+      "outfits": []
+    }
   }
 };
 for (const key of Object.keys(window.EXTRA_DOLLS)) {

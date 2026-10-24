@@ -1,12 +1,14 @@
 {
   "name": "Cornsilk",
-  "status": "preview only; not registered as a playable racer",
+  "status": "first concept selected and integrated as hidden plush racer",
   "tool": "built-in image_gen",
-  "currentCandidate": "canonical-candidate-v2.webp",
   "references": [
     "reference.webp",
     "canonical-candidate-v1.webp"
   ],
   "prompt": "Use case: identity-preserve. Revise Cornsilk's canonical racer concept. Image1 is the PRIMARY reference for physical construction and extreme floppy softness, Image2 is the prior concept to change. User wants a realistic floppy plush rabbit MUCH closer to Image1, not a firm upright humanoid game mascot. Preserve oatmeal beige terry/shaggy plush, tiny simple stitched black eyes, triangular stitched nose and simple thread mouth, long white-lined asymmetric floppy ears and gentle modest rabbit head. Give her genuinely limp under-stuffed long arms, narrow soft floppy wrists and flattened fabric paws, NOT round clenched fists. Loose long legs with fabric folds at hips and knees, soft flattened splayed feet, narrow slumped shoulders, modest pear-shaped floppy bean-filled belly, visibly gravity-driven soft construction. Body should sag and lean, with one paw hanging loosely and the other casually lifted only a little; feet uneven and relaxed. Ears very limp and fabric-like, one drooping sideways, one bent high then drooping at the tip as in original. She can be loosely propped in a slouching almost-standing/semi-sitting racer-ready pose: low center of gravity, knees bent, her limbs hang and fold. It's fine that her actions read vaguely rather than articulating like human dolls. A real photographed floppy stuffed bunny brought to life, NOT athletic human proportions, NOT muscular or rigid limbs, NOT boxing pose, NOT squared shoulders. Keep original reference's small quiet stitched face, no extra facial animation. No clothing, accessories or props. Single whole-body character cutout, ample margin including ears and feet, soft neutral product photography lighting. Genuine transparent background with clean soft fabric silhouette; no painted blurred backdrop or halo, no environment, no cast shadow, no text, no watermark.",
-  "notes": "Original generated alpha retained. Sprite-specific alpha and pose cleanup are not part of this concept preview."
+  "notes": "Original generated alpha retained. Sprite-specific alpha and pose cleanup are not part of this concept preview.",
+  "selectedCanonical": "canonical.webp",
+  "selectedCandidate": "canonical-candidate-v1.webp",
+  "laterPreview": "canonical-candidate-v2.webp"
 }

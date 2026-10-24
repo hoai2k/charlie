@@ -1102,7 +1102,7 @@ test('the workbench runs: any player, still targets, every power-up and mount dr
   const queue = await bench.evaluate(() => ({ open: document.body.classList.contains('verifying'), items: verify.items.length, first: verify.items[0]?.id, startsAfterPlaced: verify.items.length ? !inGame(verify.items[verify.at]) : true, boots: verify.boots.length }));
   // (The queue shrinks as the owner works through it; poses placed by hand are never in it.)
   assert.ok(queue.items === 0 || (queue.open && !queue.first.startsWith('barbie/') && queue.startsAfterPlaced && queue.boots >= 1), JSON.stringify(queue));
-  const hidden = await bench.evaluate(() => ['annie', 'katniss'].map(key => ({
+  const hidden = await bench.evaluate(() => ['annie', 'katniss', 'cornsilk'].map(key => ({
     key, listed: Boolean(game.Bench.characters[key]?.hidden),
     queued: verify.items.filter(item => item.asset === key).length
   })));
@@ -1578,7 +1578,7 @@ test('standings add up over a set of races (from the menu they start again), Ski
 });
 
 
-test('Annie and Katniss are hidden until All Dolls and have complete playable art', { skip: skip() }, async () => {
+test('Annie, Katniss and Cornsilk are hidden until All Dolls and have complete playable art', { skip: skip() }, async () => {
   await onTrack('farm');
   const result = await page.evaluate(async () => {
     const saved = state.specials;
@@ -1588,7 +1588,7 @@ test('Annie and Katniss are hidden until All Dolls and have complete playable ar
     const all = getVisibleCharacterEntries().map(([key]) => key);
     state.specials = saved;
     const art = [];
-    for (const key of ['annie', 'katniss']) {
+    for (const key of ['annie', 'katniss', 'cornsilk']) {
       const doll = characters[key];
       const image = doll.image();
       if (!image.complete) await new Promise(resolve => image.addEventListener('load', resolve, { once: true }));
