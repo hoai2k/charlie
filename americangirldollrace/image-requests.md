@@ -1327,7 +1327,8 @@ tall as it is wide**), a slightly darker rim along its lower edge so it reads
 as a thin layer on the ground, and its few droplets lying on the same ground
 plane beside it, with nothing standing up out of it or flying above it.
 
-Measured main-pool height ÷ width (the oil is 0.56): Village, Toy Room,
+Measured main-pool height ÷ width (the oil is 0.56; the Beach seaweed is
+the other way, too flat at 0.20): Village, Toy Room,
 Fairy, Night Festival, Wizard School, Pumpkin Patch and Candy Land are close
 enough to keep. Redo **only cell 4 (x 768–1023)** of these, keeping the
 other four cells pixel-identical:
@@ -1339,6 +1340,7 @@ other four cells pixel-identical:
 | P3 | Moon Base (`space`) | SPACE GOO | 0.73, a round blob from above | Bright green glowing goo spread flat on the ground at the oil's angle, a few goo drops lying beside it. |
 | P4 | Fairy Woods (`woods`) | MOSSY BOG | 0.79, top-down with grass blades and drops sticking up | A dark, boggy puddle with moss patches and a fallen leaf floating on it, lying flat at the oil's angle; no grass or drops standing up out of it. |
 | P5 | Cloud Kingdom (`clouds`) | RAIN PUDDLE | the pool is right, but raindrops hang in the air above it | The same blue rain puddle with the floating drops removed (a couple of small droplets may lie beside it on the ground). |
+| P7 | Beach (`beach`) | SEAWEED | 0.20: so flat it reads as a thin strip, not a patch on the sand | The same slippery seaweed (glossy green and olive kelp ribbons in a bright, shiny film of seawater with white glints), redrawn at the oil's angle: a wide, low patch about 0.55× as tall as wide, the ribbons lying flat in the water, with no bushy clumps or height. Keep SW2's light, bright greens so it stands out on the sand. |
 | P6 | Winter (`winter`) | ICE | the shape is close, but the cracked sheet is drawn from straight above | A slick patch of ice lying flat at the oil's angle, glossy with a few foreshortened crack lines and a pale rim, reading as ice on the ground, not a cracked tile seen from above. |
 
 Same style, size (about 220 px wide) and outline weight as the other
