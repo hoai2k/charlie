@@ -14,7 +14,7 @@
 // "emp:<track key>" (that board's own EMP) and "snow:<track key>" (that
 // board's throwables, whatever board she's on: a stock of SPECIAL_SNOW_STOCK,
 // one back every SPECIAL_SNOW_REGEN s) and "mount:<track key>" (that board's
-// own mount, trackSpecialMount, to ride off on).
+// own mount to ride off on, or one rolled with its odds: trackSpecialMount).
 
 // Her special, by player (like the standings): { kind, cooldown, wins }.
 function playerSpecial(racer) {
@@ -43,7 +43,8 @@ function specialName(kind) {
   if (kind.startsWith("mount:")) {
     const track = kind.slice(6);
     const board = BACKGROUNDS.find(b => b.key === track)?.name || TRACK_THEMES[track]?.name || track;
-    return `${titleCase(mountLabel(trackSpecialMount(track)))} (${board})`;
+    const own = trackSpecialMount(track);
+    return own ? `${titleCase(mountLabel(own))} (${board})` : `Surprise Mount (${board})`;
   }
   const track = kind.slice(5 - kind.startsWith("emp:"));
   const label = TRACK_THEMES[track]?.labels?.[kind.startsWith("snow:") ? "snowball" : "emp"];
@@ -59,13 +60,20 @@ function titleCase(text) {
   return text.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
 }
 
-// A board's own mount, for a mount special: the one it has in place of the
-// horse, else its own kind (pony, reindeer…), else the horse.
+// A mount special: the mount that board alone has (in place of the horse,
+// or its own kind: pony, reindeer…), or null where it has none: then each
+// use rolls one with that board's pickup odds (a horse mostly, now and then
+// a pegasus or unicorn…): specialMountRoll.
 function trackSpecialMount(track) {
   const theme = TRACK_THEMES[track] || {};
-  const base = Array.isArray(theme.baseMount) ? theme.baseMount[0] : theme.baseMount;
   const own = Object.keys(theme.mountOdds || {}).find(type => THEMED_MOUNT_TYPES.includes(type));
-  const type = base || own || "horse";
+  const type = (typeof theme.baseMount === "string" && theme.baseMount) || own || null;
+  if (THEMED_MOUNT_TYPES.includes(type)) loadArtOnce(type, `assets/${type}_sprites.webp`);
+  return type;
+}
+
+function specialMountRoll(track) {
+  const type = trackSpecialMount(track) || chooseHorseType(TRACK_THEMES[track] || {});
   if (THEMED_MOUNT_TYPES.includes(type)) loadArtOnce(type, `assets/${type}_sprites.webp`);
   return type;
 }
@@ -92,7 +100,7 @@ function specialIcon(kind) {
   if (kind === "skates") return trackCell(SKATES_ICON_TRACK, 1) || generic(1);
   if (kind === "pogo") return trackCell(POGO_ICON_TRACK, 0) || generic(0);
   if (kind.startsWith("mount:")) {
-    const type = trackSpecialMount(kind.slice(6));
+    const type = trackSpecialMount(kind.slice(6)) || "horse";
     if (type === "wings") {
       const sheet = getWingArt("fairy_wings");
       return sheet?.width ? { image: sheet, x: 0, y: 0, w: sheet.width / 6, h: sheet.width / 6 } : null;
@@ -127,7 +135,7 @@ function useSpecial(racer) {
   if (kind.startsWith("snow:")) return throwSpecialSnowball(racer, kind.slice(5));
   if (kind.startsWith("mount:")) {
     // Her board's mount, as if she'd picked one up (not while she rides one).
-    if (!applyPowerup(racer, { type: "horse", horseType: trackSpecialMount(kind.slice(6)), x: racer.x, y: racer.y })) return false;
+    if (!applyPowerup(racer, { type: "horse", horseType: specialMountRoll(kind.slice(6)), x: racer.x, y: racer.y })) return false;
     racer.specialWait = special.cooldown;
     spawnParticles(racer.x, racer.y + 54, 60, 12, { color: slotColor(racer.playerIndex), speed: 180, lift: 160, life: 0.5 });
     return true;

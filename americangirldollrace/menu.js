@@ -708,8 +708,8 @@
       }
       const wanted = !fullscreenElement();
       toggleFullscreen().then(on => {
-        // Browsers refuse fullscreen from a controller button; say how instead.
-        if (wanted && !on) lobby.fullscreenNote = canFullscreen() ? "Click or tap here to switch" : "Not available in this browser";
+        // (Refused: say how else, or that it can't.)
+        if (wanted && !on) lobby.fullscreenNote = canFullscreen() ? "Press again, or click or tap here" : "Not available in this browser";
         renderSettings();
       });
     } else if (row === 3) {
@@ -750,12 +750,18 @@
     if (pad) join(`pad${pad.index}`, true);
   }
 
+  function tryStartFullscreen() {
+    if (fullscreenElement() || !canFullscreen() || window.BrowserChrome?.scrollTrick) { lobby.wantFullscreen = false; return; }
+    lobby.wantFullscreen = true;
+    toggleFullscreen().then(on => { if (on) lobby.wantFullscreen = false; });
+  }
+
   function startFrom(device) {
     if (lobby.screen !== "title") return;
     GameAudio.unlock();
-    // START goes full screen, where the browser allows it (a key, click or
-    // tap does; a controller button can't, and iPhone Safari has none).
-    if (!fullscreenElement() && canFullscreen() && !window.BrowserChrome?.scrollTrick) toggleFullscreen();
+    // START goes full screen (a key, click, tap or controller button; not on
+    // iPhone Safari, which has none). Refused, it tries again on the next press.
+    tryStartFullscreen();
     sound("ui_click");
     show("select");
     if (device?.startsWith("pad")) join(device, true);
@@ -899,6 +905,7 @@
   window.addEventListener("blur", () => lobby.heldActions.clear());
 
   function press(device, action) {
+    if (lobby.wantFullscreen && !lobby.settingsOpen) tryStartFullscreen();
     if (lobby.screen === "title") { startFrom(device); return; }
     if (lobby.settingsOpen) {
       // A closes the menu like B; left/right change the chosen setting.

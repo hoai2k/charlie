@@ -1704,7 +1704,7 @@ function canFullscreen() {
 }
 
 // Resolves to whether the frame is fullscreen afterwards. Browsers only allow
-// entering fullscreen from a click/tap/key press, not a controller button.
+// entering fullscreen from a press (click, tap, key or controller button).
 function toggleFullscreen() {
   const target = document.querySelector(".game-frame");
   try {

@@ -92,6 +92,8 @@ function makePowerups() {
   const xs = [];
   for (let x = POWERUP_START_X + Math.random() * 260; x < FINISH - POWERUP_END_PADDING; x += POWERUP_MIN_GAP + Math.random() * POWERUP_RANDOM_GAP) xs.push(x);
   const types = dealPowerupTypes(xs, powerupTypes.filter(type => type !== "monster"), powerupTypes, POWERUP_WEIGHTS);
+  const from = xs[0], span = Math.max(1, (xs.at(-1) ?? 0) - from + 1);
+  const thirdOf = x => Math.min(POWERUP_THIRDS - 1, Math.floor((x - from) / span * POWERUP_THIRDS));
   xs.forEach((x, index) => {
     const selectedType = types[index];
     const spawnY = randomPowerupY();
@@ -100,7 +102,7 @@ function makePowerups() {
       state.monsters.push(spawnMonster(spawnX, spawnY, { active: false }));
     } else {
       const powerupType = selectedType === "monster" ? trackTypes[index % trackTypes.length] : selectedType;
-      powerups.push(makePowerup(powerupType, spawnX, spawnY));
+      powerups.push({ ...makePowerup(powerupType, spawnX, spawnY), third: thirdOf(x) });
     }
   });
   // Each third's mount pickups include the board's own normal mount (the
@@ -108,10 +110,10 @@ function makePowerups() {
   // whatever special mounts the rest turned out to be.
   const normal = getTrackTheme().baseMount || "horse";
   const mountSpecial = state.specials === "unicorn" || isFlyingMountType(state.specials) || isHorsingAroundMode();
+  // (By the third each was dealt in, not where it was nudged to.)
   if (!isAlwaysMountedTrack() && !mountSpecial && xs.length) {
-    const from = xs[0], span = Math.max(1, xs.at(-1) - from + 1);
     for (let third = 0; third < POWERUP_THIRDS; third += 1) {
-      const mounts = powerups.filter(p => p.type === "horse" && Math.min(POWERUP_THIRDS - 1, Math.floor((p.x - from) / span * POWERUP_THIRDS)) === third);
+      const mounts = powerups.filter(p => p.type === "horse" && p.third === third);
       const normals = Array.isArray(normal) ? normal : [normal];
       if (mounts.length && !mounts.some(p => normals.includes(p.horseType))) {
         mounts[0].horseType = normals[Math.floor(Math.random() * normals.length)];
@@ -130,7 +132,8 @@ function dealPowerupTypes(xs, each, all, weights) {
   const from = xs[0] ?? 0, span = Math.max(1, (xs.at(-1) ?? 0) - from + 1);
   for (let third = 0; third < POWERUP_THIRDS; third += 1) {
     const slots = xs.map((x, i) => i).filter(i => Math.min(POWERUP_THIRDS - 1, Math.floor((xs[i] - from) / span * POWERUP_THIRDS)) === third);
-    const deck = each.slice().sort(() => Math.random() - 0.5).slice(0, slots.length);
+    // (A short third keeps its mount: each third has the board's own.)
+    const deck = each.slice().sort(() => Math.random() - 0.5).sort((a, b) => (b === "horse") - (a === "horse")).slice(0, slots.length);
     const left = Object.fromEntries(all.map(type => [type, (weights[type] || 1) * (deck.includes(type) ? 0.5 : 1)]));
     while (deck.length < slots.length) {
       let pick = Math.random() * Object.values(left).reduce((sum, w) => sum + w, 0);

@@ -800,6 +800,10 @@ test('specials: a board win offers speed or high jump; Y uses it and it recharge
     const d = state.racers[0]; d.x = 3000; state.monsters = []; state.obstacles = []; keys.clear();
     keys.add('KeyR'); update(1 / 60); keys.delete('KeyR'); update(1 / 60);
     out.mount = [d.horseType, d.horseTimer > 0, d.specialWait > 14];
+    // Where a board has no mount of its own (the Village), each ride is rolled
+    // with its pickup odds: mostly a horse, now and then a unicorn or pegasus.
+    const rolls = {}; for (let i = 0; i < 400; i++) { const t = specialMountRoll('town'); rolls[t] = (rolls[t] || 0) + 1; }
+    out.surprise = [specialName('mount:town'), rolls.horse > 200, (rolls.unicorn || 0) + (rolls.pegasus || 0) > 20];
     state.running = false; setBackground('farm');
     return out;
   });
@@ -808,7 +812,8 @@ test('specials: a board win offers speed or high jump; Y uses it and it recharge
     second: ['speed', 'jump', 'emp'], defaultsToHers: true, secondPick: ['jump', 10],
     third: ['skates', 'pogo', 'emp:town'], fourth: ['skates', 'pogo', 'emp:farm', 'snow:farm', 'emp:town'],
     snow: { thrown: 2, left: 3, back: 4, hud: '4' },
-    fifth: ['skates', 'pogo', 'emp:winter', 'snow:winter', 'mount:winter', 'snow:farm'], mount: ['reindeer', true, true]
+    fifth: ['skates', 'pogo', 'emp:winter', 'snow:winter', 'mount:winter', 'snow:farm'], mount: ['reindeer', true, true],
+    surprise: ['Surprise Mount (Village)', true, true]
   });
 });
 

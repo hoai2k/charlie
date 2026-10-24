@@ -103,22 +103,23 @@ function mountOutrunsMonster(racer, monster) {
 
 const DEFAULT_MOUNT_ODDS = { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 };
 
-function chooseHorseType() {
+// (theme: another board's odds, for a mount special won there.)
+function chooseHorseType(theme = getTrackTheme()) {
   if (state.specials === "unicorn") return "unicorn";
   if (isFlyingMountType(state.specials)) return state.specials;
-  const odds = { ...(getTrackTheme().mountOdds || DEFAULT_MOUNT_ODDS) };
+  const odds = { ...(theme.mountOdds || DEFAULT_MOUNT_ODDS) };
   // Gryphons and broomsticks only turn up elsewhere once a Wizard School race
   // has been finished on this device; their chance goes to the plain horse.
-  if (!getTrackTheme().unlocksWizardMounts && !areWizardMountsUnlocked()) {
+  if (!theme.unlocksWizardMounts && !areWizardMountsUnlocked()) {
     for (const type of WIZARD_MOUNTS) delete odds[type];
   }
   // Mounts this track hands out only once they've been found elsewhere
   // today (fairy wings on the Fairy board, after Fairy Woods).
-  for (const [type, chance] of Object.entries(getTrackTheme().foundMountOdds || {})) {
+  for (const [type, chance] of Object.entries(theme.foundMountOdds || {})) {
     if (isMountFoundToday(type)) odds[type] = chance;
   }
   // Everyone already rides a horse there, so the pickup is always a special mount.
-  const total = isAlwaysMountedTrack() ? Object.values(odds).reduce((sum, chance) => sum + chance, 0) : 1;
+  const total = theme.startMounted ? Object.values(odds).reduce((sum, chance) => sum + chance, 0) : 1;
   let roll = Math.random() * total;
   for (const [type, chance] of Object.entries(odds)) {
     if (roll < chance) return type;
@@ -126,7 +127,7 @@ function chooseHorseType() {
   }
   // A track's baseMount stands in for the horse: the Toy Room's rocking horse,
   // or a pick from a list (Wizard School's gryphons and broomsticks).
-  const base = getTrackTheme().baseMount;
+  const base = theme.baseMount;
   if (Array.isArray(base)) return base[Math.floor(Math.random() * base.length)];
   return base || "horse";
 }
