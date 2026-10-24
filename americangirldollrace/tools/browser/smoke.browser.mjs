@@ -756,7 +756,7 @@ test('Cloud Kingdom: a bumpy cloud floor with gaps; walk into one and fall, jump
     };
     return {
       gaps: floor.gaps.length > 2, narrow: gap.end - gap.start < 160,
-      gentle: Math.max(...steps) < 14, bumpy: Math.max(...lifts) - Math.min(...lifts) > 10,
+      gentle: Math.max(...steps) < CLOUD_STEP + 4, bumpy: Math.max(...lifts) - Math.min(...lifts) > 10,
       walk: run(false), jump: run(true)
     };
   });
