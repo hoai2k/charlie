@@ -215,7 +215,8 @@ function drawWorldScene() {
       ...state.rainbowBeams.map(beam => ({ type: "rainbow", y: beam.owner ? beam.owner.y + 54.5 : beam.y, item: beam })),
       ...(state.stormCloud ? [{ type: "storm", y: TRACK_TOP - 220, item: state.stormCloud }] : []),
       ...(state.rewardCloud ? [{ type: "rewardCloud", y: TRACK_TOP - 230, item: state.rewardCloud }] : []),
-      ...state.monsters.map(monster => ({ type: "monster", y: monster.y + 56, item: monster })),
+      // (A melting heap is a puddle on the ground: drawn under anyone near it.)
+      ...state.monsters.map(monster => ({ type: "monster", y: monster.melt != null ? monster.y + 56 - 60 : monster.y + 56, item: monster })),
       ...state.runawayHorses.map(horse => ({ type: "runawayHorse", y: horse.y + 56, item: horse })),
       ...state.beachBalls.map(ball => ({ type: "beachBall", y: ball.y, item: ball })),
       ...state.windupCars.map(car => ({ type: "windupCar", y: car.y, item: car })),

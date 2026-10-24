@@ -638,10 +638,14 @@ test('Winter ice giant: twice a troll, staggers (not falls) until the 7th hit, l
     a.x = m.x - 600; for (let i = 0; i < 200; i++) update(1 / 60);
     state.particles = []; a.x = m.x - 120; keys.add('KeyD'); for (let i = 0; i < 20; i++) update(1 / 60); keys.clear();
     const splashes = state.particles.filter(p => p.kind === 'drop').length;
-    drawScene(0);
-    return { size, weight, lifted: maxZ > 200, staggers, fellEarly, pile, melting, melted: m.melt === 1, splashes: splashes > 0 };
+    // She's drawn over the puddle (it lies on the ground), even standing just behind its middle.
+    a.x = m.x; a.y = m.y - 20; const order = []; const dm = drawMonster, dr = drawRacer;
+    drawMonster = x => { order.push('puddle'); return dm(x); }; drawRacer = x => { if (x === a) order.push('girl'); return dr(x); };
+    try { drawScene(0); } finally { drawMonster = dm; drawRacer = dr; }
+    const under = order.indexOf('puddle') < order.indexOf('girl');
+    return { size, weight, lifted: maxZ > 200, staggers, fellEarly, pile, melting, melted: m.melt === 1, splashes: splashes > 0, under };
   });
-  assert.deepEqual(r, { size: 2, weight: 1.5, lifted: true, staggers: 6, fellEarly: false, pile: 'sleeping', melting: true, melted: true, splashes: true });
+  assert.deepEqual(r, { size: 2, weight: 1.5, lifted: true, staggers: 6, fellEarly: false, pile: 'sleeping', melting: true, melted: true, splashes: true, under: true });
   assert.deepEqual(errors, []);
 });
 
