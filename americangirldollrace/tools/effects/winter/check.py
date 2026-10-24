@@ -28,3 +28,21 @@ ice=Image.open(GAME/'assets/icetroll_sprites.webp').convert('RGBA')
 for n,(x,y) in enumerate(anchors['grabHands']):
     assert ice.getpixel((n*418+x,836+y))[3]>100
 print('All three hand contacts fall inside the painted hands')
+
+melt_path=GAME/'assets/icetroll_melt_sprites.webp'
+if melt_path.exists():
+    import hashlib
+    melt=Image.open(melt_path).convert('RGBA');assert melt.size==(2508,418)
+    meta=json.loads((HERE/'icetroll-melt-report.json').read_text())
+    heights=[]
+    for n in range(6):
+        f=melt.crop((n*418,0,(n+1)*418,418));a=np.array(f)[:,:,3];b=f.getbbox()
+        assert b and abs(b[3]-407)<=1 and a.min()==0 and a.max()>100
+        assert not a[0].any() and not a[-1].any() and not a[:,0].any() and not a[:,-1].any()
+        heights.append(b[3]-b[1])
+    assert heights==sorted(heights,reverse=True),heights
+    assert np.array_equal(np.array(ice.crop((836,1254,1254,1672))),np.array(melt.crop((0,0,418,418))))
+    for n,expected in enumerate(meta['unchangedCellRgbaHashes']):
+        f=ice.crop((n%3*418,n//3*418,n%3*418+418,n//3*418+418))
+        assert hashlib.sha256(f.tobytes()).hexdigest()==expected
+    print('Melt: six aligned frames, descending heights, exact defeated-cell match; other11 monster cells unchanged')

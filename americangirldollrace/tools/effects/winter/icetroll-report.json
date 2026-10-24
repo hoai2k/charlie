@@ -213,22 +213,23 @@
       "sourceBounds": [
         10,
         10,
-        327,
-        161
+        511,
+        242
       ],
-      "scale": 0.9652996845425867,
+      "scale": 0.6107784431137725,
       "offset": [
         57,
-        261
+        265
       ],
       "bounds": [
         57,
-        261,
+        265,
         363,
         407
       ]
     }
   ],
   "baseline": 407,
-  "reference": "assets/monster_sprites.webp"
+  "reference": "assets/monster_sprites.webp",
+  "defeatedOverride": "icetroll-melt-source.webp frame0; owner requests no face/head"
 }

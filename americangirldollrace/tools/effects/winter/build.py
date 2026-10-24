@@ -19,10 +19,10 @@ def cells(im, cols, rows):
                      round((c+1)*im.width/cols), round((r+1)*im.height/rows)))
             for r in range(rows) for c in range(cols)]
 
-def isolated_cells(im, cols, rows):
+def isolated_cells(im, cols, rows, threshold=80):
     # ImageGen's rows need not have equal gutters. Locate complete connected
     # silhouettes, preserving their pixels rather than cutting through feet.
-    a=np.array(im); labels,count=label(a[:,:,3]>80)
+    a=np.array(im); labels,count=label(a[:,:,3]>threshold)
     groups=[]
     for i,s in enumerate(find_objects(labels)):
         if s is not None:
@@ -92,9 +92,40 @@ def build_ice():
         out.paste(f,(n%3*418,n//3*418));report.append(m)
     save(out,GAME/'assets/icetroll_sprites.webp')
     (HERE/'icetroll-report.json').write_text(json.dumps({'frames':report,'baseline':407,'reference':'assets/monster_sprites.webp'},indent=2)+'\n')
+    if (HERE/'icetroll-melt-source.webp').exists():
+        build_melt()
+        out=Image.open(GAME/'assets/icetroll_sprites.webp').convert('RGBA')
+    return out
+
+def build_melt():
+    frames=isolated_cells(clean(Image.open(HERE/'icetroll-melt-source.webp')),3,2,threshold=12)
+    boxes=[c.getbbox() for c in frames]
+    w0=boxes[0][2]-boxes[0][0];h0=boxes[0][3]-boxes[0][1]
+    scale=min(306/w0,151/h0,378/max(b[2]-b[0] for b in boxes))
+    out=Image.new('RGBA',(2508,418));report=[]
+    for n,c in enumerate(frames):
+        f,m=pack(c,418,scale,210,407);out.paste(f,(n*418,0));report.append(m)
+    save(out,GAME/'assets/icetroll_melt_sprites.webp')
+    target=GAME/'assets/icetroll_sprites.webp';before=Image.open(target).convert('RGBA');after=before.copy()
+    after.paste(out.crop((0,0,418,418)),(836,1254))
+    hashes=[]
+    for n in range(11):
+        box=(n%3*418,n//3*418,n%3*418+418,n//3*418+418)
+        assert np.array_equal(np.array(before.crop(box)),np.array(after.crop(box)))
+        hashes.append(hashlib.sha256(before.crop(box).tobytes()).hexdigest())
+    save(after,target)
+    monster_report=HERE/'icetroll-report.json'
+    if monster_report.exists():
+        current=json.loads(monster_report.read_text());current['frames'][11]=report[0]
+        current['defeatedOverride']='icetroll-melt-source.webp frame0; owner requests no face/head'
+        monster_report.write_text(json.dumps(current,indent=2)+'\n')
+    data={'frames':report,'commonScale':scale,'spriteAnchor':[193,409],'pileCenterX':210,'baseline':407,
+          'firstFrameEqualsDefeatedCell':True,'unchangedMonsterCells':list(range(11)),
+          'unchangedCellRgbaHashes':hashes,'sequence':['faceless ice heap','wet heap','half melted','few chunks','tiny remnants','water only']}
+    (HERE/'icetroll-melt-report.json').write_text(json.dumps(data,indent=2)+'\n')
     return out
 
 if __name__=='__main__':
     for key in sys.argv[1:] or ['snowman','icon','ice']:
-        out={'snowman':build_snowman,'icon':build_icon,'ice':build_ice}[key]()
+        out={'snowman':build_snowman,'icon':build_icon,'ice':build_ice,'melt':build_melt}[key]()
         print(key,out.size,hashlib.sha256(out.tobytes()).hexdigest())

@@ -1262,7 +1262,7 @@ walk (3 frames); row 3 **grab** (lunging, arms out), **lift** (arms
 overhead), **throw** (arms flung forward), hands empty (the game draws the
 doll); row 4 **knocked over** (falling backwards, head to the left, like
 the troll's), **collapsing**, and **defeated**: a **heap of broken ice
-chunks and snow with his icicle-bearded head on top**, staying put. No
+chunks and snow, with no head or face**, then melting into water (owner revision2026-10-24). No
 shadow, ground or text; nothing touching a cell edge.
 
 When it lands, add an `icetroll` entry to `monsters.js` (measure its
@@ -1293,3 +1293,5 @@ girl and troll near you, knocking them over, then runs off the screen.
 **SM1/SM2 art delivered (2026-10-24):** four 512px running snowman frames at `assets/snowman_sprites.webp`, common scale and feet at y490; EMP cell2 in Winter powerups replaced, all other cells decoded RGBA pixel-identical. Sources, exact ImageGen prompts, exporter and alpha/anchor reports in `tools/effects/winter/`. Art-only handoff: gameplay agent adds `snowman` to shared art and bumps the Winter icon cache version. Verified with the actual silent drawing functions; 36 unit and55 browser checks passed.
 
 **IT1 art delivered (2026-10-24):** `assets/icetroll_sprites.webp` has all twelve poses in the original troll layout, first idle height343 and all baselines407, transparent margins, ending in a broken-ice/snow heap with head on top. Sources, exact built-in ImageGen prompt, exporter, report, hand anchors and runtime-scale review with held Lily are in `tools/effects/winter/`. Art-only handoff: integration agent registers `icetroll`, using `grabHands: [[300,230],[295,110],[323,120]]`, scale1 and no snores/dissipate/sparks.
+
+**Owner revision delivered (2026-10-24):** IT1 final defeated cell is a faceless/headless heap of ice and snow; the other11 cells and hand anchors are unchanged. IT2 `assets/icetroll_melt_sprites.webp` (2508×418, six418px cells, alpha) progresses from that exact pile through melting ice to water only. Shared scale/center, baseline407 and sprite anchor193409 throughout. Exact first-frame match prevents a transition pop. Sources, prompt, calibrated exporter, unchanged-cell hashes and Winter race-scale animation review are in `tools/effects/winter/`. This supersedes the original head-on-pile brief; gameplay integration remains with the other agent.
