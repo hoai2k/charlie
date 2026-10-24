@@ -1245,3 +1245,47 @@ retains her moon purse; hair/skin/accessories are protected in the masks.
 Gameplay registration and live acceptance are left to the integration agent.
 
 **In the game and checked (all fifteen dolls):** `LEDGE_SHEETS`, `LEDGE_ART_VERSION` and `LEDGE_ANCHORS` (from the anchors JSON) in `doll-art.js`, outfits through `DollOutfits` ("ledge"). The hug hold, climb and kneel sit on the cloud edge.
+
+## 30. Requested: an ice troll for Winter
+
+Winter gets its own troll, like Pumpkin Patch's scarecrow and Moon Base's
+robot. The game already asks for him (`tracks.js` winter `monster:
+"icetroll"`) and uses him as soon as his sheet is in.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| IT1 | `assets/icetroll_sprites.webp` | 1254×1672 (3×4 of 418), alpha | An **ice troll** in the same painted, slightly photoreal style as `assets/monster_sprites.webp` (look at them side by side): the troll's build and grumpy-funny face, but made of frosty blue-white ice and packed snow, with icicles for hair and beard, frost on his shoulders, a lumpy snowdrift belly and chunky ice-crystal fingers and toes. Kid-friendly: grumpy and silly, not scary. |
+
+**Use exactly the troll sheet's layout, scale, facing (right) and foot
+baseline**, cell for cell: row 1 idle (3 frames of a slight sway); row 2
+walk (3 frames); row 3 **grab** (lunging, arms out), **lift** (arms
+overhead), **throw** (arms flung forward), hands empty (the game draws the
+doll); row 4 **knocked over** (falling backwards, head to the left, like
+the troll's), **collapsing**, and **defeated**: a **heap of broken ice
+chunks and snow with his icicle-bearded head on top**, staying put. No
+shadow, ground or text; nothing touching a cell edge.
+
+When it lands, add an `icetroll` entry to `monsters.js` (measure its
+grab-hand points; `defeated`/`particles` as fits) and check it in game.
+
+Acceptance: on Winter, he walks in, grabs and throws a doll held in his
+hands, and after five knock-backs ends as his ice heap.
+
+## 31. Requested: Winter's snowman EMP
+
+Winter's EMP is now a **snowman** that pops up from the trigger, runs about
+knocking everyone over, then runs off the screen. He's drawn in code until
+this lands.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| SM1 | `assets/snowman_sprites.webp` | 2048×512 (4 cells of 512), alpha | A cheeky **running snowman**, in the painted style of the dolls and track art: three snowballs (big bottom, middle, head), coal eyes and smile, a carrot nose, a red-and-white striped scarf flying behind, a little black top hat, twig arms, and small stubby twig feet. Facing right, mid-run: cells 1–4 are one run cycle (feet and twig arms swinging, body bobbing and squashing a little, scarf flapping). |
+| SM2 | Winter's power-up sheet, EMP cell | as the current cell | The EMP trigger as a **snowman's head and scarf peeking out of a snowdrift** (or a little snowman toy with a big red button), to match the new effect (it's a lightning cloud now). Same size, angle and style as the sheet's other icons. |
+
+SM1 rules: his feet at the bottom middle of each cell (about x 256, y 490),
+the same size in every cell (about 400 px tall); no shadow, snow, ground or
+text. In the same commit add `"snowman"` to `TRACK_SHARED_ART` in
+`tracks.js`.
+
+Acceptance: on Winter, take the EMP: the snowman pops up and runs into each
+girl and troll near you, knocking them over, then runs off the screen.
