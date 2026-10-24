@@ -1452,3 +1452,166 @@ html.ios-scroll.ios-scroll-play, html.ios-scroll.ios-scroll-play body { overflow
 /* Keep the optional All Dolls roster in two rows as new dolls arrive. */
 #lbGrid.wide-roster .lb-card { width: var(--lb-card-width, 88px); }
 #lbGrid.wide-roster .lb-name { font-size: 15px; }
+
+/* ── Specials (game-specials.js): the recharge bar in her HUD card, and the
+   picker after a board win ─────────────────────────────────────────────── */
+
+.hud .racer-card {
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+}
+
+.hud-special {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: 34px;
+}
+
+.hud-special.hidden {
+  display: none;
+}
+
+.hud-special canvas,
+.sp-card canvas {
+  position: static;
+  inset: auto;
+  margin: 0;
+}
+
+.hud-special canvas {
+  width: 26px;
+  height: 26px;
+  opacity: 0.55;
+  filter: grayscale(0.6);
+  transition: opacity 0.2s, filter 0.2s;
+}
+
+.hud-special.ready canvas {
+  opacity: 1;
+  filter: none;
+}
+
+.hud-special-bar {
+  width: 32px;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgba(60, 40, 30, 0.25);
+}
+
+.hud-special-bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 3px;
+  background: var(--slot-color, #f4a);
+}
+
+.hud-special.ready .hud-special-bar i {
+  box-shadow: 0 0 6px var(--slot-color, #f4a);
+}
+
+.special-picker {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  padding: 24px;
+  background: rgba(30, 18, 40, 0.62);
+  font-family: "Fredoka", "Trebuchet MS", ui-sans-serif, system-ui, sans-serif;
+  color: #fff;
+}
+
+.special-picker.hidden {
+  display: none;
+}
+
+.sp-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 22px 10px 10px;
+  border: 4px solid var(--slot-color, #fff);
+  border-radius: 999px;
+  background: rgba(255, 250, 240, 0.96);
+  color: #2b1a3a;
+  box-shadow: 0 0 24px var(--slot-color, #fff);
+}
+
+.sp-face {
+  width: 84px;
+  height: 84px;
+  border: 4px solid var(--slot-color, #fff);
+  border-radius: 50%;
+  background: #f6e3c8 center top / cover no-repeat;
+}
+
+.sp-name {
+  font-size: clamp(20px, 3vw, 34px);
+  font-weight: 700;
+}
+
+.sp-choices {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.sp-card {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  width: 170px;
+  padding: 14px 10px 12px;
+  border: 4px solid transparent;
+  border-radius: 22px;
+  background: rgba(255, 250, 240, 0.92);
+  color: #2b1a3a;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s, border-color 0.12s;
+}
+
+.sp-card canvas {
+  width: 96px;
+  height: 96px;
+}
+
+.sp-card small {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6a4a2a;
+}
+
+.sp-card.chosen {
+  border-color: var(--slot-color, #fff);
+  transform: scale(1.08);
+  box-shadow: 0 0 22px var(--slot-color, #fff);
+}
+
+.sp-hint {
+  font-size: 17px;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.sp-timer {
+  width: min(520px, 80vw);
+  height: 10px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.sp-timer span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--slot-color, #fff);
+}

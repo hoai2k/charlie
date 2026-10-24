@@ -649,6 +649,58 @@ test('Winter ice giant: twice a troll, staggers (not falls) until the 7th hit, l
   assert.deepEqual(errors, []);
 });
 
+test('specials: a board win offers speed or high jump; Y uses it and it recharges; the same again recharges faster; later wins offer skates, pogo and EMPs', { skip: skip() }, async () => {
+  await onTrack('farm');
+  const r = await page.evaluate(async () => {
+    state.playerSpecials = new Map();
+    const won = async () => {
+      startRace('two'); state.running = false; startPanel.classList.add('hidden');
+      finishRace(state.racers[0]);
+      state.afterCelebration(); // (no waiting out the celebration)
+      return specialPicker.open ? specialPicker.choices.slice() : null;
+    };
+    const out = {};
+    out.first = await won(); chooseSpecial(1);
+    const special = state.playerSpecials.get('p0');
+    out.firstPick = [special.kind, special.cooldown];
+    startRace('two'); state.running = true; startPanel.classList.add('hidden');
+    const a = state.racers[0]; keys.clear();
+    keys.add('KeyR'); update(1 / 60); keys.delete('KeyR'); update(1 / 60);
+    out.used = a.highJumpStacks.length === 1 && a.specialWait > 14;
+    keys.add('KeyR'); update(1 / 60); keys.delete('KeyR'); update(1 / 60);
+    out.notTwice = a.highJumpStacks.length === 1;
+    for (let i = 0; i < 60 * 15; i++) update(1 / 60);
+    out.recharged = a.specialWait === 0;
+    updateHud(); out.hudBar = !document.querySelector('#playerOneHud .hud-special').classList.contains('hidden');
+    state.running = false;
+    out.second = await won(); out.defaultsToHers = specialPicker.choices[specialPicker.at] === 'jump'; chooseSpecial();
+    out.secondPick = [special.kind, special.cooldown];
+    setBackground('town'); out.third = await won(); chooseSpecial(2);
+    setBackground('farm'); out.fourth = await won(); closeSpecialPicker();
+    return out;
+  });
+  assert.deepEqual(r, {
+    first: ['speed', 'jump'], firstPick: ['jump', 15], used: true, notTwice: true, recharged: true, hudBar: true,
+    second: ['speed', 'jump', 'emp'], defaultsToHers: true, secondPick: ['jump', 10],
+    third: ['skates', 'pogo', 'emp:town'], fourth: ['skates', 'pogo', 'emp:farm', 'emp:town']
+  });
+});
+
+test('a pogo hop beside the ice giant springs over his head and bounces off it', { skip: skip() }, async () => {
+  await onTrack('winter');
+  const r = await page.evaluate(async () => {
+    for (let i = 0; i < 60 && !images.icetroll; i++) await new Promise(r => setTimeout(r, 100));
+    const a = state.racers[0];
+    const m = spawnMonster(a.x + 160, a.y, { active: true, riding: false }); m.x = a.x + 160; m.y = a.y; m.state = 'idle'; m.restTimer = 10; state.monsters = [m]; // (resting: not grabbing her)
+    applyPowerup(a, { ...makePowerup('jump', a.x, a.y + 54), pogo: true });
+    a.x = m.x - 40; keys.clear(); keys.add('Space'); let top = 0, stomped = false;
+    for (let i = 0; i < 120; i++) { update(1 / 60); a.x = m.x; top = Math.max(top, a.z); stomped ||= m.state === 'fall'; if (i === 3) keys.delete('Space'); }
+    keys.clear();
+    return { overHead: top > POGO_STOMP_HEAD_Z * giantSize(), stomped };
+  });
+  assert.deepEqual(r, { overHead: true, stomped: true });
+});
+
 test('rover hops as it drives, tilts in the air and squashes on landing with its rider; pickup stays smaller', { skip: skip() }, async () => {
   await onTrack('space');
   const r = await page.evaluate(async () => {

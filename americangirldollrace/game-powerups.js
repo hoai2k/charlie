@@ -276,13 +276,17 @@ function getBoostMultiplier(racer) {
 }
 
 function pogoStompMonsters(racer, previousZ, mounted) {
-  if (mounted || racer.vy > 0 || previousZ < POGO_STOMP_HEAD_Z || racer.z > POGO_STOMP_HEAD_Z) return;
+  if (mounted || racer.vy > 0) return;
   if (!racer.rideToys.some(toy => toy.type === "pogo")) return;
+  // (A giant's head is that much higher, and he's that much wider.)
+  const size = giantSize();
+  const headZ = POGO_STOMP_HEAD_Z * size;
+  if (previousZ < headZ || racer.z > headZ) return;
   for (const monster of state.monsters) {
     if (!monster.active || ["sleeping", "ground", "fall", "drop"].includes(monster.state)) continue;
-    if (Math.abs(monster.x - racer.x) > POGO_STOMP_RANGE_X || Math.abs(monster.y - racer.y) > POGO_STOMP_RANGE_Y) continue;
+    if (Math.abs(monster.x - racer.x) > POGO_STOMP_RANGE_X * size || Math.abs(monster.y - racer.y) > POGO_STOMP_RANGE_Y) continue;
     stunMonsterWithEmp(monster, { dizzy: true });
-    racer.z = POGO_STOMP_HEAD_Z;
+    racer.z = headZ;
     racer.vy = getJumpPower(racer) * POGO_STOMP_BOUNCE;
     racer.jumpStarted = true;
     racer.jumpFrame = 0;
@@ -297,7 +301,13 @@ function pogoStompMonsters(racer, previousZ, mounted) {
 function getJumpPower(racer) {
   if (racer.moonBootsTimer > 0) return JUMP_POWER * MOON_BOOTS_JUMP_SCALE;
   const stacks = racer.highJumpStacks.length;
-  return stacks > 0 ? JUMP_POWER * (1 + stacks * 0.35) : JUMP_POWER;
+  const power = stacks > 0 ? JUMP_POWER * (1 + stacks * 0.35) : JUMP_POWER;
+  // On a pogo stick right by a giant she springs high enough to land on his head.
+  if (giantSize() > 1 && racer.rideToys?.some(toy => toy.type === "pogo")
+    && state.monsters.some(m => m.active && !["sleeping", "ground", "drop"].includes(m.state) && Math.abs(m.x - racer.x) < GIANT_POGO_REACH && Math.abs(m.y - racer.y) < POGO_STOMP_RANGE_Y * 2)) {
+    return Math.max(power, Math.sqrt(2 * GRAVITY * (POGO_STOMP_HEAD_Z * giantSize() + GIANT_POGO_CLEAR)));
+  }
+  return power;
 }
 
 function applyPowerup(racer, powerupOrType) {
@@ -337,10 +347,11 @@ function applyPowerup(racer, powerupOrType) {
     racer.powerupMessage = racer.highJumpStacks.length > 1 ? `${label} x${racer.highJumpStacks.length}` : label;
   } else if (type === "emp") {
     racer.empTimer = 0.45;
-    racer.powerupMessage = pickupLook("emp").label;
+    // (A special EMP brings its own board's style and name: game-specials.js.)
+    racer.powerupMessage = powerupOrType.empLabel || pickupLook("emp").label;
     const originX = typeof powerupOrType === "string" ? racer.x : powerupOrType.x;
     const inRange = target => Math.abs(target.x - originX) <= EMP_RANGE;
-    const style = empStyle();
+    const style = powerupOrType.empStyle || empStyle();
     const visibleMonsters = state.monsters.filter(monster => monster.active && isMonsterEmpTarget(monster) && inRange(monster));
     const hit = [];
     if (style === "snowman") {
@@ -352,7 +363,7 @@ function applyPowerup(racer, powerupOrType) {
     } else {
       hit.push(...state.racers.filter(other => other !== racer && !other.finished && inRange(other)));
     }
-    const label = pickupLook("emp").label;
+    const label = powerupOrType.empLabel || pickupLook("emp").label;
     if (!hit.length) {
       // Nobody around to zap: it zaps her instead.
       hit.push(racer);

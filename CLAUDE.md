@@ -181,6 +181,11 @@ hook to get round it.
   (`tools/dolls/transfer_moon_boots.py`), so a **new doll needs no hand
   fitting**: after `measure_feet.py`, run `fit_moon_boots.py` and her boots
   are placed.
+- Specials (`americangirldollrace/game-specials.js`): a human who wins a board
+  picks a power-up of her own after the celebration (10 s, her controls, her
+  current one selected), used with Y (R / `/` / pad Y / touch Special) and
+  recharging (15 s, 10 s once she picks the same again); kept per player
+  (`state.playerSpecials`, like the standings) for the session.
 - `americangirldollrace/intake/` is the owner's drop folder for the race (see
   its README). Songs not tied to one board are listed in `TRACK_GENERAL_MUSIC`
   in `tracks.js`; "Forest Fairy Spin" is Fairy Woods' song (it replaced

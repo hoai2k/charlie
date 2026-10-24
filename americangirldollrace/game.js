@@ -18,6 +18,7 @@ const pauseFullscreenButton = document.querySelector("#pauseFullscreenButton");
 const menuButton = document.querySelector("#menuButton");
 const touchJumpButton = document.querySelector("#touchJumpButton");
 const touchPushButton = document.querySelector("#touchPushButton");
+const touchSpecialButton = document.querySelector("#touchSpecialButton");
 const touchPauseButton = document.querySelector("#touchPauseButton");
 const touchControls = document.querySelector("#touchControls");
 let music = document.querySelector("#music");
@@ -268,6 +269,8 @@ const POGO_STOMP_HEAD_Z = 150; // her feet passing down through his head height
 const POGO_STOMP_RANGE_X = 75;
 const POGO_STOMP_RANGE_Y = 46;
 const POGO_STOMP_BOUNCE = 1.25; // times her jump power
+const GIANT_POGO_REACH = 260; // px: a pogo hop this near a giant springs up over his head
+const GIANT_POGO_CLEAR = 50; // (and this much above it)
 // Moon boots (tracks.js moonBoots, Moon Base): the high-jump pickup lowers
 // the racer's gravity instead, so softer jumps float over several hurdles.
 const MOON_BOOTS_DURATION = 10;
@@ -438,6 +441,9 @@ const GIANT_KNOCKBACK = 0.35; // of a troll's knock-back distance
 const GIANT_STAGGER_TILT = 0.16; // radians he rocks back
 const MELT_TIME = 2.4; // s a melting pile takes to become a puddle
 const PUDDLE_REACH_X = 80; // px (times a giant's size) either side of the middle that splashes
+const SPECIAL_COOLDOWN = 15; // s a special (game-specials.js) takes to recharge
+const SPECIAL_COOLDOWN_AGAIN = 10; // once she's chosen the same one again
+const SPECIAL_PICK_TIME = 10; // s she has to choose one after winning a board
 const MONSTER_SPEED = 150;
 const MONSTER_LANE_SPEED = 130;
 const MONSTER_SIGHT_RANGE = 1300; // px, about a screen: farther away than this, a monster stops chasing
@@ -738,6 +744,7 @@ const state = {
   windupCars: [],
   difficulty: "normal",
   specials: "none",
+  playerSpecials: new Map(), // each player's own special, won by winning boards (game-specials.js)
   boardRound: 0, // times round all the boards (each more trolls; see normalTrollCount)
   cameraMode: "lego",
   stormCloud: null,
@@ -789,7 +796,8 @@ const touchInput = {
   horizontal: 0,
   vertical: 0,
   jump: false,
-  push: false
+  push: false,
+  special: false
 };
 
 let menuAnimationFrame = null;
@@ -1268,7 +1276,33 @@ function ensureHudCardParts(card) {
   const text = document.createElement("span");
   text.className = "hud-text";
   text.append(...card.children);
-  card.append(badge, face, text);
+  // Her special (once she's won one): its icon over a bar that fills as it recharges.
+  const special = document.createElement("span");
+  special.className = "hud-special hidden";
+  const icon = document.createElement("canvas");
+  icon.width = icon.height = 52;
+  const bar = document.createElement("span");
+  bar.className = "hud-special-bar";
+  bar.append(document.createElement("i"));
+  special.append(icon, bar);
+  card.append(badge, face, text, special);
+}
+
+function updateHudSpecial(card, racer) {
+  const box = card?.querySelector(".hud-special");
+  if (!box) return;
+  const special = playerSpecial(racer);
+  box.classList.toggle("hidden", !special?.kind);
+  if (!special?.kind) return;
+  const icon = box.querySelector("canvas");
+  if (icon.dataset.kind !== special.kind || !icon.dataset.drawn) {
+    icon.dataset.kind = special.kind;
+    drawSpecialIcon(icon, special.kind);
+    icon.dataset.drawn = specialIcon(special.kind)?.image ? "1" : "";
+  }
+  const charge = 1 - clamp((racer.specialWait || 0) / special.cooldown, 0, 1);
+  box.querySelector("i").style.width = `${charge * 100}%`;
+  box.classList.toggle("ready", charge >= 1);
 }
 
 function ordinal(place) {
@@ -1461,6 +1495,8 @@ function updateRacerVerticalMotion(racer, mounted, jumpHeld, dt) {
  * ---------------------------------------------------------------------------*/
 
 function startRace(mode = gameMode.value) {
+  closeSpecialPicker();
+  state.afterCelebration = null;
   clearJoinPickers();
   stopMenuAnimationLoop();
   hideControllerPointers();
@@ -1598,6 +1634,7 @@ function resetFinishMenuInput() {
 
 function updateFinishMenu() {
   if (finishPanel.classList.contains("hidden")) return;
+  if (specialPicker.open) { finishMenu.primed = false; return; }
   for (const pad of connectedGamepads(navigator.getGamepads ? navigator.getGamepads() : [])) {
     const prev = finishMenu.prev.get(pad.index) || [];
     const pressed = button => Boolean(pad.buttons[button]?.pressed) && !prev[button] && finishMenu.primed;
@@ -1611,6 +1648,8 @@ function updateFinishMenu() {
 }
 
 function returnToMenu() {
+  closeSpecialPicker();
+  state.afterCelebration = null;
   window.Lobby?.captureFromRace();
   clearNextRaceTimer();
   clearJoinPickers();
@@ -1747,10 +1786,20 @@ function finishRace(winner) {
   updateHud();
   startMenuAnimationLoop();
   clearNextRaceTimer();
-  state.nextRaceTimer = setTimeout(() => {
+  // A human winner picks her special (game-specials.js) before the next board.
+  const offer = noteSpecialWin(winner);
+  const next = () => {
     advanceBackground();
     startRace(state.mode);
-  }, NEXT_RACE_DELAY);
+  };
+  // (Race now goes the same way: to the picker first.)
+  state.afterCelebration = () => {
+    state.afterCelebration = null;
+    clearNextRaceTimer();
+    if (offer) openSpecialPicker(offer, next);
+    else next();
+  };
+  state.nextRaceTimer = setTimeout(state.afterCelebration, NEXT_RACE_DELAY);
 }
 
 function loop(time) {
@@ -1853,6 +1902,7 @@ function update(dt) {
       }
     }
     racer.unicornBeamCooldown = Math.max(0, racer.unicornBeamCooldown - dt);
+    updateSpecialCharge(racer, dt);
     if (racer.joinFlashTimer > 0) racer.joinFlashTimer = Math.max(0, racer.joinFlashTimer - dt);
     if (racer.horseTimer === 0) {
       racer.horseType = "horse";
@@ -1897,6 +1947,10 @@ function update(dt) {
       input.jump = false;
       if (frog) input.push = false;
     }
+
+    // Her special (Y), when she's won one and it's charged.
+    if (input.special && !racer.specialHeld) useSpecial(racer);
+    racer.specialHeld = Boolean(input.special);
 
     if (input.push && racer.pushCooldown === 0 && racer.pushTimer === 0) {
       racer.pushTimer = PUSH_ACTIVE_TIME;
@@ -2392,6 +2446,7 @@ function updateHud() {
       text = status === "Racing" ? ordinal(place) : `${ordinal(place)} · ${status}`;
     }
     playerStatuses[index].textContent = text;
+    updateHudSpecial(playerHuds[index], racer);
   }
 }
 
@@ -2512,6 +2567,7 @@ gameFrame.addEventListener("pointercancel", event => {
 });
 bindTouchActionButton(touchJumpButton, "jump");
 bindTouchActionButton(touchPushButton, "push");
+bindTouchActionButton(touchSpecialButton, "special");
 touchPauseButton.addEventListener("pointerdown", event => {
   if (!isTouchDevice()) return;
   event.preventDefault();
@@ -2570,6 +2626,8 @@ for (const select of [...characterSelects, gameMode, difficultySelect, specialsS
 fullscreenButton.addEventListener("click", () => GameAudio.play("ui_fullscreen"));
 
 restartButton.addEventListener("click", () => {
+  if (specialPicker.open) return; // (she's choosing her special: A is hers)
+  if (state.afterCelebration) return state.afterCelebration();
   clearNextRaceTimer();
   advanceBackground();
   startRace(state.mode);
