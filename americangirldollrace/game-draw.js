@@ -887,7 +887,7 @@ function moonBootPlacements(assetKey, kind, index) {
     const pose = moonBootPose(kind, index, foot, frame);
     // The boot view the owner picked for this foot in the same pose on
     // other dolls wins (with the angle that view needed there).
-    const learned = learnedMoonBootView(kind, index, frame.length, moonBootRole(foot, frame));
+    const learned = learnedMoonBootView(assetKey, kind, index, frame.length, moonBootRole(foot, frame));
     const relearned = learned && (learned.cell !== pose.cell || learned.mirror !== pose.mirror);
     return {
       cell: learned ? learned.cell : pose.cell,
@@ -910,34 +910,51 @@ function moonBootRole(foot, feet) {
   return side + ((foot[6] ?? foot[1]) < (other[6] ?? other[1]) - MOON_BOOT_LIFTED ? "-lifted" : "");
 }
 const MOON_BOOT_LIFTED = 30; // px above the other foot that counts as lifted
-const MOON_BOOT_LESSON_DOLLS = 2; // dolls placed by hand in a pose before their boot views carry over
+const MOON_BOOT_MATCH_SAME_FRAME = 0.2; // leg silhouettes this alike (share of pixels differing) count as the same pose
+const MOON_BOOT_MATCH_OTHER_FRAME = 0.12; // (stricter between different frames)
 
-// What the owner's hand-placed boots (MOON_BOOT_OVERRIDES) say about a pose
-// on every doll: for each foot role, the boot view (cell and mirroring)
-// picked most often, and the mean angle used with it. Null until at least
-// MOON_BOOT_LESSON_DOLLS dolls have that pose placed by hand (one doll's
-// pose can be unusual: Barbie's are), so the rules above hold till then.
-let moonBootLessons = null;
-function learnedMoonBootView(kind, index, count, role) {
-  if (!moonBootLessons) {
-    moonBootLessons = {};
-    for (const [id, boots] of Object.entries(window.MOON_BOOT_OVERRIDES || {})) {
-      const [, sheet, frame] = id.split("/");
-      const sorted = boots.slice().sort((a, b) => a.x - b.x);
-      sorted.forEach((boot, n) => {
-        const other = sorted[1 - n];
-        const r = boots.length !== 2 ? "only" : (n === 0 ? "back" : "front") + (boot.y < other.y - MOON_BOOT_LIFTED ? "-lifted" : "");
-        const key = `${sheet}/${frame}/${boots.length}/${r}`;
-        const view = `${boot.cell}${boot.mirror ? "m" : ""}`;
-        const views = (moonBootLessons[key] ||= {});
-        (views[view] ||= []).push(boot.angle);
-      });
-    }
+// What the owner's hand-placed boots (MOON_BOOT_OVERRIDES) say about this
+// pose: the hand-placed poses (any doll, any frame of the same sheet kind,
+// with as many boots) whose leg silhouettes (pose-shapes.js) look most like
+// it, close enough to count (a looser bar for the same frame number, which
+// is usually the same move). For this foot role, the view (cell and
+// mirroring) most of them picked, and the mean angle used with it; null if
+// none is close enough, so an unusual pose (Barbie has some) teaches nothing
+// it shouldn't.
+function learnedMoonBootView(assetKey, kind, index, count, role) {
+  const shape = window.DOLL_POSE_SHAPES?.[assetKey]?.[kind]?.[index];
+  if (!shape) return null;
+  const votes = {};
+  for (const [id, boots] of Object.entries(window.MOON_BOOT_OVERRIDES || {})) {
+    const [doll, sheet, frame] = id.split("/");
+    if (doll === assetKey || sheet !== kind || boots.length !== count) continue;
+    const other = window.DOLL_POSE_SHAPES?.[doll]?.[sheet]?.[Number(frame)];
+    if (!other) continue;
+    const distance = poseShapeDistance(shape, other);
+    if (distance > (Number(frame) === index ? MOON_BOOT_MATCH_SAME_FRAME : MOON_BOOT_MATCH_OTHER_FRAME)) continue;
+    const sorted = boots.slice().sort((a, b) => a.x - b.x);
+    sorted.forEach((boot, n) => {
+      const partner = sorted[1 - n];
+      const r = count !== 2 ? "only" : (n === 0 ? "back" : "front") + (boot.y < partner.y - MOON_BOOT_LIFTED ? "-lifted" : "");
+      if (r !== role) return;
+      const view = `${boot.cell}${boot.mirror ? "m" : ""}`;
+      (votes[view] ||= []).push(boot.angle);
+    });
   }
-  const views = moonBootLessons[`${kind}/${index}/${count}/${role}`];
-  if (!views || Object.values(views).reduce((n, angles) => n + angles.length, 0) < MOON_BOOT_LESSON_DOLLS) return null;
-  const [view, angles] = Object.entries(views).sort((a, b) => b[1].length - a[1].length)[0];
+  const best = Object.entries(votes).sort((a, b) => b[1].length - a[1].length)[0];
+  if (!best) return null;
+  const [view, angles] = best;
   return { cell: parseInt(view, 10), mirror: view.endsWith("m"), angle: angles.reduce((s, a) => s + a, 0) / angles.length };
+}
+
+// The share of pixels where two leg silhouettes (64 hex digits each) differ.
+function poseShapeDistance(a, b) {
+  let differ = 0;
+  for (let i = 0; i < a.length; i += 1) {
+    let x = parseInt(a[i], 16) ^ parseInt(b[i], 16);
+    while (x) { differ += x & 1; x >>= 1; }
+  }
+  return differ / (a.length * 4);
 }
 
 // The boot sheet's cells (image-requests.md §23 MB1, §26 MB2): side, three-
@@ -971,7 +988,7 @@ function moonBootPose(kind, index, foot, frame) {
   }
   if (index <= 5) {
     if (back && raisedBy > 12) return { ...pose, cell: pointed ? 5 : 1, angle: pointed ? 1.45 : 1.25 };
-    if (back && view === "side") return { ...pose, cell: 6, mirror: true };
+    if (back && view === "side") return { ...pose, cell: 1 }; // (the owner picks three-quarter for a back foot)
   }
   if (index === 6 || index === 8) return { ...pose, angle: Math.max(measured, 0.3) };
   if (index === 7) return { ...pose, cell: 5, angle: back ? 1.4 : 0.75 };
