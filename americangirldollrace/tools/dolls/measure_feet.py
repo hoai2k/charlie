@@ -96,10 +96,11 @@ def shin_angle(dist, from_tip, tip_reach, height):
     return round(float(np.arctan2(x1 - x0, y0 - y1)), 3)
 
 
-def feet(cell, zone=None, forward=False):
-    """Her feet: the two far ends of her legs, measured along the figure from
-    her hips, so a foot lifted mid-stride counts as well as one on the ground."""
-    rgba = np.asarray(cell.convert('RGBA'))[::2, ::2].astype(float)  # half size is plenty and much quicker
+def legs(cell, forward=False):
+    """Her figure at half size (plenty, and much quicker) and her legs: what
+    lies below her hips joined to them, with the distance along it from her
+    hips. None for an empty or broken frame."""
+    rgba = np.asarray(cell.convert('RGBA'))[::2, ::2].astype(float)
     a = rgba[..., 3] > 60
     ys, xs = np.nonzero(a)
     if len(xs) == 0:
@@ -118,7 +119,16 @@ def feet(cell, zone=None, forward=False):
     below[:int(top + 0.4 * height)] = False  # no arms or hair above the hips
     labels, _ = ndimage.label(below)
     below &= labels == labels[hip]
-    dist = geodesic(below, hip)
+    return dict(rgba=rgba, a=a, xs=xs, top=top, bottom=bottom, height=height, seat_x=seat_x, below=below, dist=geodesic(below, hip))
+
+
+def feet(cell, zone=None, forward=False):
+    """Her feet: the two far ends of her legs, measured along the figure from
+    her hips, so a foot lifted mid-stride counts as well as one on the ground."""
+    found = legs(cell, forward)
+    if found is None:
+        return None
+    rgba, a, xs, top, bottom, height, seat_x, below, dist = (found[k] for k in ('rgba', 'a', 'xs', 'top', 'bottom', 'height', 'seat_x', 'below', 'dist'))
     finite = np.isfinite(dist)
     out = []
     shoe = max(8, 0.075 * height)  # half-size px of a shoe's length

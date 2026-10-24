@@ -1006,10 +1006,13 @@ function moonBootsFarToNear(boots) {
 // (frame px, facing right): { cell, x, y, angle, width, mirror, layer? }, with (x, y)
 // the middle of the foot it covers (the boot turns about it), its angle in
 // radians, and its width in frame px. From MOON_BOOT_OVERRIDES where the
-// owner set it by hand (the workbench's verification queue), else worked
-// out from the measured feet (feet.js).
+// owner set it by hand (the workbench's verification queue), else from
+// MOON_BOOT_GUESSES (what follows, fitted to cover her foot by
+// tools/dolls/fit_moon_boots.py), else worked out from the measured feet
+// (feet.js).
 function moonBootPlacements(assetKey, kind, index) {
-  const set = window.MOON_BOOT_OVERRIDES?.[`${assetKey}/${kind}/${index}`];
+  const id = `${assetKey}/${kind}/${index}`;
+  const set = window.MOON_BOOT_OVERRIDES?.[id] || window.MOON_BOOT_GUESSES?.[id];
   if (set) return set;
   const frame = window.DOLL_FEET?.[assetKey]?.[kind]?.[index];
   if (!frame) return [];
