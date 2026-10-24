@@ -32,6 +32,22 @@ window.MOON_BOOT_OVERRIDES = {
   "juliette/sprites/5": [{"cell": 1, "x": 85.3, "y": 362.6, "angle": 1.459, "width": 68.2, "mirror": false}, {"cell": 0, "x": 316.2, "y": 380.4, "angle": -0.584, "width": 86.8, "mirror": false}],
   "juliette/sprites/7": [{"cell": 5, "x": 228.9, "y": 411.7, "angle": 0.972, "width": 86.8, "mirror": false}, {"cell": 5, "x": 155.5, "y": 403.5, "angle": 1.121, "width": 81.2, "mirror": false}],
   "juliette/sprites/9": [{"cell": 1, "x": 234, "y": 376.3, "angle": 0.056, "width": 75.3, "mirror": false}, {"cell": 5, "x": 334.9, "y": 353.1, "angle": -0.448, "width": 70.5, "mirror": false}],
+  "kaya/actions/6": [{"cell": 1, "x": 135, "y": 395.9, "angle": 0.389, "width": 86.8, "mirror": false}, {"cell": 0, "x": 300.3, "y": 372.8, "angle": -0.413, "width": 84.9, "mirror": false}],
+  "kaya/sprites/10": [{"cell": 1, "x": 84.3, "y": 366.8, "angle": 0.66, "width": 86.8, "mirror": false}, {"cell": 0, "x": 250.7, "y": 367.3, "angle": 0.041, "width": 78.9, "mirror": false}],
+  "kaya/sprites/11": [{"cell": 1, "x": 313.4, "y": 335.2, "angle": -0.456, "width": 78.1, "mirror": false}, {"cell": 0, "x": 357.5, "y": 263.7, "angle": -0.784, "width": 69.8, "mirror": false}],
+  "kaya/sprites/3": [{"cell": 1, "x": 98.8, "y": 331.9, "angle": 1.258, "width": 86.8, "mirror": false}, {"cell": 0, "x": 322.4, "y": 365.5, "angle": -0.534, "width": 86.8, "mirror": false}],
+  "kaya/sprites/4": [{"cell": 1, "x": 127.2, "y": 343.5, "angle": 1.193, "width": 68.2, "mirror": false}, {"cell": 1, "x": 284.2, "y": 373, "angle": -0.222, "width": 72.9, "mirror": false}],
+  "kaya/sprites/5": [{"cell": 1, "x": 87.5, "y": 322.3, "angle": 1.327, "width": 80.6, "mirror": false}, {"cell": 0, "x": 326.5, "y": 362.2, "angle": -0.535, "width": 86.8, "mirror": false}],
+  "kaya/sprites/7": [{"cell": 1, "x": 194.2, "y": 343.4, "angle": 1.121, "width": 68.2, "mirror": false}, {"cell": 1, "x": 138.1, "y": 344.7, "angle": 1.185, "width": 77.3, "mirror": false}],
+  "kaya/sprites/9": [{"cell": 1, "x": 255.2, "y": 368.5, "angle": -0.05, "width": 79.9, "mirror": false}, {"cell": 1, "x": 310, "y": 340.6, "angle": -0.164, "width": 67.9, "mirror": false}],
+  "lily/actions/6": [{"cell": 1, "x": 279.5, "y": 390.6, "angle": -0.332, "width": 76.9, "mirror": false}, {"cell": 1, "x": 336.8, "y": 371.8, "angle": -0.419, "width": 71.2, "mirror": false}],
+  "lily/sprites/10": [{"cell": 1, "x": 88.1, "y": 379.1, "angle": 0.723, "width": 80.4, "mirror": false}, {"cell": 1, "x": 258.2, "y": 399, "angle": -0.006, "width": 76, "mirror": false}],
+  "lily/sprites/11": [{"cell": 1, "x": 286.2, "y": 384.5, "angle": -0.455, "width": 79.9, "mirror": false}, {"cell": 0, "x": 349.8, "y": 327.3, "angle": -0.732, "width": 79.9, "mirror": false}],
+  "lily/sprites/3": [{"cell": 1, "x": 107, "y": 308.4, "angle": 1.693, "width": 76, "mirror": false}, {"cell": 0, "x": 283, "y": 392, "angle": -0.211, "width": 79.1, "mirror": false}],
+  "lily/sprites/4": [{"cell": 2, "x": 191.6, "y": 361.8, "angle": 0.078, "width": 47.5, "mirror": false}, {"cell": 2, "x": 228.1, "y": 398.1, "angle": 0.004, "width": 54, "mirror": false}],
+  "lily/sprites/5": [{"cell": 1, "x": 107.9, "y": 325.7, "angle": 1.449, "width": 71.7, "mirror": false}, {"cell": 1, "x": 285.1, "y": 393.1, "angle": -0.315, "width": 73, "mirror": false}],
+  "lily/sprites/7": [{"cell": 1, "x": 119, "y": 377.4, "angle": 0.902, "width": 71.5, "mirror": false}, {"cell": 1, "x": 213.1, "y": 412, "angle": 0.31, "width": 68.2, "mirror": false}],
+  "lily/sprites/9": [{"cell": 1, "x": 254.6, "y": 391.1, "angle": -0.306, "width": 79.9, "mirror": false}, {"cell": 1, "x": 307.9, "y": 376.6, "angle": -0.532, "width": 69.9, "mirror": false}],
   "whirlpool/actions/6": [{"cell": 1, "x": 266.2, "y": 392, "angle": -0.347, "width": 86.8, "mirror": false}, {"cell": 0, "x": 318.5, "y": 367.8, "angle": -0.389, "width": 83.6, "mirror": false}],
   "whirlpool/sprites/10": [{"cell": 1, "x": 99.2, "y": 382.9, "angle": 0.38, "width": 72.9, "mirror": false}, {"cell": 0, "x": 245.8, "y": 377.6, "angle": 0.093, "width": 76, "mirror": false}],
   "whirlpool/sprites/11": [{"cell": 1, "x": 289, "y": 374, "angle": -0.467, "width": 78.1, "mirror": false}, {"cell": 0, "x": 349, "y": 320.1, "angle": -0.6, "width": 72.5, "mirror": false}],
@@ -41,3 +57,7 @@ window.MOON_BOOT_OVERRIDES = {
   "whirlpool/sprites/7": [{"cell": 1, "x": 108.4, "y": 333.8, "angle": 1.8, "width": 83.8, "mirror": false}, {"cell": 5, "x": 224, "y": 428.3, "angle": 0.75, "width": 86.8, "mirror": false}],
   "whirlpool/sprites/9": [{"cell": 1, "x": 224.4, "y": 378.2, "angle": 0.421, "width": 79.9, "mirror": false}, {"cell": 1, "x": 293.7, "y": 365.5, "angle": 0.21, "width": 70.5, "mirror": false}]
 };
+
+// Hand-placed poses kept as they are but not learned from: their foot angles
+// are ones no boot view covers, so they'd teach the wrong thing elsewhere.
+window.MOON_BOOT_NOT_LESSONS = ["lily/sprites/4"];
