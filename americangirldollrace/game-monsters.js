@@ -893,18 +893,19 @@ function drawMonster(monster) {
     // Staggering: rocked back on his heels (away from whoever hit him) and
     // forward again; his stagger sheet once it's in.
     const t = 1 - clamp(monster.timer / GIANT_STAGGER_TIME, 0, 1);
-    const tilt = monster.facing * GIANT_STAGGER_TILT * Math.sin(Math.PI * t);
-    const feetY = visualY + 58;
-    ctx.translate(screenX, feetY);
-    ctx.rotate(tilt);
-    ctx.translate(-screenX, -feetY);
     const staggerArt = getSharedArt(monsterDef().stagger);
     if (staggerArt?.complete && staggerArt.width) {
+      // (Rocked back, then catching himself: the poses lean on their own.)
       const cells = Math.max(1, Math.round(staggerArt.width / FRAME));
       drawFacingImage(staggerArt, Math.min(cells - 1, Math.floor(t * cells)) * FRAME, 0, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
       ctx.restore();
       return;
     }
+    const tilt = monster.facing * GIANT_STAGGER_TILT * Math.sin(Math.PI * t);
+    const feetY = visualY + 58;
+    ctx.translate(screenX, feetY);
+    ctx.rotate(tilt);
+    ctx.translate(-screenX, -feetY);
   }
   if (monster.frogTimer > 0) {
     drawFrog(screenX, monster.y + 54, racerDepthScale(monster), true, monster.frogPhase || 0, monster.facing);

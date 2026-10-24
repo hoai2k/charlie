@@ -118,10 +118,11 @@
 // (the workbench still lists them, at the end).
 window.TRACK_ORDER = ["farm", "fairy", "town", "autumn", "horseshow", "toyroom", "candy", "beach", "wizard", "clouds", "space", "woods", "festival", "winter"];
 window.TRACKS_RESTING = ["castles"];
-window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "rooster_crow", "crow", "moon_boot", "fairy_wings", "fairy_wing_single", "troll_flying", "fairy_wings_twilight", "fairy_wing_single_twilight", "snowman", "icetroll_melt"];
+window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "rooster_crow", "crow", "moon_boot", "fairy_wings", "fairy_wing_single", "troll_flying", "fairy_wings_twilight", "fairy_wing_single_twilight", "snowman", "icetroll_melt", "icetroll_stagger"];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: {
+    powerupArtVersion: "20261024-puddle1",
     empStyle: "rooster",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "HAY BOUNCE", boost: "CARROT", emp: "ROOSTER", oil: "MUD", snowball: "APPLES" },
@@ -149,7 +150,7 @@ window.TRACK_THEMES = {
     projectileLanding: "snow",
     empStyle: "snowman",
     monster: "icetroll",
-    powerupArtVersion: "20261024-snowman1",
+    powerupArtVersion: "20261024-puddle1",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "SKI JUMP", boost: "SLED", emp: "SNOWMAN", oil: "ICE", snowball: "SNOWBALLS" },
     mountOdds: { reindeer: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
@@ -162,6 +163,7 @@ window.TRACK_THEMES = {
     mountOdds: { unicorn: 0.1, pegasus: 0.1, griffon: 0.15, broom: 0.05 }
   },
   horseshow: {
+    powerupArtVersion: "20261024-puddle1",
     empStyle: "bell",
     name: "Horse Show", music: "assets/music/Race to the Ribbon Horse Race.mp3", dirtTop: 502, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "SPRINGBOARD", boost: "HORSESHOE", emp: "STARTER BELL", oil: "WATER JUMP", snowball: "SUGAR CUBES" },
@@ -196,7 +198,7 @@ window.TRACK_THEMES = {
   beach: {
     noPowerups: ["emp", "horse"], // the surfboard stands in for both
     monster: "sandtroll",
-    powerupArtVersion: "20261023-seaweed1",
+    powerupArtVersion: "20261024-puddle1",
     name: "Beach", music: "assets/music/Ride the Beach Tide.mp3", dirtTop: 514, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle", "wave"],
     labels: { jump: "POOL SPRING", boost: "SURFBOARD", emp: "CONCH SHELL", oil: "SEAWEED", snowball: "WATER BALLOONS" },
     projectileLanding: "water",
@@ -227,6 +229,7 @@ window.TRACK_THEMES = {
     sounds: { emp: "pickup_crows" }
   },
   clouds: {
+    powerupArtVersion: "20261024-puddle1",
     cloudFloor: true,
     monster: "cloudtroll",
     projectileLanding: "snow",
@@ -242,13 +245,14 @@ window.TRACK_THEMES = {
     monster: "robot",
     empStyle: "laser",
     moonBoots: true,
-    powerupArtVersion: "20261023-laser1",
+    powerupArtVersion: "20261024-puddle1",
     name: "Moon Base", music: "assets/music/Pocketful of Comets Moon Base.mp3", dirtTop: 487, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "MOON BOOTS", boost: "ROCKET", emp: "LASER", oil: "SPACE GOO", snowball: "MOON ROCKS" },
     sounds: { emp: "pickup_laser" }
   },
   // Twilight woodland track with its own looped art and song.
   woods: {
+    powerupArtVersion: "20261024-puddle1",
     empStyle: "acorns",
     name: "Fairy Woods", music: "assets/music/Forest Fairy Spin.mp3", dirtTop: 480, loopMode: "repeat", art: ["background", "card", "hurdle", "powerups", "projectile"],
     labels: { jump: "MUSHROOM", boost: "FIREFLIES", emp: "ACORN TOSS", oil: "MOSSY BOG", snowball: "ACORNS" },
