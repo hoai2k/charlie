@@ -1315,3 +1315,5 @@ two cells over the stagger once it's listed).
 
 Acceptance: on Winter, push the ice giant: he rocks back (cell 1) and
 catches himself (cell 2), and only the seventh push knocks him down.
+
+**IT3 art delivered (2026-10-24):** `assets/icetroll_stagger_sprites.webp`, two418px cells (836×418), rocked back then catching himself. One anatomical source scale, right-facing, planted rear sole150407 and transparent cell margins; original idle and all other sheets unchanged. Exact prompts/corrected source, exporter, placement report and actual giant-scale drawing review in `tools/effects/winter/`. Art-only handoff: integration agent adds `icetroll_stagger` to shared art. Current drawMonster already selects the two cells and applies its fallback tilt as well; review includes this behavior.

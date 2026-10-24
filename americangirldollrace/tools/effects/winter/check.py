@@ -46,3 +46,17 @@ if melt_path.exists():
         f=ice.crop((n%3*418,n//3*418,n%3*418+418,n//3*418+418))
         assert hashlib.sha256(f.tobytes()).hexdigest()==expected
     print('Melt: six aligned frames, descending heights, exact defeated-cell match; other11 monster cells unchanged')
+
+stagger_path=GAME/'assets/icetroll_stagger_sprites.webp'
+if stagger_path.exists():
+    im=Image.open(stagger_path).convert('RGBA');assert im.size==(836,418)
+    meta=json.loads((HERE/'icetroll-stagger-report.json').read_text())
+    assert len({f['scale'] for f in meta['frames']})==1
+    for n in range(2):
+        f=im.crop((n*418,0,n*418+418,418));a=np.array(f)[:,:,3];b=f.getbbox()
+        assert a.min()==0 and a.max()>200 and b[3]==407
+        assert not a[0].any() and not a[-1].any() and not a[:,0].any() and not a[:,-1].any()
+        # Only the bottom five rows: the perspective front foot is higher.
+        ys,xs=np.where((a>80)&(np.indices(a.shape)[0]>=402))
+        assert abs(xs.mean()-150)<4,(n,xs.mean())
+    print('Stagger: two418px cells, true alpha/margins, common scale and rear sole x150 baseline407')
