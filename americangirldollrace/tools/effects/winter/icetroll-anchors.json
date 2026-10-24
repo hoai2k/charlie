@@ -1,0 +1,27 @@
+{
+  "grabHands": [
+    [
+      300,
+      230
+    ],
+    [
+      295,
+      110
+    ],
+    [
+      323,
+      120
+    ]
+  ],
+  "frameSize": 418,
+  "groundBaseline": 407,
+  "scale": 1,
+  "rowScale": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "snores": false,
+  "defeat": "stationary ice heap; no dissipate or sparks"
+}
