@@ -66,6 +66,26 @@ window.MOON_BOOT_OVERRIDES = {
   "claudia-v2/sprites/7": [{"cell": 5, "x": 117, "y": 373.1, "angle": 1.4, "width": 72.3, "mirror": false}, {"cell": 5, "x": 191.8, "y": 408, "angle": 0.976, "width": 68.2, "mirror": false}],
   "claudia-v2/sprites/8": [{"cell": 1, "x": 186.3, "y": 403.5, "angle": 0.619, "width": 74.5, "mirror": false, "layer": 1}, {"cell": 1, "x": 235.7, "y": 403.7, "angle": 0.409, "width": 63.4, "mirror": false}],
   "claudia-v2/sprites/9": [{"cell": 1, "x": 292.5, "y": 337.1, "angle": -0.05, "width": 77, "mirror": false}, {"cell": 1, "x": 339, "y": 320.2, "angle": -0.152, "width": 66.5, "mirror": false}],
+  "cornsilk/actions/0": [{"cell": 2, "x": 119.9, "y": 392.3, "angle": 0.437, "width": 75.7, "mirror": false}, {"cell": 0, "x": 272.9, "y": 385.4, "angle": -0.028, "width": 101.8, "mirror": false}],
+  "cornsilk/actions/1": [{"cell": 2, "x": 94, "y": 390, "angle": 0.576, "width": 78.2, "mirror": false}, {"cell": 0, "x": 237.5, "y": 383.9, "angle": 0.002, "width": 98.1, "mirror": false}],
+  "cornsilk/actions/2": [{"cell": 1, "x": 116, "y": 388, "angle": 0.675, "width": 90.6, "mirror": false}, {"cell": 0, "x": 265.5, "y": 386, "angle": -0.214, "width": 99.1, "mirror": false}],
+  "cornsilk/actions/3": [{"cell": 2, "x": 123.1, "y": 370.2, "angle": 0.497, "width": 68.8, "mirror": false}, {"cell": 1, "x": 265.5, "y": 354.9, "angle": -0.012, "width": 89, "mirror": false}],
+  "cornsilk/actions/4": [{"cell": 1, "x": 108.8, "y": 354.5, "angle": 0.82, "width": 87.6, "mirror": false}, {"cell": 1, "x": 247.4, "y": 363.9, "angle": 0.094, "width": 89.3, "mirror": false}],
+  "cornsilk/actions/5": [{"cell": 1, "x": 332.1, "y": 290.1, "angle": -0.819, "width": 89.5, "mirror": false}, {"cell": 1, "x": 200.1, "y": 357.3, "angle": 0.547, "width": 94.5, "mirror": false}],
+  "cornsilk/actions/6": [{"cell": 1, "x": 275.9, "y": 391.4, "angle": -0.331, "width": 91.9, "mirror": false}, {"cell": 1, "x": 334, "y": 364, "angle": -0.527, "width": 86.1, "mirror": false}],
+  "cornsilk/actions/7": [{"cell": 1, "x": 274.1, "y": 375.5, "angle": -0.627, "width": 93.7, "mirror": false}, {"cell": 1, "x": 350.1, "y": 326.4, "angle": -0.786, "width": 88.4, "mirror": false}],
+  "cornsilk/sprites/0": [{"cell": 1, "x": 172.3, "y": 392.1, "angle": 0.25, "width": 78.6, "mirror": false}, {"cell": 1, "x": 254.3, "y": 390.1, "angle": -0.225, "width": 82.6, "mirror": false}],
+  "cornsilk/sprites/1": [{"cell": 1, "x": 169.4, "y": 390.5, "angle": 0.229, "width": 82.7, "mirror": false}, {"cell": 1, "x": 243.1, "y": 382.4, "angle": -0.102, "width": 78.7, "mirror": false}],
+  "cornsilk/sprites/10": [{"cell": 1, "x": 83.6, "y": 398.6, "angle": 0.772, "width": 95.6, "mirror": false}, {"cell": 0, "x": 210.4, "y": 382.2, "angle": -0.043, "width": 87.4, "mirror": false}],
+  "cornsilk/sprites/11": [{"cell": 1, "x": 340.4, "y": 347.9, "angle": -1.479, "width": 90.1, "mirror": false}, {"cell": 1, "x": 314.1, "y": 273.5, "angle": -2.275, "width": 84.2, "mirror": false}],
+  "cornsilk/sprites/2": [{"cell": 1, "x": 149.4, "y": 388.2, "angle": 0.292, "width": 84.1, "mirror": false}, {"cell": 1, "x": 237.6, "y": 384.1, "angle": -0.181, "width": 80.1, "mirror": false}],
+  "cornsilk/sprites/3": [{"cell": 1, "x": 45.4, "y": 365.6, "angle": 1.476, "width": 90, "mirror": false}, {"cell": 0, "x": 288.1, "y": 380.2, "angle": -0.847, "width": 97.3, "mirror": false}],
+  "cornsilk/sprites/4": [{"cell": 1, "x": 133.2, "y": 385.3, "angle": 0.593, "width": 90.2, "mirror": false}, {"cell": 0, "x": 245.4, "y": 343.6, "angle": 0.143, "width": 87.9, "mirror": false}],
+  "cornsilk/sprites/5": [{"cell": 1, "x": 53, "y": 349.4, "angle": 1.469, "width": 90.3, "mirror": false}, {"cell": 0, "x": 266.4, "y": 382.2, "angle": -0.636, "width": 96.2, "mirror": false}],
+  "cornsilk/sprites/6": [{"cell": 1, "x": 175.5, "y": 393.3, "angle": 0.421, "width": 80.3, "mirror": false, "layer": 1}, {"cell": 0, "x": 230.2, "y": 399, "angle": 0.398, "width": 73.2, "mirror": false}],
+  "cornsilk/sprites/7": [{"cell": 1, "x": 108.1, "y": 348.6, "angle": 1.42, "width": 85.5, "mirror": false, "layer": 1}, {"cell": 1, "x": 160, "y": 390, "angle": 0.984, "width": 71.7, "mirror": false}],
+  "cornsilk/sprites/8": [{"cell": 1, "x": 183.5, "y": 397.3, "angle": 0.223, "width": 83.5, "mirror": false, "layer": 1}, {"cell": 1, "x": 237.8, "y": 402.9, "angle": 0.276, "width": 74.8, "mirror": false}],
+  "cornsilk/sprites/9": [{"cell": 1, "x": 282, "y": 320.3, "angle": -0.623, "width": 91.2, "mirror": false}, {"cell": 1, "x": 341.2, "y": 281.4, "angle": -1.305, "width": 84.2, "mirror": false}],
   "felicity/actions/6": [{"cell": 1, "x": 303.8, "y": 379.2, "angle": -0.473, "width": 91.1, "mirror": false}, {"cell": 0, "x": 361.4, "y": 343.1, "angle": -0.533, "width": 92.5, "mirror": false}],
   "felicity/sprites/10": [{"cell": 1, "x": 89.8, "y": 389.2, "angle": 0.882, "width": 92, "mirror": false}, {"cell": 0, "x": 270.6, "y": 391.1, "angle": 0.047, "width": 90.3, "mirror": false}],
   "felicity/sprites/11": [{"cell": 1, "x": 323.8, "y": 381.4, "angle": -0.617, "width": 91.5, "mirror": false}, {"cell": 1, "x": 379.3, "y": 309.8, "angle": -0.923, "width": 86.2, "mirror": false}],
@@ -209,5 +229,28 @@ window.MOON_BOOT_OVERRIDES = {
 };
 
 // Hand-placed poses kept as they are but not learned from: their foot angles
-// are ones no boot view covers, so they'd teach the wrong thing elsewhere.
-window.MOON_BOOT_NOT_LESSONS = ["lily/sprites/4"];
+// are ones no boot view covers (Lily's), or the feet aren't a doll's at all
+// (Cornsilk's plush paws), so they'd teach the wrong thing elsewhere.
+window.MOON_BOOT_NOT_LESSONS = [
+  "lily/sprites/4",
+  "cornsilk/actions/0",
+  "cornsilk/actions/1",
+  "cornsilk/actions/2",
+  "cornsilk/actions/3",
+  "cornsilk/actions/4",
+  "cornsilk/actions/5",
+  "cornsilk/actions/6",
+  "cornsilk/actions/7",
+  "cornsilk/sprites/0",
+  "cornsilk/sprites/1",
+  "cornsilk/sprites/10",
+  "cornsilk/sprites/11",
+  "cornsilk/sprites/2",
+  "cornsilk/sprites/3",
+  "cornsilk/sprites/4",
+  "cornsilk/sprites/5",
+  "cornsilk/sprites/6",
+  "cornsilk/sprites/7",
+  "cornsilk/sprites/8",
+  "cornsilk/sprites/9"
+];

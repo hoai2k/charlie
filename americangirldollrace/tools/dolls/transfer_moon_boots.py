@@ -28,7 +28,7 @@ ASTRAY = 24                    # frame px from the middle of the matches beyond 
 def owner_boots():
     text = (GAME / 'moon-boot-overrides.js').read_text()
     owner = json.loads(re.search(r'window.MOON_BOOT_OVERRIDES = (\{.*?\n\});', text, re.S).group(1))
-    skip = re.search(r'window.MOON_BOOT_NOT_LESSONS = (\[.*?\]);', text)
+    skip = re.search(r'window.MOON_BOOT_NOT_LESSONS = (\[.*?\]);', text, re.S)
     for pose in json.loads(skip.group(1)) if skip else []:
         owner.pop(pose, None)
     return owner
