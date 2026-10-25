@@ -13,13 +13,14 @@
  */
 (() => {
   // Top row first, then the bottom row (the grid splits the list in half).
-  // Dolls added later go at the end of the bottom row, before the secret
-  // dolls (Amanda and Penelope, shown with All Dolls).
+  // Dolls added later go at the end of the bottom row; every hidden doll
+  // (Annie, Katniss, Cornsilk, Munna, Amanda, Penelope: shown with All Dolls)
+  // always comes after all the others.
   const ROSTER_ORDER = [...new Set([
     "juliette", "whirlpool", "kaya", "claudia", "lily", "cinnamon", "marisol", "felicity",
     "barbie", "rumi", "mira", "zoey", "hermione", "luna",
     ...Object.keys(window.EXTRA_DOLLS || {}), "amanda", "penelope"
-  ])];
+  ])].sort((a, b) => Boolean(characters[a]?.hidden) - Boolean(characters[b]?.hidden));
   const RANDOM = "random";
   const COLS = 5;
   const STALL = 157;
@@ -886,7 +887,11 @@
   // up under the top-right box (in portrait, a column beside the logo).
   function placeCorner() {
     const corner = $("#lbCorner");
-    const width = corner.offsetWidth + 30;
+    // (Its width as the bottom row, whatever layout it's in now: raised in
+    // portrait it's a column, and measuring that would drop it back on a stall.)
+    const buttons = [...corner.children].filter(button => !button.hidden);
+    const size = buttons[0]?.offsetWidth || 62;
+    const width = buttons.length * size + (buttons.length - 1) * 12 + 30;
     const crowded = [...lobby.stallEls.values()].some(el => parseFloat(el.style.bottom) < 120 && parseFloat(el.style.left) + el.offsetWidth > lobby.stageW - width);
     corner.classList.toggle("corner-up", crowded);
     const box = $("#lbTopRight");

@@ -474,6 +474,23 @@ test('Moon Base gives a rover with nine calibrated rider frames in either direct
   assert.deepEqual(errors,[]);
 });
 
+test('All Dolls: every hidden doll is listed after all the others (Random last)', { skip: skip() }, async () => {
+  const r = await page.evaluate(() => {
+    const saved = state.specials; state.running = false; startPanel.classList.remove('hidden');
+    setSpecials('all-dolls'); Lobby.showSelect();
+    const names = [...document.querySelectorAll('#lbGrid .lb-name')].map(n => n.textContent);
+    const byName = Object.fromEntries(Object.entries(characters).map(([key, c]) => [c.name, key]));
+    const hidden = names.map(n => n === 'Random' ? 'random' : characters[byName[n]]?.hidden ? 'hidden' : 'shown');
+    setSpecials(saved); Lobby.showSelect();
+    return { hidden, names };
+  });
+  const firstHidden = r.hidden.indexOf('hidden');
+  assert.ok(firstHidden > 0, r.names.join());
+  assert.deepEqual(r.hidden.slice(firstHidden, -1).filter(h => h !== 'hidden'), [], r.names.join());
+  assert.equal(r.hidden.at(-1), 'random');
+  assert.ok(r.names.includes('Munna') && r.names.includes('Penelope'));
+});
+
 test('lobby: clicking Random adds keyboard players; Escape un-picks then removes each in turn; clicking an unpicked keyboard player removes her', { skip: skip() }, async () => {
   await page.evaluate(() => { state.running = false; startPanel.classList.remove('hidden'); Lobby.showSelect(); });
   const players = () => page.evaluate(() => Lobby.players().join(' '));
@@ -510,7 +527,10 @@ test('choose screen: corner buttons (sound, full screen; no gear) at the bottom 
   // Never over a stall, landscape or upright (it moves up when they reach it).
   const clear = () => page.evaluate(() => {
     const c = document.querySelector('#lbCorner').getBoundingClientRect();
-    return [...document.querySelectorAll('#lbSlots .lb-slot')].every(el => { const r = el.getBoundingClientRect(); return r.right <= c.left || r.left >= c.right || r.bottom <= c.top || r.top >= c.bottom; });
+    const bad = [...document.querySelectorAll('#lbSlots .lb-slot')].filter(el => { const r = el.getBoundingClientRect(); return !(r.right <= c.left || r.left >= c.right || r.bottom <= c.top || r.top >= c.bottom); });
+    if (!bad.length) return true;
+    const f = r => [r.left, r.top, r.right, r.bottom].map(Math.round).join(',');
+    return `corner ${f(c)} ${document.querySelector('#lbCorner').className} over ${bad.map(el => `${el.dataset.id} ${f(el.getBoundingClientRect())} style ${el.style.left}/${el.style.bottom}`).join('; ')}`;
   });
   const many = [await clear()];
   const size = page.viewportSize();
