@@ -1,0 +1,16 @@
+{
+  "name": "Munna",
+  "tool": "built-in image_gen",
+  "canonical": "sources/munna/canonical.webp",
+  "canonicalSource": "exec-c9647820-39ac-41c9-a2e5-526bc8a74a47.png",
+  "sourcePhoto": "sources/munna/reference.jpg",
+  "promptSet": "munna/prompts.json",
+  "sha256": {
+    "canonical.webp": "0a8b4ce047af518b7f19ad7ce892736e653b8361c1930b39e64a60cbc2091aed",
+    "normal-source.webp": "5a05eaae7bb7668a8f24c3c0869bcb14ee234e5ae2905810dfe2d3f2d868c396",
+    "menu-source.webp": "5b053ac2b76ee78116fe46367da2de55a841ed72d257b653de81b58b06da8043",
+    "toys-source.webp": "48a05f0343937b962107628248922b59052f9c7fcdb51f065b24a24e17cd7a36",
+    "actions-source.webp": "d561e1abac86dfb80f4eec3efbcb9aa9375a46490bda7ecfdf3733eebf3952f5",
+    "ledge-source.webp": "551b970db239238451eafac13f4cfa0d91af1671f0f4935abb7f5626f59d7b59"
+  }
+}

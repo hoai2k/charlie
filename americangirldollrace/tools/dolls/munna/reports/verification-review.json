@@ -1,0 +1,427 @@
+{
+  "results": [
+    {
+      "id": "munna/sprites/0",
+      "boots": [
+        {
+          "cell": 1,
+          "x": 132,
+          "y": 382,
+          "angle": 0.402,
+          "width": 91.1,
+          "mirror": true
+        },
+        {
+          "cell": 1,
+          "x": 286,
+          "y": 380,
+          "angle": -0.58,
+          "width": 80.2,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/sprites/1",
+      "boots": [
+        {
+          "cell": 1,
+          "x": 138,
+          "y": 380,
+          "angle": 0.395,
+          "width": 94.8,
+          "mirror": true
+        },
+        {
+          "cell": 1,
+          "x": 266,
+          "y": 380,
+          "angle": -0.404,
+          "width": 80.2,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/sprites/2",
+      "boots": [
+        {
+          "cell": 1,
+          "x": 122,
+          "y": 382,
+          "angle": 0.376,
+          "width": 94.8,
+          "mirror": true
+        },
+        {
+          "cell": 1,
+          "x": 254,
+          "y": 380,
+          "angle": -0.46,
+          "width": 80.2,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/sprites/3",
+      "boots": [
+        {
+          "cell": 1,
+          "x": 46,
+          "y": 376,
+          "angle": 1.096,
+          "width": 91.1,
+          "mirror": false
+        },
+        {
+          "cell": 0,
+          "x": 336,
+          "y": 376,
+          "angle": -0.926,
+          "width": 99.8,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/sprites/4",
+      "boots": [
+        {
+          "cell": 1,
+          "x": 130,
+          "y": 388,
+          "angle": 0.402,
+          "width": 86.8,
+          "mirror": false
+        },
+        {
+          "cell": 0,
+          "x": 344,
+          "y": 298,
+          "angle": -1,
+          "width": 95.5,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/sprites/5",
+      "boots": [
+        {
+          "cell": 1,
+          "x": 36,
+          "y": 352,
+          "angle": 1.163,
+          "width": 86.8,
+          "mirror": false
+        },
+        {
+          "cell": 0,
+          "x": 356,
+          "y": 364,
+          "angle": -1.072,
+          "width": 91.1,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/sprites/6",
+      "boots": [
+        {
+          "cell": 1,
+          "x": 156,
+          "y": 394,
+          "angle": 0.599,
+          "width": 86.8,
+          "mirror": false
+        },
+        {
+          "cell": 0,
+          "x": 278,
+          "y": 376,
+          "angle": 0.066,
+          "width": 86.8,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/sprites/7",
+      "boots": [
+        {
+          "cell": 1,
+          "x": 224,
+          "y": 392,
+          "angle": 0.864,
+          "width": 86.8,
+          "mirror": false
+        },
+        {
+          "cell": 0,
+          "x": 322,
+          "y": 340,
+          "angle": -0.723,
+          "width": 91.1,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/sprites/8",
+      "boots": [
+        {
+          "cell": 1,
+          "x": 130,
+          "y": 396,
+          "angle": 0.618,
+          "width": 86.8,
+          "mirror": false
+        },
+        {
+          "cell": 0,
+          "x": 260,
+          "y": 376,
+          "angle": 0.13,
+          "width": 86.8,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/sprites/9",
+      "boots": [
+        {
+          "cell": 1,
+          "x": 260,
+          "y": 382,
+          "angle": 0,
+          "width": 99.8,
+          "mirror": false
+        },
+        {
+          "cell": 1,
+          "x": 362,
+          "y": 358,
+          "angle": -0.441,
+          "width": 99.8,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/sprites/10",
+      "boots": [
+        {
+          "cell": 1,
+          "x": 74,
+          "y": 390,
+          "angle": 0.832,
+          "width": 108.5,
+          "mirror": false
+        },
+        {
+          "cell": 0,
+          "x": 286,
+          "y": 366,
+          "angle": -0.545,
+          "width": 95.5,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/sprites/11",
+      "boots": [
+        {
+          "cell": 1,
+          "x": 320,
+          "y": 380,
+          "angle": -0.63,
+          "width": 78.1,
+          "mirror": false
+        },
+        {
+          "cell": 0,
+          "x": 378,
+          "y": 288,
+          "angle": -0.872,
+          "width": 93.7,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/actions/0",
+      "boots": [
+        {
+          "cell": 0,
+          "x": 100,
+          "y": 392,
+          "angle": 0.378,
+          "width": 86.8,
+          "mirror": false
+        },
+        {
+          "cell": 0,
+          "x": 292,
+          "y": 378,
+          "angle": -0.503,
+          "width": 86.8,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/actions/1",
+      "boots": [
+        {
+          "cell": 0,
+          "x": 70,
+          "y": 396,
+          "angle": 0.441,
+          "width": 86.8,
+          "mirror": false
+        },
+        {
+          "cell": 0,
+          "x": 280,
+          "y": 372,
+          "angle": -0.809,
+          "width": 82.2,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/actions/2",
+      "boots": [
+        {
+          "cell": 0,
+          "x": 92,
+          "y": 390,
+          "angle": 0.373,
+          "width": 86.8,
+          "mirror": false
+        },
+        {
+          "cell": 0,
+          "x": 328,
+          "y": 362,
+          "angle": -1,
+          "width": 86.8,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/actions/3",
+      "boots": [
+        {
+          "cell": 2,
+          "x": 136,
+          "y": 332,
+          "angle": 0.459,
+          "width": 91.1,
+          "mirror": false
+        },
+        {
+          "cell": 1,
+          "x": 280,
+          "y": 318,
+          "angle": 0.109,
+          "width": 108.5,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/actions/4",
+      "boots": [
+        {
+          "cell": 1,
+          "x": 122,
+          "y": 298,
+          "angle": 0.09,
+          "width": 108.5,
+          "mirror": false
+        },
+        {
+          "cell": 1,
+          "x": 270,
+          "y": 364,
+          "angle": -0.05,
+          "width": 104.2,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/actions/5",
+      "boots": [
+        {
+          "cell": 2,
+          "x": 176,
+          "y": 356,
+          "angle": 0,
+          "width": 95.5,
+          "mirror": false
+        },
+        {
+          "cell": 0,
+          "x": 334,
+          "y": 308,
+          "angle": -0.5,
+          "width": 95.5,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/actions/6",
+      "boots": [
+        {
+          "cell": 1,
+          "x": 280,
+          "y": 382,
+          "angle": -0.529,
+          "width": 95.5,
+          "mirror": false
+        },
+        {
+          "cell": 0,
+          "x": 376,
+          "y": 328,
+          "angle": -1.052,
+          "width": 99.8,
+          "mirror": false
+        }
+      ]
+    },
+    {
+      "id": "munna/actions/7",
+      "boots": [
+        {
+          "cell": 0,
+          "x": 78,
+          "y": 386,
+          "angle": 0.475,
+          "width": 95.5,
+          "mirror": false
+        },
+        {
+          "cell": 1,
+          "x": 330,
+          "y": 372,
+          "angle": -0.451,
+          "width": 86.8,
+          "mirror": false
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "contactSheet": "verification-review.jpg",
+  "status": "Initial measured fits; all poses remain pending owner verification."
+}

@@ -236,6 +236,14 @@ if __name__ == '__main__':
     out = {}
     for key in asset_keys():
         entry = {kind: with_extra_feet(key, kind, sheet_feet(GAME / f'assets/doll_{key}_{kind}.webp', kind)) for kind in ('sprites', 'actions')}
+        manifest = GAME / f'tools/dolls/manifests/{key}.json'
+        if manifest.exists():
+            # A board or other attached prop is not a foot. Explicit source
+            # measurements preserve these exceptional poses on every rebuild.
+            for kind, frames in json.loads(manifest.read_text()).get('footAnchorsFrame', {}).items():
+                for index, anchors in frames.items():
+                    assert kind in entry and 0 <= int(index) < len(entry[kind])
+                    entry[kind][int(index)] = anchors
         if entry['sprites']:
             out[key] = entry
     (GAME / 'feet.js').write_text(

@@ -25,7 +25,8 @@ window.RIDE_TOY_SHEETS = [
   "zoey",
   "annie",
   "katniss",
-  "cornsilk"
+  "cornsilk",
+  "munna"
 ];
 // Packed frame calibration preserves anatomy when long hair or fall poses need more room.
 window.RIDE_TOY_FRAMES = {
@@ -598,6 +599,36 @@ window.RIDE_TOY_FRAMES = {
       1.0,
       1.0
     ]
+  },
+  "munna": {
+    "anchorX": [
+      225,
+      225,
+      225,
+      225,
+      225,
+      225.2,
+      225,
+      225,
+      225,
+      225,
+      225,
+      230.48000000000002
+    ],
+    "scale": [
+      1.0563611491108071,
+      1.0563611491108071,
+      1.0563611491108071,
+      1.0563611491108071,
+      1.0563611491108071,
+      1.0563611491108071,
+      1.0300860781105499,
+      1.075364587038486,
+      1.0300860781105499,
+      1.1915397086299013,
+      1.1557935173710046,
+      1.0455760943227386
+    ]
   }
 };
 // Dolls (asset keys) whose actions sheet is delivered: wand casting, surfing,
@@ -621,7 +652,8 @@ window.ACTION_SHEETS = [
   "zoey",
   "annie",
   "katniss",
-  "cornsilk"
+  "cornsilk",
+  "munna"
 ];
 window.ACTION_ART_VERSION = "20261022-marisol-v2";
 window.ACTION_FRAMES = {
@@ -4238,6 +4270,218 @@ window.ACTION_FRAMES = {
       ],
       "sourceScaleRatio": 0.97
     }
+  ],
+  "munna": [
+    {
+      "bounds": [
+        26,
+        10,
+        379,
+        409
+      ],
+      "packedScale": 1.010126582278481,
+      "scale": 1.1422787738577211,
+      "renderScale": 1.1422787738577211,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": [
+        373,
+        38
+      ],
+      "sourceAnchor": [
+        187.48000000000002,
+        401
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        7,
+        79,
+        406,
+        409
+      ],
+      "packedScale": 0.9684466019417476,
+      "scale": 1.1914401388085598,
+      "renderScale": 1.1914401388085598,
+      "anchorX": 230.48000000000002,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": [
+        401,
+        166
+      ],
+      "sourceAnchor": [
+        220.24,
+        347
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        7,
+        66,
+        406,
+        409
+      ],
+      "packedScale": 1.0336787564766838,
+      "scale": 1.116252168883748,
+      "renderScale": 1.116252168883748,
+      "anchorX": 230.48,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": [
+        398,
+        174
+      ],
+      "sourceAnchor": [
+        206.72,
+        338
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        7,
+        36,
+        406,
+        409
+      ],
+      "packedScale": 1.0178571428571428,
+      "scale": 1.1336032388663968,
+      "renderScale": 1.1336032388663968,
+      "anchorX": 230.48,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "sourceAnchor": [
+        209.84,
+        372
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        7,
+        45,
+        406,
+        409
+      ],
+      "packedScale": 1.0783783783783785,
+      "scale": 1.0699826489300173,
+      "renderScale": 1.0699826489300173,
+      "anchorX": 230.48000000000002,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "sourceAnchor": [
+        198.4,
+        344
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        21,
+        10,
+        382,
+        409
+      ],
+      "packedScale": 1.0668449197860963,
+      "scale": 1.0815500289184499,
+      "renderScale": 1.0815500289184499,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "sourceAnchor": [
+        181.76000000000002,
+        380
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        7,
+        37,
+        406,
+        409
+      ],
+      "packedScale": 1.1367521367521367,
+      "scale": 1.0150375939849623,
+      "renderScale": 1.0150375939849623,
+      "anchorX": 230.48000000000002,
+      "baseline": 409,
+      "targetY": 424.9048872180451,
+      "offsetX": 20.760601503759418,
+      "hand": [
+        390.04,
+        208.27
+      ],
+      "wandTip": null,
+      "sourceAnchor": [
+        188.52,
+        333
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        7,
+        21,
+        406,
+        409
+      ],
+      "packedScale": 1.1145251396648044,
+      "scale": 1.0352805089647195,
+      "renderScale": 1.0352805089647195,
+      "anchorX": 230.48,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "sourceAnchor": [
+        192.16,
+        354
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        7,
+        56,
+        406,
+        409
+      ],
+      "packedScale": 1.0178571428571428,
+      "scale": 1.1336032388663968,
+      "renderScale": 1.1336032388663968,
+      "anchorX": 230.48,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "sourceAnchor": [
+        209.84,
+        353
+      ],
+      "sourceScaleRatio": 1
+    }
   ]
 };
 
@@ -4416,6 +4660,86 @@ window.LEDGE_FRAMES = {
         519
       ],
       "sourceScaleRatio": 0.6
+    }
+  ],
+  "munna": [
+    {
+      "bounds": [
+        49,
+        33,
+        356,
+        409
+      ],
+      "packedScale": 0.6,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "corner": [
+        304.23,
+        176.13
+      ],
+      "sourceAnchor": [
+        272.24,
+        632
+      ],
+      "sourceScaleRatio": 0.52
+    },
+    {
+      "bounds": [
+        75,
+        29,
+        334,
+        409
+      ],
+      "packedScale": 0.6,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "corner": [
+        276.24,
+        181.12
+      ],
+      "sourceAnchor": [
+        230.12,
+        639
+      ],
+      "sourceScaleRatio": 0.52
+    },
+    {
+      "bounds": [
+        64,
+        134,
+        342,
+        409
+      ],
+      "packedScale": 0.6,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "corner": [
+        225.7,
+        400.74
+      ],
+      "sourceAnchor": [
+        247.28,
+        465
+      ],
+      "sourceScaleRatio": 0.52
     }
   ]
 };
@@ -4691,6 +5015,20 @@ window.LEDGE_ANCHORS = {
       216.31,
       399.08
     ]
+  ],
+  "munna": [
+    [
+      304.23,
+      176.13
+    ],
+    [
+      276.24,
+      181.12
+    ],
+    [
+      225.7,
+      400.74
+    ]
   ]
 };
 
@@ -4713,7 +5051,8 @@ window.LEDGE_SHEETS = [
   "zoey",
   "annie",
   "katniss",
-  "cornsilk"
+  "cornsilk",
+  "munna"
 ];
 
 window.DOLL_WING_ROOTS = {
@@ -4940,6 +5279,232 @@ window.DOLL_WING_ROOTS = {
         233.8,
         293.26,
         209.0
+      ]
+    ]
+  },
+  "munna": {
+    "sprites": [
+      [
+        168.17,
+        226.67,
+        186.7,
+        197.42
+      ],
+      [
+        168.21,
+        226.89,
+        186.04,
+        197.55
+      ],
+      [
+        166.83,
+        225.51,
+        186.04,
+        196.17
+      ],
+      [
+        199.57,
+        256.17,
+        212.8,
+        227.87
+      ],
+      [
+        187.66,
+        243.91,
+        217.75,
+        215.78
+      ],
+      [
+        200.02,
+        255.24,
+        221.28,
+        227.63
+      ],
+      [
+        187.65,
+        236.45,
+        236.55,
+        212.05
+      ],
+      [
+        208.36,
+        257.68,
+        238.0,
+        233.02
+      ],
+      [
+        195.62,
+        241.84,
+        251.88,
+        218.73
+      ],
+      [
+        181.57,
+        236.43,
+        240.75,
+        209.0
+      ],
+      [
+        198.21,
+        257.05,
+        212.85,
+        227.63
+      ],
+      [
+        200.45,
+        248.39,
+        271.57,
+        224.42
+      ]
+    ],
+    "toys": [
+      [
+        192.73,
+        247.77,
+        207.19,
+        220.25
+      ],
+      [
+        189.51,
+        245.93,
+        202.12,
+        217.72
+      ],
+      [
+        192.3,
+        247.86,
+        205.29,
+        220.08
+      ],
+      [
+        191.1,
+        245.8,
+        208.46,
+        218.45
+      ],
+      [
+        193.83,
+        246.61,
+        215.44,
+        220.22
+      ],
+      [
+        202.26,
+        239.48,
+        272.56,
+        220.87
+      ],
+      [
+        184.45,
+        238.97,
+        201.83,
+        211.71
+      ],
+      [
+        181.73,
+        241.59,
+        181.57,
+        211.66
+      ],
+      [
+        184.79,
+        238.61,
+        204.46,
+        211.7
+      ],
+      [
+        181.25,
+        241.11,
+        181.57,
+        211.18
+      ],
+      [
+        182.25,
+        242.09,
+        181.57,
+        212.17
+      ],
+      [
+        192.81,
+        244.13,
+        213.97,
+        218.47
+      ]
+    ],
+    "actions": [
+      [
+        182.6,
+        242.46,
+        217.48,
+        212.53
+      ],
+      [
+        193.7,
+        243.24,
+        220.76,
+        218.47
+      ],
+      [
+        192.73,
+        244.21,
+        213.39,
+        218.47
+      ],
+      [
+        194.52,
+        250.4,
+        211.56,
+        222.46
+      ],
+      [
+        195.12,
+        249.8,
+        215.82,
+        222.46
+      ],
+      [
+        186.28,
+        246.14,
+        197.53,
+        216.21
+      ],
+      [
+        178.62,
+        234.38,
+        230.58,
+        206.5
+      ],
+      [
+        193.37,
+        251.55,
+        207.32,
+        222.46
+      ],
+      [
+        191.98,
+        244.96,
+        225.34,
+        218.47
+      ]
+    ],
+    "ledge": [
+      [
+        186.97,
+        243.31,
+        206.18,
+        215.14
+      ],
+      [
+        185.69,
+        242.65,
+        211.5,
+        214.17
+      ],
+      [
+        193.91,
+        235.22,
+        271.3,
+        214.57
       ]
     ]
   }

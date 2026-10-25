@@ -1,0 +1,280 @@
+{
+  "key": "munna",
+  "standingHeight": 390,
+  "baseline": 409,
+  "frames": {
+    "idle-0": {
+      "bounds": [
+        41,
+        19,
+        331,
+        409
+      ],
+      "scale": 1.1538461538461537,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        151.57999999999998,
+        344
+      ]
+    },
+    "idle-1": {
+      "bounds": [
+        43,
+        18,
+        329,
+        409
+      ],
+      "scale": 1.1538461538461537,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        149.84,
+        345
+      ]
+    },
+    "idle-2": {
+      "bounds": [
+        20,
+        18,
+        341,
+        409
+      ],
+      "scale": 1.1538461538461537,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        170.01999999999998,
+        345
+      ]
+    },
+    "run-0": {
+      "bounds": [
+        13,
+        32,
+        390,
+        409
+      ],
+      "scale": 1.1538461538461537,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        176.04,
+        333
+      ]
+    },
+    "run-1": {
+      "bounds": [
+        29,
+        34,
+        368,
+        409
+      ],
+      "scale": 1.1538461538461537,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        161.82000000000002,
+        331
+      ]
+    },
+    "run-2": {
+      "bounds": [
+        15,
+        41,
+        388,
+        409
+      ],
+      "scale": 1.1538461538461537,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        173.96,
+        325
+      ]
+    },
+    "jump-0": {
+      "bounds": [
+        41,
+        84,
+        346,
+        409
+      ],
+      "scale": 1.1538461538461537,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        151.20000000000002,
+        288
+      ]
+    },
+    "jump-1": {
+      "bounds": [
+        9,
+        80,
+        409,
+        409
+      ],
+      "scale": 1.1538461538461537,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        179.5,
+        291
+      ]
+    },
+    "jump-2": {
+      "bounds": [
+        37,
+        101,
+        361,
+        409
+      ],
+      "scale": 1.1538461538461537,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        154.93,
+        273
+      ]
+    },
+    "ride": {
+      "bounds": [
+        33,
+        43,
+        399,
+        409
+      ],
+      "scale": 1.1538461538461537,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        158.16,
+        323
+      ],
+      "seat": [
+        168.77,
+        383.4
+      ]
+    },
+    "push": {
+      "bounds": [
+        15,
+        17,
+        388,
+        409
+      ],
+      "scale": 1.1538461538461537,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        173.96,
+        346
+      ]
+    },
+    "fall": {
+      "bounds": [
+        16,
+        89,
+        401,
+        409
+      ],
+      "scale": 1.1538461538461537,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        173.0,
+        283
+      ]
+    },
+    "wave": {
+      "bounds": [
+        21,
+        17,
+        309,
+        409
+      ],
+      "scale": 0.5769230769230769,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        331.65000000000003,
+        685
+      ]
+    },
+    "cheer": {
+      "bounds": [
+        12,
+        22,
+        315,
+        409
+      ],
+      "scale": 0.5769230769230769,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        347.25,
+        676
+      ]
+    }
+  },
+  "runtime": {
+    "name": "Munna",
+    "color": "#92949c",
+    "hidden": true,
+    "verifyAllMoonBoots": true,
+    "spriteKey": "munna",
+    "jumpScale": 1,
+    "riderXOffset": 36.441,
+    "riderYOffset": 38.584,
+    "outfitData": {
+      "stats": {
+        "h": 1.3,
+        "L": 0.73,
+        "C": 0.008,
+        "beta": 0.7
+      },
+      "outfits": []
+    }
+  },
+  "sha256": {
+    "assets/doll_munna_sprites.webp": "f039a1ed67367c24c216991c0d1fda104489d0413b63e4fd7c5cc6036e32c1e9",
+    "assets/masks/munna_sheet_mask.webp": "9fc316e840d6c46e0bef73dfe2fa8a2b04e38d7a5e13c9be330730617a971f1c",
+    "assets/portraits/munna.webp": "857d7f866a1cc31a2a0b1334ab6e593dc669a14bbb954aa3be1aee4379367dd0",
+    "assets/masks/munna_portrait_mask.webp": "c5bd5a66ce7f754478f7b49d9ea34625d6e6bba76250a4184dab3fccd259edeb",
+    "assets/portraits/munna_wave.webp": "d144f064adb53e60ba502d38de056a5bd1175af41449eaf6a2cadbc21c2e9781",
+    "assets/masks/munna_wave_mask.webp": "c9763e13989adef7e48385a0f512a94affd63b1b385e23aef20ba0f941222eec",
+    "assets/portraits/munna_cheer.webp": "15844bc642d1dc294c4e565a9fd599245cb69a0dd3c0620eac3948e003c19b95",
+    "assets/masks/munna_cheer_mask.webp": "c9763e13989adef7e48385a0f512a94affd63b1b385e23aef20ba0f941222eec",
+    "assets/portraits/munna_ride.webp": "49b885362cc83d889cd581e27984312cee133f09a10cffef8f455ac7af4efc62",
+    "assets/masks/munna_ride_mask.webp": "c9763e13989adef7e48385a0f512a94affd63b1b385e23aef20ba0f941222eec"
+  }
+}

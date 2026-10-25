@@ -1,0 +1,83 @@
+{
+  "frames": [
+    {
+      "bounds": [
+        49,
+        33,
+        356,
+        409
+      ],
+      "packedScale": 0.6,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "corner": [
+        304.23,
+        176.13
+      ],
+      "sourceAnchor": [
+        272.24,
+        632
+      ],
+      "sourceScaleRatio": 0.52
+    },
+    {
+      "bounds": [
+        75,
+        29,
+        334,
+        409
+      ],
+      "packedScale": 0.6,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "corner": [
+        276.24,
+        181.12
+      ],
+      "sourceAnchor": [
+        230.12,
+        639
+      ],
+      "sourceScaleRatio": 0.52
+    },
+    {
+      "bounds": [
+        64,
+        134,
+        342,
+        409
+      ],
+      "packedScale": 0.6,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "corner": [
+        225.7,
+        400.74
+      ],
+      "sourceAnchor": [
+        247.28,
+        465
+      ],
+      "sourceScaleRatio": 0.52
+    }
+  ],
+  "sha256": "c6d53d45e46a589d6bbb4bf0c77ce014e35898482d4dff5fadd94c30fdaffc51"
+}

@@ -349,6 +349,26 @@ window.EXTRA_DOLLS = {
       },
       "outfits": []
     }
+  },
+  "munna": {
+    "name": "Munna",
+    "color": "#92949c",
+    "hidden": true,
+    "verifyAllMoonBoots": true,
+    "spriteKey": "munna",
+    "jumpScale": 1,
+    "riderXOffset": 36.441,
+    "riderYOffset": 38.584,
+    "outfitData": {
+      "stats": {
+        "h": 1.3,
+        "L": 0.73,
+        "C": 0.008,
+        "beta": 0.7
+      },
+      "outfits": []
+    },
+    "bodyScale": 1.0
   }
 };
 for (const key of Object.keys(window.EXTRA_DOLLS)) {

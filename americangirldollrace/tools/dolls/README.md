@@ -341,3 +341,38 @@ metadata restores anatomical scale around the measured contact point.
 Her twenty applicable moon-boot poses have initial fitted guesses and remain
 in the Verification Queue for the owner's review; her painted float boots
 are excluded. The character-specific fitter preserves all other racers' fits.
+
+
+## Munna (hidden plush racer)
+
+Munna uses the approved gray bunny canonical at `sources/munna/canonical.webp`.
+Her light gray fur, pink nose, bead eyes, plump body and two drooping ears stay
+fixed. She has one natural appearance and the complete race, menu, skating,
+pogo, wand, surf, moon-boot and cloud-ledge pose sets. All Dolls and Random can
+select her; the workbench always lists her.
+
+```sh
+python3 americangirldollrace/tools/dolls/munna/build.py
+python3 americangirldollrace/tools/dolls/measure_hands.py
+python3 americangirldollrace/tools/dolls/measure_feet.py
+python3 americangirldollrace/tools/dolls/measure_poses.py
+python3 americangirldollrace/tools/dolls/munna/fit_boots.py
+node americangirldollrace/tools/stamp/stamp.mjs
+```
+
+Her wrapper uses the shared plush exporter in `cornsilk/build.py` with
+`munna/calibration.json`. Unlike Cornsilk's tall ears, Munna's ears do not add
+height above her head, so her bodyScale is 1. Toy groups use the shared
+standing-height calibration. Her full-size seated body is packed at the normal
+baseline with an explicit measured `seatFrame`; the saddle throw registers to
+that same point. Paw, broom, wand, wing-root and ledge-contact data are retained
+in the manifest and `munna/reports/`.
+
+Explicit `footAnchorsSource`/`footAnchorsFrame` measurements protect surf feet
+from being confused with the board's tips. Munna's fitter starts at her measured
+feet, using learned boot views, rather than transferring human leg positions
+onto the plush. It preserves other racers' fits. All twenty applicable boot
+poses remain in the owner's Verification Queue; the float's painted boots are
+excluded. No poses have been marked owner-approved. Source atlases and exact
+built-in ImageGen prompts are retained in `sources/munna/` and
+`munna/prompts.json`; actual game and queue reviews are in `munna/reports/`.
