@@ -378,6 +378,7 @@ function drawAmandaAlly(ally) {
   ctx.font = "800 15px system-ui";
   ctx.textAlign = "center";
   ctx.lineWidth = 4;
+  ctx.lineJoin = "round";
   ctx.strokeStyle = "rgba(255,255,255,0.9)";
   ctx.fillStyle = characters.amanda?.color || "#263d8f";
   const labelY = ally.y + 54 - ally.z - (SPRITE_ANCHOR_Y - 40) * scale;

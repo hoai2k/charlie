@@ -535,6 +535,7 @@ function drawVictoryPodium(winner, elapsed) {
     ctx.font = "700 21px Fredoka, system-ui, sans-serif";
     ctx.textAlign = "center";
     ctx.lineWidth = 5;
+    ctx.lineJoin = "round";
     ctx.strokeStyle = "white";
     ctx.fillStyle = racer.ai ? "#4a4f5c" : slotColor(racer.playerIndex);
     const label = racer.ai ? racer.name : `P${racer.playerIndex + 1} ${racer.name}`;
@@ -844,6 +845,8 @@ function drawRacer(racer) {
   if (racer.frozenTimer > 0 && racer.empDizzy) drawDizzyStars(screenX, (mounted ? drawY - 30 * scale : topY) + 62 * scale, scale, Math.min(1, racer.frozenTimer * 3));
 
   ctx.save();
+  // (Round joins: a mitred outline grows spikes off letters like M.)
+  ctx.lineJoin = "round";
   const labelY = mounted ? drawY - 42 : topY - 8;
   if (racer.showLabel !== false) {
     const label = shouldTagRacerNames() && racer.playerIndex !== undefined ? `${racerTag(racer)} ${racer.name}` : racer.name;
