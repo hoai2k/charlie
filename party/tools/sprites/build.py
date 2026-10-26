@@ -9,9 +9,13 @@ import argparse
 import hashlib
 import json
 import os
+import sys
 import tempfile
 from pathlib import Path
 from PIL import Image, ImageChops, ImageDraw
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import bodymap  # noqa: E402  (beside this file)
 
 POINTS = ('head', 'hand', 'eyes', 'neck', 'back')
 
@@ -193,6 +197,9 @@ def build(spec, base, output):
         filename = f'portrait-{expr}.webp'
         save_webp(image, output / filename, quality)
         manifest['portraits'][expr] = filename
+    # Body map (belly, feet, ears, tail) measured on the built frames, so a
+    # rebuild keeps it; see bodymap.py.
+    bodymap.apply(manifest, output, spec.get('asset') or output.name)
     (output / 'sprites.json').write_text(json.dumps(manifest, indent=2) + '\n')
     # QA generated separately from shipped art; optional and easy to inspect.
     cell_w, cell_h = 220, 250

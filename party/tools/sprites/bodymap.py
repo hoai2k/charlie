@@ -116,6 +116,23 @@ def snap_thick(depth, guess, radius, pull=0.35):
     return np.array([xx[i], yy[i]], float)
 
 
+def grey_mask(img, mask):
+    """Unsaturated mid-tone pixels (Hotdog's ears)."""
+    rgb = np.asarray(img.convert('RGB')).astype(int)
+    mx, mn = rgb.max(axis=2), rgb.min(axis=2)
+    return mask & (mx - mn < 28) & (mx > 90) & (mx < 215)
+
+
+def dilate(m, r):
+    out = m.copy()
+    for _ in range(r):
+        n = out.copy()
+        n[1:, :] |= out[:-1, :]; n[:-1, :] |= out[1:, :]
+        n[:, 1:] |= out[:, :-1]; n[:, :-1] |= out[:, 1:]
+        out = n
+    return out
+
+
 def nearest_opaque(mask, p):
     ys, xs = np.nonzero(mask)
     i = np.argmin((xs - p[0]) ** 2 + (ys - p[1]) ** 2)
@@ -172,18 +189,22 @@ def measure(img, frame, facing, plan, body_h):
         # backward = against the facing direction; ignore the feet band
         keep = ys < bottom - 0.1 * body_h
         far = -(xs - neck[0]) * side
+        if plan['ears'] == 'gray':
+            # Hotdog's big ears reach out as far as its tail: not them
+            keep &= ~dilate(grey_mask(img, mask), max(2, int(0.07 * body_h)))[ys, xs]
         cand = np.where(keep, far, -1e9)
         k = np.argmax(cand)
         if cand[k] > 1.2 * hs:
             tip = np.array([xs[k], ys[k]], float)
-            near = np.hypot(xs - tip[0], ys - tip[1]) <= 1.3 * hs
+            near = keep & (np.hypot(xs - tip[0], ys - tip[1]) <= 1.3 * hs)
             c = np.array([xs[near].mean(), ys[near].mean()])
             t = snap_thick(depth, c, 0.5 * hs, pull=0.6)
             if t is not None:
                 out['tail'] = t
                 tail_tip = tip
     # --- feet: lowest body pixels, split into the front and back foot ----------
-    if torso not in ('mermaid', 'imp'):
+    upside_down = eyes is not None and eyes[1] > neck[1] + 0.2 * hs   # a flip: the lowest pixels are hair
+    if torso not in ('mermaid', 'imp') and not upside_down:
         body = np.ones(len(xs), bool)
         if tail_tip is not None:   # a drooping tail tip is not a foot
             body = np.hypot(xs - tail_tip[0], ys - tail_tip[1]) > 1.0 * hs
@@ -203,12 +224,15 @@ def measure(img, frame, facing, plan, body_h):
 
     # --- ears ----------------------------------------------------------------
     if plan['ears'] == 'top':
-        ears = top_ears(mask, face, hs, plan.get('horn'))
-        if ears:
-            ears.sort(key=lambda p: p[0] * fx)
-            out['earFront'] = ears[-1]
-            if len(ears) > 1:
-                out['earBack'] = ears[0]
+        # big-headed chibis: the head's own size (head top to eyes) can exceed eyes-to-neck
+        hh = max(hs, float(np.linalg.norm(head - face)))
+        ears = top_ears(mask, face, hh, plan.get('horn'))
+        ears.sort(key=lambda p: p[0] * fx)
+        if len(ears) == 2:
+            out['earBack'], out['earFront'] = ears
+        elif ears:   # one ear shows: which one is it? (front = ahead of the head's middle)
+            mid = (head[0] + face[0]) / 2
+            out['earFront' if (ears[0][0] - mid) * fx > 0 else 'earBack'] = ears[0]
     elif plan['ears'] == 'white':
         # Cotton Candy: the ear is the highest white fur above the eyes (her
         # crown is gold, her mane pink and blue)
@@ -224,9 +248,7 @@ def measure(img, frame, facing, plan, body_h):
     elif plan['ears'] == 'gray':
         # Hotdog's big ears are the only grey (unsaturated mid-tone) areas:
         # the centre of the grey on each side of the face
-        rgb = np.asarray(img.convert('RGB')).astype(int)
-        mx, mn = rgb.max(axis=2), rgb.min(axis=2)
-        grey = mask & (mx - mn < 28) & (mx > 90) & (mx < 215)
+        grey = grey_mask(img, mask)
         gy, gx = np.nonzero(grey)
         ex = []
         for side in (-1, 1):

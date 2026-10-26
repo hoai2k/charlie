@@ -11,8 +11,8 @@ export const meta = {
   goal: 'Press the matching button when each note reaches the line — your music poofs the Shadow Imps!',
   controls: [['a', 'Green notes'], ['b', 'Red notes'], ['x', 'Blue notes: Normal (near the end) and Hard'], ['y', 'Yellow notes: Hard only']],
   tips: [
+    'Difficulty is in Settings: Easy = A and B, Normal adds X near the end, Hard = all four.',
     'Press right when the note touches the circle!',
-    'Difficulty is in Settings: Easy is just A and B; Normal adds X near the end; Hard uses all four.',
     'Each new button starts slow and simple, then the notes build up again.',
     'Play really well and your stars go up: trickier notes, more points! Miss a few and it gets easier.',
     'Hit 20 in a row for rainbow FEVER — double points!',

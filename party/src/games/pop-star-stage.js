@@ -429,7 +429,10 @@ export class Game {
       const [easy, normal, hard] = [0, 1, 2].map((lv) => fold(buildChart(song, lv, plan)));
       simple = easy;
       // The opening shows each button in turn: A/B (Easy: A), or all four on Hard.
-      stages = [{ at: 4, btns: [['a'], ['a', 'b'], BTNS][level], every: 1 }];
+      // It starts with the song's first groove (an intro keeps its gentle pulse).
+      const groove = (song.sections || []).find((x) => x.kind !== 'breath');
+      const open = Math.max(4, Math.min(groove ? groove.start : 4, (ab > 4 ? ab : base.end) - 16));
+      stages = [{ at: open, btns: [['a'], ['a', 'b'], BTNS][level], every: 1 }];
       if (ab > 4) stages.push({ at: ab, btns: ['b'] });
       if (level === 0) tiers = [thin(easy, 2), easy, easy, easy, easy];
       else if (level === 1) {
