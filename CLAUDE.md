@@ -84,9 +84,11 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   `party/src/state.js`, same as `session.cpuLevel`): it sets the CPU players
   (`engine/ai.js`; even Hard stays beatable) and games read it for their own
   challenge (Pop Star's notes). Don't add per-game difficulty pickers.
-- Buttons (the owner's rule): A is jump in action games and confirm / act in the
-  others; X is the action when A alone isn't enough (Pet Spa: hold X to scrub,
-  A = this step's done, or a line saying what's left and to press X).
+- Buttons (the owner's rule): A is jump in action games. Elsewhere A *commits*
+  (does the step's action once if it has one, then moves on) and X *acts and
+  stays* (do it as many times as you like, then A). The d-pad and LB/RB navigate
+  items and categories (not X / Y). If A can't finish a step yet, say what's left
+  and to press X (Pet Spa: hold X to scrub, A = this step's done).
 - Play Studio controls (see `party/src/engine/studio-ui.js`; Fashion Show is the
   model): A confirms and moves on; LB/RB move between categories and the last
   category is "Done" (A there = ready); the left stick (and X) choose items or
