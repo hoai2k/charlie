@@ -3,6 +3,7 @@
 // showing, so opening it never resets that screen (e.g. players who joined).
 //   Sound: On / Off        Full screen: On / Off        Images: Optimized / Full
 //   Song tags: On / Off (song name in the corner + random takes, for choosing takes)
+//   Sister Party: Easy (just A) / Medium        CPU players: Easy / Normal / Hard
 // Up/down picks a row, A or left/right changes it, B / Start / View closes.
 // Full screen can only change inside a real key press or click (browser rule),
 // so keyboard and mouse toggles run inside the DOM event; a controller press
@@ -13,6 +14,7 @@ import { isMuted, toggleMuted, unlockAudio, sfx, songTagsOn, setSongTags } from 
 import { shell } from './shell.js';
 import { getImageQuality, setImageQuality } from './sprites.js';
 import * as ui from './ui.js';
+import { session, setMollyLevel, AI_LEVELS } from '../state.js';
 
 const ROW_H = 104, PANEL_W = 860;
 const A_KEYS = new Set(['Space', 'Enter', 'NumpadEnter', 'KeyJ']);
@@ -31,6 +33,9 @@ export const settings = {
     r.push({ id: 'quality', label: 'Pictures', value: q === 'full' ? 'Full' : 'Optimized', on: q === 'full', hint: q === 'full' ? 'Original art: sharpest, uses more memory' : 'Smaller art: faster on tablets (recommended)' });
     const tags = songTagsOn();
     r.push({ id: 'tags', label: 'Song tags', value: tags ? 'On' : 'Off', on: tags, hint: tags ? 'Shows the song playing; mixes in other takes' : 'Each song plays its chosen take' });
+    const easy = session.mollyLevel === 'easy';
+    r.push({ id: 'molly', label: 'Sister Party', value: easy ? 'Easy' : 'Medium', on: easy, hint: easy ? 'Just the A button; the stick is optional' : 'Stick + buttons, like Charlie Party' });
+    r.push({ id: 'cpu', label: 'CPU players', value: AI_LEVELS[session.cpuLevel] || 'Easy', on: true, hint: 'How good the computer players are' });
     r.push({ id: 'close', label: 'Done' });
     return r;
   },
@@ -49,6 +54,8 @@ export const settings = {
       sfx('select');
     } else if (id === 'quality') { setImageQuality(getImageQuality() === 'full' ? 'optimized' : 'full'); sfx('select'); }
     else if (id === 'tags') { setSongTags(!songTagsOn()); sfx('select'); }
+    else if (id === 'molly') { setMollyLevel(session.mollyLevel === 'easy' ? 'medium' : 'easy'); sfx('select'); }
+    else if (id === 'cpu') { session.cpuLevel = (session.cpuLevel + 1) % 3; for (const p of session.players) if (p.isAI) p.aiLevel = session.cpuLevel; sfx('select'); }
     else if (id === 'close') this.close();
   },
 

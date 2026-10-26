@@ -468,7 +468,7 @@ export class Game {
   nextTool(st, tool) {
     if (!st.usedX) {
       const how = tool === 'stamp' ? 'Press X to stamp!' : tool === 'fill' ? 'Press X to fill!' : 'Hold X to paint!';
-      st.actor.say(how, 2, null); st.toolPop = 0.4; sfx('blip');
+      st.hint = { text: how, t: 2.2 }; st.toolPop = 0.4; sfx('blip');
       return;
     }
     st.tool = Math.min(DONE, st.tool + 1); this.toolFx(st);
@@ -780,6 +780,7 @@ export class Game {
       this.updatePainter(st, dt);
       if (this.phase !== 'paint') return;
       st.toolPop = Math.max(0, (st.toolPop || 0) - dt);
+      if (st.hint && (st.hint.t -= dt) <= 0) st.hint = null;
     }
     if (this.cpuOnly && this.paintT > 55) this.startGallery();
     // every painter said Done (the CPUs paint on until then)
@@ -951,6 +952,15 @@ export class Game {
         });
         ui.text(g, COLOR_NAMES[st.color], px + w / 2, py - 16, { size: 24, color: COLORS[st.color] === '#ffffff' ? '#24163f' : COLORS[st.color], stroke: COLORS[st.color] === '#ffffff' ? false : '#24163f', strokeWidth: 5 });
       }
+      g.globalAlpha = 1;
+    }
+    if (st.hint) {
+      // A pressed before X has painted: "Hold X to paint!" by the brush
+      g.globalAlpha = Math.min(1, st.hint.t / 0.3);
+      const fs = 30, w = ui.measure(g, st.hint.text, fs, 800) + 40, h = 56;
+      const px = clamp(x - w / 2, 10, W - w - 10), py = clamp(y - 110, 100, H - h - 10);
+      ui.panel(g, px, py, w, h, { r: h / 2, fill: '#fff8ec', stroke: st.p.color, lineWidth: 4, shadow: false });
+      ui.text(g, st.hint.text, px + w / 2, py + h / 2 + 1, { size: fs, color: '#24163f', stroke: false, weight: 800 });
       g.globalAlpha = 1;
     }
     if (tool === 'done' && !st.p.isAI) {

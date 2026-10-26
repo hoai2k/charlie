@@ -3,7 +3,8 @@
 // bows and give a treat until the happiness meter fills and the pet
 // celebrates. X (held) uses the tool: the sponge scrubs, the shower rinses,
 // the towel dries, the brush fluffs; a tap of X puts a bow on / moves one,
-// or gives a treat. A means "this step is done, go on": when the step is
+// or gives a treat (staying on Treat for more). A means "this step is done,
+// go on" (on Treat it gives a treat as it goes on): when the step is
 // finished A moves to the next step's tool (all done: Done), and when it
 // isn't, the pet says what's left ("Fox still needs more rinsing! (hold X to
 // rinse)") and nothing moves on. Bows are optional, so A there just goes on.
@@ -275,15 +276,19 @@ export class Game extends SpaView {
       case 'shower': return s.wasWet && this.sudsTotal(s) <= 0.15;
       case 'towel': return s.wet <= 0.01;
       case 'brush': return s.fluff >= 0.99;
-      case 'treat': return s.treats > 0;
-      default: return true;
+      default: return true;   // bows (optional) and the treat (A gives one as it goes on)
     }
   }
 
-  /** Where A goes from the current tool: the next suggested step (Bows are skipped from Bows), else Done. */
+  /**
+   * Where A goes from the current tool: the next suggested step, else Done.
+   * Bows are optional, so A never sends her back to them from Bows or Treat,
+   * and from Treat (where A gives a treat on the way) it never stays on Treat.
+   */
   goOnTool(s) {
     let nt = this.nextTool(s);
-    if (nt === 'bow' && s.tool === TOOL_IDX.bow) nt = s.treats ? null : 'treat';
+    if (nt === 'bow' && s.tool >= TOOL_IDX.bow) nt = s.treats || s.tool === TOOL_IDX.treat ? null : 'treat';
+    if (nt === 'treat' && s.tool === TOOL_IDX.treat) nt = null;
     return nt ? TOOL_IDX[nt] : DONE;
   }
 
@@ -295,7 +300,6 @@ export class Game extends SpaView {
       shower: [`${name} still needs more rinsing!`, 'hold', 'to rinse'],
       towel: [`${name} still needs drying!`, 'hold', 'to dry'],
       brush: [`${name} still needs brushing!`, 'hold', 'to brush'],
-      treat: [`${name} would love a treat!`, 'press', 'for a treat'],
     }[id];
     if (!N) return;
     s.pet.say(null);
@@ -377,7 +381,11 @@ export class Game extends SpaView {
     const onDone = s.tool === DONE;   // (A that just went on to Done doesn't also say "ready")
     if (!s.ready && s.tool !== DONE && !toolStep && c.pressed('a')) {
       const id = TOOLS[s.tool].id;
-      if (this.canGoOn(s, id)) { s.nudge = null; this.setTool(s, this.goOnTool(s)); }
+      if (this.canGoOn(s, id)) {
+        s.nudge = null;
+        if (id === 'treat' && s.cooldown <= 0) this.giveTreat(s);   // A on Treat: one more treat, then on
+        this.setTool(s, this.goOnTool(s));
+      }
       else this.nudge(s, id);
     }
     let readyB = false;

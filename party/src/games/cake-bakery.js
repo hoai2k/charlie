@@ -737,19 +737,21 @@ export class Game {
     return false;
   }
 
-  moveStation(st, dt, { jump = true } = {}) {
+  /** jump: A jumps. autoHop (the gallery, where A leaves the game): walking into cake hops up it. */
+  moveStation(st, dt, { jump = true, autoHop = false } = {}) {
     const m = st.mv, c = st.p.ctrl, a = st.actor, k = st.L.k, s = st.L.stand, { hw } = this.body(st);
     const mx = Math.abs(c.x) > 0.25 ? Math.sign(c.x) * Math.min(1, Math.abs(c.x) * 1.2) : 0;
-    let vx = mx * WALK;
+    let vx = mx * WALK, hop = false;
     if (vx) {
       const dir = Math.sign(vx), nx = clamp(m.x + vx * dt, st.minX, st.maxX);
       // walk on unless cake is in the way (someone already inside cake can always walk out)
-      if (!this.blocked(st, nx + dir * hw, m.y) || this.blocked(st, m.x, m.y)) m.x = nx; else vx = 0;
+      if (!this.blocked(st, nx + dir * hw, m.y) || this.blocked(st, m.x, m.y)) m.x = nx;
+      else { vx = 0; hop = autoHop; }
       a.facing = dir;
     }
     m.vx = vx;
-    if (jump && !m.air && c.pressed('a')) {
-      m.vy = -JUMP_V; m.air = true; m.jumped = true; m.fallFrom = m.y;
+    if (!m.air && (jump && c.pressed('a') || hop)) {
+      m.vy = -JUMP_V; m.air = true; m.jumped = !hop; m.fallFrom = m.y;
       sfx('jump'); a.squash(-0.22);
     }
     m.vy += GRAV * dt;
@@ -933,7 +935,7 @@ export class Game {
       const c = st.p.ctrl;
       if (st.p.isAI) this.finaleAI(st, dt, ended);
       // in the gallery A leaves the game, so no jumping there
-      this.moveStation(st, dt, { jump: !ended });
+      this.moveStation(st, dt, { jump: !ended, autoHop: ended });
       if (c.pressed('x')) {
         if (F.stage === 'feast') this.bite(st);
         else if ((F.stage === 'song' || F.stage === 'blow') && !st.out) {

@@ -136,6 +136,8 @@ export class GameSelectScene {
   update(dt, inputOpen) {
     this.t += dt;
     if (this.flip) { this.flip.t += dt; if (this.flip.t > 0.6) this.flip = null; }
+    if (this.molly && this._mollyLevel && this._mollyLevel !== session.mollyLevel) this.toggleMollyLevel(true);   // changed in Settings
+    this._mollyLevel = session.mollyLevel;
     if (this.roulette) { this.updateRoulette(dt); return; }
     if (this.chosen) { this.chosen.t += dt; if (this.chosen.t > 0.7) this.launch(); return; }
     if (!inputOpen) return;
@@ -304,8 +306,9 @@ export class GameSelectScene {
     }
   }
 
-  toggleMollyLevel() {
-    setMollyLevel(session.mollyLevel === 'easy' ? 'medium' : 'easy');
+  toggleMollyLevel(already = false) {
+    if (!already) setMollyLevel(session.mollyLevel === 'easy' ? 'medium' : 'easy');
+    this._mollyLevel = session.mollyLevel;
     this.levelPop = 1; sfx('swap');
     const cur = this.current && this.current.game;
     this.rebuild();   // Easy hides the stick-only games

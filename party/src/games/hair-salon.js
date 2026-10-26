@@ -371,7 +371,7 @@ export class Game extends SalonDrawing {
     const id = TOOLS[s.tool].id, cl = s.client;
     const VERB = { brush: 'brush', scissors: 'snip', grow: 'spray', curl: 'curl', straight: 'straighten', colour: 'colour', style: 'tie it up', bling: 'add bling' };
     const hint = (text) => { cl.say(text, 2.4); s.toolPop = 0.6; sfx('blip'); };
-    if (id === 'brush' && !s.ev.tidy && cl.hair.avg('messy') >= 0.15) { hint('My hair is still messy! Hold X to brush'); return; }
+    if (id === 'brush' && !s.ev.tidy && cl.hair.avg('messy') > 0.3) { hint('Still messy! Hold X to brush'); return; }
     if (!s.usedX) { hint(`${id === 'style' || id === 'bling' ? 'Press' : 'Hold'} X to ${VERB[id] || 'use it'}!`); return; }
     this.setTool(s, s.tool + 1);
   }
