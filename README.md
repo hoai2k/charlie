@@ -22,7 +22,8 @@ Every game lives in its own subdirectory and is deployed with GitHub Pages, so
 2. Reference assets with relative paths so the game works under the
    `/charlie/` subpath.
 3. Add the game to the table above and to the root `index.html`.
-4. Commit and push to `main` — the Pages workflow deploys automatically.
+4. Commit and push to `main`, then `git push origin main:deploy`; the Pages
+   workflow deploys that (see "Deploy state" in CLAUDE.md).
 
 ## Deployment
 
