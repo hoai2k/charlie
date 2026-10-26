@@ -6,11 +6,12 @@
 // their own sound (bells, piano, marimba, "la la" choir); the notes they place
 // keep that sound, so two players make a duet.
 //
-// Controls: stick / D-pad move the cursor, A adds or removes a note (hold A
-// and move to paint a line), X changes your sound, Y asks "Clear this page?"
-// (Go back is the default; on an empty page Y writes a whole surprise tune),
-// LB/RB flip pages (pushing past the grid's left/right edge flips too) and RB
-// past the last page reaches "Done", where A starts the concert (B / LB: back).
+// Controls: stick / D-pad move the cursor, A or X adds or removes a note (hold
+// it and move to paint a line), LT / RT change your sound, Y is a surprise
+// sparkle (a 4-note phrase; on an empty page a whole surprise tune), LB/RB flip
+// pages (pushing past the grid's left/right edge flips too) and RB past the
+// last page reaches "Done", where A starts the concert (B / LB: back). The
+// toolbar's Clear asks "Clear this page?" (Go back is the default).
 // B undoes your last change.
 // Above the grid is a button bar (Songs, Beat, pages 1-4, Speed, Clear,
 // Done) reached by moving up. Mouse/touch: click or drag on the cells,
@@ -698,8 +699,8 @@ export class Game {
     if (st) particles.popText(colX(STEPS / 2), GY + 40, `Page ${k + 1}`, '#ffd23f', 54);
   }
 
-  cycleInst(st) {
-    st.inst = (st.inst + 1) % INSTS.length;
+  cycleInst(st, dir = 1) {
+    st.inst = (st.inst + dir + INSTS.length) % INSTS.length;
     st.instPop = 1;
     const R = st.R >= 0 && st.R < NP ? st.R : rowOfPitch(2);
     this.preview(R, st.inst);
@@ -866,7 +867,7 @@ export class Game {
     }
     if (moved) {
       if (!st.p.isAI) sfx('tick', { vol: 0.6 });
-      if (st.paint && st.R >= 0 && st.p.ctrl.held('a')) this.toggle(st, st.R, st.col, st.paint);
+      if (st.paint && st.R >= 0 && (st.p.ctrl.held('a') || st.p.ctrl.held('x'))) this.toggle(st, st.R, st.col, st.paint);
     } else if (!st.p.isAI) sfx('tock', { vol: 0.5 });
   }
 
@@ -944,12 +945,15 @@ export class Game {
     if (c.nav.y) this.moveCursor(st, 0, c.nav.y);
     else if (c.nav.x) this.moveCursor(st, c.nav.x, 0);
     if (this.edgeHold(st)) this.updateEdgePush(st, dt); else st.edge = null;
-    if (c.pressed('a')) {
+    // A or X: a note (held: paint a line); the grid is one big canvas, so both stay put
+    if (c.pressed('a') || c.pressed('x')) {
       if (st.R === -1) this.pressToolbar(st, TB[st.tb]);
       else st.paint = this.toggle(st, st.R, st.col);
     }
-    if (!c.held('a')) st.paint = null;
-    if (c.pressed('x')) this.cycleInst(st);
+    if (!c.held('a') && !c.held('x')) st.paint = null;
+    // LT / RT: your sound
+    if (c.pressed('rt')) this.cycleInst(st, 1);
+    if (c.pressed('lt')) this.cycleInst(st, -1);
     if (c.pressed('y')) this.sparkle(st);   // a 4-note phrase from the cursor (an empty page: a surprise tune)
     if (c.pressed('rb')) { if (this.page < NPAGES - 1) this.setPage(this.page + 1, st, 1); else this.setDone(st, true); }
     if (c.pressed('lb')) { if (this.page > 0) this.setPage(this.page - 1, st, -1); else sfx('tock'); }
@@ -1021,7 +1025,7 @@ export class Game {
         if (st.R === cmd.R && st.col === cmd.col && !this.cell(this.page, cmd.R, cmd.col)) { c.press('a'); ai.wait = rand(0.25, 0.5); }
         break;
       case 'inst':
-        if (st.inst === cmd.v) ai.plan.shift(); else { c.press('x'); ai.wait = 0.35; }
+        if (st.inst === cmd.v) ai.plan.shift(); else { c.press('rt'); ai.wait = 0.35; }
         break;
       case 'press': c.press(cmd.b); ai.plan.shift(); ai.wait = cmd.w ?? 0.4; break;
       case 'done':   // RB to the last page, then RB once more to Done (A there: the concert)
@@ -1537,11 +1541,12 @@ export class Game {
   drawLegend(g) {
     const L = LEGEND;
     ui.panel(g, L.x, L.y, L.w, L.h, { r: 30, fill: 'rgba(255,248,236,0.94)' });
-    const rows = [['stick', 'Move'], ['a', 'Note'], ['x', 'Sound'], ['lbrb', 'Page / Done'], ['y', 'Sparkle'], ['b', 'Undo'], ['start', 'Menu']];
+    const rows = [['stick', 'Move'], ['ax', 'Note'], ['ltrt', 'Sound'], ['lbrb', 'Page / Done'], ['y', 'Sparkle'], ['b', 'Undo'], ['start', 'Menu']];
     const step = (L.h - 40) / rows.length;
     rows.forEach(([b, label], i) => {
       const y = L.y + 20 + step * (i + 0.5);
-      if (b === 'lbrb') { ui.glyph(g, 'lb', L.x + 42, y - 18, 34); ui.glyph(g, 'rb', L.x + 42, y + 18, 34); }
+      if (b === 'lbrb' || b === 'ltrt') { ui.glyph(g, b.slice(0, 2), L.x + 42, y - 18, 34); ui.glyph(g, b.slice(2), L.x + 42, y + 18, 34); }
+      else if (b === 'ax') { ui.glyph(g, 'a', L.x + 28, y - 14, 38); ui.glyph(g, 'x', L.x + 56, y + 14, 38); }
       else ui.glyph(g, b, L.x + 42, y, 52);
       ui.text(g, label, L.x + 88, y + 2, { size: 36, align: 'left', color: NAVY, stroke: false, weight: 800, maxWidth: L.w - 100 });
     });

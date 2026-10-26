@@ -332,8 +332,8 @@ export class Game {
     if (!goal) { if (st.tab !== DONE) c.press('rb'); else c.press('a'); return; }   // on to "Done", then A
     if (st.tab !== goal.ci) { c.press(goal.ci > st.tab ? 'rb' : 'lb'); return; }
     const o = st.outfit[goal.ci];
-    if (o.item !== goal.item) { c.press('x'); return; }
-    if (o.colors[o.item] !== goal.color) { c.move(1, 0); st.aiStick = 0.05; return; }
+    if (o.item !== goal.item) { c.move(1, 0); st.aiStick = 0.05; return; }
+    if (o.colors[o.item] !== goal.color) { c.move(0, 1); st.aiStick = 0.05; return; }
     c.press('a');   // keep it: on to the next spot
     ai.step++; ai.t += rand(0.5, 1.2) * (hurry ? 0.4 : 1);
     if (chance(0.5)) st.actor.emote('heart', 1);
@@ -361,9 +361,9 @@ export class Game {
       // stick left/right: colours · Y: take it all off (asks first) · right stick: nudge
       const step = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
       if (step) this.stepTab(st, step);
-      if (c.nav.y) this.changeItem(st, c.nav.y);
-      if (c.pressed('x')) this.changeItem(st, 1);
-      if (c.nav.x) this.cycleColor(st, c.nav.x);
+      // D-pad (or stick) left / right: the items · up / down: the color
+      if (c.nav.x) this.changeItem(st, c.nav.x);
+      if (c.nav.y) this.cycleColor(st, c.nav.y);
       if (c.pressed('a')) this.confirmItem(st);
       if (c.pressed('b') && st.tab > 0) this.stepTab(st, -1);
       if (c.pressed('y')) { if (st.outfit.some((o) => o.item)) { st.clearAsk = askOpen(); sfx('select'); } else this.surprise(st); }
@@ -972,7 +972,7 @@ export class Game {
     const done = st.tab === DONE;
     const o = done ? null : st.outfit[st.tab], col = o ? PALETTE[o.colors[o.item]] : null;
     const items = done ? [['lb', wide ? 'Change something' : ''], ['a', "I'm ready!"]]
-      : [['stick', wide ? 'Item / color' : ''], ['x', wide ? 'Next item' : ''], ['y', wide ? (st.outfit.some((o) => o.item) ? 'Clear' : 'Surprise!') : ''], ...(wide && st.p.ctrl.kind === 'pad' ? [['rstick', 'Nudge']] : []), ['a', 'OK!']];
+      : [['dpad', wide ? '◀▶ Item · ▲▼ Color' : ''], ['y', wide ? (st.outfit.some((o) => o.item) ? 'Clear' : 'Surprise!') : ''], ...(wide && st.p.ctrl.kind === 'pad' ? [['rstick', 'Nudge']] : []), ['a', 'OK!']];
     const avail = r.x + r.w - 16 - x;
     const lab = sz * 0.62;
     let need = 0;

@@ -220,7 +220,9 @@ export class Game {
   // --- making the dance ---------------------------------------------------------
   filled(st) { return st.slots.filter((s) => s !== null).length; }
 
-  placeMove(st) {
+  /** Put the chosen move on this beat (replacing what's there) and step on to the next beat.
+   *  auto: the 8th beat filled takes you on to the music (A's way; X stays). */
+  placeMove(st, auto = true) {
     const m = st.sel, j = st.cur;
     st.slots[j] = m; st.slotBump[j] = 0.35;
     const M = MOVES[m];
@@ -231,7 +233,7 @@ export class Game {
     this.previewNow(st, j);
     if (st.cur < 7) st.cur++;
     if (this.filled(st) === 8) {
-      if (!st.autoNext) { st.autoNext = true; st.autoNextT = 0.9; }
+      if (auto && !st.autoNext) { st.autoNext = true; st.autoNextT = 0.9; }
       st.actor.say('My dance!', 1.2, st.p.isAI ? null : 'yay');
       particles.burst(st.L.timeline.x + st.L.timeline.w / 2, st.L.timeline.y + st.L.timeline.h / 2, { type: 'confetti', count: 22, speed: [160, 420] });
       sfx('sparkle');
@@ -303,11 +305,11 @@ export class Game {
     if (key === 'music' && !st.p.isAI) music.play(MUSIC[ni].id, { fadeIn: 0.4 });
   }
 
-  /** X on music / lights / stage: the next card along (wrapping). */
-  nextOption(st) {
+  /** LT / RT on music / lights / stage: the next (previous) card along (wrapping). */
+  nextOption(st, dir = 1) {
     const tab = TABS[st.tab].id, list = tab === 'music' ? MUSIC : tab === 'lights' ? LIGHTS : STAGES;
     const key = tab === 'music' ? 'music' : tab === 'lights' ? 'light' : 'stage';
-    this.setOption(st, key, list, mod(st[key] + 1, list.length));
+    this.setOption(st, key, list, mod(st[key] + dir, list.length));
   }
 
   /** Y on a dance with moves in it: "Swap for a surprise?" - Go back (the default) or Surprise!. */
@@ -358,6 +360,23 @@ export class Game {
     return 0;
   }
 
+  /** The chosen move tried out on the mini stage. */
+  tryMove(st) { st.dancer.perform(st.sel, 60 / MUSIC[st.music].bpm); moveSound(MOVES[st.sel], 0.4); }
+
+  /** A on the moves: put one in on an empty beat; with all 8 beats danced, on to the music,
+   *  else a line saying how many beats are left (X fills them; RB skips on: empty beats groove). */
+  commitMove(st) {
+    if (st.held) { this.dropHeld(st); return; }
+    if (st.slots[st.cur] === null) this.placeMove(st);
+    const left = 8 - this.filled(st);
+    if (!left) { if (!st.autoNextT || st.autoNextT <= 0) { this.setTab(st, TAB.music); sfx('select'); } return; }
+    const k = st.slots.indexOf(null, st.cur), j = k >= 0 ? k : st.slots.indexOf(null);
+    if (j >= 0) st.cur = j;
+    st.hintMsg = left === 1 ? '1 more beat! X puts a move in' : `${left} more beats! X puts moves in`;
+    st.hintT = 1.6;
+    if (!st.p.isAI) sfx('blip', { vol: 0.4 });
+  }
+
   updateStationInput(st, dt) {
     const c = st.p.ctrl;
     if (st.ready) { if (c.pressed('b')) this.setReady(st, false); return; }
@@ -374,7 +393,9 @@ export class Game {
       // where on the 8-count: the stick (pads) or left/right (keyboard, CPU)
       const step = pad ? this.stickStep(st, dt) : c.nav.x;
       if (step) { st.cur = clamp(st.cur + step, 0, 7); sfx('blip', { vol: 0.5 }); }
-      // which move: the d-pad grid (pads) or up/down through the cards
+      // which move: the d-pad grid (pads) or up/down through the cards; LT / RT step through them too
+      const tr = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
+      if (tr) { this.stepPalette(st, tr); this.tryMove(st); }
       if (pad) {
         const dx = (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0);
         const dy = (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0);
@@ -383,17 +404,13 @@ export class Game {
           st.sel = row * C + col; st.palBump = 0.12; sfx('move', { vol: 0.5 });
         }
       } else if (c.nav.y) this.stepPalette(st, c.nav.y);
-      if (c.pressed('a')) {
-        if (st.held) this.dropHeld(st);
-        else if (st.slots[st.cur] === null) this.placeMove(st);
-        else this.pickUp(st);
-      } else if (c.pressed('b')) {
+      if (c.pressed('a')) this.commitMove(st);
+      else if (c.pressed('b')) {
         if (st.held || st.slots[st.cur] !== null) this.removeAt(st, st.cur);
-        else { sfx('blip'); st.hintT = 1.2; }
+        else { sfx('blip'); st.hintMsg = 'Pick a beat with a card on it!'; st.hintT = 1.2; }
       } else if (c.pressed('x')) {
-        // X: the next move card, tried out on the mini stage
-        this.stepPalette(st, 1);
-        st.dancer.perform(st.sel, 60 / MUSIC[st.music].bpm); moveSound(MOVES[st.sel], 0.4);
+        // X: put the move in on this beat (it replaces what's there) and stay on the moves
+        if (st.held) this.dropHeld(st); else this.placeMove(st, false);
       }
       return;
     }
@@ -403,7 +420,9 @@ export class Game {
       return;
     }
     if (c.nav.x || c.nav.y) this.changeOption(st, c.nav.x, c.nav.y);
-    if (c.pressed('x')) this.nextOption(st);
+    if (c.pressed('rt')) this.nextOption(st, 1);
+    if (c.pressed('lt')) this.nextOption(st, -1);
+    if (c.pressed('x')) sfx('blip', { vol: 0.5 });   // (choosing a card is all there is here: A, next step)
     if (c.pressed('a')) { this.setTab(st, st.tab + 1); sfx('select'); }
     else if (c.pressed('b')) this.setTab(st, st.tab - 1);
   }
@@ -1114,15 +1133,18 @@ export class Game {
     if (st.surpriseAsk) { ui.hints(g, [['stick', small ? '' : 'Choose'], ['a', 'OK']], r.x + r.w / 2, L.hintY, { size: small ? 26 : mid ? 30 : 36, gap: small ? 16 : 26 }); return; }
     let list;
     if (tab === 'moves') {
+      const nav = st.p.ctrl.kind === 'pad' ? 'dpad' : 'rt';
       if (st.held) list = [['a', 'Put here'], ['b', 'Take out']];
-      else if (this.filled(st) === 8) list = small ? [['a', 'Pick up'], ['rb', 'Next']] : [['a', 'Pick up'], ['b', 'Take out'], ['y', 'Surprise!'], ['rb', 'Next step']];
-      else if (small) list = [['x', 'Move'], ['a', 'Put in']];
-      else list = [['stick', 'Beat'], ['x', 'Next move'], ['a', 'Put in'], ['b', 'Out']].concat(mid ? [] : [['y', 'Surprise!']]);
+      else if (this.filled(st) === 8) list = small ? [['x', 'Swap'], ['a', 'Next']] : [[nav, 'Move'], ['x', 'Swap in'], ['a', 'Next step'], ['b', 'Take out'], ['y', 'Surprise!']];
+      else {
+        const here = st.slots[st.cur] !== null, xl = here ? 'Swap' : 'Put in', al = here ? 'Next beat' : 'Put in';
+        list = small ? [['x', xl], ['a', al]] : [['stick', 'Beat'], [nav, 'Move'], ['x', xl], ['a', al]].concat(mid ? [] : [['b', 'Out']]);
+      }
     } else if (tab === 'done') list = [['a', "I'm ready!"], ['lb', 'Back']];
-    else list = small ? [['x', 'Next'], ['a', 'OK']] : [['stick', 'Pick'], ['x', 'Next'], ['a', 'OK'], ['b', 'Back']];
+    else list = small ? [['stick', ''], ['a', 'OK']] : [['stick', 'Pick'], ['a', 'OK, next'], ['b', 'Back']];
     const size = small ? 26 : mid ? 30 : 36;
     ui.hints(g, list, r.x + r.w / 2, L.hintY, { size, gap: small ? 16 : 26 });
-    if (st.hintT > 0) ui.text(g, 'Pick a beat with a card on it!', r.x + r.w / 2, L.timeline.y - 16, { size: small ? 18 : 24, color: '#ffd23f', maxWidth: r.w - 20 });
+    if (st.hintT > 0) ui.text(g, st.hintMsg || 'Pick a beat with a card on it!', r.x + r.w / 2, L.timeline.y - 16, { size: small ? 18 : 24, color: '#ffd23f', maxWidth: r.w - 20 });
   }
 
   drawReady(g, st) {
