@@ -174,6 +174,7 @@ export class Game extends PotteryDrawing {
     const tx = Math.abs(cur.x), ty = cur.y;
     st.shaping = false; st.sponging = false;
     if (c.held('x')) {
+      st.hint = null;
       const work = shapeClay(pot, tx, ty, dt, { pressed: c.pressed('x') });
       if (work > 0.03) {
         st.shaping = true; st.shapeT += dt;
@@ -398,7 +399,7 @@ export class Game extends PotteryDrawing {
       return;
     }
     if (c.pressed('a') && !st.held && !st.p.isAI) { this.nextPaintTool(st); return; }
-    if (c.pressed('x')) st.usedX = true;
+    if (c.pressed('x')) { st.usedX = true; st.hint = null; }
     const colStep = (c.pressed('y') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
     if (colStep && !st.held) {
       if (TOOLS[st.tool].id === 'sticker') { st.sticker = (st.sticker + colStep + STICKERS.length) % STICKERS.length; sfx('stamp', { vol: 0.5 }); }

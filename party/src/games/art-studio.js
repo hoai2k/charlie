@@ -438,7 +438,7 @@ export class Game {
     const brushy = tool === 'brush' || tool === 'rainbow' || tool === 'glitter' || tool === 'eraser';
     if (brushy) {
       if (c.pressed('x') && inside) {
-        st.usedX = true;
+        st.usedX = true; st.hint = null;
         const s = { owner: st.i, tool, color: COLORS[st.color], r: SIZES[st.size].r, pts: [cur.x, cur.y], hue: rand(360), len: 0, seed: randInt(1, 1e9) };
         st.stroke = s; this.pushStroke(s); this.drawSeg(this.pctx, s, 0); st.strokes++;
         if (!st.p.isAI) this.markOwned(cur.x, cur.y, s.r);
@@ -455,7 +455,7 @@ export class Game {
       }
       if (!c.held('x') || !inside) st.stroke = null;
     } else if (c.pressed('x') && inside) {
-      st.usedX = true;
+      st.usedX = true; st.hint = null;
       if (tool === 'stamp') this.doStamp(st);
       else if (tool === 'fill') this.doFill(st);
     }
