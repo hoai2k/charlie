@@ -154,7 +154,7 @@ export class Game extends PotteryDrawing {
     if (c.pressed('rb')) { st.confirm = { t: 0 }; sfx('select'); a.setPose('idle'); return; }
     if (c.pressed('a')) {
       // A: this shape's done - "Bake it?" (until the clay has been shaped: how to shape it)
-      if (st.shapeT < 0.6 && !st.lastPreset && !st.p.isAI) { a.say('Hold X to shape the clay!', 2.2, null); st.helpT = 1.1; sfx('blip'); }
+      if (st.shapeT < 0.6 && !st.lastPreset && !st.p.isAI) { st.hint = { text: 'Hold X to shape the clay!', t: 2.2 }; sfx('blip'); }
       else { st.confirm = { t: 0 }; sfx('select'); a.setPose('idle'); }
       return;
     }
@@ -497,7 +497,7 @@ export class Game extends PotteryDrawing {
     const id = TOOLS[st.tool].id;
     if (!st.usedX) {
       const how = { glaze: 'Press X to dip it!', band: 'Press X for a stripe!', sticker: 'Press X to stick one on!' }[id] || 'Hold X to paint!';
-      st.actor.say(how, 2.2, null); st.listBump = 0.15; sfx('blip');
+      st.hint = { text: how, t: 2.2 }; st.listBump = 0.15; sfx('blip');
       return;
     }
     st.tool = Math.min(DONE, st.tool + 1); st.listBump = 0.15; st.stroke = null; sfx('move');
@@ -642,6 +642,7 @@ export class Game extends PotteryDrawing {
       st.stepT += dt; st.readyT += dt;
       st.nameBump = Math.max(0, st.nameBump - dt); st.potBump = Math.max(0, st.potBump - dt); st.listBump = Math.max(0, st.listBump - dt);
       st.cheerCD -= dt; st.helpT += dt;
+      if (st.hint && ((st.hint.t -= dt) <= 0 || st.step === 'ready')) st.hint = null;
       if (st.p.isAI) this.updateAI(st, dt);
       st.actor.update(dt);
       if (st.step === 'shape') this.updateShape(st, dt);

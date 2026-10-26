@@ -80,6 +80,10 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   `api.finishTogether`, `showstopper()` in `engine/util.js`, `engine/easy.js`
   (Sister Party Easy: the stick is optional, A does everything, `easyPrompt` is
   the one big-A cue) and `engine/crowd.js` (8-player spacing).
+- Difficulty is one setting (Settings, default Normal; `difficulty()` in
+  `party/src/state.js`, same as `session.cpuLevel`): it sets the CPU players
+  (`engine/ai.js`; even Hard stays beatable) and games read it for their own
+  challenge (Pop Star's notes). Don't add per-game difficulty pickers.
 - Buttons (the owner's rule): A is jump in action games and confirm / act in the
   others; X is the action when A alone isn't enough (Pet Spa: hold X to scrub,
   A = this step's done, or a line saying what's left and to press X).

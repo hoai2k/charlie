@@ -93,7 +93,7 @@ function setupDebugPlayers() {
   const auto = params.has('auto');
   const humans = auto ? 0 : Math.min(n, parseInt(params.get('humans') || '1', 10));
   const chars = (params.get('chars') || '').split(',').filter((c) => ALL_ENTRIES.some((x) => x.id === c));   // NPCs too (testing)
-  session.cpuLevel = parseInt(params.get('level') || '0', 10) || 0;
+  if (params.has('level')) session.cpuLevel = parseInt(params.get('level'), 10) || 0;
   const humanCtrls = [input.keyboards[0], input.keyboards[1]];
   session.players = [];
   for (let i = 0; i < n; i++) {

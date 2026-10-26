@@ -100,7 +100,8 @@ export class PotteryDrawing {
     if (st.confirm) this.drawConfirm(g, st);
     if (st.ask) drawAsk(g, st.L.list, st.ask, { title: 'Swap for a surprise?', yes: 'Surprise!' });
     if (st.ready) this.drawReady(g, st);
-    if (st.step === 'shape' && !st.p.isAI && st.shapeT < 1.5 && st.helpT > 1) this.drawHelp(g, st);
+    if (st.hint && !st.confirm && !st.ready) this.drawHelp(g, st, st.hint.text);
+    else if (st.step === 'shape' && !st.p.isAI && st.shapeT < 1.5 && st.helpT > 1) this.drawHelp(g, st);
   }
 
   drawStationWall(g, st) {
@@ -745,11 +746,10 @@ export class PotteryDrawing {
     if (!st.p.isAI) ui.hints(g, [['b', 'Change']], cx, lr.y + lr.h * 0.82, { size: sz * 1.3 });
   }
 
-  drawHelp(g, st) {
+  drawHelp(g, st, msg = 'Hold X on the clay!') {
     const b = st.L.base, k = st.L.k;
     const y = b.y - st.pot.h * k - 70 * k - 20;
     const fs = clamp(34 * k, 18, 36);
-    const msg = 'Hold X on the clay!';
     const w = ui.measure(g, msg, fs, 800) + fs * 2.4;
     const bob = Math.sin(this.t * 4) * 4;
     g.save(); g.translate(b.x, y + bob);
