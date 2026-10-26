@@ -7,6 +7,7 @@ import { clamp, lerp, ease, TAU } from '../../engine/util.js';
 import { drawHeartShape, drawStarShape, drawSparkleShape } from '../../engine/emotes.js';
 import { SPRAY_LEN, TOOLS, ACCESSORIES } from './data.js';
 import { drawDoneTab, drawDoneCard } from '../../engine/studio-ui.js';
+import { bodySpot } from '../../engine/bodyparts.js';
 
 export const NAVY = '#24163f';
 const TOOL_ART = { sponge: 'prop/sponge', shower: 'prop/shower-head', towel: 'prop/towel', brush: 'prop/brush', treat: 'prop/pet-treat' };
@@ -257,23 +258,27 @@ export class SpaView {
         g.restore();
       }
     }
-    // accessories (constant size relative to the pet)
+    g.restore();
+    // Bows sit on the body part they were put on (engine/bodyparts.js), so
+    // they ride every frame and pose: walking in the parade, bowing, dancing.
+    // (This callback draws in the pet's forward space; constant size relative to the pet.)
     for (const a of s.acc) {
       a.t += 1 / 60;
+      const at = bodySpot(info, a.spot);
+      if (!at) continue;
       let pop = a.t < 0.25 ? ease.outBack(a.t / 0.25) : 1;
       const held = a === s.held, hover = a === s.hover;
       if (held) pop *= 1.18 + Math.sin(tt * 8) * 0.04;
-      g.save(); g.translate(a.x, a.y); g.scale(flip, 1); g.rotate(a.rot + (held ? Math.sin(tt * 6) * 0.12 : 0));
+      g.save(); g.translate(at.x, at.y); g.rotate(at.rot + (held ? Math.sin(tt * 6) * 0.12 : 0));
       if (hover || held) {
         // soft glow so it's clear which bow the hand is on
         g.save(); g.globalAlpha = 0.55 + Math.sin(tt * 6) * 0.2; g.fillStyle = '#ffffff';
-        g.beginPath(); g.arc(0, 0, m.ih * 0.1 * pop, 0, TAU); g.fill(); g.restore();
+        g.beginPath(); g.arc(0, 0, info.h * 0.1 * pop, 0, TAU); g.fill(); g.restore();
       }
       g.scale(pop, pop);
-      drawAccessory(g, a.kind, a.color, m.ih * 0.13, tt + a.x);
+      drawAccessory(g, a.kind, a.color, info.h * 0.13, tt + a.n);
       g.restore();
     }
-    g.restore();
   }
 
   drawBackground(g) {

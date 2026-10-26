@@ -14,10 +14,11 @@
 // only when there are no bows). Once every pet is
 // ready: a pet parade on a little stage.
 //
-// Pets are drawn with the normal Actor system. Mud, suds, water drops and
-// accessories are drawn in the pet's *image space* through an attachment, so
-// they ride every bounce and squash (and the mud is masked to the pet's own
-// silhouette).
+// Pets are drawn with the normal Actor system. Mud, suds and water drops are
+// drawn in the pet's *image space* through an attachment, so they ride every
+// bounce and squash (and the mud is masked to the pet's own silhouette). Bows
+// stick to the nearest body part (Actor.placeOnBody, engine/bodyparts.js), so
+// they follow ears, tail and paws through every pose, in the spa and parade.
 //
 // Drawing lives in pet-spa/draw.js (SpaView, which Game extends); shared data in pet-spa/data.js.
 import { W, H } from '../engine/canvas.js';
@@ -53,6 +54,8 @@ const PETS = [
 ];
 
 function makePetActor(def) { return new Actor(def.char); }
+// Body parts a bow can be put on (engine/bodyparts.js; a pet's "hand" is its mouth).
+const BOW_PARTS = ['head', 'eyes', 'earFront', 'earBack', 'neck', 'back', 'belly', 'tail', 'footFront', 'footBack'];
 
 // Alpha mask of a pet's base art (quarter resolution) for "is the cursor on
 // the pet?" tests and for placing mud on the body.
@@ -405,9 +408,9 @@ export class Game extends SpaView {
     const ip = this.toImage(s, cur.x, cur.y);
     // Placed bows can be picked up again with the Bows tool: X on a bow moves
     // it (it follows the hand, X again drops it), B on a bow takes it off.
-    if (s.held && (tool !== 'bow' || !s.acc.includes(s.held))) this.dropHeld(s, on, ip);
-    if (s.held) { s.held.x = ip.x; s.held.y = ip.y; }
-    s.hover = tool === 'bow' && !s.held && !p.isAI ? this.accAt(s, ip.x, ip.y) : null;
+    if (s.held && (tool !== 'bow' || !s.acc.includes(s.held))) this.dropHeld(s, on);
+    if (s.held) s.held.spot = this.bowSpot(s, cur.x, cur.y, s.held.rot) || s.held.spot;
+    s.hover = tool === 'bow' && !s.held && !p.isAI ? this.accAt(s, cur.x, cur.y) : null;
     let bowB = false;
     // B on Bows: take off the bow under the hand, else undo the newest one (no bows: a cuddle)
     if (tool === 'bow' && c.pressed('b') && (s.held || s.hover || s.acc.length)) { this.removeAccessory(s, s.held || s.hover || this.newestAccessory(s)); bowB = true; }
@@ -487,9 +490,9 @@ export class Game extends SpaView {
         if (before < 1 && s.fluff >= 1) this.allShiny(s);
       }
     } else if (tap && tool === 'bow') {
-      if (s.held) this.dropHeld(s, on, ip);
+      if (s.held) this.dropHeld(s, on);
       else if (s.hover) this.pickUpAccessory(s, s.hover);
-      else if (on) this.placeAccessory(s, ip.x, ip.y);
+      else if (on) this.placeAccessory(s, cur.x, cur.y);
       else { sfx('blip'); particles.burst(cur.x, cur.y, { type: 'spark', count: 4, colors: ['#ffffff'] }); }
     } else if (tap && tool === 'treat' && s.cooldown <= 0) {
       this.giveTreat(s);
@@ -661,10 +664,21 @@ export class Game extends SpaView {
     this.rumble(s.p, 0.4, 150);
   }
 
-  placeAccessory(s, ix, iy) {
+  /**
+   * A bow at world point (x, y) sticks to the pet's nearest body part (ear,
+   * head, neck, back, belly, tail, paws: engine/bodyparts.js) and rides every
+   * pose from then on. Not the "hand": on a pet that's its mouth.
+   */
+  bowSpot(s, x, y, rot = 0) {
+    return s.pet.placeOnBody(x, y, { rot, parts: BOW_PARTS });
+  }
+
+  placeAccessory(s, x, y) {
     const a = ACCESSORIES[s.accIdx % ACCESSORIES.length];
+    const rot = rand(-0.35, 0.35), spot = this.bowSpot(s, x, y, rot);
+    if (!spot) return;
     s.accSeq = (s.accSeq || 0) + 1;
-    s.acc.push({ x: ix, y: iy, kind: a.kind, color: a.color, rot: rand(-0.35, 0.35), t: 0, n: s.accSeq });
+    s.acc.push({ spot, kind: a.kind, color: a.color, rot, t: 0, n: s.accSeq });
     if (s.acc.length > 7) s.acc.splice(s.acc.findIndex((b) => b !== s.held), 1);
     s.accIdx = (s.accIdx + 1) % ACCESSORIES.length;
     const cur = s.cursor;
@@ -681,12 +695,12 @@ export class Game extends SpaView {
     s.accPop = 1; s.toolPop = Math.max(s.toolPop, 0.4); sfx('swap');
   }
 
-  /** The placed accessory under image point (ix, iy), nearest first (or null). */
-  accAt(s, ix, iy) {
-    const rad = s.mask.ih * 0.085;
-    let best = null, bd = rad;
+  /** The placed accessory under world point (x, y), nearest first (or null). */
+  accAt(s, x, y) {
+    let best = null, bd = s.pet.height * 0.085;
     for (const a of s.acc) {
-      const d = Math.hypot(a.x - ix, a.y - iy);
+      const at = s.pet.bodySpot(a.spot);
+      const d = at ? Math.hypot(at.x - x, at.y - y) : Infinity;
       if (d <= bd) { bd = d; best = a; }
     }
     return best;
@@ -696,18 +710,19 @@ export class Game extends SpaView {
   newestAccessory(s) { return s.acc.reduce((best, a) => (!best || a.n > best.n ? a : best), null); }
 
   pickUpAccessory(s, a) {
-    s.held = a; s.hover = null; a.home = { x: a.x, y: a.y };
+    s.held = a; s.hover = null; a.home = a.spot;
     // carry it on top of the others
     s.acc.splice(s.acc.indexOf(a), 1); s.acc.push(a);
     sfx('pop'); this.rumble(s.p, 0.15, 40);
   }
 
   /** Let go of the bow being moved: it sticks where the hand is, or (off the pet) goes back to where it was. */
-  dropHeld(s, on, ip) {
+  dropHeld(s, on) {
     const a = s.held;
     s.held = null;
     if (!a || !s.acc.includes(a)) return;
-    if (on) { a.x = ip.x; a.y = ip.y; } else if (a.home) { a.x = a.home.x; a.y = a.home.y; }
+    if (on) a.spot = this.bowSpot(s, s.cursor.x, s.cursor.y, a.rot) || a.spot;
+    else if (a.home) a.spot = a.home;
     a.t = 0;   // little pop as it lands
     particles.burst(s.cursor.x, s.cursor.y, { type: 'sparkle', count: 6 });
     sfx('stamp');
@@ -720,7 +735,7 @@ export class Game extends SpaView {
     s.acc.splice(i, 1);
     if (s.held === a) s.held = null;
     if (s.hover === a) s.hover = null;
-    const sp2 = this.toScreen(s, a.x, a.y);
+    const sp2 = s.pet.bodySpot(a.spot) || s.cursor;
     particles.burst(sp2.x, sp2.y, { type: 'spark', count: 8, colors: [a.color, '#ffffff'] });
     sfx('pop');
   }
