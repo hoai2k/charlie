@@ -9,7 +9,7 @@ import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
 import { drawEmote } from '../engine/emotes.js';
-import { GAMES, PARTY_PAGES, STUDIO_PAGES, MOLLY_GAMES } from '../games/index.js';
+import { GAMES, shelfPages, mollyShelf } from '../games/index.js';
 import { session, restoreRoster, setMollyLevel, mollyEasy } from '../state.js';
 import { drawGameIcon } from './common.js';
 import { shuffle, pick, ease, clamp } from '../engine/util.js';
@@ -18,13 +18,16 @@ const TILE_W = 196, TILE_H = 138, GAP = 16, X0 = 50;
 const PANEL_X = 1340;
 
 // Party Games and Play Studio each have two pages of 11; the last tile of a
-// shelf ("More Games" / "More Play") flips between its pages.
-const SHELVES = { party: PARTY_PAGES, studio: STUDIO_PAGES };
+// shelf ("More Games" / "More Play") flips between its pages. It always sits in
+// the bottom-right slot (a page with fewer games just leaves gaps before it).
+// Hidden games (games/index.js HIDDEN) are left off unless Settings -> Show all games.
+const shelves = () => ({ party: shelfPages('party', session.showAllGames), studio: shelfPages('studio', session.showAllGames) });
+const MORE_SLOT = 11;   // 0-based tile slot of the More tile (row 2, column 6)
 const SHELF_LABEL = { party: 'More Games', studio: 'More Play' };
 const SHELF_COLOR = { party: ['#ff7ab8', '#ff4d6d'], studio: ['#b48cff', '#9b5cff'] };
 /** { shelf, page } of a game, or null. */
 function pageOf(id) {
-  for (const [shelf, pages] of Object.entries(SHELVES)) {
+  for (const [shelf, pages] of Object.entries(shelves())) {
     const page = pages.findIndex((pg) => pg.some((g) => g.id === id));
     if (page >= 0) return { shelf, page };
   }
@@ -35,7 +38,7 @@ const chunk = (list, n) => { const out = []; for (let i = 0; i < list.length; i 
 const MOLLY_PINK = '#ff7ad9', MOLLY_DEEP = '#c94fd6';
 
 /** Molly games on the shelf: in Easy, games that need the stick (meta.easy === false) are hidden. */
-const mollyList = () => MOLLY_GAMES.filter((g) => session.mollyLevel !== 'easy' || g.easy !== false);
+const mollyList = () => mollyShelf(session.showAllGames).filter((g) => session.mollyLevel !== 'easy' || g.easy !== false);
 
 /** Molly Party view: every Molly game, then random / marathon / back to Charlie Party. */
 function buildMollyRows() {
@@ -47,11 +50,15 @@ function buildMollyRows() {
 
 function buildRows(pages) {
   const rows = [];
+  const S = shelves();
   for (const shelf of ['party', 'studio']) {
     if (shelf === 'studio') rows.partyRows = rows.length;
-    const list = SHELVES[shelf][pages[shelf]].map((g) => ({ kind: 'game', game: g, shelf }));
-    if (SHELVES[shelf].length > 1) list.push({ kind: 'more', shelf });
-    chunk(list, 6).forEach((r) => rows.push(r));
+    const page = Math.min(pages[shelf], S[shelf].length - 1);
+    const list = S[shelf][page].map((g, i) => ({ kind: 'game', game: g, shelf, slot: i }));
+    if (S[shelf].length > 1) list.push({ kind: 'more', shelf, slot: MORE_SLOT });
+    const r = [[], []];
+    for (const it of list) r[Math.floor(it.slot / 6)].push(it);
+    r.filter((x) => x.length).forEach((x) => rows.push(x));
   }
   rows.studioRows = rows.length - rows.partyRows;
   rows.push([{ kind: 'random' }, { kind: 'marathon' }, { kind: 'molly', wide: true }]);
@@ -109,7 +116,7 @@ export class GameSelectScene {
       if (ri === this.rows.partyRows && !this.rows.molly) y += 52; // studio header gap
       if (ri === this.rows.length - 1) y += 18;
       r.forEach((it, ci) => {
-        if (!it.wide && (it.kind === 'game' || it.kind === 'more')) Object.assign(it, { x: X0 + ci * (TILE_W + GAP), y, w: TILE_W, h: TILE_H });
+        if (!it.wide && (it.kind === 'game' || it.kind === 'more')) Object.assign(it, { x: X0 + ((it.slot ?? ci) % 6) * (TILE_W + GAP), y, w: TILE_W, h: TILE_H });
         else Object.assign(it, { x: X0 + ci * (2 * TILE_W + 2 * GAP), y, w: 2 * TILE_W + GAP, h: 110 });   // Random / Marathon / Molly Party buttons
       });
       y += (ri === this.rows.length - 1 ? 110 : TILE_H) + GAP;
@@ -138,6 +145,13 @@ export class GameSelectScene {
     if (this.flip) { this.flip.t += dt; if (this.flip.t > 0.6) this.flip = null; }
     if (this.molly && this._mollyLevel && this._mollyLevel !== session.mollyLevel) this.toggleMollyLevel(true);   // changed in Settings
     this._mollyLevel = session.mollyLevel;
+    if (this._showAll !== undefined && this._showAll !== session.showAllGames) {   // Settings -> Show all games
+      const cur = this.current && this.current.game;
+      this.rebuild();
+      this.row = Math.min(this.row, this.rows.length - 1); this.col = Math.min(this.col, this.rows[this.row].length - 1);
+      if (cur) this.rows.forEach((r, ri) => r.forEach((it, ci) => { if (it.game === cur) { this.row = ri; this.col = ci; } }));
+    }
+    this._showAll = session.showAllGames;
     if (this.roulette) { this.updateRoulette(dt); return; }
     if (this.chosen) { this.chosen.t += dt; if (this.chosen.t > 0.7) this.launch(); return; }
     if (!inputOpen) return;
@@ -184,7 +198,7 @@ export class GameSelectScene {
     else if (it.kind === 'random' && this.molly) this.startRoulette(mollyList().map((g) => g.id), false);
     else if (it.kind === 'marathon' && this.molly) this.startRoulette(shuffle(mollyList().map((g) => g.id)).slice(0, 5), true);
     else if (it.kind === 'random') this.startRoulette(GAMES.filter((g) => g.category !== 'molly' && pageOf(g.id)).map((g) => g.id), false);
-    else if (it.kind === 'marathon') this.startRoulette(shuffle(PARTY_PAGES.flat().map((g) => g.id)).slice(0, 5), true);
+    else if (it.kind === 'marathon') this.startRoulette(shuffle(shelves().party.flat().map((g) => g.id)).slice(0, 5), true);
   }
 
   /** "More Games" / "More Play": swap the other page of that shelf in; the cursor stays on the tile. */
@@ -261,7 +275,7 @@ export class GameSelectScene {
       ui.text(g, 'Play Studio', X0 + 8, this.studioHeaderY, { size: 40, align: 'left', color: '#9b5cff' });
     }
     for (const [shelf, hy, hx] of this.molly ? [] : [['party', 132, 318], ['studio', this.studioHeaderY - 10, 290]]) {   // page dots
-      const pages = SHELVES[shelf], cur = this.pages[shelf];
+      const pages = shelves()[shelf], cur = this.pages[shelf];
       if (pages.length < 2) continue;
       for (let i = 0; i < pages.length; i++) {
         g.beginPath(); g.arc(X0 + hx + i * 30, hy, i === cur ? 10 : 7, 0, Math.PI * 2);
@@ -335,7 +349,7 @@ export class GameSelectScene {
     const gr = g.createLinearGradient(0, 0, it.w, it.h);
     gr.addColorStop(0, toMolly ? '#ffb3ec' : '#ffcf8f'); gr.addColorStop(1, toMolly ? '#b98bff' : '#ff7ab8');
     ui.panel(g, 0, 0, it.w, it.h, { r: 55, fill: gr, stroke: sel ? '#ffd23f' : '#24163f', lineWidth: sel ? 9 : 6 });
-    const peek = toMolly ? MOLLY_GAMES : PARTY_PAGES[0];
+    const peek = toMolly ? mollyList() : shelves().party[0];
     const mw = 52, mh = 36;
     peek.slice(0, 3).forEach((m, i) => {
       const x = 30 + (i % 2) * 34, y = 14 + i * 26 + Math.sin(this.t * 3 + i) * (sel ? 3 : 0);
@@ -351,7 +365,7 @@ export class GameSelectScene {
   /** The "More Games" / "More Play" tile: a peek at the other page's games. */
   drawMoreTile(g, it, sel) {
     ui.panel(g, 0, 0, it.w, it.h, { r: 18, fill: SHELF_COLOR[it.shelf][0], stroke: sel ? '#ffd23f' : '#24163f', lineWidth: sel ? 9 : 5 });
-    const page = this.pages[it.shelf], other = SHELVES[it.shelf][1 - page];
+    const page = this.pages[it.shelf], other = shelves()[it.shelf][1 - page] || [];
     const mw = 52, mh = 36;
     other.slice(0, 3).forEach((m, i) => {
       const x = 14 + i * (mw + 8), y = 12 + Math.sin(this.t * 3 + i) * (sel ? 3 : 0);
@@ -375,7 +389,7 @@ export class GameSelectScene {
     const x = PANEL_X, y = 130, w = 540, h = 836;   // ends above the corner buttons (bottom-right)
     ui.panel(g, x, y, w, h, { fill: '#fff8ec' });
     if (it.kind === 'molly' || it.kind === 'charlie') {
-      const toMolly = it.kind === 'molly', list = toMolly ? MOLLY_GAMES : PARTY_PAGES[0];
+      const toMolly = it.kind === 'molly', list = toMolly ? mollyList() : shelves().party[0];
       ui.text(g, toMolly ? 'Sister Party!' : 'Charlie Party!', x + w / 2, y + 70, { size: 60, color: toMolly ? MOLLY_PINK : '#ff4d6d' });
       const lines = toMolly ? ['Simple, silly games', 'for little ones!'] : ['Back to the', 'big kids\' games!'];
       for (const [i, line] of lines.entries()) ui.text(g, line, x + w / 2, y + 140 + i * 44, { size: 34, color: '#24163f', stroke: false, weight: 700 });
@@ -391,7 +405,7 @@ export class GameSelectScene {
       const page = this.pages[it.shelf];
       ui.text(g, SHELF_LABEL[it.shelf] + '!', x + w / 2, y + 70, { size: 60, color: SHELF_COLOR[it.shelf][1] });
       for (const [i, line] of [page === 0 ? 'Swap in a whole new' : 'Back to the first', it.shelf === 'party' ? 'page of party games!' : 'page of Play Studio!'].entries()) ui.text(g, line, x + w / 2, y + 140 + i * 44, { size: 34, color: '#24163f', stroke: false, weight: 700 });
-      const other = SHELVES[it.shelf][1 - page];
+      const other = shelves()[it.shelf][1 - page] || [];
       const cols = 3, tw = 150, th = 100, gx = 18, gy = 16, x0 = x + (w - (cols * tw + (cols - 1) * gx)) / 2;
       other.forEach((m, i) => {
         const cx = x0 + (i % cols) * (tw + gx), cy = y + 250 + Math.floor(i / cols) * (th + gy);

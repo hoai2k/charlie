@@ -179,6 +179,21 @@ export const MOLLY_GAMES = mollyAll.filter((g) => !swapIns.has(g.id))
 export const STUDIO_PAGES = STUDIO_GAMES.length <= 12 ? [STUDIO_GAMES] : [STUDIO_GAMES.slice(0, 11), STUDIO_GAMES.slice(11)];
 export const gameById = (id) => GAMES.find((g) => g.id === id);
 
+// Hidden games: off the shelves (and out of Random / Marathon) unless Settings ->
+// "Show all games" is on; then they come back at the end of their shelf. Games from
+// a shelf's second page move up to fill the gaps. They stay playable by id (?game=).
+export const HIDDEN = new Set(['art-studio', 'fairy-count']);
+const visible = (list, showAll) => [...list.filter((g) => !HIDDEN.has(g.id)), ...(showAll ? list.filter((g) => HIDDEN.has(g.id)) : [])];
+const paged = (list) => (list.length <= 12 ? [list] : chunkPages(list, 11));
+const chunkPages = (list, n) => { const out = []; for (let i = 0; i < list.length; i += n) out.push(list.slice(i, i + n)); return out; };
+/** Pages of a Charlie Party shelf ('party' | 'studio'): 11 games a page (+ the More tile), or one page of up to 12. */
+export function shelfPages(shelf, showAll = false) {
+  if (shelf === 'party') return paged(visible([...partyRest, ...PARTY_GAMES.filter((g) => g.id === LAST)], showAll));
+  return paged(visible(STUDIO_GAMES, showAll));
+}
+/** Molly shelf games (hidden ones only with showAll, at the end). */
+export const mollyShelf = (showAll = false) => visible(MOLLY_GAMES, showAll);
+
 /** The game's code (its module), loaded once on demand; also kept on the entry as `.module`. */
 const loading = new Map();
 export function loadGame(id) {

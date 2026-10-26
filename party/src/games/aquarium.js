@@ -4,11 +4,12 @@
 // Everyone shares one big tank and has a hand cursor in their colour (left
 // stick; the right stick nudges it finely). LB / RB step through the categories:
 //   plants, castles, shells, bubblers, night lights, fish, sand colours, Tap
-//   (the glass) and, last, Done. X (or the D-pad left/right) picks the next thing.
-//   LT/RT (D-pad up/down on a controller) picks its colour (or recolours what you hold).
-//   A  place it / pick up what you point at / put it down again;
-//      on Tap: tap the glass (gently! fish come to look; tap too hard and they hide);
-//      on Done: I'm ready for the show (B: not yet after all)
+//   (the glass) and, last, Done. The D-pad left/right (or LT / RT) picks the next thing,
+//   the D-pad up/down its colour (or recolours what you hold; keyboards: Y on the bar).
+//   X  put one in and stay (as many as you like); on Tap: tap the glass (gently! fish come
+//      to look; tap too hard and they hide)
+//   A  put one in (or tap) and go on to the next category, or just go on if X already did;
+//      pick up what you point at / put it down again; on Done: I'm ready (B: not yet)
 //   B  remove what you point at (fish wave and swim away)
 //   Y  sprinkle fish food
 // A new fish gets a name card: left/right picks a name, A chooses it.

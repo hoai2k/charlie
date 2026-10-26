@@ -568,7 +568,7 @@ export class PotteryDrawing {
     g.closePath(); g.fill(); g.stroke();
     g.restore();
     // option rows
-    const rows = [['rt', `Handles: ${st.pot.handles}`], ['y', 'Surprise!'], ['b', 'Smooth']];
+    const rows = [[st.p.ctrl.kind === 'pad' ? 'dpad' : 'rt', `Handles: ${st.pot.handles}`], ['y', 'Surprise!'], ['b', 'Smooth']];
     const rh = clamp((lr.y + lr.h - (sy + sh + 16)) / 3.2, 26, 60);
     let y = sy + sh + 14 + rh / 2;
     const gs = rh * 0.7, lfs = clamp(rh * 0.42, 14, 26);
@@ -692,13 +692,13 @@ export class PotteryDrawing {
     if (st.ready) items = st.p.isAI ? [] : [['b', 'Change']];
     else if (st.confirm) items = [['a', 'Yes!'], ['b', 'Not yet']];
     else if (st.ask) items = [];
-    else if (st.step === 'shape') items = [['stick', 'Move'], ['x', 'Hold: shape'], ['a', 'Bake it!'], ['b', 'Smooth'], ['rt', 'Handles'], ['y', 'Surprise!']];
+    else if (st.step === 'shape') items = [['stick', 'Move'], ['x', 'Hold: shape'], ['a', 'Bake it!'], ['b', 'Smooth'], [pad ? 'dpad' : 'rt', 'Handles'], ['y', 'Surprise!']];
     else if (st.step === 'fire') items = st.fire.stage === 'bake' ? [['a', 'Puff the fire!']] : [];
     else {
       const tool = TOOLS[st.tool];
       if (!tool) items = [['lb', 'Change'], ['a', "I'm ready!"]];
       else if (st.held) items = [['stick', 'Move'], ['x', 'Stick'], ['b', 'Take off']];
-      else items = [['stick', 'Move'], ['x', st.hover && (tool.id === 'sticker' || tool.id === 'dots') ? 'Move' : tool.verb], ['a', 'Next'], ['y', tool.id === 'sticker' ? 'Sticker' : 'Colour'], ['b', st.hover ? 'Take off' : 'Undo']];
+      else items = [['stick', 'Move'], ['x', st.hover && (tool.id === 'sticker' || tool.id === 'dots') ? 'Move' : tool.verb], ['a', 'Next'], [pad ? 'dpad' : 'rt', tool.id === 'sticker' ? 'Sticker' : 'Colour'], ['b', st.hover ? 'Take off' : 'Undo']];
     }
     if (!items.length) return;
     if (!wide && items.length > 3) items = items.map(([b, l]) => [b, ['Surprise!', 'Handles'].includes(l) ? '' : l]);

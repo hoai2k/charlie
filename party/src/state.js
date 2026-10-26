@@ -34,6 +34,15 @@ export function setDifficulty(v) {
 /** 0 Easy, 1 Normal, 2 Hard. */
 export const difficulty = () => session.cpuLevel;
 
+// Settings -> "Show all games" (default off): hidden games (games/index.js HIDDEN) come back on the shelves.
+const SHOWALL_KEY = 'charlie-party-show-all';
+session.showAllGames = false;
+try { session.showAllGames = localStorage.getItem(SHOWALL_KEY) === '1'; } catch (e) { /* storage blocked */ }
+export function setShowAllGames(on) {
+  session.showAllGames = !!on;
+  try { localStorage.setItem(SHOWALL_KEY, on ? '1' : '0'); } catch (e) { /* storage blocked */ }
+}
+
 export const MOLLY_LEVELS = ['easy', 'medium'];
 const MOLLY_KEY = 'charlie-party-molly-level';
 try { const v = localStorage.getItem(MOLLY_KEY); if (MOLLY_LEVELS.includes(v)) session.mollyLevel = v; } catch (e) { /* storage blocked */ }

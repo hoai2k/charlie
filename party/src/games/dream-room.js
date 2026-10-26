@@ -3,8 +3,9 @@
 // Everyone shares one room and has a hand cursor in their colour (left stick;
 // the right stick nudges it finely). LB / RB step through the categories:
 // the item groups (furniture, lights, toys...), then Move, Paint and, last,
-// Done. X (or the D-pad left/right) picks the next item in a group, then:
-//   A  Place / Move / Paint (holding something, X flips it); on Done: I'm ready!
+// Done. The D-pad left/right (or LT / RT) picks the next item in a group, then:
+//   X  Place / Move / Paint and stay; A  the same once, then on to the next category
+//   (holding something, the D-pad / LT / RT turn it); on Done, A: I'm ready!
 //   B  remove what you point at (B while ready: not ready after all),
 //   Y  a surprise present pops open into an item
 // Paint the wall or the floor for new wallpaper or flooring, put plushies on
@@ -66,7 +67,8 @@ const BAR = { y: 950, h: 124 };
 const CLOCK = { x: 1688, y: 24, w: 200, h: 58 };
 const CLOCK_PLUS = { x: CLOCK.x + CLOCK.w - 58, y: CLOCK.y, w: 58, h: CLOCK.h };
 const LEGEND = { x: 14, y: 14, w: 244 };
-const LEGEND_ROWS = [[['stick'], 'Move'], [['lb', 'rb'], 'Category'], [['x'], 'Next item'], [['a'], 'Use tool'], [['b'], 'Remove'], [['y'], 'Surprise!']];
+// A commits (does the category's thing once and goes on to the next category), X does it and stays.
+const LEGEND_ROWS = [[['stick'], 'Move'], [['lb', 'rb'], 'Category'], [['lt', 'rt'], 'Next item'], [['x'], 'Do it'], [['a'], 'Use tool'], [['b'], 'Remove'], [['y'], 'Surprise!']];
 const inRect = (r, x, y) => x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h;
 const BUILD_TIME = 180, CPU_TIME = 48;
 // Group photo: line up (LINEUP s), "Say cheese!" (CHEESE_TIME s, ending 3-2-1),
@@ -484,15 +486,11 @@ export class Game {
     // --- categories: LB / RB (the last one is Done)
     const step = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
     if (step) this.stepTab(st, step);
-    // --- items: X (or the D-pad left/right, with hold-repeat)
-    const dir = (isPad && c.held('right')) ? 1 : (isPad && c.held('left')) ? -1 : 0;
-    if (dir !== st.rep.dir) { st.rep.dir = dir; st.rep.t = 0; if (dir) this.browse(st, dir); }
+    // --- items: the D-pad left/right (with hold-repeat) or LT / RT; holding something, they turn it
+    const dir = (isPad && c.held('right')) || c.held('rt') ? 1 : (isPad && c.held('left')) || c.held('lt') ? -1 : 0;
+    if (st.held) { if (dir && dir !== st.rep.dir) this.face(st); st.rep.dir = dir; st.rep.t = 0; }
+    else if (dir !== st.rep.dir) { st.rep.dir = dir; st.rep.t = 0; if (dir) this.browse(st, dir); }
     else if (dir) { st.rep.t += dt; if (st.rep.t > 0.42) { st.rep.t -= 0.13; this.browse(st, dir); } }
-    // --- X: next item (holding something: flip it)
-    if (c.pressed('x')) {
-      if (st.held) { st.held.flip *= -1; st.held.bump = this.t; for (const k of this.childrenOf(st.held)) k.flip = st.held.flip; sfx('flip'); }
-      else this.browse(st, 1);
-    }
 
     // --- held item follows the hand
     if (st.held) {
@@ -505,7 +503,8 @@ export class Game {
 
     // --- A / B / Y (A on Done: I'm ready)
     if (c.pressed('a') && st.tab === DONE && !st.held) this.setReady(st, true);
-    else if (c.pressed('a') || st.click) this.pressA(st);
+    else if (c.pressed('a')) this.commitA(st);
+    else if (c.pressed('x') || st.click) this.pressA(st);
     if (c.pressed('b')) this.pressB(st);
     if (c.pressed('y') && st.cool <= 0) this.surprise(st);
   }
@@ -523,7 +522,13 @@ export class Game {
     return Math.abs(x - 960) <= half + 4;
   }
 
-  /** X / D-pad: the next (or previous) item in this category. */
+  /** Turn (flip) what the hand holds. */
+  face(st) {
+    const it = st.held;
+    it.flip *= -1; it.bump = this.t; for (const k of this.childrenOf(it)) k.flip = it.flip; sfx('flip');
+  }
+
+  /** The D-pad / LT / RT: the next (or previous) item in this category. */
   browse(st, dir) {
     if (st.held || st.tab >= MOVE_TAB) { if (!st.p.isAI && st.tab >= MOVE_TAB && st.tab !== DONE) sfx('blip'); return; }
     const g = st.tab, a = GROUP_START[g], n = GROUP_END[g] - a;
@@ -538,7 +543,7 @@ export class Game {
     this.setTab(st, (st.tab + dir + NTABS) % NTABS);
   }
   setTab(st, tab) {
-    st.tab = tab;
+    st.tab = tab; st.didTab = false;   // (A does this category's thing once, unless X already has)
     if (tab < MOVE_TAB) { st.sel = st.selIn[tab]; st.selPop = 1; st.scroll = st.sel - GROUP_START[tab]; }
     const tool = tab === MOVE_TAB ? 1 : tab === PAINT_TAB ? 2 : 0;
     if (tool !== st.tool) st.toolPop = 1;
@@ -567,26 +572,54 @@ export class Game {
         // Clicking a legend row presses that button (mouse / touch players).
         const b = LEGEND_ROWS[clamp(Math.floor((y - LEGEND.y - 12) / 50), 0, LEGEND_ROWS.length - 1)][0][0];
         if (b === 'lb') this.stepTab(st, 1);
-        else if (b === 'x') this.browse(st, 1);
+        else if (b === 'lt') this.browse(st, 1);
         else if (b === 'y' && st.cool <= 0) this.surprise(st);
         else sfx('blip');
         return;
       }
     }
     if (st.tab === DONE && !st.held) { sfx('blip'); return; }
+    this.useTool(st);
+  }
+
+  /** The category's thing, once: place the item / pick up or put down / paint. True if it happened. */
+  useTool(st) {
+    const { x, y } = st.cur;
     const tool = TOOLS[st.tool].id;
-    if (tool === 'place') this.placeSelected(st);
+    let ok = false;
+    if (tool === 'place') ok = !!this.placeSelected(st);
     else if (tool === 'move') {
-      if (st.held) this.drop(st);
+      if (st.held) { this.drop(st); ok = true; }
       else if (st.hover && (!st.p.isAI || st.hover.owner === st.i)) this.grab(st, st.hover);
       else sfx('blip');
     } else if (tool === 'paint') {
+      ok = true;
       if (st.hover && (!st.p.isAI || st.hover.owner === st.i)) this.recolor(st.hover, st);
-      else if (st.p.isAI && this.humans) sfx('blip');   // helpers never repaint the humans' room
+      else if (st.p.isAI && this.humans) { ok = false; sfx('blip'); }   // helpers never repaint the humans' room
       else if (this.inRoom(x, y) && y < FLOOR_Y0) this.setWallpaper((this.wall + 1) % WALLPAPERS.length, st);
       else if (this.inRoom(x, y)) this.setFloor((this.floor + 1) % FLOORS.length, st);
-      else sfx('blip');
+      else { ok = false; this.roomHint(st); }
     }
+    if (ok) st.didTab = true;
+    return ok;
+  }
+  roomHint(st) { if (!st.p.isAI) this.toast = { text: 'Point into the room first!', t: 0 }; sfx('blip'); }
+
+  /** A commits: do this category's thing once (unless X already did) and go on to the next
+   *  category; Move: A picks a thing up, and putting it down goes on. */
+  commitA(st) {
+    const { x, y } = st.cur;
+    const onUI = !st.held && (inRect(CLOCK_PLUS, x, y) || inRect(SWITCH_HIT, x, y) || y >= BAR.y - 6 ||
+      (!st.p.isAI && x >= LEGEND.x && x <= LEGEND.x + LEGEND.w && y >= LEGEND.y && y <= LEGEND.y + LEGEND_ROWS.length * 50 + 24));
+    if (onUI) { this.pressA(st); return; }
+    if (TOOLS[st.tool].id === 'move' && st.tab !== DONE) {
+      if (st.held) { this.drop(st); this.stepTab(st, 1); }
+      else if (st.hover && (!st.p.isAI || st.hover.owner === st.i)) this.grab(st, st.hover);
+      else this.stepTab(st, 1);   // (nothing to move: on you go)
+      return;
+    }
+    if (!st.didTab && !this.useTool(st)) return;   // (it said why)
+    this.stepTab(st, 1);
   }
 
   panelClick(st, x, y) {
@@ -610,9 +643,9 @@ export class Game {
   placeSelected(st) {
     const e = PALETTE[st.sel], { x, y } = st.cur;
     if (e.kind !== 'item' && st.p.isAI && this.humans) { sfx('blip'); return; }
-    if (e.kind === 'wall') { if (this.inRoom(x, y)) this.setWallpaper(e.idx, st); else sfx('blip'); return; }
-    if (e.kind === 'floor') { if (this.inRoom(x, y)) this.setFloor(e.idx, st); else sfx('blip'); return; }
-    if (!this.inRoom(x, y) && !(y < FLOOR_Y1 && y > 120 && x > 240 && x < W - 240)) { sfx('blip'); return; }
+    if (e.kind === 'wall') { if (this.inRoom(x, y)) { this.setWallpaper(e.idx, st); return true; } this.roomHint(st); return; }
+    if (e.kind === 'floor') { if (this.inRoom(x, y)) { this.setFloor(e.idx, st); return true; } this.roomHint(st); return; }
+    if (!this.inRoom(x, y) && !(y < FLOOR_Y1 && y > 120 && x > 240 && x < W - 240)) { this.roomHint(st); return; }
     if (this.items.length >= MAX_ITEMS) { this.toast = { text: 'The room is full! Remove something with B.', t: 0 }; sfx('blip'); return; }
     const d = e.def;
     const it = this.addItem(d, this.placement(d, x, y), st, this.colorFor(st, d));
@@ -813,7 +846,7 @@ export class Game {
         if (st.held) { c.press('a'); A.wait = 0.3; break; }
         const gi = groupOf(cmd.v);
         if (st.tab !== gi) { const r = (gi - st.tab + NTABS) % NTABS; c.press(r <= NTABS / 2 ? 'rb' : 'lb'); }
-        else c.press('x');
+        else c.press('rt');
         A.wait = rand(0.1, 0.17) / prof.speed;
         break;
       }
@@ -831,7 +864,7 @@ export class Game {
       case 'a': {
         const e = PALETTE[st.sel];
         if (cmd.count && e.kind === 'item' && e.def.unique && this.items.some((i) => i.def === e.def)) { A.cmds = []; break; }   // someone beat us to it
-        c.press('a'); if (cmd.count) A.placed++; done(0.5); break;
+        c.press('x'); if (cmd.count) A.placed++; done(0.5); break;   // (X: put it in and stay)
       }
       case 'y': c.press('y'); A.placed++; done(0.6); break;
       default: done();
@@ -1571,8 +1604,13 @@ export class Game {
 
   drawLegend(g) {
     const solo = this.humans === 1 ? this.stations.find((s) => !s.p.isAI) : null;
-    const aLabel = solo ? (solo.tab === DONE ? "I'm ready!" : TOOLS[solo.tool].name) : 'Use tool';
-    const rows = LEGEND_ROWS.map(([b, label]) => [b, label === 'Use tool' ? aLabel : label]);
+    let aLabel = 'Do it, go on', xLabel = 'Do it';
+    if (solo) {
+      const tool = TOOLS[solo.tool].id;
+      xLabel = solo.tab === DONE ? '-' : tool === 'move' ? (solo.held ? 'Put down' : 'Pick up') : TOOLS[solo.tool].name;
+      aLabel = solo.tab === DONE ? "I'm ready!" : tool === 'move' ? (solo.held ? 'Put, go on' : solo.hover ? 'Pick up' : 'Go on') : solo.didTab ? 'Go on' : `${TOOLS[solo.tool].name}, go on`;
+    }
+    const rows = LEGEND_ROWS.map(([b, label]) => (label === 'Next item' && solo && solo.held ? [b, 'Turn it'] : [b, label === 'Use tool' ? aLabel : label === 'Do it' ? xLabel : label]));
     const rh = 50, h = rows.length * rh + 24;
     ui.panel(g, LEGEND.x, LEGEND.y, LEGEND.w, h, { r: 24, fill: 'rgba(255,248,236,0.94)', lineWidth: 5 });
     rows.forEach(([btns, label], i) => {
@@ -1673,14 +1711,15 @@ export class Game {
       return;
     }
     if (tab >= MOVE_TAB) {
-      const tip = tab === MOVE_TAB ? (st.held ? 'A: put it down · X: flip' : 'A: pick up a thing') : 'A: new colour or wallpaper';
+      const turn = p.ctrl.kind === 'pad' ? 'D-pad' : 'LT/RT';
+      const tip = tab === MOVE_TAB ? (st.held ? `X: put it down · ${turn}: turn` : 'X or A: pick up a thing') : 'X: new colour or wallpaper · A: and go on';
       ui.text(g, tabName(tab), L.mid, P.y + 30, { size: 24, color: NAVY, stroke: false, weight: 800 });
       ui.text(g, tip, L.mid, P.y + 76, { size: 22, color: '#6b5a85', stroke: false, weight: 700, maxWidth: L.c1 - L.c0 });
       return;
     }
-    // carousel: the items in this category (X / D-pad: next)
+    // carousel: the items in this category (D-pad left/right or LT / RT: next)
     const ga = GROUP_START[tab], N = GROUP_END[tab] - ga;
-    if (L.glyphW) ui.glyph(g, 'x', L.c1 + 16, L.slotY, 26);
+    if (L.glyphW) ui.glyph(g, p.ctrl.kind === 'pad' ? 'dpad' : 'rt', L.c1 + 16, L.slotY, 26);
     g.save(); g.beginPath(); g.rect(L.c0, P.y + 4, L.c1 - L.c0, P.h - 8); g.clip();
     const base = Math.round(st.scroll), frac = st.scroll - base, step = L.ss + L.gap;
     const half = Math.min(Math.ceil((L.c1 - L.c0) / step / 2) + 1, Math.floor((N - 1) / 2));

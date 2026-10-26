@@ -80,6 +80,10 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   `api.finishTogether`, `showstopper()` in `engine/util.js`, `engine/easy.js`
   (Sister Party Easy: the stick is optional, A does everything, `easyPrompt` is
   the one big-A cue) and `engine/crowd.js` (8-player spacing).
+- Hidden games: `HIDDEN` in `party/src/games/index.js` takes a game off the
+  shelves (and Random / Marathon); Settings -> "Show all games" (default off)
+  puts them back at the end of their shelf. Page-2 games move up to fill the gaps;
+  the More tile always stays bottom-right (gaps before it are fine).
 - Difficulty is one setting (Settings, default Normal; `difficulty()` in
   `party/src/state.js`, same as `session.cpuLevel`): it sets the CPU players
   (`engine/ai.js`; even Hard stays beatable) and games read it for their own

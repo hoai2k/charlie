@@ -14,7 +14,7 @@ import { isMuted, toggleMuted, unlockAudio, sfx, songTagsOn, setSongTags } from 
 import { shell } from './shell.js';
 import { getImageQuality, setImageQuality } from './sprites.js';
 import * as ui from './ui.js';
-import { session, setMollyLevel, setDifficulty, AI_LEVELS } from '../state.js';
+import { session, setMollyLevel, setDifficulty, setShowAllGames, AI_LEVELS } from '../state.js';
 
 const ROW_H = 104, PANEL_W = 860;
 const A_KEYS = new Set(['Space', 'Enter', 'NumpadEnter', 'KeyJ']);
@@ -36,6 +36,7 @@ export const settings = {
     const easy = session.mollyLevel === 'easy';
     r.push({ id: 'molly', label: 'Sister Party', value: easy ? 'Easy' : 'Medium', on: easy, hint: easy ? 'Just the A button; the stick is optional' : 'Stick + buttons, like Charlie Party' });
     r.push({ id: 'cpu', label: 'Difficulty', value: AI_LEVELS[session.cpuLevel] || 'Normal', on: true, hint: 'CPU players and game challenges (like Pop Star\'s notes)' });
+    r.push({ id: 'showall', label: 'Show all games', value: session.showAllGames ? 'On' : 'Off', on: session.showAllGames, hint: 'Brings back the games hidden from the shelves' });
     r.push({ id: 'close', label: 'Done' });
     return r;
   },
@@ -54,6 +55,7 @@ export const settings = {
       sfx('select');
     } else if (id === 'quality') { setImageQuality(getImageQuality() === 'full' ? 'optimized' : 'full'); sfx('select'); }
     else if (id === 'tags') { setSongTags(!songTagsOn()); sfx('select'); }
+    else if (id === 'showall') { setShowAllGames(!session.showAllGames); sfx('select'); }
     else if (id === 'molly') { setMollyLevel(session.mollyLevel === 'easy' ? 'medium' : 'easy'); sfx('select'); }
     else if (id === 'cpu') { setDifficulty(session.cpuLevel + 1); sfx('select'); }
     else if (id === 'close') this.close();

@@ -148,7 +148,9 @@ export class Game extends PotteryDrawing {
     }
     if (st.confirm) { this.updateConfirm(st, dt); return; }
     if (st.ask) { this.updateAsk(st); return; }
-    const mx = c.x, my = c.y;
+    // on a gamepad the d-pad picks the handles, so only the stick moves the hand (CPUs drive like a
+    // gamepad); on a keyboard WASD is both, so LT / RT pick them there
+    const pad = c.kind !== 'kb', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     cur.x = clamp(cur.x + mx * CUR_SPEED * dt, -260, 260);
     cur.y = clamp(cur.y - my * CUR_SPEED * dt, -20, HMAX + 40);
     if (c.pressed('rb')) { st.confirm = { t: 0 }; sfx('select'); a.setPose('idle'); return; }
@@ -158,7 +160,7 @@ export class Game extends PotteryDrawing {
       else { st.confirm = { t: 0 }; sfx('select'); a.setPose('idle'); }
       return;
     }
-    const hStep = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
+    const hStep = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
     if (hStep) {
       pot.handles = (pot.handles + hStep + 3) % 3;
       sfx(pot.handles ? 'pop' : 'back');
@@ -383,24 +385,32 @@ export class Game extends PotteryDrawing {
     const target = st.held || st.hover || st.confirm ? 0 : fast ? FAST_SPIN : PAINT_SPIN;
     st.spin = damp(st.spin, target, 6, dt);
     st.phi += st.spin * dt;
-    const pad = c.kind === 'pad', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
+    const pad = c.kind !== 'kb', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     cur.x = clamp(cur.x + mx * CUR_SPEED * dt, -260, 260);
     cur.y = clamp(cur.y - my * CUR_SPEED * dt, -30, HMAX + 30);
-    // LB / RB (d-pad up / down): the tools, the last one is Done (A there: ready) · Y (d-pad left / right):
-    // the colour or sticker · X: paint · A: on to the next tool · B: take off / undo
+    // LB / RB: the tools, the last one is Done (A there: ready) · d-pad left / right or LT / RT (keyboard:
+    // LT / RT, WASD is the hand): the colour or sticker · X: use the tool and stay · A: commit: on a
+    // one-press tool (glaze, stripe, dots, sticker) it does it once if X hasn't on this visit, then on to
+    // the next tool · B: take off / undo
     const NT = TOOLS.length + 1;
-    const toolStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0) + (pad ? (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0) : 0);
-    if (toolStep && !st.held) { st.tool = (st.tool + toolStep + NT) % NT; st.listBump = 0.15; sfx('move'); st.stroke = null; return; }
+    // A's one action: X is pressed for it the next frame, and the frame after that it moves on
+    if (st.aNext === 'go') { st.aNext = null; if (!st.held && st.tool !== DONE) { this.nextPaintTool(st); return; } }
+    else if (st.aNext === 'x') st.aNext = 'go';
+    const toolStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
+    if (toolStep && !st.held) { st.tool = (st.tool + toolStep + NT) % NT; st.usedOn = -1; st.aNext = null; st.listBump = 0.15; sfx('move'); st.stroke = null; return; }
     if (st.tool === DONE) {
       st.hover = null;
       if (c.pressed('a')) this.setReady(st, true);
-      else if (c.pressed('b')) { st.tool = DONE - 1; st.listBump = 0.15; sfx('back'); }
+      else if (c.pressed('b')) { st.tool = DONE - 1; st.usedOn = -1; st.listBump = 0.15; sfx('back'); }
       if (a.pose === 'paint') a.setPose('idle');
       return;
     }
-    if (c.pressed('a') && !st.held && !st.p.isAI) { this.nextPaintTool(st); return; }
-    if (c.pressed('x')) { st.usedX = true; st.hint = null; }
-    const colStep = (c.pressed('y') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
+    if (c.pressed('a') && !st.held && !st.p.isAI && !st.aNext) {
+      if (tool !== 'brush' && st.usedOn !== st.tool) { c.inject('x'); st.aNext = 'x'; return; }
+      this.nextPaintTool(st); return;
+    }
+    if (c.pressed('x')) { st.usedX = true; st.usedOn = st.tool; st.hint = null; }
+    const colStep = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
     if (colStep && !st.held) {
       if (TOOLS[st.tool].id === 'sticker') { st.sticker = (st.sticker + colStep + STICKERS.length) % STICKERS.length; sfx('stamp', { vol: 0.5 }); }
       else { st.color = (st.color + colStep + PAINTS.length) % PAINTS.length; sfx('collect', { step: st.color }); }
@@ -426,7 +436,7 @@ export class Game extends PotteryDrawing {
       return;
     }
     const grabby = tool === 'sticker' || tool === 'dots';
-    if (st.hover && grabby && c.pressed('x')) {
+    if (st.hover && grabby && c.pressed('x') && st.aNext !== 'go') {
       st.held = st.hover; st.held.held = true; st.hover = null;
       sfx('pop'); a.squash(0.1);
       return;
@@ -493,7 +503,8 @@ export class Game extends PotteryDrawing {
     if (painting) { if (a.pose !== 'paint' && !a._once) a.setPose('paint'); } else if (a.pose === 'paint') a.setPose('idle');
   }
 
-  /** A on a paint tool: on to the next one (after Stickers: Done). Until X has been used, it says how. */
+  /** A on a paint tool: on to the next one (after Stickers: Done). On the brush (a hold, no one action
+   *  for A) it says how until X has been used. */
   nextPaintTool(st) {
     const id = TOOLS[st.tool].id;
     if (!st.usedX) {
@@ -501,7 +512,7 @@ export class Game extends PotteryDrawing {
       st.hint = { text: how, t: 2.2 }; st.listBump = 0.15; sfx('blip');
       return;
     }
-    st.tool = Math.min(DONE, st.tool + 1); st.listBump = 0.15; st.stroke = null; sfx('move');
+    st.tool = Math.min(DONE, st.tool + 1); st.usedOn = -1; st.listBump = 0.15; st.stroke = null; sfx('move');
   }
 
   setReady(st, on) {
@@ -601,7 +612,7 @@ export class Game extends PotteryDrawing {
       const NT = TOOLS.length + 1, fwd = (TOOL[task.tool] - st.tool + NT) % NT;
       c.press(fwd <= NT / 2 ? 'rb' : 'lb'); ai.wait = rand(0.15, 0.3) * this.pace(); return;
     }
-    if (task.tool === 'sticker' ? st.sticker !== task.sticker : st.color !== task.color) { c.press('y'); ai.wait = rand(0.1, 0.22) * this.pace(); return; }
+    if (task.tool === 'sticker' ? st.sticker !== task.sticker : st.color !== task.color) { c.press('rt'); ai.wait = rand(0.1, 0.22) * this.pace(); return; }
     let tx, ty;
     if (task.y !== undefined) { tx = task.x; ty = task.y; }
     else {

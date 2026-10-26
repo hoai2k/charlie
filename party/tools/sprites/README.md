@@ -59,6 +59,21 @@ lively breathing, hops and squash. Distinct poses sharing frames should use expl
 do not claim they are separately generated animations. Portrait cells preserve their framing
 and are resized to 384×384. Supply intentional portrait crops with shoulders reaching the bottom.
 
+## Body map
+
+Besides the intake landmarks, every frame carries measured body parts:
+`belly`, `footFront`/`footBack`, `earFront`/`earBack` (characters with visible
+ears) and `tail` (animals, Felicity, the imps' wisp, mermaid fins), in frame
+pixels. `bodymap.py` measures them from each frame's alpha, guided by the
+head/eyes/neck/back points and a per-set body plan (`PLANS`), and `build.py`
+runs it on every build. Wrong points are corrected as reviewed overrides in
+`bodymap-overrides.json` (move the point in the sprite workbench and apply
+its edits file, which writes the override and re-measures). Run
+`python3 party/tools/sprites/bodymap.py [asset ...]` after changing frames or
+landmarks by hand; it keeps optimized copies and masks current (pixels don't
+change). The engine sticks things to the nearest part (`src/engine/bodyparts.js`,
+`Actor.placeOnBody` / `bodySpot`), so they ride every pose.
+
 ## Intake checklist (every new or changed set)
 
 1. Build with `build.py` and inspect `qa-contact-sheet.jpg` (above).
