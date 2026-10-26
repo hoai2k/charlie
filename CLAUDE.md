@@ -80,6 +80,9 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   `api.finishTogether`, `showstopper()` in `engine/util.js`, `engine/easy.js`
   (Sister Party Easy: the stick is optional, A does everything, `easyPrompt` is
   the one big-A cue) and `engine/crowd.js` (8-player spacing).
+- Buttons (the owner's rule): A is jump in action games and confirm / act in the
+  others; X is the action when A alone isn't enough (Pet Spa: hold X to scrub,
+  A = this step's done, or a line saying what's left and to press X).
 - Play Studio controls (see `party/src/engine/studio-ui.js`; Fashion Show is the
   model): A confirms and moves on; LB/RB move between categories and the last
   category is "Done" (A there = ready); the left stick (and X) choose items or
