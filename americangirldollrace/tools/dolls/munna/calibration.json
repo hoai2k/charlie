@@ -3,8 +3,8 @@
   "color": "#92949c",
   "earFraction": 0,
   "earFractionNote": "Both ears droop; head top is the standing outline top. No extra ear-height scaling.",
-  "sizeTrim": 0.9,
-  "sizeTrimNote": "The owner's call after seeing her beside the dolls: 10% shorter (first tried 15%).",
+  "sizeTrim": 0.85,
+  "sizeTrimNote": "The owner's call: 85%, so her head stands level with Cornsilk's (not counting Cornsilk's ears).",
   "toyHeightCalibration": true,
   "notes": "Plush paw, seat, chest and ledge source fractions; anatomical group scales retained across canvases. Toys follow the shared standing-height calibration.",
   "anatomicalScales": {

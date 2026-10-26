@@ -534,7 +534,8 @@ test('choose screen: corner buttons (sound, full screen; no gear) at the bottom 
   });
   const many = [await clear()];
   const size = page.viewportSize();
-  await page.setViewportSize({ width: 600, height: 900 }); await page.waitForTimeout(400);
+  // (Stalls glide 0.35 s to their places after a layout change: judged once they're there.)
+  await page.setViewportSize({ width: 600, height: 900 }); await page.waitForTimeout(900);
   many.push(await clear());
   await page.setViewportSize(size); await page.waitForTimeout(400);
   await page.keyboard.press('KeyR'); for (let i = 0; i < 3; i++) await page.keyboard.press('KeyS'); for (let i = 0; i < 4; i++) await page.keyboard.press('KeyA'); await page.keyboard.press('KeyR');

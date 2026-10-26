@@ -681,7 +681,7 @@ function drawObstacle(obstacle) {
 }
 
 // A doll drawn larger than her sheet's cells allow (dolls.js bodyScale:
-// Cornsilk, sized by the top of her head (her long ears rising above it), then trimmed 10%, and Munna 10% shorter, at the owner's call):
+// Cornsilk, sized by the top of her head (her long ears rising above it), then trimmed 10%, and Munna 15% shorter (level with Cornsilk's head), at the owner's call):
 // everything drawn in fn is scaled about (px, py), where she meets the ground,
 // the saddle or the cloud's edge, so her hands, boots and wings stay on her.
 function dollBodyScale(racer) {
