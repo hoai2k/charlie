@@ -14,7 +14,7 @@ import { Actor, POSE_NAMES } from '../engine/sprites.js';
 import { charById } from '../data/characters.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
-import { sfx, sfxLoop, voice } from '../engine/audio.js';
+import { sfx, sfxLoop, voice, music } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { input } from '../engine/input.js';
@@ -236,6 +236,7 @@ export class Game {
     const px = h.x, py = h.y - h.a.height - 40;
     particles.burst(px, py, { type: 'sparkle', count: 12, colors: ['#fff', '#ffe066', '#ff9fcd'] });
     particles.popText(CX, CY - 40, this.round === 1 ? 'Pass it on!' : `Round ${this.round}`, '#ffffff', 64);
+    if (this.round > 1) this.musicBackAt = this.t + 1.2;   // the song (hushed by the pop) fades back in
   }
 
   /** The friend the holder's aim would hit (aim assist: within ASSIST radians and in range). */
@@ -253,6 +254,7 @@ export class Game {
 
   stepPresent(dt) {
     const P = this.pres;
+    if (this.musicBackAt != null && this.t >= this.musicBackAt) { this.musicBackAt = null; music.hush(false, 2.5); }
     if (P.state === 'rest') {
       P.rest -= dt;
       if (P.rest <= 0) {
@@ -373,6 +375,7 @@ export class Game {
     const a = h.a;
     const hp = { x: h.x, y: h.y - h.a.height - 30 };
     if (this.cam) this.cam.punch(h.x, h.y - h.a.height * 0.7, 1.28, 0.45);
+    music.hush(true, 0.12); this.musicBackAt = null;   // the music stops dead at the pop
     sfx('bigpop'); sfx('boom'); fx.shake(24, 0.55); fx.flash('#ffffff', 0.2); fx.hitstop(0.09);
     voice(h.p.charId, 'ouch');
     if (!h.p.isAI) h.p.ctrl.rumble(1, 400);
@@ -713,7 +716,7 @@ export class Game {
     const P = this.pres;
     if (!this.ends && P.state === 'held' && this.round === 1 && P.pass === 0 && this.t < 12) {
       const pads = this.ents.some((e) => !e.p.isAI && e.p.ctrl.kind === 'pad');
-      ui.text(g, pads ? 'Run with the left stick, aim with the right stick, RT to throw!' : 'Run around, then press A to throw the way you run!', W / 2, 1010, { size: 40, color: '#ffffff' });
+      ui.text(g, pads ? 'Run with the left stick, aim with the right stick, A to throw!' : 'Run around, then press A to throw the way you run!', W / 2, 1010, { size: 40, color: '#ffffff' });
     }
     if (this.ends && this.ends.winner) {
       const nm = playerName(this.ends.winner.p);

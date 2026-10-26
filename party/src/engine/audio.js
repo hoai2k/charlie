@@ -535,6 +535,7 @@ class Music {
     if (!ctx) return;
     // A streamed song never needs restarting: just make sure it is playing.
     if (this.name === name && (!restart || this.stream)) {
+      if (this.hushed) this.hush(false, fadeIn);
       if (name === 'title' && restart && this.stream) { this.titleCarry = false; this.stream.el.loop = true; this.stream.el.onended = null; }
       this._kick(); return;
     }
@@ -545,6 +546,7 @@ class Music {
     if (this.name && this.name !== name) takePicks.delete(this.name); // next time it starts, roll a take again
     if (name === 'title' && this.titleResume && this.titleResume.take) takePicks.set('title', this.titleResume.take); // resume the same take
     this.switching = null;
+    this.hushed = false;
     this.stop(0.25);
     const def = SONGS[name];
     this.name = name;
@@ -680,6 +682,20 @@ class Music {
     if (!st || !st.el.paused || pageAway()) return;
     const p = st.el.play();
     if (p && p.catch) p.catch(() => {}); // retried on the next gesture (unlockAudio)
+  }
+  /**
+   * Hush the song for a moment (on: fade out and pause; off: fade back in where it was).
+   * A game's dramatic beat - e.g. Pass the Present's pop - then the song returns.
+   */
+  hush(on, fade = on ? 0.15 : 2) {
+    if (!this.gain || !ctx || !!this.hushed === on) return;
+    this.hushed = on;
+    const g = this.gain.gain, t = ctx.currentTime;
+    g.cancelScheduledValues(t); g.setValueAtTime(Math.max(on ? 0.0001 : 0.03, g.value), t);   // back in from just audible, so the fade is heard all the way
+    g.exponentialRampToValueAtTime(on ? 0.0001 : 1, t + fade);
+    const st = this.stream;
+    if (st && on) setTimeout(() => { if (this.hushed && this.stream === st) st.el.pause(); }, fade * 1000 + 60);
+    else if (st) this._kick();
   }
   _pauseStream() { if (this.stream) this.stream.el.pause(); }
   /** Start decoding a recorded song early (e.g. during a countdown). */

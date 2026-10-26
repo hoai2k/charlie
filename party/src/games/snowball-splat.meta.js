@@ -5,7 +5,7 @@ export const meta = {
   category: 'party',
   type: 'Free-for-all',
   goal: 'Splat your friends with snowballs! Most splats wins.',
-  controls: [['stick', 'Run around the snowy garden'], ['a', 'Hold: make snowballs'], ['rt', 'Throw! (X or RB works too)'], ['rstick', 'Aim (or just throw the way you face)']],
+  controls: [['stick', 'Run around the snowy garden'], ['a', 'Hold: make snowballs'], ['x', 'Throw! (or RT / RB)'], ['rstick', 'Aim (or just throw the way you face)']],
   tips: ['Hide behind snow walls and snowmen - they crumble, then pop back up!', 'Grab the GIANT snowball - it rolls over everyone!', 'The red mitten throws three at once. No snow on the ice!'],
   music: 'chase',
   duration: '50 sec',
