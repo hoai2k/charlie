@@ -356,7 +356,7 @@ window.EXTRA_DOLLS = {
     "hidden": true,
     "verifyAllMoonBoots": true,
     "spriteKey": "munna",
-    "bodyScale": 0.85,
+    "bodyScale": 0.9,
     "jumpScale": 1,
     "riderXOffset": 36.441,
     "riderYOffset": 38.584,
