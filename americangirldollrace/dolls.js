@@ -356,6 +356,7 @@ window.EXTRA_DOLLS = {
     "hidden": true,
     "verifyAllMoonBoots": true,
     "spriteKey": "munna",
+    "bodyScale": 0.85,
     "jumpScale": 1,
     "riderXOffset": 36.441,
     "riderYOffset": 38.584,
@@ -367,8 +368,7 @@ window.EXTRA_DOLLS = {
         "beta": 0.7
       },
       "outfits": []
-    },
-    "bodyScale": 1.0
+    }
   }
 };
 for (const key of Object.keys(window.EXTRA_DOLLS)) {
