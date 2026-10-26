@@ -41,7 +41,19 @@
             70,
             155
           ],
-          "dur": 0.8
+          "dur": 0.8,
+          "belly": [
+            123,
+            170
+          ],
+          "earFront": [
+            139,
+            33
+          ],
+          "tail": [
+            81,
+            239
+          ]
         },
         {
           "src": "idle-01.webp",
@@ -69,7 +81,19 @@
             75,
             154
           ],
-          "dur": 0.1
+          "dur": 0.1,
+          "belly": [
+            122,
+            167
+          ],
+          "earFront": [
+            140,
+            32
+          ],
+          "tail": [
+            88,
+            235
+          ]
         },
         {
           "src": "idle-02.webp",
@@ -97,7 +121,19 @@
             70,
             155
           ],
-          "dur": 0.7
+          "dur": 0.7,
+          "belly": [
+            123,
+            170
+          ],
+          "earFront": [
+            139,
+            33
+          ],
+          "tail": [
+            81,
+            239
+          ]
         }
       ]
     },
@@ -131,6 +167,18 @@
           "back": [
             97,
             133
+          ],
+          "belly": [
+            136,
+            148
+          ],
+          "earFront": [
+            191,
+            31
+          ],
+          "tail": [
+            75,
+            208
           ]
         },
         {
@@ -158,6 +206,18 @@
           "back": [
             88,
             128
+          ],
+          "belly": [
+            116,
+            179
+          ],
+          "earFront": [
+            185,
+            30
+          ],
+          "tail": [
+            83,
+            206
           ]
         }
       ]
@@ -192,6 +252,18 @@
           "back": [
             79,
             156
+          ],
+          "belly": [
+            131,
+            187
+          ],
+          "earBack": [
+            130,
+            33
+          ],
+          "tail": [
+            94,
+            227
           ]
         },
         {
@@ -219,6 +291,18 @@
           "back": [
             80,
             156
+          ],
+          "belly": [
+            120,
+            184
+          ],
+          "earFront": [
+            139,
+            32
+          ],
+          "tail": [
+            78,
+            222
           ]
         }
       ]
@@ -253,6 +337,18 @@
           "back": [
             68,
             155
+          ],
+          "belly": [
+            111,
+            184
+          ],
+          "earFront": [
+            129,
+            33
+          ],
+          "tail": [
+            73,
+            227
           ]
         }
       ]
@@ -287,6 +383,18 @@
           "back": [
             64,
             117
+          ],
+          "belly": [
+            122,
+            152
+          ],
+          "earFront": [
+            140,
+            33
+          ],
+          "tail": [
+            92,
+            197
           ]
         }
       ]
@@ -321,6 +429,18 @@
           "back": [
             73,
             150
+          ],
+          "belly": [
+            113,
+            180
+          ],
+          "earFront": [
+            133,
+            32
+          ],
+          "tail": [
+            76,
+            231
           ]
         }
       ]
@@ -355,6 +475,18 @@
           "back": [
             92,
             149
+          ],
+          "belly": [
+            133,
+            165
+          ],
+          "earFront": [
+            160,
+            32
+          ],
+          "tail": [
+            101,
+            222
           ]
         }
       ]
@@ -389,6 +521,18 @@
           "back": [
             66,
             94
+          ],
+          "belly": [
+            116,
+            120
+          ],
+          "earFront": [
+            138,
+            27
+          ],
+          "tail": [
+            95,
+            152
           ]
         }
       ]
@@ -423,6 +567,18 @@
           "back": [
             72,
             154
+          ],
+          "belly": [
+            112,
+            181
+          ],
+          "earFront": [
+            135,
+            32
+          ],
+          "tail": [
+            99,
+            205
           ]
         }
       ]
@@ -457,6 +613,18 @@
           "back": [
             68,
             155
+          ],
+          "belly": [
+            111,
+            184
+          ],
+          "earFront": [
+            129,
+            33
+          ],
+          "tail": [
+            73,
+            227
           ]
         },
         {
@@ -484,6 +652,18 @@
           "back": [
             73,
             150
+          ],
+          "belly": [
+            113,
+            180
+          ],
+          "earFront": [
+            133,
+            32
+          ],
+          "tail": [
+            76,
+            231
           ]
         },
         {
@@ -511,6 +691,18 @@
           "back": [
             64,
             117
+          ],
+          "belly": [
+            118,
+            155
+          ],
+          "earFront": [
+            139,
+            33
+          ],
+          "tail": [
+            92,
+            197
           ]
         },
         {
@@ -538,6 +730,18 @@
           "back": [
             92,
             149
+          ],
+          "belly": [
+            133,
+            165
+          ],
+          "earFront": [
+            160,
+            32
+          ],
+          "tail": [
+            101,
+            222
           ]
         }
       ]
@@ -573,7 +777,19 @@
             72,
             157
           ],
-          "dur": 0.12
+          "dur": 0.12,
+          "belly": [
+            124,
+            166
+          ],
+          "earFront": [
+            145,
+            32
+          ],
+          "tail": [
+            80,
+            237
+          ]
         },
         {
           "src": "poof-01.webp",
@@ -601,7 +817,19 @@
             46,
             136
           ],
-          "dur": 0.16
+          "dur": 0.16,
+          "belly": [
+            114,
+            153
+          ],
+          "earFront": [
+            118,
+            28
+          ],
+          "tail": [
+            92,
+            209
+          ]
         },
         {
           "src": "poof-02.webp",
@@ -629,7 +857,15 @@
             -37,
             46
           ],
-          "dur": 0.22
+          "dur": 0.22,
+          "belly": [
+            23,
+            64
+          ],
+          "tail": [
+            23,
+            50
+          ]
         }
       ]
     },
@@ -652,5 +888,17 @@
     "determined": "portrait-determined.webp",
     "laugh": "portrait-laugh.webp"
   },
-  "provenance": "Built-in image_gen from approved Shadow Imp canonical. Prompts shadow-imp-generation-prompts.json. Blue/pink variants use selective violet hue recoloring preserving yellow eyes and alpha, as explicitly requested in image-requests.md. Variant shadow-imp-pink selective hue shift preserving yellow eyes/alpha."
+  "provenance": "Built-in image_gen from approved Shadow Imp canonical. Prompts shadow-imp-generation-prompts.json. Blue/pink variants use selective violet hue recoloring preserving yellow eyes and alpha, as explicitly requested in image-requests.md. Variant shadow-imp-pink selective hue shift preserving yellow eyes/alpha.",
+  "bodyMap": {
+    "parts": [
+      "belly",
+      "footFront",
+      "footBack",
+      "earFront",
+      "earBack",
+      "tail"
+    ],
+    "tool": "tools/sprites/bodymap.py",
+    "note": "measured from frame alpha + bodymap-overrides.json; re-run after changing frames"
+  }
 }

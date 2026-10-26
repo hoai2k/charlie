@@ -41,7 +41,19 @@
             127,
             218
           ],
-          "dur": 1
+          "dur": 1,
+          "belly": [
+            122,
+            202
+          ],
+          "footFront": [
+            175,
+            316
+          ],
+          "footBack": [
+            90,
+            316
+          ]
         },
         {
           "src": "idle-01.webp",
@@ -69,7 +81,19 @@
             129,
             221
           ],
-          "dur": 0.12
+          "dur": 0.12,
+          "belly": [
+            121,
+            201
+          ],
+          "footFront": [
+            176,
+            316
+          ],
+          "footBack": [
+            90,
+            316
+          ]
         },
         {
           "src": "idle-02.webp",
@@ -97,7 +121,19 @@
             127,
             218
           ],
-          "dur": 0.8
+          "dur": 0.8,
+          "belly": [
+            122,
+            202
+          ],
+          "footFront": [
+            175,
+            316
+          ],
+          "footBack": [
+            90,
+            316
+          ]
         }
       ]
     },
@@ -131,6 +167,18 @@
           "back": [
             127,
             224
+          ],
+          "belly": [
+            129,
+            198
+          ],
+          "footFront": [
+            185,
+            314
+          ],
+          "footBack": [
+            99,
+            314
           ]
         },
         {
@@ -158,6 +206,18 @@
           "back": [
             134,
             224
+          ],
+          "belly": [
+            153,
+            190
+          ],
+          "footFront": [
+            194,
+            309
+          ],
+          "footBack": [
+            103,
+            309
           ]
         }
       ]
@@ -192,6 +252,18 @@
           "back": [
             146,
             220
+          ],
+          "belly": [
+            174,
+            182
+          ],
+          "footFront": [
+            204,
+            312
+          ],
+          "footBack": [
+            109,
+            312
           ]
         }
       ]
@@ -226,6 +298,18 @@
           "back": [
             128,
             217
+          ],
+          "belly": [
+            131,
+            189
+          ],
+          "footFront": [
+            171,
+            311
+          ],
+          "footBack": [
+            85,
+            311
           ]
         }
       ]
@@ -260,6 +344,18 @@
           "back": [
             129,
             222
+          ],
+          "belly": [
+            122,
+            212
+          ],
+          "footFront": [
+            177,
+            312
+          ],
+          "footBack": [
+            92,
+            312
           ]
         }
       ]
@@ -294,6 +390,18 @@
           "back": [
             105,
             221
+          ],
+          "belly": [
+            134,
+            200
+          ],
+          "footFront": [
+            103,
+            309
+          ],
+          "footBack": [
+            103,
+            309
           ]
         },
         {
@@ -321,6 +429,18 @@
           "back": [
             125,
             211
+          ],
+          "belly": [
+            132,
+            203
+          ],
+          "footFront": [
+            103,
+            310
+          ],
+          "footBack": [
+            103,
+            310
           ]
         }
       ]
@@ -355,6 +475,18 @@
           "back": [
             122,
             214
+          ],
+          "belly": [
+            127,
+            194
+          ],
+          "footFront": [
+            170,
+            300
+          ],
+          "footBack": [
+            71,
+            300
           ]
         }
       ]
@@ -389,6 +521,18 @@
           "back": [
             158,
             220
+          ],
+          "belly": [
+            182,
+            197
+          ],
+          "footFront": [
+            205,
+            305
+          ],
+          "footBack": [
+            98,
+            305
           ]
         },
         {
@@ -416,6 +560,18 @@
           "back": [
             141,
             215
+          ],
+          "belly": [
+            157,
+            202
+          ],
+          "footFront": [
+            195,
+            300
+          ],
+          "footBack": [
+            87,
+            300
           ]
         }
       ]
@@ -471,6 +627,18 @@
           "back": [
             141,
             220
+          ],
+          "belly": [
+            132,
+            210
+          ],
+          "footFront": [
+            183,
+            310
+          ],
+          "footBack": [
+            95,
+            310
           ]
         },
         {
@@ -498,6 +666,18 @@
           "back": [
             129,
             219
+          ],
+          "belly": [
+            129,
+            209
+          ],
+          "footFront": [
+            181,
+            312
+          ],
+          "footBack": [
+            93,
+            312
           ]
         }
       ]
@@ -533,6 +713,18 @@
           "back": [
             133,
             220
+          ],
+          "belly": [
+            150,
+            196
+          ],
+          "footFront": [
+            176,
+            312
+          ],
+          "footBack": [
+            84,
+            312
           ]
         },
         {
@@ -560,6 +752,18 @@
           "back": [
             144,
             219
+          ],
+          "belly": [
+            141,
+            185
+          ],
+          "footFront": [
+            184,
+            310
+          ],
+          "footBack": [
+            72,
+            310
           ]
         }
       ]
@@ -595,6 +799,18 @@
           "back": [
             164,
             222
+          ],
+          "belly": [
+            178,
+            217
+          ],
+          "footFront": [
+            219,
+            318
+          ],
+          "footBack": [
+            127,
+            318
           ]
         },
         {
@@ -622,6 +838,18 @@
           "back": [
             163,
             210
+          ],
+          "belly": [
+            186,
+            206
+          ],
+          "footFront": [
+            208,
+            291
+          ],
+          "footBack": [
+            142,
+            296
           ]
         }
       ]
@@ -635,5 +863,17 @@
     "determined": "portrait-determined.webp",
     "talk": "portrait-talk.webp"
   },
-  "provenance": "Built-in image_gen from approved professor-hoot.webp; exact prompts in professor-hoot-generation-prompts.json. Lantern held empty for runtime prop attachment."
+  "provenance": "Built-in image_gen from approved professor-hoot.webp; exact prompts in professor-hoot-generation-prompts.json. Lantern held empty for runtime prop attachment.",
+  "bodyMap": {
+    "parts": [
+      "belly",
+      "footFront",
+      "footBack",
+      "earFront",
+      "earBack",
+      "tail"
+    ],
+    "tool": "tools/sprites/bodymap.py",
+    "note": "measured from frame alpha + bodymap-overrides.json; re-run after changing frames"
+  }
 }

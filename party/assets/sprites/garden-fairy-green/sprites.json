@@ -45,7 +45,19 @@
             133
           ],
           "dur": 0.25,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            93,
+            158
+          ],
+          "footFront": [
+            67,
+            236
+          ],
+          "footBack": [
+            67,
+            236
+          ]
         },
         {
           "src": "idle-01.webp",
@@ -76,7 +88,19 @@
             135
           ],
           "dur": 0.25,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            87,
+            150
+          ],
+          "footFront": [
+            70,
+            238
+          ],
+          "footBack": [
+            70,
+            238
+          ]
         },
         {
           "src": "idle-02.webp",
@@ -107,7 +131,19 @@
             133
           ],
           "dur": 0.25,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            95,
+            145
+          ],
+          "footFront": [
+            81,
+            239
+          ],
+          "footBack": [
+            81,
+            239
+          ]
         },
         {
           "src": "idle-03.webp",
@@ -138,7 +174,19 @@
             134
           ],
           "dur": 0.25,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            94,
+            156
+          ],
+          "footFront": [
+            72,
+            238
+          ],
+          "footBack": [
+            72,
+            238
+          ]
         }
       ]
     },
@@ -177,7 +225,19 @@
             132
           ],
           "dur": 0.14,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            88,
+            161
+          ],
+          "footFront": [
+            131,
+            232
+          ],
+          "footBack": [
+            60,
+            232
+          ]
         },
         {
           "src": "walk-01.webp",
@@ -208,7 +268,19 @@
             133
           ],
           "dur": 0.14,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            89,
+            160
+          ],
+          "footFront": [
+            95,
+            234
+          ],
+          "footBack": [
+            95,
+            234
+          ]
         },
         {
           "src": "walk-02.webp",
@@ -239,7 +311,19 @@
             133
           ],
           "dur": 0.14,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            91,
+            156
+          ],
+          "footFront": [
+            123,
+            232
+          ],
+          "footBack": [
+            58,
+            231
+          ]
         },
         {
           "src": "walk-03.webp",
@@ -270,7 +354,19 @@
             131
           ],
           "dur": 0.14,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            89,
+            160
+          ],
+          "footFront": [
+            93,
+            233
+          ],
+          "footBack": [
+            93,
+            233
+          ]
         }
       ]
     },
@@ -309,7 +405,19 @@
             122
           ],
           "dur": 0.15,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            80,
+            145
+          ],
+          "footFront": [
+            20,
+            200
+          ],
+          "footBack": [
+            20,
+            200
+          ]
         },
         {
           "src": "fly-01.webp",
@@ -340,7 +448,19 @@
             120
           ],
           "dur": 0.15,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            69,
+            143
+          ],
+          "footFront": [
+            24,
+            200
+          ],
+          "footBack": [
+            24,
+            200
+          ]
         },
         {
           "src": "fly-02.webp",
@@ -371,7 +491,19 @@
             111
           ],
           "dur": 0.15,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            72,
+            121
+          ],
+          "footFront": [
+            91,
+            179
+          ],
+          "footBack": [
+            18,
+            181
+          ]
         },
         {
           "src": "fly-03.webp",
@@ -402,7 +534,19 @@
             119
           ],
           "dur": 0.15,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            82,
+            145
+          ],
+          "footFront": [
+            46,
+            195
+          ],
+          "footBack": [
+            46,
+            195
+          ]
         }
       ]
     },
@@ -441,7 +585,19 @@
             120
           ],
           "dur": 0.85,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            81,
+            143
+          ],
+          "footFront": [
+            50,
+            219
+          ],
+          "footBack": [
+            50,
+            219
+          ]
         }
       ]
     },
@@ -480,7 +636,19 @@
             121
           ],
           "dur": 0.85,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            89,
+            153
+          ],
+          "footFront": [
+            73,
+            228
+          ],
+          "footBack": [
+            52,
+            222
+          ]
         }
       ]
     },
@@ -519,7 +687,19 @@
             121
           ],
           "dur": 0.85,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            85,
+            151
+          ],
+          "footFront": [
+            65,
+            227
+          ],
+          "footBack": [
+            65,
+            227
+          ]
         }
       ]
     },
@@ -558,7 +738,19 @@
             119
           ],
           "dur": 0.85,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            81,
+            149
+          ],
+          "footFront": [
+            63,
+            221
+          ],
+          "footBack": [
+            63,
+            221
+          ]
         }
       ]
     },
@@ -597,7 +789,19 @@
             119
           ],
           "dur": 0.85,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            81,
+            143
+          ],
+          "footFront": [
+            70,
+            222
+          ],
+          "footBack": [
+            49,
+            215
+          ]
         }
       ]
     },
@@ -637,7 +841,19 @@
           ],
           "dur": 0.85,
           "headAngle": 0.13,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            90,
+            141
+          ],
+          "footFront": [
+            55,
+            213
+          ],
+          "footBack": [
+            55,
+            213
+          ]
         }
       ]
     },
@@ -676,7 +892,19 @@
             130
           ],
           "dur": 0.12,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            87,
+            135
+          ],
+          "footFront": [
+            133,
+            209
+          ],
+          "footBack": [
+            133,
+            209
+          ]
         },
         {
           "src": "run-01.webp",
@@ -707,7 +935,19 @@
             130
           ],
           "dur": 0.12,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            84,
+            136
+          ],
+          "footFront": [
+            75,
+            212
+          ],
+          "footBack": [
+            75,
+            212
+          ]
         },
         {
           "src": "run-02.webp",
@@ -738,7 +978,19 @@
             129
           ],
           "dur": 0.12,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            84,
+            131
+          ],
+          "footFront": [
+            131,
+            210
+          ],
+          "footBack": [
+            131,
+            210
+          ]
         },
         {
           "src": "run-03.webp",
@@ -769,7 +1021,19 @@
             130
           ],
           "dur": 0.12,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            91,
+            136
+          ],
+          "footFront": [
+            80,
+            212
+          ],
+          "footBack": [
+            80,
+            212
+          ]
         }
       ]
     },
@@ -808,7 +1072,19 @@
             132
           ],
           "dur": 0.2,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            81,
+            150
+          ],
+          "footFront": [
+            67,
+            224
+          ],
+          "footBack": [
+            67,
+            224
+          ]
         },
         {
           "src": "dance-01.webp",
@@ -839,7 +1115,19 @@
             133
           ],
           "dur": 0.2,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            74,
+            152
+          ],
+          "footFront": [
+            117,
+            224
+          ],
+          "footBack": [
+            45,
+            224
+          ]
         },
         {
           "src": "dance-02.webp",
@@ -870,7 +1158,19 @@
             133
           ],
           "dur": 0.2,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            79,
+            156
+          ],
+          "footFront": [
+            99,
+            228
+          ],
+          "footBack": [
+            99,
+            228
+          ]
         },
         {
           "src": "dance-03.webp",
@@ -901,7 +1201,19 @@
             132
           ],
           "dur": 0.2,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            67,
+            160
+          ],
+          "footFront": [
+            127,
+            228
+          ],
+          "footBack": [
+            57,
+            228
+          ]
         }
       ]
     },
@@ -940,7 +1252,19 @@
             137
           ],
           "dur": 0.16,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            82,
+            142
+          ],
+          "footFront": [
+            79,
+            222
+          ],
+          "footBack": [
+            79,
+            222
+          ]
         }
       ]
     },
@@ -979,7 +1303,19 @@
             134
           ],
           "dur": 0.16,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            91,
+            139
+          ],
+          "footFront": [
+            162,
+            189
+          ],
+          "footBack": [
+            162,
+            189
+          ]
         }
       ]
     },
@@ -1018,7 +1354,19 @@
             134
           ],
           "dur": 0.16,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            84,
+            144
+          ],
+          "footFront": [
+            80,
+            215
+          ],
+          "footBack": [
+            80,
+            215
+          ]
         }
       ]
     },
@@ -1057,7 +1405,19 @@
             110
           ],
           "dur": 0.16,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            67,
+            126
+          ],
+          "footFront": [
+            78,
+            194
+          ],
+          "footBack": [
+            78,
+            194
+          ]
         }
       ]
     },
@@ -1096,7 +1456,19 @@
             130
           ],
           "dur": 0.2,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            87,
+            153
+          ],
+          "footFront": [
+            64,
+            239
+          ],
+          "footBack": [
+            64,
+            239
+          ]
         },
         {
           "src": "float-01.webp",
@@ -1127,7 +1499,19 @@
             131
           ],
           "dur": 0.2,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            86,
+            150
+          ],
+          "footFront": [
+            56,
+            228
+          ],
+          "footBack": [
+            56,
+            228
+          ]
         },
         {
           "src": "float-02.webp",
@@ -1158,7 +1542,19 @@
             130
           ],
           "dur": 0.2,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            87,
+            152
+          ],
+          "footFront": [
+            54,
+            227
+          ],
+          "footBack": [
+            54,
+            227
+          ]
         },
         {
           "src": "float-03.webp",
@@ -1189,7 +1585,19 @@
             130
           ],
           "dur": 0.2,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            86,
+            150
+          ],
+          "footFront": [
+            52,
+            228
+          ],
+          "footBack": [
+            52,
+            228
+          ]
         }
       ]
     },
@@ -1228,7 +1636,19 @@
             121
           ],
           "dur": 0.18,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            80,
+            146
+          ],
+          "footFront": [
+            44,
+            200
+          ],
+          "footBack": [
+            44,
+            200
+          ]
         },
         {
           "src": "swim-01.webp",
@@ -1259,7 +1679,19 @@
             122
           ],
           "dur": 0.18,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            64,
+            143
+          ],
+          "footFront": [
+            15,
+            198
+          ],
+          "footBack": [
+            15,
+            198
+          ]
         },
         {
           "src": "swim-02.webp",
@@ -1290,7 +1722,19 @@
             123
           ],
           "dur": 0.18,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            77,
+            146
+          ],
+          "footFront": [
+            39,
+            201
+          ],
+          "footBack": [
+            39,
+            201
+          ]
         },
         {
           "src": "swim-03.webp",
@@ -1321,7 +1765,19 @@
             123
           ],
           "dur": 0.18,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            71,
+            148
+          ],
+          "footFront": [
+            29,
+            199
+          ],
+          "footBack": [
+            29,
+            199
+          ]
         }
       ]
     },
@@ -1360,7 +1816,19 @@
             132
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            88,
+            154
+          ],
+          "footFront": [
+            67,
+            238
+          ],
+          "footBack": [
+            67,
+            238
+          ]
         }
       ]
     },
@@ -1399,7 +1867,19 @@
             133
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            87,
+            163
+          ],
+          "footFront": [
+            69,
+            240
+          ],
+          "footBack": [
+            69,
+            240
+          ]
         }
       ]
     },
@@ -1438,7 +1918,19 @@
             131
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            88,
+            152
+          ],
+          "footFront": [
+            69,
+            238
+          ],
+          "footBack": [
+            69,
+            238
+          ]
         }
       ]
     },
@@ -1477,7 +1969,19 @@
             131
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            82,
+            157
+          ],
+          "footFront": [
+            135,
+            223
+          ],
+          "footBack": [
+            78,
+            223
+          ]
         }
       ]
     },
@@ -1516,7 +2020,19 @@
             128
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            87,
+            144
+          ],
+          "footFront": [
+            117,
+            211
+          ],
+          "footBack": [
+            117,
+            211
+          ]
         }
       ]
     },
@@ -1555,7 +2071,19 @@
             129
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            87,
+            144
+          ],
+          "footFront": [
+            131,
+            212
+          ],
+          "footBack": [
+            131,
+            212
+          ]
         }
       ]
     },
@@ -1594,7 +2122,19 @@
             131
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            78,
+            153
+          ],
+          "footFront": [
+            85,
+            219
+          ],
+          "footBack": [
+            85,
+            219
+          ]
         }
       ]
     },
@@ -1633,7 +2173,19 @@
             134
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            83,
+            146
+          ],
+          "footFront": [
+            91,
+            222
+          ],
+          "footBack": [
+            91,
+            222
+          ]
         }
       ]
     },
@@ -1672,7 +2224,19 @@
             133
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            76,
+            151
+          ],
+          "footFront": [
+            11,
+            217
+          ],
+          "footBack": [
+            11,
+            217
+          ]
         }
       ]
     },
@@ -1711,7 +2275,19 @@
             134
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            89,
+            150
+          ],
+          "footFront": [
+            63,
+            224
+          ],
+          "footBack": [
+            63,
+            224
+          ]
         }
       ]
     },
@@ -1750,7 +2326,19 @@
             128
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            84,
+            146
+          ],
+          "footFront": [
+            136,
+            222
+          ],
+          "footBack": [
+            98,
+            222
+          ]
         }
       ]
     },
@@ -1789,7 +2377,19 @@
             131
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            88,
+            145
+          ],
+          "footFront": [
+            82,
+            193
+          ],
+          "footBack": [
+            82,
+            193
+          ]
         }
       ]
     },
@@ -1828,7 +2428,19 @@
             139
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            77,
+            151
+          ],
+          "footFront": [
+            124,
+            216
+          ],
+          "footBack": [
+            124,
+            216
+          ]
         }
       ]
     },
@@ -1867,7 +2479,19 @@
             130
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            81,
+            134
+          ],
+          "footFront": [
+            20,
+            207
+          ],
+          "footBack": [
+            20,
+            207
+          ]
         }
       ]
     },
@@ -1906,7 +2530,19 @@
             131
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            99,
+            144
+          ],
+          "footFront": [
+            85,
+            219
+          ],
+          "footBack": [
+            85,
+            219
+          ]
         }
       ]
     },
@@ -1945,7 +2581,19 @@
             129
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            90,
+            140
+          ],
+          "footFront": [
+            58,
+            188
+          ],
+          "footBack": [
+            11,
+            194
+          ]
         }
       ]
     },
@@ -1984,7 +2632,19 @@
             132
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            85,
+            148
+          ],
+          "footFront": [
+            65,
+            227
+          ],
+          "footBack": [
+            65,
+            227
+          ]
         }
       ]
     },
@@ -2023,7 +2683,19 @@
             132
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            85,
+            153
+          ],
+          "footFront": [
+            63,
+            227
+          ],
+          "footBack": [
+            63,
+            227
+          ]
         }
       ]
     },
@@ -2062,7 +2734,19 @@
             133
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            84,
+            156
+          ],
+          "footFront": [
+            65,
+            229
+          ],
+          "footBack": [
+            65,
+            229
+          ]
         }
       ]
     },
@@ -2101,7 +2785,19 @@
             132
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            86,
+            149
+          ],
+          "footFront": [
+            79,
+            230
+          ],
+          "footBack": [
+            79,
+            230
+          ]
         }
       ]
     },
@@ -2140,7 +2836,19 @@
             138
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            85,
+            149
+          ],
+          "footFront": [
+            76,
+            228
+          ],
+          "footBack": [
+            76,
+            228
+          ]
         }
       ]
     },
@@ -2179,7 +2887,19 @@
             129
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            70,
+            139
+          ],
+          "footFront": [
+            52,
+            213
+          ],
+          "footBack": [
+            52,
+            213
+          ]
         }
       ]
     },
@@ -2218,7 +2938,19 @@
             131
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            78,
+            146
+          ],
+          "footFront": [
+            95,
+            218
+          ],
+          "footBack": [
+            95,
+            218
+          ]
         }
       ]
     },
@@ -2257,7 +2989,19 @@
             133
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            85,
+            145
+          ],
+          "footFront": [
+            68,
+            221
+          ],
+          "footBack": [
+            68,
+            221
+          ]
         }
       ]
     },
@@ -2296,7 +3040,19 @@
             118
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            89,
+            149
+          ],
+          "footFront": [
+            64,
+            229
+          ],
+          "footBack": [
+            64,
+            229
+          ]
         }
       ]
     },
@@ -2335,7 +3091,19 @@
             118
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            82,
+            154
+          ],
+          "footFront": [
+            53,
+            229
+          ],
+          "footBack": [
+            53,
+            229
+          ]
         }
       ]
     },
@@ -2374,7 +3142,19 @@
             117
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            115,
+            137
+          ],
+          "footFront": [
+            142,
+            215
+          ],
+          "footBack": [
+            93,
+            208
+          ]
         }
       ]
     },
@@ -2413,7 +3193,19 @@
             135
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            109,
+            156
+          ],
+          "footFront": [
+            40,
+            233
+          ],
+          "footBack": [
+            40,
+            233
+          ]
         }
       ]
     },
@@ -2452,7 +3244,19 @@
             132
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            82,
+            151
+          ],
+          "footFront": [
+            69,
+            228
+          ],
+          "footBack": [
+            69,
+            228
+          ]
         }
       ]
     },
@@ -2491,7 +3295,19 @@
             128
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            88,
+            146
+          ],
+          "footFront": [
+            79,
+            222
+          ],
+          "footBack": [
+            79,
+            222
+          ]
         }
       ]
     },
@@ -2530,7 +3346,19 @@
             133
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            75,
+            155
+          ],
+          "footFront": [
+            131,
+            231
+          ],
+          "footBack": [
+            38,
+            231
+          ]
         }
       ]
     },
@@ -2569,7 +3397,19 @@
             85
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            77,
+            102
+          ],
+          "footFront": [
+            30,
+            168
+          ],
+          "footBack": [
+            30,
+            168
+          ]
         }
       ]
     },
@@ -2608,7 +3448,19 @@
             117
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            88,
+            122
+          ],
+          "footFront": [
+            124,
+            184
+          ],
+          "footBack": [
+            70,
+            184
+          ]
         }
       ]
     },
@@ -2647,7 +3499,19 @@
             110
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            74,
+            131
+          ],
+          "footFront": [
+            75,
+            190
+          ],
+          "footBack": [
+            75,
+            190
+          ]
         }
       ]
     },
@@ -2686,7 +3550,19 @@
             110
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            95,
+            121
+          ],
+          "footFront": [
+            173,
+            176
+          ],
+          "footBack": [
+            67,
+            176
+          ]
         }
       ]
     },
@@ -2725,7 +3601,19 @@
             135
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            76,
+            155
+          ],
+          "footFront": [
+            79,
+            220
+          ],
+          "footBack": [
+            79,
+            220
+          ]
         }
       ]
     },
@@ -2764,7 +3652,19 @@
             134
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            79,
+            151
+          ],
+          "footFront": [
+            85,
+            237
+          ],
+          "footBack": [
+            85,
+            237
+          ]
         }
       ]
     },
@@ -2803,7 +3703,19 @@
             122
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            77,
+            141
+          ],
+          "footFront": [
+            118,
+            222
+          ],
+          "footBack": [
+            29,
+            222
+          ]
         }
       ]
     },
@@ -2842,7 +3754,19 @@
             131
           ],
           "dur": 0.4,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            84,
+            154
+          ],
+          "footFront": [
+            95,
+            235
+          ],
+          "footBack": [
+            53,
+            235
+          ]
         }
       ]
     },
@@ -2881,7 +3805,19 @@
             119
           ],
           "dur": 0.14,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            73,
+            144
+          ],
+          "footFront": [
+            105,
+            222
+          ],
+          "footBack": [
+            53,
+            222
+          ]
         },
         {
           "src": "tiptoe-01.webp",
@@ -2912,7 +3848,19 @@
             115
           ],
           "dur": 0.14,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            78,
+            129
+          ],
+          "footFront": [
+            83,
+            201
+          ],
+          "footBack": [
+            83,
+            201
+          ]
         },
         {
           "src": "tiptoe-02.webp",
@@ -2943,7 +3891,19 @@
             118
           ],
           "dur": 0.14,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            72,
+            134
+          ],
+          "footFront": [
+            90,
+            205
+          ],
+          "footBack": [
+            45,
+            200
+          ]
         },
         {
           "src": "tiptoe-03.webp",
@@ -2974,7 +3934,19 @@
             115
           ],
           "dur": 0.14,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            77,
+            130
+          ],
+          "footFront": [
+            76,
+            201
+          ],
+          "footBack": [
+            76,
+            201
+          ]
         }
       ]
     },
@@ -3013,7 +3985,19 @@
             130
           ],
           "dur": 0.15,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            87,
+            156
+          ],
+          "footFront": [
+            62,
+            230
+          ],
+          "footBack": [
+            62,
+            230
+          ]
         }
       ]
     },
@@ -3052,7 +4036,19 @@
             129
           ],
           "dur": 0.15,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            83,
+            149
+          ],
+          "footFront": [
+            109,
+            225
+          ],
+          "footBack": [
+            17,
+            225
+          ]
         }
       ]
     },
@@ -3091,7 +4087,19 @@
             137
           ],
           "dur": 0.24,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            93,
+            163
+          ],
+          "footFront": [
+            132,
+            226
+          ],
+          "footBack": [
+            19,
+            226
+          ]
         },
         {
           "src": "roll-push-01.webp",
@@ -3122,7 +4130,19 @@
             137
           ],
           "dur": 0.24,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            105,
+            166
+          ],
+          "footFront": [
+            136,
+            224
+          ],
+          "footBack": [
+            39,
+            224
+          ]
         }
       ]
     },
@@ -3161,7 +4181,19 @@
             133
           ],
           "dur": 0.18,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            105,
+            149
+          ],
+          "footFront": [
+            66,
+            239
+          ],
+          "footBack": [
+            66,
+            239
+          ]
         },
         {
           "src": "hold-balloons-01.webp",
@@ -3192,7 +4224,19 @@
             133
           ],
           "dur": 0.18,
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            92,
+            158
+          ],
+          "footFront": [
+            58,
+            239
+          ],
+          "footBack": [
+            58,
+            239
+          ]
         }
       ]
     }
@@ -3204,5 +4248,17 @@
     "sad": "portrait-sad.webp",
     "determined": "portrait-determined.webp"
   },
-  "provenance": "Approved expandedMollyfairy canonical, built-in generatedsprites with manual five landmarks; fullqualitysources and exactprompts in MOLLY-Sprites-garden-fairy-green.json. Physicalraster240/display300 via framebodyHeight."
+  "provenance": "Approved expandedMollyfairy canonical, built-in generatedsprites with manual five landmarks; fullqualitysources and exactprompts in MOLLY-Sprites-garden-fairy-green.json. Physicalraster240/display300 via framebodyHeight.",
+  "bodyMap": {
+    "parts": [
+      "belly",
+      "footFront",
+      "footBack",
+      "earFront",
+      "earBack",
+      "tail"
+    ],
+    "tool": "tools/sprites/bodymap.py",
+    "note": "measured from frame alpha + bodymap-overrides.json; re-run after changing frames"
+  }
 }

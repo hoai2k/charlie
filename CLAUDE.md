@@ -86,8 +86,10 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   challenge (Pop Star's notes). Don't add per-game difficulty pickers.
 - Buttons (the owner's rule): A is jump in action games. Elsewhere A *commits*
   (does the step's action once if it has one, then moves on) and X *acts and
-  stays* (do it as many times as you like, then A). The d-pad and LB/RB navigate
-  items and categories (not X / Y). If A can't finish a step yet, say what's left
+  stays* (do it as many times as you like, then A). Plain "next item" is d-pad
+  left/right (+ LB/RB when they're free); LB/RB otherwise step categories; never
+  X / Y. When moving on also confirms the current choice (Pet Spa's steps, Fashion
+  Show's spots), A does it too. If A can't finish a step yet, say what's left
   and to press X (Pet Spa: hold X to scrub, A = this step's done).
 - Play Studio controls (see `party/src/engine/studio-ui.js`; Fashion Show is the
   model): A confirms and moves on; LB/RB move between categories and the last
