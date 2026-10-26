@@ -186,6 +186,26 @@ window.MOON_BOOT_OVERRIDES = {
   "mira/sprites/7": [{"cell": 1, "x": 125.4, "y": 368, "angle": 1.613, "width": 86.8, "mirror": false, "layer": 1}, {"cell": 1, "x": 148.5, "y": 401, "angle": 1.348, "width": 75.5, "mirror": false}],
   "mira/sprites/8": [{"cell": 1, "x": 146, "y": 398.5, "angle": 0.53, "width": 86.8, "mirror": false}, {"cell": 1, "x": 237.5, "y": 377.8, "angle": 0.507, "width": 72.3, "mirror": false}],
   "mira/sprites/9": [{"cell": 1, "x": 307.6, "y": 381.2, "angle": -0.429, "width": 97.3, "mirror": false}, {"cell": 1, "x": 361.5, "y": 351.6, "angle": -0.718, "width": 88.8, "mirror": false}],
+  "munna/actions/0": [{"cell": 1, "x": 103.3, "y": 387.7, "angle": 0.621, "width": 92, "mirror": false}, {"cell": 0, "x": 269.8, "y": 377.5, "angle": -0.016, "width": 97.5, "mirror": false}],
+  "munna/actions/1": [{"cell": 1, "x": 78.2, "y": 395.4, "angle": 0.441, "width": 97.5, "mirror": false}, {"cell": 0, "x": 245.8, "y": 373.7, "angle": -0.126, "width": 92.4, "mirror": false}],
+  "munna/actions/2": [{"cell": 0, "x": 81.9, "y": 353, "angle": 1.213, "width": 97.5, "mirror": false}, {"cell": 0, "x": 295.6, "y": 375.3, "angle": -0.334, "width": 97.5, "mirror": false}],
+  "munna/actions/3": [{"cell": 2, "x": 136, "y": 332, "angle": 0.459, "width": 81.1, "mirror": false}, {"cell": 1, "x": 287.6, "y": 307.4, "angle": -0.105, "width": 91.1, "mirror": false}],
+  "munna/actions/4": [{"cell": 1, "x": 57.8, "y": 290.7, "angle": 1.441, "width": 91.1, "mirror": false}, {"cell": 5, "x": 300.7, "y": 346.5, "angle": -0.335, "width": 110.5, "mirror": false}],
+  "munna/actions/5": [{"cell": 2, "x": 181.5, "y": 354, "angle": 0.0, "width": 90.1, "mirror": false}, {"cell": 0, "x": 329.3, "y": 310.5, "angle": -0.76, "width": 107.3, "mirror": false}],
+  "munna/actions/6": [{"cell": 1, "x": 299.2, "y": 376.9, "angle": -0.612, "width": 113.7, "mirror": false}, {"cell": 0, "x": 360.5, "y": 333.3, "angle": -0.725, "width": 105.8, "mirror": false}],
+  "munna/actions/7": [{"cell": 1, "x": 100.8, "y": 381, "angle": 0.475, "width": 120.6, "mirror": false}, {"cell": 0, "x": 289, "y": 367.1, "angle": -0.015, "width": 116.2, "mirror": false}],
+  "munna/sprites/0": [{"cell": 1, "x": 156.2, "y": 390.6, "angle": 0.212, "width": 108.5, "mirror": false}, {"cell": 1, "x": 265.5, "y": 385.9, "angle": -0.044, "width": 101.3, "mirror": false}],
+  "munna/sprites/1": [{"cell": 1, "x": 152, "y": 388.1, "angle": 0.395, "width": 106.5, "mirror": false}, {"cell": 1, "x": 252.9, "y": 376, "angle": -0.113, "width": 90.1, "mirror": false}],
+  "munna/sprites/10": [{"cell": 1, "x": 83.1, "y": 376, "angle": 0.662, "width": 115, "mirror": false}, {"cell": 0, "x": 261.4, "y": 367.6, "angle": -0.196, "width": 101.2, "mirror": false}],
+  "munna/sprites/11": [{"cell": 1, "x": 336.4, "y": 389.3, "angle": -0.63, "width": 78.1, "mirror": false}, {"cell": 0, "x": 362.9, "y": 284, "angle": -1.486, "width": 125.4, "mirror": false, "layer": 1}],
+  "munna/sprites/2": [{"cell": 1, "x": 145.3, "y": 385.5, "angle": 0.185, "width": 100.5, "mirror": false}, {"cell": 1, "x": 238.6, "y": 377.3, "angle": -0.11, "width": 90.1, "mirror": false}],
+  "munna/sprites/3": [{"cell": 1, "x": 54, "y": 338.9, "angle": 1.719, "width": 108.5, "mirror": false}, {"cell": 0, "x": 300.7, "y": 383.6, "angle": -0.408, "width": 105.8, "mirror": false}],
+  "munna/sprites/4": [{"cell": 1, "x": 119.7, "y": 360.1, "angle": 1.042, "width": 97.5, "mirror": false}, {"cell": 0, "x": 313.1, "y": 315.1, "angle": -0.762, "width": 107.3, "mirror": false}],
+  "munna/sprites/5": [{"cell": 1, "x": 53.9, "y": 334.7, "angle": 1.611, "width": 103.4, "mirror": false}, {"cell": 0, "x": 332.8, "y": 376.1, "angle": -0.608, "width": 102.4, "mirror": false}],
+  "munna/sprites/6": [{"cell": 1, "x": 191.4, "y": 385.9, "angle": 0.271, "width": 103.4, "mirror": false}, {"cell": 0, "x": 278, "y": 375.6, "angle": -0.014, "width": 97.5, "mirror": false}],
+  "munna/sprites/7": [{"cell": 1, "x": 258.1, "y": 372.8, "angle": -0.536, "width": 97.5, "mirror": false}, {"cell": 0, "x": 327.8, "y": 335.9, "angle": -0.836, "width": 91.1, "mirror": false}],
+  "munna/sprites/8": [{"cell": 1, "x": 155.6, "y": 385, "angle": 0.148, "width": 97.5, "mirror": false}, {"cell": 0, "x": 224.6, "y": 382.5, "angle": -0.018, "width": 86.8, "mirror": false}],
+  "munna/sprites/9": [{"cell": 1, "x": 302.2, "y": 375.6, "angle": -0.707, "width": 118.9, "mirror": false}, {"cell": 1, "x": 360.1, "y": 347.5, "angle": -0.441, "width": 99.8, "mirror": false}],
   "penelope/actions/6": [{"cell": 1, "x": 157.3, "y": 392.9, "angle": 0.36, "width": 78.4, "mirror": false}, {"cell": 1, "x": 326.4, "y": 377.9, "angle": -0.289, "width": 82.2, "mirror": false}],
   "penelope/sprites/10": [{"cell": 1, "x": 101.8, "y": 384.7, "angle": 0.714, "width": 72.9, "mirror": false}, {"cell": 0, "x": 245.9, "y": 397.4, "angle": 0.063, "width": 68.8, "mirror": false}],
   "penelope/sprites/11": [{"cell": 1, "x": 293.2, "y": 393.6, "angle": -0.465, "width": 73.7, "mirror": false}, {"cell": 1, "x": 326.1, "y": 358.8, "angle": -0.6, "width": 61.4, "mirror": false}],
@@ -230,7 +250,7 @@ window.MOON_BOOT_OVERRIDES = {
 
 // Hand-placed poses kept as they are but not learned from: their foot angles
 // are ones no boot view covers (Lily's), or the feet aren't a doll's at all
-// (Cornsilk's plush paws), so they'd teach the wrong thing elsewhere.
+// (Cornsilk's and Munna's plush paws), so they'd teach the wrong thing elsewhere.
 window.MOON_BOOT_NOT_LESSONS = [
   "lily/sprites/4",
   "cornsilk/actions/0",
@@ -252,5 +272,25 @@ window.MOON_BOOT_NOT_LESSONS = [
   "cornsilk/sprites/6",
   "cornsilk/sprites/7",
   "cornsilk/sprites/8",
-  "cornsilk/sprites/9"
+  "cornsilk/sprites/9",
+  "munna/actions/0",
+  "munna/actions/1",
+  "munna/actions/2",
+  "munna/actions/3",
+  "munna/actions/4",
+  "munna/actions/5",
+  "munna/actions/6",
+  "munna/actions/7",
+  "munna/sprites/0",
+  "munna/sprites/1",
+  "munna/sprites/10",
+  "munna/sprites/11",
+  "munna/sprites/2",
+  "munna/sprites/3",
+  "munna/sprites/4",
+  "munna/sprites/5",
+  "munna/sprites/6",
+  "munna/sprites/7",
+  "munna/sprites/8",
+  "munna/sprites/9"
 ];

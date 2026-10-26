@@ -33,14 +33,14 @@ test('ledge anatomical scale preserves the measured corner in either facing dire
  }
 });
 
-test('Munna has one natural plush appearance and twenty initial boot fits awaiting owner review',()=>{
+test('Munna has one natural plush appearance and twenty boot fits, placed by the owner but not learned from (plush paws)',()=>{
  const c={window:{GAME_CONFIG:{}}};vm.createContext(c);vm.runInContext(read('dolls.js'),c);
  vm.runInContext(read('hands.js')+read('moon-boot-guesses.js')+read('moon-boot-overrides.js'),c);
  assert.equal(c.window.EXTRA_DOLLS.munna.outfitData.outfits.length,0);
  assert.deepEqual(Object.keys(c.window.DOLL_HANDS.munna).sort(),['pogo','ride','skate','stand']);
  const poses=Object.entries(c.window.MOON_BOOT_GUESSES).filter(([key])=>key.startsWith('munna/'));
  assert.equal(poses.length,20);
- assert.ok(poses.every(([key,boots])=>boots.length===2&&!c.window.MOON_BOOT_OVERRIDES[key]));
+ assert.ok(poses.every(([key,boots])=>boots.length===2&&c.window.MOON_BOOT_OVERRIDES[key]?.length===2&&c.window.MOON_BOOT_NOT_LESSONS.includes(key)));
 });
 
 

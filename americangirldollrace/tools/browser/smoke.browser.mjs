@@ -1121,6 +1121,8 @@ test('the workbench on a phone: a viewer with buttons that open sheets; the boot
   const addOpen = await p.evaluate(() => document.body.classList.contains('sheet-add') && document.querySelector('aside.right').getBoundingClientRect().top < innerHeight * 0.6);
   await p.tap('#mounts .tile'); await p.waitForTimeout(300);
   const closedAfterPick = await p.evaluate(() => !document.body.className.includes('sheet-'));
+  // (Every pose may be placed by hand by now: this page's copy sets one aside to edit.)
+  await p.evaluate(() => { delete game.MOON_BOOT_OVERRIDES['munna/sprites/0']; });
   await p.tap('#mSettings'); await p.waitForTimeout(300); await p.tap('#mVerify'); await p.waitForTimeout(800);
   const cdp = await phone.newCDPSession(p);
   const touch = (type, pts) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: pts.map(([x, y], id) => ({ x, y, id })) });
