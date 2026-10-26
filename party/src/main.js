@@ -59,6 +59,7 @@ shell.initMobile({ isPlaying: () => scenes.name === 'play' && !scenes.current.pa
 
 let loadProgress = 0;
 let loaded = false;
+let loadFailed = false;   // the game code wouldn't load even after a reload (see boot)
 
 function drawLoading() {
   ui.partyBackdrop(g, performance.now() / 1000);
@@ -74,7 +75,22 @@ async function boot() {
   await Promise.all([loadSprites((p) => { loadProgress = p; }), loadArt()]);
 
   scenes.register('sprites', new SpriteViewerScene());
-  const extra = await import('./scenes/index.js').catch((e) => { console.warn('Scenes not available yet', e); return null; });
+  // The menus and games. A load hiccup (network, or a reload mid-deploy while the server
+  // has a mix of old and new files) is retried; if it still fails, the page reloads once
+  // and otherwise says so. The sprite viewer is only for ?scene=sprites (a tool, not a fallback).
+  let extra = null;
+  for (let i = 0; i < 3 && !extra; i++) {
+    extra = await import('./scenes/index.js').catch((e) => { console.warn('Scenes failed to load (try ' + (i + 1) + ')', e); return null; });
+    if (!extra) await new Promise((r) => setTimeout(r, 800 * (i + 1)));
+  }
+  if (!extra && params.get('scene') !== 'sprites') {
+    let retried = false;
+    try { retried = sessionStorage.getItem('party-reloaded') === '1'; sessionStorage.setItem('party-reloaded', '1'); } catch (e) { retried = true; }
+    if (!retried) { location.reload(); return; }
+    loadFailed = true;
+    return;
+  }
+  try { sessionStorage.removeItem('party-reloaded'); } catch (e) { /* storage blocked */ }
   if (extra) extra.registerScenes(scenes);
 
   loaded = true;
@@ -85,7 +101,7 @@ async function boot() {
     setupDebugPlayers();
     scenes.go(params.has('skipintro') ? 'play' : 'intro', { gameId: gameParam }, { instant: true });
   } else if (extra) scenes.go('title', {}, { instant: true });
-  else scenes.go('sprites', {}, { instant: true });
+  else scenes.go('sprites', {}, { instant: true });   // only reached with ?scene=sprites
 }
 
 function setupDebugPlayers() {
@@ -117,7 +133,11 @@ function frame(now) {
   last = now;
   input.update(rawDt);
   beginFrame();
-  if (!loaded) {
+  if (loadFailed) {
+    ui.partyBackdrop(g, performance.now() / 1000);
+    ui.text(g, 'Oops! The party didn\'t load.', W / 2, H / 2 - 40, { size: 80, color: '#ffd23f', strokeWidth: 18 });
+    ui.text(g, 'Check the internet, then reload the page.', W / 2, H / 2 + 70, { size: 44 });
+  } else if (!loaded) {
     drawLoading();
   } else {
     const away = pageAway();
