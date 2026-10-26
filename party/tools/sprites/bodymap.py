@@ -66,13 +66,13 @@ PLANS = {
     'kpop-girl-left': {'torso': 'biped', 'ears': None, 'tail': None},
     'kpop-girl-center': {'torso': 'biped', 'ears': None, 'tail': None},
     'kpop-girl-right': {'torso': 'biped', 'ears': None, 'tail': None},
-    'cotton-candy': {'torso': 'quad', 'ears': 'top', 'tail': 'back'},
+    'cotton-candy': {'torso': 'quad', 'ears': 'white', 'tail': 'back'},
     'fox': {'torso': 'quad', 'ears': 'top', 'tail': 'back'},
     'princess-amber': {'torso': 'biped', 'ears': None, 'tail': None},
     'snowstar': {'torso': 'biped', 'ears': None, 'tail': None},
     'marshmallow-birthday-cake': {'torso': 'blob', 'ears': None, 'tail': None},
     'unicorn': {'torso': 'quad', 'ears': 'top', 'tail': 'back', 'horn': True},
-    'hotdog': {'torso': 'pet', 'ears': 'side', 'tail': 'back', 'tailSide': 1},
+    'hotdog': {'torso': 'pet', 'ears': 'gray', 'tail': 'back', 'tailSide': 1},
 }
 DEFAULT_PLAN = {'torso': 'biped', 'ears': None, 'tail': None}
 
@@ -165,7 +165,10 @@ def measure(img, frame, facing, plan, body_h):
             c = np.array([xs[sel].mean(), ys[sel].mean()])
             out['tail'] = snap_thick(depth, c, 0.15 * body_h, pull=0.6) if mask[int(c[1]), int(c[0])] == 0 else c
     elif plan['tail'] == 'back':
-        side = fx if facing != 0 else plan.get('tailSide', -1) * -1
+        if torso in ('quad', 'pet') and back is not None and abs(back[0] - neck[0]) > 0.15 * hs:
+            side = 1 if back[0] < neck[0] else -1   # the rump (back point) is behind the neck
+        else:
+            side = fx if facing != 0 else plan.get('tailSide', -1) * -1
         # backward = against the facing direction; ignore the feet band
         keep = ys < bottom - 0.1 * body_h
         far = -(xs - neck[0]) * side
@@ -206,26 +209,64 @@ def measure(img, frame, facing, plan, body_h):
             out['earFront'] = ears[-1]
             if len(ears) > 1:
                 out['earBack'] = ears[0]
+    elif plan['ears'] == 'white':
+        # Cotton Candy: the ear is the highest white fur above the eyes (her
+        # crown is gold, her mane pink and blue)
+        rgb = np.asarray(img.convert('RGB')).astype(int)
+        white = mask & (rgb.min(axis=2) > 205)
+        wy, wx = np.nonzero(white)
+        sel = (np.abs(wx - face[0]) < 1.6 * hs) & (wy < face[1] - 0.5 * hs)
+        if sel.sum() > 10:
+            k = np.argmin(wy[sel])
+            tip = np.array([wx[sel][k], wy[sel][k]], float)
+            e = tip + (face - tip) * 0.3
+            out['earFront'] = e if white[int(e[1]), int(e[0])] else nearest_opaque(white, e)
+    elif plan['ears'] == 'gray':
+        # Hotdog's big ears are the only grey (unsaturated mid-tone) areas:
+        # the centre of the grey on each side of the face
+        rgb = np.asarray(img.convert('RGB')).astype(int)
+        mx, mn = rgb.max(axis=2), rgb.min(axis=2)
+        grey = mask & (mx - mn < 28) & (mx > 90) & (mx < 215)
+        gy, gx = np.nonzero(grey)
+        ex = []
+        for side in (-1, 1):
+            sel = (gx - face[0]) * side > 0.1 * hs
+            if sel.sum() > 0.0015 * mask.sum() + 20:
+                c = np.array([np.median(gx[sel]), np.median(gy[sel])])
+                ex.append(c if grey[int(c[1]), int(c[0])] else nearest_opaque(grey, c))
+        ex.sort(key=lambda p: p[0] * fx)
+        if ex:
+            out['earFront'] = ex[-1]
+            if len(ex) > 1:
+                out['earBack'] = ex[0]
     elif plan['ears'] == 'side':
-        top = head[1] - 0.2 * hs
-        band = (ys >= top) & (ys <= face[1] + 0.4 * hs)
-        if band.any():
-            ex = []
-            for side in (-1, 1):
-                sel = band & ((xs - face[0]) * side > 0)
-                if not sel.any():
-                    continue
-                k = np.argmax((xs[sel] - face[0]) * side)
-                tip = np.array([xs[sel][k], ys[sel][k]], float)
-                if abs(tip[0] - face[0]) > 1.3 * hs:
-                    ex.append(tip + (face - tip) * 0.3)
-            ex.sort(key=lambda p: p[0] * fx)
-            if ex:
-                out['earFront'] = ex[-1]
-                if len(ex) > 1:
-                    out['earBack'] = ex[0]
-
-    return {k: [int(round(v[0])), int(round(v[1]))] for k, v in out.items() if v is not None}
+        # big ears out to each side of a central tuft: the highest outline
+        # point on each side of the face, away from the middle
+        ex = []
+        for side in (-1, 1):
+            off = (xs - face[0]) * side
+            sel = (off > 0.28 * body_h) & (off < 0.7 * body_h) & (ys < face[1] - 0.08 * body_h)
+            if 'tail' in out:   # not the tail curling up behind
+                sel &= np.hypot(xs - out['tail'][0], ys - out['tail'][1]) > 0.3 * body_h
+            if not sel.any():
+                continue
+            k = np.argmin(ys[sel])
+            tip = np.array([xs[sel][k], ys[sel][k]], float)
+            ex.append(tip + (face - tip) * 0.4)
+        ex.sort(key=lambda p: p[0] * fx)
+        if ex:
+            out['earFront'] = ex[-1]
+            if len(ex) > 1:
+                out['earBack'] = ex[0]
+    res = {}
+    for k, v in out.items():
+        if v is None:
+            continue
+        x, y = int(round(v[0])), int(round(v[1]))
+        if not (0 <= y < mask.shape[0] and 0 <= x < mask.shape[1] and mask[y, x]):
+            x, y = (int(c) for c in nearest_opaque(mask, v))   # every part lies on the body
+        res[k] = [x, y]
+    return res
 
 
 def top_ears(mask, face, hs, horn=False):
@@ -270,9 +311,13 @@ def top_ears(mask, face, hs, horn=False):
         peaks.append((i, top[i]))
     peaks.sort(key=lambda p: p[1])
     ears = []
-    for i, ty in peaks[:2]:
+    for i, ty in peaks:
         tip = np.array([x0 + i, ty], float)
+        if np.linalg.norm(tip - face) > 2.1 * hs:   # a tail or raised paw, not an ear
+            continue
         ears.append(tip + (face - tip) * 0.3)
+        if len(ears) == 2:
+            break
     return ears
 
 

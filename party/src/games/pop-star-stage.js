@@ -21,7 +21,8 @@ import { art, drawArt } from '../engine/art.js';
 import { charById } from '../data/characters.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, ease, TAU, placementsFromScores } from '../engine/util.js';
 import { drawStarShape } from '../engine/emotes.js';
-import { loadRhythmSongs, chooseSong, rhythmChoice, buildChart, songPlan, musicKey } from './rhythm/songs.js';
+import { loadRhythmSongs, chooseSong, buildChart, songPlan, musicKey } from './rhythm/songs.js';
+import { difficulty } from '../state.js';
 import { musicReady } from '../engine/audio.js';
 import { meta } from './pop-star-stage.meta.js';
 
@@ -37,19 +38,21 @@ const SPAM_S = 0.6;                    // 2+ empty presses this close before a n
 // Adaptive levels: every performer has their own note track. Doing really
 // well steps it up a level; missing a few steps it down. Harder levels are
 // worth more points, so reaching (and staying at) them wins.
-// The how-to "Difficulty" choice (DIFFS) picks the buttons, the levels a lane
-// can reach and where it starts; a level never brings in buttons the
-// difficulty hasn't unlocked yet.
+// Settings > Difficulty (DIFFS) picks the buttons, the levels a lane can
+// reach and where it starts. Which buttons play depends only on the beat
+// (never on the level), so a level-up never brings in a new button.
 //   Hard (the full game): all four buttons from the start, levels 0..4
-//     0 Easy-peasy: A/B only, a note every other beat or so
-//     1 Easy:       A/B only (X/Y fold onto them)
-//     2 Normal:     all four buttons, on the beat
+//     0 Easy-peasy: a note every other beat or so
+//     1 Easy:       on the beat
+//     2 Normal:     the off-beat layer kept a beat apart
 //     3 Tricky:     + off-beat notes
 //     4 Superstar:  + the quickest patterns
 //   Normal: A and B; X joins toward the end (Y never), levels 0..3
 //     0 a note every other beat, 1 on the beat, 2 the off-beat layer kept a
 //     beat apart, 3 + off-beat notes
 //   Easy: A (then B joins), sparse on-beat notes, levels 0..1
+// Every stage (the start, and each time a button joins) starts simple and
+// builds up: see ramp().
 const DIFFS = [
   { name: 'Easy', start: 0, max: 1 },
   { name: 'Normal', start: 1, max: 3 },
@@ -67,6 +70,45 @@ const TIER_NAMES = ['Easy-peasy', 'Easy', 'Normal', 'Tricky', 'Superstar'];
 const TIER_PTS = [0.6, 0.8, 1, 1.3, 1.6];
 const UP_WINDOW = 12, UP_HITS = 11, DOWN_WINDOW = 8, DOWN_HITS = 5;
 const foldXY = (list) => list.map((n) => ({ ...n, btn: n.btn === 'x' ? 'a' : n.btn === 'y' ? 'b' : n.btn }));
+// The build-up at the start of each stage (beats after it starts):
+//   0-8   sparse: on the beat, 2+ beats apart, every other note the new button
+//         (the opening stage shows its buttons in turn)
+//   8-16  on the beat, a beat apart
+//   16-24 eighths at most
+//   then the level's own chart
+const RAMP = [8, 16, 24];
+/**
+ * A level's chart with each stage's build-up: `simple` (on-beat notes) feeds
+ * the first 16 beats of a stage, `list` the rest; `stages` [{ at, btns }] are
+ * the beats where buttons join (btns = the new ones, featured first).
+ */
+function ramp(list, simple, stages) {
+  const stageAt = (b) => { let s = null; for (const st of stages) if (b >= st.at - 1e-6) s = st; return s; };
+  const src = [];
+  for (const n of simple) { const st = stageAt(n.beat); if (st && n.beat - st.at < RAMP[1]) src.push(n); }
+  for (const n of list) { const st = stageAt(n.beat); if (!st || n.beat - st.at >= RAMP[1]) src.push(n); }
+  src.sort((p, q) => p.beat - q.beat);
+  const out = [];
+  let cur = null, k = 0;
+  for (const n of src) {
+    const st = stageAt(n.beat), d = st ? n.beat - st.at : Infinity;
+    if (st !== cur) { cur = st; k = 0; }
+    const lastBeat = out.length ? out[out.length - 1].beat : -Infinity;
+    const whole = Math.abs(n.beat - Math.round(n.beat)) < 1e-6, eighth = Math.abs(n.beat * 2 - Math.round(n.beat * 2)) < 1e-6;
+    if (d < RAMP[0]) {
+      if (!whole || n.beat - lastBeat < 2 - 1e-6) continue;
+      const every = st.every || 2;   // 1: each note in turn, 2: every other note
+      const btn = st.btns.length && k % every === 0 ? st.btns[(k / every) % st.btns.length] : n.btn;
+      k++;
+      out.push(btn === n.btn ? n : { ...n, btn });
+    } else if (d < RAMP[1]) {
+      if (whole && n.beat - lastBeat >= 1 - 1e-6) out.push(n);
+    } else if (d < RAMP[2]) {
+      if (eighth && n.beat - lastBeat >= 0.5 - 1e-6) out.push(n);
+    } else if (n.beat - lastBeat >= 0.24) out.push(n);
+  }
+  return out;
+}
 /** Keep notes at least `gap` beats apart. */
 function thin(list, gap) {
   const out = [];
@@ -361,61 +403,66 @@ export class Game {
     const bpm = song ? song.bpm : CLASSIC.bpm;
     this.spb = 60 / bpm;
     this.perfect = PERFECT_S / this.spb; this.good = GOOD_S / this.spb;   // in beats
-    // The how-to "Difficulty" choice: Easy / Normal / Hard (see DIFFS).
-    const level = clamp(rhythmChoice('pop-star-stage').level | 0, 0, 2);
+    // Settings > Difficulty (one setting for the whole party): Easy / Normal / Hard (see DIFFS).
+    const level = clamp(difficulty() | 0, 0, 2);
     const D = DIFFS[level];
     this.level = level;
     this.startTier = D.start; this.maxTier = D.max;
-    // The banner when a new button joins late (Normal's X; Hard's old X/Y step).
-    this.lateBanner = null;
+    // Each lane level's chart; the buttons depend only on the beat, never on
+    // the level, so a level-up never brings in a button. `stages` are the
+    // beats where buttons join; ramp() starts each stage simple again.
+    let tiers, simple, stages, late = null;
     if (song) {
       // The song's own timeline: it plays once (or ~65 s of a loop), and its
       // sections decide when B joins and when the finale starts.
-      if (level === 2) {
-        // Hard: all four buttons from the start (unchanged).
-        const plan = songPlan(song, 2);
-        this.songEnd = plan.end; this.phases = plan.phases;
-        const [easy, normal, hard] = [0, 1, 2].map((lv) => buildChart(song, lv, plan));
-        this.charts = [thin(foldXY(easy), 2), foldXY(easy), easy, normal, hard];
-      } else {
-        const base = songPlan(song, 0);
-        this.songEnd = base.end;
-        const { boss } = base.phases;
-        // Easy: A, then B at the song's 2nd groove. Normal: A and B from the
-        // start, X near the end. Charts are built unfolded and folded here.
-        const ab = level === 0 ? base.phases.ab : 0;
-        const all = level === 0 ? Infinity : normalXAt(base.end, boss);
-        this.phases = { ab, all, boss };
-        const plan = { end: base.end, phases: { ab, all: 0, boss } };
-        const easy = buildChart(song, 0, plan);
-        if (level === 0) {
-          const ez = foldXY(easy);
-          this.charts = [thin(ez, 2), ez, ez, ez, ez];
-        } else {
-          const normal = foldNormal(buildChart(song, 1, plan), all), ez = foldNormal(easy, all);
-          this.charts = [thin(foldXY(easy), 2), ez, thin(normal, 1), normal, normal];
-          this.lateBanner = { at: all, text: 'Now X joins in!', color: BTN_COLOR.x, minTier: 1 };
-        }
-      }
+      const base = songPlan(song, 0);
+      this.songEnd = base.end;
+      const { boss } = base.phases;
+      // Easy: A, then B at the song's 2nd groove. Normal: A and B from the
+      // start, X near the end. Hard: all four from the start. Charts are
+      // built unfolded and folded here.
+      const ab = level === 0 ? base.phases.ab : 0;
+      const all = level === 0 ? Infinity : level === 1 ? normalXAt(base.end, boss) : 0;
+      this.phases = { ab, all, boss };
+      const plan = { end: base.end, phases: { ab, all: 0, boss } };
+      const fold = level === 0 ? foldXY : level === 1 ? (l) => foldNormal(l, all) : (l) => l;
+      const [easy, normal, hard] = [0, 1, 2].map((lv) => fold(buildChart(song, lv, plan)));
+      simple = easy;
+      // The opening shows each button in turn: A/B (Easy: A), or all four on Hard.
+      stages = [{ at: 4, btns: [['a'], ['a', 'b'], BTNS][level], every: 1 }];
+      if (ab > 4) stages.push({ at: ab, btns: ['b'] });
+      if (level === 0) tiers = [thin(easy, 2), easy, easy, easy, easy];
+      else if (level === 1) {
+        tiers = [thin(easy, 2), easy, thin(normal, 1), normal, normal];
+        stages.push({ at: all, btns: ['x'] });
+        late = { at: all, text: 'Now X joins in!', color: BTN_COLOR.x };
+      } else tiers = [thin(easy, 2), easy, thin(normal, 1), normal, hard];
       this.musicKey = musicKey(song);
     } else {
+      // The classic song's hand-made chart: A, B from beat 36, X/Y from 68.
       this.songEnd = CLASSIC.end; this.phases = { ...CLASSIC.phases };
-      const full = makeChart(), quarters = full.filter((n) => Math.abs(n.beat - Math.round(n.beat)) < 1e-6);
+      const xAt = level === 1 ? normalXAt(CLASSIC.end, CLASSIC.phases.boss) : this.phases.all;
+      const fold = level === 0 ? foldXY : level === 1 ? (l) => foldNormal(l, xAt) : (l) => l;
+      const full = fold(makeChart()), quarters = full.filter((n) => Math.abs(n.beat - Math.round(n.beat)) < 1e-6);
       const calm = thin(quarters, 1.5);
-      if (level === 2) this.charts = [thin(foldXY(quarters), 2), foldXY(calm), calm, quarters, full];
-      else if (level === 0) {
-        this.phases.all = Infinity;
-        const ez = foldXY(calm);
-        this.charts = [thin(foldXY(quarters), 2), ez, ez, ez, ez];
+      simple = quarters;
+      stages = [{ at: 4, btns: ['a'], every: 1 }, { at: this.phases.ab, btns: ['b'] }];
+      if (level === 0) { this.phases.all = Infinity; tiers = [thin(quarters, 2), calm, calm, calm, calm]; }
+      else if (level === 1) {
+        this.phases.all = xAt;
+        tiers = [thin(quarters, 2), calm, quarters, full, full];
+        stages.push({ at: xAt, btns: ['x'] });
+        late = { at: xAt, text: 'Now X joins in!', color: BTN_COLOR.x };
       } else {
-        const xAt = (this.phases.all = normalXAt(CLASSIC.end, CLASSIC.phases.boss));
-        const nq = foldNormal(quarters, xAt);
-        this.charts = [thin(foldXY(quarters), 2), foldNormal(calm, xAt), nq, foldNormal(full, xAt), foldNormal(full, xAt)];
-        this.lateBanner = { at: xAt, text: 'Now X joins in!', color: BTN_COLOR.x, minTier: 1 };
+        tiers = [thin(quarters, 2), calm, quarters, full, full];
+        stages.push({ at: this.phases.all, btns: ['x', 'y'] });
+        late = { at: this.phases.all, text: 'X and Y too!', color: '#7fd3ff' };
       }
       this.musicKey = 'dance';
     }
-    if (level === 2 && this.phases.all > 4) this.lateBanner = { at: this.phases.all, text: 'X and Y too!', color: '#7fd3ff', minTier: 2 };
+    this.charts = tiers.map((c, i) => ramp(c, i <= 1 ? c : simple, stages));
+    // The banner when a button joins late (Normal's X).
+    this.lateBanner = late;
     this.bossBeat = this.phases.boss;
     if (this.lanes) for (const L of this.lanes) this.resetTrack(L);
   }
@@ -563,7 +610,7 @@ export class Game {
     const call = (key, at, fn) => { if (b >= at && !this.calls[key]) { this.calls[key] = true; fn(); } };
     if (this.phases.ab > 4) call('b', this.phases.ab - 2.5, () => { this.banner('Now B joins in!', 1.8, BTN_COLOR.b); sfx('magic'); });
     const lb = this.lateBanner;
-    if (lb && this.lanes.some((L) => L.tier >= lb.minTier)) call('xy', lb.at - 2.5, () => { this.banner(lb.text, 1.8, lb.color); sfx('magic'); });
+    if (lb && lb.at > 4) call('xy', lb.at - 2.5, () => { this.banner(lb.text, 1.8, lb.color); sfx('magic'); });
     call('boss', this.bossBeat - 2, () => this.spawnBoss());
   }
 

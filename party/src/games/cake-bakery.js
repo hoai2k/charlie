@@ -880,7 +880,8 @@ export class Game {
           F.stage = 'song'; F.song = { i: 0, t: 0.2, jingle: hasSound('jingle/happy-birthday') }; music.stop(0.4);
           // now and then a CPU wanders up to her candle and blows it out early
           const cpus = this.stations.filter((s) => s.p.isAI);
-          F.cpuBlower = cpus.length && chance(0.3) ? pick(cpus) : null;
+          // (only in all-CPU games: with kids playing, cutting the song short is theirs)
+          F.cpuBlower = this.cpuOnly && cpus.length && chance(0.3) ? pick(cpus) : null;
           F.cpuBlowAt = randInt(10, SONG.length - 4);
           for (const st of this.stations) st.restPose = 'clap';
         }
@@ -1497,14 +1498,26 @@ export class Game {
         ui.bar(g, cx - lr.w * 0.38, lr.y + lr.h * 0.66, lr.w * 0.76, 22, frac, '#7fd3ff');
         if (!st.p.isAI) ui.glyph(g, 'x', cx, lr.y + lr.h * 0.8, clamp(lr.w * 0.18, 34, 64), { pulse: true });
       } else if (F.stage === 'song' && !st.out && !st.p.isAI) {
-        const fs = clamp(lr.w * 0.09, 18, 30);
-        ui.text(g, 'Go up close', cx, lr.y + lr.h * 0.68, { size: fs, color: NAVY, stroke: false, weight: 800, maxWidth: lr.w - 16 });
-        ui.hints(g, [['x', 'Blow!']], cx, lr.y + lr.h * 0.68 + fs * 1.8, { size: fs * 1.3 });
+        // kept clear of the "Happy Birthday" banner (centre of the screen in a party)
+        const fs = clamp(lr.w * 0.09, 18, 30), top = fs * 0.8, bot = fs * 2.7;
+        let y = lr.y + lr.h * 0.68;
+        const band = this.bannerBand();
+        if (y + bot > band[0] && y - top < band[1]) {
+          y = band[1] + top + 8;
+          if (y + bot > lr.y + lr.h - 6) y = band[0] - bot - 8;
+        }
+        ui.text(g, 'Go up close', cx, y, { size: fs, color: NAVY, stroke: false, weight: 800, maxWidth: lr.w - 16 });
+        ui.hints(g, [['x', 'Blow!']], cx, y + fs * 1.8, { size: fs * 1.3 });
       } else if (st.out && F.stage !== 'feast') {
         ui.text(g, 'Poof!', cx, lr.y + lr.h * 0.72, { size: clamp(lr.w * 0.14, 24, 48), color: '#ffd23f' });
       }
     }
   }
+
+  /** Screen rows [top, bottom] the finale's message banner covers. */
+  bannerBand() { const y = this.bannerY(); return [y - 50, y + 50]; }
+  /** Solo: under the title; a party: over the title bar, clear of every station's side panel. */
+  bannerY() { return this.n === 1 ? 170 : 56; }
 
   drawFinaleOverlay(g) {
     const F = this.finale, t = this.phaseT;
@@ -1533,7 +1546,7 @@ export class Game {
     else if (F.stage === 'feast' && F.feastT < 2.5 && !this.api.ended()) msg = 'Dig in!';
     if (msg) {
       const bw = ui.measure(g, msg, 54) + 90;
-      g.save(); g.translate(W / 2, this.n === 1 ? 170 : H / 2); g.rotate(-0.02);
+      g.save(); g.translate(W / 2, this.bannerY()); g.rotate(-0.02);
       ui.panel(g, -bw / 2, -44, bw, 88, { r: 44, fill: '#9b5cff' });
       ui.text(g, msg, 0, 2, { size: 54, weight: 800, color: '#fff' });
       // at 7.5 s a little magic puff blows out any candles still lit: show it coming

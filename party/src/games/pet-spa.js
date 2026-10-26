@@ -38,6 +38,7 @@ function snd(key, fallback, opts) { if (hasSound(key)) sfx(key, opts); else if (
 // (Keep playing = +1 min, All done = every pet is made show-ready for the parade).
 const SPA_TIME = 180, SPA_MORE = 60;
 const NEARLY_T = 1.5;
+const WATER_REACH = 440;    // how far the shower's drops fall (screen px; particles aren't station-scaled)
 const DONE = TOOLS.length;  // the last tool slot: "Done" (A there = my pet is ready for the parade)       // a step with only a tiny bit left finishes itself after this long
 
 // ---------------------------------------------------------------------------
@@ -438,13 +439,11 @@ export class Game extends SpaView {
       if (this.mudLeft(s) <= 0.015) this.allClean(s);
     } else if (hold && tool === 'shower') {
       // The water falls straight down from the shower head and rinses
-      // everything inside the spray cone drawn under it (draw.js
-      // drawCursor: from 0.25 tool sizes above the hand, 0.28 tool sizes
-      // wide each side, down to SPRAY_LEN, 0.9 tool sizes wide). It rinses
-      // a little slower the further the water has fallen (about 45% at the
-      // far end, never zero).
+      // everything it falls on (sprayAt: as far as the drops go, in a fan
+      // that widens as it falls - wider is slower, so held close it rinses
+      // fast, held high it covers more).
       let hx = cur.x, hy = cur.y + 30 * s.k, reach = 0;
-      for (let d = 30 * s.k; d <= SPRAY_LEN * s.k; d += 10 * s.k) {
+      for (let d = 30 * s.k; d <= Math.max(SPRAY_LEN * s.k, WATER_REACH); d += 10 * s.k) {
         if (this.onPet(s, cur.x, cur.y + d, 12 * s.k)) { hy = cur.y + d + 18 * s.k; reach = d; break; }
       }
       if (chance(dt * 40)) particles.burst(cur.x + rand(-14, 14) * s.k, cur.y + 16 * s.k, { type: 'drop', count: 1, angle: Math.PI / 2, spread: 0.25, speed: [260, 420], colors: ['#5cc8ff', '#8fe0ff', '#ffffff'], size: [4, 8] });
@@ -550,15 +549,19 @@ export class Game extends SpaView {
    * give: 0 outside the spray cone that drawCursor draws, else 1 near the
    * head easing down to 0.45 at the bottom of the spray.
    */
+  /**
+   * How strongly the shower rinses at (x, y): everywhere the water falls below the head
+   * (as far as the drops go), in a fan that widens as it falls. Wider = slower, so the same
+   * water spread over more pet: hold it close to rinse fast, higher to cover more.
+   */
   sprayAt(s, x, y, slack = 0) {
-    const c = s.cursor, size = 74 * s.k, top = -size * 0.25, L = SPRAY_LEN * s.k;
+    const c = s.cursor, size = 74 * s.k, top = -size * 0.25;
+    const reach = Math.max(SPRAY_LEN * s.k, WATER_REACH);   // the drops fall about this far (screen px)
     const dy = y - c.y;
-    if (dy < top - slack || dy > L + slack) return 0;
-    const t = clamp((dy - top) / (L - top), 0, 1);
-    const half = size * (0.28 + (0.9 - 0.28) * t);
-    if (Math.abs(x - c.x) > half + slack) return 0;
-    const near = 60 * s.k;   // full strength this close below the head
-    return 1 - 0.55 * clamp((dy - near) / (L - near), 0, 1);
+    if (dy < top - slack || dy > reach + slack) return 0;
+    const half = (d) => size * 0.28 + Math.max(0, d - top) * 0.22;
+    if (Math.abs(x - c.x) > half(dy) + slack) return 0;
+    return clamp(half(60 * s.k) / half(dy), 0.2, 1);   // full strength just below the head
   }
 
   rumble(p, a, ms) { try { p.ctrl.rumble && p.ctrl.rumble(a, ms); } catch (e) { /* ignore */ } }
