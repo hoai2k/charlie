@@ -236,7 +236,10 @@ export class Game {
     if (tab) { this.goStep(st, st.step + tab); return; }
     const step = SID(st);
     if (step !== 'done' && c.pressed('a') && !p.isAI) { this.stepDoneA(st); return; }
-    if (step !== 'done' && c.pressed('x')) { st.usedX = true; st.usedOn = st.step; }
+    if (step !== 'done' && c.pressed('x')) {
+      st.usedX = true;
+      if (step === 'polish' || step === 'dry' || st.hoverNail >= 0 || (step === 'gems' && (st.onHand || st.held))) st.usedOn = st.step;   // X did this step's thing
+    }
     const left = pad && c.pressed('left') ? 1 : 0, right = pad && c.pressed('right') ? 1 : 0;
     const up = pad && c.pressed('up') ? 1 : 0, down = pad && c.pressed('down') ? 1 : 0;
     const trig = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
@@ -631,7 +634,8 @@ export class Game {
     if (st.mode !== 'work') return;
     const step = SID(st);
     if (step === 'gems' && st.held) { const gm = st.held; st.held = null; if (gm.home) Object.assign(gm, gm.home); }
-    if (step === 'polish') for (const n of st.nails) if (n.auto) { n.auto = null; n.cover = Math.max(n.cover, 1); }
+    // nails still being painted by "paint all" (X off the hand, or A) finish their coat at once
+    if (step === 'polish') st.nails.forEach((n, i) => { if (n.auto) { this.startCoat(n, n.auto.color); n.auto = null; n.cover = 1; this.coatDone(st, i); } });
     st.step = (i + DONE + 1) % (DONE + 1);
     st.stepT = 0; st.stepExtra = 0; st.usedOn = -1; st.idleT = 0; st.tip = null; st.nextPulse = 0; st.nextBump = 0.25;
     sfx('swap', { vol: st.p.isAI ? 0.3 : 0.7 });

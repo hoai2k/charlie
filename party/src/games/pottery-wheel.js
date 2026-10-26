@@ -409,7 +409,7 @@ export class Game extends PotteryDrawing {
       if (tool !== 'brush' && st.usedOn !== st.tool) { c.inject('x'); st.aNext = 'x'; return; }
       this.nextPaintTool(st); return;
     }
-    if (c.pressed('x')) { st.usedX = true; st.usedOn = st.tool; st.hint = null; }
+    if (c.pressed('x')) { st.usedX = true; st.hint = null; }
     const colStep = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
     if (colStep && !st.held) {
       if (TOOLS[st.tool].id === 'sticker') { st.sticker = (st.sticker + colStep + STICKERS.length) % STICKERS.length; sfx('stamp', { vol: 0.5 }); }
@@ -417,6 +417,7 @@ export class Game extends PotteryDrawing {
       st.listBump = 0.15; st.stroke = null;
     }
     const surf = surfaceAt(pot, cur.x, cur.y);
+    if (c.pressed('x') && (surf || tool === 'glaze')) st.usedOn = st.tool;   // X did this tool's thing on this visit
     // carrying a sticker or dot: it rides the cursor; X sticks it back on, B takes it off
     if (st.held) {
       st.hover = null;

@@ -213,7 +213,7 @@ export class Game extends SalonDrawing {
 
     const tool = s.tool === DONE ? 'done' : TOOLS[s.tool].id;
     const hold = c.held('x'), tap = c.pressed('x');
-    if (tap && tool !== 'done') { s.usedX = true; s.usedOn = s.tool; }
+    if (tap && tool !== 'done') s.usedX = true;
     const hp = this.toHead(s, cur.x, cur.y);
     const hair = cl.hair;
     s.working = false;
@@ -329,9 +329,10 @@ export class Game extends SalonDrawing {
         }
       }
     } else if (tap && tool === 'style') {
-      this.applyStyle(s, STYLES[s.opt.style].id);
+      this.applyStyle(s, STYLES[s.opt.style].id); s.usedOn = s.tool;
     } else if (tap && tool === 'bling') {
       const onIt = hair.hitAny(hp.x, hp.y, 40) || hair.onHead(hp.x, hp.y, 1.15);
+      if (s.held || s.hover || onIt) s.usedOn = s.tool;
       if (s.held) this.dropHeld(s, hp);
       else if (s.hover) this.pickUpBling(s, s.hover);
       else if (onIt) this.placeBling(s, hp);
