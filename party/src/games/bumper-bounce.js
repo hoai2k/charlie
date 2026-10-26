@@ -35,6 +35,7 @@ const R0 = 500;                          // starting platform radius (world px)
 const THICK = 84;                        // visible cake side
 const ACCEL = 1350, DRAG = 2.5;          // slippery but controllable
 const DASH_V = 700, DASH_T = 0.3, DASH_CD = 1.2;
+const AIM_REACH = 240, AIM_SPREAD = 0.4;   // the aim wedge: about how far a bump carries while it can knock someone (world px), half-angle
 const DASH_POSE_T = 0.5, SHOVE_T = 0.45;   // how long the hip-first slide / contact hip swing read
 const KNOCK_T = 0.7, KNOCK_STUN = 0.45;    // victim's teeter pose / reduced control
 const POW_T = 0.32;
@@ -270,8 +271,10 @@ export class Game {
     }
     const sp0 = Math.hypot(e.vx, e.vy);
     if (sp0 > 40) { e.dirx = lerp(e.dirx, e.vx / sp0, 0.15); e.diry = lerp(e.diry, e.vy / sp0, 0.15); }
-    // dash
-    if (!this.ends && ctrl.pressed('a') && e.cd <= 0 && e.stun <= 0) this.doDash(e, m > 0.25 ? [ix / m, iy / m] : [e.dirx, e.diry]);
+    // dash: toward the stick (any direction, up and down included), else the way you're going
+    const dl = Math.hypot(e.dirx, e.diry) || 1;
+    e.aimx = m > 0.25 ? ix / m : e.dirx / dl; e.aimy = m > 0.25 ? iy / m : e.diry / dl; e.aimHeld = m > 0.25;
+    if (!this.ends && ctrl.pressed('a') && e.cd <= 0 && e.stun <= 0) this.doDash(e, [e.aimx, e.aimy]);
     const drag = e.dash > 0 ? DRAG * 0.45 : DRAG;
     const f = Math.exp(-drag * dt);
     e.vx *= f; e.vy *= f;
@@ -554,6 +557,7 @@ export class Game {
     this.drawPlatform(g);
     this.drawChunks(g, false);
     const live = this.ents.filter((e) => e.state === 'alive').sort((a, b) => a.a.y - b.a.y);
+    if (!this.ends) for (const e of live) if (!e.p.isAI) this.drawAim(g, e, e.cd <= 0);   // under everyone
     for (const e of live) this.drawAlive(g, e);
     for (const e of this.ents) if (e.state === 'falling') this.drawFalling(g, e);
     for (const p of this.pows) this.drawPow(g, p);
@@ -632,6 +636,35 @@ export class Game {
     a.draw(g, { ring: false });
     const top = a.y - a.height - 24 - (a.emotes.length ? 50 : 0);
     ui.playerTag(g, e.p, a.x, top);
+  }
+
+  /** Where a bump (A) would go: a wedge on the floor in the aim direction, as long as its reach. */
+  drawAim(g, e, ready) {
+    if (e.aimx == null || e.stun > 0 || e.dash > 0) return;
+    const ang = Math.atan2(e.aimy, e.aimx), r0 = e.r * 0.9, r1 = e.r + AIM_REACH;
+    const [cx, cy] = this.toScreen(e.x, e.y);
+    const pt = (a, r) => [cx + Math.cos(a) * r, cy + Math.sin(a) * r * K];   // on the squashed floor
+    const steps = 12;
+    g.save();
+    g.globalAlpha = ready ? (e.aimHeld ? 0.8 : 0.5) : 0.2;
+    g.beginPath();
+    for (let i = 0; i <= steps; i++) { const [x, y] = pt(ang - AIM_SPREAD + (2 * AIM_SPREAD * i) / steps, r1); i ? g.lineTo(x, y) : g.moveTo(x, y); }
+    for (let i = steps; i >= 0; i--) { const [x, y] = pt(ang - AIM_SPREAD + (2 * AIM_SPREAD * i) / steps, r0); g.lineTo(x, y); }
+    g.closePath();
+    const [gx0, gy0] = pt(ang, r0), [gx1, gy1] = pt(ang, r1);
+    const gr = g.createLinearGradient(gx0, gy0, gx1, gy1);
+    gr.addColorStop(0, e.p.color); gr.addColorStop(1, 'rgba(255,255,255,0.85)');
+    g.fillStyle = gr; g.fill();
+    g.lineWidth = 4; g.strokeStyle = e.p.color; g.stroke();
+    // the far edge: an arc with an arrow tip
+    g.globalAlpha = ready ? 1 : 0.35; g.lineWidth = 9; g.lineCap = 'round'; g.strokeStyle = '#ffffff';
+    g.beginPath();
+    for (let i = 0; i <= steps; i++) { const [x, y] = pt(ang - AIM_SPREAD + (2 * AIM_SPREAD * i) / steps, r1); i ? g.lineTo(x, y) : g.moveTo(x, y); }
+    g.stroke();
+    const [tx, ty] = pt(ang, r1 + 34), [lx, ly] = pt(ang - 0.16, r1 + 4), [rx2, ry2] = pt(ang + 0.16, r1 + 4);
+    g.beginPath(); g.moveTo(lx, ly); g.lineTo(tx, ty); g.lineTo(rx2, ry2); g.closePath();
+    g.fillStyle = e.p.color; g.fill(); g.lineWidth = 3; g.strokeStyle = '#ffffff'; g.stroke();
+    g.restore();
   }
 
   drawFalling(g, e) {
