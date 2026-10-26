@@ -30,6 +30,7 @@ const GRAV = 600;
 const BOUNCE_V = 560;
 const MAX_SPEED = 560;
 const JUMP_V = 900, JUMP_G = 2300;
+const PUSH_V = 420, PUSH_CD = 0.9;   // X / B shove: a little slide (~60 px), then a short wait
 const SOLO_GOAL = 30;
 const VALUE = { sprinkle: 1, cupcake: 2, golden: 5 };
 // Art per kind. 1- and 2-point treats pick a cosmetic variant by treat id (size/value
@@ -76,7 +77,7 @@ export class Game {
       a.x = x; a.y = GROUND_Y + lane; a.facing = x < W / 2 ? 1 : -1; a.snap();
       return {
         p, a, i, x, vx: 0, pv: 0, z: 0, vz: 0, score: 0, stun: 0, inv: 0, streak: 0, streakT: 0, lane,
-        brain: new Brain(p), popN: 0, popT: 0, target: null, err: 0, wander: 0, wanderX: x, dodge: new Map(), bumpCd: 0, lastLand: 0,
+        brain: new Brain(p), popN: 0, popT: 0, target: null, err: 0, wander: 0, wanderX: x, dodge: new Map(), bumpCd: 0, pushCd: 0, lastLand: 0,
       };
     });
     this.sparkles = Array.from({ length: 26 }, () => ({ x: rand(W), y: rand(H), p: rand(TAU), s: rand(0.5, 1) }));
@@ -206,6 +207,8 @@ export class Game {
     e.vx = approach(e.vx, target, (Math.abs(target) > Math.abs(e.vx) || Math.sign(target) !== Math.sign(e.vx) ? 5400 : 3600) * dt);
     e.pv *= Math.exp(-7 * dt);
     e.x = clamp(e.x + (e.vx + e.pv) * dt, 70, W - 70);
+    e.pushCd = Math.max(0, e.pushCd - dt);
+    if (!this.done && !stunned && e.pushCd <= 0 && (ctrl.pressed('x') || ctrl.pressed('b'))) this.shove(e);
     if (!this.done && ctrl.pressed('a') && e.z <= 0.5 && !stunned) {
       e.vz = JUMP_V; sfx('jump'); a.squash(-0.2);
       particles.burst(e.x, a.y, { type: 'dust', count: 4, color: '#fff', speed: [30, 90], size: [8, 14] });
@@ -219,6 +222,24 @@ export class Game {
     else if (e.z > 1) { if (!a._once) a.setPose(e.vz > 0 ? 'jump' : 'fall'); if (Math.abs(e.vx) > 20) a.facing = e.vx > 0 ? 1 : -1; }
     else a.moveAnim(e.vx, 0, MAX_SPEED, { run: Math.abs(e.vx) > 380 });
     if (this.done && !a._once && a.pose !== 'celebrate' && a.pose !== 'pout') a.setPose('idle');
+  }
+
+  /** X / B: a playful shove that nudges whoever is right in front a little way (no stun). */
+  shove(e) {
+    const a = e.a, dir = Math.abs(e.vx) > 40 ? Math.sign(e.vx) : a.facing || 1;
+    e.pushCd = PUSH_CD; a.facing = dir;
+    a.playOnce('push', 0.3); a.squash(-0.12);
+    let hit = false;
+    for (const o of this.ents) {
+      if (o === e || this.done) continue;
+      const dx = o.x - e.x;
+      const reach = bodyRadius(a) + bodyRadius(o.a) + 50;
+      if (Math.abs(dx) > reach || Math.abs(o.z - e.z) > 110 || (dx * dir < 0 && Math.abs(dx) > 20)) continue;
+      o.pv += dir * PUSH_V;   // pv decays fast: about 60 px of slide
+      o.a.squash(0.2); hit = true;
+      particles.burst(o.x - dir * 20, o.a.y - o.a.height * 0.5, { type: 'spark', count: 5, color: '#fff' });
+    }
+    sfx(hit ? 'bonk' : 'whoosh', { vol: hit ? 0.7 : 0.35 });
   }
 
   pushPlayers(dt) {
@@ -429,6 +450,11 @@ export class Game {
       }
     }
     if (jump) { ctrl.press('a'); }
+    // a friendly shove now and then when someone is right in front, crowding the same spot
+    if (e.pushCd <= 0 && e.stun <= 0 && chance(dt * [0.5, 0.9, 1.3][this.api.level ?? 1])) {
+      const dir = e.a.facing || 1;
+      if (this.ents.some((o) => o !== e && (o.x - e.x) * dir > 0 && Math.abs(o.x - e.x) < bodyRadius(e.a) + bodyRadius(o.a) + 40)) ctrl.press('x');
+    }
 
     let tx = null;
     if (dodgeX !== null) tx = dodgeX;
