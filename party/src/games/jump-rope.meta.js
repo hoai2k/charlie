@@ -9,7 +9,7 @@ export const meta = {
   tips: [
     'Jump when the shrinking circle meets your ring and the rope shadow reaches your feet!',
     'Getting tangled costs a heart. Lose all 3 and you cheer from the blanket.',
-    'Watch out for tricks: Double Dutch, a sneaky slow-down and Super Speed! Golden ropes give a heart back.',
+    'Watch out for tricks: a sneaky slow-down, Super Speed, and "Switch!" - the bunnies stop the rope and swing it the other way (on Hard, two ropes instead!). Golden ropes give a heart back.',
   ],
   music: 'bouncy',
   duration: '50 sec',

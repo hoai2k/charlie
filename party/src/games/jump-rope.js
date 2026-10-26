@@ -2,7 +2,8 @@
 // jump rope; everyone stands in a row in the middle and presses A to hop as
 // the rope sweeps under their feet. Getting caught costs a heart (3 hearts);
 // out players sit on the picnic blanket and cheer. The rope speeds up and does
-// tricks (Double Dutch, a sneaky slow-down, a speed burst, golden ropes).
+// tricks (a sneaky slow-down, a speed burst, golden ropes, and in the middle
+// either a direction switch - Easy/Normal - or Double Dutch on Hard).
 // Last one jumping wins; survivors at the bell are ranked by hearts left.
 //
 // The rope is a real 3D loop around the axis between the bunnies' paws:
@@ -18,6 +19,7 @@ import { sfx, voice, music, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { drawHeartShape } from '../engine/emotes.js';
+import { difficulty } from '../state.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, ease, placementsFromScores } from '../engine/util.js';
 import {
   NAVY, BUNNIES, ROPE_COLORS, GOLD_ROPE, drawBunny, drawHandle, strokeRope, ghostRope,
@@ -51,7 +53,8 @@ const AI_LAPSE = [0.02, 0.008, 0.003];
 const AI_ADAPT = [0.85, 0.45, 0.2];
 
 // The show: rope speed in beats per turn (synced to the 128 bpm 'bouncy' song).
-const SCRIPT = [
+// Hard has the Double Dutch section; Easy and Normal get a "switch" in its place.
+const SCRIPT_HARD = [
   { t: 0, bpr: 3, rate: 2.5 },
   { t: 8, bpr: 2, rate: 2.2, label: 'Faster!', say: 'Faster!' },
   { t: 14.5, gold: true },
@@ -63,6 +66,18 @@ const SCRIPT = [
   { t: 38.5, bpr: 1.5, rate: 3, burst: true, label: 'Super Speed!', say: 'Wheee!' },
   { t: 44, bpr: 2, rate: 3, label: 'Last stretch!' },
 ];
+// Switch: the turners slow the rope, park it just before it reaches the jumpers
+// (nobody jumps that one), then swing it the other way (`bpr`/`rate` = the
+// spin-up). Easy has one switch, at a gentler speed; Normal switches there and back.
+const scriptSwitch = (easy) => [
+  ...SCRIPT_HARD.filter((e) => e.t < 18),
+  { t: 18, sw: true, bpr: easy ? 4 : 3, rate: easy ? 1.8 : 2.4 },
+  ...(easy ? [] : [{ t: 22.5, sw: true, bpr: 3, rate: 2.4 }]),
+  { t: 27, bpr: 2, rate: 2.2, label: 'Faster!' },
+  ...SCRIPT_HARD.filter((e) => e.t > 27),
+];
+const SW_HOLD = [1.2, 0.85];  // seconds the rope stays parked (Easy, Normal)
+const SW_MARGIN = 0.45;       // the rope parks this far (rad) before the nearest feet
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 const wrap = (a) => ((a % TAU) + TAU) % TAU;
@@ -89,6 +104,9 @@ export class Game {
       { th: 1.55 * Math.PI, w: 0, dir: 1, alpha: 1, active: true, gold: false, goldNext: false, ending: false },
       { th: 0, w: 0, dir: -1, alpha: 0, active: false, gold: false, ending: false, pending: false },
     ];
+    this.level = clamp(difficulty() ?? 1, 0, 2);
+    this.script = this.level === 2 ? SCRIPT_HARD : scriptSwitch(this.level === 0);
+    this.sw = null;               // a direction switch in progress: { phase: 'warn'|'brake'|'hold'|'spin', ... }
     this.seg = { bpr: 3, rate: 2.5 };
     this.wTarget = 0;
     this.scriptI = 0;
@@ -104,6 +122,11 @@ export class Game {
     this.bg = buildBackground(GROUND, BLANKET);
     this.bgArt = !!art('bg/jump-rope');
     this.units = this.players.map((p, i) => this.makeUnit(p, i));
+    // Switch geometry, in "progress" angle (the rope's angle along its current
+    // direction; feet at PI): park before the nearest feet, brake after the last.
+    const off = Math.max(0, ...this.units.map((U) => Math.abs(U.thc - Math.PI)));
+    this.swStop = Math.PI - off - SW_MARGIN;
+    this.swBrake = Math.PI + off + 0.2;
     this.slap = 0;                // ground-slap flash
     this.lineSeed = Array.from({ length: 10 }, (_, i) => ({ y: 360 + i * 55, x: Math.random() * W, l: rand(120, 260) }));
     try { music.preload('bouncy'); } catch (e) { /* optional */ }
@@ -208,7 +231,7 @@ export class Game {
     // The rope winds down; everyone reacts.
     const r = this.ropes[0];
     r.w = damp(r.w, 0, 1.6, dt);
-    r.th = wrap(r.th + r.w * dt);
+    r.th = wrap(r.th + r.dir * r.w * dt);
     if (this.ropes[1].alpha > 0) { this.ropes[1].alpha = Math.max(0, this.ropes[1].alpha - dt * 2); this.ropes[1].th = wrap(3 * Math.PI - r.th); }
     for (const U of this.units) {
       if (U.jt >= 0) { U.jt += dt; const u = U.jt / JT; if (u >= 1) { U.jt = -1; U.z = 0; } else U.z = 4 * HJ * u * (1 - u); }
@@ -221,8 +244,11 @@ export class Game {
   }
 
   runScript() {
-    while (this.scriptI < SCRIPT.length && this.t >= SCRIPT[this.scriptI].t) {
-      const ev = SCRIPT[this.scriptI++];
+    const S = this.script;
+    while (this.scriptI < S.length && this.t >= S[this.scriptI].t) {
+      if (this.sw && S[this.scriptI].bpr) break;   // let a switch finish first
+      const ev = S[this.scriptI++];
+      if (ev.sw) { this.startSwitch(ev); continue; }
       if (ev.bpr) { this.seg = { bpr: ev.bpr, rate: ev.rate }; }
       if (ev.label) this.showBanner(ev.label, ev.burst ? '#ff6fb1' : ev.slow ? '#9fd4ff' : ev.dd ? '#7be04d' : '#ffd23f');
       if (ev.say) this.bunnySay(pick([0, 1]), ev.say, 1.6);
@@ -240,26 +266,91 @@ export class Game {
 
   ropeOmega(bpr) { return TAU / (bpr * 60 / this.bpm); }
 
+  // --- direction switch (Easy / Normal) -------------------------------------------
+  /** Rope 0's angle along its current direction of travel (feet at PI). */
+  progress() { const r = this.ropes[0]; return r.dir > 0 ? r.th : wrap(-r.th); }
+
+  startSwitch(ev) {
+    this.sw = { phase: 'warn', t: 0, bpr: ev.bpr, rate: ev.rate };
+    this.showBanner('Uh-oh... SWITCH!', '#ff9f43');
+    sfx('whistle', { vol: 0.55 });
+    this.bunnySay(0, 'Uh-oh!', 1.3);
+    for (const b of this.bunnies) { b.mood = 'oops'; b.moodT = 0.9; }
+  }
+
+  /** Moves rope 0 through a switch; returns how far (rad) it travelled. */
+  switchStep(dt) {
+    const r = this.ropes[0], sw = this.sw;
+    sw.t += dt;
+    if (sw.phase === 'brake') {
+      // Constant deceleration that lands exactly on the parking angle.
+      const w = Math.max(0.35, sw.w0 * Math.sqrt(Math.max(0, sw.rem) / sw.D));
+      const step = Math.min(sw.rem, w * dt);
+      sw.rem -= step; r.w = w;
+      r.th = wrap(r.th + r.dir * step);
+      if (sw.rem <= 1e-4) {
+        sw.phase = 'hold'; sw.t = 0; r.w = 0;
+        snd('jr-slap', 'tock', { vol: 0.5 }); sfx('giggle', { vol: 0.45 });
+        this.bunnySay(1, 'Switch!', 1.2);
+        for (const b of this.bunnies) { b.mood = 'sneaky'; b.moodT = SW_HOLD[Math.min(1, this.level)] + 0.2; }
+      }
+      return step;
+    }
+    // hold: parked just before the jumpers' feet
+    r.w = 0;
+    if (sw.t >= SW_HOLD[Math.min(1, this.level)]) {
+      sw.phase = 'spin'; sw.t = 0;
+      r.dir = -r.dir;
+      this.seg = { bpr: sw.bpr, rate: sw.rate };
+      this.tutorial = Math.max(this.tutorial, 1);   // "JUMP!" for the first pass the new way
+      for (const U of this.units) { U.prevA[0] = null; U.ai.key = -1; U.ai.pressed = false; U.ai.delay = -1; }
+      this.showBanner('Other way!', '#7be04d');
+      snd('jr-speedup', 'whoosh'); sfx('swap', { vol: 0.5 });
+      this.bunnySay(0, 'This way!', 1.3);
+      for (const b of this.bunnies) { b.mood = 'excited'; b.moodT = 1.4; }
+    }
+    return 0;
+  }
+
   updateRopes(dt) {
     const r = this.ropes[0], r2 = this.ropes[1];
     if (music.song) this.bpm = music.bpm || BPM_FALLBACK;
     const wT = this.ropeOmega(this.seg.bpr);
-    r.w = damp(r.w, wT, this.seg.rate, dt);
-    let dth = r.w * dt;
-    // Beat lock: nudge the phase so the rope slaps the ground on the beat.
-    const beat = music.beat();
-    this.beatOk = beat > 0 && beat !== this.lastBeat;
-    this.lastBeat = beat;
-    if (this.beatOk && Math.abs(r.w - wT) < wT * 0.04) {
-      const want = Math.PI + TAU * ((beat / this.seg.bpr) % 1);
-      const err = wrapPi(want - r.th);
-      dth += clamp(err * 1.3, -0.12 * wT, 0.12 * wT) * dt;
-    }
     const old = r.th;
-    r.th = wrap(r.th + dth);
-    const passed = (a) => (old < a && r.th >= a) || (old > r.th && (a > old || a <= r.th));
-    if (passed(0) || old > r.th) this.onTop(0);
-    if (passed(Math.PI / 2)) this.onFront(0);
+    let moved;
+    const sw = this.sw;
+    if (sw && (sw.phase === 'brake' || sw.phase === 'hold')) moved = this.switchStep(dt);
+    else {
+      r.w = damp(r.w, wT, this.seg.rate, dt);
+      let dth = r.w * dt;
+      // Beat lock: nudge the phase so the rope slaps the ground on the beat.
+      const beat = music.beat();
+      this.beatOk = beat > 0 && beat !== this.lastBeat;
+      this.lastBeat = beat;
+      if (!sw && this.beatOk && Math.abs(r.w - wT) < wT * 0.04) {
+        const want = Math.PI + r.dir * TAU * ((beat / this.seg.bpr) % 1);
+        const err = r.dir * wrapPi(want - r.th);
+        dth += clamp(err * 1.3, -0.12 * wT, 0.12 * wT) * dt;
+      }
+      moved = Math.max(0, dth);
+      r.th = wrap(r.th + r.dir * moved);
+      if (sw) {
+        sw.t += dt;
+        if (sw.phase === 'warn') {
+          // Brake once the rope is past everyone's feet, to park before them next time round.
+          const u = this.progress(), rem = wrap(this.swStop - u);
+          if (u >= this.swBrake && rem > 1.5) {
+            Object.assign(sw, { phase: 'brake', t: 0, D: rem, rem, w0: Math.max(r.w, 2) });
+            snd('jr-slowdown', 'shrink');
+            this.bunnySay(1, 'Whoa, whoa...', 1.2);
+          }
+        } else if (sw.phase === 'spin' && Math.abs(r.w - wT) < wT * 0.04) this.sw = null;
+      }
+    }
+    // Did the rope sweep past angle a (along its direction) this frame?
+    const passed = (a) => { const d = r.dir > 0 ? wrap(a - old) : wrap(old - a); return d > 0 && d <= moved + 1e-9; };
+    if (passed(0)) this.onTop(0);
+    if (passed(r.dir > 0 ? Math.PI / 2 : Math.PI * 1.5)) this.onFront(0);
     if (passed(Math.PI)) this.onBottom(0);
     // Second rope: the mirror image, half a turn apart, turning the other way.
     const old2 = r2.th;
@@ -494,10 +585,13 @@ export class Game {
   // --- CPU ---------------------------------------------------------------------
   ai(U, dt) {
     const lvl = clamp(U.p.aiLevel ?? 0, 0, 2), ai = U.ai, r0 = this.ropes[0];
-    if (ai.percW <= 0) ai.percW = this.ropeOmega(SCRIPT[0].bpr);
+    if (ai.percW <= 0) ai.percW = this.ropeOmega(this.script[0].bpr);
     ai.percW = damp(ai.percW, r0.w, 1 / AI_ADAPT[lvl], dt);
+    // In a switch they watch the turners: no hop for the parked rope, and they
+    // follow its spin-up the other way.
+    if (this.sw && this.sw.phase !== 'warn') ai.percW = r0.w;
     if (ai.delay > 0) { ai.delay -= dt; if (ai.delay <= 0) { U.p.ctrl.press('a'); ai.delay = -1; } }
-    if (U.tangled > 0) return;
+    if (U.tangled > 0 || (this.sw && (this.sw.phase === 'brake' || this.sw.phase === 'hold'))) return;
     // nearest upcoming pass among the ropes in play
     let best = null;
     for (let ri = 0; ri < 2; ri++) {
@@ -592,6 +686,7 @@ export class Game {
     };
     const rowUnits = (row) => this.units.filter((U) => U.state === 'play' && U.row === row).sort((a, b) => a.x - b.x);
     const drawLayer = (L) => { for (const { ri, pts } of geo) if (layerOf(ri) === L) this.drawRope(g, ri, pts); };
+    this.drawSwitchPreview(g, t);
     drawLayer(0);
     if (this.rows === 2) { for (const U of rowUnits(0)) this.drawUnit(g, U); drawLayer(1); for (const U of rowUnits(1)) this.drawUnit(g, U); }
     else { drawLayer(1); for (const U of rowUnits(0)) this.drawUnit(g, U); }
@@ -604,6 +699,20 @@ export class Game {
     this.drawJumpCue(g);
     this.drawTags(g);
     this.drawBunnyBubbles(g);
+  }
+
+  /** While the rope is parked: faint ropes sweeping the way it will go next. */
+  drawSwitchPreview(g, t) {
+    const sw = this.sw;
+    if (!sw || this.over || !(sw.phase === 'hold' || (sw.phase === 'spin' && sw.t < 0.35))) return;
+    const r = this.ropes[0];
+    const nd = sw.phase === 'hold' ? -r.dir : r.dir;    // the new direction
+    const fade = sw.phase === 'hold' ? clamp(sw.t / 0.25, 0, 1) : 1 - sw.t / 0.35;
+    for (let k = 0; k < 3; k++) {
+      const ph = ((t * 1.6) + k / 3) % 1;               // each ghost travels away from the parked rope
+      const gp = this.ropePoints(0, r.th + nd * (0.15 + ph * 0.9));
+      ghostRope(g, gp, 11, 0.32 * fade * (1 - ph));
+    }
   }
 
   drawSpeedLines(g, t) {
@@ -678,9 +787,10 @@ export class Game {
   /** Seconds until the next rope pass for a unit (and which rope). */
   nextPass(U) {
     let best = null;
+    const parking = this.sw && (this.sw.phase === 'brake' || this.sw.phase === 'hold');
     for (let ri = 0; ri < 2; ri++) {
       const rr = this.ropes[ri];
-      if (!(rr.active && rr.alpha >= 1) || U.prevA[ri] === null || rr.w <= 0.1) continue;
+      if (!(rr.active && rr.alpha >= 1) || U.prevA[ri] === null || rr.w <= 0.1 || (ri === 0 && parking)) continue;
       const tt = U.prevA[ri] / rr.w;
       if (!best || tt < best.t) best = { t: tt, ri };
     }
