@@ -1,7 +1,7 @@
 // Potion Class (Play Studio). Professor Hoot writes a recipe on the
 // chalkboard; everyone brews at their own cauldron: pick ingredients from the
-// shelf (stick or X + A), stir by spinning the stick, wave the wand (A) -> POOF!
-// Y empties the cauldron (it asks first: Go back is the default); B takes the last one out.
+// shelf (stick or X + A), stir by spinning the stick, wave the wand (A or Y) -> POOF!
+// B takes the last one out.
 // The right recipe transforms your character (giant, tiny, rainbow, floaty,
 // sparkly, hearts); a wrong one gives a sweet, silly surprise. Three recipes,
 // then a free experiment round where any mix makes a random effect.
@@ -18,7 +18,6 @@ import { drawStarShape, drawSparkleShape } from '../engine/emotes.js';
 import { INGREDIENTS, SHELF_SIZE, drawIngredient, drawBottle, drawCauldron, hexRgb, rgbStr, hexA } from './potion-class/ingredients.js';
 import { drawHoot, speechBubble } from './potion-class/hoot.js';
 import { charById } from '../data/characters.js';
-import { askOpen, askUpdate, drawAsk } from '../engine/studio-ui.js';
 import { meta } from './potion-class.meta.js';
 
 const NAVY = '#24163f';
@@ -273,7 +272,7 @@ export class Game {
         particles.burst(this.wx(st, FEET.x), this.wy(st, FEET.y - 60), { type: 'smoke', count: 10, speed: [40, 140] });
         st.actor.clearEmotes();
       }
-      Object.assign(st, { added: [], flying: [], brewTarget: WATER.slice(), phase: 'add', phaseT: 0, stir: 0, eff: null, effT: 0, result: null, wandT: -1, cloud: 0, emptyAsk: null, slots: rd.ings.length, hopZ: 0, selShow: 2.5 });
+      Object.assign(st, { added: [], flying: [], brewTarget: WATER.slice(), phase: 'add', phaseT: 0, stir: 0, eff: null, effT: 0, result: null, wandT: -1, cloud: 0, slots: rd.ings.length, hopZ: 0, selShow: 2.5 });
       st.ai.plan = null; st.ai.phase = null;
       st.actor.setPose('idle');
     }
@@ -374,14 +373,7 @@ export class Game {
     st.cloud = Math.max(0, st.cloud - dt * 1.6);
     if (p.isAI && this.phase !== 'end') this.aiStation(st, dt, active);
 
-    if (st.emptyAsk) {
-      // "Empty the cauldron?": Go back (the default) or Empty it
-      const q = st.emptyAsk, sel = q.sel, r = askUpdate(c, q);
-      if (q.sel !== sel) sfx('move');
-      if (r) { st.emptyAsk = null; st.cool = 0.15; if (r === 'yes') this.emptyPot(st); else sfx('back'); }
-    } else if (active && st.cool <= 0 && c.pressed('y') && (st.phase === 'add' || st.phase === 'stir' || st.phase === 'wand')) {
-      if (st.added.length || st.flying.length) { st.emptyAsk = askOpen(); sfx('select'); } else { sfx('blip'); st.shake = 0.5; }
-    } else if (st.phase === 'add') {
+    if (st.phase === 'add') {
       const step = c.nav.x || (c.pressed('x') ? 1 : 0);
       if (step && (st.navCool <= 0 || !c.nav.x)) {
         st.sel = (st.sel + step + this.shelf.length) % this.shelf.length;
@@ -397,8 +389,8 @@ export class Game {
       if (st.cool <= 0 && c.pressed('b')) this.undo(st);
     } else if (st.phase === 'wand') {
       st.readyT += dt;
-      // A waves the wand: POOF!
-      if (st.cool <= 0 && c.pressed('a')) this.startPoof(st);
+      // A waves the wand: POOF! (Y too)
+      if (st.cool <= 0 && (c.pressed('a') || c.pressed('y'))) this.startPoof(st);
     }
 
     // Flying ingredients.
@@ -471,18 +463,6 @@ export class Game {
     particles.ring(bx, by, ing.color, 90 * st.k, 0.35);
   }
 
-  /** Y (after "Empty the cauldron?" -> Empty it): everything out, back to picking. */
-  emptyPot(st) {
-    st.added = []; st.flying = [];
-    st.brewTarget = mixColor(st.added);
-    if (st.phase !== 'add') this.setPhase(st, 'add');
-    st.stir = 0;
-    sfx('whoosh'); sfx('bubble');
-    particles.burst(this.wx(st, BREW.x), this.wy(st, BREW.y - 20), { type: 'bubble', count: 16, speed: [80, 260] });
-    particles.popText(this.wx(st, BREW.x), this.wy(st, BREW.y - 60), 'All gone!', '#7fd3ff', 30 * st.k + 8);
-    st.actor.playOnce('surprised', 0.5, 'idle');
-  }
-
   undo(st) {
     if (!st.added.length) { sfx('error'); return; }
     const id = st.added.pop();
@@ -527,7 +507,7 @@ export class Game {
   }
 
   startPoof(st) {
-    st.phase = 'poof'; st.phaseT = 0; st.poofT = 0; st.wandT = 0; st.cool = 0.2; st.emptyAsk = null;
+    st.phase = 'poof'; st.phaseT = 0; st.poofT = 0; st.wandT = 0; st.cool = 0.2;
     st.actor.playOnce('cast', 0.45, 'idle');
     snd('zap', 'whoosh'); sfx('sparkle');
     const hx = this.wx(st, FEET.x + 40), hy = this.wy(st, FEET.y - 130);
@@ -989,7 +969,6 @@ export class Game {
       g.save(); g.translate(x, y); g.rotate(f.spin * u); drawIngredient(g, f.id, 0, 0, 54 * (1 - u * 0.3)); g.restore();
     }
     this.drawPrompt(g, st);
-    if (st.emptyAsk) drawAsk(g, { x: 0, y: st.box.hy + 66, w: SW, h: SH - st.box.hy - 66 }, st.emptyAsk, { title: 'Empty the cauldron?', yes: 'Empty it', color: p.color });
     g.restore();
   }
 

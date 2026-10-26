@@ -5,7 +5,7 @@ export const meta = {
   category: 'studio',
   type: 'Wizard School',
   goal: 'Brew Professor Hoot\'s recipes and see what magic happens!',
-  controls: [['stick', 'Pick an ingredient / stir in circles'], ['x', 'Next ingredient'], ['a', 'Toss it in · wave your wand: POOF!'], ['b', 'Oops! Take the last one out'], ['y', 'Empty the cauldron (asks first)']],
+  controls: [['stick', 'Pick an ingredient / stir in circles'], ['x', 'Next ingredient'], ['a', 'Toss it in · wave your wand: POOF!'], ['b', 'Oops! Take the last one out']],
   tips: ['Match the ingredients on the chalkboard.', 'Spin the stick round and round to stir.', 'When it\'s ready, press A to wave your wand!', 'The last round is a free experiment!'],
   music: 'spooky',
   duration: '3 recipes',
