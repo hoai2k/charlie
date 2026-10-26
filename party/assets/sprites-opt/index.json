@@ -231,7 +231,7 @@
   "troll": {
    "scale": 0.75,
    "portrait": 192,
-   "source": "67549dd021895bfd"
+   "source": "5ebd1f43063f86d6"
   },
   "glimmer": {
    "scale": 0.75,
@@ -325,7 +325,7 @@
     "hold-balloons-01.webp": 1.0
    },
    "portrait": 192,
-   "source": "8cf3a8852a88d2fe"
+   "source": "00f3275e079883ba"
   },
   "bronze": {
    "scale": 0.85714,
@@ -449,17 +449,17 @@
   "shadow-imp": {
    "scale": 0.92308,
    "portrait": 192,
-   "source": "cb0ff9db7f69d6ee"
+   "source": "ca928a4d9f0289ed"
   },
   "shadow-imp-blue": {
    "scale": 0.92308,
    "portrait": 192,
-   "source": "6e8c40479826415b"
+   "source": "a0c8846fa74aaf52"
   },
   "shadow-imp-pink": {
    "scale": 0.92308,
    "portrait": 192,
-   "source": "d01c5994ffcd0aaa"
+   "source": "3e56366bc9898cb8"
   },
   "garden-fairy-pink": {
    "scale": 1.0,
