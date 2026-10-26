@@ -310,20 +310,14 @@ export class Game {
     this.setOption(st, key, list, mod(st[key] + 1, list.length));
   }
 
-  /** Y: "Clear your dance?" - Go back (the default) or Clear. */
-  updateClearAsk(st) {
-    const q = st.clearAsk, sel = q.sel, r = askUpdate(st.p.ctrl, q);
+  /** Y on a dance with moves in it: "Swap for a surprise?" - Go back (the default) or Surprise!. */
+  updateSurpriseAsk(st) {
+    const q = st.surpriseAsk, sel = q.sel, r = askUpdate(st.p.ctrl, q);
     if (q.sel !== sel) sfx('move');
     if (!r) return;
-    st.clearAsk = null;
+    st.surpriseAsk = null;
     if (r !== 'yes') { sfx('back'); return; }
-    st.slots = st.slots.map(() => null); st.held = null; st.cur = 0; st.autoNext = false; st.autoNextT = -1;
-    st.slotBump = st.slotBump.map(() => 0.3);
-    sfx('whoosh'); sfx('pop');
-    const T = st.L.timeline;
-    particles.burst(T.x + T.w / 2, T.y + T.h / 2, { type: 'smoke', count: 14, speed: [60, 220] });
-    st.actor.playOnce('surprised', 0.5, 'idle');
-    this.setTab(st, TAB.moves);
+    this.surprise(st);
   }
 
   stepPalette(st, step) {
@@ -369,10 +363,10 @@ export class Game {
     if (st.ready) { if (c.pressed('b')) this.setReady(st, false); return; }
     const tabStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
     if (tabStep) { this.setTab(st, st.tab + tabStep); return; }
-    if (st.clearAsk) { this.updateClearAsk(st); return; }
-    // Y: clear the dance (asks first); on an empty dance it's "surprise me!"
+    if (st.surpriseAsk) { this.updateSurpriseAsk(st); return; }
+    // Y: surprise me! (a dance with moves in it asks first, as the surprise replaces it)
     if (c.pressed('y')) {
-      if (this.filled(st) || st.held) { if (st.held) this.dropHeld(st); st.clearAsk = askOpen(); sfx('select'); } else this.surprise(st);
+      if ((this.filled(st) || st.held) && !st.p.isAI) { if (st.held) this.dropHeld(st); st.surpriseAsk = askOpen(); sfx('select'); } else this.surprise(st);
       return;
     }
     const tab = TABS[st.tab].id, pad = c.kind === 'pad';
@@ -521,7 +515,7 @@ export class Game {
     if (this.phase !== 'make') return;
     this.phase = 'show'; this.phaseT = 0;
     for (const st of this.stations) {
-      st.held = null; st.clearAsk = null;
+      st.held = null; st.surpriseAsk = null;
       if (this.filled(st) === 0) st.slots = makeChoreo();
       st.ready = true;
       if (st.p.isAI) st.p.ctrl.reset?.();
@@ -891,8 +885,7 @@ export class Game {
     }
     if (this.n <= 2) {
       ui.hints(g, [['lb', ''], ['rb', 'Steps']], 230, 56, { size: 34 });
-      const st0 = this.stations.find((s) => !s.p.isAI) || this.stations[0];
-      ui.hints(g, [['y', this.filled(st0) ? 'Clear' : 'Surprise!']], W - 210, 56, { size: 34 });
+      ui.hints(g, [['y', 'Surprise!']], W - 210, 56, { size: 34 });
     }
   }
 
@@ -916,7 +909,7 @@ export class Game {
     else this.drawOptions(g, st, tab);
     this.drawTimeline(g, st);
     this.drawStationHints(g, st);
-    if (st.clearAsk) drawAsk(g, st.L.palette, st.clearAsk, { title: 'Clear your dance?', yes: 'Clear', color: st.p.color });
+    if (st.surpriseAsk) drawAsk(g, st.L.palette, st.surpriseAsk, { title: 'Swap for a surprise?', yes: 'Surprise!', color: st.p.color });
     if (st.ready) this.drawReady(g, st);
   }
 
@@ -1118,13 +1111,13 @@ export class Game {
     const { r, L } = st, n = this.n;
     if (st.ready) return;
     const tab = TABS[st.tab].id, small = n > 4, mid = n > 2;
-    if (st.clearAsk) { ui.hints(g, [['stick', small ? '' : 'Choose'], ['a', 'OK']], r.x + r.w / 2, L.hintY, { size: small ? 26 : mid ? 30 : 36, gap: small ? 16 : 26 }); return; }
+    if (st.surpriseAsk) { ui.hints(g, [['stick', small ? '' : 'Choose'], ['a', 'OK']], r.x + r.w / 2, L.hintY, { size: small ? 26 : mid ? 30 : 36, gap: small ? 16 : 26 }); return; }
     let list;
     if (tab === 'moves') {
       if (st.held) list = [['a', 'Put here'], ['b', 'Take out']];
-      else if (this.filled(st) === 8) list = small ? [['a', 'Pick up'], ['rb', 'Next']] : [['a', 'Pick up'], ['b', 'Take out'], ['y', 'Clear'], ['rb', 'Next step']];
+      else if (this.filled(st) === 8) list = small ? [['a', 'Pick up'], ['rb', 'Next']] : [['a', 'Pick up'], ['b', 'Take out'], ['y', 'Surprise!'], ['rb', 'Next step']];
       else if (small) list = [['x', 'Move'], ['a', 'Put in']];
-      else list = [['stick', 'Beat'], ['x', 'Next move'], ['a', 'Put in'], ['b', 'Out']].concat(mid ? [] : [['y', this.filled(st) ? 'Clear' : 'Surprise!']]);
+      else list = [['stick', 'Beat'], ['x', 'Next move'], ['a', 'Put in'], ['b', 'Out']].concat(mid ? [] : [['y', 'Surprise!']]);
     } else if (tab === 'done') list = [['a', "I'm ready!"], ['lb', 'Back']];
     else list = small ? [['x', 'Next'], ['a', 'OK']] : [['stick', 'Pick'], ['x', 'Next'], ['a', 'OK'], ['b', 'Back']];
     const size = small ? 26 : mid ? 30 : 36;

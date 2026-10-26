@@ -4,7 +4,7 @@
 // streaks and glitter too), tie it up (ponytail, pigtails, bun, space buns,
 // braid) and add bows, flowers, clips and tiaras. LB / RB pick the tool (the
 // last one is Done: A there says the look is finished), X steps through the
-// tool's colours / styles / bling, Y starts over (it asks first). Then a hand-mirror reveal at every chair and a photo-wall showcase:
+// tool's colours / styles / bling. Then a hand-mirror reveal at every chair and a photo-wall showcase:
 // the camera visits each client, and the stylists pose for a group photo.
 //
 // The hair is live strand geometry (games/hair-salon/hair.js), the client is
@@ -22,7 +22,6 @@ import { Client, CLIENTS } from './hair-salon/client.js';
 import { HAIR_COLORS, STYLES, HEAD_RX, HEAD_RY, SEG, MAXL, MAXB, MINL, hairlineY, paintSeg, extendColour } from './hair-salon/hair.js';
 import { TOOLS, TOOL_IDX, BLING } from './hair-salon/props.js';
 import { SalonDrawing, REVEAL_T, CHEESE_T, OPTIONS, STAR_KEYS } from './hair-salon/draw.js';
-import { askOpen, askUpdate } from '../engine/studio-ui.js';
 import { meta } from './hair-salon.meta.js';
 
 const DONE = TOOLS.length;  // the last toolbar slot: "Done" (A there = the look is finished)
@@ -92,7 +91,7 @@ export class Game extends SalonDrawing {
       tool: 0, opt: { colour: randInt(4, 10), style: 1, bling: 0 }, optPop: 0, toolPop: 0,
       client: new Client(look),
       cursor: { x: 0, y: 0, px: 0, py: 0, speed: 0 },
-      held: null, hover: null, ask: null,
+      held: null, hover: null,
       ready: false, readyT: 0,
       stars: {}, ev: {},
       stats: { snips: 0, colours: new Set(), styles: 0, sprays: 0 },
@@ -186,13 +185,6 @@ export class Game extends SalonDrawing {
     if (s.picking) { this.updatePick(s, dt); return; }
     const p = s.p, c = p.ctrl, cl = s.client, sc = s.scene;
     if (s.ai) this.ai(s, dt);
-    if (s.ask) {   // Y: "Start over?" - Go back (the default) or Clear
-      const sel = s.ask.sel, r = askUpdate(c, s.ask);
-      if (s.ask.sel !== sel) sfx('move');
-      if (r) { s.ask = null; if (r === 'yes') this.startOver(s); else sfx('back'); }
-      cl.update(dt, 0, 0.2); this.updateStylist(s, dt);
-      return;
-    }
     const pad = c.kind === 'pad', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     const cur = s.cursor;
     const sp = 820 * clamp(s.k * 1.15, 0.6, 1.2);
@@ -204,7 +196,7 @@ export class Game extends SalonDrawing {
 
     // LB / RB (d-pad left / right): tools, the last one is Done · X (RT / LT, d-pad up / down):
     // the tool's colours / styles / bling · A: use the tool (on Done: the look is finished) ·
-    // Y: start over (asks first) · B: spin the chair / take bling off (once Done: not done yet)
+    // B: spin the chair / take bling off (once Done: not done yet)
     const N = TOOLS.length + 1;
     if (c.pressed('rb') || (pad && c.pressed('right'))) this.setTool(s, (s.tool + 1) % N);
     if (c.pressed('lb') || (pad && c.pressed('left'))) this.setTool(s, (s.tool + N - 1) % N);
@@ -213,7 +205,6 @@ export class Game extends SalonDrawing {
     let usedB = false;
     if (s.tool === DONE && c.pressed('a') && !s.ready) this.toggleReady(s);
     else if (s.ready && (c.pressed('b') || s.tool !== DONE)) { usedB = c.pressed('b'); this.toggleReady(s); }
-    if (c.pressed('y')) { s.ask = askOpen(); s.held = null; sfx('select'); }
     s.toolPop = Math.max(0, s.toolPop - dt * 3); s.optPop = Math.max(0, s.optPop - dt * 2.5);
     s.sfxT -= dt; s.cool -= dt; s.sparkT -= dt;
 
@@ -491,18 +482,6 @@ export class Game extends SalonDrawing {
     const c = this.toScreen(s, 0, 0);
     particles.burst(c.x, c.y, { type: 'star', count: 4 });
     if (chance(0.35)) s.client.say(pick(['Wheee!', 'Again!', 'Hee hee!']), 1.2);
-  }
-
-  /** Y -> "Start over?" -> Clear: the same girl, back to her messy bed-head (stars stay earned). */
-  startOver(s) {
-    s.client = this.makeClient(s, s.pickIdx);
-    s.held = null; s.hover = null;
-    this.snips = this.snips.filter((q) => q.st !== s);
-    const c = this.toScreen(s, 0, -30);
-    particles.burst(c.x, c.y, { type: 'smoke', count: 14, colors: ['#ffffff', '#ffe8f4'], speed: [80, 240], size: [26, 48] });
-    sfx('whoosh'); sfx('pop');
-    s.client.react('giggle', 1); s.client.pop(0.3);
-    s.tool = 0; s.toolPop = 1;
   }
 
   toggleReady(s) {

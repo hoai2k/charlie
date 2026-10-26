@@ -950,7 +950,7 @@ export class Game {
     }
     if (!c.held('a')) st.paint = null;
     if (c.pressed('x')) this.cycleInst(st);
-    if (c.pressed('y')) { if (this.pageNotes()) this.askClear(st); else this.sparkle(st); }   // empty page: a surprise tune
+    if (c.pressed('y')) this.sparkle(st);   // a 4-note phrase from the cursor (an empty page: a surprise tune)
     if (c.pressed('rb')) { if (this.page < NPAGES - 1) this.setPage(this.page + 1, st, 1); else this.setDone(st, true); }
     if (c.pressed('lb')) { if (this.page > 0) this.setPage(this.page - 1, st, -1); else sfx('tock'); }
     if (c.pressed('b')) this.undo(st);
@@ -1068,12 +1068,13 @@ export class Game {
     const lead = this.stations[0] === st;
     if (lead) {
       if (!S.groove && this.t > 7) { S.groove = true; return [{ t: 'tb', i: 1 }, { t: 'press', b: 'a', w: 0.6 }]; }
-      if (!S.page2 && this.t > 12) { S.page2 = true; return [{ t: 'press', b: 'rb', w: 0.6 }, { t: 'goto', R: 3, col: 2 }, { t: 'press', b: 'y', w: 0.8 }]; }   // (a fresh page: Y = a surprise tune)
+      if (!S.page2 && this.t > 12) { S.page2 = true; return [{ t: 'press', b: 'rb', w: 0.6 }, { t: 'goto', R: 3, col: 2 }, { t: 'press', b: 'y', w: 0.8 }]; }
       if (!S.tempo && this.t > 18) { S.tempo = true; if (chance(0.5)) return [{ t: 'tb', i: TB.findIndex((b) => b.id === 'tempo') }, { t: 'press', b: 'a', w: 0.6 }]; }
       if (!S.concert && this.t > 25) { S.concert = true; return [{ t: 'done' }]; }
     }
     const notes = pg.cells.slice(0, NP).reduce((a, row) => a + row.filter(Boolean).length, 0);
-    if (!this.pageNotes()) return [{ t: 'press', b: 'y', w: 0.8 }];   // an empty page: Y writes a surprise tune
+    if (notes < 3) return [{ t: 'press', b: 'y', w: 0.8 }];
+    if (chance(0.2)) return [{ t: 'press', b: 'y', w: 0.6 }];
     if (chance(0.15)) return [{ t: 'inst', v: randInt(0, INSTS.length - 1) }];
     if (notes > 26) return [];
     const col = randInt(0, STEPS - 1), near = pg.cells.slice(0, NP).findIndex((row) => row[(col + STEPS - 1) % STEPS] || row[(col + 1) % STEPS]);
@@ -1536,7 +1537,7 @@ export class Game {
   drawLegend(g) {
     const L = LEGEND;
     ui.panel(g, L.x, L.y, L.w, L.h, { r: 30, fill: 'rgba(255,248,236,0.94)' });
-    const rows = [['stick', 'Move'], ['a', 'Note'], ['x', 'Sound'], ['lbrb', 'Page / Done'], ['y', this.pageNotes() ? 'Clear' : 'Surprise'], ['b', 'Undo'], ['start', 'Menu']];
+    const rows = [['stick', 'Move'], ['a', 'Note'], ['x', 'Sound'], ['lbrb', 'Page / Done'], ['y', 'Sparkle'], ['b', 'Undo'], ['start', 'Menu']];
     const step = (L.h - 40) / rows.length;
     rows.forEach(([b, label], i) => {
       const y = L.y + 20 + step * (i + 0.5);

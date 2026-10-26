@@ -27,7 +27,7 @@ import {
   drawSparkleShape, drawStarShape, drawHeartShape,
 } from './nail-studio/hand.js';
 
-import { askOpen, askUpdate, drawAsk, drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
+import { drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
 import { meta } from './nail-studio.meta.js';
 
 export { meta };
@@ -132,7 +132,7 @@ export class Game {
       nails: Array.from({ length: 5 }, newNail), gems: [],
       mode: 'arrive', step: 0, stepT: 0, stepExtra: 0, idleT: 0, appear: 0, doneT: 0,
       cur: { x: 560, y: 300, hold: 0 }, color: randInt(0, 6), artColor: 7, tool: 1, item: 0,
-      held: null, hoverGem: null, hoverNail: -1, onHand: false, ask: null,
+      held: null, hoverGem: null, hoverNail: -1, onHand: false,
       fanSpin: 0, fanV: 0, sfxT: 0, reactT: 0, wig: 0, pickPop: 0, toolPop: 0, nextBump: 0, nextPulse: 0,
       painting: false, tip: null,
       stats: { coats: 0, designs: 0, glitter: 0, gems: 0, colors: new Set() },
@@ -226,12 +226,10 @@ export class Game {
 
     st.stepT += dt;
     st.painting = false;
-    if (st.ask) { this.updateAsk(st); return; }
     // LB / RB: the steps (the last one is Done) · X (d-pad, LT / RT): colour / design / gem ·
-    // A: paint, decorate, stick, blow (on Done: finished!) · B: wipe / take off · Y: clean it all (asks first)
+    // A: paint, decorate, stick, blow (on Done: finished!) · B: wipe / take off
     const tab = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
     if (tab) { this.goStep(st, st.step + tab); return; }
-    if (c.pressed('y')) { this.askClear(st); return; }
     const step = SID(st);
     const left = pad && c.pressed('left') ? 1 : 0, right = pad && c.pressed('right') ? 1 : 0;
     const up = pad && c.pressed('up') ? 1 : 0, down = pad && c.pressed('down') ? 1 : 0;
@@ -627,24 +625,6 @@ export class Game {
     sfx('back'); st.actor.setPose('idle');
   }
 
-  /** Y: "Clean all the nails?" - Go back (the default) or Clear. Nothing on them: nothing to ask. */
-  askClear(st) {
-    if (!st.gems.length && st.nails.every((n) => n.color == null && !n.auto && !n.art && !n.glitter)) { sfx('blip', { vol: 0.5 }); return; }
-    st.ask = askOpen(); sfx('select');
-  }
-  updateAsk(st) {
-    const q = st.ask, sel = q.sel, r = askUpdate(st.p.ctrl, q);
-    if (q.sel !== sel) sfx('move');
-    if (!r) return;
-    st.ask = null;
-    if (r !== 'yes') { sfx('back'); return; }
-    st.nails = Array.from({ length: 5 }, newNail); st.gems = []; st.held = null; st.hoverGem = null; st.allPainted = false;
-    const c = this.handScreen(st, 0, -60);
-    particles.burst(c.x, c.y, { type: 'smoke', count: 10, colors: ['#ffffff', '#ffe0f0'], speed: [40, 160], size: [18, 34] });
-    snd('nail-wipe', 'brush', { vol: 0.7 }); sfx('whoosh');
-    this.react(st, 'wipe', true);
-    this.goStep(st, 0);
-  }
 
   // --- CPU ----------------------------------------------------------------------------------
   planFor(st) {
@@ -1088,7 +1068,6 @@ export class Game {
     if (this.phase === 'intro' || (this.phase === 'play' && this.phaseT < 4)) ui.playerTag(g, p, CHAR.x, CHAR.y - a.height - 16);
     this.drawCursor(g, st);
     if (st.tip) this.drawTip(g, st);
-    if (st.ask) drawAsk(g, { x: BOX.x0, y: 20, w: BOX.x1 - BOX.x0, h: 460 }, st.ask, { title: 'Clean all the nails?', yes: 'Clear' });
     g.restore();
     // frame
     ui.roundRect(g, 0, 0, SW, SH, 26);
@@ -1255,11 +1234,11 @@ export class Game {
     if (!p.isAI) {
       const pad = p.ctrl.kind === 'pad';
       const pickG = pad ? 'dpad' : 'x';
-      const list = step === 'polish' ? [['a', 'Paint'], [pickG, 'Colour'], ['b', 'Wipe'], ['y', 'Clear all']]
-        : step === 'art' ? [['a', 'Decorate'], ['x', 'Design'], [pad ? 'dpad' : 'rt', 'Colour'], ['b', 'Clean'], ['y', 'Clear all']]
-          : step === 'gems' ? [['a', 'Stick / move'], [pickG, 'Gem'], ['b', 'Take off'], ['y', 'Clear all']]
-            : step === 'dry' ? [['a', 'Hold: blow'], ['y', 'Clear all']]
-              : step === 'done' ? [['lb', 'Change'], ['y', 'Clear all']]
+      const list = step === 'polish' ? [['a', 'Paint'], [pickG, 'Colour'], ['b', 'Wipe']]
+        : step === 'art' ? [['a', 'Decorate'], ['x', 'Design'], [pad ? 'dpad' : 'rt', 'Colour'], ['b', 'Clean']]
+          : step === 'gems' ? [['a', 'Stick / move'], [pickG, 'Gem'], ['b', 'Take off']]
+            : step === 'dry' ? [['a', 'Hold: blow']]
+              : step === 'done' ? [['a', "I'm ready!"], ['lb', 'Change']]
                 : [['a', 'Admire'], ['b', 'Not yet']];
       list.forEach(([b, label], i) => {
         const y = P.y + 322 + i * 38;

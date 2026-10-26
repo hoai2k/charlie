@@ -83,8 +83,10 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
 - Play Studio controls (see `party/src/engine/studio-ui.js`; Fashion Show is the
   model): A confirms and moves on; LB/RB move between categories and the last
   category is "Done" (A there = ready); the left stick (and X) choose items or
-  move the cursor; the right stick places things inside the picture; Y clears
-  only after a question whose default is "Go back"; B goes back.
+  move the cursor; the right stick places things inside the picture; B goes
+  back. Don't add a "clear everything" action a game doesn't need (B undoes
+  one thing); where a game does have one, it's an on-screen button and/or Y,
+  and it always asks first with "Go back" as the default.
 - No-winner games (showcase / `finishTogether`) skip the awards page: the play
   scene's 'gallery' state keeps the game's last screen up with everyone's stars
   and A/Y to go on, so end such a game on the art itself (Fashion Show posts its

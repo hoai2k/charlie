@@ -3,14 +3,14 @@
 //   1. Shape: hold A to press the shaping stick into the spinning clay. The
 //      clay keeps its volume, so squeezing it in makes it grow taller, and
 //      grabbing the rim pulls it up (or squashes it down). B smooths, X adds
-//      handles, Y starts the clay over (asks first; on a fresh lump it morphs
-//      into a surprise shape). RB: "Bake it?" (A yes). The pot names itself live.
+//      handles, Y morphs into a surprise shape (shaped clay asks first). RB:
+//      "Bake it?" (A yes). The pot names itself live.
 //   2. Fire: the kiln pops up around the pot; mash A to puff the bellows,
 //      then the doors burst open and the clay colour is revealed.
 //   3. Paint: the pot turns slowly. Glaze dips, stripes, a brush (hold A and
 //      the wheel paints a ring), dots and stickers, all wrapped on the 3D pot.
 //      LB / RB pick the tool (the last one is Done: A there = ready), X the
-//      colour / sticker, Y washes the paint off (asks first), B undoes.
+//      colour / sticker, B undoes (Y does nothing while painting).
 // Finale: every pot goes up on the gallery shelf, gets a ribbon, and
 // everyone poses for a photo.
 import { W } from '../engine/canvas.js';
@@ -157,8 +157,8 @@ export class Game extends PotteryDrawing {
       st.potBump = 0.25; this.cheer(st);
     }
     if (c.pressed('y')) {
-      // shaped clay: ask first (Go back is the default); a fresh lump: surprise shape!
-      if (st.shapeT > 0.3 || st.lastPreset || pot.handles) { st.ask = askOpen(); sfx('select'); a.setPose('idle'); } else this.surpriseShape(st);
+      // Y: a surprise shape! (shaped clay asks first, Go back is the default)
+      if ((st.shapeT > 0.3 || st.lastPreset || pot.handles) && !st.p.isAI) { st.ask = askOpen(); sfx('select'); a.setPose('idle'); } else this.surpriseShape(st);
       return;
     }
     const tx = Math.abs(cur.x), ty = cur.y;
@@ -220,27 +220,13 @@ export class Game extends PotteryDrawing {
     st.actor.playOnce('surprised', 0.5, 'idle');
   }
 
-  /** Y's question: "Start the clay over?" (shaping) / "Wash the paint off?" (painting): Go back (default) or Clear. */
+  /** Y on shaped clay: "Swap for a surprise?" - Go back (the default) or Surprise!. */
   updateAsk(st) {
     const q = st.ask, sel = q.sel, r = askUpdate(st.p.ctrl, q);
     if (q.sel !== sel) sfx('move');
     if (!r) return;
     st.ask = null;
-    if (r !== 'yes') { sfx('back'); return; }
-    const b = this.toScreen(st, 0, st.pot.h * 0.5);
-    if (st.step === 'shape') {
-      const pot = newPot();
-      st.pot = pot; st.morph = null; st.lastPreset = null; st.shapeT = 0; st.name = 'Lump'; st.nameCand = '';
-      snd('pottery-plop', 'splat', { vol: 0.6 });
-    } else {
-      const pot = st.pot;
-      for (const arr of [pot.layers, pot.stripes, pot.strokes, pot.dots, pot.stickers]) arr.length = 0;
-      st.history = []; st.held = null; st.hover = null; st.stroke = null;
-      snd('pottery-glaze', 'splash', { vol: 0.5 });
-    }
-    sfx('whoosh');
-    particles.burst(b.x, b.y, { type: 'bubble', count: 12, colors: ['#fff', '#bfe9ff'], speed: [60, 220] });
-    st.actor.playOnce('surprised', 0.5, 'idle'); st.potBump = 0.25;
+    if (r === 'yes') this.surpriseShape(st); else sfx('back');
   }
 
   updateConfirm(st, dt) {
@@ -383,22 +369,17 @@ export class Game extends PotteryDrawing {
     const tool = TOOLS[st.tool]?.id || 'done';
     // the turntable slows to a stop while you hold or aim at a sticker, and whirs faster while you paint rings
     const fast = c.held('a') && !st.held && (tool === 'brush' || tool === 'dots');
-    const target = st.held || st.hover || st.confirm || st.ask ? 0 : fast ? FAST_SPIN : PAINT_SPIN;
+    const target = st.held || st.hover || st.confirm ? 0 : fast ? FAST_SPIN : PAINT_SPIN;
     st.spin = damp(st.spin, target, 6, dt);
     st.phi += st.spin * dt;
-    if (st.ask) { this.updateAsk(st); return; }
     const pad = c.kind === 'pad', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     cur.x = clamp(cur.x + mx * CUR_SPEED * dt, -260, 260);
     cur.y = clamp(cur.y - my * CUR_SPEED * dt, -30, HMAX + 30);
     // LB / RB (d-pad up / down): the tools, the last one is Done (A there: ready) · X (d-pad left / right):
-    // the colour or sticker · A: paint · B: take off / undo · Y: wash the paint off (asks first)
+    // the colour or sticker · A: paint · B: take off / undo
     const NT = TOOLS.length + 1;
     const toolStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0) + (pad ? (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0) : 0);
     if (toolStep && !st.held) { st.tool = (st.tool + toolStep + NT) % NT; st.listBump = 0.15; sfx('move'); st.stroke = null; return; }
-    if (c.pressed('y') && !st.held) {
-      if (st.history.length) { st.ask = askOpen(); st.stroke = null; sfx('select'); a.setPose('idle'); } else sfx('blip');
-      return;
-    }
     if (st.tool === DONE) {
       st.hover = null;
       if (c.pressed('a')) this.setReady(st, true);

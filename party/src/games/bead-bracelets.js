@@ -5,7 +5,7 @@
 // a chime, a finished repeat sparkles, and the customer wears the bracelet
 // away (a star each). A wrong bead just wiggles off. Final round: free design
 // (bracelet, necklace or anklet, beads + charms: LB / RB go Beads, Charms,
-// Done; A on Done = finished, Y clears the string after asking); then everyone
+// Done; A on Done = finished); then everyone
 // wears their jewellery, twirls in the big mirror and poses for a photo.
 import { playerName } from '../state.js';
 import { W, H } from '../engine/canvas.js';
@@ -25,7 +25,7 @@ import {
   NAVY, SHAPES, BEAD_COLORS, CHARMS, TYPES, ROUND_KINDS, FREE_TRAY, CHARM_TRAY, charmAt,
   sameTok, drawToken, drawCharm, drawGlint, drawLoop, strandPoints, drawTypeIcon, makeOrder, endsGroup, trayFor, autoDesign,
 } from './bead-bracelets/beads.js';
-import { askOpen, askUpdate, drawAsk, drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
+import { drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
 import { meta } from './bead-bracelets.meta.js';
 
 export { meta };
@@ -121,7 +121,7 @@ export class Game {
       fly: null, wob: [], queued: null, pops: [], glints: [],
       cust: null, custQueue: shuffle(CUSTOMERS.filter((id) => id !== p.charId)),
       done: 0, shelf: [], shelfPop: 0, hintT: 0, wrongRun: 0, idleT: 0, cardPop: 0, finishFx: null,
-      pick: 0, type: 'bracelet', design: null, wearing: false, twirlT: -1, doneBump: 0, stringShake: 0, onDone: false, ask: null,
+      pick: 0, type: 'bracelet', design: null, wearing: false, twirlT: -1, doneBump: 0, stringShake: 0, onDone: false,
       ai: { t: rand(0.6, 1.4), target: null, plan: null, erred: false, type: null },
     };
     a.attach((g, info) => this.drawWorn(g, st, info, a.char.members[0]));
@@ -219,7 +219,7 @@ export class Game {
   finishDesign(st, auto = false) {
     if (st.beads.length < 3 && !auto) { st.doneBump = 0.4; sfx('blip'); st.hintT = 1.2; return; }
     if (auto && st.beads.length < 6) st.beads = st.beads.concat(autoDesign(st.type)).slice(0, st.slots);
-    st.mode = 'done'; st.fly = null; st.queued = null; st.ask = null;
+    st.mode = 'done'; st.fly = null; st.queued = null;
     st.design = st.beads.slice(); st.wearing = true; st.twirlT = 0; st.doneT = 0;
     const a = st.actor, c = a.anchor('center'), sc = this.toScreen(st, c.x, c.y);
     sfx('magic'); sfx('sparkle'); snd('golden-chime', 'star', { vol: 0.7 });
@@ -374,13 +374,9 @@ export class Game {
     const firstR = clamp(st.cur.r - 1, 0, Math.max(0, nr - VIS_ROWS)), firstC = clamp(st.cur.c - Math.floor(VIS_COLS / 2) + 1, 0, Math.max(0, nc - VIS_COLS));
     st.sy = damp(st.sy, firstR, 14, dt); st.sx = damp(st.sx, firstC, 14, dt);
 
-    if (st.mode === 'design' && st.ask) {   // "Take all the beads off?": Go back (the default) or Clear
-      const sel = st.ask.sel, r = askUpdate(c, st.ask);
-      if (st.ask.sel !== sel && !p.isAI) sfx('move');
-      if (r) { st.ask = null; if (r === 'yes') this.clearString(st); else sfx('back'); }
-    } else if (st.mode === 'design') {
+    if (st.mode === 'design') {
       // LB / RB: Beads, Charms, Done · stick: pick a bead · X: the next bead · A: thread it (on Done: finished!) ·
-      // B: take the last bead off (on Done: back to the tray) · Y: take them all off (asks first)
+      // B: take the last bead off (on Done: back to the tray)
       st.idleT += dt;
       const tab = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
       if (tab) this.stepTab(st, tab);
@@ -394,7 +390,6 @@ export class Game {
         if (c.pressed('a')) this.threadCursor(st);
         if (c.pressed('b')) this.undo(st);
       }
-      if (c.pressed('y')) { if (st.beads.length) { st.ask = askOpen(); if (!p.isAI) sfx('select'); } else if (!p.isAI) sfx('blip'); }
     } else if (st.mode === 'pattern') {
       st.idleT += dt;
       // a gentle nudge: the Y hint lights up by itself after a long think
@@ -436,15 +431,6 @@ export class Game {
     st.onDone = next === 2;
     if (!st.onDone && (next === 0) !== (st.tray.kind === 'beads')) this.toggleTray(st);
     else { st.trayBump = 0.15; if (!st.p.isAI) sfx('move'); }
-  }
-
-  /** Y -> "Take all the beads off?" -> Clear. */
-  clearString(st) {
-    if (st.fly) st.fly = null;
-    st.queued = null;
-    st.beads.forEach((tok, i) => { const q = slotPos(st.slots, i); st.wob.push({ kind: 'back', tok, x: q.x, y: q.y, t: 0, vx: rand(-90, 90), vy: rand(-460, -300) }); });
-    st.beads = []; st.onDone = false; st.stringShake = 0.35;
-    sfx('whoosh'); sfx('pop', { vol: 0.6 });
   }
 
   toggleTray(st) {
@@ -684,9 +670,9 @@ export class Game {
     const k = st.k;
     const over = (x, y, w, h) => input.pointerOver({ x: st.ox + x * k, y: st.oy + y * k, w: w * k, h: h * k });
     const hit = (x, y, w, h) => over(x, y, w, h) && P.pressed;
-    if (st.mode === 'design' && (st.ask || st.onDone)) {
+    if (st.mode === 'design' && st.onDone) {
       const d = this.doneRect();
-      if (st.onDone && !st.ask && hit(d.x, d.y, d.w, d.h)) this.finishDesign(st);
+      if (hit(d.x, d.y, d.w, d.h)) this.finishDesign(st);
       return;
     }
     if (st.mode === 'pattern' || st.mode === 'design') {
@@ -836,7 +822,7 @@ export class Game {
     const anyPick = this.stations.some((s) => s.mode === 'pick');
     let list;
     if (this.round === 2 && anyPick) list = [['stick', 'Choose'], ['a', 'OK']];
-    else if (this.round === 2) list = [['stick', 'Pick'], ['a', 'Thread'], ['b', 'Undo'], ['rb', 'Charms · Done'], ['y', 'Clear']];
+    else if (this.round === 2) list = [['stick', 'Pick'], ['a', 'Thread'], ['b', 'Undo'], ['rb', 'Charms · Done']];
     else list = [['stick', 'Pick'], ['x', 'Next'], ['a', 'Thread'], ['b', 'Undo'], ['y', 'Hint']];
     ui.hints(g, list, W - 24, 54, { size: 30, gap: 20, align: 'right' });
   }
@@ -1164,7 +1150,6 @@ export class Game {
     }
     if (this.round === 2 && st.onDone) {
       drawDoneCard(g, TRAY, st.p.color, { back: st.beads.length < 3 ? 'Thread 3 beads first! (LB)' : 'LB to change something' });
-      if (st.ask) drawAsk(g, TRAY, st.ask, { title: 'Take all the beads off?', yes: 'Clear' });
       return;
     }
     // the tray
@@ -1228,7 +1213,6 @@ export class Game {
     arrow(TRAY.x + TRAY.w - 22, TRAY.y + TRAY.h / 2, 0, nc > VIS_COLS && st.sx < nc - VIS_COLS - 0.1);
     arrow(TRAY.x + TRAY.w / 2, TRAY.y + 6, -Math.PI / 2, nr > VIS_ROWS && st.sy > 0.1);
     arrow(TRAY.x + TRAY.w / 2, TRAY.y + TRAY.h - 6, Math.PI / 2, nr > VIS_ROWS && st.sy < nr - VIS_ROWS - 0.1);
-    if (this.round === 2 && st.ask) drawAsk(g, TRAY, st.ask, { title: 'Take all the beads off?', yes: 'Clear' });
   }
 
   drawTypePicker(g, st) {

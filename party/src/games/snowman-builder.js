@@ -11,8 +11,8 @@
 // (right stick: tiny nudges), LB / RB pick a category (Face, Hats, Clothes,
 // Buttons, Friends and, last, Done), X (or the D-pad) the next decoration in
 // it, A puts it where the hand is (or picks one up / puts it down; on Done:
-// I'm ready!), B takes the one under the hand off (or undoes the last), Y asks
-// "Take it all off?" (Go back is the default; on a bare snowman Y is a surprise look).
+// I'm ready!), B takes the one under the hand off (or undoes the last), Y is a
+// surprise look (a dressed snowman asks "A surprise look?" first; Go back is the default).
 import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait, POSES } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
@@ -131,7 +131,7 @@ export class Game {
       p, i, r, hintH, VW, spot, sm, actor: a, view: { ...roll }, roll, deco: null, zoomT: 0,
       mode: 'roll', ball: null, dir: -0.3, lift: null, pat: 0, nearT: 0, canStack: false, tipCD: 0,
       cols, rows, depth, trail, tctx: trail.getContext('2d'), refillT: 0, puffT: 0, rollSndT: 0,
-      stackBump: 0, builtT: 0, cursor: { x: spot.x, y: spot.y - 200 }, sel: 0, tab: 0, selIn: CATS.map((c) => c.idx[0]), clearAsk: null, tabBump: 0, held: null, hover: null,
+      stackBump: 0, builtT: 0, cursor: { x: spot.x, y: spot.y - 200 }, sel: 0, tab: 0, selIn: CATS.map((c) => c.idx[0]), surpriseAsk: null, tabBump: 0, held: null, hover: null,
       history: [], ready: false, readyT: 0, listBump: 0, cheerCD: 0, decoStart: 0, decoTime: DECO_TIME, placed: 0, ai: null,
       scenery: this.makeScenery(VW), sparkles: Array.from({ length: Math.round(VW / 30) }, () => ({ x: rand(VW), y: rand(20, FIELD_H), ph: rand(TAU) })),
       lastMilestone: 0, rolled: 0,
@@ -436,7 +436,7 @@ export class Game {
     st.listBump = Math.max(0, st.listBump - dt); st.tabBump = Math.max(0, st.tabBump - dt);
     st.cheerCD -= dt;
     if (st.ready) { st.readyT += dt; if (c.pressed('b') && !st.p.isAI) this.setReady(st, false); return; }
-    if (st.clearAsk) { this.updateClearAsk(st); return; }
+    if (st.surpriseAsk) { this.updateSurpriseAsk(st); return; }
     if (st.p.isAI) this.updateDecoAI(st, dt);
     const pad = c.kind === 'pad';
     const mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
@@ -450,9 +450,9 @@ export class Game {
     let step = c.pressed('x') ? 1 : 0;
     if (pad) step += (c.pressed('down') || c.pressed('right') ? 1 : 0) - (c.pressed('up') || c.pressed('left') ? 1 : 0);
     if (step) this.stepItem(st, step);
-    // Y: take it all off (asks first, Go back is the default); on a bare snowman: a surprise look
+    // Y: a surprise look (a dressed snowman asks first, Go back is the default)
     if (c.pressed('y')) {
-      if (st.sm.items.length) { st.clearAsk = askOpen(); st.held = null; st.hover = null; sfx('select'); } else this.surprise(st);
+      if (st.sm.items.length && !st.p.isAI) { st.surpriseAsk = askOpen(); st.held = null; st.hover = null; sfx('select'); } else this.surprise(st);
       return;
     }
     if (st.held) {
@@ -485,20 +485,13 @@ export class Game {
     st.listBump = 0.15; sfx('move');
   }
 
-  /** "Take it all off?": Go back (the default) or Clear. */
-  updateClearAsk(st) {
-    const q = st.clearAsk, sel = q.sel, r = askUpdate(st.p.ctrl, q);
+  /** "A surprise look?": Go back (the default) or Surprise!. */
+  updateSurpriseAsk(st) {
+    const q = st.surpriseAsk, sel = q.sel, r = askUpdate(st.p.ctrl, q);
     if (q.sel !== sel) sfx('move');
     if (!r) return;
-    st.clearAsk = null;
-    if (r === 'yes') this.clearAll(st); else sfx('back');
-  }
-  clearAll(st) {
-    const cs = ballCenters(st.sm), s = this.toScreen(st, st.sm.x, cs[cs.length - 1].y);
-    st.sm.items = []; st.history = []; st.held = null; st.hover = null;
-    sfx('whoosh'); sfx('pop');
-    particles.burst(s.x, s.y, { type: 'dust', count: 16, colors: SNOW, speed: [80, 260] });
-    st.actor.playOnce('surprised', 0.5, 'idle');
+    st.surpriseAsk = null;
+    if (r === 'yes') this.surprise(st); else sfx('back');
   }
 
   /** Put a new decoration where the hand is. */
@@ -649,7 +642,7 @@ export class Game {
     st.ready = on; st.readyT = 0;
     const a = st.actor;
     if (on) {
-      st.held = null; st.hover = null; st.clearAsk = null;
+      st.held = null; st.hover = null; st.surpriseAsk = null;
       sfx('ready'); a.playOnce('ready', 0.6, 'wave'); a.squash(-0.25);
       const cs = ballCenters(st.sm), s = this.toScreen(st, st.sm.x, cs[cs.length - 1].y);
       particles.burst(s.x, s.y, { type: 'confetti', count: 22, speed: [200, 480] });
@@ -894,8 +887,7 @@ export class Game {
     const left = this.t < this.rollTime ? this.rollTime - this.t : 0;
     // (the rolling clock shows there instead: api.limit)
     if (!(left > 0 && left < 25 && this.stations.some((s) => s.mode === 'roll' && (!s.p.isAI || this.cpuOnly))) && this.n <= 2 && this.stations.some((s) => s.mode === 'deco' && !s.ready && !s.p.isAI)) {
-      const kid = this.stations.find((s) => s.mode === 'deco' && !s.ready && !s.p.isAI);
-      ui.hints(g, [['y', kid.sm.items.length ? 'Clear' : 'Surprise!']], W - 200, 56, { size: 34 });
+      ui.hints(g, [['y', 'Surprise!']], W - 200, 56, { size: 34 });
     }
     for (const st of this.stations) this.drawStation(g, st);
   }
@@ -1197,7 +1189,7 @@ export class Game {
       ui.glyph(g, st.p.ctrl.kind === 'pad' ? 'dpad' : 'x', lr.x + 16 + fs / 2, fy, fs);
       ui.text(g, 'Next', lr.x + 26 + fs, fy + 1, { size: fs * 0.72, color: NAVY, stroke: false, align: 'left', weight: 800, maxWidth: lr.w - fs - 40 });
     }
-    if (st.clearAsk) drawAsk(g, lr, st.clearAsk, { title: 'Take it all off?', yes: 'Clear' });
+    if (st.surpriseAsk) drawAsk(g, lr, st.surpriseAsk, { title: 'A surprise look?', yes: 'Surprise!' });
   }
 
   drawReady(g, st) {
@@ -1228,13 +1220,13 @@ export class Game {
     if (st.mode === 'roll') items = st.canStack ? [['stick', 'Push'], ['a', 'Stack it!']] : [['stick', 'Push your snowball'], ['a', 'Pat']];
     else if (st.mode === 'built') items = [];
     else if (st.ready) items = [['b', 'Change']];
-    else if (st.clearAsk) items = [['stick', 'Choose'], ['a', 'OK'], ['b', 'Go back']];
+    else if (st.surpriseAsk) items = [['stick', 'Choose'], ['a', 'OK'], ['b', 'Go back']];
     else if (st.held) items = [['stick', 'Move'], ['a', 'Put down'], ['b', 'Take off']];
     else if (st.sel === DONE) items = [['lb', 'Change something'], ['a', "I'm ready!"]];
-    else items = [['stick', 'Move'], ['a', st.hover ? 'Pick up' : 'Add'], [pad ? 'dpad' : 'x', 'Next'], ['rb', 'Category'], ['b', st.hover ? 'Take off' : 'Undo'], ['y', st.sm.items.length ? 'Clear' : 'Surprise!']];
+    else items = [['stick', 'Move'], ['a', st.hover ? 'Pick up' : 'Add'], [pad ? 'dpad' : 'x', 'Next'], ['rb', 'Category'], ['b', st.hover ? 'Take off' : 'Undo'], ['y', 'Surprise!']];
     if (!items.length) return;
     const wide = r.w > 700;
-    if (!wide) items = items.map(([b, l]) => [b, ['Surprise!', 'Clear', 'Next', 'Category', 'Change something'].includes(l) ? '' : l]);
+    if (!wide) items = items.map(([b, l]) => [b, ['Surprise!', 'Next', 'Category', 'Change something'].includes(l) ? '' : l]);
     const x0 = r.x + 16, avail = r.w - 32 - (st.mode === 'deco' ? this.listW(st) + 10 : 0), lab = sz * 0.62;
     let need = 0;
     for (const [, l] of items) need += sz + 6 + (l ? ui.measure(g, l, lab) + 18 : 12);

@@ -4,8 +4,9 @@
 //   LB / RB    move between categories; the LAST category is "Done"
 //   left stick move around / choose items (X also steps to the next item)
 //   right stick place / nudge things inside the picture
-//   Y          clear - always asks first ("Go back" is the default, so a stray or mashed
-//              press never wipes anything)
+//   Y          clear, only in a game that needs one (most don't: B undoes one thing) - it
+//              always asks first ("Go back" is the default, so a stray or mashed press
+//              never wipes anything); a page clear is better as an on-screen button
 //   B          back (previous category / un-ready)
 //
 // Helpers for the shared pieces:

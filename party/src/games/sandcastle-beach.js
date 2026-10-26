@@ -13,8 +13,7 @@
 // changes the style (window/door towers, wall direction, shell kind, colours),
 // A builds (on top of what's under your hand, so molds stack), A with the Move
 // hand picks a piece up and A puts it down, A on Done: I'm ready (B: not yet).
-// B removes what's under your hand (or fills a moat back in), Y asks
-// "Smooth it all away?" (Go back is the default) before clearing your patch.
+// B removes what's under your hand (or fills a moat back in).
 import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
@@ -31,7 +30,7 @@ import {
   foot, silhouette, topHeight, canStack, drawPiece, drawPieceShadow, drawCrab, drawToolIcon, } from './sandcastle-beach/pieces.js';
 import { drawBackdrop, drawSun, drawShore, drawWave, HORIZON, SHORE, WET } from './sandcastle-beach/beach.js';
 
-import { askOpen, askUpdate, drawAsk, drawDoneTab } from '../engine/studio-ui.js';
+import { drawDoneTab } from '../engine/studio-ui.js';
 import { meta } from './sandcastle-beach.meta.js';
 
 export { meta };
@@ -113,7 +112,7 @@ export class Game {
       styles: { hand: 0, tower: 0, pointy: 0, wall: 0, dome: 0, moat: 0, shell: 0, star: 0, flag: i % 4 },
       pieces: [], held: null, hover: null, hoverCrab: null, aim: null,
       moat: new Map(), digT: 0, digging: false, waterT: 0,
-      ready: false, readyT: 0, clearAsk: null, wet: 0, gifts: 0, built: 0, cheerCD: 2, waveCD: 0,
+      ready: false, readyT: 0, wet: 0, gifts: 0, built: 0, cheerCD: 2, waveCD: 0,
       side: i % 2 ? 1 : -1, ai: null, aiStick: 0, jz: 0, jvz: 0, poseCD: 0,
     };
     const a = new Actor(p, { x: ox + st.side * 90 * k, y: oy + 20 * k, facing: -st.side });
@@ -334,26 +333,9 @@ export class Game {
     } else if (!st.p.isAI) sfx('blip');
   }
 
-  /** "Smooth it all away?": Go back (the default) or Clear. */
-  updateClearAsk(st) {
-    const q = st.clearAsk, sel = q.sel, r = askUpdate(st.p.ctrl, q);
-    if (q.sel !== sel) sfx('move');
-    if (!r) return;
-    st.clearAsk = null;
-    if (r === 'yes') this.clearPatch(st); else sfx('back');
-  }
-  /** Y (after the question): smooth the whole patch flat again. */
-  clearPatch(st) {
-    const s = this.toScreen(st, this.castleCenter(st), 0);
-    st.pieces = []; st.moat.clear(); st.held = null; st.hover = null; st.aim = null;
-    snd('sc-fill', 'snow-pack', { vol: 0.7 }); sfx('whoosh');
-    particles.burst(s.x, s.y, { type: 'dust', count: 22, colors: [SAND, SAND_L], speed: [80, 300] });
-    st.actor.playOnce('surprised', 0.5, 'idle');
-  }
-
   setReady(st, on) {
     if (st.ready === on) return;
-    st.ready = on; st.readyT = 0; st.clearAsk = null;
+    st.ready = on; st.readyT = 0;
     if (st.held) this.drop(st);
     const a = st.actor;
     if (on) {
@@ -619,7 +601,6 @@ export class Game {
       const sp = (st.p.isAI ? 560 : 640) * (0.4 + 0.6 * clamp(st.hold / 0.5, 0, 1)) / Math.max(0.8, st.k);
       st.cur.x = clamp(st.cur.x + (mx * sp + c.rx * 150) * dt, st.gx0 - 10, st.gx1 + 10);
       st.cur.y = clamp(st.cur.y + (my * sp + c.ry * 150) * dt, st.gy0 - HEAD + 30, st.gy1 + 4);
-      if (st.clearAsk) { this.updateClearAsk(st); st.digging = false; this.followActor(st, dt, false); a.update(dt); continue; }
       // LB / RB: tools (the last one is Done) · X or the d-pad: the style
       if (pad) {
         const ts = (c.pressed('right') || c.pressed('down') ? 1 : 0) - (c.pressed('left') || c.pressed('up') ? 1 : 0);
@@ -628,11 +609,6 @@ export class Game {
       if (c.pressed('rb')) this.stepTool(st, 1);
       if (c.pressed('lb')) this.stepTool(st, -1);
       if (c.pressed('x')) this.stepStyle(st, 1);
-      // Y: smooth it all away, after a question (Go back is the default); nothing built yet: nothing to ask
-      if (c.pressed('y')) {
-        if (st.pieces.length || st.moat.size) { if (st.held) this.drop(st); st.clearAsk = askOpen(); sfx('select'); continue; }
-        if (!st.p.isAI) sfx('blip');
-      }
       // hover
       st.hover = st.held ? null : this.pieceAt(st, st.cur.x, st.cur.y);
       st.hoverCrab = null;
@@ -1035,9 +1011,8 @@ export class Game {
     if (this.phase === 'build') {
       this.drawClock(g);
       const pad = this.players.some((p) => !p.isAI && p.ctrl.kind === 'pad');
-      ui.hints(g, [['stick', 'Hand'], ['lb', '/ RB Tools'], [pad ? 'dpad' : 'x', 'Style'], ['a', 'Build'], ['b', 'Take away'], ['y', 'Clear']], W / 2, 122, { size: 30, gap: 26 });
+      ui.hints(g, [['stick', 'Hand'], ['lb', '/ RB Tools'], [pad ? 'dpad' : 'x', 'Style'], ['a', 'Build'], ['b', 'Take away']], W / 2, 122, { size: 30, gap: 26 });
       for (const st of this.stations) this.drawStrip(g, st);
-      for (const st of this.stations) if (st.clearAsk) drawAsk(g, { x: st.r.x, y: st.r.y, w: st.r.w, h: st.r.h - st.sh - 4 }, st.clearAsk, { title: 'Smooth it all away?', yes: 'Clear', color: '#e8a33d' });
     } else {
       this.drawFinaleHUD(g);
     }

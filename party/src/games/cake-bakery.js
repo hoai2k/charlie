@@ -241,17 +241,6 @@ export class Game {
     }
   }
 
-  /** Y -> "Take the toppings off?" -> Clear. */
-  clearToppings(st) {
-    this.dropHeld(st); st.hover = null; st.shaking = null;
-    st.items = []; st.sprinkles = []; st.history = [];
-    const top = this.cakeTop(st);
-    sfx('whoosh'); sfx('pop');
-    particles.burst(top.x, top.y, { type: 'smoke', count: 12, speed: [60, 200] });
-    particles.burst(top.x, top.y, { type: 'sparkle', count: 10, colors: ['#fff'] });
-    st.actor.playOnce('surprised', 0.5, 'idle'); st.cakeBump = 0.3;
-  }
-
   // --- decorations ---------------------------------------------------------------
   addItem(st, kind, lx, ly, { group = null, drop = 0 } = {}) {
     const c = st.cake, def = DECOS[DECO[kind]];
@@ -607,14 +596,14 @@ export class Game {
       this.updateDecos(st, dt);
       a.update(dt);
       if (st.ready) { if (c.pressed('b')) this.setReady(st, false); continue; }
-      if (st.ask) {   // "Take the toppings off?": Go back (the default) or Clear
+      if (st.ask) {   // "Swap for a surprise?": Go back (the default) or Surprise!
         const sel = st.ask.sel, r = askUpdate(c, st.ask);
         if (st.ask.sel !== sel) sfx('move');
-        if (r) { st.ask = null; if (r === 'yes') this.clearToppings(st); else sfx('back'); }
+        if (r) { st.ask = null; if (r === 'yes') this.surprise(st); else sfx('back'); }
         continue;
       }
       // LB / RB: steps (the last one is Done) · A: keep it and go on (on Done: ready; decorating: add) ·
-      // stick up/down or X: the next choice (decorating: X = the next topping) · B: back / undo · Y: clear (asks first)
+      // stick up/down or X: the next choice (decorating: X = the next topping) · B: back / undo · Y: surprise me!
       const tabStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
       if (tabStep) {
         st.tab = (st.tab + tabStep + TABS.length) % TABS.length; st.tabBump = 0.18; sfx('move');
@@ -624,8 +613,8 @@ export class Game {
       }
       const tab = TABS[st.tab].id;
       if (c.pressed('y')) {
-        // toppings on: ask first (Go back is the default); a bare cake: surprise me!
-        if (st.items.length || st.sprinkles.length) { this.dropHeld(st); st.ask = askOpen(); sfx('select'); } else this.surprise(st);
+        // Y: surprise me! (a decorated cake asks first, Go back is the default)
+        if ((st.items.length || st.sprinkles.length) && !st.p.isAI) { this.dropHeld(st); st.ask = askOpen(); sfx('select'); } else this.surprise(st);
         continue;
       }
       if (tab === 'deco') {
@@ -844,7 +833,7 @@ export class Game {
     this.drawMiniCake(g, W / 2 + 400, 60, 0.9);
     if (this.n <= 2 && !this.finale) {
       ui.hints(g, [['lb', ''], ['rb', 'Steps']], 210, 56, { size: 34 });
-      ui.hints(g, [['y', 'Clear / Surprise']], W - 210, 56, { size: 34 });
+      ui.hints(g, [['y', 'Surprise!']], W - 210, 56, { size: 34 });
     }
     for (const st of this.stations) this.drawStation(g, st);
     if (this.finale) this.drawFinaleOverlay(g);
@@ -906,7 +895,7 @@ export class Game {
       this.drawTabs(g, st);
       this.drawList(g, st);
       this.drawStationHints(g, st);
-      if (st.ask) drawAsk(g, st.L.list, st.ask, { title: 'Take the toppings off?', yes: 'Clear' });
+      if (st.ask) drawAsk(g, st.L.list, st.ask, { title: 'Swap for a surprise?', yes: 'Surprise!' });
       if (st.ready) this.drawReady(g, st);
     } else {
       this.drawFinaleSide(g, st);
@@ -1152,8 +1141,7 @@ export class Game {
       else items = [['stick', 'Move'], ['a', isSpray(DECOS[st.decoSel].id) ? 'Shake!' : st.hover ? 'Pick up' : 'Add'], [pad ? 'dpad' : 'x', 'Topping'], ['b', st.hover ? 'Take off' : 'Undo']];
     } else if (tab === 'done') items = [['lb', 'Change'], ['a', "I'm ready!"]];
     else items = [[pad ? 'dpad' : 'stick', 'Pick'], ['x', 'Next'], ['a', 'OK!']];
-    const yLabel = st.items.length || st.sprinkles.length ? 'Clear' : 'Surprise!';
-    if (tab !== 'done') items.push(['y', wide ? yLabel : '']);
+    if (tab !== 'done') items.push(['y', wide ? 'Surprise!' : '']);
     const avail = r.x + r.w - 16 - x, lab = sz * 0.62;
     let need = 0;
     for (const [, l] of items) need += sz + 6 + (l ? ui.measure(g, l, lab) + 18 : 12);

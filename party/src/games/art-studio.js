@@ -3,8 +3,7 @@
 // moves it (with acceleration, right stick fine-adjusts), hold A to paint,
 // LB/RB (or d-pad up/down) change tool - the last one is Done, where A says
 // "I'm ready" -, X (or d-pad left/right) steps the color (or stamp in the
-// stamp tool), LT/RT the size, B undoes your own last stroke, Y clears the
-// picture (asks first; B brings it back for a few seconds). Optional coloring
+// stamp tool), LT/RT the size, B undoes your own last stroke. Optional coloring
 // pages (fill bucket stops at the lines). Once every painter is ready (or from
 // the pause menu) the painting hangs in a gold frame on the museum wall; X
 // there saves it as a PNG.
@@ -21,7 +20,7 @@ import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '..
 import { drawSparkleShape, drawStarShape, starPath } from '../engine/emotes.js';
 import { charById } from '../data/characters.js';
 import { CW, CH, PAGES, pageCanvas } from './art-studio/pages.js';
-import { askOpen, askUpdate, drawAsk, drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
+import { drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
 import { meta } from './art-studio.meta.js';
 
 export { meta };
@@ -179,7 +178,7 @@ export class Game {
   makeStation(p, i) {
     const st = {
       p, i, cur: { x: CW * (0.3 + 0.4 * ((i % 4) / 3)), y: CH * (0.35 + 0.3 * (i >= 4 ? 1 : 0)) }, hold: 0,
-      tool: 0, color: [9, 6, 2, 4, 8, 0, 5, 1][i % 8], size: 1, stamp: 0, stroke: null, ask: null, ready: false, readyT: 0, paletteT: 0,
+      tool: 0, color: [9, 6, 2, 4, 8, 0, 5, 1][i % 8], size: 1, stamp: 0, stroke: null, ready: false, readyT: 0, paletteT: 0,
       strokes: 0, stamps: 0, fills: 0, ai: { cmds: [], wait: 0, idle: rand(0.5, 1.5) }, soundT: 0, overBtn: null,
     };
     st.actor = new Actor(p, { facing: 1 });
@@ -380,12 +379,6 @@ export class Game {
     else { sfx('back'); a.setPose('idle'); }
   }
 
-  /** Y -> "Clear the picture?" -> Clear: a fresh copy of the same page (B brings the old one back for a few seconds). */
-  clearPicture() {
-    const keep = this.dirty ? this.snapshotPicture() : null;
-    this.setPage(this.page);
-    this.oldPic = keep;
-  }
 
   updatePainter(st, dt) {
     const c = st.p.ctrl, a = st.actor;
@@ -406,12 +399,6 @@ export class Game {
     for (const [k, b] of Object.entries(BTN)) if (scr.x >= b.x && scr.x <= b.x + b.w && scr.y >= b.y - 10 && scr.y <= b.y + b.h + 10) st.overBtn = k;
 
     if (st.ready) st.readyT += dt;
-    if (st.ask) {   // "Clear the picture?": Go back (the default) or Clear
-      const sel = st.ask.sel, r = askUpdate(c, st.ask);
-      if (st.ask.sel !== sel) sfx('move');
-      if (r) { st.ask = null; if (r === 'yes') this.clearPicture(); else sfx('back'); }
-      return;
-    }
     // LB/RB (or d-pad up/down) change the tool, the last one is Done (A there: I'm ready); X (or d-pad
     // left/right) steps through the colors or stamps, along the strip shown on screen; LT/RT the size.
     const NT = TOOLS.length + 1;
@@ -428,12 +415,8 @@ export class Game {
     }
     const sizeStep = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
     if (sizeStep) { st.size = clamp(st.size + sizeStep, 0, SIZES.length - 1); sfx(sizeStep > 0 ? 'grow' : 'shrink'); }
-    if (c.pressed('y') && !st.p.isAI) {
-      if (this.dirty) { st.ask = askOpen(); st.stroke = null; sfx('select'); } else sfx('blip');
-      return;
-    }
     if (c.pressed('b')) {
-      // right after a New page (or Clear), B brings the old picture back (before any kid paints on the new one)
+      // right after a New page, B brings the old picture back (before any kid paints on the new one)
       if (st.ready) this.setReady(st, false);
       else if (this.oldPic && !st.p.isAI) this.restorePicture();
       else if (st.tool === DONE) { st.tool = DONE - 1; this.toolFx(st); }
@@ -689,7 +672,7 @@ export class Game {
   startGallery() {
     if (this.phase === 'gallery') return;
     this.phase = 'gallery'; this.phaseT = 0; this.picker = null;
-    for (const st of this.stations) { st.stroke = null; st.ask = null; if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('a', false); } }
+    for (const st of this.stations) { st.stroke = null; if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('a', false); } }
     // composite the finished picture
     this.final = document.createElement('canvas'); this.final.width = CW; this.final.height = CH;
     const g = this.final.getContext('2d');
@@ -965,10 +948,6 @@ export class Game {
         if (waiting) ui.text(g, waiting === 1 ? 'Waiting for 1 painter...' : `Waiting for ${waiting} painters...`, px + w / 2, py + 100, { size: 26, color: '#24163f', stroke: false });
         ui.hints(g, [['b', 'Not yet']], px + w / 2, py + 146, { size: 34, color: '#ff6fb1' });
       }
-    }
-    if (st.ask) {
-      const w = 440, h = 300, px = clamp(x - w / 2, 20, W - w - 20), py = clamp(y + 40, 120, H - h - 20);
-      drawAsk(g, { x: px, y: py, w, h }, st.ask, { title: 'Clear the picture?', yes: 'Clear' });
     }
     g.restore();
   }

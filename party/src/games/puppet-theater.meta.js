@@ -11,7 +11,7 @@ export const meta = {
     ['x', 'Next backdrop / prop / sock or stick · Twirl'],
     ['a', 'Keep it / place a prop · on Done: I\'m ready! · Jump'],
     ['b', 'Remove · Hold: pictures'],
-    ['y', 'Take your props away (asks first) · Silly sound'],
+    ['y', 'Silly sound (in the show)'],
   ],
   tips: [
     'Stick down hides you behind the stage. Pop up: Peekaboo!',

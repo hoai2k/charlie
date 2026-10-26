@@ -9,7 +9,7 @@ import { drawArt } from '../../engine/art.js';
 import { clamp, lerp, rand, chance, ease, TAU } from '../../engine/util.js';
 import { drawStarShape, drawHeartShape } from '../../engine/emotes.js';
 import { photoPoseHints } from '../../engine/photo-poses.js';
-import { drawAsk, drawDoneTab, drawDoneCard } from '../../engine/studio-ui.js';
+import { drawDoneTab, drawDoneCard } from '../../engine/studio-ui.js';
 import { playerName } from '../../state.js';
 import { CLIENTS, clientPortrait } from './client.js';
 import { HAIR_COLORS, STYLES } from './hair.js';
@@ -154,7 +154,6 @@ export class SalonDrawing {
     this.drawToolbar(g, s);
     if (this.phase === 'style' && !s.picking && TOOLS[s.tool] && OPTIONS[TOOLS[s.tool].id]) this.drawOptions(g, s);
     if (this.phase === 'style' && !s.picking && !TOOLS[s.tool] && !s.ready) this.drawDone(g, s);
-    if (this.phase === 'style' && s.ask) drawAsk(g, s.scene, s.ask, { title: 'Start over?', yes: 'Clear' });
   }
 
   /** The Done slot (the last tool): a card over the bottom of the scene, "A: I'm ready!". */
@@ -391,7 +390,7 @@ export class SalonDrawing {
       const humans = this.stations.filter((s) => !s.p.isAI);
       if (humans.length) {
         ui.hints(g, [['stick', 'Move'], ['a', 'Use tool'], ['rb', 'Tool · Done']], W / 2 - 130, 52, { size: 32, align: 'right' });
-        ui.hints(g, [['x', 'Colour/Style'], ['y', 'Start over']], W / 2 + 130, 52, { size: 32, align: 'left' });
+        ui.hints(g, [['x', 'Colour/Style']], W / 2 + 130, 52, { size: 32, align: 'left' });
       }
     }
     if (this.phase === 'show') {

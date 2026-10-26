@@ -90,7 +90,7 @@ export class PotteryDrawing {
     }
     if (st.step === 'fire') { /* actor drawn inside the kiln scene */ }
     if (st.step === 'shape' && !st.morph && !st.confirm && !st.ask) this.drawShapeCursor(g, st);
-    if (st.step === 'paint' && !st.confirm && !st.ask && TOOLS[st.tool]) this.drawPaintCursor(g, st);
+    if (st.step === 'paint' && !st.confirm && TOOLS[st.tool]) this.drawPaintCursor(g, st);
     g.restore();
     g.save(); ui.roundRect(g, r.x, r.y, r.w, r.h, 26);
     g.lineWidth = 10; g.strokeStyle = NAVY; g.stroke(); g.lineWidth = 6; g.strokeStyle = p.color; g.stroke(); g.restore();
@@ -98,7 +98,7 @@ export class PotteryDrawing {
     this.drawSide(g, st);
     this.drawStationHints(g, st);
     if (st.confirm) this.drawConfirm(g, st);
-    if (st.ask) drawAsk(g, st.L.list, st.ask, st.step === 'shape' ? { title: 'Start the clay over?', yes: 'Clear' } : { title: 'Wash the paint off?', yes: 'Clear' });
+    if (st.ask) drawAsk(g, st.L.list, st.ask, { title: 'Swap for a surprise?', yes: 'Surprise!' });
     if (st.ready) this.drawReady(g, st);
     if (st.step === 'shape' && !st.p.isAI && st.shapeT < 1.5 && st.helpT > 1) this.drawHelp(g, st);
   }
@@ -567,8 +567,7 @@ export class PotteryDrawing {
     g.closePath(); g.fill(); g.stroke();
     g.restore();
     // option rows
-    const fresh = !(st.shapeT > 0.3 || st.lastPreset || st.pot.handles);
-    const rows = [['x', `Handles: ${st.pot.handles}`], ['y', fresh ? 'Surprise!' : 'Start over'], ['b', 'Smooth']];
+    const rows = [['x', `Handles: ${st.pot.handles}`], ['y', 'Surprise!'], ['b', 'Smooth']];
     const rh = clamp((lr.y + lr.h - (sy + sh + 16)) / 3.2, 26, 60);
     let y = sy + sh + 14 + rh / 2;
     const gs = rh * 0.7, lfs = clamp(rh * 0.42, 14, 26);
@@ -692,16 +691,16 @@ export class PotteryDrawing {
     if (st.ready) items = st.p.isAI ? [] : [['b', 'Change']];
     else if (st.confirm) items = [['a', 'Yes!'], ['b', 'Not yet']];
     else if (st.ask) items = [];
-    else if (st.step === 'shape') items = [['stick', 'Move'], ['a', 'Hold: shape'], ['b', 'Smooth'], ['x', 'Handles'], ['y', st.shapeT > 0.3 || st.lastPreset || st.pot.handles ? 'Start over' : 'Surprise!']];
+    else if (st.step === 'shape') items = [['stick', 'Move'], ['a', 'Hold: shape'], ['b', 'Smooth'], ['x', 'Handles'], ['y', 'Surprise!']];
     else if (st.step === 'fire') items = st.fire.stage === 'bake' ? [['a', 'Puff the fire!']] : [];
     else {
       const tool = TOOLS[st.tool];
       if (!tool) items = [['lb', 'Change'], ['a', "I'm ready!"]];
       else if (st.held) items = [['stick', 'Move'], ['a', 'Stick'], ['b', 'Take off']];
-      else items = [['stick', 'Move'], ['a', st.hover && (tool.id === 'sticker' || tool.id === 'dots') ? 'Move' : tool.verb], ['rb', 'Tool'], ['x', tool.id === 'sticker' ? 'Sticker' : 'Colour'], ['b', st.hover ? 'Take off' : 'Undo'], ['y', 'Wash off']];
+      else items = [['stick', 'Move'], ['a', st.hover && (tool.id === 'sticker' || tool.id === 'dots') ? 'Move' : tool.verb], ['rb', 'Tool'], ['x', tool.id === 'sticker' ? 'Sticker' : 'Colour'], ['b', st.hover ? 'Take off' : 'Undo']];
     }
     if (!items.length) return;
-    if (!wide && items.length > 3) items = items.map(([b, l]) => [b, ['Surprise!', 'Start over', 'Handles', 'Wash off'].includes(l) ? '' : l]);
+    if (!wide && items.length > 3) items = items.map(([b, l]) => [b, ['Surprise!', 'Handles'].includes(l) ? '' : l]);
     const avail = r.x + r.w - 16 - x, lab = sz * 0.62;
     let need = 0;
     for (const [, l] of items) need += sz + 6 + (l ? ui.measure(g, l, lab) + 18 : 12);

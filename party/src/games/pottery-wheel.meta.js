@@ -11,7 +11,7 @@ export const meta = {
     ['b', 'Smooth the clay / take paint off'],
     ['x', 'Handles / next colour or sticker'],
     ['rb', 'Shaping: RB = bake it! · Painting: LB / RB = tools (the last one is Done)'],
-    ['y', 'Start over / wash the paint off (asks first) · a fresh lump: surprise shape'],
+    ['y', 'Shaping: surprise shape! (asks first if you have shaped the clay)'],
   ],
   tips: [
     'Squeeze the clay in and it grows taller! Grab the top edge to pull it up.',
