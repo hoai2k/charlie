@@ -23,6 +23,10 @@ import { charById } from '../data/characters.js';
 import { CATS, CAT, PALETTE, NAVY, heartPath, starAt, drawItemIconArt, drawOutfit, outfitItem, saveLook, rememberAdj, recallAdj } from '../engine/outfits.js';
 import { photoPosePressed, photoMove, strikePhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 import { meta } from './fashion-show.meta.js';
+import { askOpen, askUpdate, drawAsk, drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
+
+// The tab after the last outfit spot: "Done" (A there = I'm ready).
+const DONE = CATS.length;
 
 export { meta };
 
@@ -171,6 +175,7 @@ export class Game {
 
   // --- dressing room ---------------------------------------------------------
   changeItem(st, dir) {
+    if (st.tab === DONE) return;
     const ci = st.tab, o = st.outfit[ci], len = CATS[ci].items.length;
     o.item = (o.item + dir + len) % len;
     st.pop[ci] = 0; st.listBump = 0.15;
@@ -183,23 +188,31 @@ export class Game {
     st.actor.playOnce('cheer', 0.45, 'idle'); st.actor.squash(0.15);
   }
 
-  /** A: pick the item being tried on; A again on a picked item changes its color. */
-  pickItem(st) {
+  /** A: keep the item on this spot (or "None") and move on to the next spot; on "Done", I'm ready. */
+  confirmItem(st) {
+    if (st.tab === DONE) { this.setReady(st, true); return; }
     const ci = st.tab, o = st.outfit[ci], it = CATS[ci].items[o.item];
-    st.picked = st.picked || CATS.map(() => -1);
-    if (!it.draw) { sfx('blip'); st.listBump = 0.1; return; }
-    if (st.picked[ci] === o.item) { this.cycleColor(st); return; }
-    st.picked[ci] = o.item; st.pop[ci] = 0.1; st.listBump = 0.15;
-    const pos = this.itemWorldPos(st, ci), col = PALETTE[o.colors[o.item]];
-    sfx('select');
-    particles.burst(pos.x, pos.y, { type: 'sparkle', count: 10, colors: col.rainbow ? RAINBOW : [col.c, '#fff', '#ffd23f'] });
-    st.actor.playOnce('cheer', 0.45, 'idle'); st.actor.squash(0.15);
+    if (it.draw) {
+      st.pop[ci] = 0.1; st.listBump = 0.15;
+      const pos = this.itemWorldPos(st, ci), col = PALETTE[o.colors[o.item]];
+      sfx('select');
+      particles.burst(pos.x, pos.y, { type: 'sparkle', count: 10, colors: col.rainbow ? RAINBOW : [col.c, '#fff', '#ffd23f'] });
+      st.actor.playOnce('cheer', 0.45, 'idle'); st.actor.squash(0.15);
+    } else sfx('move');
+    this.stepTab(st, 1);
   }
 
-  cycleColor(st) {
+  /** LB / RB (and A, B): the next / previous spot; the last tab is "Done". */
+  stepTab(st, dir) {
+    st.tab = (st.tab + dir + DONE + 1) % (DONE + 1);
+    st.tabBump = 0.18; sfx('move');
+  }
+
+  cycleColor(st, dir = 1) {
+    if (st.tab === DONE) return;
     const ci = st.tab, o = st.outfit[ci], it = CATS[ci].items[o.item];
     if (!it.draw) { sfx('blip'); st.listBump = 0.1; return; }
-    o.colors[o.item] = (o.colors[o.item] + 1) % PALETTE.length;
+    o.colors[o.item] = (o.colors[o.item] + dir + PALETTE.length) % PALETTE.length;
     st.pop[ci] = 0.15;
     const col = PALETTE[o.colors[o.item]];
     const pos = this.itemWorldPos(st, ci);
@@ -216,6 +229,7 @@ export class Game {
    * with the look while it's worn).
    */
   nudgeItem(st, dt) {
+    if (st.tab === DONE) return;
     const c = st.p.ctrl, it = CATS[st.tab].items[st.outfit[st.tab].item];
     if (c.pressed('rs')) { st.rsT = 0; st.rsMoved = false; }
     if (c.held('rs')) st.rsT = (st.rsT || 0) + dt;
@@ -273,6 +287,15 @@ export class Game {
     a.playOnce('ready', 0.6, 'idle'); a.squash(-0.3);
   }
 
+  /** "Take it all off?": Go back (the default) or Clear. */
+  updateClearAsk(st) {
+    const q = st.clearAsk, sel = q.sel, r = askUpdate(st.p.ctrl, q);
+    if (q.sel !== sel) sfx('move');
+    if (!r) return;
+    st.clearAsk = null;
+    if (r === 'yes') { this.clearOutfit(st); st.tab = 0; st.tabBump = 0.18; } else sfx('back');
+  }
+
   setReady(st, on) {
     st.ready = on; st.readyT = 0;
     const a = st.actor;
@@ -304,13 +327,14 @@ export class Game {
     const hurry = this.stations.every((s) => s.ready || s.p.isAI) && !this.cpuOnly;
     const slow = aiProfile(st.p).speed;
     ai.t = rand(0.28, 0.6) / slow * (hurry ? 0.45 : 1);
-    if (ai.surprise && !ai.didSurprise && ai.step === 0) { ai.didSurprise = true; c.press('y'); ai.t += 1.2; return; }
+    if (ai.surprise && !ai.didSurprise && ai.step === 0 && !st.outfit.some((o) => o.item)) { ai.didSurprise = true; c.press('y'); ai.t += 1.2; return; }
     const goal = ai.plan[ai.step];
-    if (!goal) { c.press('x'); return; }
+    if (!goal) { if (st.tab !== DONE) c.press('rb'); else c.press('a'); return; }   // on to "Done", then A
     if (st.tab !== goal.ci) { c.press(goal.ci > st.tab ? 'rb' : 'lb'); return; }
     const o = st.outfit[goal.ci];
-    if (o.item !== goal.item) { c.move(0, goal.item > o.item ? 1 : -1); st.aiStick = 0.05; return; }
-    if (o.colors[o.item] !== goal.color) { c.press('a'); return; }
+    if (o.item !== goal.item) { c.press('x'); return; }
+    if (o.colors[o.item] !== goal.color) { c.move(1, 0); st.aiStick = 0.05; return; }
+    c.press('a');   // keep it: on to the next spot
     ai.step++; ai.t += rand(0.5, 1.2) * (hurry ? 0.4 : 1);
     if (chance(0.5)) st.actor.emote('heart', 1);
   }
@@ -332,12 +356,17 @@ export class Game {
       st.readyT += dt;
       a.update(dt);
       if (st.ready) { if (c.pressed('b')) this.setReady(st, false); continue; }
-      const step = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0) + c.nav.x;
-      if (step) { st.tab = (st.tab + Math.sign(step) + CATS.length) % CATS.length; st.tabBump = 0.18; sfx('move'); }
+      if (st.clearAsk) { this.updateClearAsk(st); continue; }
+      // A: keep it and go on · LB / RB: spots (the last one is Done) · stick up/down or X: items ·
+      // stick left/right: colours · Y: take it all off (asks first) · right stick: nudge
+      const step = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
+      if (step) this.stepTab(st, step);
       if (c.nav.y) this.changeItem(st, c.nav.y);
-      if (c.pressed('a')) this.pickItem(st);
-      if (c.pressed('y')) { if (st.outfit.some((o) => o.item)) this.clearOutfit(st); else this.surprise(st); }
-      if (c.pressed('x')) this.setReady(st, true);
+      if (c.pressed('x')) this.changeItem(st, 1);
+      if (c.nav.x) this.cycleColor(st, c.nav.x);
+      if (c.pressed('a')) this.confirmItem(st);
+      if (c.pressed('b') && st.tab > 0) this.stepTab(st, -1);
+      if (c.pressed('y')) { if (st.outfit.some((o) => o.item)) { st.clearAsk = askOpen(); sfx('select'); } else this.surprise(st); }
       if (!st.p.isAI) this.nudgeItem(st, dt);
     }
     if (this.stations.every((s) => s.ready && s.readyT > 0.5)) this.startShowtime();
@@ -416,7 +445,7 @@ export class Game {
   }
 
   strikePose(st) {
-    st.poses++; st.poseCD = 0.3;
+    st.poses++; st.poseCD = 0.3; st.shotAt = this.t + 0.18;   // the press photo, once the pose is struck
     const a = st.actor;
     st.poseIdx = (st.poseIdx + 1 + randInt(0, 2)) % POSE_SET.length;
     a.playOnce(POSE_SET[st.poseIdx], 0.75, 'idle'); a.squash(0.22); a.flash('#fff6d0', 0.07);
@@ -553,6 +582,7 @@ export class Game {
     for (let i = 0; i < n; i++) this.cameraFlash(a.x);
     this.photoSnd(pose ? 'shutter' : null);
     if (!pose) return;
+    st.shotAt = this.t + 0.18;   // the press photo, once the pose is struck
     const head = a.anchor('head');
     particles.burst(head.x, head.y + a.height * 0.3, { type: 'sparkle', count: 6, colors: ['#fff', '#fff6a8'] });
     if (this.t - (st.complimentT ?? -9) > 1.4) { st.complimentT = this.t; particles.popText(a.x, head.y - 40, pick(COMPLIMENTS), st.p.color, 42); }
@@ -589,75 +619,111 @@ export class Game {
     if (humans.length && humans.every((s) => s.rw.done)) { this.turnEnd = true; if (this.groupT < endAt - 0.5) this.groupT = endAt - 0.5; }
   }
 
-  // --- finale ------------------------------------------------------------------
+  // --- the press photos ----------------------------------------------------------
+  /** Keep a photo of this model's current pose (one per different pose, a few each). */
+  capturePhoto(st) {
+    const a = st.actor;
+    if (!a.visible) return;
+    const key = a.pose;
+    st.photos = st.photos || [];
+    if (st.photos.some((ph) => ph.key === key) || st.photos.length >= 6) return;
+    const w = 300, h = 380, cv = document.createElement('canvas');
+    cv.width = w; cv.height = h;
+    const g = cv.getContext('2d');
+    // runway spotlight backdrop
+    const bg = g.createRadialGradient(w / 2, h * 0.35, 20, w / 2, h * 0.5, h * 0.8);
+    bg.addColorStop(0, '#fff3c4'); bg.addColorStop(0.45, mix(st.p.color, '#ffd6ee', 0.55)); bg.addColorStop(1, '#5a2f8f');
+    g.fillStyle = bg; g.fillRect(0, 0, w, h);
+    const k = Math.min((h * 0.84) / Math.max(1, a.height), (w * 0.92) / Math.max(1, a.width));
+    g.save(); g.translate(w / 2, h * 0.95); g.scale(k, k); g.translate(-a.x, -a.y);
+    const inv = this._worldInv; this._worldInv = null;   // keep the on-screen item positions
+    try { a.draw(g, { shadow: false, emotes: false }); } catch (e) { /* a frame not loaded yet */ }
+    this._worldInv = inv;
+    g.restore();
+    st.photos.push({ key, img: cv });
+  }
+
+  /** After the show: the press photos fly up onto a wall, a few different poses of everyone. */
   startFinale() {
     if (this.phase === 'finale') return;
-    if (!this.groups) this.setupRunway();
     this.phase = 'finale'; this.phaseT = 0; this.curtain = 0;
-    this.photoTaken = false; this.cheeseSaid = false;
-    const n = this.n;
-    const rows = n >= 6 ? [Math.ceil(n / 2), Math.floor(n / 2)] : [n];
-    let idx = 0;
-    const spots = [];
-    rows.forEach((count, r) => {
-      const y = rows.length === 1 ? 900 : r === 0 ? 960 : 770;
-      const th = rows.length === 1 ? (n <= 2 ? 400 : n <= 4 ? 330 : 280) : r === 0 ? 270 : 230;
-      const sp = Math.min(380, 1440 / count);
-      for (let k = 0; k < count; k++) spots.push({ x: W / 2 + (k - (count - 1) / 2) * sp + (r ? sp / 2 * (count === rows[0] ? 1 : 0) : 0), y, th, sp });
-      idx += count;
+    const per = this.n <= 2 ? 4 : this.n <= 4 ? 3 : 2;
+    const picks = this.stations.map((st) => {
+      if (!st.photos || !st.photos.length) {
+        // never photographed (skipped the runway): a quick portrait now
+        const a = st.actor; a.visible = true; a.alpha = 1; a.z = 0; a.setPose('celebrate'); a.snap();
+        this.capturePhoto(st);
+      }
+      return shuffle([...(st.photos || [])]).slice(0, per).map((ph) => ({ ...ph, st }));
     });
-    // Back row first in the list draws behind; stations map in order to front row first.
-    this.stations.forEach((st, i) => {
-      const a = st.actor, sp = spots[i];
-      st.fin = { from: { x: a.visible ? a.x : W / 2 + rand(-200, 200), y: a.visible ? a.y : RW.startY, s: a.visible ? a.scale : 160 / a.leader.h }, to: sp };
-      st.fin.toScale = Math.min(sp.th / a.leader.h, (sp.sp * 0.95) / Math.max(1, a.width / a.scale));
-      a.visible = true; a.alpha = 1; a.z = 0; a.setPose('walk');
-      if (!st.rw) st.rw = {};
-      st.rw.state = 'finale';
+    // interleave the players so nobody's photos land all together
+    const order = [];
+    for (let k = 0; k < per; k++) for (const list of picks) if (list[k]) order.push(list[k]);
+    // scattered over the board: a jittered grid in random order
+    const cols = Math.ceil(Math.sqrt(order.length * 1.7)), rows = Math.ceil(order.length / cols);
+    const cw = (W - 160) / cols, ch = (H - 380) / rows;   // clear of the title and the score bar
+    const cells = shuffle(Array.from({ length: cols * rows }, (_, i) => i)).slice(0, order.length);
+    const size = Math.min(cw * 0.86, ch * 0.86 * 300 / 380 / 1.12, 300);
+    this.wall = order.map((ph, i) => {
+      const c = cells[i] % cols, r = Math.floor(cells[i] / cols);
+      return { ...ph, x: 80 + cw * (c + 0.5) + rand(-0.12, 0.12) * cw, y: 175 + ch * (r + 0.5) + rand(-0.1, 0.1) * ch,
+        rot: rand(-0.14, 0.14), at: 0.9 + i * Math.max(0.22, 2.6 / order.length), w: size, posted: false };
     });
+    this.wallEnd = (this.wall.length ? this.wall[this.wall.length - 1].at : 0) + 1.4;
   }
 
   updateFinale(dt) {
+    for (const ph of this.wall) {
+      if (!ph.posted && this.phaseT >= ph.at + 0.35) {
+        ph.posted = true;
+        sfx('pop', { vol: 0.5 }); this.photoSnd('shutter');
+        particles.burst(ph.x, ph.y - ph.w * 0.62, { type: 'sparkle', count: 6, colors: ['#fff', ph.st.p.color] });
+      }
+    }
+    if (this.phaseT >= this.wallEnd && !this.finished) this.finishGame();
+  }
+
+  /** The photo wall (screen space): a cork board, pinned polaroids, everyone's name. */
+  drawWall(g) {
     const t = this.phaseT;
-    this.updateCrowd(dt);
-    for (const st of this.stations) {
-      const a = st.actor, f = st.fin;
-      if (t < 1.6) {
-        const e = ease.inOutQuad(Math.min(1, t / 1.5));
-        a.x = lerp(f.from.x, f.to.x, e); a.y = lerp(f.from.y, f.to.y, e); a.scale = lerp(f.from.s, f.toScale, e);
-        a.facing = f.to.x >= f.from.x ? 1 : -1; a.setPose(e < 1 ? 'walk' : 'idle');
-      } else if (!this.cheeseSaid) { a.setPose('wave'); a.facing = 1; }
-      a.update(dt);
+    g.fillStyle = '#c98b52'; g.fillRect(0, 0, W, H);
+    g.save(); g.globalAlpha = 0.18; g.fillStyle = '#7a4a22';
+    for (let i = 0; i < 260; i++) { const x = (i * 197.3) % W, y = (i * 113.7 + (i % 7) * 31) % H; g.beginPath(); g.arc(x, y, 2 + (i % 3), 0, TAU); g.fill(); }
+    g.restore();
+    g.lineWidth = 26; g.strokeStyle = '#8a5a2b'; g.strokeRect(13, 13, W - 26, H - 26);
+    g.lineWidth = 4; g.strokeStyle = NAVY; g.strokeRect(26, 26, W - 52, H - 52);
+    g.save(); g.translate(W / 2, 92);
+    ui.panel(g, -400, -46, 800, 92, { r: 46, fill: '#9b5cff' });
+    ui.text(g, 'Runway Photos!', 0, 2, { size: 60, weight: 800 });
+    g.restore();
+    for (const ph of this.wall) {
+      const k = clamp((t - ph.at) / 0.35, 0, 1);
+      if (k <= 0) continue;
+      const e = ease.outBack(k), w = ph.w, h = w * 380 / 300, fh = h * 1.12;
+      const y = lerp(H + fh, ph.y, ease.outCubic(k));
+      g.save(); g.translate(ph.x, y); g.rotate(ph.rot * e); g.scale(lerp(1.5, 1, e), lerp(1.5, 1, e));
+      g.fillStyle = 'rgba(36,22,63,0.3)'; g.fillRect(-w / 2 - 10 + 8, -fh / 2 + 10, w + 20, fh + 8);
+      g.fillStyle = '#ffffff'; g.fillRect(-w / 2 - 10, -fh / 2, w + 20, fh + 8);
+      g.drawImage(ph.img, -w / 2, -fh / 2 + 10, w, h);
+      g.lineWidth = 3; g.strokeStyle = 'rgba(36,22,63,0.4)'; g.strokeRect(-w / 2, -fh / 2 + 10, w, h);
+      ui.text(g, playerName(ph.st.p), 0, fh / 2 - fh * 0.045, { size: Math.max(16, w * 0.09), color: ph.st.p.color, strokeWidth: 4, maxWidth: w });
+      // push pin
+      g.beginPath(); g.arc(0, -fh / 2 + 4, Math.max(8, w * 0.045), 0, TAU); g.fillStyle = ph.st.p.color; g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
+      if (k < 1) { g.globalAlpha = 1 - k; g.fillStyle = '#ffffff'; g.fillRect(-w / 2 - 10, -fh / 2, w + 20, fh + 8); }
+      g.restore();
     }
-    if (t >= 1.6 && !this.cheeseSaid) { this.cheeseSaid = true; sfx('giggle'); }
-    if (t >= 2.4 && t - dt < 2.4) sfx('tick');
-    if (t >= 2.9 && t - dt < 2.9) sfx('tick');
-    if (t >= 3.4 && t - dt < 3.4) sfx('tock');
-    if (t >= 3.6 && !this.photoTaken) {
-      this.photoTaken = true;
-      fx.flash('#ffffff', 0.45); this.photoSnd('shutter'); sfx('fanfare'); snd('applause', 'cheer');
-      particles.confettiRain(W, 160);
-      this.stations.forEach((st, i) => st.actor.playOnce(i % 2 ? 'bow' : 'strike3', 0.8, 'celebrate'));
-      for (const m of this.crowd) m.jv = rand(180, 300);
-    }
-    if (this.photoTaken && chance(dt * 3)) this.cameraFlash();
-    if (t >= 8.2 && !this.finished) this.finishGame();
   }
 
   finishGame() {
     this.finished = true;
     for (const st of this.stations) this.saveLook(st);
     const poses = this.stations.map((s) => s.poses);
-    this.api.finish({
-      showcase: true,
-      highlight: showstopper(this.players, poses),
-      stats: poses.map((v) => `${v} pose${v === 1 ? '' : 's'}`),
-      title: 'Gorgeous!',
-    });
+    // everyone wins: the photo wall is the ending (no podium page)
+    this.api.finish({ gallery: true, showcase: true, highlight: null, stats: poses.map((v) => `${v} pose${v === 1 ? '' : 's'}`) });
   }
 
   onDone() {
-    if (this.phase === 'finale') { if (this.phaseT < 3.6) this.phaseT = 3.55; else this.finishGame(); return; }
+    if (this.phase === 'finale') { this.phaseT = Math.max(this.phaseT, this.wallEnd); return; }
     this.startFinale();
   }
 
@@ -667,6 +733,7 @@ export class Game {
     else if (this.phase === 'showtime') this.updateShowtime(dt);
     else if (this.phase === 'runway') this.updateRunway(dt);
     else if (this.phase === 'finale') this.updateFinale(dt);
+    if (this.phase === 'runway') for (const st of this.stations) if (st.shotAt && this.t >= st.shotAt) { st.shotAt = 0; this.capturePhoto(st); }
     this.updateCamera();
   }
 
@@ -681,13 +748,15 @@ export class Game {
   draw(g) {
     // world space = this transform; worn items convert their anchors back to it
     try { this._worldInv = g.getTransform().invertSelf(); } catch (e) { this._worldInv = null; }
+    if (this.phase === 'finale') return;   // the photo wall is drawn in screen space (drawHUD)
     if (this.phase === 'dress' || (this.phase === 'showtime' && !this.runwayReady)) this.drawDressing(g);
     else this.drawRunway(g);
   }
 
   /** Screen-space layer (the runway is drawn through the host's camera). */
   drawHUD(g) {
-    if (this.phase === 'runway' || this.phase === 'finale') this.drawRunwayHUD(g);
+    if (this.phase === 'finale') { this.drawWall(g); return; }
+    if (this.phase === 'runway') this.drawRunwayHUD(g);
     if (this.curtain > 0) this.drawCurtains(g, this.curtain);
     if (this.phase === 'showtime' && this.phaseT > 0.5 && this.phaseT < 2.0) ui.banner(g, 'Showtime!', this.phaseT - 0.5, { size: 180, color: '#ffd23f' });
   }
@@ -695,6 +764,7 @@ export class Game {
   updateCamera() {
     const cam = this.api.camera;
     if (!cam) return;
+    if (this.phase === 'finale') { cam.follow(W / 2, H / 2, 1, 4); return; }
     if (this.phase === 'runway' && this.group) {
       const st0 = this.group[0];
       if (st0.rw.state === 'pose' && this.humanGroup) {
@@ -733,7 +803,7 @@ export class Game {
     this.drawCrownIcon(g, W / 2 - 470, 58, 30, '#ffd23f');
     this.drawCrownIcon(g, W / 2 + 470, 58, 30, '#ffd23f');
     if (this.n <= 2) {
-      ui.hints(g, [['lb', ''], ['rb', ''], ['dpad', 'Pick a spot']], 250, 56, { size: 34 });
+      ui.hints(g, [['lb', ''], ['rb', 'Spot'], ['a', 'OK!']], 250, 56, { size: 34 });
       ui.hints(g, [['y', 'Clear / Surprise!']], W - 260, 56, { size: 34 });
     }
     for (const st of this.stations) this.drawStation(g, st);
@@ -812,6 +882,7 @@ export class Game {
     this.drawTabs(g, st);
     this.drawList(g, st);
     this.drawStationHints(g, st);
+    if (st.clearAsk) this.drawClearAsk(g, st);
     if (st.ready) this.drawReady(g, st);
   }
 
@@ -819,7 +890,7 @@ export class Game {
     const { r, L } = st;
     const gs = clamp(L.tabH * 0.55, 30, 44);
     const x0 = r.x + 14 + gs * 0.8, x1 = r.x + r.w - 14 - gs * 0.8;
-    const tw = (x1 - x0) / CATS.length;
+    const tw = (x1 - x0) / (CATS.length + 1);
     ui.glyph(g, 'lb', r.x + 10 + gs * 0.6, r.y + 10 + L.tabH / 2, gs * 0.9);
     ui.glyph(g, 'rb', r.x + r.w - 10 - gs * 0.6, r.y + 10 + L.tabH / 2, gs * 0.9);
     CATS.forEach((cat, ci) => {
@@ -836,10 +907,14 @@ export class Game {
       if (labeled) ui.text(g, cat.name, 0, bh * 0.34, { size: bh * 0.24, color: NAVY, stroke: false, weight: 800 });
       g.restore();
     });
+    // the last tab: Done
+    const sel = st.tab === DONE, bx = x0 + DONE * tw + 4, bw = tw - 8;
+    drawDoneTab(g, bx, r.y + 10 + (sel ? 0 : 6), bw, L.tabH - (sel ? 0 : 8), { sel, bump: st.tabBump });
   }
 
   drawList(g, st) {
     const { L } = st, lr = L.list;
+    if (st.tab === DONE) { this.drawDoneCard(g, st); return; }
     const ci = st.tab, cat = CATS[ci], o = st.outfit[ci];
     ui.panel(g, lr.x, lr.y, lr.w, lr.h, { r: 22, fill: 'rgba(255,255,255,0.86)', lineWidth: 4, shadow: false });
     const headH = clamp(lr.h * 0.09, 26, 50);
@@ -876,6 +951,12 @@ export class Game {
     if (first + vis < items.length) { const yb = areaY + areaH; g.beginPath(); g.moveTo(lr.x + lr.w / 2 - 12, yb - 2); g.lineTo(lr.x + lr.w / 2 + 12, yb - 2); g.lineTo(lr.x + lr.w / 2, yb + 10); g.fill(); }
   }
 
+  /** The "Done" tab: A says I'm ready. */
+  drawDoneCard(g, st) { drawDoneCard(g, st.L.list, st.p.color); }
+
+  /** Y: "Take it all off?" over the list - Go back (default) or Clear. */
+  drawClearAsk(g, st) { drawAsk(g, st.L.list, st.clearAsk, { title: 'Take it all off?', yes: 'Clear' }); }
+
   drawStationHints(g, st) {
     const { r, L, p } = st;
     const y = r.y + r.h - L.hintH / 2 - 8;
@@ -888,8 +969,10 @@ export class Game {
     ui.text(g, p.tag, x + tw / 2, y + 1, { size: sz * 0.55, strokeWidth: 4, shadow: false });
     x += tw + 12;
     if (wide) drawPortrait(g, p, x + sz * 0.55, y, sz * 0.55, { ring: p.color, ringWidth: 3 }), x += sz * 1.4;
-    const o = st.outfit[st.tab], col = PALETTE[o.colors[o.item]];
-    const items = [['dpad', wide ? 'Spot / item' : ''], ['a', wide ? 'Pick / color' : ''], ['y', wide ? (st.outfit.some((o) => o.item) ? 'Clear' : 'Surprise!') : ''], ...(wide && st.p.ctrl.kind === 'pad' ? [['rstick', 'Nudge']] : []), ['x', 'Ready!']];
+    const done = st.tab === DONE;
+    const o = done ? null : st.outfit[st.tab], col = o ? PALETTE[o.colors[o.item]] : null;
+    const items = done ? [['lb', wide ? 'Change something' : ''], ['a', "I'm ready!"]]
+      : [['stick', wide ? 'Item / color' : ''], ['x', wide ? 'Next item' : ''], ['y', wide ? (st.outfit.some((o) => o.item) ? 'Clear' : 'Surprise!') : ''], ...(wide && st.p.ctrl.kind === 'pad' ? [['rstick', 'Nudge']] : []), ['a', 'OK!']];
     const avail = r.x + r.w - 16 - x;
     const lab = sz * 0.62;
     let need = 0;
@@ -898,9 +981,9 @@ export class Game {
     x += Math.max(0, (avail - need * k) / 2);
     g.save(); g.translate(x, y); g.scale(k, k); x = 0;
     for (const [b, l] of items) {
-      ui.glyph(g, b, x + sz / 2, 0, sz, { pulse: b === 'x' && !st.ready && st.outfit.some((oo) => oo.item) });
+      ui.glyph(g, b, x + sz / 2, 0, sz, { pulse: b === 'a' && done && !st.ready });
       x += sz + 6;
-      if (b === 'x' && CATS[st.tab].items[o.item].draw) {
+      if (b === 'stick' && o && CATS[st.tab].items[o.item].draw) {
         g.beginPath(); g.arc(x + sz * 0.3, 0, sz * 0.3, 0, TAU);
         if (col.rainbow) { const gg = g.createLinearGradient(x, 0, x + sz * 0.6, 0); RAINBOW.forEach((c, i2) => gg.addColorStop(i2 / 6, c)); g.fillStyle = gg; } else g.fillStyle = col.c;
         g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke(); x += sz * 0.7;

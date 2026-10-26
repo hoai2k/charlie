@@ -1,9 +1,10 @@
 // Sparkle Nails (Play Studio). Everyone runs a nail-salon table (split
 // stations). A client (any roster character or friendly NPC) peeks over the
 // table and rests a big cartoon hand, or a paw for animal clients, on a
-// cushion. Four steps, each at the player's own pace (Y = next step, and a
-// gentle clock moves you on): 1 Polish (hold A on a nail to paint it, X paints
-// all five), 2 Designs (glitter, stripes, dots, hearts, stars, tips, rainbow
+// cushion. Four steps, each at the player's own pace (LB / RB move between
+// them, and a gentle clock moves you on; after them comes "Done", where A says
+// the hand is finished): 1 Polish (hold A on a nail to paint it, A off the hand
+// paints all five; X = next colour), 2 Designs (glitter, stripes, dots, hearts, stars, tips, rainbow
 // tips), 3 Gems & stickers (A sticks one on; A on a placed one picks it up to
 // move it; B takes it off), 4 Dry (hold A to blow the little fan over the wet
 // nails). Finale: a nail gallery with every hand on a pedestal, a spotlight
@@ -26,6 +27,7 @@ import {
   drawSparkleShape, drawStarShape, drawHeartShape,
 } from './nail-studio/hand.js';
 
+import { askOpen, askUpdate, drawAsk, drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
 import { meta } from './nail-studio.meta.js';
 
 export { meta };
@@ -45,6 +47,8 @@ const STEPS = [
   { id: 'gems', n: 'Gems', time: 45 },
   { id: 'dry', n: 'Dry', time: 25 },
 ];
+const DONE = STEPS.length;   // the step after Dry: "Done" (A there = this hand is finished)
+const SID = (st) => (st.step >= DONE ? 'done' : STEPS[st.step].id);
 const CLIENTS = [...CHARACTERS.map((c) => c.id), 'glimmer', 'professor-hoot', 'fellowfox'];
 const MAX_GEMS = 16;
 const CHEESE_TIME = 6;
@@ -72,7 +76,7 @@ function layoutStations(n) {
   });
 }
 
-const newNail = () => ({ color: null, under: null, cover: 0, art: null, glitter: null, wet: 0, pop: 0, auto: null });
+const newNail = () => ({ color: null, under: null, cover: 0, art: null, glitter: null, wet: 0, dried: false, pop: 0, auto: null });
 const handToLocal = (x, y) => ({ x: HAND.x + x * HAND.s, y: HAND.y + y * HAND.s });
 const localToHand = (x, y) => ({ x: (x - HAND.x) / HAND.s, y: (y - HAND.y) / HAND.s });
 
@@ -100,7 +104,7 @@ export class Game {
     // 30 s to that step, All done moves on as the clock used to. CPU tables move on by themselves.
     for (const st of this.stations) {
       const kid = !st.p.isAI || this.stations.every((s) => s.p.isAI);
-      api.limit(() => (this.phase === 'play' && st.mode === 'work' ? Math.max(0, this.stepTime(st) - st.stepT) : null), {
+      api.limit(() => (this.phase === 'play' && st.mode === 'work' && st.step < DONE ? Math.max(0, this.stepTime(st) - st.stepT) : null), {
         x: st.ox + (PANEL.x + PANEL.w / 2) * st.k, y: st.oy + Math.max(44, 70 * st.k),
         timeUp: kid ? {
           more: () => { st.stepExtra = Math.max(st.stepExtra, st.stepT - STEPS[st.step].time) + 30; },
@@ -128,7 +132,7 @@ export class Game {
       nails: Array.from({ length: 5 }, newNail), gems: [],
       mode: 'arrive', step: 0, stepT: 0, stepExtra: 0, idleT: 0, appear: 0, doneT: 0,
       cur: { x: 560, y: 300, hold: 0 }, color: randInt(0, 6), artColor: 7, tool: 1, item: 0,
-      held: null, hoverGem: null, hoverNail: -1, onHand: false,
+      held: null, hoverGem: null, hoverNail: -1, onHand: false, ask: null,
       fanSpin: 0, fanV: 0, sfxT: 0, reactT: 0, wig: 0, pickPop: 0, toolPop: 0, nextBump: 0, nextPulse: 0,
       painting: false, tip: null,
       stats: { coats: 0, designs: 0, glitter: 0, gems: 0, colors: new Set() },
@@ -214,25 +218,34 @@ export class Game {
       st.doneT += dt;
       st.painting = false;
       if (c.pressed('a')) this.admire(st);
+      if (c.pressed('b') && this.phase === 'play') this.unready(st);
       if (chance(dt * 0.25)) cl.emote(pick(['heart', 'sparkle', 'hearts']), 1.2);
       if (a.pose === 'paint') a.setPose('idle');
       return;
     }
 
     st.stepT += dt;
-    const step = STEPS[st.step].id;
-    const left = (c.pressed('lb') ? 1 : 0) + (pad && c.pressed('left') ? 1 : 0);
-    const right = (c.pressed('rb') ? 1 : 0) + (pad && c.pressed('right') ? 1 : 0);
-    const up = pad && c.pressed('up') ? 1 : 0, down = pad && c.pressed('down') ? 1 : 0;
     st.painting = false;
+    if (st.ask) { this.updateAsk(st); return; }
+    // LB / RB: the steps (the last one is Done) · X (d-pad, LT / RT): colour / design / gem ·
+    // A: paint, decorate, stick, blow (on Done: finished!) · B: wipe / take off · Y: clean it all (asks first)
+    const tab = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
+    if (tab) { this.goStep(st, st.step + tab); return; }
+    if (c.pressed('y')) { this.askClear(st); return; }
+    const step = SID(st);
+    const left = pad && c.pressed('left') ? 1 : 0, right = pad && c.pressed('right') ? 1 : 0;
+    const up = pad && c.pressed('up') ? 1 : 0, down = pad && c.pressed('down') ? 1 : 0;
+    const trig = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
     if (step === 'polish') {
       if (left || right) this.pickColor(st, right - left);
       if (up || down) this.pickColor(st, down - up);
-      if (c.pressed('x')) this.paintAll(st);
+      if (c.pressed('x')) this.pickColor(st, 1);
+      if (trig) this.pickColor(st, trig);
       if (c.held('a') && st.hoverNail >= 0) this.paintNail(st, st.hoverNail, dt);
+      else if (c.pressed('a') && !st.onHand) this.paintAll(st);
       if (c.pressed('b')) this.wipe(st);
     } else if (step === 'art') {
-      if (left || right) this.pickArtColor(st, right - left);
+      if (left || right || trig) this.pickArtColor(st, right - left + trig);
       if (c.pressed('x') || down) this.pickTool(st, 1);
       if (up) this.pickTool(st, -1);
       if (c.pressed('a')) this.decorate(st);
@@ -245,12 +258,13 @@ export class Game {
       if (c.pressed('b')) this.gemB(st);
     } else if (step === 'dry') {
       this.updateDry(st, dt, c.held('a'));
+    } else if (step === 'done') {
+      if (c.pressed('a')) this.finish(st);
     }
     if (step !== 'dry') { st.fanV = Math.max(0, st.fanV - dt * 2); st.fanSpin += st.fanV * dt * 30; }
-    if (st.mode === 'work' && c.pressed('y')) this.nextStep(st, false);
     if (st.mode !== 'work') return;   // (finished this frame)
     // the gentle clock moves the CPUs along (a kid's waits at 0 for the "Time's up!" question)
-    if (p.isAI && this.stations.some((s) => !s.p.isAI) && st.stepT >= this.stepTime(st)) this.nextStep(st, true);
+    if (p.isAI && st.step < DONE && this.stations.some((s) => !s.p.isAI) && st.stepT >= this.stepTime(st)) this.nextStep(st, true);
     if (st.mode !== 'work') return;
     // a little nudge for humans who stop for a long time
     if (!p.isAI && st.idleT > 12 && !st.tip) { st.idleT = 4; this.tipFor(st); }
@@ -294,11 +308,12 @@ export class Game {
   }
 
   tipFor(st) {
-    const step = STEPS[st.step].id;
-    const msg = step === 'polish' ? (this.anyPainted(st) ? 'Y = next step!' : 'Hold A on a nail!')
-      : step === 'art' ? 'A on a nail, then Y!'
+    const step = SID(st);
+    const msg = step === 'polish' ? (this.anyPainted(st) ? 'RB = next step!' : 'Hold A on a nail!')
+      : step === 'art' ? 'A on a nail, then RB!'
         : step === 'gems' ? 'A sticks a gem on!'
-          : 'Hold A by wet nails!';
+          : step === 'done' ? "A = I'm ready!"
+            : 'Hold A by wet nails!';
     st.tip = { text: msg, t: 0, dur: 3.2 };
     st.nextPulse = 3;
   }
@@ -351,7 +366,7 @@ export class Game {
 
   coatDone(st, i) {
     const n = st.nails[i];
-    n.cover = 1; n.pop = 1; n.under = null;
+    n.cover = 1; n.pop = 1; n.under = null; n.dried = false;
     st.stats.coats++; st.stats.colors.add(n.color);
     const s = this.nailScreen(st, i);
     sfx('collect', { step: Math.min(10, st.nails.filter((q) => q.color != null && q.cover >= 1).length * 2), vol: st.p.isAI ? 0.35 : 0.8 });
@@ -412,7 +427,7 @@ export class Game {
     const seed = randInt(1, 1e6);
     if (tool === 'glitter') { n.glitter = { color, t: 0, seed }; st.stats.glitter++; snd('nail-glitter', 'sparkle', { vol: st.p.isAI ? 0.35 : 0.8 }); }
     else { n.art = { tool, color, t: 0, seed }; st.stats.designs++; snd('nail-pattern', 'stamp', { vol: st.p.isAI ? 0.35 : 0.8 }); }
-    n.pop = 1;
+    n.pop = 1; n.dried = false;
     const s = this.nailScreen(st, i);
     particles.burst(s.x, s.y, { type: tool === 'hearts' ? 'heart' : tool === 'stars' || tool === 'rainbow' ? 'star' : 'sparkle', count: 6, colors: tool === 'rainbow' ? RAINBOW : [color, '#ffffff'], speed: [80, 220], size: [8, 16] });
     st.actor.playOnce('action', 0.3, 'idle');
@@ -523,24 +538,27 @@ export class Game {
   }
 
   nailDry(st, i) {
-    const s = st.nails[i]; s.wet = 0; s.pop = 1;
+    const s = st.nails[i]; s.wet = 0; s.pop = 1; s.dried = true;
     const q = this.nailScreen(st, i);
     const left = st.nails.filter((n) => n.wet > 0).length;
     snd('nail-dry-ding', 'correct', { vol: st.p.isAI ? 0.3 : 0.7 });
     particles.burst(q.x, q.y, { type: 'sparkle', count: 8, colors: ['#ffffff', '#fff6a8'], speed: [80, 220] });
     if (!st.p.isAI || this.n <= 2) particles.popText(q.x, q.y - 30 * st.k, 'Dry!', '#4fb8ff', 34 * Math.max(0.7, st.k));
-    if (left === 0) this.stationDone(st);
+    if (left === 0) {   // all dry: on to "Done" (A there finishes)
+      const c = this.handScreen(st, 0, -60);
+      particles.popText(c.x, c.y - 60 * st.k, 'All dry!', '#4fb8ff', 50 * Math.max(0.7, st.k));
+      this.goStep(st, DONE);
+    }
   }
 
+  /** Into the Dry step: every painted / decorated nail not dried since it changed is wet. */
   startDry(st) {
-    let wet = 0;
-    for (const n of st.nails) { n.wet = n.color != null || n.art || n.glitter ? 1 : 0; if (n.wet) wet++; }
-    if (!wet) this.stationDone(st);
+    for (const n of st.nails) if (!n.dried && (n.color != null || n.art || n.glitter)) n.wet = n.wet > 0 ? n.wet : 1;
   }
 
   /** Clock ran out on the dry step (or the show starts): a little magic finishes it. */
   magicDry(st) {
-    for (let i = 0; i < 5; i++) if (st.nails[i].wet > 0) { st.nails[i].wet = 0; st.nails[i].pop = 1; }
+    for (let i = 0; i < 5; i++) if (st.nails[i].wet > 0) { st.nails[i].wet = 0; st.nails[i].pop = 1; st.nails[i].dried = true; }
     const c = this.handScreen(st, 0, -60);
     particles.burst(c.x, c.y, { type: 'sparkle', count: 16, colors: ['#ffffff', '#fff6a8', '#c8f0ff'], speed: [120, 320] });
     sfx('magic', { vol: 0.6 });
@@ -576,26 +594,61 @@ export class Game {
   /** This step's clock: its gentle time plus any "Keep playing!" extra. */
   stepTime(st) { return STEPS[st.step].time + st.stepExtra; }
 
+  /** A step's clock ran out (a kid chose All done, or a CPU's gentle clock): on to the next step; Dry finishes by magic. */
   nextStep(st, auto) {
+    if (st.mode !== 'work' || st.step >= DONE) return;
+    if (SID(st) === 'dry') { this.magicDry(st); return; }
+    this.goStep(st, st.step + 1);
+    if (auto && !st.p.isAI) particles.popText(this.toScreen(st, 440, 60).x, this.toScreen(st, 440, 60).y, `${STEPS[st.step]?.n || 'Done'}!`, '#ff6fb1', 50 * Math.max(0.7, st.k));
+  }
+
+  /** LB / RB (and the clock): to step `i` (wraps; the one after Dry is Done). */
+  goStep(st, i) {
     if (st.mode !== 'work') return;
-    const step = STEPS[st.step].id;
-    if (!auto && step === 'polish' && !this.anyPainted(st)) {
-      st.nextBump = 0.4; sfx('blip'); st.tip = { text: 'Paint a nail first!', t: 0, dur: 1.8 }; return;
-    }
-    if (step === 'dry') { if (auto) this.magicDry(st); else { st.nextBump = 0.4; sfx('blip'); st.tip = { text: 'Blow on the wet nails!', t: 0, dur: 1.8 }; } return; }
+    const step = SID(st);
     if (step === 'gems' && st.held) { const gm = st.held; st.held = null; if (gm.home) Object.assign(gm, gm.home); }
     if (step === 'polish') for (const n of st.nails) if (n.auto) { n.auto = null; n.cover = Math.max(n.cover, 1); }
-    st.step++; st.stepT = 0; st.stepExtra = 0; st.idleT = 0; st.tip = null; st.nextPulse = 0;
-    sfx('swap', { vol: st.p.isAI ? 0.3 : 0.7 }); sfx('sparkle', { vol: st.p.isAI ? 0.2 : 0.5 });
-    if (auto && !st.p.isAI) particles.popText(this.toScreen(st, 440, 60).x, this.toScreen(st, 440, 60).y, `${STEPS[st.step].n}!`, '#ff6fb1', 50 * Math.max(0.7, st.k));
-    st.actor.playOnce('cheer', 0.5, 'idle');
-    this.react(st, 'step', true);
-    if (STEPS[st.step].id === 'dry') this.startDry(st);
+    st.step = (i + DONE + 1) % (DONE + 1);
+    st.stepT = 0; st.stepExtra = 0; st.idleT = 0; st.tip = null; st.nextPulse = 0; st.nextBump = 0.25;
+    sfx('swap', { vol: st.p.isAI ? 0.3 : 0.7 });
+    if (st.step < DONE) { sfx('sparkle', { vol: st.p.isAI ? 0.2 : 0.5 }); st.actor.playOnce('cheer', 0.5, 'idle'); this.react(st, 'step', true); }
+    if (SID(st) === 'dry') this.startDry(st);
+  }
+
+  /** A on Done: this hand is finished (wet nails get a little drying magic). */
+  finish(st) {
+    if (!this.anyPainted(st)) { st.nextBump = 0.4; sfx('blip'); st.tip = { text: 'Paint a nail first!', t: 0, dur: 1.8 }; return; }
+    if (st.nails.some((n) => n.wet > 0)) this.magicDry(st); else this.stationDone(st);
+  }
+
+  /** B once finished: not done yet (back on the Done step). */
+  unready(st) {
+    st.mode = 'work'; st.step = DONE; st.stepT = 0; st.wig = 0;
+    sfx('back'); st.actor.setPose('idle');
+  }
+
+  /** Y: "Clean all the nails?" - Go back (the default) or Clear. Nothing on them: nothing to ask. */
+  askClear(st) {
+    if (!st.gems.length && st.nails.every((n) => n.color == null && !n.auto && !n.art && !n.glitter)) { sfx('blip', { vol: 0.5 }); return; }
+    st.ask = askOpen(); sfx('select');
+  }
+  updateAsk(st) {
+    const q = st.ask, sel = q.sel, r = askUpdate(st.p.ctrl, q);
+    if (q.sel !== sel) sfx('move');
+    if (!r) return;
+    st.ask = null;
+    if (r !== 'yes') { sfx('back'); return; }
+    st.nails = Array.from({ length: 5 }, newNail); st.gems = []; st.held = null; st.hoverGem = null; st.allPainted = false;
+    const c = this.handScreen(st, 0, -60);
+    particles.burst(c.x, c.y, { type: 'smoke', count: 10, colors: ['#ffffff', '#ffe0f0'], speed: [40, 160], size: [18, 34] });
+    snd('nail-wipe', 'brush', { vol: 0.7 }); sfx('whoosh');
+    this.react(st, 'wipe', true);
+    this.goStep(st, 0);
   }
 
   // --- CPU ----------------------------------------------------------------------------------
   planFor(st) {
-    const A = st.ai, step = STEPS[st.step].id, T = [];
+    const A = st.ai, step = SID(st), T = [];
     const lvl = st.p.aiLevel || 0;
     if (step === 'polish') {
       const c0 = randInt(0, 8);
@@ -605,8 +658,7 @@ export class Game {
         : scheme === 'two' ? [c0, c1, c0, c1, c0]
           : scheme === 'accent' ? [c0, c0, c0, c1, c0]
             : shuffle([0, 1, 2, 3, 4, 5, 6, 8]).slice(0, 5);
-      if (scheme === 'one' && chance(0.55)) T.push({ k: 'color', v: c0 }, { k: 'all' }, { k: 'wait', t: 1.4 });
-      else {
+      {
         const order = [1, 2, 3, 4, 0];
         // group by colour so the CPU isn't switching bottles all the time
         const byCol = [...new Set(order.map((i) => cols[i]))];
@@ -646,8 +698,10 @@ export class Game {
       if (chance(0.3)) T.push({ k: 'move' });
     } else if (step === 'dry') {
       T.push({ k: 'dry' });
+    } else if (step === 'done') {
+      T.push({ k: 'wait', t: rand(0.4, 1.0) }, { k: 'finish' });
     }
-    if (step !== 'dry') T.push({ k: 'wait', t: rand(0.5, 1.3) }, { k: 'next' });
+    if (step !== 'done') T.push({ k: 'wait', t: rand(0.5, 1.3) }, { k: 'next' });   // RB: on to the next step (all dry moves on by itself)
     A.tasks = T; A.cur = null; A.planned = st.step;
   }
 
@@ -672,13 +726,13 @@ export class Game {
     if (tk.age > 9) { done(0.3); return; }   // never get stuck
     switch (tk.k) {
       case 'wait': if (tk.age >= tk.t) done(0); break;
-      case 'next': c.press('y'); done(0.5); break;
-      case 'all': c.press('x'); done(0.4); break;
+      case 'next': c.press('rb'); done(0.5); break;
+      case 'finish': c.press('a'); done(0.5); break;
       case 'color': case 'acolor': {
         const curV = tk.k === 'color' ? st.color : st.artColor;
         if (curV === tk.v) { done(rand(0.2, 0.5)); break; }
         const fwd = (tk.v - curV + POLISH.length) % POLISH.length;
-        c.press(fwd <= POLISH.length / 2 ? 'rb' : 'lb'); A.t = rand(0.12, 0.25) / prof.speed;
+        c.press(fwd <= POLISH.length / 2 ? 'rt' : 'lt'); A.t = rand(0.12, 0.25) / prof.speed;
         break;
       }
       case 'tool': {
@@ -688,7 +742,7 @@ export class Game {
       }
       case 'item': {
         if (st.item === tk.v) { done(rand(0.15, 0.4)); break; }
-        c.press('rb'); A.t = rand(0.1, 0.22) / prof.speed;
+        c.press('x'); A.t = rand(0.1, 0.22) / prof.speed;
         break;
       }
       case 'paint': {
@@ -970,7 +1024,7 @@ export class Game {
       ui.panel(g, x, y, cw, 76, { r: 38, fill: '#ffffff', stroke: p.color, lineWidth: 6 });
       drawPortrait(g, p, x + 38, y + 38, 29, { expr: s.mode === 'done' ? 'happy' : 'neutral', ring: null });
       ui.text(g, p.tag, x + 78, y + 22, { size: 20, color: p.color, align: 'left', strokeWidth: 4 });
-      const label = s.mode === 'done' ? 'Done!' : s.mode === 'arrive' ? 'Hello!' : STEPS[s.step].n;
+      const label = s.mode === 'done' ? 'Done!' : s.mode === 'arrive' ? 'Hello!' : STEPS[s.step]?.n || 'Done?';
       ui.text(g, label, x + 78, y + 50, { size: 28, color: NAVY, align: 'left', stroke: false, weight: 800, maxWidth: cw - 150 + 60 });
       for (let k = 0; k < 4; k++) {
         const px = x + cw - 22 - (3 - k) * 15, py = y + 22;
@@ -1034,6 +1088,7 @@ export class Game {
     if (this.phase === 'intro' || (this.phase === 'play' && this.phaseT < 4)) ui.playerTag(g, p, CHAR.x, CHAR.y - a.height - 16);
     this.drawCursor(g, st);
     if (st.tip) this.drawTip(g, st);
+    if (st.ask) drawAsk(g, { x: BOX.x0, y: 20, w: BOX.x1 - BOX.x0, h: 460 }, st.ask, { title: 'Clean all the nails?', yes: 'Clear' });
     g.restore();
     // frame
     ui.roundRect(g, 0, 0, SW, SH, 26);
@@ -1092,7 +1147,7 @@ export class Game {
     g.translate(HAND.x, HAND.y + (1 - e) * 120); g.scale(HAND.s, HAND.s);
     g.globalAlpha = clamp(st.appear * 2, 0, 1);
     drawHandBase(g, st.style, G);
-    const showHover = st.mode === 'work' && (STEPS[st.step].id === 'polish' || STEPS[st.step].id === 'art');
+    const showHover = st.mode === 'work' && (SID(st) === 'polish' || SID(st) === 'art');
     G.nails.forEach((n, i) => drawNail(g, n, st.nails[i], this.t, { hover: showHover && i === st.hoverNail }));
     // gems (held one last, a bit bigger)
     for (const gm of st.gems) {
@@ -1114,7 +1169,8 @@ export class Game {
   }
 
   drawTray(g, st) {
-    const T = TRAY, step = st.mode === 'done' ? 'done' : STEPS[st.step].id, t = this.t;
+    const T = TRAY, step = st.mode === 'done' ? 'done' : SID(st), t = this.t;
+    if (st.mode === 'work' && step === 'done') { drawDoneCard(g, { x: T.x, y: T.y - 150, w: T.w, h: T.h + 150 - 4 }, st.p.color); return; }
     g.save();
     ui.roundRect(g, T.x, T.y, T.w, T.h, 22);
     g.fillStyle = 'rgba(255,255,255,0.88)'; g.fill(); g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke();
@@ -1173,9 +1229,9 @@ export class Game {
     const P = PANEL, p = st.p, t = this.t;
     ui.roundRect(g, P.x, P.y, P.w, P.h, 20);
     g.fillStyle = 'rgba(255,255,255,0.86)'; g.fill(); g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke();
-    // the four steps
+    // the four steps, then Done
     STEPS.forEach((s, i) => {
-      const y = P.y + 44 + i * 60, x = P.x + 34;
+      const y = P.y + 40 + i * 56, x = P.x + 34;
       const cur = st.mode === 'work' && i === st.step, done = i < st.step || st.mode === 'done';
       if (cur) { ui.roundRect(g, P.x + 6, y - 26, P.w - 12, 52, 26); g.fillStyle = mix(p.color, '#ffffff', 0.55); g.fill(); }
       g.beginPath(); g.arc(x, y, 20, 0, TAU);
@@ -1188,25 +1244,32 @@ export class Game {
       else ui.text(g, String(i + 1), x, y + 1, { size: 24, color: NAVY, stroke: false, weight: 800 });
       ui.text(g, s.n, x + 30, y + 1, { size: 26, color: cur ? NAVY : 'rgba(36,22,63,0.6)', align: 'left', stroke: false, weight: 700, maxWidth: P.w - 70 });
     });
+    {
+      const y = P.y + 40 + DONE * 56, x = P.x + 34, cur = st.mode === 'done' || (st.mode === 'work' && st.step === DONE);
+      if (cur) { ui.roundRect(g, P.x + 6, y - 26, P.w - 12, 52, 26); g.fillStyle = mix(p.color, '#ffffff', 0.55); g.fill(); }
+      drawDoneTab(g, x - 21, y - 21, 42, 42, { sel: cur, label: false });
+      ui.text(g, 'Done', x + 30, y + 1, { size: 26, color: cur ? NAVY : 'rgba(36,22,63,0.6)', align: 'left', stroke: false, weight: 700, maxWidth: P.w - 70 });
+    }
     // hints for humans
-    const step = st.mode === 'done' ? 'done' : STEPS[st.step].id;
+    const step = st.mode === 'done' ? 'ready' : SID(st);
     if (!p.isAI) {
       const pad = p.ctrl.kind === 'pad';
-      const pickG = pad ? 'dpad' : 'rb';
-      const list = step === 'polish' ? [['stick', 'Move'], ['a', 'Paint'], [pickG, 'Colour'], ['x', 'All 5'], ['b', 'Wipe']]
-        : step === 'art' ? [['a', 'Decorate'], [pad ? 'dpad' : 'x', 'Design'], [pickG, 'Colour'], ['b', 'Clean']]
-          : step === 'gems' ? [['a', 'Stick / move'], [pickG, 'Gem'], ['b', 'Take off']]
-            : step === 'dry' ? [['a', 'Hold: blow']]
-              : [['a', 'Admire']];
+      const pickG = pad ? 'dpad' : 'x';
+      const list = step === 'polish' ? [['a', 'Paint'], [pickG, 'Colour'], ['b', 'Wipe'], ['y', 'Clear all']]
+        : step === 'art' ? [['a', 'Decorate'], ['x', 'Design'], [pad ? 'dpad' : 'rt', 'Colour'], ['b', 'Clean'], ['y', 'Clear all']]
+          : step === 'gems' ? [['a', 'Stick / move'], [pickG, 'Gem'], ['b', 'Take off'], ['y', 'Clear all']]
+            : step === 'dry' ? [['a', 'Hold: blow'], ['y', 'Clear all']]
+              : step === 'done' ? [['lb', 'Change'], ['y', 'Clear all']]
+                : [['a', 'Admire'], ['b', 'Not yet']];
       list.forEach(([b, label], i) => {
-        const y = P.y + 300 + i * 38;
+        const y = P.y + 322 + i * 38;
         ui.glyph(g, b, P.x + 26, y, 28);
         ui.text(g, label, P.x + 48, y + 1, { size: 21, color: NAVY, align: 'left', stroke: false, weight: 700, maxWidth: P.w - 56 });
       });
     } else if (st.mode === 'work') {
-      ui.text(g, 'CPU', P.x + P.w / 2, P.y + 330, { size: 26, color: p.color, strokeWidth: 5 });
+      ui.text(g, 'CPU', P.x + P.w / 2, P.y + 350, { size: 26, color: p.color, strokeWidth: 5 });
       const dots = '.'.repeat(1 + Math.floor(t * 2.5) % 3);
-      ui.text(g, `busy${dots}`, P.x + P.w / 2, P.y + 366, { size: 22, color: NAVY, stroke: false });
+      ui.text(g, `busy${dots}`, P.x + P.w / 2, P.y + 386, { size: 22, color: NAVY, stroke: false });
     }
     // Next button
     const by = P.y + P.h - 70, bx = P.x + 10, bw = P.w - 20, bh = 58;
@@ -1218,20 +1281,22 @@ export class Game {
       ui.bar(g, bx, by + 12, bw, 34, 1 - wetSum / wetMax, '#8fe0ff');
       ui.text(g, 'Drying', bx + bw / 2, by - 6, { size: 20, color: NAVY, stroke: false });
     } else {
-      const ready = step !== 'polish' || this.anyPainted(st);
-      const pulse = (st.nextPulse > 0 || (ready && st.stepT > 8 && step !== 'polish')) ? 1 + Math.sin(t * 8) * 0.05 : 1;
-      const shake = st.nextBump > 0 ? Math.sin(st.nextBump * 50) * 6 : 0;
+      // RB: the next step (on Done: A = I'm ready!)
+      const onDone = step === 'done';
+      const ready = onDone ? this.anyPainted(st) : step !== 'polish' || this.anyPainted(st);
+      const pulse = (st.nextPulse > 0 || onDone || (ready && st.stepT > 8 && step !== 'polish')) ? 1 + Math.sin(t * 8) * 0.05 : 1;
+      const shake = st.nextBump > 0 && st.tip ? Math.sin(st.nextBump * 50) * 6 : 0;
       g.save(); g.translate(bx + bw / 2 + shake, by + bh / 2); g.scale(pulse, pulse);
-      ui.roundRect(g, -bw / 2, -bh / 2, bw, bh, 29); g.fillStyle = ready ? '#ffd23f' : '#e9e2f2'; g.fill(); g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke();
-      ui.glyph(g, 'y', -bw / 2 + 28, 0, 34);
-      ui.text(g, 'Next', 18, 1, { size: 28, color: NAVY, stroke: false, weight: 800 });
+      ui.roundRect(g, -bw / 2, -bh / 2, bw, bh, 29); g.fillStyle = onDone ? (ready ? '#36d17a' : '#e9e2f2') : ready ? '#ffd23f' : '#e9e2f2'; g.fill(); g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke();
+      ui.glyph(g, onDone ? 'a' : 'rb', -bw / 2 + 28, 0, 34);
+      ui.text(g, onDone ? 'Ready!' : 'Next', 18, 1, { size: 28, color: NAVY, stroke: false, weight: 800, maxWidth: bw - 64 });
       g.restore();
     }
   }
 
   drawCursor(g, st) {
     if (st.mode === 'arrive') return;
-    const { x, y } = st.cur, t = this.t, step = st.mode === 'done' ? 'done' : STEPS[st.step].id;
+    const { x, y } = st.cur, t = this.t, step = st.mode === 'done' ? 'done' : SID(st);
     g.save();
     // player-coloured ring at the tip so everyone can find their brush
     g.beginPath(); g.arc(x, y, 14, 0, TAU); g.lineWidth = 5; g.strokeStyle = st.p.color; g.stroke();

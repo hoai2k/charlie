@@ -1,7 +1,8 @@
 // Pet Spa (Play Studio): every player gets an animal friend at their own spa
 // station. The pet arrives muddy and sad; scrub, rinse, towel, brush, add
 // bows and give a treat until the happiness meter fills and the pet
-// celebrates. Finale: a pet parade on a little stage.
+// celebrates. LB / RB pick the tool; the last one is Done, where A says "my
+// pet is ready" (B: not yet). Once every pet is ready: a pet parade on a little stage.
 //
 // Pets are drawn with the normal Actor system. Mud, suds, water drops and
 // accessories are drawn in the pet's *image space* through an attachment, so
@@ -26,7 +27,8 @@ function snd(key, fallback, opts) { if (hasSound(key)) sfx(key, opts); else if (
 // The spa clock (Play Studio, shown all along): at 0 it asks "Time's up!"
 // (Keep playing = +1 min, All done = every pet is made show-ready for the parade).
 const SPA_TIME = 180, SPA_MORE = 60;
-const NEARLY_T = 1.5;       // a step with only a tiny bit left finishes itself after this long
+const NEARLY_T = 1.5;
+const DONE = TOOLS.length;  // the last tool slot: "Done" (A there = my pet is ready for the parade)       // a step with only a tiny bit left finishes itself after this long
 
 // ---------------------------------------------------------------------------
 // Pets. Fellowfox normally follows Felicity, so it gets a one-member entry
@@ -150,7 +152,7 @@ export class Game extends SpaView {
       cursor: { x: 0, y: 0, px: 0, py: 0, speed: 0 },
       tool: 0, accIdx: randInt(0, ACCESSORIES.length - 1),
       held: null, hover: null, accPop: 0,   // bow being moved / bow under the hand
-      done: false, doneT: 0, happy: 0, happyTarget: 0, care: 0,
+      done: false, doneT: 0, ready: false, readyT: 0, happy: 0, happyTarget: 0, care: 0,
       treats: 0, cuddles: 0, toys: 0,
       shakeT: 0, jumpT: -1, useT: 0, sfxT: 0, giggleT: 2, cooldown: 0, sparkleT: 0, dripT: 0,
       events: {}, toolPop: 0,
@@ -274,7 +276,7 @@ export class Game extends SpaView {
     if (this.phase === 'spa') {
       this.spaLeft = Math.max(0, this.spaLeft - dt);
       for (const s of this.stations) this.updateStation(s, dt);
-      const all = this.stations.every((s) => s.done);
+      const all = this.stations.every((s) => s.ready);
       if (all) {
         this.allDoneT += dt;
         if (this.allDoneT > 3) this.startParade();
@@ -309,23 +311,30 @@ export class Game extends SpaView {
     cur.speed = damp(cur.speed, Math.hypot(cur.x - cur.px, cur.y - cur.py) / Math.max(dt, 1e-3), 12, dt);
     const motion = 1 + Math.min(1, cur.speed / (420 * s.k)) * 0.7;
 
-    // Tool switching
-    if (c.pressed('rb') || (pad && c.pressed('right'))) this.setTool(s, (s.tool + 1) % TOOLS.length);
-    if (c.pressed('lb') || (pad && c.pressed('left'))) this.setTool(s, (s.tool + TOOLS.length - 1) % TOOLS.length);
+    // LB / RB (d-pad left / right): tools, the last one is Done (A there: my pet is ready) ·
+    // X: on Bows the next bow, else the next step's tool (all done: Done) · d-pad up / down: bows ·
+    // A: use the tool · B: cuddle / take a bow off (once ready: not yet) · Y: squeaky duck
+    const N = TOOLS.length + 1;
+    const toolStep = (c.pressed('rb') || (pad && c.pressed('right')) ? 1 : 0) - (c.pressed('lb') || (pad && c.pressed('left')) ? 1 : 0);
+    if (toolStep) this.setTool(s, (s.tool + toolStep + N) % N);
     if (pad && (c.pressed('up') || c.pressed('down'))) {
       // Bow picker: jump to the Bows tool, or step through the bows when there.
-      if (TOOLS[s.tool].id !== 'bow') this.setTool(s, TOOL_IDX.bow);
+      if (s.tool !== TOOL_IDX.bow) this.setTool(s, TOOL_IDX.bow);
       else this.cycleAccessory(s, c.pressed('down') ? 1 : -1);
     }
     if (c.pressed('x')) {
-      const nt = this.nextTool(s);
-      if (nt) this.setTool(s, TOOL_IDX[nt]); else { sfx('blip'); }
+      if (s.tool === TOOL_IDX.bow) this.cycleAccessory(s, 1);
+      else { const nt = this.nextTool(s); this.setTool(s, nt ? TOOL_IDX[nt] : DONE); }
     }
+    let readyB = false;
+    if (s.ready && (c.pressed('b') || s.tool !== DONE)) { readyB = c.pressed('b'); this.setReady(s, false); }
+    else if (!s.ready && s.tool === DONE && c.pressed('a')) this.setReady(s, true);
+    if (s.ready) s.readyT += dt;
     s.toolPop = Math.max(0, s.toolPop - dt * 3);
     s.cooldown -= dt; s.sfxT -= dt; s.giggleT -= dt; s.sparkleT -= dt;
     s.accPop = Math.max(0, s.accPop - dt * 3);
 
-    const tool = TOOLS[s.tool].id;
+    const tool = s.tool === DONE ? 'done' : TOOLS[s.tool].id;
     const hold = c.held('a'), tap = c.pressed('a');
     s.using = hold;
     const on = this.onPet(s, cur.x, cur.y, 14 * s.k);
@@ -337,7 +346,7 @@ export class Game extends SpaView {
     s.hover = tool === 'bow' && !s.held && !p.isAI ? this.accAt(s, ip.x, ip.y) : null;
     let bowB = false;
     if (tool === 'bow' && c.pressed('b') && (s.held || s.hover)) { this.removeAccessory(s, s.held || s.hover); bowB = true; }
-    if (!bowB && c.pressed('b') && s.cooldown <= 0) this.cuddle(s);
+    if (!bowB && !readyB && c.pressed('b') && s.cooldown <= 0) this.cuddle(s);
     if (c.pressed('y') && s.cooldown <= 0) this.squeaky(s);
     const px = this.petPx(s);
     let brushing = false;
@@ -469,6 +478,17 @@ export class Game extends SpaView {
   setTool(s, i) {
     if (s.tool === i) { s.toolPop = 0.6; return; }
     s.tool = i; s.toolPop = 1; sfx('swap');
+  }
+
+  /** A on Done: this pet is ready for the parade (B, or a tool again: not yet). */
+  setReady(s, on) {
+    s.ready = on; s.readyT = 0;
+    if (!on) { sfx('back'); return; }
+    sfx('ready');
+    const c = s.pet.anchor('center');
+    particles.burst(c.x, c.y, { type: 'confetti', count: 26 });
+    s.char.playOnce('cheer', 0.6); s.pet.emote('heart', 1.2);
+    s.pet.say(pick(['Ready!', 'Parade time?', 'Yay!']), 1.4, null);
   }
 
   blobCleaned(s, b) {
@@ -679,6 +699,12 @@ export class Game extends SpaView {
     const cur = s.cursor;
     A.t -= dt;
     A.distract -= dt;
+    if (s.ready) { c.move(0, 0); c.hold('a', false); return; }
+    if (A.goDone) {   // RB along to Done, then A
+      c.move(0, 0); c.hold('a', false);
+      if (A.t <= 0) { c.press(s.tool === DONE ? 'a' : 'rb'); A.t = reactionTime(p) * 0.7; }
+      return;
+    }
     // Little distractions: cuddles and squeaky ducks (easier CPUs dawdle more).
     if (A.distract <= 0 && !s.done) {
       A.distract = rand(5, 10) * (1 + (p.aiLevel || 0) * 0.6);
@@ -695,18 +721,19 @@ export class Game extends SpaView {
       A.lastWant = want;
     }
     if (!want) {
-      // Free play once happy: a few more bows and treats, then relax.
+      // Free play once happy: a cuddle or a squeaky duck or two, then Done.
       if (A.t > 0) { c.move(0, 0); c.hold('a', false); return; }
-      A.t = rand(2.5, 5);
-      if (s.acc.length < 4 && chance(0.6)) want = 'bow';
-      else { c.press(pick(['b', 'y', 'b'])); return; }
+      A.t = rand(1.5, 3.5);
+      A.extra = (A.extra ?? randInt(1, 3)) - 1;
+      if (A.extra > 0) c.press(pick(['b', 'y', 'b'])); else A.goDone = true;
+      return;
     }
-    const wi = TOOL_IDX[want];
+    const wi = TOOL_IDX[want], N = TOOLS.length + 1;
     if (s.tool !== wi) {
       c.hold('a', false);
       if (A.t <= 0) {
-        const fwd = (wi - s.tool + TOOLS.length) % TOOLS.length;
-        c.press(fwd <= TOOLS.length / 2 ? 'rb' : 'lb');
+        const fwd = (wi - s.tool + N) % N;
+        c.press(fwd <= N / 2 ? 'rb' : 'lb');
         A.t = reactionTime(p) * 0.7;
       }
       c.move(0, 0);

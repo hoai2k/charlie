@@ -2,8 +2,9 @@
 // friendly client whose hair is a messy bed-head. Brush it smooth, snip it,
 // grow it with the magic spray, curl or straighten it, colour it (rainbow
 // streaks and glitter too), tie it up (ponytail, pigtails, bun, space buns,
-// braid) and add bows, flowers, clips and tiaras. Press X when the look is
-// done. Then a hand-mirror reveal at every chair and a photo-wall showcase:
+// braid) and add bows, flowers, clips and tiaras. LB / RB pick the tool (the
+// last one is Done: A there says the look is finished), X steps through the
+// tool's colours / styles / bling, Y starts over (it asks first). Then a hand-mirror reveal at every chair and a photo-wall showcase:
 // the camera visits each client, and the stylists pose for a group photo.
 //
 // The hair is live strand geometry (games/hair-salon/hair.js), the client is
@@ -21,8 +22,10 @@ import { Client, CLIENTS } from './hair-salon/client.js';
 import { HAIR_COLORS, STYLES, HEAD_RX, HEAD_RY, SEG, MAXL, MAXB, MINL, hairlineY, paintSeg, extendColour } from './hair-salon/hair.js';
 import { TOOLS, TOOL_IDX, BLING } from './hair-salon/props.js';
 import { SalonDrawing, REVEAL_T, CHEESE_T, OPTIONS, STAR_KEYS } from './hair-salon/draw.js';
+import { askOpen, askUpdate } from '../engine/studio-ui.js';
 import { meta } from './hair-salon.meta.js';
 
+const DONE = TOOLS.length;  // the last toolbar slot: "Done" (A there = the look is finished)
 const STYLE_TIME = 240;   // the Play Studio clock (seconds), then "Time's up!" asks
 
 const SHOT_T = 1.5;            // camera stop per client in the showcase
@@ -89,7 +92,7 @@ export class Game extends SalonDrawing {
       tool: 0, opt: { colour: randInt(4, 10), style: 1, bling: 0 }, optPop: 0, toolPop: 0,
       client: new Client(look),
       cursor: { x: 0, y: 0, px: 0, py: 0, speed: 0 },
-      held: null, hover: null,
+      held: null, hover: null, ask: null,
       ready: false, readyT: 0,
       stars: {}, ev: {},
       stats: { snips: 0, colours: new Set(), styles: 0, sprays: 0 },
@@ -166,7 +169,7 @@ export class Game extends SalonDrawing {
     if (this.phase === 'style') {
       this.styleLeft = Math.max(0, this.styleLeft - dt);   // waits at 0 for the "Time's up!" question
       for (const s of this.stations) this.updateStation(s, dt);
-      // styling ends when everyone has pressed X (I'm done!), or on "Time's up!" -> All done
+      // styling ends when everyone has said Done (RB to the Done slot, A), or on "Time's up!" -> All done
       if (this.stations.every((s) => s.ready)) {
         this.allReadyT = (this.allReadyT || 0) + dt;
         if (this.allReadyT > 1.4) this.startReveal();
@@ -183,6 +186,13 @@ export class Game extends SalonDrawing {
     if (s.picking) { this.updatePick(s, dt); return; }
     const p = s.p, c = p.ctrl, cl = s.client, sc = s.scene;
     if (s.ai) this.ai(s, dt);
+    if (s.ask) {   // Y: "Start over?" - Go back (the default) or Clear
+      const sel = s.ask.sel, r = askUpdate(c, s.ask);
+      if (s.ask.sel !== sel) sfx('move');
+      if (r) { s.ask = null; if (r === 'yes') this.startOver(s); else sfx('back'); }
+      cl.update(dt, 0, 0.2); this.updateStylist(s, dt);
+      return;
+    }
     const pad = c.kind === 'pad', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     const cur = s.cursor;
     const sp = 820 * clamp(s.k * 1.15, 0.6, 1.2);
@@ -192,16 +202,22 @@ export class Game extends SalonDrawing {
     cur.speed = damp(cur.speed, Math.hypot(cur.x - cur.px, cur.y - cur.py) / Math.max(dt, 1e-3), 12, dt);
     const motion = 0.75 + Math.min(1, cur.speed / (380 * s.k)) * 0.6;
 
-    // tools and options
-    if (c.pressed('rb') || (pad && c.pressed('right'))) this.setTool(s, (s.tool + 1) % TOOLS.length);
-    if (c.pressed('lb') || (pad && c.pressed('left'))) this.setTool(s, (s.tool + TOOLS.length - 1) % TOOLS.length);
-    const optStep = (c.pressed('y') || c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0) : 0);
+    // LB / RB (d-pad left / right): tools, the last one is Done · X (RT / LT, d-pad up / down):
+    // the tool's colours / styles / bling · A: use the tool (on Done: the look is finished) ·
+    // Y: start over (asks first) · B: spin the chair / take bling off (once Done: not done yet)
+    const N = TOOLS.length + 1;
+    if (c.pressed('rb') || (pad && c.pressed('right'))) this.setTool(s, (s.tool + 1) % N);
+    if (c.pressed('lb') || (pad && c.pressed('left'))) this.setTool(s, (s.tool + N - 1) % N);
+    const optStep = (c.pressed('x') || c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0) : 0);
     if (optStep) this.stepOption(s, optStep);
-    if (c.pressed('x')) this.toggleReady(s);
+    let usedB = false;
+    if (s.tool === DONE && c.pressed('a') && !s.ready) this.toggleReady(s);
+    else if (s.ready && (c.pressed('b') || s.tool !== DONE)) { usedB = c.pressed('b'); this.toggleReady(s); }
+    if (c.pressed('y')) { s.ask = askOpen(); s.held = null; sfx('select'); }
     s.toolPop = Math.max(0, s.toolPop - dt * 3); s.optPop = Math.max(0, s.optPop - dt * 2.5);
     s.sfxT -= dt; s.cool -= dt; s.sparkT -= dt;
 
-    const tool = TOOLS[s.tool].id;
+    const tool = s.tool === DONE ? 'done' : TOOLS[s.tool].id;
     const hold = c.held('a'), tap = c.pressed('a');
     const hp = this.toHead(s, cur.x, cur.y);
     const hair = cl.hair;
@@ -211,7 +227,6 @@ export class Game extends SalonDrawing {
     if (s.held && (tool !== 'bling' || !cl.bling.includes(s.held))) this.dropHeld(s, hp);
     if (s.held) { s.held.x = hp.x; s.held.y = hp.y; }
     s.hover = tool === 'bling' && !s.held ? cl.blingAt(hp.x, hp.y) : null;
-    let usedB = false;
     if (tool === 'bling' && c.pressed('b') && (s.held || s.hover)) { this.removeBling(s, s.held || s.hover); usedB = true; }
     if (!usedB && c.pressed('b') && s.cool <= 0) this.spinChair(s);
 
@@ -353,13 +368,14 @@ export class Game extends SalonDrawing {
 
   setTool(s, i) {
     if (s.tool === i) { s.toolPop = 0.6; return; }
-    s.tool = i; s.toolPop = 1; s.optPop = OPTIONS[TOOLS[i].id] ? 1 : 0; sfx('swap', { vol: 0.6 });
+    s.tool = i; s.toolPop = 1; s.optPop = TOOLS[i] && OPTIONS[TOOLS[i].id] ? 1 : 0; sfx('swap', { vol: 0.6 });
   }
 
   stepOption(s, d) {
+    if (s.tool === DONE) return;
     const id = TOOLS[s.tool].id;
     if (!OPTIONS[id]) {
-      // Y / up / down on a tool without options jumps to the colours.
+      // X / up / down on a tool without options jumps to the colours.
       this.setTool(s, TOOL_IDX.colour);
       return;
     }
@@ -477,6 +493,18 @@ export class Game extends SalonDrawing {
     if (chance(0.35)) s.client.say(pick(['Wheee!', 'Again!', 'Hee hee!']), 1.2);
   }
 
+  /** Y -> "Start over?" -> Clear: the same girl, back to her messy bed-head (stars stay earned). */
+  startOver(s) {
+    s.client = this.makeClient(s, s.pickIdx);
+    s.held = null; s.hover = null;
+    this.snips = this.snips.filter((q) => q.st !== s);
+    const c = this.toScreen(s, 0, -30);
+    particles.burst(c.x, c.y, { type: 'smoke', count: 14, colors: ['#ffffff', '#ffe8f4'], speed: [80, 240], size: [26, 48] });
+    sfx('whoosh'); sfx('pop');
+    s.client.react('giggle', 1); s.client.pop(0.3);
+    s.tool = 0; s.toolPop = 1;
+  }
+
   toggleReady(s) {
     s.ready = !s.ready; s.readyT = 0;
     if (s.ready) {
@@ -562,21 +590,20 @@ export class Game extends SalonDrawing {
     if (A.wait > 0) { c.move(0, 0); return; }
     const step = A.plan[A.si];
     if (!step) {
-      // Done: say so, then admire the look (and spin the chair now and then).
-      if (!s.ready && !A.sentDone) { A.sentDone = true; c.press('x'); }
+      // Done: RB along to the Done slot, A there, then admire the look.
       c.move(0, 0);
-      if (chance(dt * 0.08)) c.press('b');
+      if (!s.ready && A.btnT <= 0) { c.press(s.tool === DONE ? 'a' : 'rb'); A.btnT = rand(0.22, 0.4) / A.spd; }
       return;
     }
-    const ti = TOOL_IDX[step.tool];
+    const ti = TOOL_IDX[step.tool], N = TOOLS.length + 1;
     if (s.tool !== ti) {
       c.move(0, 0);
-      if (A.btnT <= 0) { const fwd = (ti - s.tool + TOOLS.length) % TOOLS.length; c.press(fwd <= TOOLS.length / 2 ? 'rb' : 'lb'); A.btnT = rand(0.22, 0.4) / A.spd; }
+      if (A.btnT <= 0) { const fwd = (ti - s.tool + N) % N; c.press(fwd <= N / 2 ? 'rb' : 'lb'); A.btnT = rand(0.22, 0.4) / A.spd; }
       return;
     }
     if (step.opt !== undefined && s.opt[step.tool] !== step.opt) {
       c.move(0, 0);
-      if (A.btnT <= 0) { c.press('y'); A.btnT = rand(0.18, 0.32) / A.spd; }
+      if (A.btnT <= 0) { c.press('x'); A.btnT = rand(0.18, 0.32) / A.spd; }
       return;
     }
     if (!step.pts) { step.pts = this.planPoints(s, step); step.k = 0; step.t = 0; }

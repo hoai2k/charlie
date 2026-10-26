@@ -936,6 +936,8 @@ export class Game {
 
   // --- HUD ------------------------------------------------------------------------------------
   drawHUD(g) {
+    // the gallery ending: the full train under the play scene's ribbon, no counts or pips
+    if (this.api.ended?.()) return;
     const t = this.t + this.t0;
     const vals = this.units.map((U) => U.delivered);
     ui.scoreboard(g, this.players, vals, { y: 14, avoidCenter: true, format: (v) => String(v) });

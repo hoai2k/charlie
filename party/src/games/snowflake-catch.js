@@ -550,7 +550,7 @@ export class Game {
     // tags
     for (const e of this.ents) {
       const top = e.y - e.a.height - 26 - (e.a.emotes.length ? 48 : 0);
-      ui.playerTag(g, e.p, e.x, top);
+      if (!this.api.ended?.()) ui.playerTag(g, e.p, e.x, top);
       // Easy: a big bouncing A when your flake is right above your tongue
       if (this.easy && !this.done && !e.p.isAI && this.easyNow(e)) {
         const f = e.target;
@@ -574,6 +574,8 @@ export class Game {
   }
 
   drawHUD(g) {
+    // the gallery ending: the built snowman under the play scene's ribbon, no counts
+    if (this.api.ended?.()) return;
     // (the snow clock is api.limit's, drawn by the play scene)
     ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 14, avoidCenter: true, format: (v) => '❄ ' + v });
     if (this.storm) {

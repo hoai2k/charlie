@@ -542,7 +542,7 @@ export class Game {
     for (const e of this.ents) if (e.spraying) this.drawStream(g, e);
     for (const e of this.ents) {
       const a = e.a;
-      if (this.playT < 6 || !e.p.isAI) ui.playerTag(g, e.p, e.x, e.y - a.height - 22 - (a.emotes.length ? 50 : 0));
+      if ((this.playT < 6 || !e.p.isAI) && !this.api.ended?.()) ui.playerTag(g, e.p, e.x, e.y - a.height - 22 - (a.emotes.length ? 50 : 0));
     }
   }
 
@@ -641,8 +641,11 @@ export class Game {
   }
 
   drawHUD(g) {
-    ui.timer(g, this.timeLeft);
-    ui.scoreboard(g, this.players, this.ents.map((e) => e.cleaned), { y: 985, format: (v) => String(v), out: null });
+    // the gallery ending puts its ribbon and stars bar where the clock and counts were
+    if (!this.api.ended?.()) {
+      ui.timer(g, this.timeLeft);
+      ui.scoreboard(g, this.players, this.ents.map((e) => e.cleaned), { y: 985, format: (v) => String(v), out: null });
+    }
     const x = W - 260, y = 26;
     ui.panel(g, x, y, 230, 84, { r: 40, fill: '#eaf8ff', stroke: '#7fd3ff', lineWidth: 6 });
     g.save(); g.translate(x + 50, y + 78); g.scale(-0.55, 0.55); drawPuppy(g, { breed: 1, mud: 0, t: this.t, wag: true, tongue: true, fluff: 1 }); g.restore();

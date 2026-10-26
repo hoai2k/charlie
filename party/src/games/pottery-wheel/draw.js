@@ -8,6 +8,7 @@ import { RAINBOW } from '../../engine/particles.js';
 import { art, drawArt } from '../../engine/art.js';
 import { clamp, lerp, ease, TAU } from '../../engine/util.js';
 import { photoPoseHints } from '../../engine/photo-poses.js';
+import { drawAsk, drawDoneTab, drawDoneCard } from '../../engine/studio-ui.js';
 import { NAVY, KY, N, PAINTS, STICKERS, HMAX, radiusAt, maxRadius, potName, surfaceAt, drawPot, drawSticker, mix } from './pot.js';
 
 export const TOOLS = [
@@ -75,21 +76,21 @@ export class PotteryDrawing {
     else {
       this.drawWheel(g, b.x, L.floorY, k, st.phi, st.step === 'shape' ? 1 : 0.4);
       st.actor.draw(g, { ring: p.color });
-      if (st.step !== 'shape' && !st.ready && TOOLS[st.tool].id === 'glaze') this.drawGlazeGuide(g, st, true);
+      if (st.step !== 'shape' && !st.ready && TOOLS[st.tool]?.id === 'glaze') this.drawGlazeGuide(g, st, true);
       const bump = st.potBump;
       const sx = 1 + Math.sin(bump * 30) * bump * 0.25;
       g.save(); g.translate(b.x, b.y); g.scale(sx, 2 - sx); g.translate(-b.x, -b.y);
       drawPot(g, pot, { x: b.x, y: b.y, k, phi: st.phi, wet: !pot.fired, t: this.t, still: st.step === 'shape' });
       g.restore();
       if (st.step === 'paint' && !st.ready) {
-        if (TOOLS[st.tool].id === 'glaze') this.drawGlazeGuide(g, st, false);
-        if (TOOLS[st.tool].id === 'band') this.drawBandGuide(g, st);
+        if (TOOLS[st.tool]?.id === 'glaze') this.drawGlazeGuide(g, st, false);
+        if (TOOLS[st.tool]?.id === 'band') this.drawBandGuide(g, st);
         if (st.hover) this.drawHover(g, st);
       }
     }
     if (st.step === 'fire') { /* actor drawn inside the kiln scene */ }
-    if (st.step === 'shape' && !st.morph && !st.confirm) this.drawShapeCursor(g, st);
-    if (st.step === 'paint' && !st.confirm) this.drawPaintCursor(g, st);
+    if (st.step === 'shape' && !st.morph && !st.confirm && !st.ask) this.drawShapeCursor(g, st);
+    if (st.step === 'paint' && !st.confirm && !st.ask && TOOLS[st.tool]) this.drawPaintCursor(g, st);
     g.restore();
     g.save(); ui.roundRect(g, r.x, r.y, r.w, r.h, 26);
     g.lineWidth = 10; g.strokeStyle = NAVY; g.stroke(); g.lineWidth = 6; g.strokeStyle = p.color; g.stroke(); g.restore();
@@ -97,6 +98,7 @@ export class PotteryDrawing {
     this.drawSide(g, st);
     this.drawStationHints(g, st);
     if (st.confirm) this.drawConfirm(g, st);
+    if (st.ask) drawAsk(g, st.L.list, st.ask, st.step === 'shape' ? { title: 'Start the clay over?', yes: 'Clear' } : { title: 'Wash the paint off?', yes: 'Clear' });
     if (st.ready) this.drawReady(g, st);
     if (st.step === 'shape' && !st.p.isAI && st.shapeT < 1.5 && st.helpT > 1) this.drawHelp(g, st);
   }
@@ -521,16 +523,17 @@ export class PotteryDrawing {
     });
     // the "next step" button
     let label = null;
+    const onDone = st.step === 'paint' && st.tool === TOOLS.length;
     if (st.step === 'shape') label = 'Bake it!';
-    else if (st.step === 'paint') label = 'Done!';
+    else if (st.step === 'paint') label = onDone ? "I'm ready!" : 'Tools · Done';
     if (label) {
       const bx = r.x + r.w - actW - 14, bw = actW;
-      const ready = st.step === 'shape' ? st.shapeT > 3 || st.morph === null && st.lastPreset : st.history.length > 2;
+      const ready = st.step === 'shape' ? st.shapeT > 3 || st.morph === null && st.lastPreset : onDone || st.history.length > 2;
       const pk = ready ? 1 + Math.sin(this.t * 5) * 0.04 : 1;
       g.save(); g.translate(bx + bw / 2, y + h / 2); g.scale(pk, pk);
       ui.panel(g, -bw / 2, -h / 2, bw, h, { r: h / 2, fill: st.step === 'shape' ? '#ff9f5a' : '#36d17a', lineWidth: 4, shadow: false });
       const gs = h * 0.72;
-      ui.glyph(g, 'rb', -bw / 2 + gs * 0.75, 0, gs);
+      ui.glyph(g, onDone ? 'a' : 'rb', -bw / 2 + gs * 0.75, 0, gs);
       ui.text(g, label, gs * 0.6, 1, { size: clamp(h * 0.46, 15, 32), weight: 800, maxWidth: bw - gs * 1.6 - 10 });
       g.restore();
     }
@@ -564,7 +567,8 @@ export class PotteryDrawing {
     g.closePath(); g.fill(); g.stroke();
     g.restore();
     // option rows
-    const rows = [['x', `Handles: ${st.pot.handles}`], ['y', 'Surprise!'], ['b', 'Smooth']];
+    const fresh = !(st.shapeT > 0.3 || st.lastPreset || st.pot.handles);
+    const rows = [['x', `Handles: ${st.pot.handles}`], ['y', fresh ? 'Surprise!' : 'Start over'], ['b', 'Smooth']];
     const rh = clamp((lr.y + lr.h - (sy + sh + 16)) / 3.2, 26, 60);
     let y = sy + sh + 14 + rh / 2;
     const gs = rh * 0.7, lfs = clamp(rh * 0.42, 14, 26);
@@ -603,10 +607,14 @@ export class PotteryDrawing {
 
   drawPaintSide(g, st, lr) {
     const headH = clamp(lr.h * 0.08, 22, 44);
-    const toolsH = lr.h * 0.5;
+    const toolsH = lr.h * 0.56;
+    if (st.tool === TOOLS.length) {   // Done (the last tool): "All done? (A) I'm ready!"
+      drawDoneCard(g, lr, st.p.color, { title: 'Pot done?' });
+      return;
+    }
     const tool = TOOLS[st.tool].id;
     ui.text(g, 'Tools', lr.x + lr.w / 2, lr.y + headH * 0.6, { size: headH * 0.66, color: st.p.color, strokeWidth: 5, maxWidth: lr.w - 16 });
-    const rh = (toolsH - headH) / TOOLS.length;
+    const rh = (toolsH - headH) / (TOOLS.length + 1);
     const named = lr.w >= 150;
     TOOLS.forEach((T, i) => {
       const sel = i === st.tool, y = lr.y + headH + 4 + i * rh;
@@ -620,6 +628,7 @@ export class PotteryDrawing {
       if (named) ui.text(g, T.name, ix + isz / 2 + 6, 1, { size: clamp(bh * 0.36, 13, 28), color: NAVY, stroke: false, align: 'left', weight: 700, maxWidth: bw - isz - 18 });
       g.restore();
     });
+    drawDoneTab(g, lr.x + 8, lr.y + headH + 4 + TOOLS.length * rh, lr.w - 16, rh - 5, { label: false });   // the last tool: Done
     // palette / sticker grid
     const py = lr.y + toolsH + 6, ph = lr.h - toolsH - 12;
     const items = tool === 'sticker' ? STICKERS.length : PAINTS.length;
@@ -682,15 +691,17 @@ export class PotteryDrawing {
     let items;
     if (st.ready) items = st.p.isAI ? [] : [['b', 'Change']];
     else if (st.confirm) items = [['a', 'Yes!'], ['b', 'Not yet']];
-    else if (st.step === 'shape') items = [['stick', 'Move'], ['a', 'Hold: shape'], ['b', 'Smooth'], ['x', 'Handles'], ['y', 'Surprise!']];
+    else if (st.ask) items = [];
+    else if (st.step === 'shape') items = [['stick', 'Move'], ['a', 'Hold: shape'], ['b', 'Smooth'], ['x', 'Handles'], ['y', st.shapeT > 0.3 || st.lastPreset || st.pot.handles ? 'Start over' : 'Surprise!']];
     else if (st.step === 'fire') items = st.fire.stage === 'bake' ? [['a', 'Puff the fire!']] : [];
     else {
       const tool = TOOLS[st.tool];
-      if (st.held) items = [['stick', 'Move'], ['a', 'Stick'], ['b', 'Take off']];
-      else items = [['stick', 'Move'], ['a', st.hover && (tool.id === 'sticker' || tool.id === 'dots') ? 'Move' : tool.verb], [pad ? 'dpad' : 'x', 'Tool'], [pad ? 'dpad' : 'y', tool.id === 'sticker' ? 'Sticker' : 'Colour'], ['b', st.hover ? 'Take off' : 'Undo']];
+      if (!tool) items = [['lb', 'Change'], ['a', "I'm ready!"]];
+      else if (st.held) items = [['stick', 'Move'], ['a', 'Stick'], ['b', 'Take off']];
+      else items = [['stick', 'Move'], ['a', st.hover && (tool.id === 'sticker' || tool.id === 'dots') ? 'Move' : tool.verb], ['rb', 'Tool'], ['x', tool.id === 'sticker' ? 'Sticker' : 'Colour'], ['b', st.hover ? 'Take off' : 'Undo'], ['y', 'Wash off']];
     }
     if (!items.length) return;
-    if (!wide && items.length > 3) items = items.map(([b, l]) => [b, l === 'Surprise!' || l === 'Handles' ? '' : l]);
+    if (!wide && items.length > 3) items = items.map(([b, l]) => [b, ['Surprise!', 'Start over', 'Handles', 'Wash off'].includes(l) ? '' : l]);
     const avail = r.x + r.w - 16 - x, lab = sz * 0.62;
     let need = 0;
     for (const [, l] of items) need += sz + 6 + (l ? ui.measure(g, l, lab) + 18 : 12);
@@ -698,7 +709,7 @@ export class PotteryDrawing {
     x += Math.max(0, (avail - need * kk) / 2);
     g.save(); g.translate(x, y); g.scale(kk, kk); x = 0;
     for (const [b, l] of items) {
-      ui.glyph(g, b, x + sz / 2, 0, sz, { pulse: b === 'a' && (st.confirm || st.step === 'fire') });
+      ui.glyph(g, b, x + sz / 2, 0, sz, { pulse: b === 'a' && (st.confirm || st.step === 'fire' || (st.step === 'paint' && !TOOLS[st.tool])) });
       x += sz + 6;
       if (l) { ui.text(g, l, x, 2, { size: lab, color: '#fff', align: 'left', strokeWidth: 5 }); x += ui.measure(g, l, lab) + 18; } else x += 12;
     }

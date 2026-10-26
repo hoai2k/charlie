@@ -6,6 +6,7 @@ import { art, drawArt } from '../../engine/art.js';
 import { clamp, lerp, ease, TAU } from '../../engine/util.js';
 import { drawHeartShape, drawStarShape, drawSparkleShape } from '../../engine/emotes.js';
 import { SPRAY_LEN, TOOLS, ACCESSORIES } from './data.js';
+import { drawDoneTab, drawDoneCard } from '../../engine/studio-ui.js';
 
 export const NAVY = '#24163f';
 const TOOL_ART = { sponge: 'prop/sponge', shower: 'prop/shower-head', towel: 'prop/towel', brush: 'prop/brush', treat: 'prop/pet-treat' };
@@ -306,8 +307,8 @@ export class SpaView {
   drawHeader(g) {
     ui.panel(g, W / 2 - 360, 16, 720, 76, { r: 38, fill: '#ffffff' });
     ui.text(g, 'Pet Spa', W / 2 - 230, 55, { size: 50, color: '#ff6fb1' });
-    ui.glyph(g, 'lb', W / 2 - 84, 54, 34); ui.glyph(g, 'rb', W / 2 - 32, 54, 34); ui.glyph(g, 'dpad', W / 2 + 14, 54, 34);
-    ui.text(g, 'Tools', W / 2 + 40, 55, { size: 30, color: NAVY, align: 'left', stroke: false });
+    ui.glyph(g, 'lb', W / 2 - 110, 54, 34); ui.glyph(g, 'rb', W / 2 - 66, 54, 34);
+    ui.text(g, 'Tools · Done', W / 2 - 40, 55, { size: 30, color: NAVY, align: 'left', stroke: false });
     ui.glyph(g, 'x', W / 2 + 160, 54, 36);
     ui.text(g, 'Next step', W / 2 + 184, 55, { size: 30, color: NAVY, align: 'left', stroke: false });
   }
@@ -432,7 +433,7 @@ export class SpaView {
 
     // toolbar
     const ty = r.y + r.h - s.toolH + 4, th = s.toolH - 16;
-    const n = TOOLS.length;
+    const n = TOOLS.length + 1;   // the tools, then Done
     const slot = Math.min(th, (r.w - 40) / n - 8);
     const tw = n * (slot + 8) - 8;
     const tx0 = r.x + (r.w - tw) / 2;
@@ -460,22 +461,46 @@ export class SpaView {
           g.beginPath(); g.moveTo(ax - aw, yy - d * aw * 0.5); g.lineTo(ax + aw, yy - d * aw * 0.5); g.lineTo(ax, yy + d * aw * 0.7); g.closePath(); g.fill(); g.stroke();
         }
       }
-      if (suggest === tl.id && !sel) {
+      if (suggest === tl.id && !sel && TOOLS[s.tool]?.id !== 'bow') {
         const bob = Math.abs(Math.sin(this.t * 5)) * 6;
         ui.glyph(g, 'x', x + slot / 2, ty - 18 - bob, Math.min(30, slot * 0.5));
       }
     });
+    {
+      const x = tx0 + TOOLS.length * (slot + 8), sel = s.tool === TOOLS.length, lift = sel ? 6 + s.toolPop * 8 : 0;
+      drawDoneTab(g, x, ty - lift, slot, th, { sel, label: false });
+      if (!suggest && !sel && TOOLS[s.tool]?.id !== 'bow') {   // all the steps are done: X goes to Done
+        const bob = Math.abs(Math.sin(this.t * 5)) * 6;
+        ui.glyph(g, 'x', x + slot / 2, ty - 18 - bob, Math.min(30, slot * 0.5));
+      }
+    }
     g.restore();
     // tool name above selected
     if (!s.compact || s.toolPop > 0) {
       const x = tx0 + s.tool * (slot + 8) + slot / 2;
-      ui.text(g, TOOLS[s.tool].name, x, ty - 28 - s.toolPop * 8, { size: 26, color: '#ffffff', alpha: s.compact ? s.toolPop : 1 });
+      ui.text(g, TOOLS[s.tool]?.name || 'Done', x, ty - 28 - s.toolPop * 8, { size: 26, color: '#ffffff', alpha: s.compact ? s.toolPop : 1 });
     }
+    if (this.phase === 'spa' && (s.tool === TOOLS.length || s.ready)) this.drawDone(g, s);
+  }
+
+  /** The Done slot: "All done? (A) I'm ready!" - once ready, "Ready!" and B: not yet. */
+  drawDone(g, s) {
+    const r = s.r, w = Math.min(r.w - 40, 440), h = Math.min(220, (r.h - s.headerH - s.toolH) * 0.42);
+    const rect = { x: r.x + (r.w - w) / 2, y: r.y + r.h - s.toolH - h - 34, w, h };
+    if (!s.ready) { drawDoneCard(g, rect, s.p.color, { title: s.done ? 'All done?' : 'Ready for the parade?' }); return; }
+    const cx = rect.x + w / 2, cy = rect.y + h * 0.4;
+    const sc = ease.outBack(clamp(s.readyT / 0.3, 0, 1));
+    g.save(); g.translate(cx, cy); g.rotate(-0.08); g.scale(sc, sc);
+    const bw = Math.min(w * 0.8, 300), bh = bw * 0.34;
+    ui.panel(g, -bw / 2, -bh / 2, bw, bh, { r: bh / 2, fill: '#36d17a', lineWidth: 5 });
+    ui.text(g, 'Ready!', 0, 2, { size: bh * 0.55, weight: 800 });
+    g.restore();
+    if (!s.p.isAI) ui.hints(g, [['b', 'Not yet']], cx, cy + bh * 0.6 + 24, { size: 30 });
   }
 
   drawCursor(g, s) {
     const c = s.cursor, p = s.p, k = s.k;
-    const tool = TOOLS[s.tool].id;
+    const tool = TOOLS[s.tool]?.id || 'done';
     const size = 74 * k;
     const using = s.using && this.phase === 'spa';
     g.save();
@@ -507,7 +532,7 @@ export class SpaView {
     g.scale(pop, pop);
     // While moving or pointing at a placed bow, the hand shows just its ring.
     const bowMode = tool === 'bow' && this.phase === 'spa' && (s.held || s.hover);
-    if (!bowMode) drawTool(g, tool, 0, tool === 'shower' ? -size * 0.25 : 0, size, this.t, { on: using, acc: ACCESSORIES[s.accIdx % ACCESSORIES.length] });
+    if (!bowMode && tool !== 'done') drawTool(g, tool, 0, tool === 'shower' ? -size * 0.25 : 0, size, this.t, { on: using, acc: ACCESSORIES[s.accIdx % ACCESSORIES.length] });
     g.restore();
     ui.playerTag(g, p, c.x + 34 * k, c.y - 40 * k);
     if (bowMode) {
@@ -618,8 +643,8 @@ export class SpaView {
   /** Screen-space overlay (drawn above the camera view). */
   drawHUD(g) {
     if (this.banner) ui.banner(g, this.banner.text, this.banner.t, { size: 120, y: this.phase === 'parade' ? 190 : H / 2 - 40, color: '#ff8fd0' });
-    if (this.phase === 'spa' && this.stations.every((s) => s.done)) {
-      ui.banner(g, 'Everyone is happy!', this.allDoneT, { size: 100, y: H / 2, color: '#ffd23f' });
+    if (this.phase === 'spa' && this.stations.every((s) => s.ready)) {
+      ui.banner(g, 'Everyone is ready!', this.allDoneT, { size: 100, y: H / 2, color: '#ffd23f' });
     }
   }
 }

@@ -40,6 +40,7 @@ const STORM_AT = 15;           // seconds left: pearl storm
 const LEFT = 90, RIGHT = W - 90, TOP = 200, FLOOR = 905, SEABED = 940;
 const SWIM = 560, ZOOM = 1350, ZOOM_T = 0.32, ZOOM_CD = 0.55;
 const CHEST = { x: 1660, y: SEABED + 6 };
+const CHEST_SHOW = { x: 1600, y: 868, s: 1.25 };   // gallery ending: lifted clear of the A/Y hints, a bit bigger
 const OCTO = { x: 960, y: SEABED + 10 };
 const VENTS = [520, 1360];
 // prop/mp-clam-open (256x224 art px): top of the bottom shell's front lip outline, left
@@ -125,6 +126,7 @@ export class Game {
 
   postUpdate(dt) {
     this.t += dt;
+    if (this.api.ended?.()) this.endT = (this.endT || 0) + dt;
     this.ambient(dt);
     this.updateFinale(dt);
     for (const e of this.ents) this.swim(e, dt);
@@ -585,11 +587,17 @@ export class Game {
     this.pearls = [];
   }
 
+  /** Where the chest stands: on the gallery ending it rises up out of the A/Y hints' way. */
+  chestAt() {
+    const k = ease.outCubic(clamp((this.endT || 0) / 0.6, 0, 1));
+    return { x: lerp(CHEST.x, CHEST_SHOW.x, k), y: lerp(CHEST.y, CHEST_SHOW.y, k), s: lerp(1, CHEST_SHOW.s, k) };
+  }
+
   updateFinale(dt) {
     if (!this.finale) return;
     if (Math.random() < dt * 26) {
-      const ang = -Math.PI / 2 + rand(-0.8, 0.8);
-      particles.burst(CHEST.x + rand(-60, 60), CHEST.y - 150, { type: chance(0.5) ? 'star' : 'sparkle', count: 2, colors: RAINBOW, speed: [200, 520] });
+      const ang = -Math.PI / 2 + rand(-0.8, 0.8), c = this.chestAt();
+      particles.burst(c.x + rand(-60, 60) * c.s, c.y - 150 * c.s, { type: chance(0.5) ? 'star' : 'sparkle', count: 2, colors: RAINBOW, speed: [200, 520] });
       void ang;
     }
   }
@@ -624,7 +632,7 @@ export class Game {
     }
     if (this.rainbowFish) this.drawRainbowFish(g, this.rainbowFish);
     for (const f of this.fliers) this.drawFlier(g, f);
-    for (const e of order) ui.playerTag(g, e.p, e.x, e.a.y - e.a.height - 22 - (e.a.emotes.length ? 50 : 0));
+    if (!this.api.ended?.()) for (const e of order) ui.playerTag(g, e.p, e.x, e.a.y - e.a.height - 22 - (e.a.emotes.length ? 50 : 0));
     if (this.easy && !this.finale && !this.done) this.drawEasyHints(g);
   }
 
@@ -647,6 +655,8 @@ export class Game {
   }
 
   drawHUD(g) {
+    // the gallery ending has its own ribbon and stars bar; the full chest in the scene is the show
+    if (this.api.ended?.()) return;
     // (the swim clock is api.limit's, drawn by the play scene)
     ui.scoreboard(g, this.players, this.ents.map((e) => e.pearls), { y: 22, avoidCenter: true, format: (v) => String(v) });
     // shared chest meter
@@ -823,13 +833,13 @@ export class Game {
     const k = clamp(f.t / f.dur, 0, 1), e = ease.inOutQuad ? ease.inOutQuad(k) : k;
     // it drops into the glowing seam between the chest's lid and body (prop/mp-chest art
     // y 187 of 320, drawn at 0.65 => 86 px above the chest's base) and slips in behind the body
-    const seam = CHEST.y - 86;
-    const ex = CHEST.x, ey = seam + 18;
+    const c = this.chestAt(), seam = c.y - 86 * c.s;
+    const ex = c.x, ey = seam + 18 * c.s;
     const x = (1 - e) * (1 - e) * f.x0 + 2 * (1 - e) * e * f.cx + e * e * ex;
     const y = (1 - e) * (1 - e) * f.y0 + 2 * (1 - e) * e * f.cy + e * e * ey;
     if (Math.random() < 0.5 && y < seam) particles.burst(x, y, { type: 'sparkle', count: 1, colors: f.gold ? ['#ffd23f', '#fff6a8'] : ['#ffffff', '#ffd6ef'], speed: [5, 30], size: [8, 14] });
     g.save();
-    if (art('prop/mp-chest')) { g.beginPath(); g.rect(0, 0, W, H); g.rect(CHEST.x - 125, seam, 250, 90); g.clip('evenodd'); }
+    if (art('prop/mp-chest')) { g.beginPath(); g.rect(0, 0, W, H); g.rect(c.x - 125 * c.s, seam, 250 * c.s, 90 * c.s); g.clip('evenodd'); }
     drawPearlArt(g, x, y, (f.gold ? 24 : 18) * (1 - k * 0.3), f.gold, this.t);
     g.restore();
   }
@@ -851,7 +861,7 @@ export class Game {
           const ph = (this.t * 0.6 + k * 0.5) % 1;
           ui.text(g, 'z', o.x + 70 + ph * 50, o.y - 200 - ph * 70, { size: 34 + k * 12, color: '#ffffff', alpha: 1 - ph, strokeWidth: 5 });
         }
-        const n = o.need;
+        const n = this.api.ended?.() ? 0 : o.need;   // no tickle meter on the gallery ending
         for (let k = 0; k < n; k++) {
           const hx = o.x + (k - (n - 1) / 2) * 40, hy = o.y - 270;
           g.save(); g.translate(hx, hy + (k < o.tickles ? Math.sin(this.t * 8 + k) * 4 : 0));
@@ -867,7 +877,8 @@ export class Game {
   }
 
   drawChest(g) {
-    g.save(); g.translate(CHEST.x, CHEST.y);
+    const at = this.chestAt();
+    g.save(); g.translate(at.x, at.y); g.scale(at.s, at.s);
     const sq = this.chestSq;
     g.scale(1 + sq * 0.2, 1 - sq * 0.2);
     // glow grows with the fill

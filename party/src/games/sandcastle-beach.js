@@ -3,16 +3,18 @@
 // domes; stack them up to three high), dig moats with the spade that slowly
 // fill with sea water, and decorate with shells, starfish and flags. Friendly
 // crabs scuttle by, stop to admire a castle and sometimes leave a shell as a
-// present (tickle them with A!). When everyone is done (Y), or the gentle
+// present (tickle them with A!). When everyone is done (Done + A), or the gentle
 // clock runs out, a gentle wave rolls up the beach: it fills every moat to
 // the brim and leaves a present, and never knocks anything down. Then the sun
 // sets and the camera tours each castle before a sunset group photo.
 //
-// Controls: stick moves your hand (on a gamepad the d-pad picks tools and
-// styles), LB/RB pick a tool, A builds (on top of what's under your hand, so
-// molds stack), A with the Move hand picks a piece up and A puts it down,
-// B removes what's under your hand (or fills a moat back in), X changes the
-// style (window/door towers, wall direction, shell kind, colours), Y = done.
+// Controls (the Play Studio pattern): stick moves your hand (right stick:
+// tiny nudges), LB/RB pick a tool (the last one is Done), X (or the d-pad)
+// changes the style (window/door towers, wall direction, shell kind, colours),
+// A builds (on top of what's under your hand, so molds stack), A with the Move
+// hand picks a piece up and A puts it down, A on Done: I'm ready (B: not yet).
+// B removes what's under your hand (or fills a moat back in), Y asks
+// "Smooth it all away?" (Go back is the default) before clearing your patch.
 import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
@@ -29,6 +31,7 @@ import {
   foot, silhouette, topHeight, canStack, drawPiece, drawPieceShadow, drawCrab, drawToolIcon, } from './sandcastle-beach/pieces.js';
 import { drawBackdrop, drawSun, drawShore, drawWave, HORIZON, SHORE, WET } from './sandcastle-beach/beach.js';
 
+import { askOpen, askUpdate, drawAsk, drawDoneTab } from '../engine/studio-ui.js';
 import { meta } from './sandcastle-beach.meta.js';
 
 export { meta };
@@ -39,7 +42,9 @@ const TOOLS = [
   { id: 'hand', name: 'Move' }, { id: 'tower', name: 'Tower' }, { id: 'pointy', name: 'Pointy' },
   { id: 'wall', name: 'Wall' }, { id: 'dome', name: 'Dome' }, { id: 'moat', name: 'Moat' },
   { id: 'shell', name: 'Shell' }, { id: 'star', name: 'Starfish' }, { id: 'flag', name: 'Flag' },
+  { id: 'done', name: 'Done' },   // the last "tool": A = I'm ready
 ];
+const DONE = TOOLS.length - 1;
 const TOOL = Object.fromEntries(TOOLS.map((t, i) => [t.id, i]));
 const TOP = 352, BOTTOM = 1066, GAP = 14;
 const GD_MIN = 250, GD_MAX = 370, HEAD = 170, MIN_GW = 520, MAX_GW = 940;
@@ -47,7 +52,6 @@ const CELL = 18;
 const MAX_PIECES = 70, MAX_STACK = 300;
 const BUILD_TIME = 170, CPU_TIME = 75;
 const NAMES = ['Seashell Palace', 'Starfish Fort', 'Crabby Castle', 'Sunny Keep', 'Coral Towers', 'Sparkle Sands', 'Pearl Palace', 'Wavy Towers', 'Sandy Sky Fort', 'Mermaid Manor', 'Bucket Castle', 'Tide Pool Towers'];
-const READY_HOLD = 0.6;   // seconds a kid holds Y to say "all done"
 const CHEERS = ['Ta-da!', 'Ooh!', 'Sandy!', 'Yay!', 'Pretty!'];
 
 // --- layout --------------------------------------------------------------------------------
@@ -109,7 +113,7 @@ export class Game {
       styles: { hand: 0, tower: 0, pointy: 0, wall: 0, dome: 0, moat: 0, shell: 0, star: 0, flag: i % 4 },
       pieces: [], held: null, hover: null, hoverCrab: null, aim: null,
       moat: new Map(), digT: 0, digging: false, waterT: 0,
-      ready: false, readyT: 0, yHold: 0, wet: 0, gifts: 0, built: 0, cheerCD: 2, waveCD: 0,
+      ready: false, readyT: 0, clearAsk: null, wet: 0, gifts: 0, built: 0, cheerCD: 2, waveCD: 0,
       side: i % 2 ? 1 : -1, ai: null, aiStick: 0, jz: 0, jvz: 0, poseCD: 0,
     };
     const a = new Actor(p, { x: ox + st.side * 90 * k, y: oy + 20 * k, facing: -st.side });
@@ -304,6 +308,7 @@ export class Game {
   pressA(st) {
     const tool = TOOLS[st.tool].id;
     if (st.held) { this.drop(st); return; }
+    if (tool === 'done') { this.setReady(st, true); return; }
     if (tool === 'moat') return;   // digging is a hold (see update)
     const hv = st.hover;
     if (st.hoverCrab && (!hv || tool === 'hand')) { this.tickle(st.hoverCrab, st); return; }
@@ -329,9 +334,26 @@ export class Game {
     } else if (!st.p.isAI) sfx('blip');
   }
 
+  /** "Smooth it all away?": Go back (the default) or Clear. */
+  updateClearAsk(st) {
+    const q = st.clearAsk, sel = q.sel, r = askUpdate(st.p.ctrl, q);
+    if (q.sel !== sel) sfx('move');
+    if (!r) return;
+    st.clearAsk = null;
+    if (r === 'yes') this.clearPatch(st); else sfx('back');
+  }
+  /** Y (after the question): smooth the whole patch flat again. */
+  clearPatch(st) {
+    const s = this.toScreen(st, this.castleCenter(st), 0);
+    st.pieces = []; st.moat.clear(); st.held = null; st.hover = null; st.aim = null;
+    snd('sc-fill', 'snow-pack', { vol: 0.7 }); sfx('whoosh');
+    particles.burst(s.x, s.y, { type: 'dust', count: 22, colors: [SAND, SAND_L], speed: [80, 300] });
+    st.actor.playOnce('surprised', 0.5, 'idle');
+  }
+
   setReady(st, on) {
     if (st.ready === on) return;
-    st.ready = on; st.readyT = 0;
+    st.ready = on; st.readyT = 0; st.clearAsk = null;
     if (st.held) this.drop(st);
     const a = st.actor;
     if (on) {
@@ -505,9 +527,9 @@ export class Game {
     if (ai.t > 0) return;
     ai.t = rand(0.2, 0.34) / prof.speed;
     const step = ai.steps[ai.i];
-    if (!step) {
-      if (TOOLS[st.tool].id !== 'hand' && chance(0.5)) { /* look at the castle a moment */ ai.t = rand(0.6, 1.2); }
-      c.press('y');
+    if (!step) {   // all built: RB on to Done, then A
+      if (st.tool !== DONE) { c.press('rb'); if (chance(0.3)) ai.t = rand(0.6, 1.2); return; }   // (a look at the castle on the way)
+      c.press('a');
       return;
     }
     const want = TOOL[step.tool];
@@ -584,7 +606,7 @@ export class Game {
       st.toolPop = Math.max(0, st.toolPop - dt); st.stylePop = Math.max(0, st.stylePop - dt);
       st.cheerCD -= dt; st.waveCD -= dt; st.readyT += dt;
       if (st.ready) {
-        if (c.pressed('b') || c.pressed('y')) this.setReady(st, false);
+        if (c.pressed('b')) this.setReady(st, false);
         st.digging = false;
         this.followActor(st, dt, true);
         a.update(dt);
@@ -597,20 +619,19 @@ export class Game {
       const sp = (st.p.isAI ? 560 : 640) * (0.4 + 0.6 * clamp(st.hold / 0.5, 0, 1)) / Math.max(0.8, st.k);
       st.cur.x = clamp(st.cur.x + (mx * sp + c.rx * 150) * dt, st.gx0 - 10, st.gx1 + 10);
       st.cur.y = clamp(st.cur.y + (my * sp + c.ry * 150) * dt, st.gy0 - HEAD + 30, st.gy1 + 4);
+      if (st.clearAsk) { this.updateClearAsk(st); st.digging = false; this.followActor(st, dt, false); a.update(dt); continue; }
+      // LB / RB: tools (the last one is Done) · X or the d-pad: the style
       if (pad) {
-        const tx = (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0);
-        const ty = (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0);
-        if (tx) this.stepTool(st, tx);
-        if (ty) this.stepStyle(st, ty);
+        const ts = (c.pressed('right') || c.pressed('down') ? 1 : 0) - (c.pressed('left') || c.pressed('up') ? 1 : 0);
+        if (ts) this.stepStyle(st, ts);
       }
       if (c.pressed('rb')) this.stepTool(st, 1);
       if (c.pressed('lb')) this.stepTool(st, -1);
       if (c.pressed('x')) this.stepStyle(st, 1);
-      // a kid holds Y (the ring fills) so one stray press doesn't end everyone's build
-      if (st.p.isAI) { if (c.pressed('y')) { this.setReady(st, true); continue; } }
-      else {
-        st.yHold = c.held('y') && (st.yHold > 0 || c.pressed('y')) ? st.yHold + dt : 0;
-        if (st.yHold >= READY_HOLD) { st.yHold = 0; this.setReady(st, true); continue; }
+      // Y: smooth it all away, after a question (Go back is the default); nothing built yet: nothing to ask
+      if (c.pressed('y')) {
+        if (st.pieces.length || st.moat.size) { if (st.held) this.drop(st); st.clearAsk = askOpen(); sfx('select'); continue; }
+        if (!st.p.isAI) sfx('blip');
       }
       // hover
       st.hover = st.held ? null : this.pieceAt(st, st.cur.x, st.cur.y);
@@ -636,7 +657,7 @@ export class Game {
         const aim = this.aimFor(st, st.held.type, st.held.style);
         st.held.x = aim.x; st.held.y = aim.y; st.held.z = aim.z;
       }
-      st.aim = !st.held && tool !== 'hand' && tool !== 'moat' && !(st.hover && !this.stackOK(st.hover, tool)) ? this.aimFor(st, tool, st.styles[tool]) : null;
+      st.aim = !st.held && tool !== 'hand' && tool !== 'moat' && tool !== 'done' && !(st.hover && !this.stackOK(st.hover, tool)) ? this.aimFor(st, tool, st.styles[tool]) : null;
       this.followActor(st, dt, false);
       if (st.digging) { if (a.pose !== 'dig' && !a._once) a.setPose('dig'); } else if (a.pose === 'dig') a.setPose('idle');
       a.update(dt);
@@ -971,25 +992,16 @@ export class Game {
       g.beginPath(); g.arc(cs.x, cs.y, sz * 0.5, 0, TAU);
       g.fillStyle = st.held ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.8)'; g.fill();
       g.lineWidth = 5; g.strokeStyle = st.p.color; g.setLineDash(st.held ? [9, 7] : []); g.stroke(); g.setLineDash([]);
-      if (!st.held) drawToolIcon(g, tool, cs.x, cs.y, sz * 0.82, this.t, st.styles[tool]);
+      if (!st.held && tool === 'done') drawDoneTab(g, cs.x - sz * 0.32, cs.y - sz * 0.32, sz * 0.64, sz * 0.64, { sel: true, label: false });
+      else if (!st.held) drawToolIcon(g, tool, cs.x, cs.y, sz * 0.82, this.t, st.styles[tool]);
       g.restore();
-    }
-    if (st.yHold > 0) {
-      // "all done" fill ring around the hand while Y is held
-      const f = clamp(st.yHold / READY_HOLD, 0, 1), rr = sz * 0.5 + 12;
-      g.save(); g.lineCap = 'round';
-      g.lineWidth = 10; g.strokeStyle = 'rgba(255,255,255,0.75)';
-      g.beginPath(); g.arc(cs.x, cs.y, rr, 0, TAU); g.stroke();
-      g.lineWidth = 8; g.strokeStyle = '#ffd23f';
-      g.beginPath(); g.arc(cs.x, cs.y, rr, -Math.PI / 2, -Math.PI / 2 + f * TAU); g.stroke();
-      g.restore();
-      ui.glyph(g, 'y', cs.x, cs.y + rr + 22, 30);
     }
     if (this.humans > 1 || st.p.isAI) ui.text(g, st.p.tag, cs.x, cs.y - sz * 0.5 - 14, { size: 20, color: st.p.color, strokeWidth: 4 });
     // what A / B would do right here
     if (!st.p.isAI) {
       let tip = null;
       if (st.held) tip = [['a', 'Put down'], ['b', 'Take away']];
+      else if (tool === 'done') tip = [['a', "I'm ready!"]];
       else if (st.hoverCrab && (!st.hover || tool === 'hand')) tip = [['a', 'Tickle!']];
       else if (st.hover) tip = tool === 'hand' || tool === 'moat' || !this.stackOK(st.hover, tool) ? [['a', 'Pick up'], ['b', 'Take away']] : [['a', 'Stack!'], ['b', 'Take away']];
       if (tip && tool === 'moat' && !st.held && st.hover) tip = [['b', 'Take away']];
@@ -1023,8 +1035,9 @@ export class Game {
     if (this.phase === 'build') {
       this.drawClock(g);
       const pad = this.players.some((p) => !p.isAI && p.ctrl.kind === 'pad');
-      ui.hints(g, [['stick', 'Hand'], [pad ? 'dpad' : 'lb', pad ? 'LB/RB Tools' : '/ RB Tools'], ['a', 'Build'], ['b', 'Take away'], ['x', 'Style'], ['y', 'Hold: Done!']], W / 2, 122, { size: 30, gap: 26 });
+      ui.hints(g, [['stick', 'Hand'], ['lb', '/ RB Tools'], [pad ? 'dpad' : 'x', 'Style'], ['a', 'Build'], ['b', 'Take away'], ['y', 'Clear']], W / 2, 122, { size: 30, gap: 26 });
       for (const st of this.stations) this.drawStrip(g, st);
+      for (const st of this.stations) if (st.clearAsk) drawAsk(g, { x: st.r.x, y: st.r.y, w: st.r.w, h: st.r.h - st.sh - 4 }, st.clearAsk, { title: 'Smooth it all away?', yes: 'Clear', color: '#e8a33d' });
     } else {
       this.drawFinaleHUD(g);
     }
@@ -1049,7 +1062,7 @@ export class Game {
     if (st.ready) {
       const w = r.x + r.w - 8 - x;
       ui.panel(g, x, y - tagH / 2, w, tagH, { r: tagH / 2, fill: '#36d17a', lineWidth: 3, shadow: false });
-      ui.text(g, st.p.isAI ? 'Done!' : 'Done!  B: keep building', x + w / 2, y + 1, { size: tagH * 0.55, strokeWidth: 4, maxWidth: w - 16 });
+      ui.text(g, st.p.isAI ? 'Ready!' : 'Ready!  B: keep building', x + w / 2, y + 1, { size: tagH * 0.55, strokeWidth: 4, maxWidth: w - 16 });
       return;
     }
     // tool slots
@@ -1062,15 +1075,18 @@ export class Game {
       const sel = ti === st.tool;
       const cx = sx + s / 2, cy = y;
       const k2 = sel ? 1.08 + st.toolPop * 0.6 : 1;
-      g.save(); g.translate(cx, cy); g.scale(k2, k2);
-      ui.panel(g, -s / 2, -s / 2, s, s, { r: s * 0.26, fill: sel ? '#ffd23f' : 'rgba(255,255,255,0.88)', lineWidth: sel ? 4 : 2, stroke: sel ? NAVY : 'rgba(36,22,63,0.35)', shadow: false });
-      drawToolIcon(g, tl.id, 0, 0, s * 0.82, this.t, st.styles[tl.id] || 0);
-      g.restore();
+      if (tl.id === 'done') drawDoneTab(g, cx - s / 2, cy - s / 2, s, s, { sel, bump: st.toolPop * 0.6, label: false });
+      else {
+        g.save(); g.translate(cx, cy); g.scale(k2, k2);
+        ui.panel(g, -s / 2, -s / 2, s, s, { r: s * 0.26, fill: sel ? '#ffd23f' : 'rgba(255,255,255,0.88)', lineWidth: sel ? 4 : 2, stroke: sel ? NAVY : 'rgba(36,22,63,0.35)', shadow: false });
+        drawToolIcon(g, tl.id, 0, 0, s * 0.82, this.t, st.styles[tl.id] || 0);
+        g.restore();
+      }
       sx += s + gap;
     });
     // name (and style) of the selected tool, in a bubble above its slot
     const tl = TOOLS[st.tool], d = DEFS[tl.id];
-    const label = d && d.styles.length > 1 ? `${tl.name}: ${d.styles[st.styles[tl.id]]}` : tl.name;
+    const label = tl.id === 'done' ? "All done? A: I'm ready!" : d && d.styles.length > 1 ? `${tl.name}: ${d.styles[st.styles[tl.id]]}` : tl.name;
     const fs = small ? 20 : 26;
     const lw = ui.measure(g, label, fs, 800) + 26;
     const slotX = x + (avail - total) / 2 + st.tool * (s + gap) + s / 2;

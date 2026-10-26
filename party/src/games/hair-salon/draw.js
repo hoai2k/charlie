@@ -9,6 +9,7 @@ import { drawArt } from '../../engine/art.js';
 import { clamp, lerp, rand, chance, ease, TAU } from '../../engine/util.js';
 import { drawStarShape, drawHeartShape } from '../../engine/emotes.js';
 import { photoPoseHints } from '../../engine/photo-poses.js';
+import { drawAsk, drawDoneTab, drawDoneCard } from '../../engine/studio-ui.js';
 import { playerName } from '../../state.js';
 import { CLIENTS, clientPortrait } from './client.js';
 import { HAIR_COLORS, STYLES } from './hair.js';
@@ -146,12 +147,20 @@ export class SalonDrawing {
     // hand mirror reveal
     if (this.phase === 'reveal' && s.revealT > 0) this.drawMirror(g, s);
     // tool hand
-    if (this.phase === 'style' && !s.picking) this.drawCursor(g, s);
+    if (this.phase === 'style' && !s.picking && TOOLS[s.tool]) this.drawCursor(g, s);
     if (s.picking) this.drawPicker(g, s);
     g.restore();
     this.drawHeader(g, s);
     this.drawToolbar(g, s);
-    if (this.phase === 'style' && !s.picking && OPTIONS[TOOLS[s.tool].id]) this.drawOptions(g, s);
+    if (this.phase === 'style' && !s.picking && TOOLS[s.tool] && OPTIONS[TOOLS[s.tool].id]) this.drawOptions(g, s);
+    if (this.phase === 'style' && !s.picking && !TOOLS[s.tool] && !s.ready) this.drawDone(g, s);
+    if (this.phase === 'style' && s.ask) drawAsk(g, s.scene, s.ask, { title: 'Start over?', yes: 'Clear' });
+  }
+
+  /** The Done slot (the last tool): a card over the bottom of the scene, "A: I'm ready!". */
+  drawDone(g, s) {
+    const sc = s.scene, w = Math.min(sc.w - 30, 440), h = Math.min(sc.h * 0.36, 230);
+    drawDoneCard(g, { x: sc.x + (sc.w - w) / 2, y: sc.y + sc.h - h - 12, w, h }, s.p.color, { back: s.narrow ? 'LB: back to the tools' : 'LB to change something' });
   }
 
   /** Portrait grid: who will you style? (the chair behind shows the highlighted girl) */
@@ -296,7 +305,7 @@ export class SalonDrawing {
     g.fillStyle = '#ffffff'; g.fillRect(r.x, y0, r.w, th);
     g.restore();
     g.strokeStyle = NAVY; g.lineWidth = 4; g.beginPath(); g.moveTo(r.x + 4, y0); g.lineTo(r.x + r.w - 4, y0); g.stroke();
-    const n = TOOLS.length, slot = Math.min(th - 8, (r.w - 24) / n);
+    const n = TOOLS.length + 1, slot = Math.min(th - 8, (r.w - 24) / n);   // the tools, then Done
     const x0 = r.x + r.w / 2 - (n * slot) / 2 + slot / 2;
     TOOLS.forEach((tl, i) => {
       const sel = i === s.tool;
@@ -306,8 +315,12 @@ export class SalonDrawing {
       drawTool(g, tl.id, cx, cy, slot * (sel ? 0.72 : 0.6), this.t, { color: HAIR_COLORS[s.opt.colour] });
       g.restore();
     });
+    {
+      const sel = s.tool === TOOLS.length, cx = x0 + TOOLS.length * slot, sz = slot * (sel ? 0.94 : 0.8);
+      drawDoneTab(g, cx - sz / 2, y0 + th / 2 - sz * 0.47 - (sel ? 4 + s.toolPop * 6 : 0), sz, sz * 0.94, { sel, label: false });
+    }
     // tool name pops up when switching
-    if (s.toolPop > 0 && this.phase === 'style') {
+    if (s.toolPop > 0 && this.phase === 'style' && TOOLS[s.tool]) {
       const cx = x0 + s.tool * slot;
       g.save(); g.globalAlpha = clamp(s.toolPop * 2, 0, 1);
       ui.text(g, TOOLS[s.tool].name, clamp(cx, r.x + 70, r.x + r.w - 70), y0 - 20 - (OPTIONS[TOOLS[s.tool].id] ? (s.compact ? 50 : 64) : 0), { size: s.compact ? 26 : 34, color: '#ffffff' });
@@ -377,8 +390,8 @@ export class SalonDrawing {
     if (this.phase === 'style') {
       const humans = this.stations.filter((s) => !s.p.isAI);
       if (humans.length) {
-        ui.hints(g, [['stick', 'Move'], ['a', 'Use tool']], W / 2 - 130, 52, { size: 32, align: 'right' });
-        ui.hints(g, [['rb', 'Tool'], ['rt', 'Colour/Style'], ['x', 'Done!']], W / 2 + 130, 52, { size: 32, align: 'left' });
+        ui.hints(g, [['stick', 'Move'], ['a', 'Use tool'], ['rb', 'Tool · Done']], W / 2 - 130, 52, { size: 32, align: 'right' });
+        ui.hints(g, [['x', 'Colour/Style'], ['y', 'Start over']], W / 2 + 130, 52, { size: 32, align: 'left' });
       }
     }
     if (this.phase === 'show') {

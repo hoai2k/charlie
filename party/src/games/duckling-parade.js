@@ -773,7 +773,7 @@ export class Game {
     // tags + home arrows
     for (const e of this.ents) {
       const a = e.a;
-      if (this.t < 6 || !e.p.isAI) ui.playerTag(g, e.p, e.x, e.y - a.height - 22 - (a.emotes.length ? 50 : 0));
+      if ((this.t < 6 || !e.p.isAI) && !this.api.ended?.()) ui.playerTag(g, e.p, e.x, e.y - a.height - 22 - (a.emotes.length ? 50 : 0));
       if (this.phase === 'play' && e.line.length >= 3 && dist(e.x, e.y, NEST.x, NEST.y) > NEST_R + 60 && !(this.easy && !e.p.isAI)) this.drawHomeArrow(g, e);
     }
     if (this.easy && this.phase === 'play') {
@@ -949,7 +949,8 @@ export class Game {
   }
 
   drawHUD(g) {
-    ui.scoreboard(g, this.players, this.ents.map((e) => e.delivered), { y: 985, format: (v) => String(v), out: null });
+    // (on the gallery ending the play scene's stars bar sits there instead)
+    if (!this.api.ended?.()) ui.scoreboard(g, this.players, this.ents.map((e) => e.delivered), { y: 985, format: (v) => String(v), out: null });
     // team counter: mama + ducklings home
     const x = W - 250, y = 26;
     ui.panel(g, x, y, 220, 84, { r: 40, fill: '#fff8d6', stroke: '#ffb03f', lineWidth: 6 });

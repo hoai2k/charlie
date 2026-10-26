@@ -640,6 +640,8 @@ export class Game {
       showcase: true, highlight,
       stats: finds.map((f) => `${f} find${f === 1 ? '' : 's'}`),
       title: this.solo ? 'Super Seeker!' : 'Super Seekers!',
+      // the scene already shows its own big "We found it all!" (not when ended early from the pause menu)
+      banner: !(this.phase === 'found' || this.phase === 'wipe'),
     });
   }
 
@@ -787,6 +789,8 @@ export class Game {
   }
 
   drawHUD2(g) {
+    // the gallery ending: the found scene and its "We found it all!" over the stars bar alone
+    if (this.api.ended?.()) return;
     this.drawChips(g);
     this.drawRounds(g);
     this.drawStrip(g);

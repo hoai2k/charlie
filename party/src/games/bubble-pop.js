@@ -534,7 +534,7 @@ export class Game {
     }
     for (const e of order) {
       const a = e.a, top = a.y - e.z - a.height - 22 - (a.emotes.length ? 50 : 0);
-      if (this.el < 6 || !e.p.isAI) ui.playerTag(g, e.p, e.x, top);
+      if ((this.el < 6 || !e.p.isAI) && !this.api.ended?.()) ui.playerTag(g, e.p, e.x, top);
       if (this.easy && !e.p.isAI && e.ezReady && !this.finale && e.target) easyPrompt(g, e.p, { target: { x: e.target.x, y: e.target.y }, child: { x: e.x, y: a.y - e.z - a.height } });
     }
   }
@@ -609,6 +609,8 @@ export class Game {
   }
 
   drawHUD(g) {
+    // the gallery ending has its own ribbon and stars bar: no meter or pop counts under them
+    if (this.api.ended?.()) return;
     // shared bubble meter (top centre)
     const mw = 640, mx = W / 2 - mw / 2, my = 36, mh = 60;
     const pulse = 1 + this.meterPulse * 0.04;

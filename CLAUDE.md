@@ -79,6 +79,15 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   `api.finishTogether`, `showstopper()` in `engine/util.js`, `engine/easy.js`
   (Sister Party Easy: the stick is optional, A does everything, `easyPrompt` is
   the one big-A cue) and `engine/crowd.js` (8-player spacing).
+- Play Studio controls (see `party/src/engine/studio-ui.js`; Fashion Show is the
+  model): A confirms and moves on; LB/RB move between categories and the last
+  category is "Done" (A there = ready); the left stick (and X) choose items or
+  move the cursor; the right stick places things inside the picture; Y clears
+  only after a question whose default is "Go back"; B goes back.
+- No-winner games (showcase / `finishTogether`) skip the awards page: the play
+  scene's 'gallery' state keeps the game's last screen up with everyone's stars
+  and A/Y to go on, so end such a game on the art itself (Fashion Show posts its
+  runway photos on a wall). Pass `gallery: false` only to keep the podium.
 - Audio in the race goes through the Web Audio engine in `audio.js`; don't set
   `HTMLAudioElement.volume` directly (iOS ignores it).
 

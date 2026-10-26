@@ -6,7 +6,9 @@
 // what it is (bunny, kitty, bird, butterfly, fish, whale, unicorn, dragon)
 // and it lights up and comes alive as a glowing star spirit that plays in the
 // sky. Catch shooting stars for a rainbow wish star. The friendly Moon in a
-// nightcap crosses the sky as the clock (A on the Moon = "all done").
+// nightcap crosses the sky as the clock. LB / RB pick the star colour; past the
+// last colour is "Done", where A says "I'm ready" (B: not yet). When every kid
+// is ready (or the night ends) the show starts.
 // Finale: the sky tells everyone's constellations one by one, then all the
 // spirits parade while everyone poses for a photo.
 import { W, H } from '../engine/canvas.js';
@@ -25,6 +27,7 @@ import {
   NAVY, TYPES, TYPE, TEMPLATES, drawCreature, drawMoon, drawStar, starShape, glowSprite, mixHex, rgba, bbox, creatureSize,
 } from './star-maker/creatures.js';
 
+import { drawDoneTab } from '../engine/studio-ui.js';
 import { meta } from './star-maker.meta.js';
 
 export { meta };
@@ -34,6 +37,7 @@ const FEET_Y = 1036;
 const MOON_R = 62;
 const HOVER_R = 30;
 const STAR_COLORS = ['#ffe27a', '#ffffff', '#ff9fd8', '#8fd8ff', '#9ff0c8', '#c9a8ff'];
+const DONE = STAR_COLORS.length;   // st.col on the last "colour": Done (A: I'm ready)
 const STAR_NAMES = ['Gold', 'White', 'Pink', 'Blue', 'Mint', 'Lilac'];
 const PENTA = [72, 74, 76, 79, 81, 84, 86, 88, 91, 93];
 const NIGHT = 150, NIGHT_CPU = 72;
@@ -77,7 +81,7 @@ export class Game {
   makeStation(p, i) {
     const st = {
       p, i, cur: { x: 0, y: 0 }, hold: 0, pen: null, col: i % STAR_COLORS.length, paletteT: 0,
-      press: null, drag: null, picker: null, confirm: null, history: [], wishes: 0, nextWish: false,
+      press: null, drag: null, picker: null, ready: false, history: [], wishes: 0, nextWish: false,
       placed: 0, made: [], overMoon: false, hover: null, idleT: 0, toast: null,
       ai: { cmds: [], wait: rand(0.6, 1.6) + i * 0.25, chase: null, spot: null, idle: 0 },
     };
@@ -347,11 +351,6 @@ export class Game {
     st.idleT += dt;
     const pad = c.kind === 'pad';
     if (st.picker) { this.updatePicker(st, dt); return; }
-    if (st.confirm) {
-      st.confirm.t += dt;
-      if (c.pressed('a') && st.confirm.t > 0.15) { st.confirm = null; this.startShow(); return; }
-      if (c.pressed('b') || (!st.overMoon && st.confirm.t > 0.4)) { st.confirm = null; sfx('back'); }
-    }
     // the wand: stick moves it, with a little acceleration
     const mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     const mag = Math.hypot(mx, my);
@@ -360,12 +359,18 @@ export class Game {
     st.cur.x = clamp(st.cur.x + (mx * sp + c.rx * 150) * dt, SKY.x0, SKY.x1);
     st.cur.y = clamp(st.cur.y + (my * sp + c.ry * 150) * dt, SKY.y0, SKY.y1);
     if (mag > 0.15) st.idleT = 0;
-    // star colour: LB/RB (or the d-pad on a gamepad)
+    // ready (on Done): B = not yet after all
+    if (st.ready) {
+      st.hover = null; st.paletteT = 1.4;
+      if (c.pressed('b')) this.setReady(st, false);
+      return;
+    }
+    // star colour: LB/RB (or the d-pad on a gamepad); past the last colour: Done
     const step = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
-    if (step) { st.col = (st.col + step + STAR_COLORS.length) % STAR_COLORS.length; st.paletteT = 1.4; sfx('collect', { step: st.col }); }
+    if (step && !st.drag) { st.col = (st.col + step + DONE + 1) % (DONE + 1); st.paletteT = 1.4; if (st.col === DONE) sfx('move'); else sfx('collect', { step: st.col }); }
+    if (st.col === DONE) st.paletteT = Math.max(st.paletteT, 0.5);   // keep the strip (and its Done tile) up
     st.hover = st.drag ? null : this.starAt(st, st.cur.x, st.cur.y);
     st.overMoon = this.phase === 'play' && dist(st.cur.x, st.cur.y, this.moon.x, this.moon.y) < MOON_R + 14;
-    if (st.confirm) return;
 
     // dragging a star (or a whole finished picture)
     if (st.drag) {
@@ -390,8 +395,9 @@ export class Game {
     // A: put a star / tap or hold one of yours / the Moon
     if (c.pressed('a')) {
       st.idleT = 0;
+      if (st.col === DONE) { this.setReady(st, true); return; }
       if (st.hover) st.press = { s: st.hover, t: 0, x: st.cur.x, y: st.cur.y };
-      else if (st.overMoon) { st.confirm = { t: 0 }; sfx('select'); this.moonReact('wink', null); }
+      else if (st.overMoon) { sfx('select'); this.moonReact('wink', pick(['Hello!', 'Twinkle twinkle!', 'What a pretty sky!'])); }
       else this.placeStar(st);
     }
     if (st.press) {
@@ -416,6 +422,19 @@ export class Game {
     // face your wand
     if (!a._once) a.setPose('look-up');
     if (Math.abs(st.cur.x - a.x) > 40) a.facing = st.cur.x > a.x ? 1 : -1;
+  }
+
+  /** On Done, A: I'm ready (B: not yet). Every kid ready starts the show. */
+  setReady(st, on) {
+    if (st.ready === on) return;
+    st.ready = on; st.press = null; st.pen = null;
+    const a = st.actor;
+    if (on) {
+      sfx('ready'); a.playOnce('cheer', 0.6, 'look-up'); a.squash(-0.2);
+      particles.burst(st.cur.x, st.cur.y, { type: 'star', count: 12, speed: [120, 320] });
+      const kids = this.stations.filter((q) => !q.p.isAI), n = kids.filter((q) => q.ready).length;
+      if (n < kids.length) this.moonReact('happy', `${n} of ${kids.length} ready!`);
+    } else sfx('back');
   }
 
   startDrag(st, s) {
@@ -496,7 +515,6 @@ export class Game {
 
   updateAI(st, dt) {
     const ai = st.ai, c = st.p.ctrl, prof = aiProfile(st.p);
-    if (st.confirm) { c.press('b'); return; }
     if (ai.wait > 0) { ai.wait -= dt; c.move(0, 0); return; }
     if (ai.chase) {
       const s = ai.chase;
@@ -529,7 +547,7 @@ export class Game {
       }
       case 'tap': c.press('a'); done(this.cpuOnly ? rand(0.2, 0.35) : rand(0.35, 0.75)); break;
       case 'lift': c.press('x'); done(0.2); break;
-      case 'color': if (st.col === cmd.v) done(0.1); else { c.press('rb'); ai.wait = 0.2; } break;
+      case 'color': if (st.col === cmd.v) done(0.1); else { c.press(st.col === DONE || cmd.v > st.col ? 'rb' : 'lb'); ai.wait = 0.2; } break;   // (never stops on Done)
       case 'nudge': {
         cmd.t2 = (cmd.t2 || 0) + dt;
         c.hold('a', true);
@@ -727,6 +745,9 @@ export class Game {
         if (st.p.isAI) this.updateAI(st, dt);
         this.updatePlayer(st, dt);
       }
+      // every kid ready on Done: the show
+      const kids = this.stations.filter((q) => !q.p.isAI);
+      if (this.phase === 'play' && kids.length && kids.every((q) => q.ready)) { this.readyT = (this.readyT || 0) + dt; if (this.readyT > 0.6) this.startShow(); } else this.readyT = 0;
       if (this.phase === 'play') {
         if (Math.ceil(this.timeLeft) === 20 && Math.ceil(this.timeLeft + dt) === 21) this.moonReact('wink', 'Nearly bedtime!');
       }
@@ -746,7 +767,7 @@ export class Game {
     this.phase = 'show'; this.phaseT = 0;
     this.photoTaken = false; this.cheese = false; this.photo = null;
     for (const st of this.stations) {
-      st.picker = null; st.confirm = null; st.drag = null; st.press = null; st.pen = null; st.toast = null;
+      st.picker = null; st.drag = null; st.press = null; st.pen = null; st.toast = null;
       if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('a', false); st.ai.cmds = []; st.ai.chase = null; }
     }
     // anything left unfinished with enough stars comes alive now
@@ -1079,17 +1100,19 @@ export class Game {
     if (!st.hover && !st.drag) {
       g.globalAlpha = 0.85;
       if (st.nextWish) drawStar(g, x, y, 8, '#fff6a8', { tw: this.t * 4, wish: true });
+      else if (st.col === DONE) drawDoneTab(g, x - 13, y - 13, 26, 26, { sel: true, label: false });
       else { starShape(g, x, y, 11, 0); g.fillStyle = STAR_COLORS[st.col]; g.fill(); g.lineWidth = 2; g.strokeStyle = NAVY; g.stroke(); }
       g.globalAlpha = 1;
     }
     ui.text(g, st.p.tag, x + 28, y - 30, { size: 22, color: col, strokeWidth: 5, align: 'left' });
     // little "what A does here" hints (people only)
-    if (human && !st.picker && !st.confirm) {
+    if (human && !st.picker) {
       let list = null;
-      if (st.drag) list = [['a', 'Let go'], ['b', 'Remove']];
+      if (st.ready) list = [['b', 'Ready! (not yet?)']];
+      else if (st.col === DONE) list = [['a', "I'm ready!"], ['lb', 'More stars']];
+      else if (st.drag) list = [['a', 'Let go'], ['b', 'Remove']];
       else if (st.hover) list = st.hover.con.done ? [['a', 'Play'], ['b', 'Change it']] : pen && pen !== st.hover ? [['a', 'Join'], ['b', 'Remove']] : [['a', 'Hold: move'], ['b', 'Remove']];
-      else if (st.overMoon) list = [['a', 'All done?']];
-      if (list) ui.hints(g, list, x, y + 52, { size: 26 });
+      if (list) ui.hints(g, list, x, st.paletteT > 0 ? y - 66 : y + 52, { size: 26 });   // (above the wand while the colour strip shows)
     }
     // Y Finish! pulses near the pen star once the shape has 3+ stars
     if (human && pen && pen.con.stars.length >= 3 && !st.picker) {
@@ -1103,7 +1126,7 @@ export class Game {
     // colour strip after LB/RB
     if (st.paletteT > 0 && human) {
       g.globalAlpha = Math.min(1, st.paletteT / 0.3);
-      const n = STAR_COLORS.length, s = 40, w = n * (s + 6) + 16;
+      const n = DONE + 1, s = 40, w = n * (s + 6) + 16;
       const px = clamp(x - w / 2, 10, W - w - 10), py = clamp(y + 40, 130, H - 70);
       ui.panel(g, px, py, w, s + 16, { r: 18, fill: '#2b2160', stroke: '#ffffff', lineWidth: 3, shadow: false });
       STAR_COLORS.forEach((c, i) => {
@@ -1111,7 +1134,9 @@ export class Game {
         if (i === st.col) { g.beginPath(); g.arc(cx, cy, s * 0.55, 0, TAU); g.fillStyle = 'rgba(255,255,255,0.25)'; g.fill(); }
         starShape(g, cx, cy, i === st.col ? s * 0.5 : s * 0.36, 0); g.fillStyle = c; g.fill(); g.lineWidth = 2; g.strokeStyle = NAVY; g.stroke();
       });
-      ui.text(g, STAR_NAMES[st.col], px + w / 2, py - 18, { size: 24, color: STAR_COLORS[st.col] });
+      const dx = px + 8 + DONE * (s + 6);   // the last tile: Done
+      drawDoneTab(g, dx + 2, py + 10, s - 4, s - 4, { sel: st.col === DONE, label: false });
+      ui.text(g, st.col === DONE ? 'Done' : STAR_NAMES[st.col], px + w / 2, py - 18, { size: 24, color: st.col === DONE ? '#5ff0a0' : STAR_COLORS[st.col] });
       g.globalAlpha = 1;
     }
     if (st.toast) {
@@ -1119,12 +1144,6 @@ export class Game {
       g.globalAlpha = clamp(a, 0, 1);
       ui.text(g, st.toast.text, x, y - 60 - st.toast.t * 20, { size: 34, color: '#fff6a8' });
       g.globalAlpha = 1;
-    }
-    if (st.confirm) {
-      const w = 420, h = 150, px = clamp(x - w / 2, 20, W - w - 20), py = y + 50;
-      ui.panel(g, px, py, w, h, { r: 26, fill: '#fff8ec', stroke: col, lineWidth: 6 });
-      ui.text(g, 'All done? Goodnight!', px + w / 2, py + 42, { size: 34, color: NAVY, stroke: false, weight: 800 });
-      ui.hints(g, [['a', 'Yes!'], ['b', 'Not yet']], px + w / 2, py + 105, { size: 40, color: '#7a4ad8' });
     }
     g.restore();
   }
@@ -1187,7 +1206,7 @@ export class Game {
     g.restore();
     g.save(); g.translate(56, 52); drawStar(g, 0, 0, 14, '#ffe27a', { tw: this.t * 3 }); g.restore();
     ui.text(g, 'Star Maker', 90, 52, { size: 46, color: '#fff6a8', align: 'left', strokeWidth: 9 });
-    ui.hints(g, [['a', 'Star'], ['b', 'Remove'], ['x', 'New line'], ['y', 'Finish!'], ['rb', 'Colour']], W - 24, 52, { size: 30, gap: 18, align: 'right' });
+    ui.hints(g, [['a', 'Star'], ['b', 'Remove'], ['x', 'New line'], ['y', 'Finish!'], ['rb', 'Colour / Done']], W - 24, 52, { size: 30, gap: 18, align: 'right' });
   }
 
   drawSpotCard(g, st, u) {

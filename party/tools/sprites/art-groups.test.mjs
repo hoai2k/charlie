@@ -91,9 +91,10 @@ try {
     text: (...args) => text.push(args), noop };
   const dataModule = (code) => 'data:text/javascript;base64,' + Buffer.from(code).toString('base64');
   const stubs = {
-    '../engine/util.js': 'export const cancelLater = globalThis.__playArtTest.noop;',
+    '../engine/util.js': 'export const cancelLater = globalThis.__playArtTest.noop; export const lerp = (a, b, t) => a + (b - a) * t; export const ease = { outBack: (t) => t };',
     '../engine/canvas.js': 'export const W=1920,H=1080;',
     '../engine/input.js': 'export const input=globalThis.__playArtTest.input; export const inputOpts={ rsMove: false };',
+    './results.js': 'export const bookResult=()=>[]; export const leaveFinishedGame=()=>{};',
     '../engine/audio.js': 'const t=globalThis.__playArtTest; export const music=t.music; export const sfx=t.noop,host=t.noop,stopAllLoops=t.noop,duckLoops=t.noop,setMuted=t.noop; export const isMuted=()=>false;',
     '../engine/particles.js': 'export const particles={clear(){},draw(){}};',
     '../engine/fx.js': 'export const fx={flash(){}};',

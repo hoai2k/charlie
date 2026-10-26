@@ -7,14 +7,16 @@
 // keep that sound, so two players make a duet.
 //
 // Controls: stick / D-pad move the cursor, A adds or removes a note (hold A
-// and move to paint a line), X changes your sound, Y sprinkles a surprise
-// phrase (on an empty page: a whole surprise tune), LB/RB flip pages (pushing
-// past the grid's left/right edge flips too), B undoes your last change.
+// and move to paint a line), X changes your sound, Y asks "Clear this page?"
+// (Go back is the default; on an empty page Y writes a whole surprise tune),
+// LB/RB flip pages (pushing past the grid's left/right edge flips too) and RB
+// past the last page reaches "Done", where A starts the concert (B / LB: back).
+// B undoes your last change.
 // Above the grid is a button bar (Songs, Beat, pages 1-4, Speed, Clear,
-// Concert!) reached by moving up. Mouse/touch: click or drag on the cells,
+// Done) reached by moving up. Mouse/touch: click or drag on the cells,
 // click the buttons.
 //
-// The loop always plays the page on screen. "Concert!" (or the pause menu's
+// The loop always plays the page on screen. Done + A (or the pause menu's
 // All done!) plays every page in order on a stage: the characters dance on
 // the beat, the flowers sing, confetti flies. Then A finishes and B goes back
 // to composing. Notes are synthesized with Web Audio and scheduled ahead on
@@ -37,7 +39,8 @@ import { art, drawArt } from '../engine/art.js';
 import { aiProfile } from '../engine/ai.js';
 import { playerName } from '../state.js';
 import { clamp, lerp, rand, randInt, pick, chance, ease, TAU } from '../engine/util.js';
-import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
+import { drawSparkleShape } from '../engine/emotes.js';
+import { askOpen, askUpdate, drawAsk, drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
 import { meta } from './melody-maker.meta.js';
 
 export { meta };
@@ -500,7 +503,7 @@ export class Game {
   makeStation(p, i) {
     const st = {
       p, i, R: 2 + (i % 4) * 2, col: (1 + i * 4) % STEPS, tb: 0, inst: i % INSTS.length, paint: null,
-      hist: [], placed: 0, confirm: null, instPop: 0, ai: { plan: [], wait: 0, idle: rand(2, 4) },
+      hist: [], placed: 0, ask: null, done: null, instPop: 0, ai: { plan: [], wait: 0, idle: rand(2, 4) },
     };
     if (st.R >= NP) st.R = NP - 1;
     st.actor = new Actor(p, { facing: 1 });
@@ -863,7 +866,6 @@ export class Game {
     }
     if (moved) {
       if (!st.p.isAI) sfx('tick', { vol: 0.6 });
-      st.confirm = null;
       if (st.paint && st.R >= 0 && st.p.ctrl.held('a')) this.toggle(st, st.R, st.col, st.paint);
     } else if (!st.p.isAI) sfx('tock', { vol: 0.5 });
   }
@@ -872,7 +874,7 @@ export class Game {
   edgeHold(st) { return this.humans > 1 && !st.p.isAI; }
   updateEdgePush(st, dt) {
     const c = st.p.ctrl, dir = c.x > 0.5 ? 1 : c.x < -0.5 ? -1 : 0;
-    const atEdge = st.R >= 0 && !st.confirm && Math.abs(c.y) < 0.5 &&
+    const atEdge = st.R >= 0 && Math.abs(c.y) < 0.5 &&
       ((dir > 0 && st.col === STEPS - 1 && this.page < NPAGES - 1) || (dir < 0 && st.col === 0 && this.page > 0));
     if (!atEdge || (st.edge && st.edge.dir !== dir)) { st.edge = null; if (!atEdge) return; }
     st.edge = st.edge || { dir, t: 0 };
@@ -890,25 +892,53 @@ export class Game {
       case 'groove': this.recordDiff(st, () => this.setGroove(st, (this.pages[this.page].groove + 1) % GROOVES.length)); break;
       case 'page': this.setPage(b.page, st); break;
       case 'tempo': this.setTempo(this.tempo + 1); break;
-      case 'clear': st.confirm = { kind: 'clear', t: 0 }; sfx('select'); break;
-      case 'concert': st.confirm = { kind: 'concert', t: 0 }; sfx('select'); break;
+      case 'clear': this.askClear(st); break;
+      case 'concert': this.setDone(st, true); break;   // the toolbar's "Done" tile
       default: break;
     }
   }
 
-  resolveConfirm(st, yes) {
-    const k = st.confirm.kind; st.confirm = null;
-    if (!yes) { sfx('back'); return; }
-    if (k === 'clear') this.recordDiff(st, () => this.clearPage()); else this.startConcert();
+  pageNotes(page = this.page) { return this.pages[page].cells.reduce((a, row) => a + row.filter(Boolean).length, 0); }
+
+  /** Y / Clear: "Clear this page?" with Go back as the default (an empty page: nothing to ask). */
+  askClear(st) {
+    if (!this.pageNotes()) { sfx('blip'); return; }
+    st.ask = askOpen(); st.done = null; sfx('select');
+  }
+  resolveAsk(st, r) {
+    st.ask = null;
+    if (r === 'yes') this.recordDiff(st, () => this.clearPage()); else sfx('back');
+  }
+
+  /** RB past the last page (or the toolbar's Done tile): "All done? (A) Concert!"; B / LB: back. */
+  setDone(st, on) {
+    st.done = on ? { t: 0 } : null; st.ask = null;
+    sfx(on ? 'select' : 'back');
+  }
+
+  /** The question's buttons (as drawAsk lays them out over the grid): 0 Go back, 1 Clear, or -1. */
+  askHit(x, y) {
+    const r = PANEL, cx = r.x + r.w / 2, w = Math.min(r.w - 16, 380), h = Math.min(r.h - 16, 300), y0 = r.y + (r.h - h) / 2;
+    for (let i = 0; i < 2; i++) {
+      const bw = w - 40, bh = h * 0.2, by = y0 + h * (0.38 + i * 0.27);
+      if (x >= cx - bw / 2 && x <= cx + bw / 2 && y >= by && y <= by + bh) return i;
+    }
+    return -1;
   }
 
   updatePlayer(st, dt) {
     const c = st.p.ctrl;
     st.instPop = Math.max(0, st.instPop - dt * 3);
-    if (st.confirm) {
-      st.confirm.t += dt;
-      if (c.pressed('a') && st.confirm.t > 0.05) this.resolveConfirm(st, true);
-      else if (c.pressed('b') || c.nav.x || c.nav.y) this.resolveConfirm(st, false);
+    if (st.ask) {
+      const sel = st.ask.sel, r = askUpdate(c, st.ask);
+      if (st.ask.sel !== sel) sfx('move');
+      if (r) this.resolveAsk(st, r);
+      return;
+    }
+    if (st.done) {
+      st.done.t += dt;
+      if (c.pressed('a') && st.done.t > 0.05) { st.done = null; this.startConcert(); }
+      else if (c.pressed('b') || c.pressed('lb')) this.setDone(st, false);
       return;
     }
     if (c.nav.y) this.moveCursor(st, 0, c.nav.y);
@@ -920,8 +950,8 @@ export class Game {
     }
     if (!c.held('a')) st.paint = null;
     if (c.pressed('x')) this.cycleInst(st);
-    if (c.pressed('y')) this.sparkle(st);
-    if (c.pressed('rb')) { if (this.page < NPAGES - 1) this.setPage(this.page + 1, st, 1); else sfx('tock'); }
+    if (c.pressed('y')) { if (this.pageNotes()) this.askClear(st); else this.sparkle(st); }   // empty page: a surprise tune
+    if (c.pressed('rb')) { if (this.page < NPAGES - 1) this.setPage(this.page + 1, st, 1); else this.setDone(st, true); }
     if (c.pressed('lb')) { if (this.page > 0) this.setPage(this.page - 1, st, -1); else sfx('tock'); }
     if (c.pressed('b')) this.undo(st);
   }
@@ -943,7 +973,7 @@ export class Game {
     if (hit) input.pointerOver({ x: GX, y: GY, w: GRID_R - GX, h: GRID_B - GY });
     if (ptr.pressed) {
       if (hit) {
-        st.R = hit.R; st.col = hit.col; st.confirm = null;
+        st.R = hit.R; st.col = hit.col;
         this.pointerPaint = { mode: this.toggle(st, hit.R, hit.col), last: hit.R * STEPS + hit.col };
         return;
       }
@@ -962,7 +992,8 @@ export class Game {
   // --- CPU players -------------------------------------------------------------
   aiUpdate(st, dt) {
     const ai = st.ai, c = st.p.ctrl, prof = aiProfile(st.p);
-    if (st.confirm) { ai.wait -= dt; if (ai.wait <= 0) { c.press(st.confirm.kind === 'concert' && !this.cpuOnly ? 'b' : 'a'); ai.wait = 0.5; } return; }
+    // a question or the Done card: helpers never clear or end the song (B: go back); alone, Done + A = the concert
+    if (st.ask || st.done) { ai.wait -= dt; if (ai.wait <= 0) { c.press(st.done && this.cpuOnly ? 'a' : 'b'); ai.wait = 0.5; } return; }
     if (ai.wait > 0) { ai.wait -= dt; return; }
     if (!ai.plan.length) {
       ai.idle -= dt;
@@ -993,6 +1024,10 @@ export class Game {
         if (st.inst === cmd.v) ai.plan.shift(); else { c.press('x'); ai.wait = 0.35; }
         break;
       case 'press': c.press(cmd.b); ai.plan.shift(); ai.wait = cmd.w ?? 0.4; break;
+      case 'done':   // RB to the last page, then RB once more to Done (A there: the concert)
+        if (st.done) { ai.plan.shift(); break; }
+        c.press('rb'); ai.wait = rand(0.3, 0.5);
+        break;
       default: ai.plan.shift();
     }
   }
@@ -1033,14 +1068,13 @@ export class Game {
     const lead = this.stations[0] === st;
     if (lead) {
       if (!S.groove && this.t > 7) { S.groove = true; return [{ t: 'tb', i: 1 }, { t: 'press', b: 'a', w: 0.6 }]; }
-      if (!S.page2 && this.t > 12) { S.page2 = true; return [{ t: 'press', b: 'rb', w: 0.6 }, { t: 'goto', R: 3, col: 2 }, { t: 'press', b: 'y', w: 0.8 }]; }
+      if (!S.page2 && this.t > 12) { S.page2 = true; return [{ t: 'press', b: 'rb', w: 0.6 }, { t: 'goto', R: 3, col: 2 }, { t: 'press', b: 'y', w: 0.8 }]; }   // (a fresh page: Y = a surprise tune)
       if (!S.tempo && this.t > 18) { S.tempo = true; if (chance(0.5)) return [{ t: 'tb', i: TB.findIndex((b) => b.id === 'tempo') }, { t: 'press', b: 'a', w: 0.6 }]; }
-      if (!S.concert && this.t > 25) { S.concert = true; return [{ t: 'tb', i: TB.length - 1 }, { t: 'press', b: 'a', w: 0.6 }]; }
+      if (!S.concert && this.t > 25) { S.concert = true; return [{ t: 'done' }]; }
     }
     const notes = pg.cells.slice(0, NP).reduce((a, row) => a + row.filter(Boolean).length, 0);
-    if (notes < 3) return [{ t: 'press', b: 'y', w: 0.8 }];
+    if (!this.pageNotes()) return [{ t: 'press', b: 'y', w: 0.8 }];   // an empty page: Y writes a surprise tune
     if (chance(0.15)) return [{ t: 'inst', v: randInt(0, INSTS.length - 1) }];
-    if (chance(0.2)) return [{ t: 'press', b: 'y', w: 0.6 }];
     if (notes > 26) return [];
     const col = randInt(0, STEPS - 1), near = pg.cells.slice(0, NP).findIndex((row) => row[(col + STEPS - 1) % STEPS] || row[(col + 1) % STEPS]);
     const R = clamp((near >= 0 ? near : randInt(1, 6)) + pick([-2, -1, 1, 2]), 0, NP - 1);
@@ -1118,7 +1152,7 @@ export class Game {
     this.phase = 'concert';
     this.picker = null;
     this.concert = { t: 0, song, passes: Math.max(1, Math.ceil(3 / L)), ended: false, endT: 0, songPos: 0 };
-    for (const st of this.stations) { st.confirm = null; st.paint = null; if (st.p.isAI) { st.p.ctrl.reset(); st.ai.plan = []; } }
+    for (const st of this.stations) { st.ask = null; st.done = null; st.paint = null; if (st.p.isAI) { st.p.ctrl.reset(); st.ai.plan = []; } }
     const S = this.seq;
     S.step = 0; S.stopped = false; S.last = null; S.col = -1; this.events = [];
     S.nextAt = this.clock()[1] + 1.3;     // the curtains open first
@@ -1186,7 +1220,7 @@ export class Game {
     if (this.finished) return;
     this.finished = true;
     const stats = this.stations.map((st) => (st.placed ? `${st.placed} note${st.placed === 1 ? '' : 's'} · ${INSTS[st.inst].name}` : 'Music fan!'));
-    this.api.finishTogether({ stats, title: 'Bravo!' });
+    this.api.finishTogether({ stats, title: 'Bravo!', banner: false });   // the concert shows its own Bravo!
   }
 
   onDone() {
@@ -1243,8 +1277,9 @@ export class Game {
       particles.burst(x, y, { type: 'sparkle', count: 4, colors: [rowColor(q.R), '#fff', '#ffe066'], speed: [60, 200] });
       if (!q.quiet) this.preview(q.R, q.inst, 0.7);
     }
-    const conf = this.stations.find((s) => s.confirm);
-    if (conf && input.pointer.pressed) this.resolveConfirm(conf, ui.clickedHint() === 'a');
+    const asking = this.stations.find((s) => s.ask), done = this.stations.find((s) => s.done);
+    if (asking && input.pointer.pressed) { const i = this.askHit(input.pointer.x, input.pointer.y); if (i >= 0) this.resolveAsk(asking, i === 1 ? 'yes' : 'no'); }
+    else if (done && input.pointer.pressed) { if (ui.clickedHint() === 'a') { done.done = null; this.startConcert(); return; } this.setDone(done, false); }
     else this.updatePointer();
     for (const st of this.stations) {
       if (st.p.isAI) this.aiUpdate(st, dt);
@@ -1284,7 +1319,11 @@ export class Game {
     this.drawToolbar(g);
     this.drawLegend(g);
     if (!this.picker) for (const st of this.stations.slice().sort((a, b) => a.p.isAI - b.p.isAI).reverse()) this.drawCursor(g, st);
-    for (const st of this.stations) if (st.confirm) this.drawConfirm(g, st);
+    const doneSt = this.stations.find((s) => s.done && !s.p.isAI) || this.stations.find((s) => s.done);
+    if (doneSt) ui.panel(g, LEGEND.x, LEGEND.y, LEGEND.w, LEGEND.h, { r: 30, fill: '#fff8ec' });   // (the card covers the legend)
+    if (doneSt) drawDoneCard(g, { x: LEGEND.x + 8, y: LEGEND.y + 120, w: LEGEND.w - 16, h: 420 }, doneSt.p.color, { title: `${doneSt.p.tag}: all done?`, ready: 'Concert!', back: 'LB / B: not yet' });
+    const askSt = this.stations.find((s) => s.ask && !s.p.isAI) || this.stations.find((s) => s.ask);
+    if (askSt) drawAsk(g, PANEL, askSt.ask, { title: this.humans > 1 ? "Clear everyone's page?" : 'Clear this page?', yes: 'Clear' });
     if (this.picker) this.drawPicker(g);
   }
 
@@ -1439,8 +1478,15 @@ export class Game {
       g.save(); g.translate(b.x + b.w / 2, TBY + TBH / 2); g.scale(k, k);
       const x0 = -b.w / 2, y0 = -TBH / 2;
       let fill = '#ffffff';
-      if (b.id === 'concert') fill = hot ? '#5ff0a0' : '#36d17a';
-      else if (isPage) fill = cur ? '#ffd23f' : '#fff8ec';
+      if (b.id === 'concert') {   // the last category: Done (A there: the concert)
+        const on = hot || this.stations.some((st) => st.done);
+        ui.panel(g, x0, y0, b.w, TBH, { r: 26, fill: on ? '#36d17a' : '#a8e9c3', lineWidth: on ? 6 : 5 });
+        g.restore();
+        drawDoneTab(g, b.x + 10, TBY + 8, TBH - 16, TBH - 16, { sel: on, label: false });
+        ui.text(g, 'Done', b.x + TBH + (b.w - TBH) / 2, TBY + TBH / 2 + 2, { size: 44, color: '#fff', stroke: NAVY, strokeWidth: 8, weight: 800 });
+        return;
+      }
+      if (isPage) fill = cur ? '#ffd23f' : '#fff8ec';
       else if (hot) fill = '#fff1a8';
       ui.panel(g, x0, y0, b.w, TBH, { r: 26, fill, lineWidth: cur ? 6 : 5 });
       switch (b.id) {
@@ -1481,10 +1527,6 @@ export class Game {
           }
           ui.text(g, 'Clear', x0 + 128, 2, { size: 36, color: NAVY, stroke: false, weight: 800 });
           break;
-        case 'concert':
-          g.save(); g.translate(x0 + 50, 0); g.rotate(Math.sin(t * 3) * 0.15); drawStarShape(g, 56, '#fff3a0'); g.restore();
-          ui.text(g, 'Concert!', x0 + 196, 2, { size: 44, color: '#fff', stroke: NAVY, strokeWidth: 8, weight: 800 });
-          break;
         default: break;
       }
       g.restore();
@@ -1494,7 +1536,7 @@ export class Game {
   drawLegend(g) {
     const L = LEGEND;
     ui.panel(g, L.x, L.y, L.w, L.h, { r: 30, fill: 'rgba(255,248,236,0.94)' });
-    const rows = [['stick', 'Move'], ['a', 'Note'], ['x', 'Sound'], ['y', 'Sparkle'], ['lbrb', 'Page'], ['b', 'Undo'], ['start', 'Menu']];
+    const rows = [['stick', 'Move'], ['a', 'Note'], ['x', 'Sound'], ['lbrb', 'Page / Done'], ['y', this.pageNotes() ? 'Clear' : 'Surprise'], ['b', 'Undo'], ['start', 'Menu']];
     const step = (L.h - 40) / rows.length;
     rows.forEach(([b, label], i) => {
       const y = L.y + 20 + step * (i + 0.5);
@@ -1539,17 +1581,6 @@ export class Game {
       g.globalAlpha = k;
       if (!drawArt(g, 'icon/undo', x + w / 2, y - 26 - (1 - k) * 20, 46, 46)) ui.text(g, '↶', x + w / 2, y - 26 - (1 - k) * 20, { size: 44, color: '#fff' });
     }
-    g.restore();
-  }
-
-  drawConfirm(g, st) {
-    const C = st.confirm, b = TB.find((q) => q.id === C.kind);
-    const w = 470, h = 160, px = clamp(b.x + b.w / 2 - w / 2, 20, W - w - 20), py = TBY + TBH + 22;
-    const k = ease.outBack(Math.min(1, C.t / 0.25));
-    g.save(); g.translate(px + w / 2, py); g.scale(k, k); g.translate(-(px + w / 2), -py);
-    ui.panel(g, px, py, w, h, { r: 28, fill: '#fff8ec', stroke: st.p.color, lineWidth: 7 });
-    ui.text(g, C.kind === 'clear' ? (this.humans > 1 ? "Clear everyone's page?" : 'Clear this page?') : 'Start the concert?', px + w / 2, py + 44, { size: 38, color: NAVY, stroke: false, weight: 800 });
-    ui.hints(g, [['a', 'Yes!'], ['b', 'Not yet']], px + w / 2, py + 112, { size: 42, color: '#ff6fb1' });
     g.restore();
   }
 

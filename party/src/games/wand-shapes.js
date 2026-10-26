@@ -414,8 +414,9 @@ export class Game {
     }
     // characters
     for (const e of this.ents) e.a.draw(g, { ring: e.p.color });
-    // wand beams to the sparkles
-    for (const e of this.ents) {
+    // wand beams to the sparkles (not on the gallery ending: the spells are the show)
+    const ended = !!this.api.ended?.();
+    if (!ended) for (const e of this.ents) {
       const h = e.a.anchor('hand');
       g.save(); g.globalAlpha = 0.25 + 0.35 * e.moving;
       g.strokeStyle = e.p.color; g.lineWidth = 4; g.setLineDash([4, 14]); g.lineDashOffset = -this.t * 80;
@@ -445,7 +446,7 @@ export class Game {
         g.restore();
       }
       drawSparkle(g, e.cx, e.cy, 52 * pulse, e.rot, e.p.color);
-      if (this.n > 1 || this.time < 4) ui.playerTag(g, e.p, e.cx, e.cy - 52);
+      if ((this.n > 1 || this.time < 4) && !ended) ui.playerTag(g, e.p, e.cx, e.cy - 52);
       // Molly Easy: hold A to fly - the big A sits beside the dot it flies to (or over the sparkle)
       if (this.easy && !e.p.isAI && !this.done && e.idleT > 1.2 && this.time > 0) easyPrompt(g, e.p, { target: e.et ? { x: e.et.x, y: e.et.y } : null, child: { x: e.cx, y: e.cy - 26 } });
     }
@@ -504,13 +505,15 @@ export class Game {
   }
 
   drawHUD(g) {
-    ui.scoreboard(g, this.players, this.players.map(() => ''), { y: 18, avoidCenter: true, format: (v) => v });
+    // the gallery ending's ribbon takes the top: no player chips, the spells strip just below it
+    const ended = !!this.api.ended?.(), sy = ended ? 136 : 112;
+    if (!ended) ui.scoreboard(g, this.players, this.players.map(() => ''), { y: 18, avoidCenter: true, format: (v) => v });
     // spells cast so far, under the timer (api.limit's clock, drawn by the play scene)
     const n = this.spells.length;
     if (n) {
       const sz = 46, w = Math.min(n, 12) * (sz + 8);
-      ui.panel(g, W / 2 - w / 2 - 14, 112, w + 28, sz + 16, { r: (sz + 16) / 2, fill: 'rgba(255,255,255,0.85)', lineWidth: 4 });
-      this.spells.slice(-12).forEach((id, i) => drawShapeIcon(g, id, W / 2 - w / 2 + 4 + sz / 2 + i * (sz + 8), 112 + 8 + sz / 2, sz, this.t));
+      ui.panel(g, W / 2 - w / 2 - 14, sy, w + 28, sz + 16, { r: (sz + 16) / 2, fill: 'rgba(255,255,255,0.85)', lineWidth: 4 });
+      this.spells.slice(-12).forEach((id, i) => drawShapeIcon(g, id, W / 2 - w / 2 + 4 + sz / 2 + i * (sz + 8), sy + 8 + sz / 2, sz, this.t));
     }
     if (this.banner) {
       const k = this.banner.t;

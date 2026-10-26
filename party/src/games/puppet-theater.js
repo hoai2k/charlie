@@ -1,7 +1,11 @@
 // Puppet Theater (Play Studio): a little puppet booth for everyone.
-//   1. Set the stage: everyone moves a hand, picks a painted backdrop and
-//      stands cardboard props on the stage (A picks up / places, B removes).
-//      X swaps your puppet between "you on a stick" and a sock puppet.
+//   1. Set the stage: everyone moves a hand (left stick) and steps through
+//      the categories with LB / RB: Backdrop, Props, Puppet and, last, Done.
+//      X picks the next item there (backdrop, prop, stick / sock puppet);
+//      A keeps it and moves on (with Props: puts the prop where the hand is,
+//      or picks one up / places it); on Done, A: I'm ready (B: not yet).
+//      B removes the prop under the hand (nothing there: back a category);
+//      Y asks "Take your props away?" (Go back is the default).
 //   2. Act 1: puppets pop up from behind the playboard. Move, hide (peekaboo!),
 //      jump, twirl, make silly sounds and "talk" with picture bubbles from a
 //      picture wheel. The audience laughs, gasps, awws and claps; the
@@ -28,6 +32,9 @@ import {
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
 const SETUP_TIME = [45, 32];
+// Setup categories (LB / RB); the last one is "Done".
+const TABS = ['Backdrop', 'Props', 'Puppet'];
+const T_BACKDROP = 0, T_PROPS = 1, T_PUPPET = 2, DONE = TABS.length;
 const ACT_TIME = 35;
 const REPLAY_LEN = 10;
 const CALL_TIME = 10;
@@ -48,6 +55,7 @@ const DPAD_PICS = { up: 'heart', right: 'star', down: 'wow', left: 'sad' };
 // Sock-puppet moods for the photo poses at the curtain call.
 const POSE_MOOD = { surprised: 'wow', photo: 'happy', 'pose-twirl': 'spin', sad: 'sad', giggle: 'laugh', tumble: 'wow', 'hip-bump': 'happy', 'dance-star': 'happy', sit: 'sleep', 'high-five': 'happy', strike3: 'happy', dizzy: 'wow', pout: 'sad' };
 
+import { askOpen, askUpdate, drawAsk, drawDoneTab } from '../engine/studio-ui.js';
 import { meta } from './puppet-theater.meta.js';
 
 export { meta };
@@ -105,7 +113,7 @@ export class Game {
       p, i, a, kind: sock ? 'sock' : 'stick',
       x, baseY: a.y, liftV: 0, z: 0, vz: 0, vx: 0, tilt: 0, spinT: 0, spin: 1,
       cur: { x: WIN.x0 + 160 + ((WIN.x1 - WIN.x0 - 320) * (i + 0.5)) / this.n, y: 430 }, held: null, hover: null,
-      ready: false, silly: randInt(0, SILLY.length - 1),
+      ready: false, tab: 0, propSel: i % PROPS.length, clearAsk: null, tabPop: 0, silly: randInt(0, SILLY.length - 1),
       laughs: 0, peeks: 0, pics: 0, tricks: 0, chats: 0, props: 0,
       bubble: null, lastPic: 'heart', wheel: null, hiddenT: 0, recent: {}, landProp: false,
       sock: { mouth: 0, eyesX: 0, eyesY: 0, ex: 0, ey: 0, blink: 0, blinkT: rand(1, 4), tilt: 0, spin: 1, mood: null, moodT: 0, talkT: 0 },
@@ -168,7 +176,7 @@ export class Game {
     this.scene.props = [];
     this.bdFade = null;
     for (const pp of this.pp) {
-      pp.ready = false; pp.held = null; pp.props = 0; pp.bubble = null; pp.wheel = null;
+      pp.ready = false; pp.held = null; pp.props = 0; pp.bubble = null; pp.wheel = null; pp.tab = 0; pp.clearAsk = null;
       pp.z = 0; pp.vz = 0; pp.spinT = 0;
       pp.a.y = pp.baseY = FEET_Y + this.puppetH * 0.62; pp.a.setPose('idle');
       pp.cur.x = WIN.x0 + 160 + ((WIN.x1 - WIN.x0 - 320) * (pp.i + 0.5)) / this.n; pp.cur.y = 430;
@@ -368,14 +376,20 @@ export class Game {
     if (pp.held) {
       pp.held.x = cur.x; pp.held.y = cur.y + (PROP_BY_ID[pp.held.id].stand ? PROP_BY_ID[pp.held.id].h * 0.5 : 0);
     }
-    // backdrop: d-pad left/right on a pad, LB/RB on anything
-    const step = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
-    if (step) {
-      const k = BACKDROPS.findIndex((b) => b.id === this.scene.backdrop);
-      this.setBackdrop(BACKDROPS[(k + step + BACKDROPS.length) % BACKDROPS.length].id, pp);
+    pp.tabPop = Math.max(0, pp.tabPop - dt * 4);
+    // ready (Done + A): B = not yet after all
+    if (pp.ready) { if (c.pressed('b')) this.toggleReady(pp); return; }
+    if (pp.clearAsk) { this.updateClearAsk(pp); return; }
+    // LB / RB: categories (the last one is Done) · X (or the d-pad): the next item in it
+    const tabStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
+    if (tabStep) this.stepTab(pp, tabStep);
+    const step = (c.pressed('x') ? 1 : 0) + (pad ? (c.pressed('right') || c.pressed('down') ? 1 : 0) - (c.pressed('left') || c.pressed('up') ? 1 : 0) : 0);
+    if (step) this.nextItem(pp, step);
+    // Y: take your props away (asks first; nothing placed yet: nothing to ask)
+    if (c.pressed('y')) {
+      if (this.scene.props.some((pr) => pr.owner === pp.i)) { if (pp.held) pp.held = null; pp.clearAsk = askOpen(); sfx('select'); return; }
+      sfx('blip', { vol: 0.4 });
     }
-    if (c.pressed('x')) this.swapPuppet(pp);
-    if (c.pressed('y')) this.toggleReady(pp);
     if (c.pressed('a')) {
       if (pp.held) {
         if (this.overStage(cur.x, cur.y)) this.placeHeld(pp);
@@ -383,13 +397,15 @@ export class Game {
           if (!pp.held.isNew) { /* a moved prop dropped off stage goes away */ particles.burst(cur.x, cur.y, { type: 'smoke', count: 6 }); }
           pp.held = null; sfx('back', { vol: 0.5 });
         }
-      } else if (hv.kind === 'card') this.setBackdrop(BACKDROPS[hv.k].id, pp);
-      else if (hv.kind === 'ready') this.toggleReady(pp);
+      } else if (pp.tab === DONE) this.toggleReady(pp);   // on Done, A is always "I'm ready"
+      else if (hv.kind === 'card') this.setBackdrop(BACKDROPS[hv.k].id, pp);
+      else if (hv.kind === 'ready') this.setTab(pp, DONE);   // the shelf's Done tile: on to Done
       else if (hv.kind === 'tile') {
         if (this.ownedProps(pp) >= this.propLimit) {
           sfx('error', { vol: 0.5 }); this.popText(cur.x, cur.y - 40, `${this.propLimit} props each!`, '#ff6fb1');
         } else {
           const d = PROPS[hv.k];
+          pp.propSel = hv.k;
           pp.held = { id: d.id, x: cur.x, y: cur.y, owner: pp.i, isNew: true, s: 1, wr: 0, wv: 0, ph: rand(TAU) };
           sfx('pop', { vol: 0.6 });
         }
@@ -397,14 +413,54 @@ export class Game {
         const pr = hv.pr;
         this.scene.props.splice(this.scene.props.indexOf(pr), 1);
         pr.isNew = false; pp.held = pr; sfx('select', { vol: 0.6 });
-      }
+      } else if (pp.tab === T_PROPS && hv.kind === 'stage') {
+        // A on the stage with Props picked: the chosen prop (X: the next one) goes right here
+        if (this.ownedProps(pp) >= this.propLimit) { sfx('error', { vol: 0.5 }); this.popText(cur.x, cur.y - 40, `${this.propLimit} props each!`, '#ff6fb1'); }
+        else {
+          const d = PROPS[pp.propSel];
+          pp.held = { id: d.id, x: cur.x, y: cur.y + (d.stand ? d.h * 0.5 : 0), owner: pp.i, isNew: true, s: 1, wr: 0, wv: 0, ph: rand(TAU) };
+          this.placeHeld(pp);
+        }
+      } else if (pp.tab !== T_PROPS) this.stepTab(pp, 1);   // keep this backdrop / puppet: on to the next category
     } else if (c.pressed('b')) {
       if (pp.held) { particles.burst(cur.x, cur.y, { type: 'smoke', count: 8 }); sfx('back', { vol: 0.5 }); pp.held = null; }
       else if (hv.kind === 'prop') {
         this.scene.props.splice(this.scene.props.indexOf(hv.pr), 1);
         particles.burst(cur.x, cur.y, { type: 'smoke', count: 10 }); snd('pt-poof', 'pop', { vol: 0.6 });
-      }
+      } else if (pp.tab > 0) this.stepTab(pp, -1);   // nothing there: back a category
     }
+  }
+
+  /** LB / RB: the next / previous setup category; the last one is "Done". */
+  stepTab(pp, dir) { this.setTab(pp, (pp.tab + dir + DONE + 1) % (DONE + 1)); }
+  setTab(pp, tab) {
+    if (pp.held && tab === DONE) { pp.held = null; }
+    pp.tab = tab; pp.tabPop = 1;
+    if (!pp.p.isAI) sfx('move', { vol: 0.6 });
+  }
+  /** X / d-pad: the next backdrop, prop or puppet (whichever category is picked). */
+  nextItem(pp, dir) {
+    if (pp.tab === T_BACKDROP) {
+      const k = BACKDROPS.findIndex((b) => b.id === this.scene.backdrop);
+      this.setBackdrop(BACKDROPS[(k + dir + BACKDROPS.length) % BACKDROPS.length].id, pp);
+    } else if (pp.tab === T_PROPS) { pp.propSel = (pp.propSel + dir + PROPS.length) % PROPS.length; if (!pp.p.isAI) sfx('move', { vol: 0.6 }); }
+    else if (pp.tab === T_PUPPET) this.swapPuppet(pp);
+    else if (!pp.p.isAI) sfx('blip', { vol: 0.4 });
+  }
+
+  /** "Take your props away?": Go back (the default) or Clear. */
+  updateClearAsk(pp) {
+    const q = pp.clearAsk, sel = q.sel, r = askUpdate(pp.p.ctrl, q);
+    if (q.sel !== sel) sfx('move', { vol: 0.6 });
+    if (!r) return;
+    pp.clearAsk = null;
+    if (r !== 'yes') { sfx('back', { vol: 0.5 }); return; }
+    for (const pr of this.scene.props.filter((q2) => q2.owner === pp.i)) {
+      const d = PROP_BY_ID[pr.id];
+      particles.burst(pr.x, d.stand ? pr.y - d.h * 0.4 : pr.y, { type: 'smoke', count: 8 });
+    }
+    this.scene.props = this.scene.props.filter((q2) => q2.owner !== pp.i);
+    snd('pt-poof', 'pop', { vol: 0.7 }); sfx('whoosh');
   }
 
   placeHeld(pp) {
@@ -431,7 +487,7 @@ export class Game {
   }
 
   toggleReady(pp) {
-    pp.ready = !pp.ready;
+    pp.ready = !pp.ready; pp.clearAsk = null;
     if (pp.ready) { sfx('correct', { vol: 0.6 }); pp.a.playOnce('cheer', 0.7, 'idle'); pp.a.emote('star', 1); }
     else sfx('back', { vol: 0.5 });
   }
@@ -484,10 +540,13 @@ export class Game {
         if (!pp.held) { A.step = null; return; }   // limit reached
         if (go(S.spot.x, S.spot.y)) { c.press('a'); A.step = null; A.wait = rand(0.5, 1.4); }
       }
-    } else if (S.kind === 'swap') { c.press('x'); A.step = null; A.wait = rand(0.4, 0.9); }
-    else if (S.kind === 'ready') {
-      if (!pp.ready) c.press('y');
-      A.step = null; A.wait = 999;
+    } else if (S.kind === 'swap') {   // RB / LB to the Puppet category, then X
+      if (pp.tab !== T_PUPPET) { c.press(pp.tab < T_PUPPET ? 'rb' : 'lb'); A.wait = rand(0.15, 0.3); return; }
+      c.press('x'); A.step = null; A.wait = rand(0.4, 0.9);
+    } else if (S.kind === 'ready') {   // RB on to Done, then A
+      if (pp.ready) { A.step = null; A.wait = 999; return; }
+      if (pp.tab !== DONE) { c.press('rb'); A.wait = rand(0.15, 0.3); return; }
+      c.press('a'); A.wait = 0.4;
     }
   }
 
@@ -1067,6 +1126,8 @@ export class Game {
     const t = this.t;
     if (this.phase === 'setup') this.drawShelf(g, t);
     if (this.phase === 'setup' && !this.trans) for (const pp of this.pp) this.drawHand(g, pp, t);
+    const asking = this.phase === 'setup' && !this.trans && this.pp.find((pp) => pp.clearAsk);
+    if (asking) drawAsk(g, { x: WIN.x0, y: WIN.y0, w: WIN.x1 - WIN.x0, h: BOARD_Y - WIN.y0 }, asking.clearAsk, { title: this.n > 1 ? `${asking.p.tag}: take your props away?` : 'Take your props away?', yes: 'Clear' });
     this.drawChips(g);
     // header
     if (!this.trans) {
@@ -1086,7 +1147,7 @@ export class Game {
     if (!this.trans && this.humans.length) {
       const anyPad = this.humans.some((p) => p.ctrl.kind === 'pad');
       if (this.phase === 'setup') {
-        this.hintBar(g, [['stick', 'Move hand'], ['a', 'Pick up / place'], ['b', 'Remove'], [anyPad ? 'dpad' : 'rb', 'Backdrop'], ['x', 'Stick / sock'], ['y', 'Ready!']], BOARD_Y + 50);
+        this.hintBar(g, [['stick', 'Move hand'], ['lb', '/ RB: Backdrop, Props, Puppet, Done'], [anyPad ? 'dpad' : 'x', 'Next'], ['a', 'OK / place'], ['b', 'Remove'], ['y', 'Clear']], BOARD_Y + 50);
       } else if (this.phase === 'act') {
         this.hintBar(g, [['stick', 'Move · down hides'], ['a', 'Jump'], ['b', 'Hold: pictures'], ['x', 'Twirl'], ['y', 'Silly sound']].concat(anyPad ? [['dpad', 'Quick pictures']] : []), H - 40);
       } else if (this.phase === 'call') {
@@ -1175,16 +1236,20 @@ export class Game {
     const rr = this.readyRect();
     const humansReady = this.pp.filter((pp) => !pp.p.isAI);
     const nReady = this.pp.filter((pp) => pp.ready).length;
-    ui.panel(g, rr.x, rr.y, rr.w, rr.h, { r: 24, fill: '#7fe0a8', lineWidth: 5, shadow: false });
-    ui.glyph(g, 'y', rr.x + 40, rr.y + rr.h / 2, 40);
-    ui.text(g, 'Ready!', rr.x + 140, rr.y + rr.h / 2 - 12, { size: 34, color: '#ffffff', strokeWidth: 6 });
-    ui.text(g, `${nReady}/${this.n}`, rr.x + 140, rr.y + rr.h / 2 + 22, { size: 24, color: NAVY, stroke: false, weight: 800 });
+    // the shelf's "Done" tile (the last category; A there: I'm ready) with how many are ready
+    const doneHot = this.pp.some((pp) => !pp.p.isAI && (pp.tab === DONE || (pp.hover && pp.hover.kind === 'ready')));
+    ui.panel(g, rr.x, rr.y, rr.w, rr.h, { r: 24, fill: doneHot ? '#36d17a' : '#a8e9c3', lineWidth: 5, shadow: false });
+    drawDoneTab(g, rr.x + 12, rr.y + 12, rr.h - 24, rr.h - 24, { sel: doneHot, label: false });
+    ui.text(g, 'Done', rr.x + 160, rr.y + rr.h / 2 - 12, { size: 34, color: '#ffffff', strokeWidth: 6 });
+    ui.text(g, `${nReady}/${this.n} ready`, rr.x + 160, rr.y + rr.h / 2 + 22, { size: 24, color: NAVY, stroke: false, weight: 800 });
     void humansReady;
     // prop tiles
     PROPS.forEach((d, k) => {
       const r = this.tileRect(k);
-      const hov = this.pp.some((pp) => !pp.p.isAI && pp.hover && pp.hover.kind === 'tile' && pp.hover.k === k);
+      const picked = this.pp.find((pp) => !pp.p.isAI && pp.tab === T_PROPS && pp.propSel === k);
+      const hov = !!picked || this.pp.some((pp) => !pp.p.isAI && pp.hover && pp.hover.kind === 'tile' && pp.hover.k === k);
       g.save();
+      if (picked) { g.lineWidth = 6; g.strokeStyle = picked.p.color; ui.roundRect(g, r.x - 5, r.y - 5, r.w + 10, r.h + 10, 18); g.stroke(); }
       g.fillStyle = hov ? '#ffffff' : '#ffe8f3'; ui.roundRect(g, r.x, r.y, r.w, r.h, 14); g.fill();
       g.lineWidth = hov ? 5 : 3; g.strokeStyle = hov ? '#ff6fb1' : NAVY; g.stroke();
       const s = Math.min((r.w - 14) / d.w, (r.h - 12) / d.h) * (hov ? 1.12 : 1);
@@ -1213,6 +1278,26 @@ export class Game {
     g.fillStyle = p.color; g.beginPath(); g.arc(0, 0, 8, 0, TAU); g.fill(); g.stroke();
     g.restore();
     ui.playerTag(g, p, c.x + 26, c.y - 10, { label: p.tag });
+    if (this.phase === 'setup' && !p.isAI && !pp.held) this.drawTabPill(g, pp, c.x, c.y + 70);
+  }
+
+  /** Setup: the hand's category (LB / RB) and its item (X), or Done. */
+  drawTabPill(g, pp, x, y) {
+    const t = pp.tab, k = 1 + pp.tabPop * 0.15;
+    let label;
+    if (pp.ready) label = 'Ready!  B: not yet';
+    else if (t === DONE) label = "Done  A: I'm ready!";
+    else if (t === T_BACKDROP) label = `Backdrop: ${BACKDROPS.find((b) => b.id === this.scene.backdrop).name}`;
+    else if (t === T_PROPS) label = `Props: ${PROPS[pp.propSel].name || PROPS[pp.propSel].id}`;
+    else label = `Puppet: ${pp.kind === 'sock' ? 'sock' : 'stick'}`;
+    const fs = 24, w = ui.measure(g, label, fs, 800) + 104, h = 44;
+    const px = clamp(x - w / 2, 12, W - w - 12), py = clamp(y, 20, H - h - 10);
+    g.save(); g.translate(px + w / 2, py + h / 2); g.scale(k, k); g.translate(-(px + w / 2), -(py + h / 2));
+    ui.panel(g, px, py, w, h, { r: h / 2, fill: t === DONE || pp.ready ? '#d6f7e3' : '#fff8ec', stroke: pp.p.color, lineWidth: 4, shadow: false });
+    ui.glyph(g, 'lb', px + 24, py + h / 2, 26);
+    ui.glyph(g, 'rb', px + w - 24, py + h / 2, 26);
+    ui.text(g, label, px + w / 2, py + h / 2 + 1, { size: fs, color: NAVY, stroke: false, weight: 800 });
+    g.restore();
   }
 
   drawReplayFrame(g, t) {

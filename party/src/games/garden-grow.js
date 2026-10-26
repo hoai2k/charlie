@@ -634,9 +634,9 @@ export class Game {
     for (const pl of this.plots) if (pl.state === 'seed' || pl.state === 'sprout' || pl.state === 'bud') this.drawWaterMeter(g, pl);
     if (this.rain) { g.save(); g.translate(this.rain.x, 300 + Math.sin(this.t * 2) * 8); drawRainCloud(g, this.t); g.restore(); }
     for (const b of this.butterflies) { g.save(); g.translate(b.x, b.y); g.rotate(clamp(b.vx / 400, -0.5, 0.5)); drawButterfly(g, b.t + b.ph, b.c1, b.c2, 0.85); g.restore(); }
-    const showTags = !this.started || this.t - this.startT < 5;
+    const showTags = (!this.started || this.t - this.startT < 5) && !this.api.ended?.();
     for (const e of this.ents) {
-      if (!showTags && e.p.isAI) continue;
+      if (!showTags && (e.p.isAI || this.api.ended?.())) continue;
       const top = e.y - e.a.height - 24 - (e.a.emotes.length ? 50 : 0);
       ui.playerTag(g, e.p, e.x, top);
       // Easy: a big bouncing A when standing at a patch that wants A
@@ -761,16 +761,18 @@ export class Game {
   }
 
   drawHUD(g) {
-    ui.scoreboard(g, this.players, this.ents.map(() => ''), { y: 14, avoidCenter: true, format: (v) => v });
+    // the gallery ending's ribbon takes the top: no player chips, the plant count just below it
+    const ended = !!this.api.ended?.(), cy = ended ? 172 : 150;
+    if (!ended) ui.scoreboard(g, this.players, this.ents.map(() => ''), { y: 14, avoidCenter: true, format: (v) => v });
     // shared team counter under the timer: plants grown together
-    g.save(); g.translate(W / 2, 150);
+    g.save(); g.translate(W / 2, cy);
     ui.panel(g, -86, -34, 172, 68, { r: 34, fill: '#ffffff' });
     g.translate(-40, 0);
     g.fillStyle = '#ffd23f'; g.strokeStyle = '#24163f'; g.lineWidth = 3;
     for (let k = 0; k < 6; k++) { const a = (k / 6) * TAU + this.t * 0.6; g.beginPath(); g.arc(Math.cos(a) * 13, Math.sin(a) * 13, 9, 0, TAU); g.fill(); g.stroke(); }
     g.fillStyle = '#8a5a2b'; g.beginPath(); g.arc(0, 0, 9, 0, TAU); g.fill(); g.stroke();
     g.restore();
-    ui.text(g, String(this.grown), W / 2 + 26, 153, { size: 48, color: '#24163f', stroke: false, weight: 800 });
+    ui.text(g, String(this.grown), W / 2 + 26, cy + 3, { size: 48, color: '#24163f', stroke: false, weight: 800 });
     if (this.phase === 'party') {
       const k = this.partyT;
       g.save(); g.globalAlpha = clamp(Math.min(k * 4, (PARTY_T - k) * 3), 0, 1);

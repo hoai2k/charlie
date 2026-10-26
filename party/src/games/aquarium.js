@@ -1,19 +1,21 @@
 // Dream Aquarium (Play Studio): design a fish tank together, fill it with
 // fish you name yourself, then put on a glowing night show.
 //
-// Everyone shares one big tank and has a hand cursor in their colour. Pick a
-// thing from your item bar (LB/RB, or the D-pad on a controller):
-//   sand colours, plants, castles, shells, bubblers, night lights and fish.
+// Everyone shares one big tank and has a hand cursor in their colour (left
+// stick; the right stick nudges it finely). LB / RB step through the categories:
+//   plants, castles, shells, bubblers, night lights, fish, sand colours, Tap
+//   (the glass) and, last, Done. X (or the D-pad left/right) picks the next thing.
 //   LT/RT (D-pad up/down on a controller) picks its colour (or recolours what you hold).
-//   A  place it / pick up what you point at / put it down again
+//   A  place it / pick up what you point at / put it down again;
+//      on Tap: tap the glass (gently! fish come to look; tap too hard and they hide);
+//      on Done: I'm ready for the show (B: not yet after all)
 //   B  remove what you point at (fish wave and swim away)
-//   X  tap the glass (gently! fish come to look; tap too hard and they hide)
 //   Y  sprinkle fish food
 // A new fish gets a name card: left/right picks a name, A chooses it.
 // Fish swim with personality (see aquarium/fish.js) and play by themselves:
 // loop-de-loops, bubble rides, peekaboo through castle doors, chases, kisses.
 // The moon button on the lid turns the lights off (glowing lights, glowing
-// jellyfish). "Show!" (or the gentle timer, or the pause menu) starts the
+// jellyfish). Every kid ready on Done (or the gentle timer, or the pause menu) starts the
 // night show: lights out one by one, close-up photos of everyone's favourite
 // fish, then a group photo with the shared photo poses.
 //
@@ -57,16 +59,20 @@ const PALETTE = [
 ];
 const PAL_INDEX = Object.fromEntries(PALETTE.map((e, i) => [e.key, i]));
 const GROUP_START = GROUP_ORDER.map((grp) => PALETTE.findIndex((e) => e.group === grp));
+const GROUP_END = GROUP_ORDER.map((grp) => PALETTE.length - [...PALETTE].reverse().findIndex((e) => e.group === grp));
+// Categories (LB / RB): the groups, then "Tap" (A taps the glass) and last "Done".
+const TAP_TAB = GROUP_ORDER.length, DONE = TAP_TAB + 1, NTABS = DONE + 1;
+const groupOf = (idx) => GROUP_ORDER.indexOf(PALETTE[idx].group);
+const tabName = (tab) => (tab === DONE ? 'Done' : tab === TAP_TAB ? 'Tap' : GROUPS[GROUP_ORDER[tab]].name);
 const MAX_DECOR = 50, MAX_FISH = 26;
 
 // --- screen layout --------------------------------------------------------------------
 const BAR = { y: 950, h: 124 };
-const SHOW_BTN = { x: 1672, y: 16, w: 232, h: 86 };
 // The build clock is the play scene's own timer (api.limit) at CLOCK; its "+1 min" button sits beside it.
 const CLOCK = { x: 1764, y: 162 };
 const CLOCK_PLUS = { x: 1852, y: 132, w: 56, h: 60 };
 const LEGEND = { x: 14, y: 14, w: 250 };
-const LEGEND_ROWS = [[['stick'], 'Move'], [['lb', 'rb'], 'Items'], [['lt', 'rt'], 'Colour'], [['a'], 'Place'], [['b'], 'Remove'], [['x'], 'Tap glass'], [['y'], 'Feed']];
+const LEGEND_ROWS = [[['stick'], 'Move'], [['lb', 'rb'], 'Category'], [['x'], 'Next'], [['lt', 'rt'], 'Colour'], [['a'], 'Place'], [['b'], 'Remove'], [['y'], 'Feed']];
 const inRect = (r, x, y) => x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h;
 const inTank = (x, y) => x >= WATER.x0 - 10 && x <= WATER.x1 + 10 && y >= LID.y1 && y <= WATER.y1 + 4;
 const BUILD_TIME = 180, CPU_TIME = 58;
@@ -74,6 +80,7 @@ const LINEUP = 1.0, CHEESE_TIME = 6, PHOTO_PIN = 2.4, PHOTO_FLY = 0.8;
 const PIN = { x: 960, y: 96, w: 250, rot: 0.04 };
 const ROW_Y = 1052;
 
+import { drawDoneTab } from '../engine/studio-ui.js';
 import { meta } from './aquarium.meta.js';
 
 export { meta };
@@ -111,11 +118,13 @@ export class Game {
     const st = {
       p, i, cur: { x: 560 + (i % 4) * 260, y: 420 + Math.floor(i / 4) * 140 }, hold: 0,
       sel: (GROUP_START[i % 6] + Math.floor(i / 6)) % PALETTE.length, scroll: 0, rep: { dir: 0, t: 0 }, colorOf: {},
-      held: null, hover: null, naming: null, confirm: null, click: false, cool: 0, feedCool: 0, tapHeat: 0, selPop: 0, colPop: 0, reactT: 0,
+      tab: i % 6, selIn: [...GROUP_START], ready: false, tabPop: 0,
+      held: null, hover: null, naming: null, click: false, cool: 0, feedCool: 0, tapHeat: 0, selPop: 0, colPop: 0, reactT: 0,
       stats: { decor: 0, fish: 0, fed: 0, taps: 0 },
       ai: p.isAI ? { cmds: [], wait: 0, idle: rand(1, 2.4) + i * 0.35, decor: 0, fish: 0, extra: 0 } : null,
     };
-    st.scroll = st.sel;
+    st.selIn[st.tab] = st.sel;
+    st.scroll = st.sel - GROUP_START[st.tab];
     st.actor = new Actor(p, { facing: 1 });
     return st;
   }
@@ -769,9 +778,12 @@ export class Game {
     }
     if (!this.humans) {
       if (this.cpuNight > 0 && this.phaseT > this.cpuNight) { this.cpuNight = -1; const s0 = this.stations[this.stations.length - 1]; s0.ai.cmds.unshift({ t: 'goto', x: SWITCH.x, y: SWITCH.y }, { t: 'a' }); }
-      const done = this.stations.every((s) => s.ai.decor >= this.cpuCap(s, 'decor') && s.ai.fish >= this.cpuCap(s, 'fish') && !s.ai.cmds.length && !s.naming);
-      if (done && this.phaseT > 12) { this.doneT = (this.doneT || 0) + dt; if (this.doneT > 7) this.startShow(); }
+      // each CPU goes to Done (RB) and presses A when its part is finished (see updateAI)
     }
+    // Every kid ready on Done (CPUs alone: every CPU) starts the night show.
+    const kids = this.stations.filter((s) => (this.humans ? !s.p.isAI : true));
+    if (kids.every((s) => s.ready)) { this.doneT = (this.doneT || 0) + dt; if (this.doneT > (this.humans ? 0.6 : 2)) this.startShow(); }
+    else this.doneT = 0;
   }
 
   addTime(s) {
@@ -793,20 +805,24 @@ export class Game {
     st.cur.y = clamp(st.cur.y + (my * sp + c.ry * 200) * dt, 4, H - 4);
     const { x, y } = st.cur;
     st.cool -= dt;
-    // --- item bar with hold-repeat; colours
-    const dir = (c.held('rb') || (isPad && c.held('right'))) ? 1 : (c.held('lb') || (isPad && c.held('left'))) ? -1 : 0;
-    if (dir !== st.rep.dir) { st.rep.dir = dir; st.rep.t = 0; if (dir) this.browse(st, dir); }
-    else if (dir) { st.rep.t += dt; if (st.rep.t > 0.42) { st.rep.t -= 0.13; this.browse(st, dir); } }
-    if (c.pressed('rt') || (isPad && c.pressed('down'))) this.cycleColor(st, 1);
-    if (c.pressed('lt') || (isPad && c.pressed('up'))) this.cycleColor(st, -1);
-    st.scroll = this.smoothScroll(st.scroll, st.sel, dt);
-    // --- confirm bubble for the Show button
-    if (st.confirm) {
-      st.confirm.t += dt;
-      if ((c.pressed('a') || st.click) && st.confirm.t > 0.1) { st.confirm = null; this.readyForShow(st); return; }
-      if (c.pressed('b') || (!inRect(SHOW_BTN, x, y) && st.confirm.t > 0.3)) { st.confirm = null; sfx('back'); }
+    if (st.tab < TAP_TAB) { const a = GROUP_START[st.tab]; st.scroll = this.smoothScroll(st.scroll, st.sel - a, dt, GROUP_END[st.tab] - a); }
+    st.tabPop = Math.max(0, st.tabPop - dt * 4);
+    // --- ready for the show (on Done): B = not yet after all
+    if (st.ready) {
+      st.hover = null;
+      if (c.pressed('b') || (st.click && inRect(st.panel, x, y))) this.setReady(st, false);
       return;
     }
+    // --- categories: LB / RB (the last one is Done)
+    const step = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
+    if (step) this.stepTab(st, step);
+    // --- things: X (or the D-pad left/right, with hold-repeat); colours: LT / RT (D-pad up/down)
+    const dir = (isPad && c.held('right')) ? 1 : (isPad && c.held('left')) ? -1 : 0;
+    if (dir !== st.rep.dir) { st.rep.dir = dir; st.rep.t = 0; if (dir) this.browse(st, dir); }
+    else if (dir) { st.rep.t += dt; if (st.rep.t > 0.42) { st.rep.t -= 0.13; this.browse(st, dir); } }
+    if (c.pressed('x')) this.browse(st, 1);
+    if (c.pressed('rt') || (isPad && c.pressed('down'))) this.cycleColor(st, 1);
+    if (c.pressed('lt') || (isPad && c.pressed('up'))) this.cycleColor(st, -1);
     // --- held things follow the hand
     if (st.held && st.held.type === 'decor') {
       const it = st.held.obj, pl = this.placement(it.def, x, y);
@@ -818,9 +834,9 @@ export class Game {
       if (f && !f.naming) st.hover = { type: 'fish', obj: f };
       else { const it = this.hitDecor(x, y); if (it) st.hover = { type: 'decor', obj: it }; }
     }
-    if (c.pressed('a') || st.click) this.pressA(st);
+    if (c.pressed('a') && st.tab === DONE && !st.held) this.setReady(st, true);
+    else if (c.pressed('a') || st.click) this.pressA(st);
     if (c.pressed('b')) this.pressB(st);
-    if (c.pressed('x')) this.tap(st);
     if (c.pressed('y')) {
       // keyboards have no spare colour keys (the arrows layout's LT / RT sit on the numpad), so there
       // Y recolours what the hand carries, or the bar's pick when the hand is down on the item bar
@@ -864,19 +880,42 @@ export class Game {
     sfx('move', { vol: 0.7 });
   }
 
-  smoothScroll(cur, target, dt) {
-    const N = PALETTE.length;
+  smoothScroll(cur, target, dt, N) {
     let d = target - cur;
     if (d > N / 2) cur += N; else if (d < -N / 2) cur -= N;
     d = target - cur;
     return Math.abs(d) < 0.01 ? target : cur + d * (1 - Math.exp(-16 * dt));
   }
 
+  /** X / D-pad: the next (or previous) thing in this category. */
   browse(st, dir) {
-    const N = PALETTE.length;
-    st.sel = (st.sel + dir + N) % N;
-    st.selPop = 1;
+    if (st.tab >= TAP_TAB) { if (!st.p.isAI && st.tab === TAP_TAB) sfx('blip'); return; }
+    const g = st.tab, a = GROUP_START[g], n = GROUP_END[g] - a;
+    st.sel = a + ((st.sel - a + dir + n) % n);
+    st.selIn[g] = st.sel; st.selPop = 1;
     if (!st.p.isAI) sfx('move', { vol: 0.7 });
+  }
+
+  /** LB / RB: the next / previous category; the last one is "Done". */
+  stepTab(st, dir) { this.setTab(st, (st.tab + dir + NTABS) % NTABS); }
+  setTab(st, tab) {
+    st.tab = tab; st.tabPop = 1;
+    if (tab < TAP_TAB) { st.sel = st.selIn[tab]; st.selPop = 1; st.scroll = st.sel - GROUP_START[tab]; }
+    if (!st.p.isAI) sfx('move');
+  }
+
+  /** On Done, A: ready for the show (B: not yet). Every kid ready starts it. */
+  setReady(st, on) {
+    if (st.ready === on) return;
+    if (on && st.held) this.drop(st);
+    st.ready = on;
+    const a = st.actor;
+    if (on) {
+      sfx('ready'); a.playOnce('cheer', 0.6); a.squash(-0.25); this.say(st, 'Ready!', 1.3, 'ready');
+      particles.burst(st.cur.x, st.cur.y, { type: 'confetti', count: 18, speed: [160, 420] });
+      const kids = this.stations.filter((s) => !s.p.isAI), n = kids.filter((s) => s.ready).length;
+      if (this.humans > 1 && n < kids.length) particles.popText(W - 220, 150, `Ready ${n}/${kids.length}!`, st.p.color, 38);
+    } else { sfx('back'); a.setPose('idle'); }
   }
 
   previewColor(st, e) {
@@ -905,19 +944,16 @@ export class Game {
   pressA(st) {
     const { x, y } = st.cur;
     if (st.held) { this.drop(st); return; }
-    if (inRect(SHOW_BTN, x, y)) {
-      if (st.p.isAI) return;
-      if (st.showReady) { st.showReady = false; sfx('back'); particles.popText(SHOW_BTN.x + SHOW_BTN.w / 2, SHOW_BTN.y + SHOW_BTN.h + 30, 'Not yet!', st.p.color, 36); return; }
-      st.confirm = { t: 0 }; sfx('select'); return;
-    }
     if (inRect(CLOCK_PLUS, x, y) && !st.p.isAI) { this.addTime(60); return; }
     if (inRect(SWITCH_HIT, x, y)) { this.toggleNight(st); return; }
     if (y >= BAR.y - 6) { this.panelClick(st, x, y); return; }
     if (!st.p.isAI && x >= LEGEND.x && x <= LEGEND.x + LEGEND.w && y >= LEGEND.y && y <= LEGEND.y + LEGEND_ROWS.length * 50 + 24) {
       const b = LEGEND_ROWS[clamp(Math.floor((y - LEGEND.y - 12) / 50), 0, LEGEND_ROWS.length - 1)][0][0];
-      if (b === 'lb') this.browse(st, 1); else if (b === 'lt') this.cycleColor(st, 1); else sfx('blip');
+      if (b === 'lb') this.stepTab(st, 1); else if (b === 'x') this.browse(st, 1); else if (b === 'lt') this.cycleColor(st, 1); else sfx('blip');
       return;
     }
+    if (st.tab === TAP_TAB) { this.tap(st); return; }
+    if (st.tab === DONE) { sfx('blip'); return; }
     if (st.hover && (!st.p.isAI || st.hover.obj.owner === st.i)) { this.grab(st, st.hover); return; }
     this.placeSelected(st);
   }
@@ -925,8 +961,12 @@ export class Game {
   panelClick(st, x, y) {
     const P = st.panel;
     if (!inRect(P, x, y)) { sfx('blip'); return; }
+    const L = this.panelLayout(st);
+    if (Math.hypot(x - L.catX, y - L.catY) < 40) { this.stepTab(st, 1); return; }   // the category button
+    if (st.tab === DONE) { this.setReady(st, true); return; }
+    if (st.tab === TAP_TAB) { this.toast = { text: 'Point at the glass and press A!', t: 0 }; sfx('blip'); return; }
     if (y > P.y + P.h - 30) { this.cycleColor(st, 1); return; }
-    if (x < P.x + P.w * 0.3) this.browse(st, -1); else if (x > P.x + P.w * 0.7) this.browse(st, 1); else this.placeHint(st);
+    if (x < L.c0 + (L.c1 - L.c0) * 0.3) this.browse(st, -1); else if (x > L.c0 + (L.c1 - L.c0) * 0.7) this.browse(st, 1); else this.placeHint(st);
   }
   placeHint(st) { this.toast = { text: 'Point into the tank and press A!', t: 0 }; sfx('blip'); }
 
@@ -988,15 +1028,6 @@ export class Game {
     }
   }
 
-  /** With several kids, the Show starts once every kid has pressed it (one press no longer ends everyone's building). */
-  readyForShow(st) {
-    const kids = this.stations.filter((s) => !s.p.isAI);
-    st.showReady = true;
-    if (kids.every((s) => s.showReady)) { this.startShow(); return; }
-    sfx('collect', { step: 4 });
-    const n = kids.filter((s) => s.showReady).length;
-    particles.popText(SHOW_BTN.x + SHOW_BTN.w / 2 - 60, SHOW_BTN.y + SHOW_BTN.h + 34, `Ready ${n}/${kids.length}!`, st.p.color, 38);
-  }
 
   /** Another kid's fish or decoration: you may move it, but only its owner can take it away. */
   othersThing(st, obj) {
@@ -1046,11 +1077,14 @@ export class Game {
     const c = st.p.ctrl, A = st.ai, prof = aiProfile(st.p);
     if (st.naming) { c.move(0, 0); return; }
     if (A.wait > 0) { A.wait -= dt; c.move(0, 0); return; }
+    if (st.ready) return;
     if (!A.cmds.length) {
       c.move(0, 0);
       A.idle -= dt;
       if (A.idle > 0) return;
       A.cmds = this.planFor(st);
+      // CPUs alone, their part finished: on to Done (RB) and A
+      if (!A.cmds.length && !this.humans && A.decor >= this.cpuCap(st, 'decor') && A.fish >= this.cpuCap(st, 'fish') && this.phaseT > 12 && this.cpuNight < 0) A.cmds = [{ t: 'done' }];
       A.idle = this.humans ? rand(6, 11) / prof.speed : rand(0.3, 0.8);
       if (!A.cmds.length) A.idle = this.humans ? 5 : rand(1.5, 3);
       return;
@@ -1058,13 +1092,25 @@ export class Game {
     const cmd = A.cmds[0];
     const done = (w = 0.15) => { A.cmds.shift(); A.wait = w / prof.speed; };
     switch (cmd.t) {
-      case 'sel': {
-        if (st.sel === cmd.v) { done(0.2); break; }
-        const N = PALETTE.length, r = (cmd.v - st.sel + N) % N;
-        c.press(r <= N / 2 ? 'rb' : 'lb');
+      case 'sel': {   // RB / LB to the thing's category, then X to the thing
+        const gi = groupOf(cmd.v);
+        if (st.sel === cmd.v && st.tab === gi) { done(0.2); break; }
+        if (st.tab !== gi) { const r = (gi - st.tab + NTABS) % NTABS; c.press(r <= NTABS / 2 ? 'rb' : 'lb'); }
+        else c.press('x');
         A.wait = (this.humans ? rand(0.09, 0.15) : rand(0.05, 0.08)) / prof.speed;
         break;
       }
+      case 'tab': {   // RB / LB to a category (the Tap one, or Done)
+        if (st.tab === cmd.v) { done(0.1); break; }
+        const r = (cmd.v - st.tab + NTABS) % NTABS; c.press(r <= NTABS / 2 ? 'rb' : 'lb');
+        A.wait = rand(0.1, 0.18) / prof.speed;
+        break;
+      }
+      case 'done':   // RB to Done, then A
+        if (st.held) { c.press('a'); A.wait = 0.3; break; }
+        if (st.tab !== DONE) { c.press('rb'); A.wait = rand(0.12, 0.2) / prof.speed; break; }
+        c.press('a'); done(0.3);
+        break;
       case 'col': {
         const e = PALETTE[st.sel];
         if (e.ncol <= 1 || this.previewColor(st, e) === cmd.v) { done(0.15); break; }
@@ -1092,7 +1138,7 @@ export class Game {
         done(0.5); break;
       }
       case 'y': c.press('y'); done(0.5); break;
-      case 'x': c.press('x'); done(0.9); break;
+      case 'tap': c.press('a'); done(0.9); break;   // on the Tap category
       default: done();
     }
   }
@@ -1118,7 +1164,7 @@ export class Game {
     if (fishList.length && r < (this.humans ? 0.32 : 0.2) && A.extra < 4) {
       A.extra++;
       const f = pick(fishList);
-      cmds.push({ t: 'goto', x: clamp(f.x + rand(-120, 120), WATER.x0 + 60, WATER.x1 - 60), y: clamp(f.y + rand(-60, 60), WATER.y0 + 60, 700) }, { t: 'x' });
+      cmds.push({ t: 'tab', v: TAP_TAB }, { t: 'goto', x: clamp(f.x + rand(-120, 120), WATER.x0 + 60, WATER.x1 - 60), y: clamp(f.y + rand(-60, 60), WATER.y0 + 60, 700) }, { t: 'tap' });
       return cmds;
     }
     const decorLeft = A.decor < this.cpuCap(st, 'decor'), fishLeft = A.fish < this.cpuCap(st, 'fish');
@@ -1178,7 +1224,7 @@ export class Game {
     for (const st of this.stations) {
       if (st.naming) this.confirmName(st);
       if (st.held) this.drop(st);
-      st.confirm = null; st.hover = null;
+      st.hover = null;
       if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('a', false); st.ai.cmds = []; }
     }
     this.night = true;
@@ -1569,7 +1615,7 @@ export class Game {
   drawLegend(g) {
     const solo = this.humans === 1 ? this.stations.find((s) => !s.p.isAI) : null;
     let aLabel = 'Place';
-    if (solo) aLabel = solo.held ? 'Put down' : solo.hover ? 'Pick up' : PALETTE[solo.sel].kind === 'sand' ? 'Pour sand' : 'Place';
+    if (solo) aLabel = solo.held ? 'Put down' : solo.tab === DONE ? "I'm ready!" : solo.tab === TAP_TAB ? 'Tap glass' : solo.hover ? 'Pick up' : PALETTE[solo.sel].kind === 'sand' ? 'Pour sand' : 'Place';
     const rows = LEGEND_ROWS.map(([b, label]) => [b, label === 'Place' ? aLabel : label]);
     const rh = 50, h = rows.length * rh + 24;
     ui.panel(g, LEGEND.x, LEGEND.y, LEGEND.w, h, { r: 24, fill: 'rgba(255,248,236,0.94)', lineWidth: 5 });
@@ -1583,58 +1629,84 @@ export class Game {
   }
 
   drawTopRight(g) {
-    const hot = this.stations.some((s) => !s.p.isAI && inRect(SHOW_BTN, s.cur.x, s.cur.y));
-    const pulse = hot ? 1.06 + Math.sin(this.t * 10) * 0.03 : (this.timeLeft < 30 ? 1 + Math.sin(this.t * 5) * 0.03 : 1);
-    const b = SHOW_BTN;
-    g.save(); g.translate(b.x + b.w / 2, b.y + b.h / 2); g.scale(pulse, pulse);
-    ui.panel(g, -b.w / 2, -b.h / 2, b.w, b.h, { r: b.h / 2, fill: hot ? '#8f7bff' : '#6b5ce0', lineWidth: 5 });
-    g.save(); g.translate(-b.w / 2 + 48, 0);
-    g.beginPath(); g.arc(0, 0, 24, -2.2, 2.2, false); g.arc(10, 0, 20, 2.0, -2.0, true); g.closePath(); g.fillStyle = '#fff1a0'; g.fill(); g.lineWidth = 3.5; g.strokeStyle = NAVY; g.stroke();
-    g.translate(16, -16); drawStarShape(g, 14, '#ffffff');
-    g.restore();
-    ui.text(g, 'Show!', 30, 2, { size: 46, weight: 800 });
-    g.restore();
     const p = CLOCK_PLUS, phot = this.stations.some((st) => !st.p.isAI && inRect(p, st.cur.x, st.cur.y));
     const bump = this.clockBump !== undefined ? clamp(1 - (this.t - this.clockBump) / 0.4, 0, 1) : 0;
     const px = p.x + p.w / 2, py = p.y + p.h / 2;
     g.beginPath(); g.arc(px, py, (phot ? 23 : 20) * (1 + bump * 0.2), 0, TAU); g.fillStyle = '#36d17a'; g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
     ui.text(g, '+', px, py - 1, { size: 36, weight: 800 });
-    if (this.humans > 1) {
-      // one dot per kid under the button; filled once that kid is ready for the show
-      const kids = this.stations.filter((s) => !s.p.isAI), gap = 30, x0 = b.x + b.w / 2 - ((kids.length - 1) * gap) / 2;
+    const kids = this.stations.filter((s) => !s.p.isAI);
+    if (this.humans > 1 && kids.some((s) => s.ready)) {
+      // who's ready for the show (Done + A): a dot per kid, filled once that kid is ready
+      const gap = 30, w = 130 + kids.length * gap, x = W - w - 20, y = 30;
+      ui.panel(g, x, y, w, 56, { r: 28, fill: '#fff8ec', lineWidth: 4 });
+      ui.text(g, 'Ready', x + 66, y + 29, { size: 28, color: NAVY, stroke: false, weight: 800 });
       kids.forEach((s, k) => {
-        g.beginPath(); g.arc(x0 + k * gap, b.y + b.h + 3, 10, 0, TAU);
-        g.fillStyle = s.showReady ? s.p.color : 'rgba(255,255,255,0.55)'; g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
+        g.beginPath(); g.arc(x + 136 + k * gap, y + 28, 10, 0, TAU);
+        g.fillStyle = s.ready ? s.p.color : 'rgba(36,22,63,0.15)'; g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
       });
-    }
-    for (const st of this.stations) {
-      if (!st.confirm) continue;
-      const w = 420, h = 150, px = W - w - 20, py = 214;
-      ui.panel(g, px, py, w, h, { r: 26, fill: '#fff8ec', stroke: st.p.color, lineWidth: 6 });
-      ui.text(g, this.humans > 1 ? 'Ready for the show?' : 'Night show now?', px + w / 2, py + 42, { size: 38, color: NAVY, stroke: false, weight: 800 });
-      ui.hints(g, [['a', 'Yes!'], ['b', 'Not yet']], px + w / 2, py + 106, { size: 40, color: '#7fe8ff' });
     }
   }
 
+  panelLayout(st) {
+    const P = st.panel, wide = P.w >= 380;
+    const x0 = wide ? P.x + 84 : P.x + 12;
+    const catX = x0 + 34, catY = P.y + P.h / 2 + 2;
+    const glyphW = P.w >= 300 ? 30 : 0;
+    const c0 = x0 + 76, c1 = P.x + P.w - 12 - glyphW;
+    return { wide, catX, catY, c0, c1, mid: (c0 + c1) / 2, glyphW };
+  }
+
   drawPanel(g, st) {
-    const P = st.panel, p = st.p, wide = P.w >= 380;
+    const P = st.panel, p = st.p, L = this.panelLayout(st), { wide, glyphW, c0, c1, mid } = L;
     ui.panel(g, P.x, P.y, P.w, P.h, { r: 22, fill: '#fff8ec', stroke: p.color, lineWidth: 6 });
-    let x0 = P.x + 12;
     if (wide) {
       drawPortrait(g, p, P.x + 44, P.y + 50, 30, { ring: p.color, ringWidth: 4, expr: 'happy' });
       ui.text(g, p.tag, P.x + 44, P.y + P.h - 20, { size: 22, color: p.color, strokeWidth: 4 });
-      x0 = P.x + 84;
     }
-    const glyphW = P.w >= 300 ? 30 : 0;
-    const c0 = x0 + glyphW, c1 = P.x + P.w - 12 - glyphW, mid = (c0 + c1) / 2;
+    // category button (LB / RB; the last category is Done)
+    const tab = st.tab;
+    if (tab === DONE) drawDoneTab(g, L.catX - 32, L.catY - 32, 64, 64, { sel: true, bump: st.tabPop * 0.15, label: false });
+    else {
+      const k = 1 + st.tabPop * 0.2, grp = tab < TAP_TAB ? GROUPS[GROUP_ORDER[tab]] : null;
+      g.save(); g.translate(L.catX, L.catY); g.scale(k, k);
+      g.beginPath(); g.arc(0, 0, 32, 0, TAU); g.fillStyle = grp ? '#ffffff' : '#bfefff'; g.fill(); g.lineWidth = 5; g.strokeStyle = grp ? grp.color : NAVY; g.stroke();
+      if (grp) this.drawEntryIcon(g, PALETTE[GROUP_START[tab]], 0, 0, 42, st);
+      else this.drawTapIcon(g, 0, 0, 40, p.color);
+      g.restore();
+    }
+    for (let k = 0; k < NTABS; k++) {
+      g.beginPath(); g.arc(L.catX + (k - (NTABS - 1) / 2) * 7, P.y + P.h - 9, k === tab ? 3.6 : 2.2, 0, TAU);
+      g.fillStyle = k === DONE ? '#36d17a' : k === tab ? NAVY : 'rgba(36,22,63,0.3)'; g.fill();
+    }
+    if (glyphW) { ui.glyph(g, 'lb', L.catX - 30, L.catY + 30, 20); ui.glyph(g, 'rb', L.catX + 30, L.catY + 30, 20); }
+    ui.text(g, tabName(tab), L.catX, P.y + 14, { size: 19, color: NAVY, stroke: false, weight: 800, maxWidth: 110 });
+    const cw = c1 - c0 + glyphW;
+    if (st.ready) {
+      ui.panel(g, c0, P.y + 10, cw, P.h - 20, { r: 18, fill: '#d6f7e3', lineWidth: 3, shadow: false });
+      ui.text(g, 'Ready!', c0 + cw / 2, P.y + P.h * 0.36, { size: clamp(cw * 0.14, 20, 34), color: '#1f9d55', strokeWidth: 4, maxWidth: cw - 12 });
+      ui.hints(g, [['b', cw > 200 ? 'Not yet' : '']], c0 + cw / 2, P.y + P.h * 0.7, { size: 26 });
+      return;
+    }
+    if (tab === DONE) {
+      ui.panel(g, c0, P.y + 10, cw, P.h - 20, { r: 18, fill: 'rgba(255,255,255,0.9)', lineWidth: 3, shadow: false });
+      ui.text(g, 'All done?', c0 + cw / 2, P.y + 36, { size: clamp(cw * 0.1, 18, 28), color: p.color, strokeWidth: 4, maxWidth: cw - 12 });
+      ui.hints(g, [['a', cw > 160 ? "I'm ready!" : '']], c0 + cw / 2, P.y + 80, { size: clamp(cw * 0.1, 22, 32) });
+      return;
+    }
+    if (tab === TAP_TAB) {
+      ui.text(g, 'Tap the glass', c0 + cw / 2, P.y + 34, { size: 24, color: NAVY, stroke: false, weight: 800, maxWidth: cw - 8 });
+      ui.hints(g, [['a', cw > 200 ? 'Tap (gently!)' : '']], c0 + cw / 2, P.y + 80, { size: 28 });
+      return;
+    }
+    // carousel: the things in this category (X / D-pad: next)
     const ss = 64, gap = 10, slotY = P.y + 60;
-    if (glyphW) { ui.glyph(g, 'lb', c0 - 16, slotY, 24); ui.glyph(g, 'rb', c1 + 16, slotY, 24); }
-    const N = PALETTE.length;
+    if (glyphW) ui.glyph(g, 'x', c1 + 16, slotY, 24);
+    const ga = GROUP_START[tab], N = GROUP_END[tab] - ga;
     g.save(); g.beginPath(); g.rect(c0, P.y + 4, c1 - c0, P.h - 8); g.clip();
     const base = Math.round(st.scroll), frac = st.scroll - base, step = ss + gap;
-    const half = Math.ceil((c1 - c0) / step / 2) + 1;
+    const half = Math.min(Math.ceil((c1 - c0) / step / 2) + 1, Math.floor((N - 1) / 2));
     for (let k = -half; k <= half; k++) {
-      const idx = (((base + k) % N) + N) % N, e = PALETTE[idx];
+      const idx = ga + ((((base + k) % N) + N) % N), e = PALETTE[idx];
       const x = mid + (k - frac) * step;
       const sel = idx === st.sel, z = sel ? 1 + st.selPop * 0.15 : 0.86, s = ss * z;
       g.save(); g.translate(x, slotY);
@@ -1659,6 +1731,18 @@ export class Game {
         g.beginPath(); g.arc(x, dy, r, 0, TAU); g.fillStyle = cc.c; g.fill(); g.lineWidth = i === cur ? 3 : 2; g.strokeStyle = NAVY; g.stroke();
       });
     }
+  }
+
+  /** The Tap category: a knocking knuckle with little ripples. */
+  drawTapIcon(g, x, y, s, color) {
+    g.save(); g.translate(x, y); g.scale(s / 40, s / 40);
+    g.lineWidth = 3; g.strokeStyle = NAVY; g.lineJoin = 'round';
+    ui.roundRect(g, -14, -6, 26, 22, 9); g.fillStyle = '#ffffff'; g.fill(); g.stroke();
+    for (const fx2 of [-9, -1, 7]) { g.beginPath(); g.arc(fx2, -6, 4, Math.PI, 0); g.stroke(); }
+    ui.roundRect(g, -12, 14, 22, 8, 3); g.fillStyle = color; g.fill(); g.stroke();
+    g.strokeStyle = '#3fa7ff'; g.lineWidth = 2.5;
+    for (const r of [8, 14]) { g.beginPath(); g.arc(14, -12, r, -1.2, 0.2); g.stroke(); }
+    g.restore();
   }
 
   drawEntryIcon(g, e, x, y, size, st) {

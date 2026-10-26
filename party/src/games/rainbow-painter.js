@@ -665,7 +665,7 @@ export class Game {
     const showTags = this.t - (this.startT ?? this.t) < 5 || !this.started;
     for (const e of order) {
       const top = e.a.y - e.a.height - 22 - (e.a.emotes.length ? 52 : 0);
-      if (showTags || !e.p.isAI) ui.playerTag(g, e.p, e.x, top);
+      if ((showTags || !e.p.isAI) && !this.api.ended?.()) ui.playerTag(g, e.p, e.x, top);
       // Easy: a big bouncing A when there's grey to paint and A isn't held
       if (e.ez && !e.spraying && this.phase !== 'party' && this.phase !== 'magic' && this.started && (e.ez.starCue || this.overGrey(e))) {
         const s = e.ez.starCue && this.star;
@@ -954,6 +954,8 @@ export class Game {
   }
 
   drawHUD(g) {
+    // the gallery ending: just the finished picture under the play scene's ribbon and stars bar
+    if (this.api.ended?.()) return;
     ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 14, avoidCenter: true, format: (v) => String(v) });
     this.drawChecklist(g);
     if (this.banner) {

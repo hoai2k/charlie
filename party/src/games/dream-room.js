@@ -1,14 +1,17 @@
 // Dream Room (Play Studio): decorate a cozy dollhouse bedroom together.
 //
-// Everyone shares one room and has a hand cursor in their colour. Pick an
-// item from your palette strip (LB/RB or the D-pad), then:
-//   A  Place / Move / Paint (X switches the tool; holding something, X flips it)
-//   B  remove what you point at,  Y  a surprise present pops open into an item
+// Everyone shares one room and has a hand cursor in their colour (left stick;
+// the right stick nudges it finely). LB / RB step through the categories:
+// the item groups (furniture, lights, toys...), then Move, Paint and, last,
+// Done. X (or the D-pad left/right) picks the next item in a group, then:
+//   A  Place / Move / Paint (holding something, X flips it); on Done: I'm ready!
+//   B  remove what you point at (B while ready: not ready after all),
+//   Y  a surprise present pops open into an item
 // Paint the wall or the floor for new wallpaper or flooring, put plushies on
 // the bed or the wall shelf, flip the light switch by the door for night time
 // (lamps and fairy lights glow, the window shows the moon). A pet bed brings
 // a kitty that walks in through the door and curls up in it.
-// "Tour!" (or the pause menu, or the gentle timer) starts the room tour: the
+// When every kid is ready on Done (or the pause menu, or the gentle timer) the room tour starts: the
 // characters walk in, bounce on the bed, sit in the chairs, dance on the rugs
 // and pose for photos; the last one is a group photo in a polaroid.
 //
@@ -35,6 +38,7 @@ import {
   WALLPAPERS, FLOORS, WALL, WALL_S, FLOOR_Y0, FLOOR_Y1, POLY, polyPath, roomPath, proj, depthAt, floorHalf,
   wallCanvas, floorCanvas, swatch, FLOOR_BOX, DOOR, DOOR_FOOT, SWITCH, SWITCH_HIT, HALF,
 } from './dream-room/room.js';
+import { drawDoneTab } from '../engine/studio-ui.js';
 import { meta } from './dream-room.meta.js';
 
 function snd(key, fallback, opts) { if (hasSound(key)) sfx(key, opts); else if (fallback) sfx(fallback, opts); }
@@ -49,16 +53,20 @@ const PALETTE = [
 const PAL_INDEX = Object.fromEntries(PALETTE.map((e, i) => [e.kind === 'item' ? e.def.id : e.kind + e.idx, i]));
 const GROUP_START = GROUP_ORDER.map((grp) => PALETTE.findIndex((e) => e.group === grp));
 const TOOLS = [{ id: 'place', name: 'Place' }, { id: 'move', name: 'Move' }, { id: 'paint', name: 'Paint' }];
+// Categories (LB / RB): the item groups, then the Move and Paint tools, and last "Done".
+const MOVE_TAB = GROUP_ORDER.length, PAINT_TAB = MOVE_TAB + 1, DONE = PAINT_TAB + 1, NTABS = DONE + 1;
+const GROUP_END = GROUP_ORDER.map((grp) => PALETTE.length - [...PALETTE].reverse().findIndex((e) => e.group === grp));
+const groupOf = (idx) => GROUP_ORDER.indexOf(PALETTE[idx].group);
+const tabName = (tab) => (tab === DONE ? 'Done' : tab === MOVE_TAB ? 'Move' : tab === PAINT_TAB ? 'Paint' : GROUPS[GROUP_ORDER[tab]].name);
 const MAX_ITEMS = 80;
 const POOF_TIME = 5;   // seconds B can bring back another kid's thing
 
 // --- screen layout --------------------------------------------------------------------
 const BAR = { y: 950, h: 124 };
-const TOUR_BTN = { x: 1672, y: 16, w: 232, h: 86 };
-const CLOCK = { x: 1688, y: 112, w: 200, h: 58 };
+const CLOCK = { x: 1688, y: 24, w: 200, h: 58 };
 const CLOCK_PLUS = { x: CLOCK.x + CLOCK.w - 58, y: CLOCK.y, w: 58, h: CLOCK.h };
 const LEGEND = { x: 14, y: 14, w: 244 };
-const LEGEND_ROWS = [[['stick'], 'Move'], [['lb', 'rb'], 'Items'], [['a'], 'Use tool'], [['x'], 'Tool'], [['b'], 'Remove'], [['y'], 'Surprise!']];
+const LEGEND_ROWS = [[['stick'], 'Move'], [['lb', 'rb'], 'Category'], [['x'], 'Next item'], [['a'], 'Use tool'], [['b'], 'Remove'], [['y'], 'Surprise!']];
 const inRect = (r, x, y) => x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h;
 const BUILD_TIME = 180, CPU_TIME = 48;
 // Group photo: line up (LINEUP s), "Say cheese!" (CHEESE_TIME s, ending 3-2-1),
@@ -128,8 +136,8 @@ export class Game {
     const own = Math.max(0, CHAR_IDS.indexOf(p.charId));
     const st = {
       p, i, cur: { x: 700 + (i % 4) * 170, y: 560 + Math.floor(i / 4) * 120 }, hold: 0,
-      tool: 0, sel: 0, scroll: 0, rep: { dir: 0, t: 0 }, held: null, hover: null, cool: 0,
-      confirm: null, click: false, toolPop: 0, selPop: 0, reactT: 0,
+      tool: 0, tab: 0, sel: 0, selIn: [...GROUP_START], scroll: 0, rep: { dir: 0, t: 0 }, held: null, hover: null, cool: 0,
+      ready: false, click: false, toolPop: 0, selPop: 0, reactT: 0,
       charSel: { plushie: own, starposter: own, picture: (own + 1 + i) % CHAR_IDS.length },
       colorOf: {},
       stats: { placed: 0, plush: 0, paints: 0 },
@@ -404,7 +412,7 @@ export class Game {
         if (it.z <= 0) { it.z = 0; it.vz = 0; it.bump = this.t; sfx('land', { vol: 0.6 }); particles.burst(it.x, it.y, { type: 'dust', count: 4 }); }
       }
     }
-    for (const st of this.stations) { st.reactT -= dt; st.toolPop = Math.max(0, st.toolPop - dt * 3); st.selPop = Math.max(0, st.selPop - dt * 4); }
+    for (const st of this.stations) { st.reactT -= dt; st.toolPop = Math.max(0, st.toolPop - dt * 3); st.tabPop = Math.max(0, (st.tabPop || 0) - dt * 4); st.selPop = Math.max(0, st.selPop - dt * 4); }
     this.updatePets(dt);
     this.updateGifts(dt);
     this.updateDoor(dt);
@@ -434,14 +442,14 @@ export class Game {
       this.updateStation(st, dt);
       if (this.phase !== 'build') return;
     }
-    // CPUs alone: one of them may flip the light, then the tour starts when they're done.
-    if (!this.humans) {
-      if (this.cpuFlip > 0 && this.phaseT > this.cpuFlip) { this.cpuFlip = -1; const s0 = this.stations[0]; s0.ai.cmds = [{ t: 'goto', x: SWITCH.x, y: SWITCH.y }, { t: 'a' }]; }
-      if (this.stations.every((s) => s.ai.placed >= this.cpuCap(s)) && this.stations.every((s) => !s.ai.cmds.length) && this.phaseT > 10) {
-        this.doneT = (this.doneT || 0) + dt;
-        if (this.doneT > 2.5) this.startTour();
-      }
-    }
+    // CPUs alone: one of them may flip the light; each goes to Done (RB) and presses A when it's finished.
+    if (!this.humans && this.cpuFlip > 0 && this.phaseT > this.cpuFlip) { this.cpuFlip = -1; const s0 = this.stations[0]; s0.ai.cmds = [{ t: 'goto', x: SWITCH.x, y: SWITCH.y }, { t: 'a' }]; }
+    // Everyone ready (the kids; CPUs are helpers when kids play) starts the room tour.
+    const waiting = this.stations.filter((s) => (this.humans ? !s.p.isAI : true));
+    if (waiting.every((s) => s.ready)) {
+      this.doneT = (this.doneT || 0) + dt;
+      if (this.doneT > (this.humans ? 0.6 : 1.2)) this.startTour();
+    } else this.doneT = 0;
   }
 
   addTime(s) {
@@ -453,10 +461,9 @@ export class Game {
 
   updateStation(st, dt) {
     const c = st.p.ctrl, isPad = c.kind === 'pad';
-    // --- cursor (stick; the D-pad browses the palette on controllers)
+    // --- cursor (stick; the D-pad left/right browses the items on controllers)
     let mx = c.x, my = c.y;
     if (isPad && (c.held('left') || c.held('right'))) mx = 0;
-    if (isPad && (c.held('up') || c.held('down'))) my = 0;
     const mag = Math.hypot(mx, my);
     st.hold = mag > 0.15 ? st.hold + dt : 0;
     const sp = 1150 * (0.35 + 0.65 * clamp(st.hold / 0.6, 0, 1));
@@ -465,26 +472,26 @@ export class Game {
     const { x, y } = st.cur;
     st.cool -= dt;
 
-    // --- palette browsing with hold-repeat
-    const dir = (c.held('rb') || (isPad && c.held('right'))) ? 1 : (c.held('lb') || (isPad && c.held('left'))) ? -1 : 0;
-    if (dir !== st.rep.dir) { st.rep.dir = dir; st.rep.t = 0; if (dir) this.browse(st, dir); }
-    else if (dir) { st.rep.t += dt; if (st.rep.t > 0.42) { st.rep.t -= 0.13; this.browse(st, dir); } }
-    if (c.pressed('rt') || (isPad && c.pressed('down'))) this.jumpGroup(st, 1);
-    if (c.pressed('lt') || (isPad && c.pressed('up'))) this.jumpGroup(st, -1);
-    st.scroll = this.smoothScroll(st.scroll, st.sel, dt);
+    if (st.tab < MOVE_TAB) { const a = GROUP_START[st.tab]; st.scroll = this.smoothScroll(st.scroll, st.sel - a, dt, GROUP_END[st.tab] - a); }
+    st.hover = null;
 
-    // --- confirm bubble for the Tour button
-    if (st.confirm) {
-      st.confirm.t += dt;
-      if ((c.pressed('a') || st.click) && st.confirm.t > 0.1) { st.confirm = null; this.startTour(); return; }
-      if (c.pressed('b') || (!inRect(TOUR_BTN, x, y) && st.confirm.t > 0.3)) { st.confirm = null; sfx('back'); }
+    // --- ready (on Done): B = not ready after all
+    if (st.ready) {
+      if (c.pressed('b') || (st.click && y >= BAR.y - 6 && inRect(st.panel, x, y))) this.setReady(st, false);
       return;
     }
 
-    // --- tool / flip
+    // --- categories: LB / RB (the last one is Done)
+    const step = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
+    if (step) this.stepTab(st, step);
+    // --- items: X (or the D-pad left/right, with hold-repeat)
+    const dir = (isPad && c.held('right')) ? 1 : (isPad && c.held('left')) ? -1 : 0;
+    if (dir !== st.rep.dir) { st.rep.dir = dir; st.rep.t = 0; if (dir) this.browse(st, dir); }
+    else if (dir) { st.rep.t += dt; if (st.rep.t > 0.42) { st.rep.t -= 0.13; this.browse(st, dir); } }
+    // --- X: next item (holding something: flip it)
     if (c.pressed('x')) {
       if (st.held) { st.held.flip *= -1; st.held.bump = this.t; for (const k of this.childrenOf(st.held)) k.flip = st.held.flip; sfx('flip'); }
-      else { st.tool = (st.tool + 1) % TOOLS.length; st.toolPop = 1; sfx('swap'); }
+      else this.browse(st, 1);
     }
 
     // --- held item follows the hand
@@ -496,14 +503,14 @@ export class Game {
     }
     st.hover = this.inRoom(x, y) ? this.itemAt(x, y) : null;
 
-    // --- A / B / Y
-    if (c.pressed('a') || st.click) this.pressA(st);
+    // --- A / B / Y (A on Done: I'm ready)
+    if (c.pressed('a') && st.tab === DONE && !st.held) this.setReady(st, true);
+    else if (c.pressed('a') || st.click) this.pressA(st);
     if (c.pressed('b')) this.pressB(st);
     if (c.pressed('y') && st.cool <= 0) this.surprise(st);
   }
 
-  smoothScroll(cur, target, dt) {
-    const N = PALETTE.length;
+  smoothScroll(cur, target, dt, N) {
     let d = target - cur;
     if (d > N / 2) cur += N; else if (d < -N / 2) cur -= N;
     d = target - cur;
@@ -516,40 +523,57 @@ export class Game {
     return Math.abs(x - 960) <= half + 4;
   }
 
+  /** X / D-pad: the next (or previous) item in this category. */
   browse(st, dir) {
-    if (st.held) return;
-    const N = PALETTE.length;
-    st.sel = (st.sel + dir + N) % N;
-    st.selPop = 1;
-    if (st.tool !== 0) { st.tool = 0; st.toolPop = 1; }
+    if (st.held || st.tab >= MOVE_TAB) { if (!st.p.isAI && st.tab >= MOVE_TAB && st.tab !== DONE) sfx('blip'); return; }
+    const g = st.tab, a = GROUP_START[g], n = GROUP_END[g] - a;
+    st.sel = a + ((st.sel - a + dir + n) % n);
+    st.selIn[g] = st.sel; st.selPop = 1;
     if (!st.p.isAI) sfx('move', { vol: 0.7 });
   }
-  jumpGroup(st, dir) {
-    if (st.held) return;
-    const g = GROUP_ORDER.indexOf(PALETTE[st.sel].group);
-    const ng = (g + dir + GROUP_ORDER.length) % GROUP_ORDER.length;
-    st.sel = GROUP_START[ng]; st.selPop = 1;
-    if (st.tool !== 0) { st.tool = 0; st.toolPop = 1; }
-    if (!st.p.isAI) sfx('select');
+
+  /** LB / RB: the next / previous category; the last one is "Done". */
+  stepTab(st, dir) {
+    if (st.held) { if (!st.p.isAI) sfx('blip'); return; }
+    this.setTab(st, (st.tab + dir + NTABS) % NTABS);
+  }
+  setTab(st, tab) {
+    st.tab = tab;
+    if (tab < MOVE_TAB) { st.sel = st.selIn[tab]; st.selPop = 1; st.scroll = st.sel - GROUP_START[tab]; }
+    const tool = tab === MOVE_TAB ? 1 : tab === PAINT_TAB ? 2 : 0;
+    if (tool !== st.tool) st.toolPop = 1;
+    st.tool = tool; st.tabPop = 1;
+    if (!st.p.isAI) sfx('move');
+  }
+
+  /** On Done, A: I'm ready (B: not yet after all). Every kid ready starts the room tour. */
+  setReady(st, on) {
+    if (st.ready === on) return;
+    st.ready = on;
+    const a = st.actor;
+    if (on) {
+      sfx('ready'); a.playOnce('cheer', 0.6, 'idle'); a.squash(-0.25); a.say('Ready!', 1.3, 'ready');
+      particles.burst(st.cur.x, st.cur.y, { type: 'confetti', count: 18, speed: [160, 420] });
+    } else { sfx('back'); a.setPose('idle'); }
   }
 
   pressA(st) {
     const { x, y } = st.cur;
     if (!st.held) {
-      if (inRect(TOUR_BTN, x, y)) { if (!st.p.isAI) { st.confirm = { t: 0 }; sfx('select'); } return; }
       if (inRect(CLOCK_PLUS, x, y) && !st.p.isAI) { this.addTime(60); return; }
       if (inRect(SWITCH_HIT, x, y)) { this.toggleNight(st); return; }
       if (y >= BAR.y - 6) { this.panelClick(st, x, y); return; }
       if (!st.p.isAI && x >= LEGEND.x && x <= LEGEND.x + LEGEND.w && y >= LEGEND.y && y <= LEGEND.y + LEGEND_ROWS.length * 50 + 24) {
         // Clicking a legend row presses that button (mouse / touch players).
         const b = LEGEND_ROWS[clamp(Math.floor((y - LEGEND.y - 12) / 50), 0, LEGEND_ROWS.length - 1)][0][0];
-        if (b === 'lb') this.browse(st, 1);
-        else if (b === 'x') { st.tool = (st.tool + 1) % TOOLS.length; st.toolPop = 1; sfx('swap'); }
+        if (b === 'lb') this.stepTab(st, 1);
+        else if (b === 'x') this.browse(st, 1);
         else if (b === 'y' && st.cool <= 0) this.surprise(st);
         else sfx('blip');
         return;
       }
     }
+    if (st.tab === DONE && !st.held) { sfx('blip'); return; }
     const tool = TOOLS[st.tool].id;
     if (tool === 'place') this.placeSelected(st);
     else if (tool === 'move') {
@@ -569,12 +593,14 @@ export class Game {
     const P = st.panel;
     if (!inRect(P, x, y)) { sfx('blip'); return; }
     const L = this.panelLayout(st);
-    if (Math.hypot(x - L.toolX, y - L.toolY) < 40) { st.tool = (st.tool + 1) % TOOLS.length; st.toolPop = 1; sfx('swap'); return; }
+    // the category button: the next category (the last one is Done)
+    if (Math.hypot(x - L.toolX, y - L.toolY) < 40) { this.stepTab(st, 1); return; }
+    if (st.tab === DONE) { if (x >= L.c0 - L.glyphW) this.setReady(st, true); else this.stepTab(st, -1); return; }
+    if (st.tab >= MOVE_TAB) { sfx('blip'); return; }
     if (x >= L.c0 && x <= L.c1) {
       const k = Math.round((x - L.mid) / (L.ss + L.gap));
-      const N = PALETTE.length;
-      st.sel = (((Math.round(st.scroll) + k) % N) + N) % N; st.selPop = 1;
-      if (st.tool !== 0) { st.tool = 0; st.toolPop = 1; }
+      const g = st.tab, a = GROUP_START[g], n = GROUP_END[g] - a;
+      st.sel = a + ((((Math.round(st.scroll) + k) % n) + n) % n); st.selIn[g] = st.sel; st.selPop = 1;
       sfx('select');
       return;
     }
@@ -760,11 +786,14 @@ export class Game {
   updateAI(st, dt) {
     const c = st.p.ctrl, A = st.ai, prof = aiProfile(st.p);
     if (A.wait > 0) { A.wait -= dt; c.move(0, 0); return; }
+    if (st.ready) return;
     if (!A.cmds.length) {
       c.move(0, 0);
       A.idle -= dt;
       if (A.idle > 0) return;
       A.cmds = this.planFor(st);
+      // CPUs alone, all furnished: on to Done (RB) and A
+      if (!A.cmds.length && !this.humans && A.placed >= this.cpuCap(st) && this.phaseT > 10 && this.cpuFlip < 0) A.cmds = [{ t: 'done' }];
       A.idle = this.humans ? rand(6, 11) / prof.speed : rand(0.6, 1.6);
       if (!A.cmds.length) A.idle = this.humans ? 4 : 1;
       return;
@@ -772,17 +801,27 @@ export class Game {
     const cmd = A.cmds[0];
     const done = (w = 0.15) => { A.cmds.shift(); A.wait = w / prof.speed; };
     switch (cmd.t) {
-      case 'tool':
+      case 'tool': {   // 0: an item category (the 'sel' that follows picks it), 2: the Paint category
         if (st.held) { c.press('a'); A.wait = 0.3; break; }
-        if (st.tool === cmd.v) done(0.05); else { c.press('x'); A.wait = 0.28 / prof.speed; }
+        if (cmd.v === 0 || st.tab === PAINT_TAB) { done(0.05); break; }
+        const r = (PAINT_TAB - st.tab + NTABS) % NTABS;
+        c.press(r <= NTABS / 2 ? 'rb' : 'lb'); A.wait = 0.22 / prof.speed;
         break;
-      case 'sel': {
-        if (st.sel === cmd.v) { done(0.2); break; }
-        const N = PALETTE.length, r = (cmd.v - st.sel + N) % N;
-        c.press(r <= N / 2 ? 'rb' : 'lb');
+      }
+      case 'sel': {   // RB / LB to the item's category, then X to the item
+        if (st.sel === cmd.v && st.tab === groupOf(cmd.v)) { done(0.2); break; }
+        if (st.held) { c.press('a'); A.wait = 0.3; break; }
+        const gi = groupOf(cmd.v);
+        if (st.tab !== gi) { const r = (gi - st.tab + NTABS) % NTABS; c.press(r <= NTABS / 2 ? 'rb' : 'lb'); }
+        else c.press('x');
         A.wait = rand(0.1, 0.17) / prof.speed;
         break;
       }
+      case 'done':   // RB to Done, then A
+        if (st.held) { c.press('a'); A.wait = 0.3; break; }
+        if (st.tab !== DONE) { c.press('rb'); A.wait = rand(0.12, 0.2) / prof.speed; break; }
+        c.press('a'); done(0.3);
+        break;
       case 'goto': {
         const d = steer(st.p, st.cur.x, st.cur.y, cmd.x, cmd.y, { arrive: 130, wobble: false });
         cmd.t2 = (cmd.t2 || 0) + dt;
@@ -886,7 +925,7 @@ export class Game {
     this.phase = 'tour'; this.phaseT = 0;
     for (const st of this.stations) {
       if (st.held) this.drop(st);
-      st.confirm = null; st.hover = null;
+      st.hover = null;
       if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('a', false); st.ai.cmds = []; }
     }
     for (const gft of this.gifts) gft.t = Math.max(gft.t, 1.05);
@@ -1518,7 +1557,7 @@ export class Game {
         it.z = 0;
         continue;
       }
-      if (TOOLS[st.tool].id !== 'place' || st.p.isAI || st.cur.y >= BAR.y - 6) continue;
+      if (TOOLS[st.tool].id !== 'place' || st.tab === DONE || st.ready || st.p.isAI || st.cur.y >= BAR.y - 6) continue;
       const e = PALETTE[st.sel];
       if (e.kind !== 'item' || !this.inRoom(st.cur.x, st.cur.y)) continue;
       const d = e.def, pl = this.placement(d, st.cur.x, st.cur.y);
@@ -1532,7 +1571,7 @@ export class Game {
 
   drawLegend(g) {
     const solo = this.humans === 1 ? this.stations.find((s) => !s.p.isAI) : null;
-    const aLabel = solo ? TOOLS[solo.tool].name : 'Use tool';
+    const aLabel = solo ? (solo.tab === DONE ? "I'm ready!" : TOOLS[solo.tool].name) : 'Use tool';
     const rows = LEGEND_ROWS.map(([b, label]) => [b, label === 'Use tool' ? aLabel : label]);
     const rh = 50, h = rows.length * rh + 24;
     ui.panel(g, LEGEND.x, LEGEND.y, LEGEND.w, h, { r: 24, fill: 'rgba(255,248,236,0.94)', lineWidth: 5 });
@@ -1545,15 +1584,6 @@ export class Game {
   }
 
   drawTopRight(g) {
-    // Tour button
-    const hot = this.stations.some((s) => !s.p.isAI && inRect(TOUR_BTN, s.cur.x, s.cur.y));
-    const pulse = hot ? 1.06 + Math.sin(this.t * 10) * 0.03 : (this.timeLeft < 30 ? 1 + Math.sin(this.t * 5) * 0.03 : 1);
-    const b = TOUR_BTN;
-    g.save(); g.translate(b.x + b.w / 2, b.y + b.h / 2); g.scale(pulse, pulse);
-    ui.panel(g, -b.w / 2, -b.h / 2, b.w, b.h, { r: b.h / 2, fill: hot ? '#5ff0a0' : '#36d17a', lineWidth: 5 });
-    this.drawCameraIcon(g, -b.w / 2 + 50, 0, 50);
-    ui.text(g, 'Tour!', 30, 2, { size: 46, weight: 800 });
-    g.restore();
     // clock (+1 minute)
     const c = CLOCK, bump = this.clockBump !== undefined ? clamp(1 - (this.t - this.clockBump) / 0.4, 0, 1) : 0;
     g.save(); g.translate(c.x + c.w / 2, c.y + c.h / 2); g.scale(1 + bump * 0.1, 1 + bump * 0.1); g.translate(-(c.x + c.w / 2), -(c.y + c.h / 2));
@@ -1568,13 +1598,13 @@ export class Game {
     g.beginPath(); g.arc(p.x + p.w / 2, cy, phot ? 23 : 20, 0, TAU); g.fillStyle = '#36d17a'; g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
     ui.text(g, '+', p.x + p.w / 2, cy - 1, { size: 36, weight: 800 });
     g.restore();
-    // confirm bubbles
-    for (const st of this.stations) {
-      if (!st.confirm) continue;
-      const w = 420, h = 150, px = W - w - 20, py = 186;
-      ui.panel(g, px, py, w, h, { r: 26, fill: '#fff8ec', stroke: st.p.color, lineWidth: 6 });
-      ui.text(g, 'Room tour now?', px + w / 2, py + 42, { size: 38, color: NAVY, stroke: false, weight: 800 });
-      ui.hints(g, [['a', 'Yes!'], ['b', 'Not yet']], px + w / 2, py + 106, { size: 40, color: '#ff6fb1' });
+    // who's ready for the tour (kids only; CPUs help)
+    const kids = this.stations.filter((st) => (this.humans ? !st.p.isAI : true));
+    if (kids.some((st) => st.ready) && kids.length > 1) {
+      const n = kids.filter((st) => st.ready).length, y = c.y + c.h + 40;
+      ui.panel(g, c.x - 60, y - 26, c.w + 60, 52, { r: 26, fill: '#fff8ec', lineWidth: 4 });
+      this.drawCameraIcon(g, c.x - 22, y, 40);
+      ui.text(g, `Ready ${n}/${kids.length}`, c.x + c.w / 2 - 6, y + 1, { size: 28, color: NAVY, stroke: false, weight: 800 });
     }
   }
 
@@ -1607,23 +1637,55 @@ export class Game {
       drawPortrait(g, p, L.portX, P.y + 50, 30, { ring: p.color, ringWidth: 4, expr: 'happy' });
       ui.text(g, p.tag, L.portX, P.y + P.h - 20, { size: 22, color: p.color, strokeWidth: 4 });
     }
-    // tool button
-    const tp = 1 + st.toolPop * 0.25;
-    g.save(); g.translate(L.toolX, L.toolY); g.scale(tp, tp);
-    g.beginPath(); g.arc(0, 0, 34, 0, TAU); g.fillStyle = st.tool === 0 ? '#ffffff' : st.tool === 1 ? '#bfe6ff' : '#ffd6ec'; g.fill(); g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke();
-    this.drawToolIcon(g, TOOLS[st.tool].id, 0, -4, 40, p.color);
-    g.restore();
-    ui.glyph(g, 'x', L.toolX + 26, L.toolY + 24, 24);
-    if (P.w >= 300) ui.text(g, TOOLS[st.tool].name, L.toolX, P.y + 14, { size: 20, color: NAVY, stroke: false, weight: 800 });
-    // carousel
-    const N = PALETTE.length, dim = st.tool !== 0;
-    if (L.glyphW) { ui.glyph(g, 'lb', L.c0 - 16, L.slotY, 26); ui.glyph(g, 'rb', L.c1 + 16, L.slotY, 26); }
+    // category button (LB / RB; the last category is Done)
+    const tp = 1 + st.toolPop * 0.25, tab = st.tab;
+    if (tab === DONE) {
+      drawDoneTab(g, L.toolX - 34, L.toolY - 34, 68, 68, { sel: true, bump: (st.tabPop || 0) * 0.15, label: false });
+    } else {
+      g.save(); g.translate(L.toolX, L.toolY); g.scale(tp, tp);
+      const grp = tab < MOVE_TAB ? GROUPS[GROUP_ORDER[tab]] : null;
+      g.beginPath(); g.arc(0, 0, 34, 0, TAU); g.fillStyle = grp ? '#ffffff' : tab === MOVE_TAB ? '#bfe6ff' : '#ffd6ec'; g.fill(); g.lineWidth = grp ? 5 : 4; g.strokeStyle = grp ? grp.color : NAVY; g.stroke();
+      if (grp) this.drawEntryIcon(g, PALETTE[GROUP_START[tab]], 0, 0, 44, st);
+      else this.drawToolIcon(g, TOOLS[st.tool].id, 0, -4, 40, p.color);
+      g.restore();
+    }
+    // where we are in the categories: a dot each (the last, green one is Done)
+    for (let k = 0; k < NTABS; k++) {
+      const dx = L.toolX + (k - (NTABS - 1) / 2) * 6.5, dy = P.y + P.h - 9;
+      g.beginPath(); g.arc(dx, dy, k === tab ? 3.6 : 2.2, 0, TAU);
+      g.fillStyle = k === DONE ? '#36d17a' : k === tab ? NAVY : 'rgba(36,22,63,0.3)'; g.fill();
+    }
+    if (P.w >= 300) ui.text(g, tabName(tab), L.toolX, P.y + 14, { size: 20, color: NAVY, stroke: false, weight: 800, maxWidth: 120 });
+    if (L.glyphW) { ui.glyph(g, 'lb', L.toolX - 30, L.toolY + 30, 20); ui.glyph(g, 'rb', L.toolX + 30, L.toolY + 30, 20); }
+    if (st.ready) {
+      ui.panel(g, L.c0 - L.glyphW, P.y + 10, L.c1 - L.c0 + L.glyphW * 2, P.h - 20, { r: 18, fill: '#d6f7e3', lineWidth: 3, shadow: false });
+      const cx = L.mid, cw = L.c1 - L.c0 + L.glyphW * 2;
+      ui.text(g, 'Ready!', cx, P.y + P.h * 0.36, { size: clamp(cw * 0.14, 20, 34), color: '#1f9d55', strokeWidth: 4, maxWidth: cw - 12 });
+      ui.hints(g, [['b', cw > 220 ? 'Not yet' : '']], cx, P.y + P.h * 0.7, { size: 26 });
+      return;
+    }
+    if (tab === DONE) {
+      // (a compact "All done? (A) I'm ready!" card: the strip is short)
+      const cw = L.c1 - L.c0 + L.glyphW * 2;
+      ui.panel(g, L.c0 - L.glyphW, P.y + 10, cw, P.h - 20, { r: 18, fill: 'rgba(255,255,255,0.9)', lineWidth: 3, shadow: false });
+      ui.text(g, 'All done?', L.mid, P.y + 36, { size: clamp(cw * 0.1, 18, 28), color: p.color, strokeWidth: 4, maxWidth: cw - 12 });
+      ui.hints(g, [['a', cw > 160 ? "I'm ready!" : '']], L.mid, P.y + 80, { size: clamp(cw * 0.1, 22, 32) });
+      return;
+    }
+    if (tab >= MOVE_TAB) {
+      const tip = tab === MOVE_TAB ? (st.held ? 'A: put it down · X: flip' : 'A: pick up a thing') : 'A: new colour or wallpaper';
+      ui.text(g, tabName(tab), L.mid, P.y + 30, { size: 24, color: NAVY, stroke: false, weight: 800 });
+      ui.text(g, tip, L.mid, P.y + 76, { size: 22, color: '#6b5a85', stroke: false, weight: 700, maxWidth: L.c1 - L.c0 });
+      return;
+    }
+    // carousel: the items in this category (X / D-pad: next)
+    const ga = GROUP_START[tab], N = GROUP_END[tab] - ga;
+    if (L.glyphW) ui.glyph(g, 'x', L.c1 + 16, L.slotY, 26);
     g.save(); g.beginPath(); g.rect(L.c0, P.y + 4, L.c1 - L.c0, P.h - 8); g.clip();
-    if (dim) g.globalAlpha = 0.45;
     const base = Math.round(st.scroll), frac = st.scroll - base, step = L.ss + L.gap;
-    const half = Math.ceil((L.c1 - L.c0) / step / 2) + 1;
+    const half = Math.min(Math.ceil((L.c1 - L.c0) / step / 2) + 1, Math.floor((N - 1) / 2));
     for (let k = -half; k <= half; k++) {
-      const idx = (((base + k) % N) + N) % N, e = PALETTE[idx];
+      const idx = ga + ((((base + k) % N) + N) % N), e = PALETTE[idx];
       const x = L.mid + (k - frac) * step;
       const sel = idx === st.sel;
       const z = sel ? 1 + st.selPop * 0.15 : 0.88;
@@ -1640,7 +1702,7 @@ export class Game {
     // name of the selected thing
     const e = PALETTE[st.sel];
     const nx = P.w >= 300 ? L.mid : (P.x + 12 + L.c1) / 2;
-    ui.text(g, e.name, nx, P.y + 16, { size: 21, color: dim ? '#8f84a6' : NAVY, stroke: false, weight: 800, maxWidth: P.w >= 300 ? L.c1 - L.c0 : P.w - 24 });
+    ui.text(g, e.name, nx, P.y + 16, { size: 21, color: NAVY, stroke: false, weight: 800, maxWidth: P.w >= 300 ? L.c1 - L.c0 : P.w - 24 });
   }
 
   drawEntryIcon(g, e, x, y, size, st) {

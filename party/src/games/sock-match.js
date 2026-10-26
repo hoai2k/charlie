@@ -614,7 +614,7 @@ export class Game {
     }
     for (const e of this.ents) {
       const head = e.y - e.a.height - (e.held ? 150 : 30);
-      if (this.time < 4 || !e.p.isAI) ui.playerTag(g, e.p, e.x, head);
+      if ((this.time < 4 || !e.p.isAI) && !this.api.ended?.()) ui.playerTag(g, e.p, e.x, head);
     }
     if (this.easy && !this.done) this.drawEasyHints(g);
   }
@@ -684,9 +684,11 @@ export class Game {
   drawHUD(g) {
     // (the game clock is api.limit's, drawn by the play scene)
     // co-op: no per-player numbers to compare, just a heart once you've helped (the team count is below)
-    ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 18, avoidCenter: true, format: (v) => (v ? '♥' : '') });
+    // the gallery ending's ribbon takes the top: no player chips, the pair count just below it
+    const ended = !!this.api.ended?.();
+    if (!ended) ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 18, avoidCenter: true, format: (v) => (v ? '♥' : '') });
     // shared count: a sock-pair badge under the timer
-    g.save(); g.translate(W / 2, 150);
+    g.save(); g.translate(W / 2, ended ? 172 : 150);
     ui.panel(g, -90, -34, 180, 68, { r: 34, fill: '#ffffff', stroke: '#24163f', lineWidth: 5 });
     g.save(); g.translate(-46, 0); g.rotate(-0.2); drawSock(g, 'rainbow', 0.36, this.t); g.restore();
     g.save(); g.translate(-26, 2); g.rotate(0.2); drawSock(g, 'rainbow', 0.36, this.t, true); g.restore();

@@ -155,7 +155,13 @@ export class Game {
       it.age += dt;
     }
     // camera
-    if (this.phase === 'play' || this.phase === 'cake' || this.phase === 'blow' || this.phase === 'party') {
+    if (this.api.ended?.()) {
+      // gallery ending: ease out until the whole tower, stand foot to the cake's candles, fits
+      // between the ribbon (y~140) and the stars bar (y~900); a very tall tower just gets smaller
+      const top = (this.topper ? Math.min(this.topper.y, this.topY) : this.topY) - 340, bot = GROUND;
+      const z = Math.min(1, (900 - 140) / (bot - top));
+      this.follow(STAND_X, (top + bot) / 2 + (540 - 520) / z, z, 3, dt);
+    } else if (this.phase === 'play' || this.phase === 'cake' || this.phase === 'blow' || this.phase === 'party') {
       const z = this.phase === 'play' ? clamp(1 - this.tower.length * 0.012, 0.8, 1) : 1;
       const topY = this.topper ? this.topY - 220 : this.topY;
       // play: framed so the carrier fairies (and their tags) sit below the top scoreboard
@@ -509,7 +515,14 @@ export class Game {
   }
 
   rowPos(e) {
-    const n = this.n, gap = Math.min(230, (W - 200) / n);
+    const n = this.n;
+    if (this.api.ended?.()) {
+      // gallery ending: stand either side of the tower, clear of the stars bar along the bottom
+      const left = Math.ceil(n / 2), side = e.i < left ? -1 : 1, j = side < 0 ? left - 1 - e.i : e.i - left;
+      const gap = Math.min(220, 560 / Math.max(1, left - 1));
+      return { x: W / 2 + side * (260 + j * gap), y: 890 };
+    }
+    const gap = Math.min(230, (W - 200) / n);
     return { x: W / 2 + (e.i - (n - 1) / 2) * gap, y: 1050 };
   }
 
@@ -531,12 +544,13 @@ export class Game {
     this.drawTower(g);
     for (const f of this.falling) this.drawFalling(g, f);
     if (this.phase === 'play' || this.ph < 2) for (const e of this.ents) this.drawSlider(g, e);
-    if (showWorldActors && this.cam.y > GROUND - 700) for (const e of this.ents) ui.playerTag(g, e.p, e.a.x, e.a.y - e.a.height - 26);
+    if (showWorldActors && this.cam.y > GROUND - 700 && !this.api.ended?.()) for (const e of this.ents) ui.playerTag(g, e.p, e.a.x, e.a.y - e.a.height - 26);
   }
 
   drawHUD(g) {
     // (the clocks are api.limit's, drawn by the play scene)
-    ui.scoreboard(g, this.players, this.ents.map(() => ''), { y: 18, avoidCenter: this.phase === 'play', format: (v) => v });
+    // the gallery ending's ribbon sits where the player chips were: the tower count stays
+    if (!this.api.ended?.()) ui.scoreboard(g, this.players, this.ents.map(() => ''), { y: 18, avoidCenter: this.phase === 'play', format: (v) => v });
     // shared tower counter: the team's score (right side, below the player chips)
     const len = this.tower.length;
     g.save(); g.translate(W - 130, 200);

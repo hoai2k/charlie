@@ -29,6 +29,32 @@ export function drawCrown(g, x, y, s, color = '#ffd23f') {
   g.restore();
 }
 
+/** Stars a finished game earns each player (also used by the gallery ending, which skips this scene). */
+export function earnedStars(result) {
+  return session.players.map((p, i) => (result.showcase ? 1 + (result.highlight === i ? 1 : 0) : STARS_BY_PLACE[result.placements[i] - 1] || 0));
+}
+
+/** Book the result: stars into the tally, the game into the played list. Returns the stars earned. */
+export function bookResult(gameId, result) {
+  const earned = earnedStars(result);
+  session.players.forEach((p, i) => { p.stars += earned[i]; });
+  session.played.push(gameId);
+  session.lastGameId = gameId;
+  return earned;
+}
+
+/** Leave a finished game: play it again, or on to the next marathon game / trophy / game select. */
+export function leaveFinishedGame(manager, gameId, again = false) {
+  if (again) { manager.go('intro', { gameId }); return; }
+  if (session.partyMode) {
+    session.partyMode.round++;
+    const next = session.partyMode.games[session.partyMode.round];
+    if (next) { manager.go('intro', { gameId: next }); return; }
+    manager.go('trophy'); return;
+  }
+  manager.go('gameselect');
+}
+
 export class ResultsScene {
   enter({ gameId, result }) {
     this.meta = gameById(gameId);
@@ -39,16 +65,9 @@ export class ResultsScene {
     const pl = result.placements;
     const n = players.length;
     this.showcase = result.showcase;
-    // Stars earned.
-    this.earned = players.map((p, i) => {
-      if (this.showcase) return 1 + (result.highlight === i ? 1 : 0);
-      return STARS_BY_PLACE[pl[i] - 1] || 0;
-    });
     this.starsGiven = players.map(() => 0);
     this.baseStars = players.map((p) => p.stars);
-    for (const [i, p] of players.entries()) p.stars += this.earned[i];
-    session.played.push(gameId);
-    session.lastGameId = gameId;
+    this.earned = bookResult(gameId, result);
 
     // Podium order: 1st in the middle, then alternate left/right.
     const order = players.map((p, i) => i).sort((a, b) => pl[a] - pl[b] || a - b);
@@ -162,14 +181,7 @@ export class ResultsScene {
     if (c || click || (new URLSearchParams(location.search).has('auto') && this.t > 6)) {
       this.leaving = true;
       sfx('select');
-      if ((c && c.pressed('y')) || (!c && hint === 'y')) { this.manager.go('intro', { gameId: this.gameId }); return; }
-      if (session.partyMode) {
-        session.partyMode.round++;
-        const next = session.partyMode.games[session.partyMode.round];
-        if (next) { this.manager.go('intro', { gameId: next }); return; }
-        this.manager.go('trophy'); return;
-      }
-      this.manager.go('gameselect');
+      leaveFinishedGame(this.manager, this.gameId, (c && c.pressed('y')) || (!c && hint === 'y'));
     }
   }
 

@@ -5,8 +5,8 @@ export const meta = {
   category: 'studio',
   type: 'Make music together · Everyone wins',
   goal: 'Make a song together on the magic music garden, then put on a concert!',
-  controls: [['stick', 'Move'], ['a', 'Add or remove a note'], ['x', 'Change your sound'], ['y', 'Surprise sparkle!'], ['lb', 'Flip pages (LB / RB)'], ['b', 'Oops! Undo']],
-  tips: ['Every note sounds nice together, so try anything!', 'Move up to the buttons for songs, drums and speed.', 'Press Concert! when your song is ready.'],
+  controls: [['stick', 'Move'], ['a', 'Add or remove a note · on Done: Concert!'], ['x', 'Change your sound'], ['lb', 'Flip pages (LB / RB) · after the last page: Done'], ['y', 'Clear the page (asks first) · on an empty page: a surprise tune!'], ['b', 'Oops! Undo']],
+  tips: ['Every note sounds nice together, so try anything!', 'Move up to the buttons for songs, drums and speed.', 'Song ready? Press RB until Done, then A for the concert.'],
   music: 'melody',        // no such song: the background music stays off (our tune is the music)
   duration: 'about 5 min, then you choose',
   minPlayers: 1,

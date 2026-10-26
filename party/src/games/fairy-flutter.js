@@ -465,6 +465,7 @@ export class Game {
     this.finished = true; this.phase = 'done';
     this.api.finishTogether({
       title: 'Jar full!',
+      banner: false,   // the jar and the moon sit top centre, right where the ribbon would cover them
       stats: this.ents.map((e) => `${e.score} sparkles`), focus: { x: JAR.x, y: JAR.y + 120, zoom: 1.15 },
     });
   }
@@ -539,7 +540,7 @@ export class Game {
     if (this.phase !== 'play') glow(g, JAR.x, JAR.y, 240, '#fff3b0', 0.6 + Math.sin(t * 6) * 0.2);
     // player tags (humans always, CPUs at the start)
     for (const e of order) {
-      if (e.p.isAI && this.api.time > 5) continue;
+      if ((e.p.isAI && this.api.time > 5) || this.api.ended?.()) continue;
       const a = e.a;
       ui.playerTag(g, e.p, e.x, a.y - a.height - 26 - (a.emotes.length ? 50 : 0));
     }
@@ -576,7 +577,7 @@ export class Game {
   }
 
   drawHUD(g) {
-    ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 990, format: (v) => String(v) });
+    if (!this.api.ended?.()) ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 990, format: (v) => String(v) });
     // the jar's goal line at the start: arrows point from the screen to the jar
     const time = this.api.time;
     if (this.phase === 'play' && time < 4) {

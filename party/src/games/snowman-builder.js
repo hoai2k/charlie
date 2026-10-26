@@ -6,6 +6,13 @@
 // buttons and little friends (everything can be picked up, moved or taken
 // off). Finale: night falls, the snowmen line up under twinkle lights, come
 // alive, wave and hop, and everyone poses for a photo.
+//
+// Decorating controls (the Play Studio pattern): left stick moves the hand
+// (right stick: tiny nudges), LB / RB pick a category (Face, Hats, Clothes,
+// Buttons, Friends and, last, Done), X (or the D-pad) the next decoration in
+// it, A puts it where the hand is (or picks one up / puts it down; on Done:
+// I'm ready!), B takes the one under the hand off (or undoes the last), Y asks
+// "Take it all off?" (Go back is the default; on a bare snowman Y is a surprise look).
 import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait, POSES } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
@@ -22,6 +29,7 @@ import {
   sparkleAt, lerpAngle,
 } from './snowman-builder/snowman.js';
 
+import { askOpen, askUpdate, drawAsk, drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
 import { meta } from './snowman-builder.meta.js';
 
 export { meta };
@@ -33,7 +41,17 @@ const ROLL_TIME = 80;        // soft limit for rolling; then the snow fairy fini
 const DECO_TIME = 105;       // soft limit for decorating (per yard, from when it starts)
 const GROW = 7;              // r² gained per unit rolled over full-depth snow
 const MAX_ITEMS = 40;
-const DONE = ITEMS.length;   // list index of the "Done!" entry
+const DONE = ITEMS.length;   // st.sel while the "Done" category is picked
+// Categories (LB / RB); the last one is "Done".
+const CATS = [
+  { name: 'Face', items: ['coal', 'googly', 'carrot', 'smile', 'cheek', 'shades'] },
+  { name: 'Hats', items: ['tophat', 'bobble', 'partyhat', 'tiara', 'earmuffs'] },
+  { name: 'Clothes', items: ['scarf', 'bowtie', 'mitten', 'arm', 'broom'] },
+  { name: 'Buttons', items: ['button', 'heart', 'star'] },
+  { name: 'Friends', items: ['flower', 'bird'] },
+].map((c) => ({ ...c, idx: c.items.map((id) => ITEM[id]) }));
+const DONE_TAB = CATS.length;
+const catOf = (sel) => CATS.findIndex((c) => c.idx.includes(sel));
 const SNOW = ['#ffffff', '#eef6ff', '#d8e8ff'];
 const HELLO = ['Hello!', 'Hi hi!', 'Brrr-illiant!', 'I can wave!', 'Snow happy!', 'Hooray!', 'Look at me!', 'Chilly hugs!'];
 const SHOW_Y = 905;
@@ -113,7 +131,7 @@ export class Game {
       p, i, r, hintH, VW, spot, sm, actor: a, view: { ...roll }, roll, deco: null, zoomT: 0,
       mode: 'roll', ball: null, dir: -0.3, lift: null, pat: 0, nearT: 0, canStack: false, tipCD: 0,
       cols, rows, depth, trail, tctx: trail.getContext('2d'), refillT: 0, puffT: 0, rollSndT: 0,
-      stackBump: 0, builtT: 0, cursor: { x: spot.x, y: spot.y - 200 }, sel: 0, held: null, hover: null,
+      stackBump: 0, builtT: 0, cursor: { x: spot.x, y: spot.y - 200 }, sel: 0, tab: 0, selIn: CATS.map((c) => c.idx[0]), clearAsk: null, tabBump: 0, held: null, hover: null,
       history: [], ready: false, readyT: 0, listBump: 0, cheerCD: 0, decoStart: 0, decoTime: DECO_TIME, placed: 0, ai: null,
       scenery: this.makeScenery(VW), sparkles: Array.from({ length: Math.round(VW / 30) }, () => ({ x: rand(VW), y: rand(20, FIELD_H), ph: rand(TAU) })),
       lastMilestone: 0, rolled: 0,
@@ -397,7 +415,7 @@ export class Game {
     const k = Math.min(A.h / (bottom - top), A.w / (right - left), st.roll.k * 3.2);
     st.deco = { k, ox: A.x + (A.w - (right - left) * k) / 2 - left * k, oy: A.y + (A.h - (bottom - top) * k) / 2 - top * k };
     st.bounds = { left: left - 20, right: right + 10, top: top - 10, bottom: bottom + 10 };
-    st.sel = ITEM.coal;
+    st.sel = ITEM.coal; st.tab = 0;
     if (st.p.isAI) st.ai = { mode: 'tick', t: rand(0.6, 1.4), plan: this.buildPlan(st), pi: 0 };
     sfx('whoosh');
   }
@@ -415,9 +433,10 @@ export class Game {
       a.facing = 1;
       if (!a._once) a.setPose(st.zoomT < 1 ? 'walk' : 'idle');
     }
-    st.listBump = Math.max(0, st.listBump - dt);
+    st.listBump = Math.max(0, st.listBump - dt); st.tabBump = Math.max(0, st.tabBump - dt);
     st.cheerCD -= dt;
     if (st.ready) { st.readyT += dt; if (c.pressed('b') && !st.p.isAI) this.setReady(st, false); return; }
+    if (st.clearAsk) { this.updateClearAsk(st); return; }
     if (st.p.isAI) this.updateDecoAI(st, dt);
     const pad = c.kind === 'pad';
     const mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
@@ -425,16 +444,24 @@ export class Game {
     const B = st.bounds, cur = st.cursor;
     cur.x = clamp(cur.x + (mx * sp + c.rx * 200) * dt, B.left, B.right);
     cur.y = clamp(cur.y + (my * sp + c.ry * 200) * dt, B.top, B.bottom);
-    let step = (c.pressed('x') || c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
+    // LB / RB: categories (the last one is Done) · X / D-pad: the next decoration in it
+    const tabStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
+    if (tabStep) this.stepTab(st, tabStep);
+    let step = c.pressed('x') ? 1 : 0;
     if (pad) step += (c.pressed('down') || c.pressed('right') ? 1 : 0) - (c.pressed('up') || c.pressed('left') ? 1 : 0);
-    if (step) { st.sel = (st.sel + step + DONE + 1) % (DONE + 1); st.listBump = 0.15; sfx('move'); }
-    if (c.pressed('y')) { this.surprise(st); return; }
+    if (step) this.stepItem(st, step);
+    // Y: take it all off (asks first, Go back is the default); on a bare snowman: a surprise look
+    if (c.pressed('y')) {
+      if (st.sm.items.length) { st.clearAsk = askOpen(); st.held = null; st.hover = null; sfx('select'); } else this.surprise(st);
+      return;
+    }
     if (st.held) {
       if (c.pressed('a')) this.dropHeld(st);
       else if (c.pressed('b')) this.removeItem(st, st.held);
       st.hover = null;
       return;
     }
+    if (st.sel === DONE && c.pressed('a')) { this.setReady(st, true); return; }   // on Done, A is always "I'm ready"
     st.hover = st.p.isAI ? null : this.itemAt(st);
     if (st.hover && c.pressed('b')) { this.removeItem(st, st.hover); st.hover = null; return; }
     if (st.hover && c.pressed('a')) { this.grab(st, st.hover); st.hover = null; return; }
@@ -442,6 +469,36 @@ export class Game {
       if (st.sel === DONE) this.setReady(st, true);
       else { const it = this.place(st, ITEMS[st.sel].id, cur.x, cur.y); if (it) st.history.push(it); }
     } else if (c.pressed('b')) this.undo(st);
+  }
+
+  /** LB / RB: the next / previous category; the last one is "Done". */
+  stepTab(st, dir) {
+    st.tab = (st.tab + dir + DONE_TAB + 1) % (DONE_TAB + 1);
+    st.sel = st.tab === DONE_TAB ? DONE : st.selIn[st.tab];
+    st.tabBump = 0.18; st.listBump = 0.15; sfx('move');
+  }
+  /** X / D-pad: the next decoration in this category. */
+  stepItem(st, dir) {
+    if (st.tab === DONE_TAB) { sfx('blip'); return; }
+    const ids = CATS[st.tab].idx, k = ids.indexOf(st.sel);
+    st.sel = ids[(k + dir + ids.length) % ids.length]; st.selIn[st.tab] = st.sel;
+    st.listBump = 0.15; sfx('move');
+  }
+
+  /** "Take it all off?": Go back (the default) or Clear. */
+  updateClearAsk(st) {
+    const q = st.clearAsk, sel = q.sel, r = askUpdate(st.p.ctrl, q);
+    if (q.sel !== sel) sfx('move');
+    if (!r) return;
+    st.clearAsk = null;
+    if (r === 'yes') this.clearAll(st); else sfx('back');
+  }
+  clearAll(st) {
+    const cs = ballCenters(st.sm), s = this.toScreen(st, st.sm.x, cs[cs.length - 1].y);
+    st.sm.items = []; st.history = []; st.held = null; st.hover = null;
+    sfx('whoosh'); sfx('pop');
+    particles.burst(s.x, s.y, { type: 'dust', count: 16, colors: SNOW, speed: [80, 260] });
+    st.actor.playOnce('surprised', 0.5, 'idle');
   }
 
   /** Put a new decoration where the hand is. */
@@ -576,12 +633,14 @@ export class Game {
     if (ai.t > 0) return;
     const hurry = !this.cpuOnly && this.stations.every((s) => s.ready || s.p.isAI);
     ai.t = rand(0.12, 0.3) * (hurry ? 0.5 : 1);
-    const want = goal ? ITEM[goal.kind] : DONE;
-    if (st.sel !== want) {
-      const fwd = (want - st.sel + DONE + 1) % (DONE + 1);
-      c.press(fwd <= (DONE + 1) / 2 ? 'x' : 'lb');
+    // RB / LB to the decoration's category (or Done), then X to the decoration
+    const want = goal ? ITEM[goal.kind] : DONE, wantTab = goal ? catOf(want) : DONE_TAB;
+    if (st.tab !== wantTab) {
+      const fwd = (wantTab - st.tab + DONE_TAB + 1) % (DONE_TAB + 1);
+      c.press(fwd <= (DONE_TAB + 1) / 2 ? 'rb' : 'lb');
       return;
     }
+    if (st.sel !== want) { c.press('x'); return; }
     if (!goal) { c.press('a'); return; }
     ai.mode = 'move';
   }
@@ -590,7 +649,7 @@ export class Game {
     st.ready = on; st.readyT = 0;
     const a = st.actor;
     if (on) {
-      st.held = null; st.hover = null;
+      st.held = null; st.hover = null; st.clearAsk = null;
       sfx('ready'); a.playOnce('ready', 0.6, 'wave'); a.squash(-0.25);
       const cs = ballCenters(st.sm), s = this.toScreen(st, st.sm.x, cs[cs.length - 1].y);
       particles.burst(s.x, s.y, { type: 'confetti', count: 22, speed: [200, 480] });
@@ -835,7 +894,8 @@ export class Game {
     const left = this.t < this.rollTime ? this.rollTime - this.t : 0;
     // (the rolling clock shows there instead: api.limit)
     if (!(left > 0 && left < 25 && this.stations.some((s) => s.mode === 'roll' && (!s.p.isAI || this.cpuOnly))) && this.n <= 2 && this.stations.some((s) => s.mode === 'deco' && !s.ready && !s.p.isAI)) {
-      ui.hints(g, [['y', 'Surprise!']], W - 200, 56, { size: 34 });
+      const kid = this.stations.find((s) => s.mode === 'deco' && !s.ready && !s.p.isAI);
+      ui.hints(g, [['y', kid.sm.items.length ? 'Clear' : 'Surprise!']], W - 200, 56, { size: 34 });
     }
     for (const st of this.stations) this.drawStation(g, st);
   }
@@ -1044,7 +1104,7 @@ export class Game {
       else { g.fillStyle = '#36d17a'; g.beginPath(); g.arc(s.x, s.y, sz * 0.4, 0, TAU); g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke(); g.lineWidth = 5; g.strokeStyle = '#fff'; g.beginPath(); g.moveTo(s.x - sz * 0.18, s.y); g.lineTo(s.x - sz * 0.04, s.y + sz * 0.14); g.lineTo(s.x + sz * 0.2, s.y - sz * 0.14); g.stroke(); }
     }
     if (this.players.filter((pp) => !pp.isAI).length > 1 || st.p.isAI) ui.text(g, st.p.tag, s.x, s.y - sz * 0.62 - 14, { size: 20, color: st.p.color, strokeWidth: 4 });
-    const tip = held ? [['a', 'Put down'], ['b', 'Take off']] : st.hover ? [['a', 'Move'], ['b', 'Take off']] : null;
+    const tip = held ? [['a', 'Put down'], ['b', 'Take off']] : st.hover ? (sel === DONE ? [['b', 'Take off']] : [['a', 'Move'], ['b', 'Take off']]) : null;
     if (tip && !st.p.isAI) {
       const fs = clamp(26 * k + 6, 18, 28), gsz = fs * 1.15;
       let w = 14;
@@ -1090,41 +1150,54 @@ export class Game {
     const r = st.r, lw = this.listW(st);
     const lr = { x: r.x + r.w - lw - 10, y: r.y + 12, w: lw, h: r.h - st.hintH - 30 };
     ui.panel(g, lr.x, lr.y, lr.w, lr.h, { r: 22, fill: 'rgba(255,255,255,0.9)', lineWidth: 4, shadow: false });
-    const headH = clamp(lr.h * 0.08, 24, 50);
-    ui.text(g, 'Decorate', lr.x + lr.w / 2, lr.y + headH * 0.62, { size: headH * 0.7, color: st.p.color, strokeWidth: 5, maxWidth: lr.w - 16 });
-    const total = DONE + 1;
+    // header: LB  category  RB
+    const headH = clamp(lr.h * 0.08, 24, 50), gs = headH * 0.8;
+    ui.glyph(g, 'lb', lr.x + 8 + gs * 0.6, lr.y + headH * 0.6, gs);
+    ui.glyph(g, 'rb', lr.x + lr.w - 8 - gs * 0.6, lr.y + headH * 0.6, gs);
+    const title = st.tab === DONE_TAB ? 'Done' : CATS[st.tab].name;
+    ui.text(g, title, lr.x + lr.w / 2, lr.y + headH * 0.62, { size: headH * 0.62, color: st.p.color, strokeWidth: 5, maxWidth: lr.w - gs * 2.6 - 16 });
+    // category tabs (the last, green one is Done)
+    const tabH = clamp(lr.h * 0.085, 26, 52), ty = lr.y + headH + 6, tw = (lr.w - 16) / (DONE_TAB + 1);
+    CATS.forEach((cat, ci) => {
+      const sel = ci === st.tab, bx = lr.x + 8 + ci * tw + 2, bw = tw - 4, k = sel ? 1 + st.tabBump * 0.8 : 1;
+      g.save(); g.translate(bx + bw / 2, ty + tabH / 2); g.scale(k, k);
+      ui.panel(g, -bw / 2, -tabH / 2, bw, tabH, { r: 10, fill: sel ? '#ffd23f' : '#ffffff', lineWidth: sel ? 4 : 2, stroke: sel ? NAVY : 'rgba(36,22,63,0.3)', shadow: false });
+      drawItemIcon(g, cat.items[0], 0, 0, Math.min(bw, tabH) * 0.82, this.t);
+      g.restore();
+    });
+    drawDoneTab(g, lr.x + 8 + DONE_TAB * tw + 2, ty, tw - 4, tabH, { sel: st.tab === DONE_TAB, bump: st.tabBump, label: false });
     const footH = clamp(lr.h * 0.08, 26, 46);
-    const areaY = lr.y + headH + 6, areaH = lr.h - headH - 14 - footH;
-    const vis = Math.min(total, Math.max(3, Math.floor(areaH / 60)));
-    const slotH = areaH / vis;
-    const first = clamp(st.sel - Math.floor(vis / 2), 0, total - vis);
-    const named = lr.w >= 190;
-    for (let j = 0; j < vis; j++) {
-      const ii = first + j, sel = ii === st.sel, done = ii === DONE;
-      const sy = areaY + j * slotH;
-      const bump = sel ? st.listBump * 0.6 : 0;
-      g.save(); g.translate(lr.x + lr.w / 2, sy + slotH / 2); g.scale(1 + bump, 1 + bump);
-      const bw = lr.w - 16, bh = slotH - 6;
-      ui.panel(g, -bw / 2, -bh / 2, bw, bh, { r: 14, fill: done ? (sel ? '#36d17a' : '#bff0d2') : sel ? '#ffd23f' : '#ffffff', lineWidth: sel ? 4 : 2, stroke: sel ? NAVY : 'rgba(36,22,63,0.25)', shadow: false });
-      const isz = Math.min(bh * 0.95, named ? bh : bw * 0.8);
-      const ix = named ? -bw / 2 + isz / 2 + 6 : 0;
-      if (done) {
-        g.fillStyle = sel ? '#ffffff' : '#36d17a'; g.beginPath(); g.arc(ix, 0, isz * 0.3, 0, TAU); g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
-        g.lineWidth = 4; g.strokeStyle = sel ? '#36d17a' : '#fff'; g.beginPath(); g.moveTo(ix - isz * 0.13, 0); g.lineTo(ix - isz * 0.03, isz * 0.1); g.lineTo(ix + isz * 0.14, -isz * 0.1); g.stroke();
-        if (named) ui.text(g, 'Done!', ix + isz / 2 + 8, 2, { size: clamp(bh * 0.36, 16, 32), color: sel ? '#fff' : NAVY, stroke: sel ? NAVY : false, align: 'left', weight: 800 });
-      } else {
+    const areaY = ty + tabH + 8, areaH = lr.y + lr.h - areaY - 8 - footH;
+    if (st.tab === DONE_TAB) {
+      drawDoneCard(g, { x: lr.x + 8, y: areaY, w: lr.w - 16, h: lr.h - (areaY - lr.y) - 8 }, st.p.color);
+    } else {
+      const ids = CATS[st.tab].idx, total = ids.length;
+      const vis = Math.min(total, Math.max(2, Math.floor(areaH / 56)));
+      const slotH = areaH / vis, k0 = ids.indexOf(st.sel);
+      const first = clamp(k0 - Math.floor(vis / 2), 0, total - vis);
+      const named = lr.w >= 190;
+      for (let j = 0; j < vis; j++) {
+        const ii = ids[first + j], sel = ii === st.sel;
+        const sy = areaY + j * slotH;
+        const bump = sel ? st.listBump * 0.6 : 0;
+        g.save(); g.translate(lr.x + lr.w / 2, sy + slotH / 2); g.scale(1 + bump, 1 + bump);
+        const bw = lr.w - 16, bh = slotH - 6;
+        ui.panel(g, -bw / 2, -bh / 2, bw, bh, { r: 14, fill: sel ? '#ffd23f' : '#ffffff', lineWidth: sel ? 4 : 2, stroke: sel ? NAVY : 'rgba(36,22,63,0.25)', shadow: false });
+        const isz = Math.min(bh * 0.95, named ? bh : bw * 0.8);
+        const ix = named ? -bw / 2 + isz / 2 + 6 : 0;
         drawItemIcon(g, ITEMS[ii].id, ix, 0, isz, this.t);
         if (named) ui.text(g, ITEMS[ii].name, ix + isz / 2 + 8, 2, { size: clamp(bh * 0.3, 15, 28), color: NAVY, stroke: false, align: 'left', weight: 700, maxWidth: bw - isz - 20 });
+        g.restore();
       }
-      g.restore();
+      g.fillStyle = NAVY;
+      const ax = lr.x + lr.w / 2;
+      if (first > 0) { g.beginPath(); g.moveTo(ax - 12, areaY + 2); g.lineTo(ax + 12, areaY + 2); g.lineTo(ax, areaY - 10); g.fill(); }
+      if (first + vis < total) { const yb = areaY + areaH; g.beginPath(); g.moveTo(ax - 12, yb - 2); g.lineTo(ax + 12, yb - 2); g.lineTo(ax, yb + 10); g.fill(); }
+      const fy = lr.y + lr.h - footH / 2 - 6, fs = footH * 0.62;
+      ui.glyph(g, st.p.ctrl.kind === 'pad' ? 'dpad' : 'x', lr.x + 16 + fs / 2, fy, fs);
+      ui.text(g, 'Next', lr.x + 26 + fs, fy + 1, { size: fs * 0.72, color: NAVY, stroke: false, align: 'left', weight: 800, maxWidth: lr.w - fs - 40 });
     }
-    g.fillStyle = NAVY;
-    const ax = lr.x + lr.w / 2;
-    if (first > 0) { g.beginPath(); g.moveTo(ax - 12, areaY + 2); g.lineTo(ax + 12, areaY + 2); g.lineTo(ax, areaY - 10); g.fill(); }
-    if (first + vis < total) { const yb = areaY + areaH; g.beginPath(); g.moveTo(ax - 12, yb - 2); g.lineTo(ax + 12, yb - 2); g.lineTo(ax, yb + 10); g.fill(); }
-    const fy = lr.y + lr.h - footH / 2 - 6, fs = footH * 0.62;
-    ui.glyph(g, st.p.ctrl.kind === 'pad' ? 'dpad' : 'x', lr.x + 16 + fs / 2, fy, fs);
-    ui.text(g, 'Next', lr.x + 26 + fs, fy + 1, { size: fs * 0.72, color: NAVY, stroke: false, align: 'left', weight: 800, maxWidth: lr.w - fs - 40 });
+    if (st.clearAsk) drawAsk(g, lr, st.clearAsk, { title: 'Take it all off?', yes: 'Clear' });
   }
 
   drawReady(g, st) {
@@ -1155,12 +1228,13 @@ export class Game {
     if (st.mode === 'roll') items = st.canStack ? [['stick', 'Push'], ['a', 'Stack it!']] : [['stick', 'Push your snowball'], ['a', 'Pat']];
     else if (st.mode === 'built') items = [];
     else if (st.ready) items = [['b', 'Change']];
+    else if (st.clearAsk) items = [['stick', 'Choose'], ['a', 'OK'], ['b', 'Go back']];
     else if (st.held) items = [['stick', 'Move'], ['a', 'Put down'], ['b', 'Take off']];
-    else if (st.sel === DONE) items = [['a', 'Done!'], [pad ? 'dpad' : 'x', 'Pick'], ['y', 'Surprise!']];
-    else items = [['stick', 'Move'], ['a', st.hover ? 'Pick up' : 'Add'], [pad ? 'dpad' : 'x', 'Pick'], ['b', st.hover ? 'Take off' : 'Undo'], ['y', 'Surprise!']];
+    else if (st.sel === DONE) items = [['lb', 'Change something'], ['a', "I'm ready!"]];
+    else items = [['stick', 'Move'], ['a', st.hover ? 'Pick up' : 'Add'], [pad ? 'dpad' : 'x', 'Next'], ['rb', 'Category'], ['b', st.hover ? 'Take off' : 'Undo'], ['y', st.sm.items.length ? 'Clear' : 'Surprise!']];
     if (!items.length) return;
     const wide = r.w > 700;
-    if (!wide) items = items.map(([b, l]) => [b, l === 'Surprise!' || l === 'Pick' ? '' : l]);
+    if (!wide) items = items.map(([b, l]) => [b, ['Surprise!', 'Clear', 'Next', 'Category', 'Change something'].includes(l) ? '' : l]);
     const x0 = r.x + 16, avail = r.w - 32 - (st.mode === 'deco' ? this.listW(st) + 10 : 0), lab = sz * 0.62;
     let need = 0;
     for (const [, l] of items) need += sz + 6 + (l ? ui.measure(g, l, lab) + 18 : 12);

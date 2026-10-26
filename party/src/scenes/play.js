@@ -1,6 +1,6 @@
 // Minigame host: builds the api object, runs 3-2-1-GO, pause menu, FINISH!
 // banner, crash safety, then hands the result to the Results scene.
-import { cancelLater } from '../engine/util.js';
+import { cancelLater, lerp, ease } from '../engine/util.js';
 import { W, H } from '../engine/canvas.js';
 import { input, inputOpts } from '../engine/input.js';
 import { sfx, music, host, stopAllLoops, duckLoops, setMuted, isMuted } from '../engine/audio.js';
@@ -12,6 +12,7 @@ import { gameById, loadGame } from '../games/index.js';
 import { Camera } from '../engine/camera.js';
 import { corner } from '../engine/corner.js';
 import { hasArtGroup, ensureGameArt, releaseGameArt } from '../engine/art.js';
+import { bookResult, leaveFinishedGame } from './results.js';
 
 const COUNTDOWN = 3.6;
 
@@ -50,8 +51,8 @@ export class PlayScene {
       get state() { return host.state; },
       finish: (result) => this.finish(result),
       // Everyone wins together (co-op / studio): one podium, a team headline, no ranking.
-      finishTogether: ({ title = null, stats = null, focus = null } = {}) => this.finish({
-        placements: session.players.map(() => 1), showcase: true, highlight: null, title, focus,
+      finishTogether: ({ title = null, stats = null, focus = null, banner = true } = {}) => this.finish({
+        placements: session.players.map(() => 1), showcase: true, highlight: null, title, focus, banner,
         stats: stats || session.players.map(() => ''),
       }),
       // A time limit the game runs on. The play scene draws its countdown (so no limit is ever
@@ -75,6 +76,9 @@ export class PlayScene {
         return clock;
       },
       camera: new Camera(),
+      // true once a no-winner game has ended on its gallery screen: hide score chips and other
+      // play-time HUD so the art (and the stars bar along the bottom) is all that shows
+      ended: () => host.state === 'gallery',
     };
     this.limits = [];
     this.studioClocks = [];
@@ -165,7 +169,19 @@ export class PlayScene {
       showcase: !!result.showcase || this.meta.category === 'studio' && !result.placements,
       highlight: result.highlight ?? null,  // index of a "showstopper" in studio games
       title: result.title || null,
+      banner: result.banner !== false,   // gallery: false when the game's last screen has its own title
     };
+    // A no-winner game (every showcase / finishTogether ending, unless it passes gallery: false)
+    // ends on its own show-off screen - the photo wall, the gallery, the finished picture: no
+    // FINISH banner and no podium page. Stars are booked here and the kids leave from the
+    // game's screen with A (or Y: play again).
+    if (result.gallery ?? this.result.showcase) {
+      this.earned = bookResult(this.gameId, this.result);
+      this.state = 'gallery'; this.t = 0;
+      sfx('jingle/star-award');
+      setTimeout(() => host('everyone-star'), 400);
+      return;
+    }
     if (n === 1 && result.solo !== undefined && !this.result.showcase) this.rateSolo(result.solo);
     // Zoom toward the winner (or a focus point the game gives) for the FINISH beat.
     if (this.usesCamera) {
@@ -211,6 +227,15 @@ export class PlayScene {
     } else if (this.state === 'finish') {
       this.safe(() => this.game.postUpdate && this.game.postUpdate(dt));
       if (this.t > 1.9) this.toResults();
+    } else if (this.state === 'gallery') {
+      this.safe(() => this.game.postUpdate && this.game.postUpdate(dt));
+      if (this.t < 2.5 || this.leaving) return;
+      const c = input.humans().find((h) => h.pressed('a') || h.pressed('y'));
+      const auto = new URLSearchParams(location.search).has('auto') && this.t > 8;
+      if (c || auto || (inputOpen && input.pointer.pressed)) {
+        this.leaving = true; sfx('select');
+        leaveFinishedGame(this.manager, this.gameId, !!(c && c.pressed('y')));
+      }
     } else if (this.state === 'error') {
       if (this.t > 2.5 || input.anyHumanPressed('a')) this.toResults();
     }
@@ -341,6 +366,21 @@ export class PlayScene {
     });
   }
 
+  /** Over a gallery ending: everyone's stars along the bottom, and how to go on. */
+  drawGalleryBar(g) {
+    const k = Math.min(1, this.t / 0.6);
+    g.save(); g.globalAlpha = k;
+    const title = this.result.banner && this.result.title;
+    if (title) {
+      const w = Math.min(W - 200, ui.measure(g, title, 56, 800) + 120), y = lerp(-60, 74, ease.outBack(k));
+      ui.panel(g, W / 2 - w / 2, y - 44, w, 88, { r: 44, fill: '#9b5cff' });
+      ui.text(g, title, W / 2, y + 2, { size: 56, weight: 800 });
+    }
+    ui.scoreboard(g, session.players, this.earned, { y: 990, format: (v) => `+${v} ★` });
+    if (this.t > 2.5) ui.hints(g, [['a', session.partyMode ? 'Next game' : 'Continue'], ['y', 'Play again']], W - 330, 940, { size: 36 });
+    g.restore();
+  }
+
   /** Countdowns for the game's time limits (api.limit): nothing ends on a clock nobody can see. */
   drawLimits(g) {
     for (const L of this.limits) {
@@ -435,6 +475,7 @@ export class PlayScene {
     if (this.state === 'loading') ui.text(g, 'Loading…', W / 2, H / 2, { size: 64 });
     if (this.state === 'countdown') ui.countdown(g, this.t);
     if (this.state === 'play' && this.playTime < 0.8 && this.meta.countdown !== false) ui.countdown(g, 3 + this.playTime);
+    if (this.state === 'gallery') this.drawGalleryBar(g);
     if (this.state === 'finish') {
       g.save(); g.fillStyle = `rgba(36,22,63,${Math.min(0.35, this.t)})`; g.fillRect(0, 0, W, H); g.restore();
       ui.banner(g, this.result.title || (this.meta.category === 'studio' ? 'Beautiful!' : 'FINISH!'), this.t, { size: 170 });

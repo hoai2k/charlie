@@ -517,6 +517,8 @@ const BACK = [
 ];
 
 // --- hand ----------------------------------------------------------------
+// Held items lean out at the top by HAND_TILT radians (an item's own `tilt` overrides it).
+const HAND_TILT = 0.3;
 const HAND = [
   { name: 'None' },
   {
@@ -548,7 +550,7 @@ const HAND = [
     },
   },
   {
-    name: 'Microphone', color: 2, icon: [1.6, 0.12],
+    name: 'Microphone', color: 2, icon: [1.6, 0.12], tilt: 0,   // already drawn leaning out
     draw(g, S, col) {
       g.save(); g.rotate(0.25);
       g.beginPath(); g.moveTo(-S * 0.022, -S * 0.08); g.lineTo(S * 0.022, -S * 0.08); g.lineTo(S * 0.014, S * 0.06); g.lineTo(-S * 0.014, S * 0.06); g.closePath();
@@ -562,7 +564,7 @@ const HAND = [
     },
   },
   {
-    name: 'Balloon', color: 5, icon: [0.85, 0.32],
+    name: 'Balloon', tilt: 0.12, color: 5, icon: [0.85, 0.32],
     draw(g, S, col, t) {
       const bx = S * 0.04 + Math.sin(t * 1.8) * S * 0.025, by = -S * 0.62;
       g.beginPath(); g.moveTo(0, 0); g.quadraticCurveTo(S * 0.08, -S * 0.28, bx, by + S * 0.13);
@@ -1096,7 +1098,7 @@ HAND.push(
     },
   },
   {
-    name: 'Handbag', color: 2, icon: [1.6, 0.0],
+    name: 'Handbag', color: 2, icon: [1.6, 0.0], tilt: 0,   // hangs straight down
     draw(g, S, col) {
       g.beginPath(); g.moveTo(-S * 0.05, S * 0.09); g.quadraticCurveTo(-S * 0.04, -S * 0.02, 0, -S * 0.0); g.quadraticCurveTo(S * 0.04, -S * 0.02, S * 0.05, S * 0.09);
       g.lineWidth = S * 0.016; g.strokeStyle = NAVY; g.stroke(); g.lineWidth = S * 0.008; g.strokeStyle = '#ffd23f'; g.stroke();
@@ -1719,6 +1721,8 @@ export function drawOutfit(g, def, info, outfit, { layer = 'front', t = 0, pop =
     }
     g.save(); g.translate(at.x, at.y);
     if (at.rot) g.rotate(at.rot);
+    // hand-held things lean out at the top, away from the face (like the microphone)
+    if (slot === 'hand') { const k = w.item.tilt ?? HAND_TILT; if (k) g.rotate(at.x >= A.head.x ? k : -k); }
     const k = pop ? pop(slot) : 1; if (k !== 1) g.scale(k, k);
     drawOutfitItem(g, w.item, w.colour, at.S, t, { layer, box });
     g.restore();
