@@ -9,6 +9,11 @@
 // (changed, or marked Looks right). Poses already taken into the game (in
 // moon-boot-overrides.js) leave the queue. The game's sound is off while
 // the queue is open.
+// On a touchscreen there's no turning ring: tap a boot to pick it and drag
+// it to move it; tap off it to let it go, or drag off it to spin it about
+// its middle; with two fingers, twist to turn it and pinch to size it
+// (slowly). With no boot picked, or one that fills the screen, two fingers
+// zoom and pan the whole view instead (one finger pans).
 const SPRITE_FRAMES = ["Idle 1", "Idle 2", "Idle 3", "Run 1", "Run 2", "Run 3", "Jump crouch", "Jump (in the air)", "Landing", "Riding", "Push", "Knocked over"];
 const ACTION_FRAMES = ["Wand raised", "Casting", "Wand follow-through", "Surf balance", "Surf carve", "Surf wobble", "Push from the saddle", "Stuck in a puddle", "Moon-boots float"];
 const BOOT_VIEWS = ["Side", "Three-quarter", "Front", "Back three-quarter", "Sole", "Pointed toe", "Inside (toe left)"];
@@ -28,6 +33,8 @@ const verify = {
   boots: [], // the current pose's boots, being edited
   selected: -1,
   drag: null,
+  view: { zoom: 1, x: 0, y: 0 }, // the viewer's own zoom and pan, over the pose's layout
+  touchUI: matchMedia("(pointer: coarse)").matches, // a touchscreen in use: gestures, no turning ring
   cellBounds: [] // each boot cell's art bounds in its cell, for picking
 };
 
@@ -101,6 +108,7 @@ function openItem(at) {
   const saved = verify.results[item.id];
   verify.boots = saved ? copyBoots(saved.boots) : originalBoots(item);
   verify.selected = verify.boots.length ? 0 : -1;
+  verify.view = { zoom: 1, x: 0, y: 0 };
   v$("#vJump").value = String(verify.at);
   renderVerifyStatus();
   renderViewButtons();
@@ -144,6 +152,9 @@ function renderVerifyStatus() {
   }
   const boot = verify.boots[verify.selected];
   for (const id of ["#vMirror", "#vFront", "#vSmaller", "#vBigger", "#vDelete"]) v$(id).disabled = !boot;
+  v$("#vHint").textContent = verify.touchUI
+    ? "Tap a boot to pick it, drag to move it. Drag beside it to spin it; tap away to let go. Two fingers: twist to turn, pinch to size."
+    : "Click a boot to pick it. Drag it to move it; drag the ring's handle to turn it.";
 }
 
 function renderViewButtons() {
@@ -173,8 +184,18 @@ function renderViewButtons() {
 }
 
 // ---------- drawing ----------
-// How a pose is laid out on the view: its scale and where frame px (0, 0) is.
+// How a pose is laid out on the view: its scale and where frame px (0, 0)
+// is, with the viewer's own zoom and pan (verify.view) on top.
 function verifyLayout() {
+  return viewOver(baseLayout(), verify.view);
+}
+
+function viewOver(base, view) {
+  const w = viewCanvas.width, h = viewCanvas.height;
+  return { scale: base.scale * view.zoom, ox: w / 2 + (base.ox - w / 2) * view.zoom + view.x, oy: h / 2 + (base.oy - h / 2) * view.zoom + view.y };
+}
+
+function baseLayout() {
   const w = viewCanvas.width, h = viewCanvas.height;
   const FRAME = game.Bench.FRAME;
   let box = [0, 0, FRAME, FRAME];
@@ -244,9 +265,26 @@ function drawVerify() {
     vctx.drawImage(art, boot.cell * size, 0, size, size, -128 * t.k, (-244 + game.Bench.moonBoots.footMid) * t.k, size * t.k, size * t.k);
     vctx.restore();
   });
-  // The selected boot, over them all: its box, and a ring with a handle to turn it.
+  // The selected boot, over them all: its box, and (with a mouse) a ring
+  // with a handle to turn it.
   const boot = verify.boots[verify.selected];
-  if (boot) {
+  if (boot && verify.touchUI) {
+    const t = bootTransform(boot, layout);
+    vctx.save();
+    vctx.translate(t.x, t.y);
+    vctx.rotate(boot.angle);
+    const box = bootBox(boot, t.k);
+    vctx.strokeStyle = "#ffcf4a";
+    vctx.lineWidth = 2.5 * dpr;
+    vctx.setLineDash([6 * dpr, 4 * dpr]);
+    vctx.strokeRect(box.left * (boot.mirror ? -1 : 1), box.top, (box.right - box.left) * (boot.mirror ? -1 : 1), box.bottom - box.top);
+    vctx.setLineDash([]);
+    vctx.fillStyle = "#ffcf4a";
+    vctx.beginPath();
+    vctx.arc(0, 0, 4 * dpr, 0, Math.PI * 2);
+    vctx.fill();
+    vctx.restore();
+  } else if (boot) {
     const t = bootTransform(boot, layout);
     vctx.save();
     vctx.translate(t.x, t.y);
@@ -323,6 +361,9 @@ function bootAt(point, layout) {
 }
 
 viewCanvas.addEventListener("pointerdown", event => {
+  const touch = event.pointerType === "touch";
+  if (touch !== verify.touchUI) { verify.touchUI = touch; renderVerifyStatus(); }
+  if (touch) { touchDown(event); return; }
   const layout = verifyLayout();
   const point = canvasPoint(event);
   const boot = verify.boots[verify.selected];
@@ -354,6 +395,7 @@ viewCanvas.addEventListener("pointerdown", event => {
 });
 
 viewCanvas.addEventListener("pointermove", event => {
+  if (event.pointerType === "touch") { touchMove(event); return; }
   const drag = verify.drag;
   if (!drag) return;
   const boot = verify.boots[verify.selected];
@@ -369,12 +411,126 @@ viewCanvas.addEventListener("pointermove", event => {
 });
 
 for (const type of ["pointerup", "pointercancel"]) {
-  viewCanvas.addEventListener(type, () => {
+  viewCanvas.addEventListener(type, event => {
+    if (event.pointerType === "touch") { touchUp(event); return; }
     if (!verify.drag) return;
     verify.drag = null;
     viewCanvas.style.cursor = "default";
     changed();
   });
+}
+
+// ---------- touch: gestures ----------
+const touches = new Map(); // pointer id -> where it is now (canvas px)
+let gesture = null;
+
+function selectBoot(index) {
+  verify.selected = index;
+  renderVerifyStatus();
+  renderViewButtons();
+}
+
+// How big a boot is on screen, against the view: one taking up too much of
+// it gets two-finger zooming of the whole view, not of itself.
+function bootFillsView(boot, layout) {
+  const box = bootBox(boot, bootTransform(boot, layout).k);
+  return Math.max(box.right - box.left, box.bottom - box.top) > 0.45 * Math.min(viewCanvas.width, viewCanvas.height);
+}
+
+function twoFingers() {
+  const [a, b] = [...touches.values()];
+  return { a, b, dist: Math.hypot(b.x - a.x, b.y - a.y), theta: Math.atan2(b.y - a.y, b.x - a.x), mid: { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 } };
+}
+
+function touchDown(event) {
+  const point = canvasPoint(event);
+  touches.set(event.pointerId, point);
+  viewCanvas.setPointerCapture(event.pointerId);
+  const layout = verifyLayout();
+  if (touches.size === 1) {
+    const hit = bootAt(point, layout);
+    const picked = verify.boots[verify.selected];
+    if (hit >= 0) {
+      if (hit !== verify.selected) selectBoot(hit);
+      const boot = verify.boots[hit];
+      gesture = { mode: "move", from: point, startX: boot.x, startY: boot.y, layout, moved: false };
+    } else if (picked) {
+      const t = bootTransform(picked, layout);
+      gesture = { mode: "spin", from: point, center: { x: t.x, y: t.y }, angle0: picked.angle, grab: Math.atan2(point.y - t.y, point.x - t.x), moved: false };
+    } else {
+      gesture = { mode: "pan", from: point, view0: { ...verify.view }, moved: false };
+    }
+  } else if (touches.size === 2) {
+    if (gesture?.moved && gesture.mode !== "pan") changed(); // (keep what the first finger did)
+    const fingers = twoFingers();
+    const boot = verify.boots[verify.selected];
+    const common = { from2: fingers, base: baseLayout(), view0: { ...verify.view }, moved: true };
+    gesture = boot && !bootFillsView(boot, layout)
+      ? { ...common, mode: "boot2", width0: boot.width, angle0: boot.angle }
+      : { ...common, mode: "zoom" };
+  }
+  drawVerify();
+}
+
+function touchMove(event) {
+  if (!touches.has(event.pointerId)) return;
+  const point = canvasPoint(event);
+  touches.set(event.pointerId, point);
+  if (!gesture) return;
+  const boot = verify.boots[verify.selected];
+  if (touches.size === 1 && ["move", "spin", "pan"].includes(gesture.mode)) {
+    const dx = point.x - gesture.from.x, dy = point.y - gesture.from.y;
+    if (!gesture.moved && Math.hypot(dx, dy) < 8 * (window.devicePixelRatio || 1)) return;
+    gesture.moved = true;
+    if (gesture.mode === "move" && boot) {
+      boot.x = gesture.startX + dx / gesture.layout.scale;
+      boot.y = gesture.startY + dy / gesture.layout.scale;
+    } else if (gesture.mode === "spin" && boot) {
+      boot.angle = gesture.angle0 + Math.atan2(point.y - gesture.center.y, point.x - gesture.center.x) - gesture.grab;
+    } else if (gesture.mode === "pan") {
+      verify.view.x = gesture.view0.x + dx;
+      verify.view.y = gesture.view0.y + dy;
+    }
+  } else if (touches.size >= 2 && gesture.from2) {
+    const now = twoFingers(), was = gesture.from2;
+    const ratio = now.dist / Math.max(1, was.dist);
+    if (gesture.mode === "boot2" && boot) {
+      // Twist turns it; pinch sizes it, slowly.
+      boot.width = Math.min(400, Math.max(12, gesture.width0 * Math.pow(ratio, 0.35)));
+      boot.angle = gesture.angle0 + (now.theta - was.theta);
+    } else if (gesture.mode === "zoom") {
+      // The view zooms about the fingers, and follows them as they move.
+      const base = gesture.base, v0 = gesture.view0;
+      const zoom = Math.min(8, Math.max(0.35, v0.zoom * ratio));
+      const before = viewOver(base, v0);
+      const fx = (was.mid.x - before.ox) / before.scale, fy = (was.mid.y - before.oy) / before.scale;
+      const w = viewCanvas.width, h = viewCanvas.height;
+      verify.view = {
+        zoom,
+        x: now.mid.x - fx * base.scale * zoom - w / 2 - (base.ox - w / 2) * zoom,
+        y: now.mid.y - fy * base.scale * zoom - h / 2 - (base.oy - h / 2) * zoom
+      };
+    }
+  }
+  drawVerify();
+}
+
+function touchUp(event) {
+  touches.delete(event.pointerId);
+  if (!gesture) return;
+  if (touches.size === 0) {
+    // A tap beside the picked boot lets it go.
+    if (gesture.mode === "spin" && !gesture.moved) selectBoot(-1);
+    const edited = gesture.moved && ["move", "spin", "boot2"].includes(gesture.mode);
+    gesture = null;
+    if (edited) changed();
+    else drawVerify();
+  } else if (gesture.from2) {
+    // One of two fingers up: that gesture's done (the other finger doesn't
+    // start a new one until it's lifted too).
+    if (gesture.mode === "boot2") changed();
+    gesture = { mode: "rest", moved: true };
+  }
 }
 
 viewCanvas.addEventListener("wheel", event => {
@@ -436,10 +592,13 @@ v$("#vReset").addEventListener("click", () => {
   openItem(verify.at);
 });
 v$("#vSeeThrough").addEventListener("change", drawVerify);
+v$("#vFit").addEventListener("click", () => { verify.view = { zoom: 1, x: 0, y: 0 }; drawVerify(); });
+v$("#vToolsOpen").addEventListener("click", () => document.body.classList.toggle("vtools"));
+v$("#verify .tools .sheet-close").addEventListener("click", () => document.body.classList.remove("vtools"));
 v$("#vZoom").addEventListener("change", drawVerify);
 v$("#vClose").addEventListener("click", () => {
   recordItem();
-  document.body.classList.remove("verifying");
+  document.body.classList.remove("verifying", "vtools");
   game.GameAudio?.setMuted(Boolean(verify.wasMuted), false);
   frame.contentWindow.focus();
 });

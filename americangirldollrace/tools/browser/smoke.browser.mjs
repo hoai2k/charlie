@@ -1107,6 +1107,56 @@ test('a song picks up where it was left when its board comes round again', { ski
   assert.deepEqual(r, { town: false, back: true, at: 42 });
 });
 
+test('the workbench on a phone: a viewer with buttons that open sheets; the boot editor by touch (tap picks, drag moves, drag beside spins, tap away lets go, two fingers twist and size it, or zoom the view)', { skip: skip() }, async () => {
+  const phone = await browser.newContext({ viewport: { width: 844, height: 390 }, hasTouch: true, isMobile: true, deviceScaleFactor: 2 });
+  const p = await phone.newPage();
+  const phoneErrors = [];
+  p.on('pageerror', e => phoneErrors.push(String(e.stack || e)));
+  await p.addInitScript(() => { window.RACE_TEST_SILENT = true; });
+  await p.goto(base + 'workbench/');
+  await p.waitForFunction(() => !document.querySelector('#verifyOpen').disabled, null, { timeout: 30000 });
+  const layout = await p.evaluate(() => ({ fab: getComputedStyle(document.querySelector('.fab')).display, help: getComputedStyle(document.querySelector('.help')).display,
+    sheetHidden: document.querySelector('aside.right').getBoundingClientRect().top >= innerHeight - 1 }));
+  await p.tap('#mAdd'); await p.waitForTimeout(300);
+  const addOpen = await p.evaluate(() => document.body.classList.contains('sheet-add') && document.querySelector('aside.right').getBoundingClientRect().top < innerHeight * 0.6);
+  await p.tap('#mounts .tile'); await p.waitForTimeout(300);
+  const closedAfterPick = await p.evaluate(() => !document.body.className.includes('sheet-'));
+  await p.tap('#mSettings'); await p.waitForTimeout(300); await p.tap('#mVerify'); await p.waitForTimeout(800);
+  const cdp = await phone.newCDPSession(p);
+  const touch = (type, pts) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: pts.map(([x, y], id) => ({ x, y, id })) });
+  const at = i => p.evaluate(i => { const r = viewCanvas.getBoundingClientRect(), d = viewCanvas.width / r.width, t = bootTransform(verify.boots[i], verifyLayout()); return [r.left + t.x / d, r.top + t.y / d]; }, i);
+  const boot = () => p.evaluate(() => { const b = verify.boots[verify.selected]; return b ? { sel: verify.selected, x: b.x, angle: b.angle, width: b.width } : { sel: -1 }; });
+  const zoomOff = await p.evaluate(() => !document.querySelector('#vZoom').checked && verify.touchUI);
+  const empty = await p.evaluate(() => { const r = viewCanvas.getBoundingClientRect(); return [r.left + 20, r.bottom - 20]; });
+  await touch('touchStart', [empty]); await touch('touchEnd', []);
+  const letGo = await boot();
+  let [x, y] = await at(1);
+  await touch('touchStart', [[x, y]]); await touch('touchEnd', []);
+  const picked = await boot();
+  await touch('touchStart', [[x, y]]); for (let i = 1; i <= 5; i++) await touch('touchMove', [[x + i * 6, y]]); await touch('touchEnd', []);
+  const moved = await boot();
+  [x, y] = await at(1);
+  await touch('touchStart', [[x + 110, y]]); for (let i = 1; i <= 5; i++) await touch('touchMove', [[x + 110, y + i * 15]]); await touch('touchEnd', []);
+  const spun = await boot();
+  [x, y] = await at(1);
+  await touch('touchStart', [[x - 40, y], [x + 40, y]]); for (let i = 1; i <= 5; i++) await touch('touchMove', [[x - 40 - i * 8, y - i * 3], [x + 40 + i * 8, y + i * 3]]); await touch('touchEnd', []);
+  const twisted = await boot();
+  await touch('touchStart', [empty]); await touch('touchEnd', []);
+  await touch('touchStart', [[380, 250], [460, 250]]); for (let i = 1; i <= 5; i++) await touch('touchMove', [[380 - i * 10, 250], [460 + i * 10, 250]]); await touch('touchEnd', []);
+  const zoomed = await p.evaluate(() => verify.view.zoom);
+  await phone.close();
+  assert.deepEqual(layout, { fab: 'flex', help: 'none', sheetHidden: true });
+  assert.ok(addOpen && closedAfterPick, 'Add opens a sheet; a tap drops it and closes the sheet');
+  assert.ok(zoomOff, 'Zoom on the feet starts off; a phone starts in touch mode');
+  assert.equal(letGo.sel, -1, 'a tap away lets the boot go');
+  assert.equal(picked.sel, 1, 'a tap picks a boot');
+  assert.ok(moved.x > picked.x + 10, 'a drag moves it');
+  assert.ok(Math.abs(spun.angle - moved.angle) > 0.2 && spun.x === moved.x, 'a drag beside it spins it in place');
+  assert.ok(twisted.width > spun.width * 1.05 && twisted.width < spun.width * 1.6 && twisted.angle !== spun.angle, 'two fingers size it (slowly) and turn it');
+  assert.ok(zoomed > 1.5, 'with none picked, a pinch zooms the view');
+  assert.deepEqual(phoneErrors, []);
+});
+
 test('the workbench runs: any player, still targets, every power-up and mount drops in, a troll grabs and throws', { skip: skip() }, async () => {
   const bench = await browser.newPage({ viewport: { width: 1500, height: 820 } });
   const benchErrors = [];

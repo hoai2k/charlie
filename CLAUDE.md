@@ -165,7 +165,10 @@ hook to get round it.
   `workbench/bench.js`, added to that page, gives one player (any doll or any
   troll; a troll's push grabs and throws), still targets, and power-ups and
   mounts clicked or dragged in from the side panels (`workbench.js`);
-  anything in the scene can be dragged about, or out to remove it. It wraps game
+  anything in the scene can be dragged about, or out to remove it. On a phone
+  (narrow screen; desktop unchanged) it's the viewer full screen with Play
+  as / Add / Settings buttons opening the panels as sheets, and the boot
+  editor works by touch (gestures described at the top of `verify.js`). It wraps game
   functions from outside rather than changing them; keep it working when
   renaming the functions it wraps (the smoke suite loads it).
   Its **Verification Queue** (`workbench/verify.js`, button under the

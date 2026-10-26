@@ -20,6 +20,17 @@ const MOUNT_NAMES = {
 let game = null; // the frame's window, once the bench is ready
 let playerKey = "doll:whirlpool";
 
+// Phones get the viewer full screen, with a few buttons over it that open
+// the panels as sheets (index.html's narrow-screen styles); desktop is as it
+// was. Tiles are tapped there, not dragged (a drag scrolls the sheet).
+const phoneQuery = matchMedia("(max-width: 820px), (max-height: 520px) and (pointer: coarse)");
+const isPhone = () => phoneQuery.matches;
+
+function openSheet(name) {
+  document.body.classList.remove("sheet-player", "sheet-add", "sheet-settings");
+  if (name) document.body.classList.add(`sheet-${name}`);
+}
+
 function tile(label, onClick) {
   const button = document.createElement("button");
   button.className = "tile";
@@ -32,6 +43,7 @@ function tile(label, onClick) {
   button.addEventListener("click", () => {
     if (button.dragged) { button.dragged = false; return; }
     onClick(button);
+    if (isPhone()) openSheet(null); // back to the scene to see it
     frame.contentWindow.focus(); // keys go back to the game
   });
   return { button, canvas };
@@ -45,7 +57,7 @@ const ghost = $("#ghost");
 
 function draggable(button, canvas, onDrop) {
   button.addEventListener("pointerdown", down => {
-    if (down.button !== 0) return;
+    if (down.button !== 0 || isPhone()) return;
     let dragging = false;
     const move = event => {
       if (!dragging && Math.hypot(event.clientX - down.clientX, event.clientY - down.clientY) < 6) return;
@@ -254,10 +266,20 @@ function start() {
   $("#reset").addEventListener("click", () => { setupTrack(select.value); frame.contentWindow.focus(); });
   $("#clearTargets").addEventListener("click", () => { g.Bench.clearTargets(); frame.contentWindow.focus(); });
   characterTiles($("#players"), (spec, id) => {
+    // (On a phone the sheet's switch says whether a tap plays as her or adds her.)
+    if (isPhone() && document.querySelector("#mPickMode input:checked")?.value === "target") {
+      g.Bench.addTarget(spec);
+      return;
+    }
     playerKey = id;
     markOn($("#players"), id);
     g.Bench.setPlayer(spec);
   }, true);
+  $("#mPlayer").addEventListener("click", () => openSheet("player"));
+  $("#mAdd").addEventListener("click", () => openSheet("add"));
+  $("#mSettings").addEventListener("click", () => openSheet("settings"));
+  for (const close of document.querySelectorAll("aside .sheet-close")) close.addEventListener("click", () => { openSheet(null); frame.contentWindow.focus(); });
+  $("#mVerify").addEventListener("click", () => { openSheet(null); $("#verifyOpen").click(); });
   mountTiles();
   sceneDragging();
   setupTrack("farm");
