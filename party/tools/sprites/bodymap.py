@@ -5,6 +5,10 @@
     python3 party/tools/sprites/bodymap.py fox unicorn  # some sets
     python3 party/tools/sprites/bodymap.py --check      # exit 1 if any manifest is out of date
 
+Corrections: drag the part in the sprite workbench (party/workbench/) and
+apply its edits file with tools/apply-workbench-edits.mjs, which writes them
+here as overrides and re-measures; or add them to bodymap-overrides.json.
+
 The intake landmarks (`anchor` `head` `eyes` `neck` `back` `hand`) are
 authored or audited by hand. This tool adds the rest of the body map so
 attachments (bows, stickers, dress-up items) can stick to the nearest body
@@ -171,8 +175,9 @@ def measure(img, frame, facing, plan, body_h):
     else:   # biped, mermaid, imp: the waist, a third of the way from the neck to the ground
         g = neck + (anchor - neck) * (0.36 if torso == 'imp' else 0.3)
         b = snap_thick(depth, g, 0.55 * hs, pull=0.8)
-    if b is not None:
-        out['belly'] = b
+    if b is None:   # the guess fell off a cropped frame (a swimmer's anchor is far below)
+        b = nearest_opaque(mask, g)
+    out['belly'] = b
 
     # --- tail ----------------------------------------------------------------
     tail_tip = None
@@ -423,6 +428,8 @@ def main(argv):
         if stale:
             print('body map out of date:', ', '.join(stale), '- run python3 party/tools/sprites/bodymap.py')
             return 1
+        return 0
+    if '--no-fingerprint' in argv:   # the caller (apply-workbench-edits.mjs) refreshes them
         return 0
     # Pixels did not change: an optimized copy / mask that was current stays current.
     after = _fingerprints(touched)

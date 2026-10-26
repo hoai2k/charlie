@@ -390,7 +390,7 @@ export class SalonDrawing {
       const humans = this.stations.filter((s) => !s.p.isAI);
       if (humans.length) {
         ui.hints(g, [['stick', 'Move'], ['x', 'Use tool'], ['a', 'Next']], W / 2 - 130, 52, { size: 32, align: 'right' });
-        ui.hints(g, [['y', 'Colour/Style'], ['rb', 'Done']], W / 2 + 130, 52, { size: 32, align: 'left' });
+        ui.hints(g, [[humans.some((h) => h.p.ctrl.kind === 'pad') ? 'dpad' : 'rt', 'Colour/Style'], ['rb', 'Done']], W / 2 + 130, 52, { size: 32, align: 'left' });
       }
     }
     if (this.phase === 'show') {

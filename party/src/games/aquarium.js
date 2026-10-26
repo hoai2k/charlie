@@ -72,7 +72,8 @@ const BAR = { y: 950, h: 124 };
 const CLOCK = { x: 1764, y: 162 };
 const CLOCK_PLUS = { x: 1852, y: 132, w: 56, h: 60 };
 const LEGEND = { x: 14, y: 14, w: 250 };
-const LEGEND_ROWS = [[['stick'], 'Move'], [['lb', 'rb'], 'Category'], [['x'], 'Next'], [['lt', 'rt'], 'Colour'], [['a'], 'Place'], [['b'], 'Remove'], [['y'], 'Feed']];
+// A commits (puts one thing in and goes on to the next category), X puts one in and stays.
+const LEGEND_ROWS = [[['stick'], 'Move'], [['lb', 'rb'], 'Category'], [['lt', 'rt'], 'Next thing'], [['dpad'], 'Colour'], [['x'], 'Put one'], [['a'], 'Place'], [['b'], 'Remove'], [['y'], 'Feed']];
 const inRect = (r, x, y) => x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h;
 const inTank = (x, y) => x >= WATER.x0 - 10 && x <= WATER.x1 + 10 && y >= LID.y1 && y <= WATER.y1 + 4;
 const BUILD_TIME = 180, CPU_TIME = 58;
@@ -816,13 +817,13 @@ export class Game {
     // --- categories: LB / RB (the last one is Done)
     const step = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
     if (step) this.stepTab(st, step);
-    // --- things: X (or the D-pad left/right, with hold-repeat); colours: LT / RT (D-pad up/down)
-    const dir = (isPad && c.held('right')) ? 1 : (isPad && c.held('left')) ? -1 : 0;
+    // --- things: the D-pad left/right (with hold-repeat) or LT / RT; colours: the D-pad up/down
+    // (keyboards: Y, see below - their WASD is the stick too)
+    const dir = (isPad && c.held('right')) || c.held('rt') ? 1 : (isPad && c.held('left')) || c.held('lt') ? -1 : 0;
     if (dir !== st.rep.dir) { st.rep.dir = dir; st.rep.t = 0; if (dir) this.browse(st, dir); }
     else if (dir) { st.rep.t += dt; if (st.rep.t > 0.42) { st.rep.t -= 0.13; this.browse(st, dir); } }
-    if (c.pressed('x')) this.browse(st, 1);
-    if (c.pressed('rt') || (isPad && c.pressed('down'))) this.cycleColor(st, 1);
-    if (c.pressed('lt') || (isPad && c.pressed('up'))) this.cycleColor(st, -1);
+    if (c.kind !== 'kb' && c.pressed('down')) this.cycleColor(st, 1);
+    if (c.kind !== 'kb' && c.pressed('up')) this.cycleColor(st, -1);
     // --- held things follow the hand
     if (st.held && st.held.type === 'decor') {
       const it = st.held.obj, pl = this.placement(it.def, x, y);
@@ -835,7 +836,8 @@ export class Game {
       else { const it = this.hitDecor(x, y); if (it) st.hover = { type: 'decor', obj: it }; }
     }
     if (c.pressed('a') && st.tab === DONE && !st.held) this.setReady(st, true);
-    else if (c.pressed('a') || st.click) this.pressA(st);
+    else if (c.pressed('a')) this.commitA(st);
+    else if (c.pressed('x') || st.click) this.pressA(st);
     if (c.pressed('b')) this.pressB(st);
     if (c.pressed('y')) {
       // keyboards have no spare colour keys (the arrows layout's LT / RT sit on the numpad), so there
@@ -899,7 +901,7 @@ export class Game {
   /** LB / RB: the next / previous category; the last one is "Done". */
   stepTab(st, dir) { this.setTab(st, (st.tab + dir + NTABS) % NTABS); }
   setTab(st, tab) {
-    st.tab = tab; st.tabPop = 1;
+    st.tab = tab; st.tabPop = 1; st.didTab = false;   // (A puts one in here unless X already has)
     if (tab < TAP_TAB) { st.sel = st.selIn[tab]; st.selPop = 1; st.scroll = st.sel - GROUP_START[tab]; }
     if (!st.p.isAI) sfx('move');
   }
@@ -941,6 +943,20 @@ export class Game {
     if (!st.p.isAI) sfx('swap', { vol: 0.6 });
   }
 
+  /** A commits: carrying = put it down; on a thing = pick it up; else put one in (if X hasn't
+   *  already, this category) and go on to the next category (Tap, then Done). */
+  commitA(st) {
+    const { x, y } = st.cur;
+    if (st.held || st.tab === DONE || inRect(CLOCK_PLUS, x, y) || inRect(SWITCH_HIT, x, y) || y >= BAR.y - 6) { this.pressA(st); return; }
+    if (!st.p.isAI && x >= LEGEND.x && x <= LEGEND.x + LEGEND.w && y >= LEGEND.y && y <= LEGEND.y + LEGEND_ROWS.length * 50 + 24) { this.pressA(st); return; }
+    if (st.tab !== TAP_TAB && st.hover && (!st.p.isAI || st.hover.obj.owner === st.i)) { this.grab(st, st.hover); return; }
+    if (!st.didTab) {
+      if (st.tab === TAP_TAB) this.tap(st);
+      else if (!this.placeSelected(st)) return;   // (it said why: outside the tank, or full)
+    }
+    this.stepTab(st, 1);
+  }
+
   pressA(st) {
     const { x, y } = st.cur;
     if (st.held) { this.drop(st); return; }
@@ -949,10 +965,10 @@ export class Game {
     if (y >= BAR.y - 6) { this.panelClick(st, x, y); return; }
     if (!st.p.isAI && x >= LEGEND.x && x <= LEGEND.x + LEGEND.w && y >= LEGEND.y && y <= LEGEND.y + LEGEND_ROWS.length * 50 + 24) {
       const b = LEGEND_ROWS[clamp(Math.floor((y - LEGEND.y - 12) / 50), 0, LEGEND_ROWS.length - 1)][0][0];
-      if (b === 'lb') this.stepTab(st, 1); else if (b === 'x') this.browse(st, 1); else if (b === 'lt') this.cycleColor(st, 1); else sfx('blip');
+      if (b === 'lb') this.stepTab(st, 1); else if (b === 'lt') this.browse(st, 1); else if (b === 'dpad') this.cycleColor(st, 1); else sfx('blip');
       return;
     }
-    if (st.tab === TAP_TAB) { this.tap(st); return; }
+    if (st.tab === TAP_TAB) { this.tap(st); st.didTab = true; return; }
     if (st.tab === DONE) { sfx('blip'); return; }
     if (st.hover && (!st.p.isAI || st.hover.obj.owner === st.i)) { this.grab(st, st.hover); return; }
     this.placeSelected(st);
@@ -972,20 +988,22 @@ export class Game {
 
   placeSelected(st) {
     const e = PALETTE[st.sel], { x, y } = st.cur;
-    if (!inTank(x, y)) { sfx('blip'); return; }
+    if (!inTank(x, y)) { if (!st.p.isAI) this.placeHint(st); else sfx('blip'); return false; }
+    st.didTab = true;
     if (e.kind === 'sand') {
-      if (st.p.isAI && this.humans) { sfx('blip'); return; }
-      this.setSand(e.idx, st); return;
+      if (st.p.isAI && this.humans) { sfx('blip'); return false; }
+      this.setSand(e.idx, st); return true;
     }
     if (e.kind === 'decor') {
-      if (this.decor.length >= MAX_DECOR) { this.toast = { text: 'The tank is full! Remove something with B.', t: 0 }; sfx('blip'); return; }
+      if (this.decor.length >= MAX_DECOR) { st.didTab = false; this.toast = { text: 'The tank is full! Remove something with B.', t: 0 }; sfx('blip'); return false; }
       const d = e.def, pl = this.placement(d, x, y);
       this.addDecor(d, pl, st, this.previewColor(st, e), y);
       st.cool = 0.12;
-      return;
+      return true;
     }
-    if (this.fish.filter((f) => f.state !== 'leave').length >= MAX_FISH) { this.toast = { text: 'So many fish! Say bye to one with B.', t: 0 }; sfx('blip'); return; }
+    if (this.fish.filter((f) => f.state !== 'leave').length >= MAX_FISH) { st.didTab = false; this.toast = { text: 'So many fish! Say bye to one with B.', t: 0 }; sfx('blip'); return false; }
     this.addFish(e.def, this.previewColor(st, e), x, y, st);
+    return true;
   }
 
   setSand(idx, st) {
@@ -1096,7 +1114,7 @@ export class Game {
         const gi = groupOf(cmd.v);
         if (st.sel === cmd.v && st.tab === gi) { done(0.2); break; }
         if (st.tab !== gi) { const r = (gi - st.tab + NTABS) % NTABS; c.press(r <= NTABS / 2 ? 'rb' : 'lb'); }
-        else c.press('x');
+        else c.press('rt');
         A.wait = (this.humans ? rand(0.09, 0.15) : rand(0.05, 0.08)) / prof.speed;
         break;
       }
@@ -1114,7 +1132,7 @@ export class Game {
       case 'col': {
         const e = PALETTE[st.sel];
         if (e.ncol <= 1 || this.previewColor(st, e) === cmd.v) { done(0.15); break; }
-        c.press('rt'); A.wait = rand(0.15, 0.25) / prof.speed;
+        c.press('down'); A.wait = rand(0.15, 0.25) / prof.speed;
         break;
       }
       case 'goto': {
@@ -1138,7 +1156,7 @@ export class Game {
         done(0.5); break;
       }
       case 'y': c.press('y'); done(0.5); break;
-      case 'tap': c.press('a'); done(0.9); break;   // on the Tap category
+      case 'tap': c.press('x'); done(0.9); break;   // on the Tap category
       default: done();
     }
   }
@@ -1614,9 +1632,14 @@ export class Game {
 
   drawLegend(g) {
     const solo = this.humans === 1 ? this.stations.find((s) => !s.p.isAI) : null;
-    let aLabel = 'Place';
-    if (solo) aLabel = solo.held ? 'Put down' : solo.tab === DONE ? "I'm ready!" : solo.tab === TAP_TAB ? 'Tap glass' : solo.hover ? 'Pick up' : PALETTE[solo.sel].kind === 'sand' ? 'Pour sand' : 'Place';
-    const rows = LEGEND_ROWS.map(([b, label]) => [b, label === 'Place' ? aLabel : label]);
+    let aLabel = 'Place', xLabel = 'Put one';
+    if (solo) {
+      const sand = solo.tab < TAP_TAB && PALETTE[solo.sel].kind === 'sand';
+      aLabel = solo.held ? 'Put down' : solo.tab === DONE ? "I'm ready!" : solo.hover && solo.tab !== TAP_TAB ? 'Pick up' : solo.didTab ? 'Go on' : solo.tab === TAP_TAB ? 'Tap, go on' : sand ? 'Pour, go on' : 'Put, go on';
+      xLabel = solo.held ? 'Put down' : solo.tab === DONE ? '-' : solo.tab === TAP_TAB ? 'Tap glass' : sand ? 'Pour sand' : 'Put one';
+    }
+    const kb = solo && solo.p.ctrl.kind === 'kb';
+    const rows = LEGEND_ROWS.map(([b, label]) => (label === 'Colour' && kb ? [['y'], 'Colour (held)'] : [b, label === 'Place' ? aLabel : label === 'Put one' ? xLabel : label]));
     const rh = 50, h = rows.length * rh + 24;
     ui.panel(g, LEGEND.x, LEGEND.y, LEGEND.w, h, { r: 24, fill: 'rgba(255,248,236,0.94)', lineWidth: 5 });
     rows.forEach(([btns, label], i) => {
@@ -1695,12 +1718,12 @@ export class Game {
     }
     if (tab === TAP_TAB) {
       ui.text(g, 'Tap the glass', c0 + cw / 2, P.y + 34, { size: 24, color: NAVY, stroke: false, weight: 800, maxWidth: cw - 8 });
-      ui.hints(g, [['a', cw > 200 ? 'Tap (gently!)' : '']], c0 + cw / 2, P.y + 80, { size: 28 });
+      ui.hints(g, [['x', cw > 200 ? 'Tap (gently!)' : ''], ['a', cw > 200 ? (st.didTab ? 'Go on' : 'Tap, go on') : '']], c0 + cw / 2, P.y + 80, { size: 28 });
       return;
     }
-    // carousel: the things in this category (X / D-pad: next)
+    // carousel: the things in this category (D-pad left/right or LT / RT: next)
     const ss = 64, gap = 10, slotY = P.y + 60;
-    if (glyphW) ui.glyph(g, 'x', c1 + 16, slotY, 24);
+    if (glyphW) ui.glyph(g, p.ctrl.kind === 'pad' ? 'dpad' : 'rt', c1 + 16, slotY, 24);
     const ga = GROUP_START[tab], N = GROUP_END[tab] - ga;
     g.save(); g.beginPath(); g.rect(c0, P.y + 4, c1 - c0, P.h - 8); g.clip();
     const base = Math.round(st.scroll), frac = st.scroll - base, step = ss + gap;

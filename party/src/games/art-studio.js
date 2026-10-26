@@ -1,10 +1,12 @@
 // Art Studio (Play Studio). One shared easel canvas (1600x900 offscreen,
 // shown in a wooden frame). Every player has a cursor in their color: stick
 // moves it (with acceleration, right stick fine-adjusts), hold X to paint
-// (X stamps / fills too), LB/RB (or d-pad up/down) change tool - the last one
-// is Done, where A says "I'm ready" -, A on a tool goes on to the next one (the
-// first time it says "Hold X to paint!"), Y (or d-pad left/right) steps the
-// color (or stamp in the stamp tool), LT/RT the size, B undoes your own last stroke. Optional coloring
+// (X stamps / fills too), LB/RB change tool - the last one is Done, where A
+// says "I'm ready" -, A on a tool goes on to the next one (on Stamps / Fill it
+// stamps / fills once first if X hasn't; on a brush, until X has painted, it says
+// "Hold X to paint!"), d-pad left/right (keyboard: LT/RT, since WASD is the
+// brush) steps the color (or stamp), d-pad up/down or LT/RT on a gamepad the
+// size, B undoes your own last stroke. Optional coloring
 // pages (fill bucket stops at the lines). Once every painter is ready (or from
 // the pause menu) the painting hangs in a gold frame on the museum wall; X
 // there saves it as a PNG.
@@ -389,8 +391,9 @@ export class Game {
     const accel = 0.32 + 0.68 * clamp(st.hold / 0.7, 0, 1);
     const sp = 1000 * accel;
     const cur = st.cur;
-    // On a gamepad the d-pad picks tools and colors, so only the stick moves the brush.
-    const pad = c.kind === 'pad', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
+    // On a gamepad the d-pad picks colors and sizes, so only the stick moves the brush (CPUs drive
+    // like a gamepad). On a keyboard WASD is both stick and d-pad, so LT/RT pick the colors there.
+    const pad = c.kind !== 'kb', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     cur.x = clamp(cur.x + (mx * sp + c.rx * 160) * dt, 0, CW - 1);
     cur.y = clamp(cur.y + (my * sp + c.ry * 160) * dt, st.p.isAI ? 0 : -66, CH - 1);
     st.paletteT = Math.max(0, st.paletteT - dt);
@@ -400,22 +403,23 @@ export class Game {
     for (const [k, b] of Object.entries(BTN)) if (scr.x >= b.x && scr.x <= b.x + b.w && scr.y >= b.y - 10 && scr.y <= b.y + b.h + 10) st.overBtn = k;
 
     if (st.ready) st.readyT += dt;
-    // LB/RB (or d-pad up/down) change the tool, the last one is Done (A there: I'm ready); Y (or d-pad
-    // left/right) steps through the colors or stamps, along the strip shown on screen; LT/RT the size.
-    // X uses the tool (hold to paint); A on a tool goes on to the next one (A is confirm, X is the action).
+    // LB/RB change the tool, the last one is Done (A there: I'm ready); d-pad left/right (keyboard:
+    // LT/RT) steps through the colors or stamps, along the strip shown on screen; d-pad up/down or
+    // LT/RT on a gamepad the size. X uses the tool and stays (hold to paint); A commits: on Stamps /
+    // Fill it stamps / fills once if X hasn't yet, then goes on to the next tool.
     const NT = TOOLS.length + 1;
-    const toolStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0) + (pad ? (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0) : 0);
+    const toolStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
     if (toolStep) {
       st.tool = (st.tool + toolStep + NT) % NT; this.toolFx(st);
       if (st.ready && st.tool !== DONE) this.setReady(st, false);
     }
-    const pick = (c.pressed('y') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
+    const pick = pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
     if (pick && st.tool !== DONE) {
       if (this.toolOf(st) === 'stamp') { st.stamp = (st.stamp + pick + this.stampKinds.length) % this.stampKinds.length; sfx('stamp'); }
       else { st.color = (st.color + pick + COLORS.length) % COLORS.length; sfx('collect', { step: st.color }); }
       st.paletteT = 1.4;
     }
-    const sizeStep = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
+    const sizeStep = pad ? (c.pressed('rt') || c.pressed('up') ? 1 : 0) - (c.pressed('lt') || c.pressed('down') ? 1 : 0) : 0;
     if (sizeStep) { st.size = clamp(st.size + sizeStep, 0, SIZES.length - 1); sfx(sizeStep > 0 ? 'grow' : 'shrink'); }
     if (c.pressed('b')) {
       // right after a New page, B brings the old picture back (before any kid paints on the new one)
@@ -434,7 +438,7 @@ export class Game {
     }
     const inside = cur.y >= 0;
     if (c.pressed('a') && !inside && st.overBtn) { this.pressButton(st, st.overBtn); return; }
-    if (c.pressed('a') && !st.p.isAI) { this.nextTool(st, tool); return; }
+    if (c.pressed('a') && !st.p.isAI) { this.nextTool(st, tool, inside); return; }
     const brushy = tool === 'brush' || tool === 'rainbow' || tool === 'glitter' || tool === 'eraser';
     if (brushy) {
       if (c.pressed('x') && inside) {
@@ -455,7 +459,7 @@ export class Game {
       }
       if (!c.held('x') || !inside) st.stroke = null;
     } else if (c.pressed('x') && inside) {
-      st.usedX = true; st.hint = null;
+      st.usedX = true; st.hint = null; st.usedOn = st.tool;
       if (tool === 'stamp') this.doStamp(st);
       else if (tool === 'fill') this.doFill(st);
     }
@@ -463,10 +467,14 @@ export class Game {
     if (painting) { if (a.pose !== 'paint' && !a._once) a.setPose('paint'); } else if (a.pose === 'paint') a.setPose('idle');
   }
 
-  /** A on a painting tool: on to the next tool (after Eraser: Done). Until X has painted something, it
-   *  says how instead, so a kid pressing A to paint learns X. */
-  nextTool(st, tool) {
-    if (!st.usedX) {
+  /** A on a tool commits it: on Stamps / Fill it stamps / fills once (if X hasn't on this visit), then
+   *  goes on to the next tool (after Eraser: Done). On a brush (painting is a hold, so there's no one
+   *  action for A) it moves on, but until X has painted something it says how instead, so a kid
+   *  pressing A to paint learns X. */
+  nextTool(st, tool, inside) {
+    if ((tool === 'stamp' || tool === 'fill') && st.usedOn !== st.tool) {
+      if (inside) { st.usedX = true; st.hint = null; if (tool === 'stamp') this.doStamp(st); else this.doFill(st); }
+    } else if (!st.usedX) {
       const how = tool === 'stamp' ? 'Press X to stamp!' : tool === 'fill' ? 'Press X to fill!' : 'Hold X to paint!';
       st.hint = { text: how, t: 2.2 }; st.toolPop = 0.4; sfx('blip');
       return;
@@ -475,7 +483,7 @@ export class Game {
   }
 
   toolFx(st) {
-    sfx('swap');
+    sfx('swap'); st.usedOn = -1;
     const scr = toScreen(st.cur.x, st.cur.y);
     particles.burst(scr.x, scr.y, { type: 'sparkle', count: 4, colors: ['#fff'] });
     st.stroke = null; st.paletteT = this.toolOf(st) === 'stamp' ? 1.2 : 0;
@@ -630,9 +638,9 @@ export class Game {
         const NT = TOOLS.length + 1, fwd = (cmd.v - st.tool + NT) % NT;
         c.press(fwd <= NT / 2 ? 'rb' : 'lb'); ai.wait = 0.24; break;
       }
-      case 'color': if (st.color === cmd.v) done(0.1); else { c.press('y'); ai.wait = 0.17; } break;
+      case 'color': if (st.color === cmd.v) done(0.1); else { c.press('right'); ai.wait = 0.17; } break;
       case 'size': if (st.size === cmd.v) done(0.05); else { c.press(cmd.v > st.size ? 'rt' : 'lt'); ai.wait = 0.2; } break;
-      case 'stamp': if (st.stamp === cmd.v) done(0.1); else { c.press('y'); ai.wait = 0.17; } break;
+      case 'stamp': if (st.stamp === cmd.v) done(0.1); else { c.press('right'); ai.wait = 0.17; } break;
       case 'goto': {
         const d = steer(st.p, st.cur.x, st.cur.y, cmd.x, cmd.y, { arrive: 140, wobble: false });
         cmd.t2 = (cmd.t2 || 0) + dt;

@@ -39,6 +39,13 @@ const LM = {
   neck: { color: '#a463ff', label: 'neck', desc: 'Base of the neck / collar line, where a necklace hangs.' },
   back: { color: '#20b26a', label: 'back', desc: 'Between the shoulder blades, where wings or a cape attach.' },
   hand: { color: '#ff7a1a', label: 'hand', desc: 'Grip point of the forward hand (quadrupeds: the mouth).' },
+  // body map (tools/sprites/bodymap.py measures these; an edit becomes a reviewed override)
+  belly: { color: '#0050ff', label: 'belly', desc: 'Middle of the torso (body map: stuck-on items attach to the nearest part).' },
+  tail: { color: '#222222', label: 'tail', desc: 'Middle of the tail (body map).' },
+  earFront: { color: '#ff40ff', label: 'ear F', desc: 'The ear further in the facing direction (body map).' },
+  earBack: { color: '#a040ff', label: 'ear B', desc: 'The other ear (body map).' },
+  footFront: { color: '#e0e0e0', label: 'foot F', desc: 'The forward foot / front paws on the ground (body map).' },
+  footBack: { color: '#808080', label: 'foot B', desc: 'The back foot / hind paws (body map).' },
 };
 const SLOT_COLOR = { head: '#ffc400', face: '#2f9bff', neck: '#a463ff', back: '#20b26a', hand: '#ff7a1a', aura: '#ff5fc8' };
 // Items are hit-tested topmost first (the front layer order of drawOutfit, reversed).
