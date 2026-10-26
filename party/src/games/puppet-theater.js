@@ -385,8 +385,8 @@ export class Game {
     if (tabStep) this.stepTab(pp, tabStep);
     const step = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('right') || c.pressed('down') ? 1 : 0) - (c.pressed('left') || c.pressed('up') ? 1 : 0) : 0);
     if (step) this.nextItem(pp, step);
-    // X: the Props' action, staying put (put a prop here / pick one up / put it down)
-    const xAct = c.pressed('x') && (pp.held || pp.tab === T_PROPS || hv.kind === 'tile' || hv.kind === 'prop');
+    // X: the Props' action, staying put (put another prop here / take one off the shelf / put it down)
+    const xAct = c.pressed('x') && (pp.held || pp.tab === T_PROPS || hv.kind === 'tile');
     if (c.pressed('x') && !xAct) sfx('blip', { vol: 0.4 });
     if (c.pressed('a') || xAct) {
       const commit = c.pressed('a');
@@ -408,20 +408,22 @@ export class Game {
           pp.held = { id: d.id, x: cur.x, y: cur.y, owner: pp.i, isNew: true, s: 1, wr: 0, wv: 0, ph: rand(TAU) };
           sfx('pop', { vol: 0.6 });
         }
-      } else if (hv.kind === 'prop') {
+      } else if (hv.kind === 'prop' && commit && !(pp.putAt && Math.hypot(cur.x - pp.putAt.x, cur.y - pp.putAt.y) < 50)) {
+        // A picks a prop up (X puts another one in instead; and A doesn't pick up the one
+        // X just put down under the hand: it goes on, below)
         const pr = hv.pr;
         this.scene.props.splice(this.scene.props.indexOf(pr), 1);
         pr.isNew = false; pp.held = pr; sfx('select', { vol: 0.6 });
-      } else if (pp.tab === T_PROPS && (hv.kind === 'stage' || commit)) {
+      } else if (pp.tab === T_PROPS && (hv.kind === 'stage' || hv.kind === 'prop' || commit)) {
         // on the stage with Props picked: the chosen prop goes right here (X: and stay;
         // A: and on to the next category, or just on if X already put one in)
         const full = this.ownedProps(pp) >= this.propLimit;
-        if (!(commit && pp.didTab) && hv.kind === 'stage') {
+        if (!(commit && pp.didTab) && (hv.kind === 'stage' || (hv.kind === 'prop' && !commit))) {
           if (full) { sfx('error', { vol: 0.5 }); this.popText(cur.x, cur.y - 40, `${this.propLimit} props each!`, '#ff6fb1'); if (!commit) return; }
           else {
             const d = PROPS[pp.propSel];
             pp.held = { id: d.id, x: cur.x, y: cur.y + (d.stand ? d.h * 0.5 : 0), owner: pp.i, isNew: true, s: 1, wr: 0, wv: 0, ph: rand(TAU) };
-            this.placeHeld(pp); pp.didTab = true;
+            this.placeHeld(pp); pp.didTab = true; pp.putAt = { x: cur.x, y: cur.y };
           }
         }
         if (commit) this.stepTab(pp, 1);

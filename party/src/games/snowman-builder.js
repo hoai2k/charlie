@@ -466,9 +466,11 @@ export class Game {
     if (st.sel === DONE && c.pressed('a')) { this.setReady(st, true); return; }   // on Done, A is always "I'm ready"
     st.hover = st.p.isAI ? null : this.itemAt(st);
     if (st.hover && c.pressed('b')) { this.removeItem(st, st.hover); st.hover = null; return; }
-    if (st.hover && c.pressed('a')) { this.grab(st, st.hover); st.hover = null; return; }
+    // (the decoration X just put on, still under the hand, isn't picked up by A: A goes on)
+    const justPut = st.putAt && Math.hypot(cur.x - st.putAt.x, cur.y - st.putAt.y) < 30;
+    if (st.hover && !justPut && c.pressed('a')) { this.grab(st, st.hover); st.hover = null; return; }
     // X: put one on and stay · A: put one on (unless X already did here) and go on to the next category
-    const put = () => { const it = this.place(st, ITEMS[st.sel].id, cur.x, cur.y); if (it) { st.history.push(it); st.didTab = true; } };
+    const put = () => { const it = this.place(st, ITEMS[st.sel].id, cur.x, cur.y); if (it) { st.history.push(it); st.didTab = true; st.putAt = { x: cur.x, y: cur.y }; } };
     if (c.pressed('x')) { if (st.sel === DONE) sfx('blip'); else put(); }
     else if (c.pressed('a')) {
       if (!st.didTab) put();
@@ -1228,7 +1230,7 @@ export class Game {
     else if (st.surpriseAsk) items = [['stick', 'Choose'], ['a', 'OK'], ['b', 'Go back']];
     else if (st.held) items = [['stick', 'Move'], ['a', 'Put down'], ['b', 'Take off']];
     else if (st.sel === DONE) items = [['lb', 'Change something'], ['a', "I'm ready!"]];
-    else items = [['stick', 'Move'], ['x', 'Add'], ['a', st.hover ? 'Pick up' : st.didTab ? 'Next category' : 'Add, go on'], [pad ? 'dpad' : 'rt', 'Next'], ['rb', 'Category'], ['b', st.hover ? 'Take off' : 'Undo'], ['y', 'Surprise!']];
+    else items = [['stick', 'Move'], ['x', 'Add'], ['a', st.hover && !(st.putAt && Math.hypot(st.cursor.x - st.putAt.x, st.cursor.y - st.putAt.y) < 30) ? 'Pick up' : st.didTab ? 'Next category' : 'Add, go on'], [pad ? 'dpad' : 'rt', 'Next'], ['rb', 'Category'], ['b', st.hover ? 'Take off' : 'Undo'], ['y', 'Surprise!']];
     if (!items.length) return;
     const wide = r.w > 700;
     if (!wide) items = items.map(([b, l]) => [b, ['Surprise!', 'Next', 'Category', 'Change something'].includes(l) ? '' : l]);

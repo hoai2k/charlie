@@ -838,7 +838,8 @@ export class Game {
     }
     if (c.pressed('a') && st.tab === DONE && !st.held) this.setReady(st, true);
     else if (c.pressed('a')) this.commitA(st);
-    else if (c.pressed('x') || st.click) this.pressA(st);
+    else if (c.pressed('x')) this.pressX(st);
+    else if (st.click) this.pressA(st);
     if (c.pressed('b')) this.pressB(st);
     if (c.pressed('y')) {
       // keyboards have no spare colour keys (the arrows layout's LT / RT sit on the numpad), so there
@@ -950,12 +951,21 @@ export class Game {
     const { x, y } = st.cur;
     if (st.held || st.tab === DONE || inRect(CLOCK_PLUS, x, y) || inRect(SWITCH_HIT, x, y) || y >= BAR.y - 6) { this.pressA(st); return; }
     if (!st.p.isAI && x >= LEGEND.x && x <= LEGEND.x + LEGEND.w && y >= LEGEND.y && y <= LEGEND.y + LEGEND_ROWS.length * 50 + 24) { this.pressA(st); return; }
-    if (st.tab !== TAP_TAB && st.hover && (!st.p.isAI || st.hover.obj.owner === st.i)) { this.grab(st, st.hover); return; }
+    // (the thing X just put in, still under the hand, isn't picked up: A goes on)
+    const justPut = st.putAt && Math.hypot(x - st.putAt.x, y - st.putAt.y) < 60;
+    if (st.tab !== TAP_TAB && st.hover && !justPut && (!st.p.isAI || st.hover.obj.owner === st.i)) { this.grab(st, st.hover); return; }
     if (!st.didTab) {
       if (st.tab === TAP_TAB) this.tap(st);
       else if (!this.placeSelected(st)) return;   // (it said why: outside the tank, or full)
     }
     this.stepTab(st, 1);
+  }
+
+  /** X acts and stays: put in another one (even over other things), tap the glass, or put down. */
+  pressX(st) {
+    const { x, y } = st.cur;
+    if (st.held || st.tab >= TAP_TAB || inRect(CLOCK_PLUS, x, y) || inRect(SWITCH_HIT, x, y) || y >= BAR.y - 6) { this.pressA(st); return; }
+    this.placeSelected(st);
   }
 
   pressA(st) {
@@ -990,7 +1000,7 @@ export class Game {
   placeSelected(st) {
     const e = PALETTE[st.sel], { x, y } = st.cur;
     if (!inTank(x, y)) { if (!st.p.isAI) this.placeHint(st); else sfx('blip'); return false; }
-    st.didTab = true;
+    st.didTab = true; st.putAt = { x, y };
     if (e.kind === 'sand') {
       if (st.p.isAI && this.humans) { sfx('blip'); return false; }
       this.setSand(e.idx, st); return true;
@@ -1636,7 +1646,7 @@ export class Game {
     let aLabel = 'Place', xLabel = 'Put one';
     if (solo) {
       const sand = solo.tab < TAP_TAB && PALETTE[solo.sel].kind === 'sand';
-      aLabel = solo.held ? 'Put down' : solo.tab === DONE ? "I'm ready!" : solo.hover && solo.tab !== TAP_TAB ? 'Pick up' : solo.didTab ? 'Go on' : solo.tab === TAP_TAB ? 'Tap, go on' : sand ? 'Pour, go on' : 'Put, go on';
+      aLabel = solo.held ? 'Put down' : solo.tab === DONE ? "I'm ready!" : solo.hover && solo.tab !== TAP_TAB && !(solo.putAt && Math.hypot(solo.cur.x - solo.putAt.x, solo.cur.y - solo.putAt.y) < 60) ? 'Pick up' : solo.didTab ? 'Go on' : solo.tab === TAP_TAB ? 'Tap, go on' : sand ? 'Pour, go on' : 'Put, go on';
       xLabel = solo.held ? 'Put down' : solo.tab === DONE ? '-' : solo.tab === TAP_TAB ? 'Tap glass' : sand ? 'Pour sand' : 'Put one';
     }
     const kb = solo && solo.p.ctrl.kind === 'kb';
