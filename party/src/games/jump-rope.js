@@ -72,11 +72,12 @@ const SCRIPT_HARD = [
 const scriptSwitch = (easy) => [
   ...SCRIPT_HARD.filter((e) => e.t < 18),
   { t: 18, sw: true, bpr: easy ? 4 : 3, rate: easy ? 1.8 : 2.4 },
-  ...(easy ? [] : [{ t: 22.5, sw: true, bpr: 3, rate: 2.4 }]),
+  ...(easy ? [] : [{ t: 23.5, sw: true, bpr: 3, rate: 2.4 }]),
   { t: 27, bpr: 2, rate: 2.2, label: 'Faster!' },
   ...SCRIPT_HARD.filter((e) => e.t > 27),
 ];
 const SW_HOLD = [1.2, 0.85];  // seconds the rope stays parked (Easy, Normal)
+const SW_BRAKE_T = 1.5;       // seconds the visible slow-down takes (at most)
 const SW_MARGIN = 0.45;       // the rope parks this far (rad) before the nearest feet
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
@@ -292,7 +293,7 @@ export class Game {
         sw.phase = 'hold'; sw.t = 0; r.w = 0;
         snd('jr-slap', 'tock', { vol: 0.5 }); sfx('giggle', { vol: 0.45 });
         this.bunnySay(1, 'Switch!', 1.2);
-        for (const b of this.bunnies) { b.mood = 'sneaky'; b.moodT = SW_HOLD[Math.min(1, this.level)] + 0.2; }
+        for (const b of this.bunnies) { b.mood = 'cheer'; b.moodT = SW_HOLD[Math.min(1, this.level)] + 0.2; }
       }
       return step;
     }
@@ -337,12 +338,17 @@ export class Game {
       if (sw) {
         sw.t += dt;
         if (sw.phase === 'warn') {
-          // Brake once the rope is past everyone's feet, to park before them next time round.
-          const u = this.progress(), rem = wrap(this.swStop - u);
-          if (u >= this.swBrake && rem > 1.5) {
+          // Brake once the rope is past everyone's feet, to park before them next
+          // time round: start where a steady slow-down takes about SW_BRAKE_T.
+          const rem = wrap(this.swStop - this.progress());
+          const thr = Math.min(TAU - (this.swBrake - this.swStop), r.w * SW_BRAKE_T / 2);
+          const prev = sw.prevRem ?? rem;   // first frame: wait for the rope to come round
+          sw.prevRem = rem;
+          if (rem <= thr && prev > thr) {
             Object.assign(sw, { phase: 'brake', t: 0, D: rem, rem, w0: Math.max(r.w, 2) });
             snd('jr-slowdown', 'shrink');
             this.bunnySay(1, 'Whoa, whoa...', 1.2);
+            for (const b of this.bunnies) { b.mood = 'oops'; b.moodT = SW_BRAKE_T + 0.3; }
           }
         } else if (sw.phase === 'spin' && Math.abs(r.w - wT) < wT * 0.04) this.sw = null;
       }
@@ -708,11 +714,18 @@ export class Game {
     const r = this.ropes[0];
     const nd = sw.phase === 'hold' ? -r.dir : r.dir;    // the new direction
     const fade = sw.phase === 'hold' ? clamp(sw.t / 0.25, 0, 1) : 1 - sw.t / 0.35;
+    const col = r.gold ? GOLD_ROPE : ROPE_COLORS[0];
+    g.save(); g.lineCap = 'round'; g.lineJoin = 'round';
     for (let k = 0; k < 3; k++) {
       const ph = ((t * 1.6) + k / 3) % 1;               // each ghost travels away from the parked rope
-      const gp = this.ropePoints(0, r.th + nd * (0.15 + ph * 0.9));
-      ghostRope(g, gp, 11, 0.32 * fade * (1 - ph));
+      const gp = this.ropePoints(0, r.th + nd * (0.3 + ph * 1.7));
+      g.globalAlpha = 0.75 * fade * (1 - ph * ph);
+      g.beginPath(); g.moveTo(gp[2].x, gp[2].y); for (let i = 3; i < gp.length - 2; i++) g.lineTo(gp[i].x, gp[i].y);
+      g.setLineDash([22, 18]); g.lineDashOffset = -t * 120 * nd;
+      g.strokeStyle = '#ffffff'; g.lineWidth = 14; g.stroke();
+      g.strokeStyle = col.stripe; g.lineWidth = 8; g.stroke();
     }
+    g.restore();
   }
 
   drawSpeedLines(g, t) {
