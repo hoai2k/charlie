@@ -391,7 +391,11 @@ export class Game {
     if (c.pressed('a') || xAct) {
       const commit = c.pressed('a');
       if (pp.held) {
-        if (this.overStage(cur.x, cur.y)) { if (pp.held.isNew) pp.didTab = true; this.placeHeld(pp); }
+        if (this.overStage(cur.x, cur.y)) {
+          if (pp.held.isNew) pp.didTab = true;
+          this.placeHeld(pp);
+          if (commit && pp.tab === T_PROPS) this.stepTab(pp, 1);   // (A: placed, so on you go)
+        }
         else { // back to the shelf
           if (!pp.held.isNew) { /* a moved prop dropped off stage goes away */ particles.burst(cur.x, cur.y, { type: 'smoke', count: 6 }); }
           pp.held = null; sfx('back', { vol: 0.5 });
@@ -530,7 +534,7 @@ export class Game {
         if (go(r.x + r.w / 2, r.y + r.h / 2)) { c.press('a'); S.stage = 1; A.wait = rand(0.2, 0.5); }
       } else if (S.stage === 1) {
         if (!pp.held) { A.step = null; return; }   // limit reached
-        if (go(S.spot.x, S.spot.y)) { c.press('a'); A.step = null; A.wait = rand(0.5, 1.4); }
+        if (go(S.spot.x, S.spot.y)) { c.press('x'); A.step = null; A.wait = rand(0.5, 1.4); }
       }
     } else if (S.kind === 'swap') {   // RB / LB to the Puppet category, then X
       if (pp.tab !== T_PUPPET) { c.press(pp.tab < T_PUPPET ? 'rb' : 'lb'); A.wait = rand(0.15, 0.3); return; }

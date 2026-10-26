@@ -945,11 +945,12 @@ export class Game {
     if (!st.p.isAI) sfx('swap', { vol: 0.6 });
   }
 
-  /** A commits: carrying = put it down; on a thing = pick it up; else put one in (if X hasn't
+  /** A commits: carrying = put it down and go on; on a thing = pick it up; else put one in (if X hasn't
    *  already, this category) and go on to the next category (Tap, then Done). */
   commitA(st) {
     const { x, y } = st.cur;
-    if (st.held || st.tab === DONE || inRect(CLOCK_PLUS, x, y) || inRect(SWITCH_HIT, x, y) || y >= BAR.y - 6) { this.pressA(st); return; }
+    if (st.held) { this.drop(st); this.stepTab(st, 1); return; }   // (moving a thing counts: on you go)
+    if (st.tab === DONE || inRect(CLOCK_PLUS, x, y) || inRect(SWITCH_HIT, x, y) || y >= BAR.y - 6) { this.pressA(st); return; }
     if (!st.p.isAI && x >= LEGEND.x && x <= LEGEND.x + LEGEND.w && y >= LEGEND.y && y <= LEGEND.y + LEGEND_ROWS.length * 50 + 24) { this.pressA(st); return; }
     // (the thing X just put in, still under the hand, isn't picked up: A goes on)
     const justPut = st.putAt && Math.hypot(x - st.putAt.x, y - st.putAt.y) < 60;
@@ -1646,7 +1647,7 @@ export class Game {
     let aLabel = 'Place', xLabel = 'Put one';
     if (solo) {
       const sand = solo.tab < TAP_TAB && PALETTE[solo.sel].kind === 'sand';
-      aLabel = solo.held ? 'Put down' : solo.tab === DONE ? "I'm ready!" : solo.hover && solo.tab !== TAP_TAB && !(solo.putAt && Math.hypot(solo.cur.x - solo.putAt.x, solo.cur.y - solo.putAt.y) < 60) ? 'Pick up' : solo.didTab ? 'Go on' : solo.tab === TAP_TAB ? 'Tap, go on' : sand ? 'Pour, go on' : 'Put, go on';
+      aLabel = solo.held ? 'Put, go on' : solo.tab === DONE ? "I'm ready!" : solo.hover && solo.tab !== TAP_TAB && !(solo.putAt && Math.hypot(solo.cur.x - solo.putAt.x, solo.cur.y - solo.putAt.y) < 60) ? 'Pick up' : solo.didTab ? 'Go on' : solo.tab === TAP_TAB ? 'Tap, go on' : sand ? 'Pour, go on' : 'Put, go on';
       xLabel = solo.held ? 'Put down' : solo.tab === DONE ? '-' : solo.tab === TAP_TAB ? 'Tap glass' : sand ? 'Pour sand' : 'Put one';
     }
     const kb = solo && solo.p.ctrl.kind === 'kb';

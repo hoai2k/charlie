@@ -458,7 +458,8 @@ export class Game {
       return;
     }
     if (st.held) {
-      if (c.pressed('a') || c.pressed('x')) this.dropHeld(st);
+      if (c.pressed('x')) this.dropHeld(st);
+      else if (c.pressed('a')) { this.dropHeld(st); this.stepTab(st, 1); }   // (moving one counts: on you go)
       else if (c.pressed('b')) this.removeItem(st, st.held);
       st.hover = null;
       return;
@@ -1228,7 +1229,7 @@ export class Game {
     else if (st.mode === 'built') items = [];
     else if (st.ready) items = [['b', 'Change']];
     else if (st.surpriseAsk) items = [['stick', 'Choose'], ['a', 'OK'], ['b', 'Go back']];
-    else if (st.held) items = [['stick', 'Move'], ['a', 'Put down'], ['b', 'Take off']];
+    else if (st.held) items = [['stick', 'Move'], ['x', 'Put down'], ['a', 'Put, go on'], ['b', 'Take off']];
     else if (st.sel === DONE) items = [['lb', 'Change something'], ['a', "I'm ready!"]];
     else items = [['stick', 'Move'], ['x', 'Add'], ['a', st.hover && !(st.putAt && Math.hypot(st.cursor.x - st.putAt.x, st.cursor.y - st.putAt.y) < 30) ? 'Pick up' : st.didTab ? 'Next category' : 'Add, go on'], [pad ? 'dpad' : 'rt', 'Next'], ['rb', 'Category'], ['b', st.hover ? 'Take off' : 'Undo'], ['y', 'Surprise!']];
     if (!items.length) return;

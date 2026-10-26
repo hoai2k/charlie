@@ -264,6 +264,10 @@ hook to get round it.
 - `party/intake/` is the owner's drop folder for new files (songs, sounds,
   art). Integrate each into its proper place and remove it from the folder in
   the same commit; see `party/intake/README.md`.
+- A generated grid sheet (atlas) is cut into equal cells by the game, so it must
+  really be on an even grid: run `party/tools/sprites/repack_atlas.py <file>
+  --cols N --rows M` on it (finds each item, centres it in its cell) before use.
+  Save repacked art under a new name (`-v2`) so browsers drop the cached one.
 - `party/image-requests.md` keeps only standing guidance and open requests.
   Fielded requests (delivered and checked in game, or resolved/dropped)
   always move to `party/image-requests-history.md`, newest first.

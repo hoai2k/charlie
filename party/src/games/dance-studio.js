@@ -1137,7 +1137,7 @@ export class Game {
       if (st.held) list = [['a', 'Put here'], ['b', 'Take out']];
       else if (this.filled(st) === 8) list = small ? [['x', 'Swap'], ['a', 'Next']] : [[nav, 'Move'], ['x', 'Swap in'], ['a', 'Next step'], ['b', 'Take out'], ['y', 'Surprise!']];
       else {
-        const here = st.slots[st.cur] !== null, xl = here ? 'Swap' : 'Put in', al = here ? 'Next beat' : 'Put in';
+        const here = st.slots[st.cur] !== null, xl = here ? 'Swap' : 'Put in', al = here ? 'Next beat' : this.filled(st) === 7 ? 'Put in, next' : 'Put in';
         list = small ? [['x', xl], ['a', al]] : [['stick', 'Beat'], [nav, 'Move'], ['x', xl], ['a', al]].concat(mid ? [] : [['b', 'Out']]);
       }
     } else if (tab === 'done') list = [['a', "I'm ready!"], ['lb', 'Back']];
