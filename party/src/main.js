@@ -107,6 +107,10 @@ function setupDebugPlayers() {
   setTimeout(() => preloadVoices(session.players.map((p) => p.charId)), 500);
 }
 
+// Away from the tab (hidden, or another window focused): everything holds still - game
+// clocks and all - until the kids come back. Automated runs (webdriver) keep going.
+const pageAway = () => !navigator.webdriver && (document.hidden || (document.hasFocus && !document.hasFocus()));
+
 let last = performance.now();
 function frame(now) {
   const rawDt = Math.min(0.05, (now - last) / 1000);
@@ -116,7 +120,8 @@ function frame(now) {
   if (!loaded) {
     drawLoading();
   } else {
-    const steps = Math.max(1, Math.round(speed));
+    const away = pageAway();
+    const steps = away ? 0 : Math.max(1, Math.round(speed));
     for (let i = 0; i < steps; i++) {
       const dt = (rawDt * speed) / steps;
       const wdt = fx.timeScale(dt);
@@ -146,6 +151,11 @@ function frame(now) {
     songTag.draw(g);
     settings.draw(g);
     corner.draw(g);
+    if (away) {
+      g.save(); g.fillStyle = 'rgba(36,22,63,0.45)'; g.fillRect(0, 0, W, H); g.restore();
+      ui.text(g, 'Paused', W / 2, H / 2 - 30, { size: 110 });
+      ui.text(g, 'Click here to keep playing!', W / 2, H / 2 + 70, { size: 44 });
+    }
   }
   endFrame();
   requestAnimationFrame(frame);
