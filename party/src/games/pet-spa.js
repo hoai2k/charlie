@@ -1,8 +1,17 @@
 // Pet Spa (Play Studio): every player gets an animal friend at their own spa
 // station. The pet arrives muddy and sad; scrub, rinse, towel, brush, add
 // bows and give a treat until the happiness meter fills and the pet
-// celebrates. LB / RB pick the tool; the last one is Done, where A says "my
-// pet is ready" (B: not yet). Once every pet is ready: a pet parade on a little stage.
+// celebrates. X (held) uses the tool: the sponge scrubs, the shower rinses,
+// the towel dries, the brush fluffs; a tap of X puts a bow on / moves one,
+// or gives a treat. A means "this step is done, go on": when the step is
+// finished A moves to the next step's tool (all done: Done), and when it
+// isn't, the pet says what's left ("Fox still needs more rinsing! (hold X to
+// rinse)") and nothing moves on. Bows are optional, so A there just goes on.
+// LB / RB pick the tool; the last one is Done, where A says "my pet is ready"
+// (B: not yet). D-pad up / down or LT / RT pick a bow. B cuddles; on Bows
+// B takes off the bow under the hand, else undoes the newest one (a cuddle
+// only when there are no bows). Once every pet is
+// ready: a pet parade on a little stage.
 //
 // Pets are drawn with the normal Actor system. Mud, suds, water drops and
 // accessories are drawn in the pet's *image space* through an attachment, so
@@ -255,6 +264,46 @@ export class Game extends SpaView {
     const q = this.parts(s);
     return 0.3 * q.clean + 0.15 * q.rinse + 0.15 * q.dry + 0.15 * q.fluff + 0.125 * q.bow + 0.125 * q.treat;
   }
+  /**
+   * Is this step finished, so A may go on? The same checks nextTool uses:
+   * the mud is off, the suds are rinsed off (once wet), the pet is dry, the
+   * fur is fluffed, a treat was given. Bows are optional (always finished).
+   */
+  canGoOn(s, id) {
+    switch (id) {
+      case 'sponge': return this.mudLeft(s) <= 0.015;
+      case 'shower': return s.wasWet && this.sudsTotal(s) <= 0.15;
+      case 'towel': return s.wet <= 0.01;
+      case 'brush': return s.fluff >= 0.99;
+      case 'treat': return s.treats > 0;
+      default: return true;
+    }
+  }
+
+  /** Where A goes from the current tool: the next suggested step (Bows are skipped from Bows), else Done. */
+  goOnTool(s) {
+    let nt = this.nextTool(s);
+    if (nt === 'bow' && s.tool === TOOL_IDX.bow) nt = s.treats ? null : 'treat';
+    return nt ? TOOL_IDX[nt] : DONE;
+  }
+
+  /** A on an unfinished step: the pet says what's left, with the X hint. */
+  nudge(s, id) {
+    const name = s.def.name;
+    const N = {
+      sponge: [`${name} still needs more scrubbing!`, 'hold', 'to scrub'],
+      shower: [`${name} still needs more rinsing!`, 'hold', 'to rinse'],
+      towel: [`${name} still needs drying!`, 'hold', 'to dry'],
+      brush: [`${name} still needs brushing!`, 'hold', 'to brush'],
+      treat: [`${name} would love a treat!`, 'press', 'for a treat'],
+    }[id];
+    if (!N) return;
+    s.pet.say(null);
+    s.nudge = { text: N[0], pre: N[1], post: N[2], t: 0, dur: 3 };
+    s.pet.squash(0.12); s.pet.emote('question', 1);
+    sfx('blip');
+  }
+
   nextTool(s) {
     const q = this.parts(s);
     if (q.clean < 0.985) return 'sponge';
@@ -312,40 +361,47 @@ export class Game extends SpaView {
     const motion = 1 + Math.min(1, cur.speed / (420 * s.k)) * 0.7;
 
     // LB / RB (d-pad left / right): tools, the last one is Done (A there: my pet is ready) ·
-    // X: on Bows the next bow, else the next step's tool (all done: Done) · d-pad up / down: bows ·
-    // A: use the tool · B: cuddle / take a bow off (once ready: not yet) · Y: squeaky duck
+    // X: use the tool (hold) / bows and treats (tap) · A: this step is done, go on (not done
+    // yet: the pet says what's left) · d-pad up / down, LT / RT: bows ·
+    // B: cuddle / take a bow off (once ready: not yet) · Y: squeaky duck
     const N = TOOLS.length + 1;
     const toolStep = (c.pressed('rb') || (pad && c.pressed('right')) ? 1 : 0) - (c.pressed('lb') || (pad && c.pressed('left')) ? 1 : 0);
     if (toolStep) this.setTool(s, (s.tool + toolStep + N) % N);
-    if (pad && (c.pressed('up') || c.pressed('down'))) {
+    const bowStep = ((pad && c.pressed('down')) || c.pressed('rt') ? 1 : 0) - ((pad && c.pressed('up')) || c.pressed('lt') ? 1 : 0);
+    if (bowStep || (pad && (c.pressed('up') || c.pressed('down')))) {
       // Bow picker: jump to the Bows tool, or step through the bows when there.
       if (s.tool !== TOOL_IDX.bow) this.setTool(s, TOOL_IDX.bow);
-      else this.cycleAccessory(s, c.pressed('down') ? 1 : -1);
+      else if (bowStep) this.cycleAccessory(s, bowStep);
     }
-    if (c.pressed('x')) {
-      if (s.tool === TOOL_IDX.bow) this.cycleAccessory(s, 1);
-      else { const nt = this.nextTool(s); this.setTool(s, nt ? TOOL_IDX[nt] : DONE); }
+    if (s.nudge) { s.nudge.t += dt; if (s.nudge.t > s.nudge.dur || s.tool === DONE) s.nudge = null; }
+    const onDone = s.tool === DONE;   // (A that just went on to Done doesn't also say "ready")
+    if (!s.ready && s.tool !== DONE && !toolStep && c.pressed('a')) {
+      const id = TOOLS[s.tool].id;
+      if (this.canGoOn(s, id)) { s.nudge = null; this.setTool(s, this.goOnTool(s)); }
+      else this.nudge(s, id);
     }
     let readyB = false;
     if (s.ready && (c.pressed('b') || s.tool !== DONE)) { readyB = c.pressed('b'); this.setReady(s, false); }
-    else if (!s.ready && s.tool === DONE && c.pressed('a')) this.setReady(s, true);
+    else if (!s.ready && onDone && s.tool === DONE && c.pressed('a')) this.setReady(s, true);
     if (s.ready) s.readyT += dt;
     s.toolPop = Math.max(0, s.toolPop - dt * 3);
     s.cooldown -= dt; s.sfxT -= dt; s.giggleT -= dt; s.sparkleT -= dt;
     s.accPop = Math.max(0, s.accPop - dt * 3);
 
     const tool = s.tool === DONE ? 'done' : TOOLS[s.tool].id;
-    const hold = c.held('a'), tap = c.pressed('a');
-    s.using = hold;
+    const hold = c.held('x'), tap = c.pressed('x');
+    s.using = hold && tool !== 'done';
+    if (hold && s.nudge && tool !== 'bow') s.nudge = null;   // she's on it
     const on = this.onPet(s, cur.x, cur.y, 14 * s.k);
     const ip = this.toImage(s, cur.x, cur.y);
-    // Placed bows can be picked up again with the Bows tool: A on a bow moves
-    // it (it follows the hand, A again drops it), B on a bow takes it off.
+    // Placed bows can be picked up again with the Bows tool: X on a bow moves
+    // it (it follows the hand, X again drops it), B on a bow takes it off.
     if (s.held && (tool !== 'bow' || !s.acc.includes(s.held))) this.dropHeld(s, on, ip);
     if (s.held) { s.held.x = ip.x; s.held.y = ip.y; }
     s.hover = tool === 'bow' && !s.held && !p.isAI ? this.accAt(s, ip.x, ip.y) : null;
     let bowB = false;
-    if (tool === 'bow' && c.pressed('b') && (s.held || s.hover)) { this.removeAccessory(s, s.held || s.hover); bowB = true; }
+    // B on Bows: take off the bow under the hand, else undo the newest one (no bows: a cuddle)
+    if (tool === 'bow' && c.pressed('b') && (s.held || s.hover || s.acc.length)) { this.removeAccessory(s, s.held || s.hover || this.newestAccessory(s)); bowB = true; }
     if (!bowB && !readyB && c.pressed('b') && s.cooldown <= 0) this.cuddle(s);
     if (c.pressed('y') && s.cooldown <= 0) this.squeaky(s);
     const px = this.petPx(s);
@@ -373,28 +429,36 @@ export class Game extends SpaView {
       }
       if (this.mudLeft(s) <= 0.015) this.allClean(s);
     } else if (hold && tool === 'shower') {
-      // The water falls straight down from the shower head, so it rinses the
-      // first bit of pet underneath it (anywhere along the spray), not only
-      // right at the hand; the spray widens as it falls.
+      // The water falls straight down from the shower head and rinses
+      // everything inside the spray cone drawn under it (draw.js
+      // drawCursor: from 0.25 tool sizes above the hand, 0.28 tool sizes
+      // wide each side, down to SPRAY_LEN, 0.9 tool sizes wide). It rinses
+      // a little slower the further the water has fallen (about 45% at the
+      // far end, never zero).
       let hx = cur.x, hy = cur.y + 30 * s.k, reach = 0;
       for (let d = 30 * s.k; d <= SPRAY_LEN * s.k; d += 10 * s.k) {
         if (this.onPet(s, cur.x, cur.y + d, 12 * s.k)) { hy = cur.y + d + 18 * s.k; reach = d; break; }
       }
       if (chance(dt * 40)) particles.burst(cur.x + rand(-14, 14) * s.k, cur.y + 16 * s.k, { type: 'drop', count: 1, angle: Math.PI / 2, spread: 0.25, speed: [260, 420], colors: ['#5cc8ff', '#8fe0ff', '#ffffff'], size: [4, 8] });
       if (s.sfxT <= 0) { if (hasSound('shower')) { sfx('shower', { vol: 0.8 }); s.sfxT = 0.42; } else { sfx('water'); s.sfxT = 0.22; } }
-      const rad = ((80 + reach * 0.25) * s.k) / px;
-      const ih = this.toImage(s, hx, hy);
+      let hit = false;
       for (const u of s.suds) {
-        if (Math.hypot(u.x - ih.x, u.y - ih.y) < rad + u.r) {
+        const sp2 = this.toScreen(s, u.x, u.y), f = this.sprayAt(s, sp2.x, sp2.y, u.r * px * 0.5);
+        if (f > 0) {
+          hit = true;
           const before = u.amt;
-          u.amt = Math.max(0, u.amt - 1.0 * dt);
-          if (before > 0.05 && u.amt <= 0.05 && chance(0.5)) { const sp2 = this.toScreen(s, u.x, u.y); particles.burst(sp2.x, sp2.y, { type: 'bubble', count: 3, size: [6, 12] }); }
+          u.amt = Math.max(0, u.amt - 1.0 * f * dt);
+          if (before > 0.05 && u.amt <= 0.05 && chance(0.5)) particles.burst(sp2.x, sp2.y, { type: 'bubble', count: 3, size: [6, 12] });
         }
       }
       s.suds = s.suds.filter((u) => u.amt > 0.02);
       // a little rinse helps the last bits of mud too
-      for (const b of s.mud) if (b.amt > 0 && Math.hypot(b.x - ih.x, b.y - ih.y) < rad + b.r) { b.amt = Math.max(0, b.amt - 0.25 * dt); s.mudDirty = true; }
-      if (reach > 0 || this.onPet(s, hx, hy, 30 * s.k)) {
+      for (const b of s.mud) {
+        if (b.amt <= 0) continue;
+        const sp2 = this.toScreen(s, b.x, b.y), f = this.sprayAt(s, sp2.x, sp2.y, b.r * px * 0.5);
+        if (f > 0) { b.amt = Math.max(0, b.amt - 0.25 * f * dt); s.mudDirty = true; hit = true; }
+      }
+      if (hit || reach > 0 || this.onPet(s, hx, hy, 30 * s.k)) {
         if (!s.wasWet) { s.wasWet = true; pet.playOnce('surprised', 0.4); pet.say(pick(['Brrr!', 'Splish!', 'Eek, wet!']), 1.2, 'gasp'); }
         s.wet = Math.min(1, s.wet + 0.45 * dt);
       }
@@ -471,6 +535,22 @@ export class Game extends SpaView {
     if (s.mudDirty && s.mudT <= 0) { this.renderMud(s); s.mudT = 0.06; }
     pet.update(dt);
     s.char.update(dt);
+  }
+
+  /**
+   * How hard the shower's water hits screen point (x, y), with `slack` px of
+   * give: 0 outside the spray cone that drawCursor draws, else 1 near the
+   * head easing down to 0.45 at the bottom of the spray.
+   */
+  sprayAt(s, x, y, slack = 0) {
+    const c = s.cursor, size = 74 * s.k, top = -size * 0.25, L = SPRAY_LEN * s.k;
+    const dy = y - c.y;
+    if (dy < top - slack || dy > L + slack) return 0;
+    const t = clamp((dy - top) / (L - top), 0, 1);
+    const half = size * (0.28 + (0.9 - 0.28) * t);
+    if (Math.abs(x - c.x) > half + slack) return 0;
+    const near = 60 * s.k;   // full strength this close below the head
+    return 1 - 0.55 * clamp((dy - near) / (L - near), 0, 1);
   }
 
   rumble(p, a, ms) { try { p.ctrl.rumble && p.ctrl.rumble(a, ms); } catch (e) { /* ignore */ } }
@@ -572,7 +652,8 @@ export class Game extends SpaView {
 
   placeAccessory(s, ix, iy) {
     const a = ACCESSORIES[s.accIdx % ACCESSORIES.length];
-    s.acc.push({ x: ix, y: iy, kind: a.kind, color: a.color, rot: rand(-0.35, 0.35), t: 0 });
+    s.accSeq = (s.accSeq || 0) + 1;
+    s.acc.push({ x: ix, y: iy, kind: a.kind, color: a.color, rot: rand(-0.35, 0.35), t: 0, n: s.accSeq });
     if (s.acc.length > 7) s.acc.splice(s.acc.findIndex((b) => b !== s.held), 1);
     s.accIdx = (s.accIdx + 1) % ACCESSORIES.length;
     const cur = s.cursor;
@@ -599,6 +680,9 @@ export class Game extends SpaView {
     }
     return best;
   }
+
+  /** The most recently placed bow (B's undo on Bows). */
+  newestAccessory(s) { return s.acc.reduce((best, a) => (!best || a.n > best.n ? a : best), null); }
 
   pickUpAccessory(s, a) {
     s.held = a; s.hover = null; a.home = { x: a.x, y: a.y };
@@ -699,30 +783,30 @@ export class Game extends SpaView {
     const cur = s.cursor;
     A.t -= dt;
     A.distract -= dt;
-    if (s.ready) { c.move(0, 0); c.hold('a', false); return; }
-    if (A.goDone) {   // RB along to Done, then A
-      c.move(0, 0); c.hold('a', false);
-      if (A.t <= 0) { c.press(s.tool === DONE ? 'a' : 'rb'); A.t = reactionTime(p) * 0.7; }
+    if (s.ready) { c.move(0, 0); c.hold('x', false); return; }
+    if (A.goDone) {   // A goes on to Done (RB when a step's left), then A: ready
+      c.move(0, 0); c.hold('x', false);
+      if (A.t <= 0) { c.press(s.tool === DONE || (this.canGoOn(s, TOOLS[s.tool].id) && this.goOnTool(s) === DONE) ? 'a' : 'rb'); A.t = reactionTime(p) * 0.7; }
       return;
     }
     // Little distractions: cuddles and squeaky ducks (easier CPUs dawdle more).
     if (A.distract <= 0 && !s.done) {
       A.distract = rand(5, 10) * (1 + (p.aiLevel || 0) * 0.6);
       A.idleT = rand(0.6, 1.4) * (1 - (p.aiLevel || 0) * 0.3);
-      c.hold('a', false); c.move(0, 0);
-      c.press(chance(0.5) ? 'b' : 'y');
+      c.hold('x', false); c.move(0, 0);
+      c.press(chance(0.5) && s.tool !== TOOL_IDX.bow ? 'b' : 'y');   // (B on Bows would undo a bow)
     }
-    if (A.idleT > 0) { A.idleT -= dt; c.move(0, 0); c.hold('a', false); return; }
+    if (A.idleT > 0) { A.idleT -= dt; c.move(0, 0); c.hold('x', false); return; }
 
     let want = this.nextTool(s);
     if (want !== A.lastWant) {
       // Admire the work for a moment after each finished step.
-      if (A.lastWant !== undefined) { A.idleT = rand(0.8, 1.8) * (1 - (p.aiLevel || 0) * 0.3); A.lastWant = want; c.hold('a', false); c.move(0, 0); return; }
+      if (A.lastWant !== undefined) { A.idleT = rand(0.8, 1.8) * (1 - (p.aiLevel || 0) * 0.3); A.lastWant = want; c.hold('x', false); c.move(0, 0); return; }
       A.lastWant = want;
     }
     if (!want) {
       // Free play once happy: a cuddle or a squeaky duck or two, then Done.
-      if (A.t > 0) { c.move(0, 0); c.hold('a', false); return; }
+      if (A.t > 0) { c.move(0, 0); c.hold('x', false); return; }
       A.t = rand(1.5, 3.5);
       A.extra = (A.extra ?? randInt(1, 3)) - 1;
       if (A.extra > 0) c.press(pick(['b', 'y', 'b'])); else A.goDone = true;
@@ -730,10 +814,12 @@ export class Game extends SpaView {
     }
     const wi = TOOL_IDX[want], N = TOOLS.length + 1;
     if (s.tool !== wi) {
-      c.hold('a', false);
+      c.hold('x', false);
       if (A.t <= 0) {
+        // the step is done: A goes on to the next one (else LB / RB along)
         const fwd = (wi - s.tool + N) % N;
-        c.press(fwd <= N / 2 ? 'rb' : 'lb');
+        const goOn = s.tool !== DONE && this.canGoOn(s, TOOLS[s.tool].id) && this.goOnTool(s) === wi;
+        c.press(goOn ? 'a' : fwd <= N / 2 ? 'rb' : 'lb');
         A.t = reactionTime(p) * 0.7;
       }
       c.move(0, 0);
@@ -767,7 +853,7 @@ export class Game extends SpaView {
       if (tgt) tgt.age = 0;
       A.target = tgt;
     }
-    if (!tgt) { c.move(0, 0); c.hold('a', false); return; }
+    if (!tgt) { c.move(0, 0); c.hold('x', false); return; }
     tgt.age += dt;
     let tx, ty;
     if (tgt.head) { const h2 = s.pet.anchor('head'); tx = h2.x - 40 * s.pet.facing * s.k; ty = h2.y + 40 * s.k; }
@@ -778,21 +864,21 @@ export class Game extends SpaView {
     const d = steer(p, cur.x, cur.y, tx, ty, { arrive: 70 * s.k });
     const close = d < 60 * s.k;
     if (tgt.tap) {
-      c.hold('a', false);
-      if (close && A.t <= 0) { c.press('a'); A.t = reactionTime(p) + 0.4; A.target = null; }
+      c.hold('x', false);
+      if (close && A.t <= 0) { c.press('x'); A.t = reactionTime(p) + 0.4; A.target = null; }
     } else {
-      c.hold('a', close || (d < 120 * s.k && s.using));
+      c.hold('x', close || (d < 120 * s.k && s.using));
       if (tgt.life !== undefined && close) { tgt.life -= dt; if (tgt.life <= 0) A.target = null; }
       if (tgt.age > 6) A.target = null;
     }
-    if (prof.speed < 0.85 && chance(dt * 0.4)) c.hold('a', false);
+    if (prof.speed < 0.85 && chance(dt * 0.4)) c.hold('x', false);
   }
 
   // ---- parade --------------------------------------------------------------------
   startParade() {
     if (this.phase === 'parade') return;
     this.phase = 'parade'; this.phaseT = 0;
-    for (const p of this.players) if (p.isAI) { p.ctrl.hold('a', false); p.ctrl.move(0, 0); }
+    for (const p of this.players) if (p.isAI) { p.ctrl.hold('x', false); p.ctrl.move(0, 0); }
     const n = this.stations.length;
     const targetH = n <= 3 ? 320 : n <= 5 ? 250 : 190;
     const spacing = Math.min(360, 1640 / n);

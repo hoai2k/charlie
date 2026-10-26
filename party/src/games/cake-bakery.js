@@ -1,24 +1,27 @@
 // Cake Bakery (Play Studio). Every player builds and decorates their own cake
 // at a split-screen station: shape, layers, flavors, frosting + style,
-// drizzle, then free decorating with a cursor (sprinkles are little physics
-// bits that land and stick). Finale: candles are lit, everyone sings Happy
-// Birthday, mash A to blow the candles out, then each character takes a bite
-// and gives a (always glowing!) rating.
+// drizzle, then free decorating with a cursor (Decorate starts on None; X adds
+// or shakes, sprinkles are little physics bits that land and stick, A is Done).
+// Finale: candles are lit and everyone sings Happy Birthday while walking and
+// jumping about (stick / A); X right by the candle blows it out (cutting the
+// song short), after the song X mashes count from anywhere. Then the feast:
+// bites come from where each eater stands, and jumping on the cake eats where
+// she lands (through a layer, she drops to the one below).
 import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
-import { sfx, sfxLoop, voice, music, hasSound } from '../engine/audio.js';
+import { sfx, sfxLoop, voice, music, hasSound, stopAllLoops } from '../engine/audio.js';
 import { art } from '../engine/art.js';
 import { aiProfile, steer } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 import { drawSparkleShape, drawHeartShape, drawStarShape } from '../engine/emotes.js';
 import {
   NAVY, KY, SHAPES, FLAVORS, FROSTINGS, STYLES, DRIZZLES, DECOS, DECO, CANDY,
-  newCake, layerGeom, topLayer, faceRange, landing, drawBody, biteBody,
+  newCake, layerGeom, topLayer, faceRange, landing, drawBody,
   makeDeco, sprinkle, drawDecoShape, drawSprinkles, drawDecoIcon, drawShaker,
-  decoDef, isSpray, isCandle, candleTop, DECO_BOX,
+  decoDef, isSpray, isCandle, candleTop, DECO_BOX, BITE_COL, biteCol, biteColX, layerAt, colHasCake,
 } from './cake-bakery/cake.js';
 import { askOpen, askUpdate, drawAsk, drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
 import { meta } from './cake-bakery.meta.js';
@@ -45,6 +48,10 @@ const SIDE_BITS = ['star', 'gummy', 'butterfly', 'bow', 'pearls', 'macaron', 'he
 const CENTERPIECES = ['crown', 'rainbow', 'shootingstar', 'fairy', 'lollipop', 'candycane', 'cupcake', 'unicorn'];
 const SPRAYS = ['sprinkles', 'sprinkles', 'starsprinkles', 'dots'];
 const CANDLES = ['candle', 'candle', 'swirlcandle'];
+// Decorate's list: None first (the default, so A just moves on), then every topping.
+const PICKS = [{ id: 'none', name: 'None' }, ...DECOS];
+const PICK = Object.fromEntries(PICKS.map((d, i) => [d.id, i]));
+const pickId = (st) => PICKS[st.decoSel].id;
 const snd = (key, fallback) => (hasSound(key) ? sfx(key) : fallback && sfx(fallback));
 
 // Happy Birthday (public domain melody): [midi, beats]
@@ -60,6 +67,9 @@ const BEAT = 0.3;
 const BAKE_TIME = 180, BAKE_MORE = 60;
 const JINGLE_BEAT = 60 / 112;   // jingle/happy-birthday is the same tune at 112 BPM (13.9 s)
 const BASS = { 0: 48, 6: 43, 12: 48, 19: 53, 22: 48 };
+// The finale's kitchen: walking, jumping (cake-local units) and the feast's clock.
+const WALK = 430, GRAV = 3000, JUMP_V = Math.sqrt(2 * GRAV * 250), STEP_UP = 30, PLATE_R = 232;
+const FEAST_TIME = 40, FEAST_MORE = 20, FEAST_CPU = 8;
 
 function hex(c) { const v = parseInt(c.slice(1), 16); return [(v >> 16) & 255, (v >> 8) & 255, v & 255]; }
 function mix(a, b, t) { const A = hex(a), B = hex(b); return `rgb(${A.map((x, i) => Math.round(x + (B[i] - x) * t)).join(',')})`; }
@@ -107,6 +117,11 @@ export class Game {
       showAt: Infinity, x: W / 2 + 530, y: 56,
       timeUp: { more: () => { this.bakeLeft += BAKE_MORE; }, done: () => this.startFinale(), moreLabel: 'Keep baking!' },
     });
+    // the feast's clock: Time's up asks Keep eating! / All done (all-CPU: just done)
+    api.limit(() => (this.finale?.stage === 'feast' && !this.finished ? this.finale.feastLeft : null), {
+      showAt: Infinity, x: W / 2 + 530, y: 56,
+      timeUp: { more: () => { this.finale.feastLeft += FEAST_MORE; }, done: () => { if (!this.finished) this.finishGame(); }, moreLabel: 'Keep eating!' },
+    });
     const rects = stationRects(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
     this.bunting = Array.from({ length: 30 }, (_, i) => RAINBOW[i % RAINBOW.length]);
@@ -136,7 +151,7 @@ export class Game {
   drawHeld(g, st, info) {
     const { hand, h } = info;
     if (info.pose === 'shake-sprinkles') {
-      const kind = DECOS[st.decoSel].id;
+      const kind = pickId(st);
       // gripped near its base at the hand point (a muzzle's or the cake's
       // hand point too), cap tipped forward-down over the cake, rattling
       g.translate(hand.x, hand.y);
@@ -150,7 +165,7 @@ export class Game {
       const c = st.cake, u = h / 200, fr = FROSTINGS[c.frosting];
       g.translate(info.eyes.x + h * 0.04, info.eyes.y + h * 0.08); g.rotate(-0.2); g.scale(u, u);
       g.lineWidth = 3; g.strokeStyle = NAVY; g.lineJoin = 'round';
-      g.fillStyle = FLAVORS[c.flavors[c.layers - 1] ?? 0].c;
+      g.fillStyle = FLAVORS[c.flavors[st.biteLayer ?? c.layers - 1] ?? 0].c;
       g.beginPath(); g.moveTo(-14, -8); g.lineTo(14, -8); g.lineTo(12, 12); g.lineTo(-12, 12); g.closePath(); g.fill(); g.stroke();
       g.fillStyle = fr.rainbow ? '#ffd6ef' : fr.c;
       ui.roundRect(g, -15, -16, 30, 10, 5); g.fill(); g.stroke();
@@ -225,7 +240,6 @@ export class Game {
   /** X: the next item in this step's list (the next topping while decorating). */
   xAction(st) {
     switch (TABS[st.tab].id) {
-      case 'deco': this.stepDeco(st, 1); break;
       case 'shape': case 'layers': case 'flavor': case 'frost': case 'drizzle': this.changeOption(st, 1); break;
       default: sfx('blip');
     }
@@ -312,7 +326,7 @@ export class Game {
     particles.burst(s.x + d.x * k, s.y + (d.y - 20) * k, { type: 'sparkle', count: 5, colors: ['#fff'] });
   }
   stepDeco(st, dir) {
-    st.decoSel = (st.decoSel + dir + DECOS.length) % DECOS.length; sfx('move'); st.listBump = 0.15;
+    st.decoSel = (st.decoSel + dir + PICKS.length) % PICKS.length; sfx('move'); st.listBump = 0.15;
     if (st.shaking) st.shaking = null;
   }
 
@@ -375,20 +389,19 @@ export class Game {
   updateCursor(st, dt) {
     const c = st.p.ctrl, cur = st.cursor;
     const sp = 640;
-    // Pads: the stick moves the hand and the d-pad picks the topping. Keyboards
-    // (arrows = d-pad) and CPUs keep moving with x/y and pick with X.
+    // The stick moves the hand; the d-pad (pads) or LT / RT picks the topping; X adds it
+    // (held: shakes a spray); A is Done with decorating (handled by the caller).
     const pad = c.kind === 'pad', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     cur.x = clamp(cur.x + (mx * sp + c.rx * 180) * dt, -300, 300);
     cur.y = clamp(cur.y + (my * sp + c.ry * 180) * dt, -600, 100);
-    if (pad) {
-      const step = (c.pressed('down') || c.pressed('right') ? 1 : 0) - (c.pressed('up') || c.pressed('left') ? 1 : 0);
-      if (step) this.stepDeco(st, step);
-    }
-    const kind = DECOS[st.decoSel].id;
-    // Carrying a placed topping: it rides on the hand; A puts it down, B takes it off.
+    let step = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
+    if (pad) step += (c.pressed('down') || c.pressed('right') ? 1 : 0) - (c.pressed('up') || c.pressed('left') ? 1 : 0);
+    if (step) this.stepDeco(st, Math.sign(step));
+    const kind = pickId(st);
+    // Carrying a placed topping: it rides on the hand; X puts it down, B takes it off.
     if (st.held) {
       this.followHand(st);
-      if (c.pressed('a')) this.dropHeld(st);
+      if (c.pressed('x')) this.dropHeld(st);
       else if (c.pressed('b')) this.removeItem(st, st.held);
       st.hover = null;
       return;
@@ -396,23 +409,26 @@ export class Game {
     const canGrab = !st.p.isAI;
     st.hover = canGrab ? this.itemAt(st) : null;
     if (st.hover && c.pressed('b')) { this.removeItem(st, st.hover); st.hover = null; return; }
-    const spray = decoDef(kind).spray;
-    if (st.hover && !spray && c.pressed('a')) { this.grab(st, st.hover); st.hover = null; return; }
+    const spray = decoDef(kind)?.spray;
+    if (st.hover && !spray && c.pressed('x')) { this.grab(st, st.hover); st.hover = null; return; }
     if (spray) {
-      if (c.pressed('a')) {
+      if (c.pressed('x')) {
         st.shaking = []; st.history.push(st.shaking); st.shakeT = 0;
         this.addSprinkles(st, cur.x, cur.y, 12, st.shaking, 26, spray); sfx('brush');
-      } else if (c.held('a') && st.shaking) {
+      } else if (c.held('x') && st.shaking) {
         st.shakeT += dt;
         if (st.shakeT > 0.07) { st.shakeT = 0; this.addSprinkles(st, cur.x, cur.y, 4, st.shaking, 26, spray); }
         if (Math.floor(this.t * 7) !== Math.floor((this.t - dt) * 7)) sfx('brush');
       }
-      if (c.released('a') && st.shaking) { if (st.shaking.length > 20) this.bump(st); st.shaking = null; }
-    } else if (c.pressed('a')) {
-      const grp = [];
-      this.addItem(st, kind, cur.x, cur.y, { group: grp });
-      st.history.push(grp);
-      sfx('whoosh');
+      if (c.released('x') && st.shaking) { if (st.shaking.length > 20) this.bump(st); st.shaking = null; }
+    } else if (c.pressed('x')) {
+      if (kind === 'none') { sfx('blip'); st.listBump = 0.15; }   // nothing picked: the list wiggles
+      else {
+        const grp = [];
+        this.addItem(st, kind, cur.x, cur.y, { group: grp });
+        st.history.push(grp);
+        sfx('whoosh');
+      }
     }
     if (c.pressed('b')) this.undo(st);
   }
@@ -517,17 +533,17 @@ export class Game {
     if (tab === 'deco' && ai.decos && ai.mode === 'move') {
       const goal = ai.decos[ai.di];
       if (!goal) { ai.mode = 'tick'; c.move(0, 0); return; }
-      if (DECOS[st.decoSel].id !== goal.kind) { ai.mode = 'tick'; c.move(0, 0); return; }
+      if (pickId(st) !== goal.kind) { ai.mode = 'tick'; c.move(0, 0); return; }
       if (ai.holdT > 0) {
-        ai.holdT -= dt; c.hold('a', true); c.move(0.25 * Math.sign(goal.dx), 0);
-        if (ai.holdT <= 0) { c.hold('a', false); c.move(0, 0); ai.di++; ai.mode = 'tick'; ai.t = rand(0.5, 1.0); }
+        ai.holdT -= dt; c.hold('x', true); c.move(0.25 * Math.sign(goal.dx), 0);
+        if (ai.holdT <= 0) { c.hold('x', false); c.move(0, 0); ai.di++; ai.mode = 'tick'; ai.t = rand(0.5, 1.0); }
         return;
       }
       const d = steer(st.p, st.cursor.x, st.cursor.y, goal.x, goal.y, { arrive: 70 });
       if (d < 18) {
         c.move(0, 0);
-        if (isSpray(goal.kind)) { c.hold('a', true); ai.holdT = goal.hold; }
-        else { c.press('a'); ai.di++; ai.mode = 'tick'; ai.t = rand(0.45, 0.9) / aiProfile(st.p).speed; }
+        if (isSpray(goal.kind)) { c.hold('x', true); ai.holdT = goal.hold; }
+        else { c.press('x'); ai.di++; ai.mode = 'tick'; ai.t = rand(0.45, 0.9) / aiProfile(st.p).speed; }
       }
       return;
     }
@@ -559,10 +575,10 @@ export class Game {
         if (!ai.decos) { ai.decos = this.buildDecoPlan(st); if (ai.skipToDeco) ai.decos = ai.decos.slice(0, 2); ai.di = 0; }
         const goal = ai.decos[ai.di];
         if (!goal) { next(); break; }
-        if (DECOS[st.decoSel].id !== goal.kind) {
+        if (pickId(st) !== goal.kind) {
           // step the short way round the (long) topping list
-          const fwd = (DECO[goal.kind] - st.decoSel + DECOS.length) % DECOS.length;
-          if (fwd <= DECOS.length / 2) c.press('x'); else this.stepDeco(st, -1);
+          const fwd = (PICK[goal.kind] - st.decoSel + PICKS.length) % PICKS.length;
+          this.stepDeco(st, fwd <= PICKS.length / 2 ? 1 : -1);
           ai.t *= 0.6;
           break;
         }
@@ -581,9 +597,16 @@ export class Game {
     else this.updateFinale(dt);
   }
 
+  // The gallery (after the game ends): the kitchen stays live - walk about and keep eating.
   postUpdate(dt) {
-    this.t += dt;
-    for (const st of this.stations) { st.actor.update(dt); this.updateDecos(st, dt); }
+    this.t += dt; this.phaseT += dt;
+    if (!this.finale) { for (const st of this.stations) { st.actor.update(dt); this.updateDecos(st, dt); } return; }
+    for (const st of this.stations) {
+      this.updateDecos(st, dt);
+      st.cakeBump = Math.max(0, st.cakeBump - dt);
+      for (const d of st.items) if (isCandle(d.kind) && d.lit) d.flame = Math.max(0, (d.flame || 0) - dt * 6);
+    }
+    this.updatePeople(dt, true);
   }
 
   updateBake(dt) {
@@ -602,8 +625,8 @@ export class Game {
         if (r) { st.ask = null; if (r === 'yes') this.surprise(st); else sfx('back'); }
         continue;
       }
-      // LB / RB: steps (the last one is Done) · A: keep it and go on (on Done: ready; decorating: add) ·
-      // stick up/down or X: the next choice (decorating: X = the next topping) · B: back / undo · Y: surprise me!
+      // LB / RB: steps (the last one is Done) · A: keep it and go on (on Done: ready) ·
+      // stick up/down or X: the next choice (decorating: X adds / shakes, d-pad or LT / RT picks) · B: back / undo · Y: surprise me!
       const tabStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
       if (tabStep) {
         st.tab = (st.tab + tabStep + TABS.length) % TABS.length; st.tabBump = 0.18; sfx('move');
@@ -618,11 +641,17 @@ export class Game {
         continue;
       }
       if (tab === 'deco') {
+        if (c.pressed('a')) {   // A: done decorating, on to the next step (a carried topping is put down)
+          this.dropHeld(st); st.hover = null;
+          if (st.shaking) st.shaking = null;
+          if (a.pose === 'shake-sprinkles') a.setPose('idle');
+          st.tab++; st.tabBump = 0.18; sfx('select');
+          continue;
+        }
         this.updateCursor(st, dt);
-        if (c.pressed('x')) this.xAction(st);
-        const kind = DECOS[st.decoSel].id;
+        const kind = pickId(st);
         a.facing = 1;
-        if (c.held('a') && isSpray(kind)) { if (a.pose !== 'shake-sprinkles' && !a._once) a.setPose('shake-sprinkles'); } else if (a.pose === 'shake-sprinkles') a.setPose('idle');
+        if (c.held('x') && isSpray(kind)) { if (a.pose !== 'shake-sprinkles' && !a._once) a.setPose('shake-sprinkles'); } else if (a.pose === 'shake-sprinkles') a.setPose('idle');
         continue;
       }
       if (tab === 'done') {
@@ -642,17 +671,23 @@ export class Game {
 
   // sprinkle-jar rattle loop while A is held on the sprinkles
   shakeSound(st) {
-    const on = !this.finale && !st.ready && !!st.shaking && st.p.ctrl.held('a') && TABS[st.tab].id === 'deco' && isSpray(DECOS[st.decoSel].id);
+    const on = !this.finale && !st.ready && !!st.shaking && st.p.ctrl.held('x') && TABS[st.tab].id === 'deco' && isSpray(pickId(st));
     if (on && !st.shakeLoop) st.shakeLoop = sfxLoop('sprinkle-shake', { vol: this.n > 4 ? 0.6 : 0.85 });
     else if (!on && st.shakeLoop) { st.shakeLoop.stop(); st.shakeLoop = null; }
   }
 
-  // --- finale: candles, song, blow, taste ---------------------------------------
+  // --- finale: candles, song, blow, feast ---------------------------------------
+  // All through the finale everyone can walk (stick) and jump (A) about their kitchen,
+  // even onto the cake. X blows: right up close to a candle it goes out at once (cutting
+  // the song short); after the song, X presses from anywhere count until it's out. Then
+  // the feast: X takes a bite from whatever cake is in reach (the side she stands at, or
+  // under her feet), and jumping onto the cake takes a big bite where she lands; eat
+  // through a layer and she drops to the one below.
   startFinale() {
     if (this.finale) return;
     this.phase = 'finale'; this.phaseT = 0;
     for (const st of this.stations) this.shakeSound(st);
-    this.finale = { stage: 'light', litQueue: [], song: { i: 0, t: 0 }, blowT: 0, tasteT: 0 };
+    this.finale = { stage: 'light', litQueue: [], song: { i: 0, t: 0 }, blowT: 0, feastT: 0, feastLeft: this.cpuOnly ? FEAST_CPU : FEAST_TIME };
     for (const st of this.stations) {
       st.ready = true; this.dropHeld(st); st.hover = null;
       st.actor.setPose('idle'); st.actor.facing = 1;
@@ -663,15 +698,168 @@ export class Game {
       }
       for (const d of st.items) if (isCandle(d.kind)) { d.lit = false; d.flame = 0; this.finale.litQueue.push([st, d]); }
       st.blowNeed = Math.min(14, 6 + st.items.filter((d) => isCandle(d.kind)).length);
+      // walking about: feet in cake-local units
+      const s = st.L.stand, k = st.L.k, a = st.actor;
+      st.mv = { x: (a.x - s.x) / k, y: (a.y - s.y) / k, vy: 0, air: false, jumped: false, layer: -1, fallFrom: 0, vx: 0 };
+      st.counterY = st.mv.y;
+      st.minX = (st.L.ca.x + a.width * 0.35 - s.x) / k;
+      st.maxX = (st.L.ca.x + st.L.ca.w - a.width * 0.3 - s.x) / k;
+      st.restPose = 'idle';
+      st.cake.eaten = [0, 1, 2].map(() => new Uint8Array(BITE_COL.n));
+      st.cakeCols = 0;
+      for (let i = 0; i < st.cake.layers; i++) for (let j = 0; j < BITE_COL.n; j++) if (colHasCake(st.cake, i, j)) st.cakeCols++;
+      st.bites = 0; st.eatenCols = 0;
+      st.fai = null;
     }
     this.finale.litQueue = shuffle(this.finale.litQueue);
     sfx('whoosh');
   }
 
+  // --- moving about the kitchen (cake-local units, +y down) ----------------------------
+  body(st) { const a = st.actor, k = st.L.k; return { hw: (a.width * 0.3) / k, h: a.height / k }; }
+  /** The surface she'd land on at x, falling from feet height y: a layer top, the stand's plate or the counter. */
+  groundAt(st, x, y) {
+    const c = st.cake;
+    let best = st.counterY, layer = -1;
+    const cand = (gy, l) => { if (gy >= y - STEP_UP && gy < best) { best = gy; layer = l; } };
+    for (let i = 0; i < c.layers; i++) if (layerAt(c, i, x)) { const fr = faceRange(c, i, x); cand((fr[0] + fr[1]) / 2, i); }
+    if (Math.abs(x) < PLATE_R) cand(-4, -2);
+    return { y: best, layer };
+  }
+  /** Is cake in the way of a body standing with feet at (x, y)? */
+  blocked(st, x, y) {
+    const c = st.cake, { h } = this.body(st), top = y - h * 0.75, bot = y - STEP_UP;
+    for (let i = 0; i < c.layers; i++) {
+      if (!layerAt(c, i, x)) continue;
+      const L = layerGeom(c, i);
+      if (top < L.yb && bot > L.yt) return true;
+    }
+    return false;
+  }
+
+  moveStation(st, dt, { jump = true } = {}) {
+    const m = st.mv, c = st.p.ctrl, a = st.actor, k = st.L.k, s = st.L.stand, { hw } = this.body(st);
+    const mx = Math.abs(c.x) > 0.25 ? Math.sign(c.x) * Math.min(1, Math.abs(c.x) * 1.2) : 0;
+    let vx = mx * WALK;
+    if (vx) {
+      const dir = Math.sign(vx), nx = clamp(m.x + vx * dt, st.minX, st.maxX);
+      // walk on unless cake is in the way (someone already inside cake can always walk out)
+      if (!this.blocked(st, nx + dir * hw, m.y) || this.blocked(st, m.x, m.y)) m.x = nx; else vx = 0;
+      a.facing = dir;
+    }
+    m.vx = vx;
+    if (jump && !m.air && c.pressed('a')) {
+      m.vy = -JUMP_V; m.air = true; m.jumped = true; m.fallFrom = m.y;
+      sfx('jump'); a.squash(-0.22);
+    }
+    m.vy += GRAV * dt;
+    const ny = m.y + m.vy * dt, gr = this.groundAt(st, m.x, m.y);
+    if (m.vy >= 0 && ny >= gr.y) {
+      const was = m.air, fell = gr.y - m.fallFrom;
+      m.y = gr.y; m.vy = 0; m.air = false; m.layer = gr.layer;
+      if (was) this.land(st, gr, fell);
+    } else {
+      if (!m.air) m.fallFrom = m.y;
+      m.y = ny; m.air = true;
+    }
+    a.x = s.x + m.x * k; a.y = s.y + m.y * k;
+    if (m.air) { if (!a._once && a.pose !== 'jump') a.setPose('jump'); }
+    else if (vx) a.moveAnim(vx * k, 0, WALK * k);
+    else if (!a._once && a.pose !== st.restPose) a.setPose(st.restPose);
+  }
+
+  land(st, gr, fell) {
+    const m = st.mv, a = st.actor;
+    if (fell > 30) {
+      a.squash(0.22); sfx('land', 'pop');
+      particles.burst(a.x, a.y, { type: 'dust', count: 5, speed: [40, 140] });
+    }
+    // a jump onto the cake in the feast: a big bite right where she lands
+    if (m.jumped && gr.layer >= 0 && this.finale?.stage === 'feast') this.chomp(st, gr.layer, m.x, 1);
+    m.jumped = false;
+  }
+
+  /** X in the feast: the nearest cake in reach (her side of it, or under her feet). */
+  bite(st) {
+    const m = st.mv, a = st.actor, c = st.cake, { hw, h } = this.body(st);
+    const reach = hw + 55, mouth = m.y - h * 0.78;
+    let best = null;
+    for (let i = c.layers - 1; i >= 0; i--) {
+      const L = layerGeom(c, i);
+      if (L.yb < m.y - h - 20 || L.yt > m.y + 150) continue;   // above her head / far below her feet
+      for (const d of [a.facing, -a.facing]) {
+        for (let r = 0; r <= reach; r += 6) {
+          const x = m.x + d * r;
+          if (!layerAt(c, i, x)) continue;
+          const score = r + Math.abs((L.yt + L.yb) / 2 - mouth) * 0.3 + (d !== a.facing ? 30 : 0);
+          if (!best || score < best.score) best = { i, x, score, d: r > 4 ? d : a.facing };
+          break;
+        }
+      }
+    }
+    if (!best) {   // nothing in reach: a chomp at the air
+      a.playOnce('eat', 0.4, st.restPose); sfx('blip');
+      return false;
+    }
+    a.facing = best.d;
+    return this.chomp(st, best.i, best.x, 0);
+  }
+
+  /** Eat column(s) of layer i around x (and whatever toppings sit there). */
+  chomp(st, i, x, spread) {
+    const c = st.cake, a = st.actor, k = st.L.k, s = st.L.stand, j0 = biteCol(x);
+    let n = 0, xa = Infinity, xb = -Infinity;
+    for (let j = j0 - spread; j <= j0 + spread; j++) {
+      if (j < 0 || j >= BITE_COL.n || c.eaten[i][j] || !colHasCake(c, i, j)) continue;
+      c.eaten[i][j] = 1; n++;
+      xa = Math.min(xa, biteColX(j) - BITE_COL.w / 2); xb = Math.max(xb, biteColX(j) + BITE_COL.w / 2);
+    }
+    if (!n) return false;
+    c.version++;
+    st.bites++; st.eatenCols += n; st.biteLayer = i;
+    // toppings and sprinkles on that bit of the layer are eaten with it
+    const L = layerGeom(c, i), y0 = L.yt - L.w * KY * 0.55 - 8, y1 = L.yb + L.w * KY * 0.55;
+    const gone = (d) => d.x >= xa - 6 && d.x <= xb + 6 && d.y >= y0 && d.y <= y1;
+    st.items = st.items.filter((d) => !gone(d));
+    st.sprinkles = st.sprinkles.filter((d) => !gone(d));
+    a.playOnce('eat', 0.45, st.restPose); a.squash(0.18);
+    sfx('munch'); st.cakeBump = Math.max(st.cakeBump, 0.12 + spread * 0.08);
+    const fl = FLAVORS[c.flavors[i] ?? 0];
+    particles.burst(s.x + ((xa + xb) / 2) * k, s.y + (L.yt + L.yb) / 2 * k, { type: 'shard', count: 6 + spread * 6, colors: [fl.c, FROSTINGS[c.frosting].c], speed: [120, 280] });
+    if (spread) particles.popText(a.x, a.y - a.height * 1.1, 'CHOMP!', st.p.color, 46);
+    if (st.bites >= 3 && !st.rating) this.giveRating(st);
+    return true;
+  }
+
+  giveRating(st) {
+    const a = st.actor;
+    st.rating = { text: pick(RATINGS), t: 0 };
+    a.emote('hearts', 2.5);
+    const head = a.anchor('head');
+    particles.burst(head.x, head.y, { type: 'heart', count: 14, speed: [150, 380] });
+    sfx('star');
+    a.say(pick(['Yum!', 'Mmm!', 'Yummy!']), 1.2, 'yay');
+  }
+
+  /** The lit candle she's right up close to (on the cake by it, or right beside it), or null. */
+  nearCandle(st) {
+    const m = st.mv, a = st.actor, { hw, h } = this.body(st);
+    const mx = m.x + a.facing * hw * 0.3, my = m.y - h * 0.75;
+    let best = null, bd = Infinity;
+    for (const d of st.items) {
+      if (!isCandle(d.kind) || !d.lit || d.out || d.state !== 'stuck') continue;
+      const fy = d.y - candleTop(d.kind);
+      const dx = Math.abs(d.x - mx) / (hw + 75), dy = Math.abs(fy - my) / 125;
+      const dd = dx * dx + dy * dy;
+      if (dd < 1 && dd < bd) { bd = dd; best = d; }
+    }
+    return best;
+  }
+
   updateFinale(dt) {
     const F = this.finale, t = this.phaseT;
     for (const st of this.stations) {
-      st.actor.update(dt); this.updateDecos(st, dt);
+      this.updateDecos(st, dt);
       st.cakeBump = Math.max(0, st.cakeBump - dt);
       for (const d of st.items) if (isCandle(d.kind) && d.lit) d.flame = Math.min(d.out ? 0 : 1, (d.flame || 0) + dt * 4) - (d.out ? dt * 6 : 0);
     }
@@ -688,6 +876,11 @@ export class Game {
         if (!F.litQueue.length && (F.lightT ?? 0) <= -0.5) {
           // the recorded song plays once instead of the synth notes; the note clock below keeps its time
           F.stage = 'song'; F.song = { i: 0, t: 0.2, jingle: hasSound('jingle/happy-birthday') }; music.stop(0.4);
+          // now and then a CPU wanders up to her candle and blows it out early
+          const cpus = this.stations.filter((s) => s.p.isAI);
+          F.cpuBlower = cpus.length && chance(0.3) ? pick(cpus) : null;
+          F.cpuBlowAt = randInt(10, SONG.length - 4);
+          for (const st of this.stations) st.restPose = 'clap';
         }
       }
     } else if (F.stage === 'song') {
@@ -703,40 +896,117 @@ export class Game {
         F.song.i++;
         for (const st of this.stations) {
           const a = st.actor;
-          if (F.song.i === 1) a.setPose('clap');
+          if (F.song.i === 1 && !a._once && !st.mv.air && !st.mv.vx) a.setPose('clap');
           if (chance(0.5)) particles.burst(a.x, a.y - a.height * 1.05, { type: 'note', count: 1, colors: [st.p.color, '#fff'] });
         }
-        if (F.song.i >= SONG.length) {
-          F.stage = 'blow'; F.blowT = 0;
-          sfx('drumroll');
-          for (const st of this.stations) { st.actor.setPose('idle'); st.ai2 = rand(0.3, 0.7); }
-        }
+        if (F.song.i >= SONG.length) this.startBlow();
       }
     } else if (F.stage === 'blow') {
       F.blowT += dt;
-      for (const st of this.stations) {
-        if (st.out) continue;
-        const c = st.p.ctrl;
-        if (st.p.isAI && F.blowT > 0.6) { st.ai2 -= dt; if (st.ai2 <= 0) { c.press('a'); st.ai2 = rand(0.2, 0.42) / aiProfile(st.p).speed; } }
-        if (c.pressed('a') && F.blowT > 0.4) this.puff(st);
-        if (F.blowT > 7.5) { st.blow = st.blowNeed; this.puff(st); }
-      }
+      if (F.blowT > 7.5) for (const st of this.stations) if (!st.out) { st.blow = st.blowNeed; this.puff(st); }
       if (this.stations.every((s) => s.out) && !F.allOutT) F.allOutT = F.blowT;
       if (F.allOutT && F.blowT - F.allOutT > 1.2) {
-        F.stage = 'taste'; F.tasteT = 0; music.play('bouncy');
-        this.stations.forEach((st, i) => { st.tasteAt = 0.2 + i * 0.25; st.tasteStep = 0; });
+        F.stage = 'feast'; F.feastT = 0; music.play('bouncy');
+        for (const st of this.stations) st.restPose = 'idle';
       }
-    } else if (F.stage === 'taste') {
-      F.tasteT += dt;
-      for (const st of this.stations) this.updateTaste(st, F.tasteT);
-      if (F.tasteT > 4.6 + this.n * 0.25 && !this.finished) this.finishGame();
+    } else if (F.stage === 'feast') {
+      F.feastT += dt;
+      F.feastLeft = Math.max(0, F.feastLeft - dt);
+      // every cake (nearly) eaten up: done
+      if (!F.eatenT && this.stations.every((s) => s.eatenCols >= s.cakeCols * 0.85)) F.eatenT = F.feastT;
+      if (F.eatenT && F.feastT - F.eatenT > 2 && !this.finished) this.finishGame();
     }
+    this.updatePeople(dt, false);
+  }
+
+  startBlow() {
+    const F = this.finale;
+    F.stage = 'blow'; F.blowT = 0;
+    sfx('drumroll');
+    for (const st of this.stations) { st.restPose = 'idle'; if (st.actor.pose === 'clap') st.actor.setPose('idle'); st.ai2 = rand(0.3, 0.7); }
+  }
+
+  /** Walking, jumping, blowing and eating, for everyone (CPUs pick their moves first). */
+  updatePeople(dt, ended) {
+    const F = this.finale;
+    for (const st of this.stations) {
+      const c = st.p.ctrl;
+      if (st.p.isAI) this.finaleAI(st, dt, ended);
+      // in the gallery A leaves the game, so no jumping there
+      this.moveStation(st, dt, { jump: !ended });
+      if (c.pressed('x')) {
+        if (F.stage === 'feast') this.bite(st);
+        else if ((F.stage === 'song' || F.stage === 'blow') && !st.out) {
+          if (this.nearCandle(st)) {   // right up close: out in one big puff
+            st.blow = Math.max(st.blow, st.blowNeed - 1); this.puff(st);
+            if (F.stage === 'song') this.endSongEarly();
+          } else if (F.stage === 'blow' && F.blowT > 0.3) this.puff(st);
+          else if (F.stage === 'song' && !st.p.isAI && (st.closerT ?? 0) <= 0) {
+            st.closerT = 1.2; sfx('blip');
+            particles.popText(st.actor.x, st.actor.y - st.actor.height * 1.15, 'Go up close!', st.p.color, 34);
+          }
+        }
+      }
+      st.closerT = (st.closerT ?? 0) - dt;
+      if (st.rating) st.rating.t += dt;
+      st.actor.update(dt);
+    }
+  }
+
+  /** Someone blew out her candle during the song: it stops, everyone's candles go out, then the feast. */
+  endSongEarly() {
+    stopAllLoops();   // the recorded song is a long one-shot, tracked with the loops
+    this.startBlow();
+    for (const st of this.stations) if (!st.out) { st.blow = st.blowNeed; this.puff(st); }
+  }
+
+  // CPUs in the finale: wander about; maybe one blows her candle out during the song;
+  // mash X after it; then walk up to the cake, hop on it, and eat.
+  finaleAI(st, dt, ended) {
+    const F = this.finale, c = st.p.ctrl, m = st.mv, sp = aiProfile(st.p).speed;
+    const ai = st.fai || (st.fai = { tx: null, t: 0, cd: 0, chew: 0, mode: 'wander' });
+    ai.t -= dt; ai.cd -= dt;
+    if (F.stage === 'blow' && !st.out) {
+      c.move(0, 0);
+      if (F.blowT > 0.6) { st.ai2 -= dt; if (st.ai2 <= 0) { c.press('x'); st.ai2 = rand(0.2, 0.42) / sp; } }
+      return;
+    }
+    const L0 = layerGeom(st.cake, 0), side = m.x < 0 ? -1 : 1;
+    const outside = () => { const lo = Math.max(st.minX, -(L0.w / 2 + 300)), hi = Math.min(st.maxX, L0.w / 2 + 300); return side < 0 ? rand(lo, -L0.w / 2 - 40) : rand(L0.w / 2 + 40, hi); };
+    const candle = F.stage === 'song' && F.cpuBlower === st && F.song.i >= F.cpuBlowAt && !st.out
+      ? st.items.find((d) => isCandle(d.kind) && d.lit && !d.out) : null;
+    if (candle) {
+      if (ai.mode !== 'candle') { ai.mode = 'candle'; ai.t = 6; }
+      ai.tx = candle.x;
+      if (this.nearCandle(st) && ai.cd <= 0) { c.press('x'); ai.cd = 0.3; c.move(0, 0); return; }
+    } else if (ai.tx == null || ai.t <= 0 || ai.mode === 'candle') {
+      // a new plan
+      ai.chew = 0;
+      if (F.stage !== 'feast' || ended && chance(0.5)) { ai.mode = 'wander'; ai.tx = outside(); ai.t = rand(1.5, 3.5); }
+      else if (chance(0.45)) {   // hop up on the cake and eat where she lands
+        const cols = [];
+        for (let j = 0; j < BITE_COL.n; j++) for (let i = 0; i < st.cake.layers; i++) if (!st.cake.eaten[i][j] && colHasCake(st.cake, i, j)) { cols.push(biteColX(j)); break; }
+        ai.mode = 'top'; ai.tx = cols.length ? pick(cols) : outside(); ai.chew = randInt(1, 3); ai.t = 4;
+      } else { ai.mode = 'side'; ai.tx = side * 20; ai.chew = randInt(2, 4); ai.t = 4; }
+    }
+    const dx = ai.tx - m.x, dir = Math.sign(dx);
+    const ahead = !m.air && Math.abs(dx) > 12 && this.blocked(st, m.x + dir * (this.body(st).hw + 10), m.y);
+    let arrived = Math.abs(dx) < 12 && !m.air;
+    if (ahead && ai.mode === 'side') arrived = true;   // at the cake's side
+    if (arrived) {
+      c.move(0, 0);
+      if (ai.chew > 0 && ai.cd <= 0 && F.stage === 'feast') { c.press('x'); ai.chew--; ai.cd = rand(0.35, 0.6) / sp; }
+      else if (ai.chew <= 0 && ai.mode !== 'wander' && ai.t > 0.8) ai.t = rand(0.3, 0.8);
+      return;
+    }
+    c.move(dir * (Math.abs(dx) < 40 ? 0.6 : 1), 0);
+    if (ahead && !ended && ai.cd <= 0) { c.press('a'); ai.cd = 0.25; }   // cake in the way: hop up
   }
 
   puff(st) {
     const a = st.actor, k = st.L.k, s = st.L.stand;
     st.blow++;
-    a.playOnce('blow', 0.25, 'idle');
+    a.playOnce('blow', 0.25, st.restPose);
     // mouth: just under the eyes landmark of the blow frame
     const eyes = a.anchor('eyes');
     const mouth = { x: eyes.x + a.height * 0.03 * a.facing, y: eyes.y + a.height * 0.06 };
@@ -758,48 +1028,21 @@ export class Game {
     if (frac >= 1 || st.items.every((d) => !isCandle(d.kind) || d.out)) {
       st.out = true;
       for (const d of st.items) if (isCandle(d.kind) && !d.out) { d.out = true; particles.burst(s.x + d.x * k, s.y + (d.y - candleTop(d.kind) - 6) * k, { type: 'smoke', count: 5, speed: [20, 70] }); }
-      sfx('candle-blow'); sfx('yay'); a.playOnce('cheer', 0.6, 'idle');
+      sfx('candle-blow'); sfx('yay'); a.playOnce('cheer', 0.6, st.restPose);
       particles.burst(top.x, top.y - 60 * k, { type: 'confetti', count: 24, speed: [200, 480] });
       particles.popText(top.x, top.y - 120 * k, 'Yay!', st.p.color, 56);
       a.say('Whoosh!', 1, st.p.isAI ? null : 'woo');
     }
   }
 
-  updateTaste(st, t) {
-    const a = st.actor, k = st.L.k;
-    const t0 = st.tasteAt;
-    if (st.tasteStep === 0 && t >= t0) {
-      st.tasteStep = 1; st.homeX = a.x;
-      a.playOnce('jump', 0.35, 'idle');
-      sfx('jump');
-    }
-    if (st.tasteStep >= 1 && st.tasteStep < 4) {
-      const target = st.L.stand.x - (topLayer(st.cake).w * 0.42 + 30) * k - a.width * 0.25;
-      a.x = lerp(a.x, Math.max(st.homeX, target), Math.min(1, (t - t0) * 6));
-    }
-    for (const [step, at] of [[1, 0.5], [2, 1.2]]) {
-      if (st.tasteStep === step && t >= t0 + at) {
-        st.tasteStep++;
-        a.playOnce('eat', 0.6, 'idle'); sfx('munch'); a.squash(0.2);
-        const b = biteBody(st.cake, k, st.bites++);
-        const s = st.L.stand;
-        particles.burst(s.x + b.x * k, s.y + b.y * k, { type: 'shard', count: 8, colors: [FLAVORS[st.cake.flavors[st.cake.layers - 1]].c, FROSTINGS[st.cake.frosting].c], speed: [120, 260] });
-      }
-    }
-    if (st.tasteStep === 3 && t >= t0 + 2.0) {
-      st.tasteStep = 4;
-      st.rating = { text: pick(RATINGS), t: 0 };
-      a.playOnce('surprised', 0.3, 'celebrate'); a.emote('hearts', 2.5);
-      const head = a.anchor('head');
-      particles.burst(head.x, head.y, { type: 'heart', count: 14, speed: [150, 380] });
-      sfx('star'); sfx('yay');
-      a.say(pick(['Yum!', 'Mmm!', 'Yummy!']), 1.2, 'yay');
-    }
-    if (st.rating) st.rating.t += 1 / 60;
-  }
-
   finishGame() {
     this.finished = true;
+    const F = this.finale;
+    if (F && F.stage !== 'feast') {   // ended early (pause menu): candles out, on to the eating
+      F.stage = 'feast'; F.feastT = 0;
+      for (const st of this.stations) { st.out = true; st.restPose = 'idle'; for (const d of st.items) if (isCandle(d.kind)) d.out = true; }
+    }
+    for (const st of this.stations) if (!st.rating) this.giveRating(st);
     const stats = this.stations.map((st) => {
       const c = st.cake;
       return `${SHAPES[c.shape].name} · ${c.layers} layer${c.layers > 1 ? 's' : ''}`;
@@ -884,6 +1127,7 @@ export class Game {
     // the cake
     this.drawCake(g, st);
     st.actor.draw(g, { ring: p.color });
+    if (this.finale) this.drawBlowPrompt(g, st);
     if (st.rating) this.drawRating(g, st);
     if (!st.ready && TABS[st.tab].id === 'deco') this.drawCursor(g, st);
     g.restore();
@@ -899,7 +1143,38 @@ export class Game {
       if (st.ready) this.drawReady(g, st);
     } else {
       this.drawFinaleSide(g, st);
+      if (!st.p.isAI && !this.api.ended()) this.drawStationHints(g, st, this.finaleHints(st));
     }
+  }
+
+  finaleHints(st) {
+    const F = this.finale;
+    if (F.stage === 'feast' || st.out) return [['stick', 'Move'], ['a', 'Jump'], ['x', 'Bite!']];
+    if (F.stage === 'blow') return [['x', 'Blow!'], ['stick', 'Move'], ['a', 'Jump']];
+    return [['stick', 'Move'], ['a', 'Jump'], ['x', 'Blow (up close!)']];
+  }
+
+  /** "X Blow!" over her candle while it's lit (bright and bouncing once she's close enough). */
+  drawBlowPrompt(g, st) {
+    const F = this.finale;
+    if (st.p.isAI || st.out || !(F.stage === 'song' || F.stage === 'blow')) return;
+    let d = null;
+    for (const c of st.items) if (isCandle(c.kind) && c.lit && !c.out && (!d || c.y - candleTop(c.kind) < d.y - candleTop(d.kind))) d = c;
+    if (!d) return;
+    const k = st.L.k, s = st.L.stand;
+    const near = !!this.nearCandle(st) || F.stage === 'blow';
+    const fs = clamp(30 * k + 8, 20, 32), gsz = fs * 1.2, label = 'Blow!';
+    const w = gsz + 10 + ui.measure(g, label, fs, 800) + 22, h = gsz * 1.5;
+    const bob = near ? Math.sin(this.t * 9) * 5 : 0;
+    const x = clamp(s.x + d.x * k, st.L.ca.x + w / 2 + 6, st.L.ca.x + st.L.ca.w - w / 2 - 6);
+    const y = s.y + (d.y - candleTop(d.kind)) * k - 46 * k - h / 2 - 14 + bob;
+    g.save(); g.globalAlpha = near ? 1 : 0.8;
+    ui.panel(g, x - w / 2, y - h / 2, w, h, { r: h / 2, fill: near ? '#ffd23f' : 'rgba(255,255,255,0.92)', lineWidth: 3, shadow: false });
+    g.beginPath(); g.moveTo(x - 9, y + h / 2 - 1); g.lineTo(x + 9, y + h / 2 - 1); g.lineTo(x, y + h / 2 + 11); g.closePath();
+    g.fillStyle = near ? '#ffd23f' : 'rgba(255,255,255,0.92)'; g.fill();
+    ui.glyph(g, 'x', x - w / 2 + 8 + gsz / 2, y, gsz, { pulse: near });
+    ui.text(g, label, x - w / 2 + 14 + gsz, y + 1, { size: fs, color: NAVY, stroke: false, align: 'left', weight: 800 });
+    g.restore();
   }
 
   drawCake(g, st) {
@@ -939,8 +1214,17 @@ export class Game {
   drawCursor(g, st) {
     const { L } = st, k = L.k, s = L.stand, cur = st.cursor;
     const held = st.held;
-    const kind = held ? held.kind : DECOS[st.decoSel].id, def = DECOS[DECO[kind]];
+    const kind = held ? held.kind : pickId(st), def = DECOS[DECO[kind]];
     const x = s.x + cur.x * k, y = s.y + cur.y * k;
+    if (!def) {   // None picked: just the hand (it can still pick up a topping with X)
+      const sz = clamp(70 * k, 34, 70);
+      g.save(); g.globalAlpha = 0.8;
+      g.beginPath(); g.arc(x, y, sz * 0.4, 0, TAU); g.fillStyle = 'rgba(255,255,255,0.7)'; g.fill();
+      g.lineWidth = 5; g.strokeStyle = st.p.color; g.stroke();
+      g.restore();
+      if (st.hover) this.drawHandTip(g, st, x, y, sz, [['x', 'Move'], ['b', 'Take off']]);
+      return;
+    }
     // landing guide
     const ld = landing(st.cake, cur.x, cur.y, { topOnly: !!def.topOnly });
     const lx = s.x + ld.x * k, ly = s.y + ld.y * k;
@@ -950,7 +1234,7 @@ export class Game {
       g.beginPath(); g.moveTo(x, y + 16); g.lineTo(lx, ly); g.stroke(); g.setLineDash([]);
       g.beginPath(); g.ellipse(lx, ly, 16 * k + 6, 6 * k + 3, 0, 0, TAU); g.fillStyle = st.p.color; g.globalAlpha = 0.5; g.fill(); g.globalAlpha = 1;
     }
-    const shakeX = isSpray(kind) && st.p.ctrl.held('a') ? Math.sin(this.t * 50) * 6 : 0;
+    const shakeX = isSpray(kind) && st.p.ctrl.held('x') ? Math.sin(this.t * 50) * 6 : 0;
     const sz = clamp(70 * k, 34, 70);
     if (held) {
       // the carried topping is drawn on the cake; the hand is just a ring around it
@@ -962,22 +1246,28 @@ export class Game {
     }
     if (this.players.filter((pp) => !pp.isAI).length > 1 || st.p.isAI) ui.text(g, st.p.tag, x, y - sz * 0.62 - 14, { size: 20, color: st.p.color, strokeWidth: 4 });
     // little hint bubble next to the hand when it is over (or carrying) a topping
-    const tip = held ? [['a', 'Put down'], ['b', 'Take off']] : st.hover ? (isSpray(kind) ? [['b', 'Take off']] : [['a', 'Move'], ['b', 'Take off']]) : null;
-    if (tip) {
-      const fs = clamp(28 * k + 6, 18, 28), gsz = fs * 1.15;
-      let w = 14;
-      for (const [, l] of tip) w += gsz + 6 + ui.measure(g, l, fs, 800) + 12;
-      // centred above the hand (and its player tag), kept inside the cake area
-      const bx = clamp(x - w / 2, L.ca.x + 8, L.ca.x + L.ca.w - w - 8);
-      const by = Math.max(L.ca.y + 4, y - sz * 0.62 - 34 - gsz * 1.6);
-      ui.panel(g, bx, by, w, gsz * 1.6, { r: gsz * 0.8, fill: 'rgba(255,255,255,0.94)', lineWidth: 3, shadow: false });
-      let tx = bx + 10;
-      for (const [b, l] of tip) {
-        ui.glyph(g, b, tx + gsz / 2, by + gsz * 0.8, gsz);
-        tx += gsz + 6;
-        ui.text(g, l, tx, by + gsz * 0.8 + 1, { size: fs, color: NAVY, stroke: false, align: 'left', weight: 800 });
-        tx += ui.measure(g, l, fs, 800) + 12;
-      }
+    const tip = held ? [['x', 'Put down'], ['b', 'Take off']] : st.hover ? (isSpray(kind) ? [['b', 'Take off']] : [['x', 'Move'], ['b', 'Take off']]) : null;
+    g.restore();
+    if (tip) this.drawHandTip(g, st, x, y, sz, tip);
+  }
+
+  /** A little hint bubble above the hand. */
+  drawHandTip(g, st, x, y, sz, tip) {
+    const { L } = st, k = L.k;
+    g.save();
+    const fs = clamp(28 * k + 6, 18, 28), gsz = fs * 1.15;
+    let w = 14;
+    for (const [, l] of tip) w += gsz + 6 + ui.measure(g, l, fs, 800) + 12;
+    // centred above the hand (and its player tag), kept inside the cake area
+    const bx = clamp(x - w / 2, L.ca.x + 8, L.ca.x + L.ca.w - w - 8);
+    const by = Math.max(L.ca.y + 4, y - sz * 0.62 - 34 - gsz * 1.6);
+    ui.panel(g, bx, by, w, gsz * 1.6, { r: gsz * 0.8, fill: 'rgba(255,255,255,0.94)', lineWidth: 3, shadow: false });
+    let tx = bx + 10;
+    for (const [b, l] of tip) {
+      ui.glyph(g, b, tx + gsz / 2, by + gsz * 0.8, gsz);
+      tx += gsz + 6;
+      ui.text(g, l, tx, by + gsz * 0.8 + 1, { size: fs, color: NAVY, stroke: false, align: 'left', weight: 800 });
+      tx += ui.measure(g, l, fs, 800) + 12;
     }
     g.restore();
   }
@@ -1028,7 +1318,7 @@ export class Game {
       case 'flavor': return { sel: c.flavors[st.layerSel], items: FLAVORS.map((f) => ({ name: f.name, icon: (g, x, y, sz) => this.swatch(g, f, x, y, sz) })) };
       case 'frost': return { sel: c.frosting, items: FROSTINGS.map((f) => ({ name: f.name, icon: (g, x, y, sz) => this.swirlIcon(g, f, x, y, sz) })) };
       case 'drizzle': return { sel: c.drizzle, items: DRIZZLES.map((d) => ({ name: d.name, icon: (g, x, y, sz) => this.drizzleIcon(g, d, x, y, sz) })) };
-      case 'deco': return { sel: st.decoSel, items: DECOS.map((d) => ({ name: d.name, icon: (g, x, y, sz) => drawDecoIcon(g, d.id, x, y, sz * 0.9, this.t) })) };
+      case 'deco': return { sel: st.decoSel, items: PICKS.map((d) => ({ name: d.name, icon: (g, x, y, sz) => (d.id === 'none' ? this.drizzleIcon(g, DRIZZLES[0], x, y, sz) : drawDecoIcon(g, d.id, x, y, sz * 0.9, this.t)) })) };
       default: return null;
     }
   }
@@ -1116,13 +1406,13 @@ export class Game {
     if (first + vis < L.items.length) { const yb = areaY + areaH; g.beginPath(); g.moveTo(ax - 12, yb - 2); g.lineTo(ax + 12, yb - 2); g.lineTo(ax, yb + 10); g.fill(); }
     if (footH) {
       const fy = lr.y + lr.h - footH / 2 - 6, fs = footH * 0.62;
-      const label = tab.id === 'flavor' ? '◀ ▶ Layer' : tab.id === 'frost' ? `◀ ▶ ${STYLES[st.cake.style]}` : 'Next';
-      ui.glyph(g, tab.id === 'deco' ? (st.p.ctrl.kind === 'pad' ? 'dpad' : 'x') : 'stick', lr.x + 16 + fs / 2, fy, fs);
+      const label = tab.id === 'flavor' ? '◀ ▶ Layer' : tab.id === 'frost' ? `◀ ▶ ${STYLES[st.cake.style]}` : 'Topping';
+      ui.glyph(g, tab.id === 'deco' ? (st.p.ctrl.kind === 'pad' ? 'dpad' : 'rt') : 'stick', lr.x + 16 + fs / 2, fy, fs);
       ui.text(g, label, lr.x + 26 + fs, fy + 1, { size: fs * 0.72, color: NAVY, stroke: false, align: 'left', weight: 800, maxWidth: lr.w - fs - 40 });
     }
   }
 
-  drawStationHints(g, st) {
+  drawStationHints(g, st, finaleItems = null) {
     const { r, L, p } = st;
     const y = r.y + r.h - L.hintH / 2 - 8;
     const sz = clamp(L.hintH * 0.72, 26, 42);
@@ -1133,15 +1423,22 @@ export class Game {
     ui.text(g, p.tag, x + tw / 2, y + 1, { size: sz * 0.55, strokeWidth: 4, shadow: false });
     x += tw + 12;
     if (wide) { drawPortrait(g, p, x + sz * 0.55, y, sz * 0.55, { ring: p.color, ringWidth: 3 }); x += sz * 1.4; }
-    const tab = TABS[st.tab].id;
-    let items;
+    const tab = finaleItems ? 'finale' : TABS[st.tab].id;
+    let items = finaleItems;
     const pad = p.ctrl.kind === 'pad';
-    if (tab === 'deco') {
-      if (st.held) items = [['stick', 'Move'], ['a', 'Put down'], ['b', 'Take off']];
-      else items = [['stick', 'Move'], ['a', isSpray(DECOS[st.decoSel].id) ? 'Shake!' : st.hover ? 'Pick up' : 'Add'], [pad ? 'dpad' : 'x', 'Topping'], ['b', st.hover ? 'Take off' : 'Undo']];
+    if (finaleItems) { /* the finale's controls */ } else if (tab === 'deco') {
+      const kind = pickId(st);
+      if (st.held) items = [['stick', 'Move'], ['x', 'Put down'], ['b', 'Take off']];
+      else {
+        items = [[pad ? 'dpad' : 'rt', 'Topping']];
+        if (kind !== 'none') items.unshift(['stick', 'Move'], ['x', isSpray(kind) ? 'Shake!' : st.hover ? 'Pick up' : 'Add']);
+        else if (st.hover) items.unshift(['x', 'Pick up']);
+        items.push(['a', 'Done']);
+        if (st.hover || st.history.length) items.push(['b', st.hover ? 'Take off' : 'Undo']);
+      }
     } else if (tab === 'done') items = [['lb', 'Change'], ['a', "I'm ready!"]];
     else items = [[pad ? 'dpad' : 'stick', 'Pick'], ['x', 'Next'], ['a', 'OK!']];
-    if (tab !== 'done') items.push(['y', wide ? 'Surprise!' : '']);
+    if (tab !== 'done' && tab !== 'finale') items.push(['y', wide ? 'Surprise!' : '']);
     const avail = r.x + r.w - 16 - x, lab = sz * 0.62;
     let need = 0;
     for (const [, l] of items) need += sz + 6 + (l ? ui.measure(g, l, lab) + 18 : 12);
@@ -1149,7 +1446,7 @@ export class Game {
     x += Math.max(0, (avail - need * k) / 2);
     g.save(); g.translate(x, y); g.scale(k, k); x = 0;
     for (const [b, l] of items) {
-      ui.glyph(g, b, x + sz / 2, 0, sz, { pulse: b === 'a' && tab === 'done' });
+      ui.glyph(g, b, x + sz / 2, 0, sz, { pulse: b === 'a' && tab === 'done' || b === 'x' && tab === 'finale' && this.finale?.stage === 'blow' });
       x += sz + 6;
       if (l) { ui.text(g, l, x, 2, { size: lab, color: '#fff', align: 'left', strokeWidth: 5 }); x += ui.measure(g, l, lab) + 18; } else x += 12;
     }
@@ -1196,8 +1493,12 @@ export class Game {
       if (F.stage === 'blow' && !st.out) {
         const frac = st.blow / st.blowNeed;
         ui.bar(g, cx - lr.w * 0.38, lr.y + lr.h * 0.66, lr.w * 0.76, 22, frac, '#7fd3ff');
-        if (!st.p.isAI) ui.glyph(g, 'a', cx, lr.y + lr.h * 0.8, clamp(lr.w * 0.18, 34, 64), { pulse: true });
-      } else if (st.out && F.stage === 'blow') {
+        if (!st.p.isAI) ui.glyph(g, 'x', cx, lr.y + lr.h * 0.8, clamp(lr.w * 0.18, 34, 64), { pulse: true });
+      } else if (F.stage === 'song' && !st.out && !st.p.isAI) {
+        const fs = clamp(lr.w * 0.09, 18, 30);
+        ui.text(g, 'Go up close', cx, lr.y + lr.h * 0.68, { size: fs, color: NAVY, stroke: false, weight: 800, maxWidth: lr.w - 16 });
+        ui.hints(g, [['x', 'Blow!']], cx, lr.y + lr.h * 0.68 + fs * 1.8, { size: fs * 1.3 });
+      } else if (st.out && F.stage !== 'feast') {
         ui.text(g, 'Poof!', cx, lr.y + lr.h * 0.72, { size: clamp(lr.w * 0.14, 24, 48), color: '#ffd23f' });
       }
     }
@@ -1205,7 +1506,7 @@ export class Game {
 
   drawFinaleOverlay(g) {
     const F = this.finale, t = this.phaseT;
-    const dim = F.stage === 'taste' ? Math.max(0, 0.32 - F.tasteT * 0.3) : Math.min(0.32, t * 0.5);
+    const dim = F.stage === 'feast' ? Math.max(0, 0.32 - F.feastT * 0.3) : Math.min(0.32, t * 0.5);
     if (dim > 0.01) {
       g.save(); g.fillStyle = `rgba(30,10,60,${dim})`; g.fillRect(0, 0, W, H);
       // candle glows punch through the dark
@@ -1226,8 +1527,8 @@ export class Game {
     let msg = null;
     if (F.stage === 'light') msg = 'Lighting the candles...';
     else if (F.stage === 'song') msg = '♪ Happy Birthday to you! ♪';
-    else if (F.stage === 'blow') msg = this.players.some((p) => !p.isAI) ? 'Make a wish! Mash A to blow!' : 'Make a wish and blow!';
-    else if (F.stage === 'taste') msg = 'Taste test!';
+    else if (F.stage === 'blow') msg = this.players.some((p) => !p.isAI) ? 'Make a wish! Mash X to blow!' : 'Make a wish and blow!';
+    else if (F.stage === 'feast' && F.feastT < 2.5 && !this.api.ended()) msg = 'Dig in!';
     if (msg) {
       const bw = ui.measure(g, msg, 54) + 90;
       g.save(); g.translate(W / 2, this.n === 1 ? 170 : H / 2); g.rotate(-0.02);

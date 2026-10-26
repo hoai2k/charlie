@@ -1,9 +1,10 @@
 // Art Studio (Play Studio). One shared easel canvas (1600x900 offscreen,
 // shown in a wooden frame). Every player has a cursor in their color: stick
-// moves it (with acceleration, right stick fine-adjusts), hold A to paint,
-// LB/RB (or d-pad up/down) change tool - the last one is Done, where A says
-// "I'm ready" -, X (or d-pad left/right) steps the color (or stamp in the
-// stamp tool), LT/RT the size, B undoes your own last stroke. Optional coloring
+// moves it (with acceleration, right stick fine-adjusts), hold X to paint
+// (X stamps / fills too), LB/RB (or d-pad up/down) change tool - the last one
+// is Done, where A says "I'm ready" -, A on a tool goes on to the next one (the
+// first time it says "Hold X to paint!"), Y (or d-pad left/right) steps the
+// color (or stamp in the stamp tool), LT/RT the size, B undoes your own last stroke. Optional coloring
 // pages (fill bucket stops at the lines). Once every painter is ready (or from
 // the pause menu) the painting hangs in a gold frame on the museum wall; X
 // there saves it as a PNG.
@@ -399,15 +400,16 @@ export class Game {
     for (const [k, b] of Object.entries(BTN)) if (scr.x >= b.x && scr.x <= b.x + b.w && scr.y >= b.y - 10 && scr.y <= b.y + b.h + 10) st.overBtn = k;
 
     if (st.ready) st.readyT += dt;
-    // LB/RB (or d-pad up/down) change the tool, the last one is Done (A there: I'm ready); X (or d-pad
+    // LB/RB (or d-pad up/down) change the tool, the last one is Done (A there: I'm ready); Y (or d-pad
     // left/right) steps through the colors or stamps, along the strip shown on screen; LT/RT the size.
+    // X uses the tool (hold to paint); A on a tool goes on to the next one (A is confirm, X is the action).
     const NT = TOOLS.length + 1;
     const toolStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0) + (pad ? (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0) : 0);
     if (toolStep) {
       st.tool = (st.tool + toolStep + NT) % NT; this.toolFx(st);
       if (st.ready && st.tool !== DONE) this.setReady(st, false);
     }
-    const pick = (c.pressed('x') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
+    const pick = (c.pressed('y') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
     if (pick && st.tool !== DONE) {
       if (this.toolOf(st) === 'stamp') { st.stamp = (st.stamp + pick + this.stampKinds.length) % this.stampKinds.length; sfx('stamp'); }
       else { st.color = (st.color + pick + COLORS.length) % COLORS.length; sfx('collect', { step: st.color }); }
@@ -432,13 +434,15 @@ export class Game {
     }
     const inside = cur.y >= 0;
     if (c.pressed('a') && !inside && st.overBtn) { this.pressButton(st, st.overBtn); return; }
+    if (c.pressed('a') && !st.p.isAI) { this.nextTool(st, tool); return; }
     const brushy = tool === 'brush' || tool === 'rainbow' || tool === 'glitter' || tool === 'eraser';
     if (brushy) {
-      if (c.pressed('a') && inside) {
+      if (c.pressed('x') && inside) {
+        st.usedX = true;
         const s = { owner: st.i, tool, color: COLORS[st.color], r: SIZES[st.size].r, pts: [cur.x, cur.y], hue: rand(360), len: 0, seed: randInt(1, 1e9) };
         st.stroke = s; this.pushStroke(s); this.drawSeg(this.pctx, s, 0); st.strokes++;
         if (!st.p.isAI) this.markOwned(cur.x, cur.y, s.r);
-      } else if (c.held('a') && st.stroke && inside) {
+      } else if (c.held('x') && st.stroke && inside) {
         const s = st.stroke, n = s.pts.length;
         const dx = cur.x - s.pts[n - 2], dy = cur.y - s.pts[n - 1];
         if (dx * dx + dy * dy > 9) {
@@ -449,13 +453,25 @@ export class Game {
           if (tool === 'rainbow' && chance(0.3)) particles.trail(scr.x, scr.y, { type: 'star', size: [8, 14] });
         }
       }
-      if (!c.held('a') || !inside) st.stroke = null;
-    } else if (c.pressed('a') && inside) {
+      if (!c.held('x') || !inside) st.stroke = null;
+    } else if (c.pressed('x') && inside) {
+      st.usedX = true;
       if (tool === 'stamp') this.doStamp(st);
       else if (tool === 'fill') this.doFill(st);
     }
     const painting = !!st.stroke;
     if (painting) { if (a.pose !== 'paint' && !a._once) a.setPose('paint'); } else if (a.pose === 'paint') a.setPose('idle');
+  }
+
+  /** A on a painting tool: on to the next tool (after Eraser: Done). Until X has painted something, it
+   *  says how instead, so a kid pressing A to paint learns X. */
+  nextTool(st, tool) {
+    if (!st.usedX) {
+      const how = tool === 'stamp' ? 'Press X to stamp!' : tool === 'fill' ? 'Press X to fill!' : 'Hold X to paint!';
+      st.actor.say(how, 2, null); st.toolPop = 0.4; sfx('blip');
+      return;
+    }
+    st.tool = Math.min(DONE, st.tool + 1); this.toolFx(st);
   }
 
   toolFx(st) {
@@ -597,7 +613,7 @@ export class Game {
     const ai = st.ai, c = st.p.ctrl;
     if (ai.wait > 0) { ai.wait -= dt; c.move(0, 0); return; }
     if (!ai.cmds.length) {
-      c.move(0, 0); c.hold('a', false); ai.spot = null;
+      c.move(0, 0); c.hold('x', false); ai.spot = null;
       ai.idle -= dt;
       if (ai.idle <= 0) {
         ai.cmds = this.planActivity(st);
@@ -614,17 +630,17 @@ export class Game {
         const NT = TOOLS.length + 1, fwd = (cmd.v - st.tool + NT) % NT;
         c.press(fwd <= NT / 2 ? 'rb' : 'lb'); ai.wait = 0.24; break;
       }
-      case 'color': if (st.color === cmd.v) done(0.1); else { c.press('x'); ai.wait = 0.17; } break;
+      case 'color': if (st.color === cmd.v) done(0.1); else { c.press('y'); ai.wait = 0.17; } break;
       case 'size': if (st.size === cmd.v) done(0.05); else { c.press(cmd.v > st.size ? 'rt' : 'lt'); ai.wait = 0.2; } break;
-      case 'stamp': if (st.stamp === cmd.v) done(0.1); else { c.press('x'); ai.wait = 0.17; } break;
+      case 'stamp': if (st.stamp === cmd.v) done(0.1); else { c.press('y'); ai.wait = 0.17; } break;
       case 'goto': {
         const d = steer(st.p, st.cur.x, st.cur.y, cmd.x, cmd.y, { arrive: 140, wobble: false });
         cmd.t2 = (cmd.t2 || 0) + dt;
         if (d < 10 || cmd.t2 > 4) { c.move(0, 0); done(0.12); }
         break;
       }
-      case 'down': c.hold('a', true); done(0.05); break;
-      case 'up': c.hold('a', false); c.move(0, 0); done(0.25); break;
+      case 'down': c.hold('x', true); done(0.05); break;
+      case 'up': c.hold('x', false); c.move(0, 0); done(0.25); break;
       case 'path': {
         const pt = cmd.pts[cmd.i];
         if (!pt) { done(0.05); break; }
@@ -633,8 +649,8 @@ export class Game {
         if (d < 14 || cmd.t2 > 1.5) { cmd.i++; cmd.t2 = 0; }
         break;
       }
-      case 'tap': c.press('a'); done(0.4); break;
-      case 'fill': c.press('a'); done(0.6); break;
+      case 'tap': c.press('x'); done(0.4); break;
+      case 'fill': c.press('x'); done(0.6); break;
       default: done();
     }
   }
@@ -665,14 +681,14 @@ export class Game {
     this.oldPic = keep;
     this.picker = null;
     this.phase = 'paint';
-    for (const st of this.stations) { st.actor.playOnce('cheer', 0.5, 'idle'); if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('a', false); } }
+    for (const st of this.stations) { st.actor.playOnce('cheer', 0.5, 'idle'); if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('x', false); } }
   }
 
   // --- gallery -----------------------------------------------------------------
   startGallery() {
     if (this.phase === 'gallery') return;
     this.phase = 'gallery'; this.phaseT = 0; this.picker = null;
-    for (const st of this.stations) { st.stroke = null; if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('a', false); } }
+    for (const st of this.stations) { st.stroke = null; if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('x', false); } }
     // composite the finished picture
     this.final = document.createElement('canvas'); this.final.width = CW; this.final.height = CH;
     const g = this.final.getContext('2d');

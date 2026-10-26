@@ -225,7 +225,7 @@ export class SalonDrawing {
     if (s.held) {
       g.save(); g.translate(cur.x, cur.y); g.scale(k * 1.1, k * 1.1); g.rotate(s.held.rot); drawBling(g, s.held.def, s.held.def.wide ? 150 : 96, t); g.restore();
     }
-    const hold = s.p.ctrl.held('a');
+    const hold = s.p.ctrl.held('x');
     const opt = { color: HAIR_COLORS[s.opt.colour], on: hold && s.working, open: tool === 'scissors' && hold ? 0.5 + 0.5 * Math.sin(t * 28) : 1 };
     const bob = hold ? Math.sin(t * 24) * 3 : 0;
     if (tool === 'bling' && !s.held) {
@@ -389,8 +389,8 @@ export class SalonDrawing {
     if (this.phase === 'style') {
       const humans = this.stations.filter((s) => !s.p.isAI);
       if (humans.length) {
-        ui.hints(g, [['stick', 'Move'], ['a', 'Use tool'], ['rb', 'Tool · Done']], W / 2 - 130, 52, { size: 32, align: 'right' });
-        ui.hints(g, [['x', 'Colour/Style']], W / 2 + 130, 52, { size: 32, align: 'left' });
+        ui.hints(g, [['stick', 'Move'], ['x', 'Use tool'], ['a', 'Next']], W / 2 - 130, 52, { size: 32, align: 'right' });
+        ui.hints(g, [['y', 'Colour/Style'], ['rb', 'Done']], W / 2 + 130, 52, { size: 32, align: 'left' });
       }
     }
     if (this.phase === 'show') {
