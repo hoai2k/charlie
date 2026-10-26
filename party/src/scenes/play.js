@@ -169,7 +169,8 @@ export class PlayScene {
       showcase: !!result.showcase || this.meta.category === 'studio' && !result.placements,
       highlight: result.highlight ?? null,  // index of a "showstopper" in studio games
       title: result.title || null,
-      banner: result.banner !== false,   // gallery: false when the game's last screen has its own title
+      banner: result.banner !== false,
+      guest: result.guest || null,       // a non-player winner on the gold podium (Troll Trouble's Troll)   // gallery: false when the game's last screen has its own title
     };
     // A no-winner game (every showcase / finishTogether ending, unless it passes gallery: false)
     // ends on its own show-off screen - the photo wall, the gallery, the finished picture: no

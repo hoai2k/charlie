@@ -20,9 +20,8 @@ const NAVY = ui.NAVY;
 const TOTAL_ROUNDS = 6;
 const START_LEN = 3;
 // Dance length per round, by level (Easy, Normal, Hard). Normal stays at 5
-// moves or fewer (6 in the last round) and gets trickier instead of longer;
-// see trickiness().
-const LENGTHS = [[3, 3, 4, 4, 5, 5], [3, 4, 4, 5, 5, 6], [4, 5, 6, 7, 8, 9]];
+// moves or fewer and gets trickier instead of longer; see trickiness().
+const LENGTHS = [[3, 3, 4, 4, 5, 5], [3, 4, 4, 5, 5, 5], [4, 5, 6, 7, 8, 9]];
 const HEARTS = 3;
 const MOVES = ['U', 'D', 'L', 'R', 'A'];
 const MOVE = {

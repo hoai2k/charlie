@@ -6,6 +6,8 @@ export const meta = {
   goal: 'Grab the most gems - and dodge the grumpy Troll\'s ground-pound!',
   controls: [['stick', 'Run around'], ['a', 'Dash (short cooldown)']],
   tips: [
+    'Brave bonus: stay inside the gold ring around the Troll for extra gems!',
+    'The Troll grabs gems too - if he gets the most, the Troll wins!',
     'Run away from the growing shadow circle!',
     'Hit by a slam? You drop half your gems - grab them back!',
     'When the Troll naps, it is gem-grabbing time.',
