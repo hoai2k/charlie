@@ -368,7 +368,7 @@ export class PotteryDrawing {
       g.save(); g.setLineDash([8, 8]); g.lineWidth = 4; g.strokeStyle = st.p.color;
       g.beginPath(); g.ellipse(t.x, t.y, pot.r[N - 1] * k + 12, pot.r[N - 1] * KY * k + 6, 0, 0, TAU); g.stroke(); g.restore();
     }
-    const held = c.held('a'), sponge = c.held('b');
+    const held = c.held('x'), sponge = c.held('b');
     g.save(); g.translate(sc.x, sc.y);
     g.globalAlpha = touching || held || sponge ? 1 : 0.65;
     const sz = clamp(130 * k, 60, 150);
@@ -445,7 +445,7 @@ export class PotteryDrawing {
     g.restore();
     if (this.humans > 1 || st.p.isAI) ui.text(g, st.p.tag, sc.x, sc.y + 34, { size: 20, color: st.p.color, strokeWidth: 4 });
     // hint bubble over a sticker or dot
-    const tip = st.held ? [['a', 'Stick'], ['b', 'Take off']] : st.hover ? (tool === 'sticker' || tool === 'dots' ? [['a', 'Move'], ['b', 'Take off']] : [['b', 'Take off']]) : null;
+    const tip = st.held ? [['x', 'Stick'], ['b', 'Take off']] : st.hover ? (tool === 'sticker' || tool === 'dots' ? [['x', 'Move'], ['b', 'Take off']] : [['b', 'Take off']]) : null;
     if (tip && !st.p.isAI) {
       const L = st.L, fs = clamp(26 * k + 6, 18, 28), gsz = fs * 1.15;
       let w = 14;
@@ -525,7 +525,7 @@ export class PotteryDrawing {
     let label = null;
     const onDone = st.step === 'paint' && st.tool === TOOLS.length;
     if (st.step === 'shape') label = 'Bake it!';
-    else if (st.step === 'paint') label = onDone ? "I'm ready!" : 'Tools · Done';
+    else if (st.step === 'paint') label = onDone ? "I'm ready!" : 'Next tool';
     if (label) {
       const bx = r.x + r.w - actW - 14, bw = actW;
       const ready = st.step === 'shape' ? st.shapeT > 3 || st.morph === null && st.lastPreset : onDone || st.history.length > 2;
@@ -533,7 +533,7 @@ export class PotteryDrawing {
       g.save(); g.translate(bx + bw / 2, y + h / 2); g.scale(pk, pk);
       ui.panel(g, -bw / 2, -h / 2, bw, h, { r: h / 2, fill: st.step === 'shape' ? '#ff9f5a' : '#36d17a', lineWidth: 4, shadow: false });
       const gs = h * 0.72;
-      ui.glyph(g, onDone ? 'a' : 'rb', -bw / 2 + gs * 0.75, 0, gs);
+      ui.glyph(g, 'a', -bw / 2 + gs * 0.75, 0, gs);
       ui.text(g, label, gs * 0.6, 1, { size: clamp(h * 0.46, 15, 32), weight: 800, maxWidth: bw - gs * 1.6 - 10 });
       g.restore();
     }
@@ -567,7 +567,7 @@ export class PotteryDrawing {
     g.closePath(); g.fill(); g.stroke();
     g.restore();
     // option rows
-    const rows = [['x', `Handles: ${st.pot.handles}`], ['y', 'Surprise!'], ['b', 'Smooth']];
+    const rows = [['rt', `Handles: ${st.pot.handles}`], ['y', 'Surprise!'], ['b', 'Smooth']];
     const rh = clamp((lr.y + lr.h - (sy + sh + 16)) / 3.2, 26, 60);
     let y = sy + sh + 14 + rh / 2;
     const gs = rh * 0.7, lfs = clamp(rh * 0.42, 14, 26);
@@ -691,13 +691,13 @@ export class PotteryDrawing {
     if (st.ready) items = st.p.isAI ? [] : [['b', 'Change']];
     else if (st.confirm) items = [['a', 'Yes!'], ['b', 'Not yet']];
     else if (st.ask) items = [];
-    else if (st.step === 'shape') items = [['stick', 'Move'], ['a', 'Hold: shape'], ['b', 'Smooth'], ['x', 'Handles'], ['y', 'Surprise!']];
+    else if (st.step === 'shape') items = [['stick', 'Move'], ['x', 'Hold: shape'], ['a', 'Bake it!'], ['b', 'Smooth'], ['rt', 'Handles'], ['y', 'Surprise!']];
     else if (st.step === 'fire') items = st.fire.stage === 'bake' ? [['a', 'Puff the fire!']] : [];
     else {
       const tool = TOOLS[st.tool];
       if (!tool) items = [['lb', 'Change'], ['a', "I'm ready!"]];
-      else if (st.held) items = [['stick', 'Move'], ['a', 'Stick'], ['b', 'Take off']];
-      else items = [['stick', 'Move'], ['a', st.hover && (tool.id === 'sticker' || tool.id === 'dots') ? 'Move' : tool.verb], ['rb', 'Tool'], ['x', tool.id === 'sticker' ? 'Sticker' : 'Colour'], ['b', st.hover ? 'Take off' : 'Undo']];
+      else if (st.held) items = [['stick', 'Move'], ['x', 'Stick'], ['b', 'Take off']];
+      else items = [['stick', 'Move'], ['x', st.hover && (tool.id === 'sticker' || tool.id === 'dots') ? 'Move' : tool.verb], ['a', 'Next'], ['y', tool.id === 'sticker' ? 'Sticker' : 'Colour'], ['b', st.hover ? 'Take off' : 'Undo']];
     }
     if (!items.length) return;
     if (!wide && items.length > 3) items = items.map(([b, l]) => [b, ['Surprise!', 'Handles'].includes(l) ? '' : l]);
@@ -749,12 +749,12 @@ export class PotteryDrawing {
     const b = st.L.base, k = st.L.k;
     const y = b.y - st.pot.h * k - 70 * k - 20;
     const fs = clamp(34 * k, 18, 36);
-    const msg = 'Hold A on the clay!';
+    const msg = 'Hold X on the clay!';
     const w = ui.measure(g, msg, fs, 800) + fs * 2.4;
     const bob = Math.sin(this.t * 4) * 4;
     g.save(); g.translate(b.x, y + bob);
     ui.panel(g, -w / 2, -fs * 0.9, w, fs * 1.8, { r: fs * 0.9, fill: '#fff8ec', lineWidth: 3, shadow: false });
-    ui.glyph(g, 'a', -w / 2 + fs * 1.05, 0, fs * 1.3, { pulse: true });
+    ui.glyph(g, 'x', -w / 2 + fs * 1.05, 0, fs * 1.3, { pulse: true });
     ui.text(g, msg, fs * 0.6, 1, { size: fs, color: NAVY, stroke: false, weight: 800 });
     g.restore();
   }
