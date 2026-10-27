@@ -20,6 +20,7 @@ import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { drawHeartShape } from '../engine/emotes.js';
 import { bodyRadius, claimed } from '../engine/crowd.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
+import { Dash } from '../engine/dash.js';
 import {
   GROUND_Y, BED, NAVY, drawKitten, drawYarn, drawBasketBack, drawBasketFront, drawCatTree, perchPoint, drawBed, drawBedFront, drawRoom, YARN,
 } from './kitten-yarn/art.js';
@@ -74,7 +75,7 @@ export class Game {
       const a = new Actor(p, { scale: this.scale, x, y: GROUND_Y + lane });
       if (a.leader.h < 80) a.scale *= 1.7;   // tiny fairy avatars
       a.facing = x < W / 2 ? 1 : -1; a.snap();
-      return { p, a, i, x, vx: 0, pv: 0, z: 0, vz: 0, lane, score: 0, basket: [], head: null, brain: new Brain(p), target: null, err: 0, wander: 0, wanderX: x, hold: 1, cuddleWait: 0, bumpCd: 0, popN: 0, popT: 0, flashT: 0 };
+      return { p, a, i, x, vx: 0, pv: 0, z: 0, vz: 0, lane, score: 0, basket: [], head: null, dash: new Dash({ axis: 'x' }), brain: new Brain(p), target: null, err: 0, wander: 0, wanderX: x, hold: 1, cuddleWait: 0, bumpCd: 0, popN: 0, popT: 0, flashT: 0 };
     });
     // a few kittens already waiting on the trees
     for (let s = 0; s < 2; s++) for (let l = 0; l < 3; l++) if (l !== 1 || s === 0) this.addPerch(s, l, rand(0.6, 2.4));
@@ -472,7 +473,8 @@ export class Game {
     const target = inX * MAX_SPEED;
     e.vx = approach(e.vx, target, (Math.abs(target) > Math.abs(e.vx) ? 5200 : 4200) * dt);
     e.pv *= Math.exp(-7 * dt);
-    e.x = clamp(e.x + (e.vx + e.pv) * dt, 260, W - 260);
+    const dd = e.dash.update(dt, ctrl, { x: e.x, y: a.y, facing: a.facing, actor: e.z > 1 ? null : a, ok: !this.done && !e.p.isAI });   // B: a short dash left / right
+    e.x = clamp(e.x + (e.vx + e.pv) * dt + dd.x, 260, W - 260);
     if (!this.done && ctrl.pressed('a')) {
       if (e.basket.length || e.head) this.cuddle(e);
       else if (e.z <= 0.5) { e.vz = JUMP_V; sfx('jump'); a.squash(-0.2); }

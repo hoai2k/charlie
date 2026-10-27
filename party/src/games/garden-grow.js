@@ -27,6 +27,7 @@ import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, approach, rand, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
 import { drawSparkleShape } from '../engine/emotes.js';
+import { Dash } from '../engine/dash.js';
 import {
   KINDS, drawDirt, drawSeed, drawSprout, drawBud, drawSunflower, drawCarrot, drawStrawberryBush, drawStrawberry,
   drawPumpkin, drawVine, drawSneezy, drawCan, drawButterfly, drawRainCloud,
@@ -95,7 +96,7 @@ export class Game {
       const x = n === 1 ? W / 2 : 300 + ((W - 600) * i) / (n - 1);
       const y = i % 2 ? 800 : 628;
       a.x = x; a.y = y; a.facing = x < W / 2 ? 1 : -1;
-      const e = { p, a, i, x, y, vx: 0, vy: 0, pvx: 0, pvy: 0, base: a.scale, score: 0, watering: null, canT: 0, stun: 0, brain: new Brain(p), plot: null, wander: 0, wx: x, wy: y, holdOff: 0, popT: 0, popN: 0 };
+      const e = { p, a, i, x, y, vx: 0, vy: 0, pvx: 0, pvy: 0, base: a.scale, score: 0, watering: null, canT: 0, stun: 0, dash: new Dash(), brain: new Brain(p), plot: null, wander: 0, wx: x, wy: y, holdOff: 0, popT: 0, popN: 0 };
       a.attach((g, info) => this.drawHeld(g, info, e));
       if (this.easy && !p.isAI) e.ez = { plot: null, think: 0 };
       return e;
@@ -197,8 +198,10 @@ export class Game {
     e.vx = approach(e.vx, ix * SPEED * slow, 4200 * dt);
     e.vy = approach(e.vy, iy * SPEED * 0.85 * slow, 4200 * dt);
     e.pvx *= Math.exp(-4 * dt); e.pvy *= Math.exp(-4 * dt);
-    e.x = clamp(e.x + (e.vx + e.pvx) * dt, X_MIN, X_MAX);
-    e.y = clamp(e.y + (e.vy + e.pvy) * dt, Y_MIN, Y_MAX);
+    const dd = e.dash.update(dt, c, { x: e.x, y: e.y, actor: a, ok: playing && e.stun <= 0 && !e.watering && !e.p.isAI });   // B: a short dash
+    if (e.stun > 0) e.dash.cancel();
+    e.x = clamp(e.x + (e.vx + e.pvx) * dt + dd.x, X_MIN, X_MAX);
+    e.y = clamp(e.y + (e.vy + e.pvy) * dt + dd.y, Y_MIN, Y_MAX);
     if (this.phase === 'party') { if (!a._once) a.setPose(e.i % 2 ? 'dance' : 'celebrate'); return; }
     if (e.stun > 0) { if (!a._once) a.setPose('dizzy'); return; }
     if (e.watering) {

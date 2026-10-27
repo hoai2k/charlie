@@ -22,6 +22,7 @@ import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
 import { easySteer, easyNearest, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
+import { Dash } from '../engine/dash.js';
 import { drawSparkleShape, drawHeartShape } from '../engine/emotes.js';
 import { clamp, lerp, rand, randInt, pick, chance, TAU, ease, placementsFromScores } from '../engine/util.js';
 import { drawPumpkin, drawCandy, drawBucket, drawBat, drawPatchBackground, drawMoonFace } from './pumpkin-peekaboo/art.js';
@@ -96,7 +97,7 @@ export class Game {
       const y = n <= 4 ? 680 : 640 + row * 150;
       const a = new Actor(p, { scale: this.baseScale, x, y });
       a.facing = x < W / 2 ? 1 : -1; a.snap();
-      const e = { p, a, i, x, y, vx: 0, vy: 0, score: 0, cd: 0, streak: 0, streakT: 0, lunge: 0, lx: 0, ly: 0, brain: new Brain(p), target: null, aiPress: -1, wander: 0, wx: x, wy: y, popN: 0, popT: 0, bucketSq: 0, sweets: [],
+      const e = { p, a, i, x, y, vx: 0, vy: 0, score: 0, cd: 0, streak: 0, streakT: 0, lunge: 0, lx: 0, ly: 0, brain: new Brain(p), target: null, aiPress: -1, wander: 0, wx: x, wy: y, popN: 0, popT: 0, bucketSq: 0, sweets: [], dash: new Dash({ color: '#e8d7c0' }),
         auto: this.easy && !p.isAI ? { ix: 0, iy: 0, target: null, t: 0, home: { x, y } } : null };
       a.attach((g, info) => this.drawBucketAt(g, info, e));
       return e;
@@ -268,6 +269,9 @@ export class Game {
       e.lunge -= dt;
       e.x += e.lx * dt; e.y += e.ly * dt;
     }
+    // B: a short dash the way the stick points (or the way you face); never walks you in Easy
+    const dd = e.dash.update(dt, c, { x: e.x, y: e.y, actor: a, ok: !this.done && !p.isAI });
+    e.x += dd.x; e.y += dd.y;
     e.x = clamp(e.x + e.vx * dt, MOVE.x0, MOVE.x1);
     e.y = clamp(e.y + e.vy * dt, MOVE.y0, MOVE.y1);
     if (!a._once) a.moveAnim(e.vx, e.vy, top, { run: Math.hypot(e.vx, e.vy) > 380 });

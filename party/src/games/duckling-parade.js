@@ -24,6 +24,7 @@ import { drawEmote, drawSparkleShape } from '../engine/emotes.js';
 import { easySteer, easyNearest, easyErrand, easyErrandStep, easyPrompt } from '../engine/easy.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, damp, rand, randInt, pick, chance, shuffle, TAU, dist, lerp, later, showstopper } from '../engine/util.js';
+import { Dash } from '../engine/dash.js';
 import {
   NAVY, POND, NEST, drawDuckling, drawHat, drawMama, drawNest, drawLily, drawReeds, drawBoot,
   drawBush, drawMushroom, drawMeadow,
@@ -111,7 +112,7 @@ export class Game {
       a.facing = x < W / 2 ? 1 : -1; a.snap();
       return {
         p, a, i, x, y, sizeK, vx: 0, vy: 0, line: [], trail: [{ x, y }], delivered: 0, delT: 0, batch: 0,
-        callCd: 0, swapCd: 0, callFx: 0, brain: new Brain(p), target: null, goal: randInt(3, 6), wander: 0, wx: x, wy: y,
+        callCd: 0, swapCd: 0, callFx: 0, dash: new Dash(), brain: new Brain(p), target: null, goal: randInt(3, 6), wander: 0, wx: x, wy: y,
         cheerCd: 0, tx: x, ty: y,
         ezNear: 0,
       };
@@ -447,7 +448,8 @@ export class Game {
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
     const sp = MAX_SPEED * (p.isAI ? CPU_SPEED[clamp(p.aiLevel ?? 0, 0, 2)] / aiProfile(p).speed : 1);
     e.vx = damp(e.vx, ix * sp, 11, dt); e.vy = damp(e.vy, iy * sp * 0.82, 11, dt);
-    e.x = clamp(e.x + e.vx * dt, BOUNDS.x0, BOUNDS.x1); e.y = clamp(e.y + e.vy * dt, BOUNDS.y0, BOUNDS.y1);
+    const dd = e.dash.update(dt, c, { x: e.x, y: e.y, actor: a, ok: this.phase !== 'done' && !p.isAI });   // B: a short dash
+    e.x = clamp(e.x + e.vx * dt + dd.x, BOUNDS.x0, BOUNDS.x1); e.y = clamp(e.y + e.vy * dt + dd.y, BOUNDS.y0, BOUNDS.y1);
     // run around the pond, not through it (sea folk splash along its edge)
     this.pushOut(e, 1, 44, 34);
     if (inPond(e.x, e.y, 1.14) && Math.hypot(e.vx, e.vy) > 200 && chance(dt * 10)) particles.burst(e.x, e.y, { type: 'drop', count: 2, colors: ['#bfeaff', '#fff'], speed: [40, 120] });
