@@ -4471,7 +4471,8 @@
             364
           ],
           "isolate": true,
-          "scale": 1.4098199672667757,
+          "scale": 0.9163829787234042,
+          "bodyHeight": 158.86,
           "anchor": [
             284,
             359
@@ -4506,7 +4507,8 @@
             368
           ],
           "isolate": true,
-          "scale": 1.4098199672667757,
+          "scale": 0.9163829787234042,
+          "bodyHeight": 158.86,
           "anchor": [
             265,
             363
@@ -4549,7 +4551,8 @@
             297
           ],
           "isolate": true,
-          "scale": 1.4098199672667757,
+          "scale": 0.9163829787234042,
+          "bodyHeight": 158.86,
           "anchor": [
             258,
             282
@@ -4592,7 +4595,8 @@
             339
           ],
           "isolate": true,
-          "scale": 1.4098199672667757,
+          "scale": 0.9163829787234042,
+          "bodyHeight": 158.86,
           "anchor": [
             194,
             438
@@ -4635,7 +4639,8 @@
             379
           ],
           "isolate": true,
-          "scale": 1.4098199672667757,
+          "scale": 0.9163829787234042,
+          "bodyHeight": 158.86,
           "anchor": [
             253,
             374
@@ -4678,7 +4683,8 @@
             400
           ],
           "isolate": true,
-          "scale": 1.4098199672667757,
+          "scale": 0.9163829787234042,
+          "bodyHeight": 158.86,
           "anchor": [
             202,
             393
@@ -4721,7 +4727,8 @@
             366
           ],
           "isolate": true,
-          "scale": 1.4098199672667757,
+          "scale": 0.9163829787234042,
+          "bodyHeight": 158.86,
           "anchor": [
             227,
             358
@@ -4756,7 +4763,8 @@
             370
           ],
           "isolate": true,
-          "scale": 1.4098199672667757,
+          "scale": 0.9163829787234042,
+          "bodyHeight": 158.86,
           "anchor": [
             190,
             365
@@ -4800,7 +4808,8 @@
             380
           ],
           "isolate": true,
-          "scale": 1.4098199672667757,
+          "scale": 0.9163829787234042,
+          "bodyHeight": 158.86,
           "anchor": [
             217,
             371
@@ -4830,6 +4839,321 @@
       "fps": 4,
       "loop": false,
       "motion": 0.8,
+      "facing": 1
+    },
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/fox-sister-poses-oct27.webp",
+          "rect": [
+            10,
+            169,
+            380,
+            439
+          ],
+          "isolate": true,
+          "scale": 0.4974864318326766,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            190,
+            427
+          ],
+          "head": [
+            237,
+            9
+          ],
+          "eyes": [
+            269,
+            130
+          ],
+          "neck": [
+            269,
+            210
+          ],
+          "back": [
+            192,
+            264
+          ],
+          "hand": [
+            328,
+            158
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/fox-sister-poses-oct27.webp",
+          "rect": [
+            358,
+            166,
+            239,
+            444
+          ],
+          "isolate": true,
+          "scale": 0.4889090795596995,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            152,
+            431
+          ],
+          "head": [
+            131,
+            11
+          ],
+          "eyes": [
+            140,
+            126
+          ],
+          "neck": [
+            154,
+            206
+          ],
+          "back": [
+            123,
+            273
+          ],
+          "hand": [
+            193,
+            152
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/fox-sister-poses-oct27.webp",
+          "rect": [
+            581,
+            145,
+            356,
+            465
+          ],
+          "isolate": true,
+          "scale": 0.4726121102410427,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            204,
+            452
+          ],
+          "head": [
+            226,
+            15
+          ],
+          "eyes": [
+            240,
+            127
+          ],
+          "neck": [
+            238,
+            215
+          ],
+          "back": [
+            184,
+            289
+          ],
+          "hand": [
+            285,
+            168
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/fox-sister-poses-oct27.webp",
+          "rect": [
+            930,
+            164,
+            330,
+            445
+          ],
+          "isolate": true,
+          "scale": 0.5251245669344919,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            159,
+            433
+          ],
+          "head": [
+            168,
+            8
+          ],
+          "eyes": [
+            238,
+            140
+          ],
+          "neck": [
+            243,
+            230
+          ],
+          "back": [
+            175,
+            298
+          ],
+          "hand": [
+            291,
+            179
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/fox-sister-poses-oct27.webp",
+          "rect": [
+            1232,
+            196,
+            354,
+            415
+          ],
+          "isolate": true,
+          "scale": 0.515576847535683,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            222,
+            403
+          ],
+          "head": [
+            186,
+            13
+          ],
+          "eyes": [
+            233,
+            100
+          ],
+          "neck": [
+            236,
+            183
+          ],
+          "back": [
+            170,
+            243
+          ],
+          "hand": [
+            315,
+            99
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/fox-sister-poses-oct27.webp",
+          "rect": [
+            1560,
+            249,
+            294,
+            351
+          ],
+          "isolate": true,
+          "scale": 0.4889090795596995,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            154,
+            195
+          ],
+          "head": [
+            140,
+            10
+          ],
+          "eyes": [
+            206,
+            130
+          ],
+          "neck": [
+            206,
+            193
+          ],
+          "back": [
+            136,
+            246
+          ],
+          "hand": [
+            263,
+            154
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/fox-sister-poses-oct27.webp",
+          "rect": [
+            1876,
+            204,
+            288,
+            409
+          ],
+          "isolate": true,
+          "scale": 0.48062248499089094,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            159,
+            393
+          ],
+          "head": [
+            118,
+            21
+          ],
+          "eyes": [
+            177,
+            114
+          ],
+          "neck": [
+            178,
+            187
+          ],
+          "back": [
+            173,
+            265
+          ],
+          "hand": [
+            211,
+            153
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
       "facing": 1
     }
   },

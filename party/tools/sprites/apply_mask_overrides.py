@@ -37,7 +37,7 @@ def apply(asset):
             name = runtime['src']
             if name not in data['polygons']:
                 continue
-            assert '-new-games-' in frame['source'], 'Override must target reviewed source'
+            assert any(tag in frame['source'] for tag in ('-new-games-', '-dance-moves-', '-sister-poses-')), 'Override must target reviewed source'
             path = folder / 'masks' / name
             mask = np.asarray(Image.open(path).convert('RGB')).copy()
             image = np.asarray(Image.open(folder / name).convert('RGBA')).astype(np.float32) / 255
@@ -64,6 +64,14 @@ def apply(asset):
             for polygon in data['polygons'][name]:
                 draw.polygon(transform(polygon), fill=255)
             mask[np.asarray(protection) > 0] = 0
+            # Optional reviewed boots above the grounded classifier gate.
+            boots = Image.new('L', protection.size)
+            bd = ImageDraw.Draw(boots)
+            for polygon in data.get('bootFill', {}).get(name, []):
+                bd.polygon(transform(polygon), fill=255)
+            boot_pixels = ((hue >= 235) & (hue <= 310) & (sat > .15) &
+                           (image[..., 3] > .5) & (np.asarray(boots) > 0))
+            mask[boot_pixels, 1] = 255
             Image.fromarray(mask).save(path, 'WEBP', lossless=True, method=6)
     index['reviewedOverrides'] = str((here / 'mask_overrides' / f'{asset}-new-games.json').relative_to(here.parent.parent))
     index_path.write_text(json.dumps(index) + '\n')

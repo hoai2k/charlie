@@ -1,0 +1,117 @@
+{
+  "checkedUTC": "2026-10-27T01:50:26.311081+00:00",
+  "danceSets": 21,
+  "danceFrames": 189,
+  "sisterSets": 15,
+  "sisterFrames": 117,
+  "generalImages": 11,
+  "totalNewRuntimeImages": 317,
+  "members": {
+    "felicity": {
+      "fullDecodedMiB": 23.803131,
+      "optimizedDecodedMiB": 21.340107,
+      "fingerprint": "f23e943f64ff3b92"
+    },
+    "fellowfox": {
+      "fullDecodedMiB": 15.212437,
+      "optimizedDecodedMiB": 13.103062,
+      "fingerprint": "265cf0a3f18f0dde"
+    },
+    "kpop-girl-center": {
+      "fullDecodedMiB": 23.687737,
+      "optimizedDecodedMiB": 17.084194,
+      "fingerprint": "31f560ae28d3692b"
+    },
+    "kpop-girl-left": {
+      "fullDecodedMiB": 24.095299,
+      "optimizedDecodedMiB": 17.64349,
+      "fingerprint": "a9ddd794dcc97392"
+    },
+    "kpop-girl-right": {
+      "fullDecodedMiB": 24.205505,
+      "optimizedDecodedMiB": 18.706684,
+      "fingerprint": "7b7b6af4bf33a929"
+    },
+    "bronze": {
+      "fullDecodedMiB": 23.818169,
+      "optimizedDecodedMiB": 17.491306,
+      "fingerprint": "b06281d5c6ced713"
+    },
+    "cotton-candy": {
+      "fullDecodedMiB": 24.110279,
+      "optimizedDecodedMiB": 20.946732,
+      "fingerprint": "4e6c8bedaf5d0bd4"
+    },
+    "fox": {
+      "fullDecodedMiB": 24.448215,
+      "optimizedDecodedMiB": 23.459488,
+      "fingerprint": "9ca2ef8bfadb2a87"
+    },
+    "hotdog": {
+      "fullDecodedMiB": 24.124931,
+      "optimizedDecodedMiB": 22.015556,
+      "fingerprint": "f97acadf304591b5"
+    },
+    "marina": {
+      "fullDecodedMiB": 24.918987,
+      "optimizedDecodedMiB": 20.03529,
+      "fingerprint": "9229c9bac453a2e4"
+    },
+    "scale": {
+      "fullDecodedMiB": 24.546146,
+      "optimizedDecodedMiB": 19.817242,
+      "fingerprint": "bfb88b764c2d80a2"
+    },
+    "marshmallow-birthday-cake": {
+      "fullDecodedMiB": 24.618073,
+      "optimizedDecodedMiB": 23.739166,
+      "fingerprint": "5ce761926df740fe"
+    },
+    "princess-amber": {
+      "fullDecodedMiB": 23.777485,
+      "optimizedDecodedMiB": 18.206116,
+      "fingerprint": "fbcacfb199aad0a3"
+    },
+    "snowstar": {
+      "fullDecodedMiB": 23.160454,
+      "optimizedDecodedMiB": 20.274368,
+      "fingerprint": "3ef663a676042417"
+    },
+    "unicorn": {
+      "fullDecodedMiB": 23.994785,
+      "optimizedDecodedMiB": 22.155838,
+      "fingerprint": "94ec10e7bd6a2aef"
+    },
+    "garden-fairy-pink": {
+      "fullDecodedMiB": 17.385284,
+      "optimizedDecodedMiB": 15.275909,
+      "fingerprint": "9413826d17f72b55"
+    },
+    "garden-fairy-blue": {
+      "fullDecodedMiB": 17.143852,
+      "optimizedDecodedMiB": 15.034477,
+      "fingerprint": "270497da5a0af8ae"
+    },
+    "garden-fairy-green": {
+      "fullDecodedMiB": 16.229542,
+      "optimizedDecodedMiB": 14.120167,
+      "fingerprint": "f7ac393a1e980b21"
+    },
+    "garden-fairy-purple": {
+      "fullDecodedMiB": 16.642357,
+      "optimizedDecodedMiB": 14.532982,
+      "fingerprint": "76bdac4c35eb28ab"
+    },
+    "garden-fairy-yellow": {
+      "fullDecodedMiB": 18.39463,
+      "optimizedDecodedMiB": 16.285255,
+      "fingerprint": "320fd279c251d79d"
+    },
+    "glimmer": {
+      "fullDecodedMiB": 23.937771,
+      "optimizedDecodedMiB": 15.015171,
+      "fingerprint": "0a517092a0c4bef7"
+    }
+  },
+  "tests": "17 Node test files passed; nail-studio8 and eight consuming Sister games completed naturally; Dance Studio2 completed; full and optimized Actor contacts reviewed."
+}

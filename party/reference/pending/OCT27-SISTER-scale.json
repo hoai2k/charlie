@@ -1,0 +1,288 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Asset type: transparent game sprite sheet of ONE exact reference character. Image1 approved canonical, image2 shipping idle. Preserve exact identity/anatomy/outfit/colors/proportions, camera three-quarter screen-right, same head and torso size across all figures, bold dark outline and clean cel shading. All figures full body with generous clear gutters, TRUE transparent RGBA; NO props, held objects, scenery, shadows, effects, text or labels. Empty hands/arms; game adds objects later. Exactly EIGHT figures in FOUR columns by TWO rows, left-to-right top-to-bottom: (1) BOOP one paw/hand/hoof poking forward horizontally to boop an invisible nose, cheeky grin. (2) CUDDLE both arms/front paws curled around EMPTY space at chest, eyes shut big smile, no object. (3) SILLY POSE goofy ta-da one rear leg kicked UP behind, front limbs flung WIDE, TONGUE OUT. (4) TIPTOE sneaking high on toes, hunched body, front limbs holding EMPTY space overhead, sideways cheeky grin, no cushion. (5) TONGUE OUT head tipped back looking UP, tongue extended UP toward sky to catch invisible snowflake, no snowflake. (6) TUCK tight spherical ball, knees/front paws hugged to chest, happy shut eyes, SIDE view for spinning, tail curled around body. (7) RIDE SIT sitting astride EMPTY space, legs to each side, arms/front paws forward grasping empty space, happy, no mount. (8) LAUGH BIG belly laugh head back eyes shut hands/paws on tummy. SCALE exact blonde mermaid gold crown with TWO curved dark-teal hornlike decorations, layered green/teal top blue flowers red ruffle, red tail BLUE crisscross diamonds teal tailfins. TWO arms and ONE unbranched tail ending in ONE pair of fins; NO legs/feet. boop fingerforward; cuddle EMPTY arms chest eyesclosed; silly armwide tongueout tail kicks behind; tiptoe tail fin-tips supporting arms raised overhead EMPTY; tongueout head leanedback UP tongue extended toward sky; tuck round curled SINGLE tail hugged against chest by botharms eyesclosed side-on; ridesit sitting tail curled under with arms reaching EMPTY forward no mount; laugh headback eyesclosed hands tummy. No props/companions/extra tails.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-95bba5a6-e472-4c95-b728-9fa1f1d7cd81.png",
+  "source": "party/tools/sprites/sources/scale-sister-poses.webp",
+  "status": "runtime landmarks/compensated head-scale reviewed; optimized or final optimizer running; root game review pending",
+  "repairPrompt": "Use case: precise-object-edit. Please correct the fish-tail anatomy of the blonde mermaid in the bottom row third cell of this cartoon game sprite sheet: she should have one unbranched red-and-blue diamond patterned fish tail curved beneath her, ending in two teal fins together on the right. Remove the extra fin shapes on the left. Preserve her arms, face, outfit, pose, colors and size. Preserve all other seven sprite figures unchanged. Transparent background, no new objects or text.",
+  "originalNativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-2275eb23-d8cf-485f-8478-4ff5604b88c3.png",
+  "annotations": [
+    {
+      "pixelScale": 0.4,
+      "anchor": [
+        204,
+        487
+      ],
+      "head": [
+        170,
+        100
+      ],
+      "eyes": [
+        168,
+        170
+      ],
+      "neck": [
+        178,
+        225
+      ],
+      "hand": [
+        58,
+        215
+      ],
+      "back": [
+        205,
+        312
+      ],
+      "resolutionFactor": 0.45
+    },
+    {
+      "pixelScale": 0.4,
+      "anchor": [
+        587,
+        487
+      ],
+      "head": [
+        546,
+        103
+      ],
+      "eyes": [
+        551,
+        167
+      ],
+      "neck": [
+        553,
+        228
+      ],
+      "hand": [
+        576,
+        246
+      ],
+      "back": [
+        582,
+        306
+      ],
+      "resolutionFactor": 0.45
+    },
+    {
+      "pixelScale": 0.4,
+      "anchor": [
+        998,
+        487
+      ],
+      "head": [
+        933,
+        103
+      ],
+      "eyes": [
+        933,
+        168
+      ],
+      "neck": [
+        943,
+        226
+      ],
+      "hand": [
+        1077,
+        186
+      ],
+      "back": [
+        985,
+        288
+      ],
+      "resolutionFactor": 0.45
+    },
+    {
+      "pixelScale": 0.4,
+      "anchor": [
+        1350,
+        496
+      ],
+      "head": [
+        1381,
+        102
+      ],
+      "eyes": [
+        1378,
+        165
+      ],
+      "neck": [
+        1384,
+        226
+      ],
+      "hand": [
+        1342,
+        137
+      ],
+      "back": [
+        1345,
+        309
+      ],
+      "resolutionFactor": 0.45
+    },
+    {
+      "pixelScale": 0.4,
+      "anchor": [
+        212,
+        967
+      ],
+      "head": [
+        155,
+        558
+      ],
+      "eyes": [
+        165,
+        606
+      ],
+      "neck": [
+        165,
+        681
+      ],
+      "hand": [
+        291,
+        765
+      ],
+      "back": [
+        196,
+        794
+      ],
+      "resolutionFactor": 0.45
+    },
+    {
+      "pixelScale": 0.4,
+      "anchor": [
+        589,
+        721
+      ],
+      "head": [
+        582,
+        627
+      ],
+      "eyes": [
+        589,
+        676
+      ],
+      "neck": [
+        590,
+        715
+      ],
+      "hand": [
+        666,
+        763
+      ],
+      "back": [
+        546,
+        783
+      ],
+      "headAngle": 0,
+      "resolutionFactor": 0.45
+    },
+    {
+      "pixelScale": 0.4,
+      "anchor": [
+        983,
+        968
+      ],
+      "head": [
+        960,
+        566
+      ],
+      "eyes": [
+        962,
+        637
+      ],
+      "neck": [
+        964,
+        700
+      ],
+      "hand": [
+        1035,
+        755
+      ],
+      "back": [
+        964,
+        808
+      ],
+      "resolutionFactor": 0.45
+    },
+    {
+      "pixelScale": 0.4,
+      "anchor": [
+        1361,
+        968
+      ],
+      "head": [
+        1379,
+        571
+      ],
+      "eyes": [
+        1366,
+        637
+      ],
+      "neck": [
+        1363,
+        694
+      ],
+      "hand": [
+        1292,
+        753
+      ],
+      "back": [
+        1345,
+        810
+      ],
+      "resolutionFactor": 0.45
+    }
+  ],
+  "crops": [
+    [
+      42,
+      23,
+      387,
+      493
+    ],
+    [
+      446,
+      21,
+      755,
+      492
+    ],
+    [
+      776,
+      22,
+      1247,
+      424
+    ],
+    [
+      1201,
+      14,
+      1517,
+      500
+    ],
+    [
+      15,
+      497,
+      417,
+      971
+    ],
+    [
+      417,
+      544,
+      742,
+      891
+    ],
+    [
+      799,
+      518,
+      1171,
+      973
+    ],
+    [
+      1199,
+      510,
+      1523,
+      1005
+    ]
+  ],
+  "oldShippingPosesPreserved": 93,
+  "reviewContact": "/tmp/scale-sister-compensated.png"
+}

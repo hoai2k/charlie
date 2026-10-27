@@ -3,7 +3,7 @@
   "prompt": "Use case: stylized-concept. Asset type: game sprite sheet on true transparent RGBA background. Reference image1 approved canonical; image2 exact shipping idle. Preserve EXACT identity, anatomy, proportions, colors, outfit, face details and dark outlines. Exactly NINE full-body figures in THREE columns by THREE rows, equal spacious cells, left-to-right top-to-bottom. Keep consistent HEAD/TORSO scale through every pose (never normalize total silhouette height), camera three-quarter toward screen-right. Big joyful extreme silhouettes child can recognize. Generous gutters all tails/hands/ears/feet inside own cell; no effects, motion lines, shadows, floor, props, text or labels. Poses in order: R1C1 DISCO one limb shoots up-left 45 degrees other on hip, cocked hips, huge grin; R1C2 airborne STARFISH wide X, all limbs as wide as possible, joyful open mouth, hair/ears/tail up; R1C3 HULA arms/front appendages together stretched to one side, hips opposite, bent support, happy closed eyes. R2C1 CARTWHEEL PREP side lunge arms/front limbs overhead, excited grin; R2C2 CARTWHEEL INVERTED fully upside down front limbs support on floor, rear limbs wide high V above head, happy upside-down face; R2C3 CAN-CAN rear leg kicks straight up PAST head, other supports, lean backward, hands on hips if no skirt, open HOO smile. R3C1 full flat SPLITS on floor, front/back legs straight along floor, upright torso, front limbs up big V, proud surprised happy face; R3C2 MOONWALK 1 facing right leaning backward front foot flat rear foot on toe, one hand to forehead like tipping INVISIBLE hat; R3C3 MOONWALK 2 same with feet swapped. No actual hat. Adapt to reference anatomy as described next: COTTON CANDY is exactly the white chibi pony with long flowing PINK-and-BLUE striped mane/tail, blue eyes, blue-and-yellow crown, yellow flower flank mark. Preserve FOUR HOOVED legs, NO human arms, fingers or hands. Rear upright to point forehoof for disco and sweep both forehooves for hula. Starfish all four hooves wide. Cartwheel fully upside down supported on forehooves, hind hooves high wide V. Can-can kick a FORELEG high past head while rear hooves support. Splits front legs forward and back legs back on floor, chin down. Moonwalk rear slightly, a FOREHOOF at forehead, alternate support hooves. Huge joyful smile all poses.",
   "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-0801192f-cd70-4ef1-8f09-8052be55f03a.png",
   "source": "party/tools/sprites/sources/cotton-candy-dance-moves.webp",
-  "status": "intaken; runtime landmark review pending",
+  "status": "runtime landmarks/head-scale reviewed; optimized; root game review pending",
   "annotations": [
     {
       "pixelScale": 0.62,
@@ -30,7 +30,8 @@
       "back": [
         237,
         251
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.62,
@@ -57,7 +58,8 @@
       "back": [
         610,
         251
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.62,
@@ -84,7 +86,8 @@
       "back": [
         1021,
         255
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.62,
@@ -111,7 +114,8 @@
       "back": [
         205,
         717
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.62,
@@ -139,7 +143,8 @@
         623,
         581
       ],
-      "headAngle": 3.14159265
+      "headAngle": 3.14159265,
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.62,
@@ -166,7 +171,8 @@
       "back": [
         1054,
         648
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.62,
@@ -193,7 +199,8 @@
       "back": [
         236,
         1128
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.62,
@@ -220,7 +227,8 @@
       "back": [
         661,
         1078
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.62,
@@ -247,7 +255,8 @@
       "back": [
         1086,
         1084
-      ]
+      ],
+      "resolutionFactor": 0.65
     }
   ],
   "crops": [
@@ -306,5 +315,32 @@
       1229
     ]
   ],
-  "oldShippingPosesPreserved": 86
+  "oldShippingPosesPreserved": 93,
+  "portraitBudget": {
+    "resolution": 288,
+    "nativeArchives": [
+      {
+        "file": "party/tools/sprites/sources/cotton-candy-portraits-native-oct27/portrait-neutral.webp",
+        "sha256": "cb9c820f0a1fffb5bdef943c96353179302935d8cbeafa84d9435ea516546cf0"
+      },
+      {
+        "file": "party/tools/sprites/sources/cotton-candy-portraits-native-oct27/portrait-happy.webp",
+        "sha256": "79e5bfbe8a361a0ef0b19b6d816555c9a85545679f66524bf33bb23e101d5e74"
+      },
+      {
+        "file": "party/tools/sprites/sources/cotton-candy-portraits-native-oct27/portrait-sad.webp",
+        "sha256": "ff62297fb4307c65342d4d0137b180ba457964aab0382bc1b2310f78c56a195c"
+      },
+      {
+        "file": "party/tools/sprites/sources/cotton-candy-portraits-native-oct27/portrait-surprised.webp",
+        "sha256": "c4f2e7f30b132d10379e3852c0439db0181e19a90440ad6bbd1923cbff95c2a8"
+      },
+      {
+        "file": "party/tools/sprites/sources/cotton-candy-portraits-native-oct27/portrait-determined.webp",
+        "sha256": "f21f47fd79bd9217c57305c457618192916a2cbf6ec318d67ccde02299b7deb5"
+      }
+    ],
+    "reason": "Preserve old bodyframes while fitting new dance and Sister poses below25MiB decoded."
+  },
+  "reviewContact": "/tmp/cotton-candy-dance-review.png"
 }

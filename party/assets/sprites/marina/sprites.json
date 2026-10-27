@@ -4736,6 +4736,765 @@
           ]
         }
       ]
+    },
+    "dance-moonwalk": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "dance-moonwalk-00.webp",
+          "anchor": [
+            88,
+            177
+          ],
+          "artHash": "74b3fef6eff1b0174b30fd0bbf0199e4406a9640233c2429158b09e2fd7663f2",
+          "fileHash": "8374583e0b683c2af15d1defcf0c5e34e7cf77c8f5ac20d728addd9b85184981",
+          "head": [
+            84,
+            25
+          ],
+          "hand": [
+            113,
+            23
+          ],
+          "eyes": [
+            86,
+            48
+          ],
+          "neck": [
+            91,
+            73
+          ],
+          "back": [
+            96,
+            110
+          ],
+          "belly": [
+            97,
+            97
+          ],
+          "tail": [
+            65,
+            161
+          ]
+        },
+        {
+          "src": "dance-moonwalk-01.webp",
+          "anchor": [
+            99,
+            182
+          ],
+          "artHash": "922f0729cb39fcf11c35ec9a90bc7498584cf19b96ab8b9c28cc69d062c3892e",
+          "fileHash": "4babb64e26e28a4af3069093f73bd96e08036c54794ab66780e69e926ff2efa7",
+          "head": [
+            68,
+            28
+          ],
+          "hand": [
+            93,
+            29
+          ],
+          "eyes": [
+            74,
+            53
+          ],
+          "neck": [
+            79,
+            77
+          ],
+          "back": [
+            79,
+            117
+          ],
+          "belly": [
+            81,
+            97
+          ],
+          "tail": [
+            139,
+            168
+          ]
+        }
+      ]
+    },
+    "dance-hula": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "dance-hula-00.webp",
+          "anchor": [
+            89,
+            203
+          ],
+          "artHash": "d76892a65fa74fa68baf677fb1066d53c2ebb2a8d4d4db1a5909d331301e1405",
+          "fileHash": "fb5b598024b72ec5b453964e0496f15bf3fd0d4ffc96dab2ce5a490bb7b527d3",
+          "head": [
+            101,
+            30
+          ],
+          "hand": [
+            175,
+            103
+          ],
+          "eyes": [
+            101,
+            65
+          ],
+          "neck": [
+            97,
+            90
+          ],
+          "back": [
+            94,
+            130
+          ],
+          "belly": [
+            99,
+            112
+          ],
+          "tail": [
+            90,
+            160
+          ]
+        }
+      ]
+    },
+    "dance-disco": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "dance-disco-00.webp",
+          "anchor": [
+            122,
+            207
+          ],
+          "artHash": "29f73c55f440860a0b30282d4e0e6166bca2efa5113ffe5740ac6780d0e1a85c",
+          "fileHash": "6b1bd1289012da4ec679f061ec33ef6e53d9e8d38e86c34e995373179365bd23",
+          "head": [
+            78,
+            23
+          ],
+          "hand": [
+            8,
+            30
+          ],
+          "eyes": [
+            75,
+            59
+          ],
+          "neck": [
+            70,
+            88
+          ],
+          "back": [
+            85,
+            123
+          ],
+          "belly": [
+            86,
+            108
+          ],
+          "tail": [
+            150,
+            185
+          ]
+        }
+      ]
+    },
+    "dance-splits": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "dance-splits-00.webp",
+          "anchor": [
+            89,
+            165
+          ],
+          "artHash": "3f967e7d70907350b4225df423df413e3a3d0a1efeb963e3b5d298f89229fb40",
+          "fileHash": "c2f4497dbe4f52bb3f242f4d0a899767943c7be03c0ab27ce1172aaa445275f3",
+          "head": [
+            80,
+            28
+          ],
+          "hand": [
+            17,
+            31
+          ],
+          "eyes": [
+            78,
+            61
+          ],
+          "neck": [
+            76,
+            93
+          ],
+          "back": [
+            91,
+            123
+          ],
+          "belly": [
+            92,
+            103
+          ],
+          "tail": [
+            152,
+            148
+          ]
+        }
+      ]
+    },
+    "dance-cartwheel": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "dance-cartwheel-00.webp",
+          "anchor": [
+            117,
+            190
+          ],
+          "artHash": "80af502b80c7ce941724f2883547d50643655f09c1dcf24ae1ebad6071dcef97",
+          "fileHash": "842770a523ea09c5a34881d32102729bd62d5a4a297b92c843efa3c75b0157cc",
+          "head": [
+            148,
+            40
+          ],
+          "hand": [
+            179,
+            14
+          ],
+          "eyes": [
+            145,
+            68
+          ],
+          "neck": [
+            152,
+            96
+          ],
+          "back": [
+            136,
+            130
+          ],
+          "belly": [
+            131,
+            114
+          ],
+          "tail": [
+            67,
+            168
+          ]
+        },
+        {
+          "src": "dance-cartwheel-01.webp",
+          "anchor": [
+            80,
+            213
+          ],
+          "artHash": "57dd94a2529745d1df4be1aaa451eb4c57d831ec96a61175cfb0f2ca876ec721",
+          "fileHash": "1a8e6df87b8b7a26425a0e540697ccb76ed98af1d1412a29e84aacd71d403f52",
+          "head": [
+            82,
+            180
+          ],
+          "hand": [
+            33,
+            210
+          ],
+          "eyes": [
+            82,
+            154
+          ],
+          "neck": [
+            84,
+            124
+          ],
+          "back": [
+            80,
+            92
+          ],
+          "headAngle": 3.14159265,
+          "belly": [
+            82,
+            150
+          ],
+          "tail": [
+            81,
+            191
+          ]
+        }
+      ]
+    },
+    "dance-cancan": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "dance-cancan-00.webp",
+          "anchor": [
+            77,
+            194
+          ],
+          "artHash": "772327dd5e5d5e912078ece085ded3cdbbd71a12401673432e46253eb1a96a45",
+          "fileHash": "6f0e0acbea364964e7e7e74606e86f0ed41ed0307a412ce850108aba022f0609",
+          "head": [
+            90,
+            44
+          ],
+          "hand": [
+            85,
+            129
+          ],
+          "eyes": [
+            86,
+            69
+          ],
+          "neck": [
+            83,
+            95
+          ],
+          "back": [
+            75,
+            145
+          ],
+          "belly": [
+            72,
+            115
+          ],
+          "tail": [
+            98,
+            183
+          ]
+        }
+      ]
+    },
+    "dance-starfish": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "dance-starfish-00.webp",
+          "anchor": [
+            109,
+            252
+          ],
+          "artHash": "dd859cdab4bd9be432e10ebda9982cd01198c03ef9b648d1d8d0fcd38b62547c",
+          "fileHash": "f380f2cf138935057645a7b00f1957a5cae448430d5d34c324550774478c274d",
+          "head": [
+            87,
+            24
+          ],
+          "hand": [
+            182,
+            46
+          ],
+          "eyes": [
+            82,
+            58
+          ],
+          "neck": [
+            79,
+            88
+          ],
+          "back": [
+            94,
+            117
+          ],
+          "belly": [
+            97,
+            124
+          ],
+          "tail": [
+            145,
+            158
+          ]
+        }
+      ]
+    },
+    "cuddle": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "cuddle-00.webp",
+          "anchor": [
+            33,
+            84
+          ],
+          "artHash": "b56d235afe0122fd65a2864579698c5286229061ed6d10c280a4f27dc3424a5d",
+          "fileHash": "772276b105eaa66879a806a0f775d5ff002219ef5e880f4d868d3f125cdeabfc",
+          "head": [
+            25,
+            11
+          ],
+          "hand": [
+            16,
+            38
+          ],
+          "eyes": [
+            25,
+            24
+          ],
+          "neck": [
+            25,
+            34
+          ],
+          "back": [
+            29,
+            50
+          ],
+          "bodyHeight": 96.0,
+          "belly": [
+            26,
+            45
+          ],
+          "tail": [
+            45,
+            73
+          ]
+        }
+      ]
+    },
+    "boop": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "boop-00.webp",
+          "anchor": [
+            33,
+            87
+          ],
+          "artHash": "423c65a7a9974ebf0dff97783c15ff6c947e8464ebf84ea2ad4b4b9f9984b6cd",
+          "fileHash": "2593b46bf156526fc09a174941b9753c7331a76d836dae780f64180aa9c32ad4",
+          "head": [
+            25,
+            10
+          ],
+          "hand": [
+            5,
+            29
+          ],
+          "eyes": [
+            25,
+            22
+          ],
+          "neck": [
+            26,
+            34
+          ],
+          "back": [
+            31,
+            50
+          ],
+          "bodyHeight": 96.0,
+          "belly": [
+            33,
+            49
+          ],
+          "tail": [
+            53,
+            80
+          ]
+        }
+      ]
+    },
+    "silly-pose": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "silly-pose-00.webp",
+          "anchor": [
+            43,
+            89
+          ],
+          "artHash": "e37ee68215bd251b4457ba841f8238a403274f96affa60a8a645b99d17e5d17d",
+          "fileHash": "2e548e3d2f9d379bce47ae9d946bb370d807a47af2b11232569b62c35f47bfa6",
+          "head": [
+            29,
+            11
+          ],
+          "hand": [
+            60,
+            33
+          ],
+          "eyes": [
+            28,
+            24
+          ],
+          "neck": [
+            29,
+            34
+          ],
+          "back": [
+            37,
+            47
+          ],
+          "bodyHeight": 96.0,
+          "belly": [
+            36,
+            47
+          ],
+          "tail": [
+            52,
+            61
+          ]
+        }
+      ]
+    },
+    "ride-sit": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "ride-sit-00.webp",
+          "anchor": [
+            34,
+            78
+          ],
+          "artHash": "a70ffaf365606dcaa41633d6ff7696588a979e7405eb7e6c62ce2851f0b1673f",
+          "fileHash": "bd4a85a623a4e17e5b45e29423a94fa87f01a83e25247dddb5ea55e6b610fcc3",
+          "head": [
+            33,
+            12
+          ],
+          "hand": [
+            52,
+            43
+          ],
+          "eyes": [
+            34,
+            23
+          ],
+          "neck": [
+            35,
+            33
+          ],
+          "back": [
+            29,
+            52
+          ],
+          "bodyHeight": 96.0,
+          "belly": [
+            32,
+            43
+          ],
+          "tail": [
+            48,
+            66
+          ]
+        }
+      ]
+    },
+    "tuck": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "tuck-00.webp",
+          "anchor": [
+            28,
+            40
+          ],
+          "artHash": "370140bb10d5c03fd94ff4bffa088afcd32330ed27030473d0f624228a8b7e89",
+          "fileHash": "daefb909e8943d715ac4cc748441b319307d4157b3562eb76928ddd1b8df5e67",
+          "head": [
+            32,
+            12
+          ],
+          "hand": [
+            25,
+            41
+          ],
+          "eyes": [
+            32,
+            23
+          ],
+          "neck": [
+            31,
+            33
+          ],
+          "back": [
+            15,
+            42
+          ],
+          "headAngle": 0,
+          "bodyHeight": 96.0,
+          "belly": [
+            27,
+            35
+          ],
+          "tail": [
+            26,
+            54
+          ]
+        }
+      ]
+    },
+    "tongue-out": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "tongue-out-00.webp",
+          "anchor": [
+            33,
+            84
+          ],
+          "artHash": "5796d3eccefdf0c5dc056c411cdb5488e96dddcfb6be74975885d709a0412989",
+          "fileHash": "108801071ace155208fccd368508a4a9d2319ba0b8593b2b030d48b6c6a92e1b",
+          "head": [
+            31,
+            7
+          ],
+          "hand": [
+            45,
+            44
+          ],
+          "eyes": [
+            30,
+            18
+          ],
+          "neck": [
+            33,
+            30
+          ],
+          "back": [
+            30,
+            48
+          ],
+          "bodyHeight": 96.0,
+          "belly": [
+            35,
+            41
+          ],
+          "tail": [
+            16,
+            74
+          ]
+        }
+      ]
+    },
+    "tiptoe": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "tiptoe-00.webp",
+          "anchor": [
+            27,
+            87
+          ],
+          "artHash": "50717e0468fcb60ff613c024d614f67484cba8e292e107a02208a270beefefc2",
+          "fileHash": "6a768ba161630ab89944871ed287631ffadb0c776d86e9fc61822a0f4fb07a1a",
+          "head": [
+            32,
+            10
+          ],
+          "hand": [
+            53,
+            15
+          ],
+          "eyes": [
+            32,
+            21
+          ],
+          "neck": [
+            33,
+            31
+          ],
+          "back": [
+            28,
+            49
+          ],
+          "bodyHeight": 96.0,
+          "belly": [
+            28,
+            44
+          ],
+          "tail": [
+            26,
+            77
+          ]
+        }
+      ]
+    },
+    "laugh": {
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "laugh-00.webp",
+          "anchor": [
+            24,
+            84
+          ],
+          "artHash": "f28debf9c0891e68582623cf8d37a0511bffbab7206e938557152b521d30bd16",
+          "fileHash": "2f30d995f357a2198d458a87c2d761b2bb2d0213443f898625152da082ff34b8",
+          "head": [
+            26,
+            10
+          ],
+          "hand": [
+            18,
+            47
+          ],
+          "eyes": [
+            26,
+            20
+          ],
+          "neck": [
+            25,
+            33
+          ],
+          "back": [
+            24,
+            52
+          ],
+          "bodyHeight": 96.0,
+          "belly": [
+            20,
+            44
+          ],
+          "tail": [
+            33,
+            75
+          ]
+        }
+      ]
     }
   },
   "portraits": {

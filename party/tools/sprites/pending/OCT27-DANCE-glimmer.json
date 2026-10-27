@@ -1,0 +1,576 @@
+{
+  "asset": "glimmer",
+  "prompt": "Use case: illustration-story. Transparent game sprite sheet 3 columns x3 rows, EXACT NINE FULL BODY figures ordered row-major. Image1 approved character IDENTITY reference; image2 actual SHIPPING IDLE reference for proportions and outline weight. SAME Glimmer fairy girl: tousled mint-teal bob hair with two yellow star hairclips, huge purple eyes, fair peach skin, pink petal dress with yellow star belt, mint-white striped tights, yellow star shoes, four iridescent cyan-lavender wings. IMPORTANT: EMPTY HANDS in everycell; REMOVE microphone from reference, do not paint microphone or wand or props. Preserve character head/torso proportions. Keep exact skin/outfit/colors/head-to-torso size. Three-quarter camera faces screen-right, except inverted cartwheel; all huge expressive happy faces. Funny extreme readable dance silhouettes. Nine cells equal spacing, generous gutters, every wing/hat/hand/shoe within its own cell. NO shadows, scenery, props, text, numbers, effects or motion lines. Ordered poses: row1col1 DISCO right arm straight up-left45degrees index pointing, left hand hip elbow out, hips hardright, knee bent heelup, cocky grin. row1col2 STARFISH JUMP arms+legs stretched very wide X, body airborne30percent above virtual floor, WHEE openmouth. row1col3 HULA both arms stretched left shoulderheight wrists soft, hips hardright kneesbent, happy closedeyes. row2col1 CARTWHEEL START side-on lunge arms overhead excitedgrin. row2col2 CARTWHEEL INVERTED fully UPSIDE DOWN both hands flatfloor straightarms, legs wide V upward, hat/hair pointing down, upside-down gigglingface. row2col3 CANCAN one straightleg kicked UP PAST HEAD other standing straight, hands hold petaldress wide, leanback happy openmouth. row3col1 FULL SPLITS flat onfloor one leg forward oneback straight horizontal, uprighttorso, armsup bigV, proud surprised grin. row3col2 MOONWALK frame1 facingright leaningback, frontfootflat backfoottoes knee bent, handatforehead tipping invisiblehat(no addedhat), coolsmile. row3col3 MOONWALK frame2 samepose feet swapped. Do not replace any pose with neutral. Transparent RGBA background.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17ae0-0747-7731-bf9f-8bd792b434b5/exec-97fc01ac-e3a9-48a3-b694-68c5784e3363.png",
+  "source": "party/tools/sprites/sources/glimmer-dance-moves-oct27.webp",
+  "sourcePixelExact": true,
+  "poses": {
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            36,
+            21,
+            357,
+            407
+          ],
+          "isolate": true,
+          "scale": 0.6338833499046523,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            214,
+            393
+          ],
+          "head": [
+            207,
+            15
+          ],
+          "eyes": [
+            207,
+            125
+          ],
+          "neck": [
+            214,
+            183
+          ],
+          "back": [
+            192,
+            214
+          ],
+          "hand": [
+            64,
+            86
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            442,
+            14,
+            414,
+            405
+          ],
+          "isolate": true,
+          "scale": 0.5824874026150859,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            214,
+            464
+          ],
+          "head": [
+            200,
+            22
+          ],
+          "eyes": [
+            200,
+            137
+          ],
+          "neck": [
+            207,
+            197
+          ],
+          "back": [
+            186,
+            236
+          ],
+          "hand": [
+            343,
+            122
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            885,
+            21,
+            378,
+            405
+          ],
+          "isolate": true,
+          "scale": 0.6157723970502337,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            199,
+            391
+          ],
+          "head": [
+            199,
+            25
+          ],
+          "eyes": [
+            206,
+            129
+          ],
+          "neck": [
+            206,
+            186
+          ],
+          "back": [
+            185,
+            222
+          ],
+          "hand": [
+            42,
+            186
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            29,
+            442,
+            378,
+            378
+          ],
+          "isolate": true,
+          "scale": 0.6338833499046523,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            185,
+            360
+          ],
+          "head": [
+            235,
+            29
+          ],
+          "eyes": [
+            263,
+            129
+          ],
+          "neck": [
+            261,
+            190
+          ],
+          "back": [
+            221,
+            223
+          ],
+          "hand": [
+            335,
+            46
+          ]
+        },
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            464,
+            435,
+            399,
+            378
+          ],
+          "isolate": true,
+          "scale": 0.5986676082432828,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            192,
+            365
+          ],
+          "head": [
+            192,
+            334
+          ],
+          "eyes": [
+            194,
+            243
+          ],
+          "neck": [
+            195,
+            188
+          ],
+          "back": [
+            194,
+            150
+          ],
+          "hand": [
+            264,
+            364
+          ],
+          "headAngle": 3.141592653589793
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            885,
+            435,
+            378,
+            385
+          ],
+          "isolate": true,
+          "scale": 0.6338833499046523,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            252,
+            378
+          ],
+          "head": [
+            172,
+            22
+          ],
+          "eyes": [
+            196,
+            119
+          ],
+          "neck": [
+            221,
+            173
+          ],
+          "back": [
+            192,
+            207
+          ],
+          "hand": [
+            335,
+            180
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            21,
+            885,
+            492,
+            300
+          ],
+          "isolate": true,
+          "scale": 0.6338833499046523,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            236,
+            283
+          ],
+          "head": [
+            229,
+            10
+          ],
+          "eyes": [
+            243,
+            105
+          ],
+          "neck": [
+            249,
+            165
+          ],
+          "back": [
+            223,
+            202
+          ],
+          "hand": [
+            343,
+            32
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            514,
+            820,
+            321,
+            371
+          ],
+          "isolate": true,
+          "scale": 0.6157723970502337,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            214,
+            358
+          ],
+          "head": [
+            185,
+            10
+          ],
+          "eyes": [
+            186,
+            119
+          ],
+          "neck": [
+            211,
+            172
+          ],
+          "back": [
+            178,
+            211
+          ],
+          "hand": [
+            255,
+            69
+          ]
+        },
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            899,
+            820,
+            350,
+            371
+          ],
+          "isolate": true,
+          "scale": 0.6338833499046523,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            185,
+            360
+          ],
+          "head": [
+            171,
+            12
+          ],
+          "eyes": [
+            178,
+            109
+          ],
+          "neck": [
+            192,
+            164
+          ],
+          "back": [
+            162,
+            206
+          ],
+          "hand": [
+            251,
+            79
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    }
+  },
+  "qaContact": "/private/tmp/glimmer-dance-build/qa-contact-sheet.jpg",
+  "status": "merged nine new frames; prior bodyfiles SHA256 unchanged; five portraits archived exact RGBA then resized384to288 for decoded budget; rootruntimeQA pending",
+  "portraitBudgetArchives": [
+    {
+      "runtimeFile": "party/assets/sprites/glimmer/portrait-happy.webp",
+      "source": "party/tools/sprites/sources/glimmer-portraits-native-oct27/portrait-happy.webp",
+      "sourcePixelExact": true,
+      "priorSize": [
+        384,
+        384
+      ],
+      "runtimeSize": [
+        288,
+        288
+      ]
+    },
+    {
+      "runtimeFile": "party/assets/sprites/glimmer/portrait-determined.webp",
+      "source": "party/tools/sprites/sources/glimmer-portraits-native-oct27/portrait-determined.webp",
+      "sourcePixelExact": true,
+      "priorSize": [
+        384,
+        384
+      ],
+      "runtimeSize": [
+        288,
+        288
+      ]
+    },
+    {
+      "runtimeFile": "party/assets/sprites/glimmer/portrait-sad.webp",
+      "source": "party/tools/sprites/sources/glimmer-portraits-native-oct27/portrait-sad.webp",
+      "sourcePixelExact": true,
+      "priorSize": [
+        384,
+        384
+      ],
+      "runtimeSize": [
+        288,
+        288
+      ]
+    },
+    {
+      "runtimeFile": "party/assets/sprites/glimmer/portrait-surprised.webp",
+      "source": "party/tools/sprites/sources/glimmer-portraits-native-oct27/portrait-surprised.webp",
+      "sourcePixelExact": true,
+      "priorSize": [
+        384,
+        384
+      ],
+      "runtimeSize": [
+        288,
+        288
+      ]
+    },
+    {
+      "runtimeFile": "party/assets/sprites/glimmer/portrait-neutral.webp",
+      "source": "party/tools/sprites/sources/glimmer-portraits-native-oct27/portrait-neutral.webp",
+      "sourcePixelExact": true,
+      "priorSize": [
+        384,
+        384
+      ],
+      "runtimeSize": [
+        288,
+        288
+      ]
+    },
+    {
+      "runtimeFile": "party/assets/sprites/glimmer/portrait-talk.webp",
+      "source": "party/tools/sprites/sources/glimmer-portraits-native-oct27/portrait-talk.webp",
+      "sourcePixelExact": true,
+      "priorSize": [
+        384,
+        384
+      ],
+      "runtimeSize": [
+        288,
+        288
+      ]
+    }
+  ],
+  "oldBodyFilesPreserved": {
+    "idle-00.webp": "829ec1387e58f25cbd89d13f6aeeb23a4132f456371b12fa9aef940fb78c321b",
+    "idle-01.webp": "b49fa5552f3196acc26dd43be090ac6bcaae31bbdcc1809439d858a6aa53579e",
+    "idle-02.webp": "3a0a4440f622b20158fea4f9c29686cdfe995fdeceab5ecb46ea2921b27f3a7d",
+    "talk-00.webp": "8cca7a6ba81e268acbd5075b9fac66cfe4a172894fffa71f4dab8295415d7a3a",
+    "talk-01.webp": "bf5915054c4a2861c4ee84173889c2c5437bc19373319c895b6cfbc81480f74e",
+    "talk-02.webp": "2f7feeac4e9ebadd960f9b59ce57d96a93a11092cf0ce27426c1ff9b3d159114",
+    "talk-03.webp": "bf5915054c4a2861c4ee84173889c2c5437bc19373319c895b6cfbc81480f74e",
+    "present-00.webp": "29b9ed7628aeebdd30b91c4a6a99cd463641cca032d05a1560abb38ccae5d645",
+    "wave-00.webp": "54c39aca75b6ee6f7a765f15cd95f6251b05d275612c3456f578aa7acf38056d",
+    "cast-00.webp": "a887edfc500fcd78d2a8927d6249cbc6a8f95e42b72532ef3e9d89aa4fdd07d7",
+    "cast-01.webp": "c7a5f25a858a23444e65f829a5fbc116d305ac11ced2bba01e08acc5658c1c56",
+    "point-00.webp": "c7a5f25a858a23444e65f829a5fbc116d305ac11ced2bba01e08acc5658c1c56",
+    "celebrate-00.webp": "fef4d1f20a6621e15d5410ca30325a899368a683925a118f96a0b9d8c227fe51",
+    "celebrate-01.webp": "9f0278c2c283d5c70fff674563fa54fc695b79d3a1247be4cda1809b0462e9c0",
+    "surprised-00.webp": "1b35b58d06078759b4ab63383a4e28f2e64d643b36af2406c901205da83eb601",
+    "sad-00.webp": "d1f21d8ab6d02f0261cdf4200ba0a16f55cf5d93bbbda9b824816c86269a5255",
+    "think-00.webp": "33a683eb72619f6cf2e02f801e52090bcd56967a17efbb2025dee1f39b734c26",
+    "idle-03.webp": "b49fa5552f3196acc26dd43be090ac6bcaae31bbdcc1809439d858a6aa53579e",
+    "idle-04.webp": "829ec1387e58f25cbd89d13f6aeeb23a4132f456371b12fa9aef940fb78c321b",
+    "idle-05.webp": "b49fa5552f3196acc26dd43be090ac6bcaae31bbdcc1809439d858a6aa53579e",
+    "idle-06.webp": "3a0a4440f622b20158fea4f9c29686cdfe995fdeceab5ecb46ea2921b27f3a7d",
+    "idle-07.webp": "b49fa5552f3196acc26dd43be090ac6bcaae31bbdcc1809439d858a6aa53579e",
+    "idle-08.webp": "829ec1387e58f25cbd89d13f6aeeb23a4132f456371b12fa9aef940fb78c321b",
+    "idle-09.webp": "b49fa5552f3196acc26dd43be090ac6bcaae31bbdcc1809439d858a6aa53579e",
+    "idle-10.webp": "3a0a4440f622b20158fea4f9c29686cdfe995fdeceab5ecb46ea2921b27f3a7d",
+    "idle-11.webp": "1504f55b0ab76c24090d6d4d5f929477fd492cd709e099835943845e9c2498f7",
+    "walk-00.webp": "829ec1387e58f25cbd89d13f6aeeb23a4132f456371b12fa9aef940fb78c321b",
+    "walk-01.webp": "b49fa5552f3196acc26dd43be090ac6bcaae31bbdcc1809439d858a6aa53579e",
+    "walk-02.webp": "3a0a4440f622b20158fea4f9c29686cdfe995fdeceab5ecb46ea2921b27f3a7d",
+    "walk-03.webp": "b49fa5552f3196acc26dd43be090ac6bcaae31bbdcc1809439d858a6aa53579e",
+    "cheer-00.webp": "fef39060a29871e3d202d09ec9cd27098a02a417620d17e901925b4c67a6633a",
+    "ready-00.webp": "04ff2f5a580f35bc870b7c7b042c8072c947c2ff0fb91770644548aa62b5e672",
+    "pout-00.webp": "5886c9cf2de04295e520adce9bc9441539ce9b3532417aad3636bacdefc76c46",
+    "carry-00.webp": "bc3fc5e7fb1b1d8caf4cea3f6ace84910fe545848209fdfe2b60c1f2924405d1",
+    "catch-00.webp": "ed9d63162719dc9c869e4c4187c258ccba47bb318e67d30a6d4e1a926523e7d9",
+    "look-around-00.webp": "4043198ea0d58ed7b76973dae1b5bf53f137c6c90c4bc9ebf723d03968575112",
+    "ride-sit-00.webp": "52c907c59fcf721639686eaf51fc62ff8ae11398b78e4246f834a652b83dccee",
+    "sit-00.webp": "696ba9a3e6c7e8454eda7edb1ea50a67aeac6407a219cf6113aec1f4445011d1",
+    "dash-00.webp": "14fa8b71a345e21e1d524444330b952e73d71ab872b58a5a58061b02c193fe76",
+    "boop-00.webp": "f2ed20360b4e4a2d7b7c18690f33cafd19d963c422281b9052ef06ee23234fad",
+    "dance-side-00.webp": "9dcf5c9a7dcea838e0be5a4b3914b52644a17953449e98e468b33ae08cc6bcac",
+    "run-00.webp": "668b527a20820f27836f642a1f85f52f2f827c6aafd4420e50380426b54985fb",
+    "jump-00.webp": "6c6f7ec285950090333c6334ca01b58527d328c7da16c38400c6098e9567790d",
+    "fall-00.webp": "cdd0b2186f456a33c4301a6a75618b3b3417914fe8089aab2a313cd13245f73c",
+    "spring-jump-00.webp": "d6af60565d1ecaaa42f0ad062c1dba4cfcc7703a70000723f4878f7465499626",
+    "flip-00.webp": "df0665b282c978e28cfe11b4ce9d471bdf5ea9bd86e7c2d8aad7c96a2e9563e4",
+    "tumble-00.webp": "979354cedcdc6e64a82fe764d6dce11caf14299096c8979ab4e5a22ff633c824",
+    "float-00.webp": "23c2509c89540fa034af119e4d9d84d25c84f27502d565dda806a83f38bac09b",
+    "fly-00.webp": "28f457476940d87caaae4450e0c560aabfdd2491b8760dab13bf3220a8712d1d",
+    "giggle-00.webp": "6af7c6b7ffed0dc7155512d276ba49d892ab0aef983d02c7b351ab64ba979ee1",
+    "laugh-00.webp": "621145ca8d8f78a1bc1ed42669c45c1b5cd00d9b063b86e37ab159474aabb5c3",
+    "tongue-out-00.webp": "eb08ff62f39ec56e33fd10a1b429be28978c68e3609e9a4ba6baf54710fabfe7",
+    "dizzy-00.webp": "d304b94feaa1d864a0f75922b7e5f5bac6302bdfdc4ed69dd6348ae0b37b1706",
+    "bow-00.webp": "26308a1dffcf8875aa9627d96027726bad1fee451f85541cead6f12b7d9f2815",
+    "high-five-00.webp": "e782f1fc1ad77e5e2c5167aacd200c32ab4229f375d7cdddd89c9f421b3279a6",
+    "look-up-00.webp": "baefad627d87f4f6aab7099cc66629562751d2e25b4468ff6fad5f05020e1199",
+    "toss-00.webp": "ca0ee673917f3a9454e206432942254a6480cd95b6b950a8508a3728ebdc9d70",
+    "blow-00.webp": "0bf718ad51528e524e487ec1cfedb4efc9f996732ec6135a15f0a4a0bc194353",
+    "push-00.webp": "d7e94191a08ef1a1b99c637280037ce1fa9f885fe06920a9ab30516ce411d268",
+    "throw-00.webp": "d69dfb946105ab2e50d9b6e66e1db5e695966f64ab6cbc348815cab05f29b82e",
+    "wand-up-00.webp": "3943e295fd2de7a16896b1d676463b5a26cc828c3a73a94705c75adb191fb3af",
+    "paint-00.webp": "26c06e5589067cdf113b37a8ac46ef45c1b5d8f65e74879b22906bdc22c1e3b2",
+    "cuddle-00.webp": "00b87e0cb9601fe55b083de03962f204caa3618a3ae7b70db0d463ed681210e5",
+    "sleep-00.webp": "ab973c5772ad00eead6ebdc5b519c62c202c90461915f8566e201600995760f1",
+    "tuck-00.webp": "f76db3c2902a0734985580777979b829c8db8dbfe1f1a44b19ba49374b27ebe6",
+    "tiptoe-00.webp": "4c535575c5b9113fe712f4c81c2bd2f790974796ce4b6997e449403e7e91d616",
+    "crouch-00.webp": "0005b2a47f777a297a10ee01811fdc8505db86b7bdcc3ab816c5f4ac4d67a7db",
+    "balance-00.webp": "03c7c4203bd0fe41b81559d40aeb099a1dc812312602d4fc2f2524ba5828ad7e",
+    "shake-00.webp": "038e729f8a455652fd0951d9fed8c86862838313c45f5804316981ddd50126dd",
+    "strike3-00.webp": "dfcbe4f84550aaa84e680477e28cdadcb80f2ce6c66cc62e0f976a9ea6164e68",
+    "dance-00.webp": "9948a8200a8c155a5ac4c203e2b9371297efe64c9db580c8dcf4041cbc9684dd",
+    "dance-down-00.webp": "29697e26083b1a8b5a9d9ed511c188cc1fbae064db7453deb797f38d0d2c3d12",
+    "dance-star-00.webp": "5d4291bbed2a62d884a8a40dbffd55251191dfd0411d0a0d75e9bf70a4f36c07",
+    "dance-up-00.webp": "53c4dfc42321a946c0235cb1fd6b0502a7cc06728024221333657c776b6fae3f",
+    "pose-twirl-00.webp": "cbc037e3c810f1322e53172e8048f0314f87da16e0ca5b0a25bd95c68ad4af06",
+    "clap-00.webp": "a1ae9b19de576eec548d42b8f09579ff27431f1de313b8ced1a67d16178aade5",
+    "silly-pose-00.webp": "d0a3978369b97f637c6501f25bbf76fec13f88feb640ccf70ea02575689c1271",
+    "hurt-00.webp": "6ccedb81fde5fd19c1ef4db81a037d64930de011c7724e7e63e2de115130927c",
+    "action-00.webp": "95eccf16dfe48f44a795ec8d637ad5d8465296d470a1ef77420c203bf8236f02",
+    "eat-00.webp": "2e591d057664125affe78f9153a4bf8ebffa6d9691faf0a4ecfc9bc7ccb2101e",
+    "hose-spray-00.webp": "1af71528ce615ba1ada2eced754103928e14613177e172b83b5196292178c451",
+    "swim-00.webp": "4238141e747a89a857383a4732f1ec31767f4303e764846d1103f8c390919f19",
+    "roll-push-00.webp": "0dca1aafb2c42c752b67eba02b3d6f77bf08c67fd3fb36a448d5e93563d9df74",
+    "water-00.webp": "c95ef214c118a2335c222f575e233d39995807508d97161df1d5c8e009141ba1",
+    "roll-push-01.webp": "87345f7bffb6e41d3ff0d65ac9969d745a2eed0f949d0846d4da4c0d1d50e515",
+    "hold-balloons-00.webp": "c6e084300a239f308eae0ca27b7c2bf5534ccad73184da9125ef1c3ef5427ecd",
+    "hold-balloons-01.webp": "4eb8a515aa6d23394991b531a1bbb67f2d40b2583db9b27be7d4a62789e4a199"
+  },
+  "scaleReproducibility": {
+    "scratchCommonScale": 0.4375,
+    "shippingSpecCommonScale": 0.5186385737439222,
+    "newFrameScaleConversion": 0.8435546875000001,
+    "verified": "shippingSpecCommonScale*frame.scale equals scratchCommonScale*scratchFrame.scale, within1e-12; runtime raster unchanged"
+  }
+}

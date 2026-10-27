@@ -1,0 +1,346 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Asset type: game sprite sheet on true transparent RGBA background. Reference image1 approved canonical; image2 exact shipping idle. Preserve EXACT identity, anatomy, proportions, colors, outfit, face details and dark outlines. Exactly NINE full-body figures in THREE columns by THREE rows, equal spacious cells, left-to-right top-to-bottom. Keep consistent HEAD/TORSO scale through every pose (never normalize total silhouette height), camera three-quarter toward screen-right. Big joyful extreme silhouettes child can recognize. Generous gutters all tails/hands/ears/feet inside own cell; no effects, motion lines, shadows, floor, props, text or labels. Poses in order: R1C1 DISCO one limb shoots up-left 45 degrees other on hip, cocked hips, huge grin; R1C2 airborne STARFISH wide X, all limbs as wide as possible, joyful open mouth, hair/ears/tail up; R1C3 HULA arms/front appendages together stretched to one side, hips opposite, bent support, happy closed eyes. R2C1 CARTWHEEL PREP side lunge arms/front limbs overhead, excited grin; R2C2 CARTWHEEL INVERTED fully upside down front limbs support on floor, rear limbs wide high V above head, happy upside-down face; R2C3 CAN-CAN rear leg kicks straight up PAST head, other supports, lean backward, hands on hips if no skirt, open HOO smile. R3C1 full flat SPLITS on floor, front/back legs straight along floor, upright torso, front limbs up big V, proud surprised happy face; R3C2 MOONWALK 1 facing right leaning backward front foot flat rear foot on toe, one hand to forehead like tipping INVISIBLE hat; R3C3 MOONWALK 2 same with feet swapped. No actual hat. Adapt to reference anatomy as described next: MARSHMALLOW BIRTHDAY CAKE is EXACTLY the cute smiling pink frosted TWO-TIER birthday cake with colorful sprinkles, white marshmallow edging, black eyelashed eyes and ONE striped candle/flame on top. Absolutely NO limbs: no arms, hands, fingers, legs or feet in ANY cell. Adapt dance using whole cake squash/stretch/tilt and frosting shape ONLY. Disco lean hard cocked to right with frosting peaks swept diagonal up-left; starfish cake airborne, frosting ruffle stretched very wide X silhouette; hula top tier tilted one direction bottom opposite, rippled frosting. Cartwheel prep tilted cake stretching tall, frame2 entire cake fully UPSIDE DOWN balancing on rounded upper frosting/candle-side with lower wide tier at top, joyful inverted face (flame small and intact). Can-can cake sharply leaning with one edge of bottom frosting stretched up high beside head, NOT a limb. Splits cake SQUASHED very FLAT and WIDE onto floor smiling proudly, tiers recognizable. Moonwalk 1 tilted-back cake with bottom frosting edge curled under on front side; moonwalk2 opposite bottom edge curled, face to screen-right, cool happy eyes. Keep same cake identity, do not anthropomorphize with limbs.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-fc1b1b3a-361a-47cb-8450-acf7d708f3d0.png",
+  "source": "party/tools/sprites/sources/marshmallow-birthday-cake-dance-moves.webp",
+  "status": "runtime landmarks/head-scale reviewed; optimized; root game review pending",
+  "annotations": [
+    {
+      "pixelScale": 0.65,
+      "anchor": [
+        239,
+        403
+      ],
+      "head": [
+        211,
+        142
+      ],
+      "eyes": [
+        236,
+        218
+      ],
+      "neck": [
+        236,
+        300
+      ],
+      "hand": [
+        199,
+        97
+      ],
+      "back": [
+        258,
+        330
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.65,
+      "anchor": [
+        670,
+        507
+      ],
+      "head": [
+        667,
+        120
+      ],
+      "eyes": [
+        673,
+        228
+      ],
+      "neck": [
+        671,
+        312
+      ],
+      "hand": [
+        679,
+        95
+      ],
+      "back": [
+        670,
+        341
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.65,
+      "anchor": [
+        1109,
+        405
+      ],
+      "head": [
+        1121,
+        142
+      ],
+      "eyes": [
+        1115,
+        264
+      ],
+      "neck": [
+        1120,
+        322
+      ],
+      "hand": [
+        1192,
+        110
+      ],
+      "back": [
+        1113,
+        351
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.65,
+      "anchor": [
+        246,
+        822
+      ],
+      "head": [
+        239,
+        508
+      ],
+      "eyes": [
+        276,
+        623
+      ],
+      "neck": [
+        249,
+        706
+      ],
+      "hand": [
+        180,
+        486
+      ],
+      "back": [
+        251,
+        742
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.65,
+      "anchor": [
+        670,
+        801
+      ],
+      "head": [
+        668,
+        681
+      ],
+      "eyes": [
+        663,
+        627
+      ],
+      "neck": [
+        666,
+        540
+      ],
+      "hand": [
+        663,
+        731
+      ],
+      "back": [
+        666,
+        511
+      ],
+      "headAngle": 3.14159265,
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.65,
+      "anchor": [
+        1119,
+        822
+      ],
+      "head": [
+        1126,
+        554
+      ],
+      "eyes": [
+        1131,
+        617
+      ],
+      "neck": [
+        1124,
+        697
+      ],
+      "hand": [
+        1080,
+        508
+      ],
+      "back": [
+        1120,
+        749
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.65,
+      "anchor": [
+        297,
+        1152
+      ],
+      "head": [
+        298,
+        994
+      ],
+      "eyes": [
+        301,
+        1057
+      ],
+      "neck": [
+        297,
+        1112
+      ],
+      "hand": [
+        291,
+        971
+      ],
+      "back": [
+        296,
+        1123
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.65,
+      "anchor": [
+        768,
+        1159
+      ],
+      "head": [
+        778,
+        936
+      ],
+      "eyes": [
+        795,
+        1004
+      ],
+      "neck": [
+        772,
+        1081
+      ],
+      "hand": [
+        744,
+        896
+      ],
+      "back": [
+        772,
+        1098
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.65,
+      "anchor": [
+        1132,
+        1160
+      ],
+      "head": [
+        1094,
+        925
+      ],
+      "eyes": [
+        1091,
+        1012
+      ],
+      "neck": [
+        1128,
+        1083
+      ],
+      "hand": [
+        1127,
+        894
+      ],
+      "back": [
+        1126,
+        1113
+      ],
+      "resolutionFactor": 0.65
+    }
+  ],
+  "crops": [
+    [
+      43,
+      17,
+      410,
+      417
+    ],
+    [
+      450,
+      10,
+      897,
+      399
+    ],
+    [
+      920,
+      36,
+      1292,
+      420
+    ],
+    [
+      60,
+      420,
+      415,
+      828
+    ],
+    [
+      456,
+      445,
+      869,
+      808
+    ],
+    [
+      941,
+      458,
+      1301,
+      826
+    ],
+    [
+      19,
+      892,
+      592,
+      1160
+    ],
+    [
+      625,
+      816,
+      918,
+      1167
+    ],
+    [
+      970,
+      832,
+      1299,
+      1175
+    ]
+  ],
+  "oldShippingPosesPreserved": 92,
+  "portraitBudget": {
+    "resolution": 288,
+    "nativeArchives": [
+      {
+        "file": "party/tools/sprites/sources/marshmallow-birthday-cake-portraits-native-oct27/portrait-neutral.webp",
+        "sha256": "529bc85aed4b9e9d3ccf0c43966971d9e17b7dd9a351ad5ce16b23df77c081a7"
+      },
+      {
+        "file": "party/tools/sprites/sources/marshmallow-birthday-cake-portraits-native-oct27/portrait-happy.webp",
+        "sha256": "38156fa5f3081218d91d0eb1dfd0bafaecc5915b6d8e656fd78f76e4abafa23c"
+      },
+      {
+        "file": "party/tools/sprites/sources/marshmallow-birthday-cake-portraits-native-oct27/portrait-sad.webp",
+        "sha256": "39b103ff6effda6ad92e3d9cf7bd8bc39bd6f1d0db40071cc7929e314a30cd9d"
+      },
+      {
+        "file": "party/tools/sprites/sources/marshmallow-birthday-cake-portraits-native-oct27/portrait-surprised.webp",
+        "sha256": "8e775f0b83e5b2b8123bf24b160648c4fe09ca5a4c2f2f42f05213aa46a15f92"
+      },
+      {
+        "file": "party/tools/sprites/sources/marshmallow-birthday-cake-portraits-native-oct27/portrait-determined.webp",
+        "sha256": "2d9afc159c699399572e3e624683942960c92498acb787b320c972d818226328"
+      }
+    ],
+    "reason": "Preserve old bodyframes while fitting new dance and Sister poses below25MiB decoded."
+  },
+  "reviewContact": "/tmp/marshmallow-birthday-cake-dance-review.png"
+}

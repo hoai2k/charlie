@@ -1,0 +1,365 @@
+{
+  "asset": "kpop-girl-center",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-bb55-7c21-80cd-5af33e6d6c6a/exec-a46d3718-41c3-42b4-bb6e-af55b1b8c5b5.png",
+  "source": "party/tools/sprites/sources/kpop-girl-center-sister-poses-oct27.webp",
+  "status": "intaken; native/source and runtime contact reviewed; integrator game review pending",
+  "losslessRGBA": true,
+  "exact": true,
+  "prompt": "Use case: identity-preserve. Transparent game sprite sheet of KPop center girl matching reference1 approvedcanonical and reference2 shippingidle exactly:purple braided updo,goldeneyes,tanskin,red drop earrings,orangejacket with grayplacket andtrianglepatch,white top,orangegold pleated skirt,purple kneehighboots. Bold navy outlines,clean cel shading. Exactly eight full-body figures in4columns x2rows, generous transparentgaps,no captions,no grid,no background/shadows/effects/props; SAME head/torso scale/proportions across all8 figures,3quarter facing screenright. Left-to-right top row:1 boop:one indexfinger pokes forward to boop imaginarynose,cheekygrin;2 cuddle:both arms wrapped around an empty space at chest as hugging,eyesclosed,bigsmile,EMPTY hands,noobject;3 silly-pose:goofy tada,one leg kicked behind,armsflungwide,tongueout;4 tiptoe:sneaking on tiptoes,hunched,both hands up overhead holding nothing,sidewayscheekygrin. Bottom row:5 tongue-out:head tippedback lookingup,tongueout tocatch snowflake,but no snowflake;6 tuck:side-on tightlycurledball,knees hugged to chest,eyes happilyclosed,feet tucked in,complete figure floating with no ground;7 ride-sit:sitting astride imaginarymount,legs either side,hands forward gripping nothing,happysmile,no mount;8 laugh:big bellylaugh,headback,eyesclosed,bothhands on tummy. Fullfigure everycell,everyhair/boot/hand retained. Keep exact originaloutfit,anatomy andidentity. No extra characters or heldobjects.",
+  "poses": {
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-sister-poses-oct27.webp",
+          "rect": [
+            74,
+            3,
+            244,
+            518
+          ],
+          "isolate": true,
+          "scale": 0.5378181818181819,
+          "bodyHeight": 152.77777777777777,
+          "anchor": [
+            116,
+            507
+          ],
+          "head": [
+            141,
+            33
+          ],
+          "eyes": [
+            138,
+            112
+          ],
+          "neck": [
+            140,
+            182
+          ],
+          "back": [
+            134,
+            250
+          ],
+          "hand": [
+            60,
+            167
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-sister-poses-oct27.webp",
+          "rect": [
+            478,
+            7,
+            219,
+            510
+          ],
+          "isolate": true,
+          "scale": 0.5378181818181819,
+          "bodyHeight": 152.77777777777777,
+          "anchor": [
+            98,
+            504
+          ],
+          "head": [
+            97,
+            31
+          ],
+          "eyes": [
+            95,
+            116
+          ],
+          "neck": [
+            93,
+            176
+          ],
+          "back": [
+            94,
+            247
+          ],
+          "hand": [
+            96,
+            212
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-sister-poses-oct27.webp",
+          "rect": [
+            774,
+            14,
+            362,
+            504
+          ],
+          "isolate": true,
+          "scale": 0.5378181818181819,
+          "bodyHeight": 152.77777777777777,
+          "anchor": [
+            189,
+            496
+          ],
+          "head": [
+            172,
+            31
+          ],
+          "eyes": [
+            204,
+            102
+          ],
+          "neck": [
+            234,
+            171
+          ],
+          "back": [
+            235,
+            237
+          ],
+          "hand": [
+            40,
+            170
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-sister-poses-oct27.webp",
+          "rect": [
+            1213,
+            37,
+            316,
+            474
+          ],
+          "isolate": true,
+          "scale": 0.5378181818181819,
+          "bodyHeight": 152.77777777777777,
+          "anchor": [
+            129,
+            468
+          ],
+          "head": [
+            187,
+            50
+          ],
+          "eyes": [
+            201,
+            135
+          ],
+          "neck": [
+            157,
+            189
+          ],
+          "back": [
+            121,
+            243
+          ],
+          "hand": [
+            286,
+            65
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-sister-poses-oct27.webp",
+          "rect": [
+            64,
+            513,
+            298,
+            499
+          ],
+          "isolate": true,
+          "scale": 0.5378181818181819,
+          "bodyHeight": 152.77777777777777,
+          "anchor": [
+            158,
+            493
+          ],
+          "head": [
+            127,
+            30
+          ],
+          "eyes": [
+            161,
+            71
+          ],
+          "neck": [
+            155,
+            155
+          ],
+          "back": [
+            156,
+            227
+          ],
+          "hand": [
+            269,
+            271
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-sister-poses-oct27.webp",
+          "rect": [
+            464,
+            546,
+            265,
+            357
+          ],
+          "isolate": true,
+          "scale": 0.5378181818181819,
+          "bodyHeight": 152.77777777777777,
+          "anchor": [
+            134,
+            203
+          ],
+          "head": [
+            117,
+            44
+          ],
+          "eyes": [
+            112,
+            110
+          ],
+          "neck": [
+            120,
+            149
+          ],
+          "back": [
+            80,
+            197
+          ],
+          "hand": [
+            202,
+            204
+          ],
+          "headAngle": 0.25
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-sister-poses-oct27.webp",
+          "rect": [
+            833,
+            517,
+            320,
+            478
+          ],
+          "isolate": true,
+          "scale": 0.5378181818181819,
+          "bodyHeight": 152.77777777777777,
+          "anchor": [
+            154,
+            467
+          ],
+          "head": [
+            112,
+            40
+          ],
+          "eyes": [
+            114,
+            102
+          ],
+          "neck": [
+            115,
+            164
+          ],
+          "back": [
+            114,
+            229
+          ],
+          "hand": [
+            251,
+            244
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-sister-poses-oct27.webp",
+          "rect": [
+            1206,
+            520,
+            268,
+            486
+          ],
+          "isolate": true,
+          "scale": 0.5378181818181819,
+          "bodyHeight": 152.77777777777777,
+          "anchor": [
+            129,
+            476
+          ],
+          "head": [
+            177,
+            24
+          ],
+          "eyes": [
+            163,
+            85
+          ],
+          "neck": [
+            154,
+            146
+          ],
+          "back": [
+            154,
+            204
+          ],
+          "hand": [
+            134,
+            232
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    }
+  },
+  "reviewContact": "/tmp/center-sister-review.png"
+}

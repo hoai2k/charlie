@@ -3,7 +3,7 @@
   "prompt": "Use case: precise-object-edit. Edit target is the supplied nine-figure Bronze robot dance sheet. Keep all nine poses, entire layout, sizes, colors and artwork unchanged except remove the EXTRA second pipe in top-left DISCO and bottom-left SPLITS. Bronze must have EXACTLY ONE gray curved pipe attached to torso in EVERY figure (no human arms). Top-left keep the long up-left pointing pipe, delete the small extra gray pipe beside right hip. Bottom-left keep the screen-right raised pipe only, delete screen-left pipe entirely. Preserve purple diamond antenna, ONE eye, two boots, transparent RGBA. Do not change other seven figures.",
   "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-1413e6a5-35b5-44a7-8528-325b9d0312fd.png",
   "source": "party/tools/sprites/sources/bronze-dance-moves.webp",
-  "status": "intaken; runtime landmark review pending",
+  "status": "runtime landmarks/head-scale reviewed; optimized; root game review pending",
   "originalPrompt": "Use case: stylized-concept. Asset type: game sprite sheet on true transparent RGBA background. Reference image1 approved canonical; image2 exact shipping idle. Preserve EXACT identity, anatomy, proportions, colors, outfit, face details and dark outlines. Exactly NINE full-body figures in THREE columns by THREE rows, equal spacious cells, left-to-right top-to-bottom. Keep consistent HEAD/TORSO scale through every pose (never normalize total silhouette height), camera three-quarter toward screen-right. Big joyful extreme silhouettes child can recognize. Generous gutters all tails/hands/ears/feet inside own cell; no effects, motion lines, shadows, floor, props, text or labels. Poses in order: R1C1 DISCO one limb shoots up-left 45 degrees other on hip, cocked hips, huge grin; R1C2 airborne STARFISH wide X, all limbs as wide as possible, joyful open mouth, hair/ears/tail up; R1C3 HULA arms/front appendages together stretched to one side, hips opposite, bent support, happy closed eyes. R2C1 CARTWHEEL PREP side lunge arms/front limbs overhead, excited grin; R2C2 CARTWHEEL INVERTED fully upside down front limbs support on floor, rear limbs wide high V above head, happy upside-down face; R2C3 CAN-CAN rear leg kicks straight up PAST head, other supports, lean backward, hands on hips if no skirt, open HOO smile. R3C1 full flat SPLITS on floor, front/back legs straight along floor, upright torso, front limbs up big V, proud surprised happy face; R3C2 MOONWALK 1 facing right leaning backward front foot flat rear foot on toe, one hand to forehead like tipping INVISIBLE hat; R3C3 MOONWALK 2 same with feet swapped. No actual hat. Adapt to reference anatomy as described next: BRONZE is a clunky little robot with ONE circular eye under a green semicircular dome, PURPLE DIAMOND antenna, colorful cylindrical torso, TWO jointed legs with purple/orange boots, ONE curved gray pipe from upper right side. NO human arms, hands, fingers or extra limbs. Pipe is the expressive arm: disco pipe up-left, hula pipe sweeps side. Starfish legs spread and pipe raised, eye happy; cartwheel prep tip onto pipe, inverted dome/pipe supported upside down boots high V; cancan one boot above dome; splits legs straight wide; moonwalk alternating boot toe positions with pipe curling toward forehead. Keep one eye recognizable and cheerful in ALL nine.",
   "annotations": [
     {
@@ -31,7 +31,8 @@
       "back": [
         240,
         257
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.68,
@@ -58,7 +59,8 @@
       "back": [
         649,
         251
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.68,
@@ -85,7 +87,8 @@
       "back": [
         1059,
         258
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.68,
@@ -112,7 +115,8 @@
       "back": [
         229,
         660
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.68,
@@ -140,7 +144,8 @@
         660,
         570
       ],
-      "headAngle": 3.14159265
+      "headAngle": 3.14159265,
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.68,
@@ -167,7 +172,8 @@
       "back": [
         1080,
         633
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.68,
@@ -194,7 +200,8 @@
       "back": [
         268,
         1094
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.68,
@@ -221,7 +228,8 @@
       "back": [
         707,
         1036
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.68,
@@ -248,7 +256,8 @@
       "back": [
         1142,
         1039
-      ]
+      ],
+      "resolutionFactor": 0.65
     }
   ],
   "crops": [
@@ -307,5 +316,32 @@
       1173
     ]
   ],
-  "oldShippingPosesPreserved": 85
+  "oldShippingPosesPreserved": 92,
+  "portraitBudget": {
+    "resolution": 288,
+    "nativeArchives": [
+      {
+        "file": "party/tools/sprites/sources/bronze-portraits-native-oct27/portrait-neutral.webp",
+        "sha256": "924722aa0a46a4fefd3716af30d2105bbf167f0c90f2396a3f0fcaf1da597a21"
+      },
+      {
+        "file": "party/tools/sprites/sources/bronze-portraits-native-oct27/portrait-happy.webp",
+        "sha256": "cda097c9b7dfdbdd575609b8041420bab727f05b6f93816727c98312f0c499db"
+      },
+      {
+        "file": "party/tools/sprites/sources/bronze-portraits-native-oct27/portrait-sad.webp",
+        "sha256": "f3db4e466f54339502ef8331df9955830da326f4c269beff6f918d685971bb51"
+      },
+      {
+        "file": "party/tools/sprites/sources/bronze-portraits-native-oct27/portrait-surprised.webp",
+        "sha256": "292e070655cc875130bb6843f7e898e945a88c9af7e01cbc1ed516c2feff2209"
+      },
+      {
+        "file": "party/tools/sprites/sources/bronze-portraits-native-oct27/portrait-determined.webp",
+        "sha256": "4c68d8d605e88bee841e447dbf5b63ba3e69312120337a567e8007efe1c1810c"
+      }
+    ],
+    "reason": "Preserve old bodyframes while fitting new dance and Sister poses below25MiB decoded."
+  },
+  "reviewContact": "/tmp/bronze-dance-review.png"
 }

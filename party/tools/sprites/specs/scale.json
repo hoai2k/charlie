@@ -4469,6 +4469,731 @@
       "loop": true,
       "motion": 0.08,
       "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/scale-dance-moves.webp",
+          "rect": [
+            961,
+            0,
+            337,
+            418
+          ],
+          "isolate": true,
+          "scale": 1.5795000000000001,
+          "anchor": [
+            152,
+            409
+          ],
+          "head": [
+            189,
+            91
+          ],
+          "eyes": [
+            195,
+            148
+          ],
+          "neck": [
+            195,
+            196
+          ],
+          "hand": [
+            314,
+            207
+          ],
+          "back": [
+            194,
+            273
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/scale-dance-moves.webp",
+          "rect": [
+            93,
+            861,
+            464,
+            327
+          ],
+          "isolate": true,
+          "scale": 1.5795000000000001,
+          "anchor": [
+            178,
+            300
+          ],
+          "head": [
+            167,
+            78
+          ],
+          "eyes": [
+            162,
+            124
+          ],
+          "neck": [
+            162,
+            173
+          ],
+          "hand": [
+            48,
+            89
+          ],
+          "back": [
+            178,
+            230
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/scale-dance-moves.webp",
+          "rect": [
+            24,
+            450,
+            361,
+            389
+          ],
+          "isolate": true,
+          "scale": 1.5795000000000001,
+          "anchor": [
+            189,
+            372
+          ],
+          "head": [
+            236,
+            75
+          ],
+          "eyes": [
+            230,
+            133
+          ],
+          "neck": [
+            234,
+            178
+          ],
+          "hand": [
+            245,
+            24
+          ],
+          "back": [
+            255,
+            252
+          ]
+        },
+        {
+          "source": "../sources/scale-dance-moves.webp",
+          "rect": [
+            512,
+            415,
+            350,
+            412
+          ],
+          "isolate": true,
+          "scale": 1.5795000000000001,
+          "anchor": [
+            177,
+            407
+          ],
+          "head": [
+            177,
+            350
+          ],
+          "eyes": [
+            174,
+            299
+          ],
+          "neck": [
+            174,
+            244
+          ],
+          "hand": [
+            101,
+            398
+          ],
+          "back": [
+            172,
+            180
+          ],
+          "headAngle": 3.14159265
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/scale-dance-moves.webp",
+          "rect": [
+            551,
+            822,
+            281,
+            374
+          ],
+          "isolate": true,
+          "scale": 1.5795000000000001,
+          "anchor": [
+            155,
+            339
+          ],
+          "head": [
+            198,
+            72
+          ],
+          "eyes": [
+            193,
+            117
+          ],
+          "neck": [
+            192,
+            170
+          ],
+          "hand": [
+            225,
+            80
+          ],
+          "back": [
+            170,
+            232
+          ]
+        },
+        {
+          "source": "../sources/scale-dance-moves.webp",
+          "rect": [
+            932,
+            827,
+            300,
+            368
+          ],
+          "isolate": true,
+          "scale": 1.5795000000000001,
+          "anchor": [
+            188,
+            334
+          ],
+          "head": [
+            214,
+            68
+          ],
+          "eyes": [
+            216,
+            111
+          ],
+          "neck": [
+            216,
+            165
+          ],
+          "hand": [
+            272,
+            134
+          ],
+          "back": [
+            200,
+            230
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/scale-dance-moves.webp",
+          "rect": [
+            94,
+            5,
+            333,
+            444
+          ],
+          "isolate": true,
+          "scale": 1.5795000000000001,
+          "anchor": [
+            181,
+            434
+          ],
+          "head": [
+            127,
+            74
+          ],
+          "eyes": [
+            119,
+            128
+          ],
+          "neck": [
+            117,
+            183
+          ],
+          "hand": [
+            22,
+            85
+          ],
+          "back": [
+            134,
+            259
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/scale-dance-moves.webp",
+          "rect": [
+            471,
+            0,
+            435,
+            390
+          ],
+          "isolate": true,
+          "scale": 1.5795000000000001,
+          "anchor": [
+            200,
+            512
+          ],
+          "head": [
+            155,
+            80
+          ],
+          "eyes": [
+            152,
+            144
+          ],
+          "neck": [
+            152,
+            191
+          ],
+          "hand": [
+            301,
+            124
+          ],
+          "back": [
+            186,
+            264
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/scale-dance-moves.webp",
+          "rect": [
+            959,
+            424,
+            353,
+            394
+          ],
+          "isolate": true,
+          "scale": 1.5795000000000001,
+          "anchor": [
+            156,
+            389
+          ],
+          "head": [
+            209,
+            105
+          ],
+          "eyes": [
+            202,
+            157
+          ],
+          "neck": [
+            190,
+            210
+          ],
+          "hand": [
+            219,
+            249
+          ],
+          "back": [
+            162,
+            290
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/scale-sister-poses.webp",
+          "rect": [
+            11,
+            493,
+            410,
+            482
+          ],
+          "isolate": true,
+          "scale": 0.5265000000000001,
+          "bodyHeight": 108.0,
+          "anchor": [
+            201,
+            474
+          ],
+          "head": [
+            144,
+            65
+          ],
+          "eyes": [
+            154,
+            113
+          ],
+          "neck": [
+            154,
+            188
+          ],
+          "hand": [
+            280,
+            272
+          ],
+          "back": [
+            185,
+            301
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/scale-sister-poses.webp",
+          "rect": [
+            413,
+            540,
+            333,
+            355
+          ],
+          "isolate": true,
+          "scale": 0.5265000000000001,
+          "bodyHeight": 108.0,
+          "anchor": [
+            176,
+            181
+          ],
+          "head": [
+            169,
+            87
+          ],
+          "eyes": [
+            176,
+            136
+          ],
+          "neck": [
+            177,
+            175
+          ],
+          "hand": [
+            253,
+            223
+          ],
+          "back": [
+            133,
+            243
+          ],
+          "headAngle": 0
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/scale-sister-poses.webp",
+          "rect": [
+            795,
+            514,
+            380,
+            463
+          ],
+          "isolate": true,
+          "scale": 0.5265000000000001,
+          "bodyHeight": 108.0,
+          "anchor": [
+            188,
+            454
+          ],
+          "head": [
+            165,
+            52
+          ],
+          "eyes": [
+            167,
+            123
+          ],
+          "neck": [
+            169,
+            186
+          ],
+          "hand": [
+            240,
+            241
+          ],
+          "back": [
+            169,
+            294
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/scale-sister-poses.webp",
+          "rect": [
+            772,
+            18,
+            479,
+            410
+          ],
+          "isolate": true,
+          "scale": 0.5265000000000001,
+          "bodyHeight": 108.0,
+          "anchor": [
+            226,
+            469
+          ],
+          "head": [
+            161,
+            85
+          ],
+          "eyes": [
+            161,
+            150
+          ],
+          "neck": [
+            171,
+            208
+          ],
+          "hand": [
+            305,
+            168
+          ],
+          "back": [
+            213,
+            270
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/scale-sister-poses.webp",
+          "rect": [
+            1197,
+            10,
+            324,
+            494
+          ],
+          "isolate": true,
+          "scale": 0.5265000000000001,
+          "bodyHeight": 108.0,
+          "anchor": [
+            153,
+            486
+          ],
+          "head": [
+            184,
+            92
+          ],
+          "eyes": [
+            181,
+            155
+          ],
+          "neck": [
+            187,
+            216
+          ],
+          "hand": [
+            145,
+            127
+          ],
+          "back": [
+            148,
+            299
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/scale-sister-poses.webp",
+          "rect": [
+            442,
+            17,
+            317,
+            479
+          ],
+          "isolate": true,
+          "scale": 0.5265000000000001,
+          "bodyHeight": 108.0,
+          "anchor": [
+            145,
+            470
+          ],
+          "head": [
+            104,
+            86
+          ],
+          "eyes": [
+            109,
+            150
+          ],
+          "neck": [
+            111,
+            211
+          ],
+          "hand": [
+            134,
+            229
+          ],
+          "back": [
+            140,
+            289
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/scale-sister-poses.webp",
+          "rect": [
+            38,
+            19,
+            353,
+            478
+          ],
+          "isolate": true,
+          "scale": 0.5265000000000001,
+          "bodyHeight": 108.0,
+          "anchor": [
+            166,
+            468
+          ],
+          "head": [
+            132,
+            81
+          ],
+          "eyes": [
+            130,
+            151
+          ],
+          "neck": [
+            140,
+            206
+          ],
+          "hand": [
+            20,
+            196
+          ],
+          "back": [
+            167,
+            293
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/scale-sister-poses.webp",
+          "rect": [
+            1195,
+            506,
+            332,
+            503
+          ],
+          "isolate": true,
+          "scale": 0.5265000000000001,
+          "bodyHeight": 108.0,
+          "anchor": [
+            166,
+            462
+          ],
+          "head": [
+            184,
+            65
+          ],
+          "eyes": [
+            171,
+            131
+          ],
+          "neck": [
+            168,
+            188
+          ],
+          "hand": [
+            97,
+            247
+          ],
+          "back": [
+            150,
+            304
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
     }
   },
   "portraits": {

@@ -4814,6 +4814,351 @@
       "loop": false,
       "motion": 0.8,
       "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-sister-poses.webp",
+          "rect": [
+            794,
+            534,
+            358,
+            414
+          ],
+          "isolate": true,
+          "scale": 1.3412,
+          "anchor": [
+            189,
+            412
+          ],
+          "head": [
+            189,
+            84
+          ],
+          "eyes": [
+            176,
+            156
+          ],
+          "neck": [
+            178,
+            237
+          ],
+          "hand": [
+            166,
+            274
+          ],
+          "back": [
+            204,
+            331
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-sister-poses.webp",
+          "rect": [
+            1165,
+            562,
+            370,
+            397
+          ],
+          "isolate": true,
+          "scale": 1.3412,
+          "anchor": [
+            188,
+            384
+          ],
+          "head": [
+            195,
+            75
+          ],
+          "eyes": [
+            187,
+            143
+          ],
+          "neck": [
+            169,
+            204
+          ],
+          "hand": [
+            149,
+            264
+          ],
+          "back": [
+            206,
+            311
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-sister-poses.webp",
+          "rect": [
+            26,
+            38,
+            392,
+            460
+          ],
+          "isolate": true,
+          "scale": 1.3412,
+          "anchor": [
+            186,
+            449
+          ],
+          "head": [
+            184,
+            95
+          ],
+          "eyes": [
+            181,
+            192
+          ],
+          "neck": [
+            178,
+            292
+          ],
+          "hand": [
+            45,
+            216
+          ],
+          "back": [
+            217,
+            355
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-sister-poses.webp",
+          "rect": [
+            759,
+            64,
+            410,
+            429
+          ],
+          "isolate": true,
+          "scale": 1.3412,
+          "anchor": [
+            195,
+            423
+          ],
+          "head": [
+            227,
+            90
+          ],
+          "eyes": [
+            232,
+            175
+          ],
+          "neck": [
+            232,
+            248
+          ],
+          "hand": [
+            365,
+            222
+          ],
+          "back": [
+            195,
+            311
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-sister-poses.webp",
+          "rect": [
+            36,
+            542,
+            343,
+            420
+          ],
+          "isolate": true,
+          "scale": 1.3412,
+          "anchor": [
+            182,
+            414
+          ],
+          "head": [
+            221,
+            72
+          ],
+          "eyes": [
+            211,
+            132
+          ],
+          "neck": [
+            215,
+            231
+          ],
+          "hand": [
+            240,
+            202
+          ],
+          "back": [
+            195,
+            308
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-sister-poses.webp",
+          "rect": [
+            1177,
+            56,
+            347,
+            439
+          ],
+          "isolate": true,
+          "scale": 1.3412,
+          "anchor": [
+            186,
+            429
+          ],
+          "head": [
+            197,
+            106
+          ],
+          "eyes": [
+            209,
+            170
+          ],
+          "neck": [
+            191,
+            237
+          ],
+          "hand": [
+            306,
+            175
+          ],
+          "back": [
+            181,
+            298
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-sister-poses.webp",
+          "rect": [
+            417,
+            580,
+            370,
+            367
+          ],
+          "isolate": true,
+          "scale": 1.3412,
+          "anchor": [
+            186,
+            201
+          ],
+          "head": [
+            214,
+            67
+          ],
+          "eyes": [
+            215,
+            138
+          ],
+          "neck": [
+            205,
+            196
+          ],
+          "hand": [
+            170,
+            220
+          ],
+          "back": [
+            120,
+            246
+          ],
+          "headAngle": 0
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-sister-poses.webp",
+          "rect": [
+            433,
+            40,
+            309,
+            452
+          ],
+          "isolate": true,
+          "scale": 1.3412,
+          "anchor": [
+            141,
+            447
+          ],
+          "head": [
+            149,
+            86
+          ],
+          "eyes": [
+            139,
+            172
+          ],
+          "neck": [
+            133,
+            257
+          ],
+          "hand": [
+            109,
+            274
+          ],
+          "back": [
+            165,
+            338
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
     }
   },
   "portraits": {

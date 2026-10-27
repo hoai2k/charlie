@@ -1,0 +1,312 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: precise-object-edit. Edit supplied nine-pose Scale mermaid dance sheet. Preserve all nine poses/colors/costume/layout/size. Correct ONLY bottom-left SPLITS figure single-tail anatomy: Scale has ONE continuous red/blue-crosshatched tail ending in ONE PAIR teal fins. Replace double-ended tail with ONE continuous unbranched tail from her waist curved flat along floor to screen-RIGHT and one pair teal fins at far right. LEFT of torso only long yellow hair and transparent space, NO tail/fins. Keep upright torso with both arms up high V, proud happy face, and flat floor silhouette. Other eight figures entirely unchanged. No legs/feet. True transparent RGBA.",
+  "originalPrompt": "Use case: stylized-concept. Asset type: game sprite sheet on true transparent RGBA background. Reference image1 approved canonical; image2 exact shipping idle. Preserve EXACT identity, anatomy, proportions, colors, outfit, face details and dark outlines. Exactly NINE full-body figures in THREE columns by THREE rows, equal spacious cells, left-to-right top-to-bottom. Keep consistent HEAD/TORSO scale through every pose (never normalize total silhouette height), camera three-quarter toward screen-right. Big joyful extreme silhouettes child can recognize. Generous gutters all tails/hands/ears/feet inside own cell; no effects, motion lines, shadows, floor, props, text or labels. Poses in order: R1C1 DISCO one limb shoots up-left 45 degrees other on hip, cocked hips, huge grin; R1C2 airborne STARFISH wide X, all limbs as wide as possible, joyful open mouth, hair/ears/tail up; R1C3 HULA arms/front appendages together stretched to one side, hips opposite, bent support, happy closed eyes. R2C1 CARTWHEEL PREP side lunge arms/front limbs overhead, excited grin; R2C2 CARTWHEEL INVERTED fully upside down front limbs support on floor, rear limbs wide high V above head, happy upside-down face; R2C3 CAN-CAN rear leg kicks straight up PAST head, other supports, lean backward, hands on hips if no skirt, open HOO smile. R3C1 full flat SPLITS on floor, front/back legs straight along floor, upright torso, front limbs up big V, proud surprised happy face; R3C2 MOONWALK 1 facing right leaning backward front foot flat rear foot on toe, one hand to forehead like tipping INVISIBLE hat; R3C3 MOONWALK 2 same with feet swapped. No actual hat. Adapt to reference anatomy as described next: SCALE is exactly the blonde young cartoon mermaid from references: gold crown with TWO curved dark teal hornlike crown decorations, long yellow hair, layered dark teal/green scalloped top with blue flowers, red skirt-like ruffle, RED fish tail decorated with blue crisscross diamonds and teal tailfins. Preserve TWO human ARMS and ONE continuous fish tail; NO legs, feet or new limbs. Starfish wide arms and tail/fins flared airborne. Disco point up-left hand other waist; hula arms stretched together to side tail hips swung opposite. Cartwheel prep tail lunge arms overhead, then fully upside-down HANDSTAND with arms straight palms flat and SINGLE tail raised high with two teal tailfins wide V (never invent legs). Can-can tail kicked straight upward past head while lower-tail curl supports. Splits single tail flat along floor to one side with fins wide, upright torso arms up V ta-da. Moonwalk alternating tail-curl glides backward facing right leaning back, one hand to forehead tipping invisible hat. Huge cheerful expressions.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-ea02258e-2c23-4fda-af30-83e7edeb45b6.png",
+  "source": "party/tools/sprites/sources/scale-dance-moves.webp",
+  "status": "runtime landmarks/head-scale reviewed; optimized; root game review pending",
+  "annotations": [
+    {
+      "pixelScale": 0.54,
+      "anchor": [
+        275,
+        439
+      ],
+      "head": [
+        221,
+        79
+      ],
+      "eyes": [
+        213,
+        133
+      ],
+      "neck": [
+        211,
+        188
+      ],
+      "hand": [
+        116,
+        90
+      ],
+      "back": [
+        228,
+        264
+      ]
+    },
+    {
+      "pixelScale": 0.54,
+      "anchor": [
+        671,
+        512
+      ],
+      "head": [
+        626,
+        80
+      ],
+      "eyes": [
+        623,
+        144
+      ],
+      "neck": [
+        623,
+        191
+      ],
+      "hand": [
+        772,
+        124
+      ],
+      "back": [
+        657,
+        264
+      ]
+    },
+    {
+      "pixelScale": 0.54,
+      "anchor": [
+        1113,
+        409
+      ],
+      "head": [
+        1150,
+        91
+      ],
+      "eyes": [
+        1156,
+        148
+      ],
+      "neck": [
+        1156,
+        196
+      ],
+      "hand": [
+        1275,
+        207
+      ],
+      "back": [
+        1155,
+        273
+      ]
+    },
+    {
+      "pixelScale": 0.54,
+      "anchor": [
+        213,
+        822
+      ],
+      "head": [
+        260,
+        525
+      ],
+      "eyes": [
+        254,
+        583
+      ],
+      "neck": [
+        258,
+        628
+      ],
+      "hand": [
+        269,
+        474
+      ],
+      "back": [
+        279,
+        702
+      ]
+    },
+    {
+      "pixelScale": 0.54,
+      "anchor": [
+        689,
+        822
+      ],
+      "head": [
+        689,
+        765
+      ],
+      "eyes": [
+        686,
+        714
+      ],
+      "neck": [
+        686,
+        659
+      ],
+      "hand": [
+        613,
+        813
+      ],
+      "back": [
+        684,
+        595
+      ],
+      "headAngle": 3.14159265
+    },
+    {
+      "pixelScale": 0.54,
+      "anchor": [
+        1115,
+        813
+      ],
+      "head": [
+        1168,
+        529
+      ],
+      "eyes": [
+        1161,
+        581
+      ],
+      "neck": [
+        1149,
+        634
+      ],
+      "hand": [
+        1178,
+        673
+      ],
+      "back": [
+        1121,
+        714
+      ]
+    },
+    {
+      "pixelScale": 0.54,
+      "anchor": [
+        271,
+        1161
+      ],
+      "head": [
+        260,
+        939
+      ],
+      "eyes": [
+        255,
+        985
+      ],
+      "neck": [
+        255,
+        1034
+      ],
+      "hand": [
+        141,
+        950
+      ],
+      "back": [
+        271,
+        1091
+      ]
+    },
+    {
+      "pixelScale": 0.54,
+      "anchor": [
+        706,
+        1161
+      ],
+      "head": [
+        749,
+        894
+      ],
+      "eyes": [
+        744,
+        939
+      ],
+      "neck": [
+        743,
+        992
+      ],
+      "hand": [
+        776,
+        902
+      ],
+      "back": [
+        721,
+        1054
+      ]
+    },
+    {
+      "pixelScale": 0.54,
+      "anchor": [
+        1120,
+        1161
+      ],
+      "head": [
+        1146,
+        895
+      ],
+      "eyes": [
+        1148,
+        938
+      ],
+      "neck": [
+        1148,
+        992
+      ],
+      "hand": [
+        1204,
+        961
+      ],
+      "back": [
+        1132,
+        1057
+      ]
+    }
+  ],
+  "crops": [
+    [
+      98,
+      9,
+      423,
+      445
+    ],
+    [
+      475,
+      0,
+      902,
+      386
+    ],
+    [
+      965,
+      0,
+      1294,
+      414
+    ],
+    [
+      28,
+      454,
+      381,
+      835
+    ],
+    [
+      516,
+      419,
+      858,
+      823
+    ],
+    [
+      963,
+      428,
+      1311,
+      814
+    ],
+    [
+      97,
+      865,
+      553,
+      1184
+    ],
+    [
+      555,
+      826,
+      828,
+      1192
+    ],
+    [
+      936,
+      831,
+      1228,
+      1191
+    ]
+  ],
+  "oldShippingPosesPreserved": 93,
+  "reviewContact": "/tmp/scale-dance-review.png"
+}

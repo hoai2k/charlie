@@ -4710,7 +4710,8 @@
             420
           ],
           "isolate": true,
-          "scale": 1.53016,
+          "scale": 0.9946040000000002,
+          "bodyHeight": 162.5,
           "anchor": [
             174,
             413
@@ -4753,7 +4754,8 @@
             343
           ],
           "isolate": true,
-          "scale": 1.53016,
+          "scale": 0.9946040000000002,
+          "bodyHeight": 162.5,
           "anchor": [
             210,
             322
@@ -4796,7 +4798,8 @@
             373
           ],
           "isolate": true,
-          "scale": 1.53016,
+          "scale": 0.9946040000000002,
+          "bodyHeight": 162.5,
           "anchor": [
             232,
             371
@@ -4831,7 +4834,8 @@
             371
           ],
           "isolate": true,
-          "scale": 1.53016,
+          "scale": 0.9946040000000002,
+          "bodyHeight": 162.5,
           "anchor": [
             241,
             369
@@ -4874,7 +4878,8 @@
             430
           ],
           "isolate": true,
-          "scale": 1.53016,
+          "scale": 0.9946040000000002,
+          "bodyHeight": 162.5,
           "anchor": [
             159,
             417
@@ -4917,7 +4922,8 @@
             435
           ],
           "isolate": true,
-          "scale": 1.53016,
+          "scale": 0.9946040000000002,
+          "bodyHeight": 162.5,
           "anchor": [
             198,
             538
@@ -4960,7 +4966,8 @@
             396
           ],
           "isolate": true,
-          "scale": 1.53016,
+          "scale": 0.9946040000000002,
+          "bodyHeight": 162.5,
           "anchor": [
             183,
             390
@@ -4995,7 +5002,8 @@
             411
           ],
           "isolate": true,
-          "scale": 1.53016,
+          "scale": 0.9946040000000002,
+          "bodyHeight": 162.5,
           "anchor": [
             204,
             401
@@ -5039,7 +5047,8 @@
             429
           ],
           "isolate": true,
-          "scale": 1.53016,
+          "scale": 0.9946040000000002,
+          "bodyHeight": 162.5,
           "anchor": [
             166,
             420
@@ -5069,6 +5078,321 @@
       "fps": 4,
       "loop": false,
       "motion": 0.8,
+      "facing": 1
+    },
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-sister-poses-oct27.webp",
+          "rect": [
+            5,
+            137,
+            307,
+            504
+          ],
+          "isolate": true,
+          "scale": 0.5170073664825046,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            197,
+            484
+          ],
+          "head": [
+            128,
+            15
+          ],
+          "eyes": [
+            150,
+            150
+          ],
+          "neck": [
+            166,
+            235
+          ],
+          "back": [
+            149,
+            310
+          ],
+          "hand": [
+            150,
+            197
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-sister-poses-oct27.webp",
+          "rect": [
+            312,
+            128,
+            271,
+            510
+          ],
+          "isolate": true,
+          "scale": 0.47000669680227697,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            119,
+            493
+          ],
+          "head": [
+            138,
+            19
+          ],
+          "eyes": [
+            126,
+            173
+          ],
+          "neck": [
+            122,
+            244
+          ],
+          "back": [
+            121,
+            316
+          ],
+          "hand": [
+            98,
+            204
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-sister-poses-oct27.webp",
+          "rect": [
+            563,
+            140,
+            407,
+            486
+          ],
+          "isolate": true,
+          "scale": 0.4353746244063197,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            200,
+            477
+          ],
+          "head": [
+            213,
+            15
+          ],
+          "eyes": [
+            253,
+            150
+          ],
+          "neck": [
+            251,
+            235
+          ],
+          "back": [
+            180,
+            293
+          ],
+          "hand": [
+            292,
+            194
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-sister-poses-oct27.webp",
+          "rect": [
+            945,
+            124,
+            319,
+            515
+          ],
+          "isolate": true,
+          "scale": 0.44957162302826487,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            163,
+            498
+          ],
+          "head": [
+            141,
+            13
+          ],
+          "eyes": [
+            189,
+            124
+          ],
+          "neck": [
+            206,
+            211
+          ],
+          "back": [
+            160,
+            290
+          ],
+          "hand": [
+            234,
+            163
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-sister-poses-oct27.webp",
+          "rect": [
+            1220,
+            179,
+            353,
+            461
+          ],
+          "isolate": true,
+          "scale": 0.47540907262759047,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            179,
+            445
+          ],
+          "head": [
+            155,
+            15
+          ],
+          "eyes": [
+            204,
+            113
+          ],
+          "neck": [
+            209,
+            190
+          ],
+          "back": [
+            151,
+            268
+          ],
+          "hand": [
+            259,
+            141
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-sister-poses-oct27.webp",
+          "rect": [
+            1569,
+            196,
+            297,
+            436
+          ],
+          "isolate": true,
+          "scale": 0.45956210354000415,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            147,
+            291
+          ],
+          "head": [
+            107,
+            20
+          ],
+          "eyes": [
+            167,
+            141
+          ],
+          "neck": [
+            175,
+            214
+          ],
+          "back": [
+            203,
+            280
+          ],
+          "hand": [
+            128,
+            173
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-sister-poses-oct27.webp",
+          "rect": [
+            1811,
+            197,
+            353,
+            432
+          ],
+          "isolate": true,
+          "scale": 0.4353746244063197,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            206,
+            410
+          ],
+          "head": [
+            249,
+            19
+          ],
+          "eyes": [
+            237,
+            137
+          ],
+          "neck": [
+            246,
+            214
+          ],
+          "back": [
+            238,
+            290
+          ],
+          "hand": [
+            235,
+            180
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
       "facing": 1
     }
   },

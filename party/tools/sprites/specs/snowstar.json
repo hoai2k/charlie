@@ -3429,6 +3429,747 @@
       "loop": true,
       "motion": 0.08,
       "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-dance-moves.webp",
+          "rect": [
+            41,
+            457,
+            380,
+            385
+          ],
+          "isolate": true,
+          "scale": 0.794670138888889,
+          "bodyHeight": 168.48,
+          "anchor": [
+            168,
+            376
+          ],
+          "head": [
+            214,
+            105
+          ],
+          "eyes": [
+            222,
+            172
+          ],
+          "neck": [
+            221,
+            240
+          ],
+          "hand": [
+            116,
+            126
+          ],
+          "back": [
+            216,
+            286
+          ]
+        },
+        {
+          "source": "../sources/snowstar-dance-moves.webp",
+          "rect": [
+            440,
+            443,
+            358,
+            395
+          ],
+          "isolate": true,
+          "scale": 0.794670138888889,
+          "bodyHeight": 168.48,
+          "anchor": [
+            193,
+            390
+          ],
+          "head": [
+            191,
+            321
+          ],
+          "eyes": [
+            192,
+            259
+          ],
+          "neck": [
+            193,
+            190
+          ],
+          "hand": [
+            122,
+            375
+          ],
+          "back": [
+            189,
+            158
+          ],
+          "headAngle": 3.14159265
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-dance-moves.webp",
+          "rect": [
+            884,
+            428,
+            326,
+            421
+          ],
+          "isolate": true,
+          "scale": 0.794670138888889,
+          "bodyHeight": 168.48,
+          "anchor": [
+            211,
+            413
+          ],
+          "head": [
+            163,
+            104
+          ],
+          "eyes": [
+            163,
+            173
+          ],
+          "neck": [
+            179,
+            234
+          ],
+          "hand": [
+            159,
+            324
+          ],
+          "back": [
+            195,
+            278
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-dance-moves.webp",
+          "rect": [
+            536,
+            840,
+            309,
+            414
+          ],
+          "isolate": true,
+          "scale": 0.794670138888889,
+          "bodyHeight": 168.48,
+          "anchor": [
+            208,
+            405
+          ],
+          "head": [
+            154,
+            100
+          ],
+          "eyes": [
+            161,
+            159
+          ],
+          "neck": [
+            164,
+            215
+          ],
+          "hand": [
+            215,
+            120
+          ],
+          "back": [
+            177,
+            270
+          ]
+        },
+        {
+          "source": "../sources/snowstar-dance-moves.webp",
+          "rect": [
+            904,
+            850,
+            286,
+            410
+          ],
+          "isolate": true,
+          "scale": 0.794670138888889,
+          "bodyHeight": 168.48,
+          "anchor": [
+            160,
+            395
+          ],
+          "head": [
+            139,
+            91
+          ],
+          "eyes": [
+            139,
+            152
+          ],
+          "neck": [
+            140,
+            210
+          ],
+          "hand": [
+            248,
+            118
+          ],
+          "back": [
+            153,
+            266
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-dance-moves.webp",
+          "rect": [
+            25,
+            903,
+            462,
+            337
+          ],
+          "isolate": true,
+          "scale": 0.794670138888889,
+          "bodyHeight": 168.48,
+          "anchor": [
+            225,
+            326
+          ],
+          "head": [
+            229,
+            119
+          ],
+          "eyes": [
+            225,
+            171
+          ],
+          "neck": [
+            229,
+            231
+          ],
+          "hand": [
+            84,
+            168
+          ],
+          "back": [
+            225,
+            276
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-dance-moves.webp",
+          "rect": [
+            443,
+            0,
+            361,
+            391
+          ],
+          "isolate": true,
+          "scale": 0.794670138888889,
+          "bodyHeight": 168.48,
+          "anchor": [
+            174,
+            501
+          ],
+          "head": [
+            185,
+            111
+          ],
+          "eyes": [
+            176,
+            170
+          ],
+          "neck": [
+            167,
+            238
+          ],
+          "hand": [
+            305,
+            235
+          ],
+          "back": [
+            174,
+            282
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-dance-moves.webp",
+          "rect": [
+            871,
+            0,
+            339,
+            436
+          ],
+          "isolate": true,
+          "scale": 0.794670138888889,
+          "bodyHeight": 168.48,
+          "anchor": [
+            173,
+            425
+          ],
+          "head": [
+            174,
+            85
+          ],
+          "eyes": [
+            188,
+            158
+          ],
+          "neck": [
+            191,
+            232
+          ],
+          "hand": [
+            301,
+            276
+          ],
+          "back": [
+            180,
+            281
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-dance-moves.webp",
+          "rect": [
+            71,
+            0,
+            350,
+            436
+          ],
+          "isolate": true,
+          "scale": 0.794670138888889,
+          "bodyHeight": 168.48,
+          "anchor": [
+            133,
+            425
+          ],
+          "head": [
+            153,
+            115
+          ],
+          "eyes": [
+            164,
+            184
+          ],
+          "neck": [
+            161,
+            258
+          ],
+          "hand": [
+            22,
+            131
+          ],
+          "back": [
+            168,
+            305
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            23,
+            9,
+            373,
+            503
+          ],
+          "isolate": true,
+          "scale": 0.3937516989988091,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            181,
+            489
+          ],
+          "head": [
+            170,
+            18
+          ],
+          "eyes": [
+            193,
+            199
+          ],
+          "neck": [
+            193,
+            275
+          ],
+          "back": [
+            168,
+            322
+          ],
+          "hand": [
+            121,
+            277
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            392,
+            13,
+            375,
+            502
+          ],
+          "isolate": true,
+          "scale": 0.38684377445497037,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            188,
+            488
+          ],
+          "head": [
+            137,
+            13
+          ],
+          "eyes": [
+            179,
+            201
+          ],
+          "neck": [
+            193,
+            271
+          ],
+          "back": [
+            164,
+            317
+          ],
+          "hand": [
+            189,
+            274
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            793,
+            5,
+            378,
+            510
+          ],
+          "isolate": true,
+          "scale": 0.36750158573222186,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            171,
+            494
+          ],
+          "head": [
+            167,
+            14
+          ],
+          "eyes": [
+            230,
+            201
+          ],
+          "neck": [
+            221,
+            283
+          ],
+          "back": [
+            180,
+            332
+          ],
+          "hand": [
+            361,
+            267
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            1190,
+            7,
+            332,
+            496
+          ],
+          "isolate": true,
+          "scale": 0.40833509525802425,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            167,
+            487
+          ],
+          "head": [
+            162,
+            13
+          ],
+          "eyes": [
+            200,
+            183
+          ],
+          "neck": [
+            197,
+            262
+          ],
+          "back": [
+            161,
+            317
+          ],
+          "hand": [
+            300,
+            136
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            12,
+            525,
+            373,
+            484
+          ],
+          "isolate": true,
+          "scale": 0.40091082079878737,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            206,
+            475
+          ],
+          "head": [
+            173,
+            18
+          ],
+          "eyes": [
+            226,
+            117
+          ],
+          "neck": [
+            233,
+            248
+          ],
+          "back": [
+            197,
+            298
+          ],
+          "hand": [
+            332,
+            329
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            387,
+            532,
+            380,
+            426
+          ],
+          "isolate": true,
+          "scale": 0.3937516989988091,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            210,
+            269
+          ],
+          "head": [
+            198,
+            16
+          ],
+          "eyes": [
+            215,
+            217
+          ],
+          "neck": [
+            234,
+            267
+          ],
+          "back": [
+            202,
+            316
+          ],
+          "hand": [
+            243,
+            308
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            773,
+            524,
+            395,
+            481
+          ],
+          "isolate": true,
+          "scale": 0.3937516989988091,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            216,
+            476
+          ],
+          "head": [
+            166,
+            13
+          ],
+          "eyes": [
+            204,
+            183
+          ],
+          "neck": [
+            216,
+            266
+          ],
+          "back": [
+            180,
+            327
+          ],
+          "hand": [
+            298,
+            317
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            1152,
+            503,
+            356,
+            507
+          ],
+          "isolate": true,
+          "scale": 0.38684377445497037,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            211,
+            497
+          ],
+          "head": [
+            189,
+            18
+          ],
+          "eyes": [
+            218,
+            179
+          ],
+          "neck": [
+            229,
+            268
+          ],
+          "back": [
+            194,
+            330
+          ],
+          "hand": [
+            257,
+            309
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
     }
   },
   "portraits": {

@@ -1,0 +1,48 @@
+{
+  "dance": {
+    "felicity": 9,
+    "fellowfox": 9,
+    "kpop-girl-center": 9,
+    "kpop-girl-left": 9,
+    "kpop-girl-right": 9,
+    "bronze": 9,
+    "cotton-candy": 9,
+    "fox": 9,
+    "hotdog": 9,
+    "marina": 9,
+    "scale": 9,
+    "marshmallow-birthday-cake": 9,
+    "princess-amber": 9,
+    "snowstar": 9,
+    "unicorn": 9,
+    "garden-fairy-pink": 9,
+    "garden-fairy-blue": 9,
+    "garden-fairy-green": 9,
+    "garden-fairy-purple": 9,
+    "garden-fairy-yellow": 9,
+    "glimmer": 9
+  },
+  "sister": {
+    "felicity": 8,
+    "fellowfox": 8,
+    "kpop-girl-center": 8,
+    "kpop-girl-left": 8,
+    "kpop-girl-right": 8,
+    "bronze": 8,
+    "cotton-candy": 7,
+    "fox": 7,
+    "hotdog": 8,
+    "marina": 8,
+    "scale": 8,
+    "marshmallow-birthday-cake": 8,
+    "princess-amber": 8,
+    "snowstar": 8,
+    "unicorn": 7
+  },
+  "errors": [],
+  "totals": {
+    "dance": 189,
+    "sister": 117,
+    "combined": 306
+  }
+}

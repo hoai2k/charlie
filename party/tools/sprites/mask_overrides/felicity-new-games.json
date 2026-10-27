@@ -3,7 +3,70 @@
   "note": "Two lifted spring shoes escape the grounded classifier row gate. Source-crop-local shoe fill polygons from enlarged runtime grid, inverse-transformed through exact anchors/commonScale. Saturation/lightness gate excludes peach ankle skin; all other masks unchanged.",
   "fillMaxLight": 0.63,
   "polygons": {
-    "spring-jump-00.webp": []
+    "spring-jump-00.webp": [],
+    "boop-00.webp": [],
+    "cuddle-00.webp": [],
+    "silly-pose-00.webp": [],
+    "tiptoe-00.webp": [],
+    "tongue-out-00.webp": [],
+    "tuck-00.webp": [
+      [
+        [
+          4,
+          187
+        ],
+        [
+          74,
+          187
+        ],
+        [
+          74,
+          382
+        ],
+        [
+          4,
+          382
+        ]
+      ],
+      [
+        [
+          136,
+          187
+        ],
+        [
+          213,
+          187
+        ],
+        [
+          213,
+          382
+        ],
+        [
+          136,
+          382
+        ]
+      ],
+      [
+        [
+          74,
+          257
+        ],
+        [
+          136,
+          257
+        ],
+        [
+          136,
+          382
+        ],
+        [
+          74,
+          382
+        ]
+      ]
+    ],
+    "ride-sit-00.webp": [],
+    "laugh-00.webp": []
   },
   "sleeveFill": {
     "spring-jump-00.webp": [
@@ -77,6 +140,166 @@
         [
           226.16,
           501.92
+        ]
+      ]
+    ],
+    "boop-00.webp": [
+      [
+        [
+          125,
+          274
+        ],
+        [
+          295,
+          274
+        ],
+        [
+          295,
+          355
+        ],
+        [
+          125,
+          355
+        ]
+      ]
+    ],
+    "cuddle-00.webp": [
+      [
+        [
+          93,
+          276
+        ],
+        [
+          313,
+          276
+        ],
+        [
+          313,
+          359
+        ],
+        [
+          93,
+          359
+        ]
+      ]
+    ],
+    "silly-pose-00.webp": [
+      [
+        [
+          117,
+          274
+        ],
+        [
+          327,
+          274
+        ],
+        [
+          327,
+          359
+        ],
+        [
+          117,
+          359
+        ]
+      ]
+    ],
+    "tiptoe-00.webp": [
+      [
+        [
+          103,
+          253
+        ],
+        [
+          243,
+          253
+        ],
+        [
+          243,
+          339
+        ],
+        [
+          103,
+          339
+        ]
+      ]
+    ],
+    "tongue-out-00.webp": [
+      [
+        [
+          110,
+          264
+        ],
+        [
+          339,
+          264
+        ],
+        [
+          339,
+          357
+        ],
+        [
+          110,
+          357
+        ]
+      ]
+    ],
+    "tuck-00.webp": [
+      [
+        [
+          56,
+          202
+        ],
+        [
+          185,
+          202
+        ],
+        [
+          185,
+          295
+        ],
+        [
+          56,
+          295
+        ]
+      ]
+    ],
+    "ride-sit-00.webp": [
+      [
+        [
+          141,
+          274
+        ],
+        [
+          336,
+          274
+        ],
+        [
+          336,
+          372
+        ],
+        [
+          141,
+          372
+        ]
+      ]
+    ],
+    "laugh-00.webp": [
+      [
+        [
+          107,
+          267
+        ],
+        [
+          307,
+          267
+        ],
+        [
+          307,
+          353
+        ],
+        [
+          107,
+          353
         ]
       ]
     ]

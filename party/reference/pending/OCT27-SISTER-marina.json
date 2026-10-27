@@ -1,0 +1,288 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Asset type: transparent game sprite sheet of ONE exact reference character. Image1 approved canonical, image2 shipping idle. Preserve exact identity/anatomy/outfit/colors/proportions, camera three-quarter screen-right, same head and torso size across all figures, bold dark outline and clean cel shading. All figures full body with generous clear gutters, TRUE transparent RGBA; NO props, held objects, scenery, shadows, effects, text or labels. Empty hands/arms; game adds objects later. Exactly EIGHT figures in FOUR columns by TWO rows, left-to-right top-to-bottom: (1) BOOP one paw/hand/hoof poking forward horizontally to boop an invisible nose, cheeky grin. (2) CUDDLE both arms/front paws curled around EMPTY space at chest, eyes shut big smile, no object. (3) SILLY POSE goofy ta-da one rear leg kicked UP behind, front limbs flung WIDE, TONGUE OUT. (4) TIPTOE sneaking high on toes, hunched body, front limbs holding EMPTY space overhead, sideways cheeky grin, no cushion. (5) TONGUE OUT head tipped back looking UP, tongue extended UP toward sky to catch invisible snowflake, no snowflake. (6) TUCK tight spherical ball, knees/front paws hugged to chest, happy shut eyes, SIDE view for spinning, tail curled around body. (7) RIDE SIT sitting astride EMPTY space, legs to each side, arms/front paws forward grasping empty space, happy, no mount. (8) LAUGH BIG belly laugh head back eyes shut hands/paws on tummy. MARINA is exact red-haired mermaid gold/purple crown purple shell top green/teal and purple scaled SINGLE tail with one pair purple fins. TWO arms, NO legs/feet. boop human finger forward, cuddle EMPTY arms on chest; silly arms wide TONGUEOUT tail kicked behind; tiptoe tail balanced on fin-tips arms up holding EMPTY space; tongueout head tilted back looking UP tongue toward sky; tuck round ball arms hug curled SINGLE tail to chest eyes shut; ride-sit sitting tail curled under seat both arms reaching EMPTY space no mount, tailfins spread to either side but ONE tail; laugh head back eyes shut hands on tummy. No props/companions/extra tails.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-d6a800ae-71b9-4324-8b97-b98350bfd1ec.png",
+  "source": "party/tools/sprites/sources/marina-sister-poses.webp",
+  "status": "runtime landmarks/compensated head-scale reviewed; optimized or final optimizer running; root game review pending",
+  "repairPrompt": "Use case: precise-object-edit. Please correct the fish-tail anatomy of the mermaid in the bottom row third cell of this cartoon game sprite sheet: she should have one unbranched fish tail curved beneath her, ending in two purple fins together on the right. Remove the extra fin shapes on the left. Preserve her arms, face, outfit, pose, colors and size. Preserve all other seven sprite figures unchanged. Transparent background, no new objects or text.",
+  "originalNativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-bdc2d002-240a-4c14-ac59-97742ee2ed9c.png",
+  "annotations": [
+    {
+      "pixelScale": 0.43,
+      "anchor": [
+        217,
+        511
+      ],
+      "head": [
+        170,
+        65
+      ],
+      "eyes": [
+        167,
+        134
+      ],
+      "neck": [
+        175,
+        205
+      ],
+      "hand": [
+        52,
+        175
+      ],
+      "back": [
+        204,
+        296
+      ],
+      "resolutionFactor": 0.4
+    },
+    {
+      "pixelScale": 0.43,
+      "anchor": [
+        597,
+        493
+      ],
+      "head": [
+        555,
+        70
+      ],
+      "eyes": [
+        550,
+        144
+      ],
+      "neck": [
+        550,
+        207
+      ],
+      "hand": [
+        500,
+        230
+      ],
+      "back": [
+        576,
+        297
+      ],
+      "resolutionFactor": 0.4
+    },
+    {
+      "pixelScale": 0.43,
+      "anchor": [
+        993,
+        525
+      ],
+      "head": [
+        910,
+        68
+      ],
+      "eyes": [
+        905,
+        144
+      ],
+      "neck": [
+        909,
+        204
+      ],
+      "hand": [
+        1090,
+        196
+      ],
+      "back": [
+        959,
+        278
+      ],
+      "resolutionFactor": 0.4
+    },
+    {
+      "pixelScale": 0.43,
+      "anchor": [
+        1348,
+        513
+      ],
+      "head": [
+        1374,
+        70
+      ],
+      "eyes": [
+        1378,
+        133
+      ],
+      "neck": [
+        1382,
+        192
+      ],
+      "hand": [
+        1496,
+        94
+      ],
+      "back": [
+        1352,
+        291
+      ],
+      "resolutionFactor": 0.4
+    },
+    {
+      "pixelScale": 0.43,
+      "anchor": [
+        212,
+        1004
+      ],
+      "head": [
+        199,
+        559
+      ],
+      "eyes": [
+        194,
+        618
+      ],
+      "neck": [
+        209,
+        692
+      ],
+      "hand": [
+        281,
+        773
+      ],
+      "back": [
+        196,
+        794
+      ],
+      "resolutionFactor": 0.4
+    },
+    {
+      "pixelScale": 0.43,
+      "anchor": [
+        584,
+        789
+      ],
+      "head": [
+        606,
+        627
+      ],
+      "eyes": [
+        603,
+        695
+      ],
+      "neck": [
+        597,
+        749
+      ],
+      "hand": [
+        564,
+        797
+      ],
+      "back": [
+        506,
+        804
+      ],
+      "headAngle": 0,
+      "resolutionFactor": 0.4
+    },
+    {
+      "pixelScale": 0.43,
+      "anchor": [
+        978,
+        968
+      ],
+      "head": [
+        970,
+        584
+      ],
+      "eyes": [
+        975,
+        647
+      ],
+      "neck": [
+        980,
+        708
+      ],
+      "hand": [
+        1078,
+        763
+      ],
+      "back": [
+        947,
+        815
+      ],
+      "resolutionFactor": 0.4
+    },
+    {
+      "pixelScale": 0.43,
+      "anchor": [
+        1348,
+        1004
+      ],
+      "head": [
+        1361,
+        577
+      ],
+      "eyes": [
+        1357,
+        634
+      ],
+      "neck": [
+        1350,
+        705
+      ],
+      "hand": [
+        1311,
+        787
+      ],
+      "back": [
+        1344,
+        817
+      ],
+      "resolutionFactor": 0.4
+    }
+  ],
+  "crops": [
+    [
+      27,
+      10,
+      401,
+      531
+    ],
+    [
+      411,
+      11,
+      781,
+      494
+    ],
+    [
+      747,
+      10,
+      1190,
+      420
+    ],
+    [
+      1194,
+      13,
+      1523,
+      517
+    ],
+    [
+      24,
+      520,
+      395,
+      1009
+    ],
+    [
+      423,
+      563,
+      734,
+      940
+    ],
+    [
+      782,
+      519,
+      1193,
+      964
+    ],
+    [
+      1211,
+      520,
+      1530,
+      1010
+    ]
+  ],
+  "oldShippingPosesPreserved": 93,
+  "reviewContact": "/tmp/marina-sister-compensated.png"
+}

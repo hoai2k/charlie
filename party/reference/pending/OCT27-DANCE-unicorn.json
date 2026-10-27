@@ -1,0 +1,362 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Asset type: game sprite sheet on true transparent RGBA background. Reference image1 approved canonical; image2 exact shipping idle. Preserve EXACT identity, anatomy, proportions, colors, outfit, face details and dark outlines. Exactly NINE full-body figures in THREE columns by THREE rows, equal spacious cells, left-to-right top-to-bottom. Keep consistent HEAD/TORSO scale through every pose (never normalize total silhouette height), camera three-quarter toward screen-right. Big joyful extreme silhouettes child can recognize. Generous gutters all tails/hands/ears/feet inside own cell; no effects, motion lines, shadows, floor, props, text or labels. Poses in order: R1C1 DISCO one limb shoots up-left 45 degrees other on hip, cocked hips, huge grin; R1C2 airborne STARFISH wide X, all limbs as wide as possible, joyful open mouth, hair/ears/tail up; R1C3 HULA arms/front appendages together stretched to one side, hips opposite, bent support, happy closed eyes. R2C1 CARTWHEEL PREP side lunge arms/front limbs overhead, excited grin; R2C2 CARTWHEEL INVERTED fully upside down front limbs support on floor, rear limbs wide high V above head, happy upside-down face; R2C3 CAN-CAN rear leg kicks straight up PAST head, other supports, lean backward, hands on hips if no skirt, open HOO smile. R3C1 full flat SPLITS on floor, front/back legs straight along floor, upright torso, front limbs up big V, proud surprised happy face; R3C2 MOONWALK 1 facing right leaning backward front foot flat rear foot on toe, one hand to forehead like tipping INVISIBLE hat; R3C3 MOONWALK 2 same with feet swapped. No actual hat. Adapt to reference anatomy as described next: THE LAST UNICORN is exactly the elegant slender WHITE unicorn with long lavender-shaded flowing white mane and huge flowing white tail, purple-lined slender long horn, delicate hooves, gentle long narrow horse face and graceful proportions. NO crown, flowers, clothing or human hands. FOUR hooved legs only; rear elegantly upright to gesture with forehooves. Disco forehoof points high up-left, other bent hip; starfish airborne all FOUR legs spread wide; hula both forehooves to side with hips opposite; cartwheel prep side lunge forehooves overhead then completely upside down on FRONT HOOVES with hind legs wide high V and mane dangling, horn safe to side; can-can one FORELEG raised high past head, rear hooves support; splits forelegs forward hindlegs back flat along floor chin down; moonwalk elegant leaning-back glide alternating hind hoof toe support, forehoof at forehead. Huge delighted face or happy closed-eye smile each. Keep horse's long elegant legs and narrow head, do NOT round into chubby pony.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-7e92f2f6-3252-422f-8028-ff2bdf8ce9a0.png",
+  "source": "party/tools/sprites/sources/unicorn-dance-moves.webp",
+  "status": "runtime landmarks/head-scale reviewed; optimized; root game review pending",
+  "annotations": [
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        248,
+        452
+      ],
+      "head": [
+        271,
+        69
+      ],
+      "eyes": [
+        276,
+        100
+      ],
+      "neck": [
+        260,
+        183
+      ],
+      "hand": [
+        295,
+        115
+      ],
+      "back": [
+        240,
+        270
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        652,
+        532
+      ],
+      "head": [
+        684,
+        77
+      ],
+      "eyes": [
+        685,
+        114
+      ],
+      "neck": [
+        667,
+        199
+      ],
+      "hand": [
+        709,
+        134
+      ],
+      "back": [
+        652,
+        270
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        1093,
+        439
+      ],
+      "head": [
+        1055,
+        79
+      ],
+      "eyes": [
+        1058,
+        108
+      ],
+      "neck": [
+        1049,
+        186
+      ],
+      "hand": [
+        1074,
+        131
+      ],
+      "back": [
+        1054,
+        279
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        261,
+        852
+      ],
+      "head": [
+        302,
+        522
+      ],
+      "eyes": [
+        306,
+        574
+      ],
+      "neck": [
+        302,
+        638
+      ],
+      "hand": [
+        335,
+        606
+      ],
+      "back": [
+        278,
+        713
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        657,
+        853
+      ],
+      "head": [
+        656,
+        787
+      ],
+      "eyes": [
+        652,
+        752
+      ],
+      "neck": [
+        649,
+        691
+      ],
+      "hand": [
+        649,
+        718
+      ],
+      "back": [
+        641,
+        626
+      ],
+      "headAngle": 3.14159265,
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        1119,
+        853
+      ],
+      "head": [
+        1081,
+        511
+      ],
+      "eyes": [
+        1081,
+        554
+      ],
+      "neck": [
+        1081,
+        619
+      ],
+      "hand": [
+        1104,
+        580
+      ],
+      "back": [
+        1103,
+        702
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        267,
+        1234
+      ],
+      "head": [
+        271,
+        923
+      ],
+      "eyes": [
+        275,
+        974
+      ],
+      "neck": [
+        266,
+        1036
+      ],
+      "hand": [
+        302,
+        1003
+      ],
+      "back": [
+        272,
+        1137
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        741,
+        1253
+      ],
+      "head": [
+        703,
+        921
+      ],
+      "eyes": [
+        713,
+        965
+      ],
+      "neck": [
+        691,
+        1023
+      ],
+      "hand": [
+        740,
+        996
+      ],
+      "back": [
+        699,
+        1104
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "source": "../sources/unicorn-dance-moonwalk2.webp",
+      "rect": [
+        0,
+        0,
+        1222,
+        1287
+      ],
+      "pixelScale": 0.15,
+      "anchor": [
+        800,
+        1275
+      ],
+      "head": [
+        850,
+        190
+      ],
+      "eyes": [
+        875,
+        260
+      ],
+      "neck": [
+        840,
+        450
+      ],
+      "hand": [
+        1000,
+        340
+      ],
+      "back": [
+        800,
+        730
+      ],
+      "resolutionFactor": 0.65
+    }
+  ],
+  "crops": [
+    [
+      39,
+      15,
+      370,
+      454
+    ],
+    [
+      433,
+      15,
+      833,
+      401
+    ],
+    [
+      860,
+      20,
+      1194,
+      440
+    ],
+    [
+      22,
+      457,
+      424,
+      854
+    ],
+    [
+      454,
+      448,
+      815,
+      853
+    ],
+    [
+      845,
+      451,
+      1175,
+      856
+    ],
+    [
+      12,
+      876,
+      516,
+      1239
+    ],
+    [
+      520,
+      867,
+      845,
+      1252
+    ],
+    [
+      891,
+      863,
+      1215,
+      1252
+    ]
+  ],
+  "oldShippingPosesPreserved": 93,
+  "facingRepairPrompt": "Use case: precise-object-edit. Target supplied nine-pose white unicorn dance sheet. Keep the entire sheet exactly unchanged except bottom-right MOONWALK frame. That bottom-right unicorn currently faces screen-left; turn ONLY that figure to face screen-RIGHT, matching the adjacent bottom-middle frame. Keep bottom-right figure's swapped hoof stance distinct from bottom-middle: frontmost hind hoof toe up, rearmost hind hoof flat, leaning backward and forehoof at forehead tipping invisible hat. Preserve elegant white/lavender unicorn, exact head/torso size, pose, outlines, colors and transparency. No text, props or effects. Other eight figures unchanged.",
+  "preFacingNativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-7d93be88-f9b5-46a8-a817-8952e2cee075.png",
+  "moonwalk2Prompt": "Use case: stylized-concept. A SINGLE game sprite of the exact approved white elegant unicorn from references. Full body, three-quarter SIDE VIEW FACING SCREEN-RIGHT (nose points RIGHT, tail extends LEFT). Moonwalk dance pose: leaning backward toward LEFT while looking RIGHT, one forehoof touches forehead like tipping invisible hat, other forehoof on hip. Hind feet swapped stance: the foot nearer RIGHT is raised onto its toe, the other hind foot at LEFT is FLAT on floor. Huge happy closed-eye smile. Preserve slim long legs, narrow elegant face, long horn pointing right/up, white flowing mane/tail lavender shading, dark purple outlines. No hat or props, no ground/shadow/effects/text. True transparent RGBA.",
+  "moonwalk2NativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-3ab7463f-151e-4f5d-86e4-0f2986fb9556.png",
+  "moonwalk2Source": "party/tools/sprites/sources/unicorn-dance-moonwalk2.webp",
+  "portraitBudget": {
+    "resolution": 288,
+    "nativeArchives": [
+      {
+        "file": "party/tools/sprites/sources/unicorn-portraits-native-oct27/portrait-neutral.webp",
+        "sha256": "1ba96a27a35a5da86df99883cf5d3f720f8a6c3eea25ebc7741dab434cbe44bc"
+      },
+      {
+        "file": "party/tools/sprites/sources/unicorn-portraits-native-oct27/portrait-happy.webp",
+        "sha256": "4772b07231cd821843b221d78b5a052f0ee28bcc85f8f8e02050f7ed8cc934a3"
+      },
+      {
+        "file": "party/tools/sprites/sources/unicorn-portraits-native-oct27/portrait-sad.webp",
+        "sha256": "dbca71da3299ed1eadcbfb25f492f85004fd0d56f86401e196a7839535402979"
+      },
+      {
+        "file": "party/tools/sprites/sources/unicorn-portraits-native-oct27/portrait-surprised.webp",
+        "sha256": "316c42995397e25373215a2a56c545affb6d1b8be76d8257c4b090be96447714"
+      },
+      {
+        "file": "party/tools/sprites/sources/unicorn-portraits-native-oct27/portrait-determined.webp",
+        "sha256": "2c9ecde9e8a0f0e498cdd802687ef31912424f11c0556204311ad6bc5c42dee3"
+      },
+      {
+        "file": "party/tools/sprites/sources/unicorn-portraits-native-oct27/portrait-thinking.webp",
+        "sha256": "0586ad7040dc21d6b78cc2e957a87a8752f7ac44bded89dd5209922255dbf567"
+      }
+    ],
+    "reason": "Preserve old bodyframes while fitting new dance and Sister poses below25MiB decoded."
+  },
+  "reviewContact": "/tmp/unicorn-dance-review.png"
+}

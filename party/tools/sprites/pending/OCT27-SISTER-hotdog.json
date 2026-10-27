@@ -1,0 +1,516 @@
+{
+  "asset": "hotdog",
+  "prompt": "Use case: illustration-story. Asset: transparent game sprite sheet. Image1 approved canonical IDENTITY reference, Image2 actual shipping IDLE proportions/outline reference. Preserve exactly this character anatomy, palette, markings, face, proportions, outline weight. Three-quarter view facing screen-right. Full body every figure with generous clear gutters, no overlap, all ears/mane/tail/crown/hooves insidecell. No text, props, effects, motion lines, scenery or shadows. Expressive happy cheeky faces, distinct extreme poses readable small. SAME Hotdog tiny round fantasy creature (NOT canine/not actualhotdog): rainbow striped yellow-orange-pink-green-blue fluffy body/tail, navy facepatch/paws/earrims, giant upright ovalears grayinsides, orange-red-yellow flame mohawk, pink foreheadheart, huge goldeneyes, white muzzle/chest. Preserve all rainbow colors and fourpaws, adapt poses to stubbybody with ears expressive. EXACTLY EIGHT fullbody figures on4columns x2rows ordered left-right top-bottom: 1 BOOP one paw/finger poking forward cheekygrin; 2 CUDDLE bothforearms/paws round EMPTY space atchest eyesclosedbigsmile, no object; 3 SILLY POSE oneleg kicked behind arms/paws flungwide tongueout; 4 TIPTOE hunched sneaking on toes hands/paws raised overhead gripping EMPTY space, no cushion; 5 TONGUE OUT headback lookingUP tongueextended tocatchsnowflake(none drawn); 6 TUCK tightball kneeslegs huggedtochest side-on eyeshappyclosed gamewillspin; 7 RIDE SIT seated astride legs oneeachside frontpaws/hands reachingforward grippingemptyspace happy, no mount; 8 LAUGH headback eyesclosed bigbellylaugh hands/paws ontummy.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17ae0-0747-7731-bf9f-8bd792b434b5/exec-42a16d18-1a48-4dfb-8436-144dcf9dd493.png",
+  "source": "party/tools/sprites/sources/hotdog-sister-poses-oct27.webp",
+  "status": "merged new poses only; old manifest fields/spec fields/raster files SHA256 unchanged; root runtime QA pending",
+  "poses": {
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-sister-poses-oct27.webp",
+          "rect": [
+            26,
+            18,
+            378,
+            476
+          ],
+          "isolate": true,
+          "scale": 0.7093601949708453,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            153,
+            451
+          ],
+          "head": [
+            202,
+            12
+          ],
+          "eyes": [
+            169,
+            253
+          ],
+          "neck": [
+            169,
+            317
+          ],
+          "back": [
+            141,
+            352
+          ],
+          "hand": [
+            67,
+            282
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-sister-poses-oct27.webp",
+          "rect": [
+            407,
+            41,
+            336,
+            444
+          ],
+          "isolate": true,
+          "scale": 0.7093601949708453,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            184,
+            427
+          ],
+          "head": [
+            148,
+            10
+          ],
+          "eyes": [
+            204,
+            238
+          ],
+          "neck": [
+            212,
+            294
+          ],
+          "back": [
+            182,
+            329
+          ],
+          "hand": [
+            213,
+            317
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-sister-poses-oct27.webp",
+          "rect": [
+            754,
+            10,
+            414,
+            484
+          ],
+          "isolate": true,
+          "scale": 0.6771165497448979,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            237,
+            461
+          ],
+          "head": [
+            269,
+            13
+          ],
+          "eyes": [
+            272,
+            238
+          ],
+          "neck": [
+            270,
+            306
+          ],
+          "back": [
+            230,
+            342
+          ],
+          "hand": [
+            160,
+            260
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-sister-poses-oct27.webp",
+          "rect": [
+            1180,
+            29,
+            348,
+            468
+          ],
+          "isolate": true,
+          "scale": 0.7448282047193878,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            209,
+            451
+          ],
+          "head": [
+            174,
+            7
+          ],
+          "eyes": [
+            237,
+            219
+          ],
+          "neck": [
+            257,
+            290
+          ],
+          "back": [
+            240,
+            329
+          ],
+          "hand": [
+            310,
+            148
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-sister-poses-oct27.webp",
+          "rect": [
+            15,
+            528,
+            386,
+            430
+          ],
+          "isolate": true,
+          "scale": 0.6771165497448979,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            238,
+            411
+          ],
+          "head": [
+            205,
+            16
+          ],
+          "eyes": [
+            258,
+            157
+          ],
+          "neck": [
+            273,
+            229
+          ],
+          "back": [
+            234,
+            288
+          ],
+          "hand": [
+            304,
+            201
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-sister-poses-oct27.webp",
+          "rect": [
+            413,
+            544,
+            361,
+            420
+          ],
+          "isolate": true,
+          "scale": 0.726661663140866,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            174,
+            240
+          ],
+          "head": [
+            228,
+            20
+          ],
+          "eyes": [
+            209,
+            213
+          ],
+          "neck": [
+            217,
+            259
+          ],
+          "back": [
+            179,
+            301
+          ],
+          "hand": [
+            198,
+            277
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-sister-poses-oct27.webp",
+          "rect": [
+            761,
+            510,
+            387,
+            454
+          ],
+          "isolate": true,
+          "scale": 0.726661663140866,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            213,
+            432
+          ],
+          "head": [
+            210,
+            12
+          ],
+          "eyes": [
+            240,
+            212
+          ],
+          "neck": [
+            250,
+            281
+          ],
+          "back": [
+            212,
+            321
+          ],
+          "hand": [
+            346,
+            284
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-sister-poses-oct27.webp",
+          "rect": [
+            1154,
+            528,
+            375,
+            430
+          ],
+          "isolate": true,
+          "scale": 0.7093601949708453,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            241,
+            417
+          ],
+          "head": [
+            215,
+            17
+          ],
+          "eyes": [
+            233,
+            190
+          ],
+          "neck": [
+            236,
+            260
+          ],
+          "back": [
+            212,
+            308
+          ],
+          "hand": [
+            281,
+            292
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    }
+  },
+  "sourcePixelExact": true,
+  "qaContact": "/private/tmp/hotdog-sister-build/qa-contact-sheet.jpg",
+  "scratchPath": "/private/tmp/hotdog-sister-build",
+  "newPoseNames": [
+    "boop",
+    "cuddle",
+    "silly-pose",
+    "tiptoe",
+    "tongue-out",
+    "tuck",
+    "ride-sit",
+    "laugh"
+  ],
+  "originalFilesPreserved": {
+    "idle-00.webp": "2041884fbbe6224566c0a6a86d2698b112d15dd0cfbce641d7d27ff3ed5335e2",
+    "idle-01.webp": "ba6d2807d489de43e03efcdd1ac7167f33537eb865a64409d401640f56ca1e34",
+    "walk-00.webp": "a702e2d8cad6190dd2fffccad93c54030e87083182ce81d5538706cd15bb9b81",
+    "walk-01.webp": "7a76c37d167fef1cac9f309a954be3bb24f391c30623f592db6cb696d3b9fb5f",
+    "walk-02.webp": "0406934f218db076035dec5f5a8b57a6840674c130502fbec672b53cc2d33883",
+    "walk-03.webp": "5964147353de4b126244c3f6f27b92b16e83194499e150341ec1d7e20d2df65d",
+    "run-00.webp": "c03e612c55168dad463d2efac0d365fc97a1c6a39624a7592f4d56ae252e52de",
+    "run-01.webp": "51f05cfcd954117c56dae6831acdff1fe0a25f62451d671298e4ca076cdfa3db",
+    "run-02.webp": "f5927982709991516253653f3f3deafbf8a103374cca5876a6914f20c9bb5041",
+    "run-03.webp": "d583da75d6714b7e315f4fd06009cc2715f867c6b1164856bf0c68ec7507b9b3",
+    "dance-00.webp": "864769392332d06b88c529c832017bae8539781e5c7db621955f923af18ef03c",
+    "dance-01.webp": "0b60d76c0400a808bee9d06651bcb0b27a1cecc85cd5f57cbb1220e0ed14efd4",
+    "dance-02.webp": "3429d4b375168ddfe8e5a4bca8dbd2b2e21b4ec4e23727a37dbf2b04989006aa",
+    "dance-03.webp": "d26687a0313a5f343f11ffd50d049b4350fac98d604b518e4594f016c99de8da",
+    "celebrate-00.webp": "c6c89fd55c9c16f97e3c39002adbc2bb5af7705751cb2325ca23275c2bf1b7b6",
+    "celebrate-01.webp": "c160392a8525959508a10c4c273dd00c62f2ae3f67bf487cb128804d4d32fd6f",
+    "celebrate-02.webp": "79042d392ea8da22bf45bfdf42cc5a53dd8ca1274d609f0122eaa70291884c09",
+    "celebrate-03.webp": "106a84f0369fa511da91afe2765cb400db6de53dbca952bbb562cdeda34dfbb2",
+    "pout-00.webp": "59eb9f4a9e502de2ed73ad0f2a56d0d5e8e28e4c63bac8dffe7ae938264544f2",
+    "pout-01.webp": "ee4174b5ee1392ee20ada9d2b5360c3fbbe2d844f81d32c5d5c2cd3e50bd1f9a",
+    "ride-00.webp": "ac50e7866edcfff0a78f7f0c0298462a54fa83304a4bc4743d1c5956f855ad52",
+    "ride-01.webp": "f9069f3bfb7a6655ed4cb5aa40ba7df25e6a569b2d4954f175cd1f61286e8df0",
+    "cheer-00.webp": "b60362c4fe501d8762ece337ff0eaa02d872c9b11a52b2e7a2ade15dfa071c0c",
+    "sad-00.webp": "cf650047dbe31938b00da9ca9881f335d0dfbcf2e4e4fa753633ad809fa07580",
+    "wave-00.webp": "2b8c921060533a1d8b378c8cb1c7ea593a5a438ba36ea92e04cc2adb355e1598",
+    "hurt-00.webp": "2d74c70e3c6d203ae7af710c81f1601bc6d592aa1927668317ded4a0ec48cb69",
+    "dizzy-00.webp": "425afa34dd5fc71bfd222f090737bd95168cf7600ab814697c8aabca35e6f31a",
+    "surprised-00.webp": "85870e482923d69edfbeaeee04e24af6697da1b4186a818580fad69d74152600",
+    "ready-00.webp": "45447d330bb82044d6cab1270a53d44fc6759ad83e9088a3fe1a43f6a21119ab",
+    "jump-00.webp": "ef80ce059494407bcc55298711fdc7ca211fe716a5f8e67a644fd83da963db74",
+    "fall-00.webp": "2a81eecbf72175a9abe37ac67d3f5e72f892d2c974a5d1e6143f8aeb76695ff7",
+    "land-00.webp": "537f45f51983bdb9653d63a2ee296e5df520ca7e2addf34f283f5ff13cbc91f3",
+    "action-00.webp": "70268f4dc8094100873bd7a32c9afd744120bfd3b37beb105ba828e672df5a9a",
+    "throw-00.webp": "9c803751822e515ff418bc4921097d3fe4b2fdc947ce3e644f0dcee6e7ed78ac",
+    "push-00.webp": "1f3b480e61c5f851366320c3b52723293584e9521fbb9a6ab7e695bfc557e051",
+    "carry-00.webp": "e88233da71d710afb783b1844a49b78c25b5577588d0263ab0120f213d2fcef6",
+    "paint-00.webp": "d1326dcd17e8ad072f158da45450147a37eb4fea4032f4d36f9b217074768748",
+    "sleep-00.webp": "7cc71a6d04d65b48ff63a86c409c845b24256a9c3f3f048c6af30aa5072aaca1",
+    "cast-00.webp": "b1f3c5fc89cd22a83b2c031f0a34ab01b39ad628a8285bd06c606fa3a2c51bb4",
+    "clap-00.webp": "bcacd6bcac228e82ff64fb66bb13d3c71149510509b0db0455255545060bc5ea",
+    "eat-00.webp": "78a0870381cc185e3513b90882d9df85820dc5f39e46ac487f6daa10df65b2df",
+    "bow-00.webp": "ea87f042847e9012e769f91dc5230507cdab3919f5d76b12f5c75ff4e2141f2c",
+    "strike1-00.webp": "27d0faf90659febed240dce5da34633f8b89a4f1230e1c07013d40b4af783533",
+    "strike2-00.webp": "33760d4f8b3a63a6ed7e41c9c0225b3dbe243058d2c67d6c125cee505c92b577",
+    "strike3-00.webp": "2b1d710096c2403ac709f6adf2725541c51afca2084b0ce1f04e2effcc4761b8",
+    "shake-00.webp": "20f3aec196a88c3a81cc8144258f1d518e5e4ea049d23b3e108d94d9dd2f61d7",
+    "stir-00.webp": "d5b31b3718e4280a59d15581f0cb6d8f1b06a2cd8382eec39eb46c84aedc8698",
+    "dance-up-00.webp": "08f29bfe23a92ff7daad445780d4df7e593857555b07e39ea1b08df6a640fc30",
+    "dance-down-00.webp": "7335613e2ce9606890840b18ed7c13c11c39454e2f475195826b35bc4aaac813",
+    "dance-side-00.webp": "9e4f984a9245b9774044ea6c0ce31f62cc24af221e6a956c31c0bcad971e7bfc",
+    "look-around-00.webp": "344f1bda4f07f13c71f8be55f40f44fa6d0277c862c88542db3807b2ed7cf49f",
+    "high-five-00.webp": "84904937ff91355bdf54b869fdefb046fe6aa324279a0198035c8db50aa11788",
+    "crouch-00.webp": "33104306783fd9c97a56d33d5e2f3a3176998348c7a0773b11c52ff09ad65448",
+    "dash-00.webp": "d72d1935ec98d63bcd16195d770a62918b0fb05dbbd2f212f3a1a64c07eccf1e",
+    "catch-00.webp": "abe1017560a710dc124fde832948b8af194457dee0981c2f91946e9ceb595ef0",
+    "dash-01.webp": "742e7c56a8a6c1f48236d54c1a9821073b05230715963565a6e6bba2202adadd",
+    "wave-goodbye-00.webp": "76d4ed032c4e064507154d73d51f5a8d12348bad672872bab5c55a0fdfd57840",
+    "think-00.webp": "6200a6e62da5244426cffb1edf96cd236e844b0f968e3abc54c57e457736af8f",
+    "dance-star-00.webp": "805d71218376e61dd2ee1c9bb173d17bc7857288b3a3f23fbf5474f64ca3075c",
+    "giggle-00.webp": "dd712093b997cece215f49fbc7e5e480cb90aabf1375aa98c04193cdf762e2f0",
+    "catch-toy-00.webp": "682c856cb8046a32839b63cc20340e4af450dfd689e9a31ea6356dbb6447c7e1",
+    "portrait-neutral.webp": "9b5feeefa18ba4564501dbcc51ff83f275a7adfbb47cd9f5e049b82b26dbc196",
+    "portrait-happy.webp": "73dffa65f3e45c01e53ffbf6c5549dbb5d14ab9aa2fa16ad800650674a28c33d",
+    "portrait-sad.webp": "f458b2e40d2617cad92b2ce6cfcbbc06d5bbdaff982cce6c3714c15656c60b56",
+    "swim-00.webp": "c975e16f42728b95137f12c78da1c6363221738994b90a4ab24b57211c2107db",
+    "portrait-surprised.webp": "18f35c2a09adf805fa0df19e3182c1e93167066da656d700b22eb828c20d6f6f",
+    "portrait-determined.webp": "7c2d02a50d0362cc5efb01cc3c1ed2040dd803a4c869fa624da4839e0e179fb2",
+    "balance-00.webp": "bd363904b9ac05facd055791e2b470089ea30c35056c6ad5182305fd3f22bcdf",
+    "splat-throw-00.webp": "ec4dd903feff34656be650e15ccf0a9433bd1bc02da334083a61294fbfc95823",
+    "wand-up-00.webp": "105905c6b24e2f50abdbee85134bf3bff1cd28b8cac350d18869243d6e4847a4",
+    "broom-rise-00.webp": "bda0afc0315aab068346c4027ccf7b2c082080aa98282d596c253f90931684c9",
+    "broom-glide-00.webp": "5375fceb3da2daf9b67b15e74ed7558bed657c0073db011ca28ef0751eca943c",
+    "broom-zapped-00.webp": "094f918eebe9fdb1e120d38e3de3ff09cdedf90fb032d17eb180350fd58e7e81",
+    "count-00.webp": "a79477f444b6024071b0b27134dbb082f968ac6a7ce150cff6ff17d6aff081d1",
+    "look-up-00.webp": "5dd75dfd1bdc9b780de525b6c9fe3f6ffa9e1e109f6245c18e3874dd927bfa9e",
+    "crowned-00.webp": "d6bc35da33c98e75518eaf52ee98a110b51f54d95bf84e72925c061c743dc11c",
+    "sit-00.webp": "be10230d4e4b20aff7c7bb210286a786b31d26c135c1840e4dff61c06cb0d83e",
+    "tumble-00.webp": "47bc73551844f1efdcaa8d2e0475b41250a94564601f98432a8fcbf497d47b0c",
+    "hold-present-00.webp": "29e869aa75958b15cf86f79b238185f419d4807ef60eeb6622f01dd693874010",
+    "toss-00.webp": "4da4e0b4e284d2d2b7464eb5477ed03a45dda5f00ab56a97cd7c786641ce9170",
+    "catch-present-00.webp": "90d9fa97529cc6940369999dc46e758c88fe23328c047ebcf34c1d20b9ebef51",
+    "sooty-00.webp": "89a8599a12b9f716e00f317cfb413b861b5606a61ab772f2e84c585c816c75ce",
+    "drink-00.webp": "694ed19d4e12d6a9708ce9ce758789fd83179263debb1555382c7d3f31f192bd",
+    "float-00.webp": "ddf03af9947c91049e788978b3df7e42dc4b44a2bc60dcb80802a3470f73be66",
+    "hiccup-00.webp": "42569f68832101c685c3b1a865a381baf820a09545e317772867ea722b1ec80f",
+    "stomp-giant-00.webp": "ee149fd1d12c798a90dcf1a59d6bfb8c5dd2ffced4c80269c3dab0a0ad853f99",
+    "squeak-tiny-00.webp": "68f07315d229b08a30c4b38d555e61533af3de8f95dafaf64eea761dd2aa2389",
+    "flip-00.webp": "1f465228aa946dc11c2fb5f1f60212fb87091e818d9af2f5f2b4ab85a86b82e4",
+    "blow-00.webp": "eda95f97474248b45322c676a92372599160d785696f64a80046f956f88bb597",
+    "shake-sprinkles-00.webp": "6439fed6cb6aac5e0e08781105b823bdeec4127a13062394c93adc647cb72c88",
+    "sing-00.webp": "90b0bf24df3c59d455acc84cd336615e953d54fa8dd9b8bc24410b2eb2182ee6",
+    "water-00.webp": "3bd9c1553dcd93219d4c09fcbbe8c0a4b55221f461a6b5a58da035ecbd8d764e",
+    "photo-00.webp": "f51ce8d3170ae8cbac1c75cbea20ecdce2679a109ee44232d8b97cb5a9414b8f",
+    "hip-bump-00.webp": "ee3fc697c26e26c346c748fc661c9ab1cc71512e2783160673f40c5d9efabe64",
+    "hip-bump-01.webp": "47a90fe955b608aafc0f6acb2b109d240738b1c5a64dce35d1edd046a7d2ff81",
+    "knockback-00.webp": "417b8d64103cdba60dae442bc3a2cd9a70092003191e6d2da9b9651248d2b8e3",
+    "knockback-01.webp": "21f978a3424e48796e7e2e7f38512eab12a7ac11b57cf9b564ea108fa4764a1c",
+    "pose-twirl-00.webp": "aff2d8c99b315358ccf819d75ff595555f78f3cdd4399bfefb6734b77efd248f",
+    "pose-twirl-01.webp": "bd6e676189353af640de37d46f6c1daeaab1a9ab68801a64353ff07289eb192a",
+    "pose-twirl-02.webp": "ae151ed3db220a9c14c984f77c84f6cf2bf633333ad078b91dd0a9238fa5a11e",
+    "pose-twirl-03.webp": "4de9386e87e9c2f1ff15fd18ca38658d93df6b822ff3e790e58642c4b630efc1",
+    "pump-00.webp": "04452edd3cdb1ed23892fd283d71f2b4c81e01b2eb0782b5f0919d2155df092b",
+    "pump-01.webp": "f4471f8e34b69acc9e5d7e6dc1ded9dee86c42cab37e9c469b8487704ed6d253",
+    "pull-00.webp": "e1aed2e85a8aa95d54fbd1799f248486a734dc3abd24a0d0b7e6956fabd7ced4",
+    "pull-01.webp": "72a33b578bc57ea5b1bbc1247ddb7fa0b590c7e7ca24bf8a5114744f0f82d53e",
+    "reel-00.webp": "514d83bc36318e13eb64a525104ce734a4f3906f289da4169cae274430d38689",
+    "reel-01.webp": "a06b8bfd9347ca573a9beb9a991e3b34960eb0ccec604f09c735a5dc9c7e4a38",
+    "swing-00.webp": "74a641f9d5e55653002ca7ba62c7507c4e9d0f6d5acf0cf668e051966e9fd65d",
+    "swing-01.webp": "9b521d12c6537891d87d9768abaca2ba7df6172a57fa1ef3c60b92912b62bb22",
+    "putt-00.webp": "21b2a935a88f4953c8b6f2655bdf8b9a61e11d16c0fd549fd634394d1277e361",
+    "putt-swing-00.webp": "f0cab75cc4fb03046f3b358d59061dc815c2d04e849cf4ba6292a041609c660c",
+    "spring-jump-00.webp": "5bcbd737376cbb3e7a1e68262055b84362b1701842beb12ef1420731d48098ee",
+    "snow-scoop-00.webp": "5105d95bafa665d8b8f05a75e2cbdaae346f727fb73d0b19d61bd765250b22c7",
+    "dig-00.webp": "7fe88b0343a777d29ca95b3a8006ef90c701ce1d1321ecfcbfe154f1e058c509",
+    "roll-push-00.webp": "99a63882daa494f23c6bfdfe1311faed5d7c30acb87adb48940e6c83af3b043c",
+    "skip-hop-00.webp": "b7781768e1d840dd2bba162c7fe5a2a5fdea354fb267f7879ab7cd1d521d4ff9",
+    "roll-push-01.webp": "6bb1c7fbb00380f1559f1e9b153949b795c6d1b1c4021450c4761c2fe5f899b1",
+    "dance-moonwalk-00.webp": "5ea55f8460767c2ce95d60cb8286de99f4bf2796d8d4732a2e4c9f23b753bf36",
+    "dance-moonwalk-01.webp": "8571322c8b0c971188e56986d03cefb5203744c3a19022de7e5dfcf396cfafb0",
+    "dance-cancan-00.webp": "b12c7fb187ee43bab3785d8e52f55bb4606bcf396c50c9b499d84849e6c90d4a",
+    "dance-splits-00.webp": "12ab0da176f43da146cfd41910eca2daad4f33d4285b899728a66e494f7de327",
+    "dance-disco-00.webp": "775288df63733e8777720528187001e4c0db41e8ef1ffe4afc8f70fbc782e4ac",
+    "dance-cartwheel-00.webp": "b6610bc6df412fe20fb47c612130d726e049454b730b430292ffa0ab65614c6d",
+    "dance-cartwheel-01.webp": "6df5ea4c73fe3d652e4907c66c405d978a1b0c81d33152d5b33fff0123ba1f02",
+    "dance-hula-00.webp": "fdded0a305cfc1548019530ef6b7ac8eaf4b70bcc57dac33ae4a9e71523a003a",
+    "dance-starfish-00.webp": "30b620a81e2e541904bbd967329594e0a6a902b191dc99d77e46560f8d6daaed"
+  },
+  "scaleReproducibility": {
+    "scratchCommonScale": 0.5102040816326531,
+    "shippingSpecCommonScale": 0.3973509933774834,
+    "newFrameScaleConversion": 1.284013605442177,
+    "verified": "shippingSpecCommonScale*frame.scale equals scratchCommonScale*scratchFrame.scale, within1e-12; runtime raster unchanged"
+  }
+}

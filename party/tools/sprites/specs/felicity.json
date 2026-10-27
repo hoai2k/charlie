@@ -4763,7 +4763,8 @@
           "hand": [
             280,
             392
-          ]
+          ],
+          "headAngle": 3.141592653589793
         }
       ],
       "fps": 4,
@@ -4813,6 +4814,359 @@
       "fps": 4,
       "loop": false,
       "motion": 0.8,
+      "facing": 1
+    },
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/felicity-sister-poses-oct27.webp",
+          "rect": [
+            15,
+            4,
+            397,
+            502
+          ],
+          "isolate": true,
+          "scale": 0.8765432098765432,
+          "bodyHeight": 151.875,
+          "anchor": [
+            222,
+            498
+          ],
+          "head": [
+            228,
+            72
+          ],
+          "eyes": [
+            236,
+            152
+          ],
+          "neck": [
+            231,
+            227
+          ],
+          "back": [
+            215,
+            282
+          ],
+          "hand": [
+            179,
+            226
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/felicity-sister-poses-oct27.webp",
+          "rect": [
+            397,
+            4,
+            383,
+            507
+          ],
+          "isolate": true,
+          "scale": 0.8765432098765432,
+          "bodyHeight": 151.875,
+          "anchor": [
+            198,
+            501
+          ],
+          "head": [
+            209,
+            84
+          ],
+          "eyes": [
+            201,
+            161
+          ],
+          "neck": [
+            208,
+            226
+          ],
+          "back": [
+            208,
+            284
+          ],
+          "hand": [
+            266,
+            247
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/felicity-sister-poses-oct27.webp",
+          "rect": [
+            771,
+            0,
+            402,
+            506
+          ],
+          "isolate": true,
+          "scale": 0.8765432098765432,
+          "bodyHeight": 151.875,
+          "anchor": [
+            222,
+            502
+          ],
+          "head": [
+            234,
+            83
+          ],
+          "eyes": [
+            233,
+            160
+          ],
+          "neck": [
+            239,
+            233
+          ],
+          "back": [
+            238,
+            286
+          ],
+          "hand": [
+            335,
+            180
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/felicity-sister-poses-oct27.webp",
+          "rect": [
+            1177,
+            19,
+            359,
+            480
+          ],
+          "isolate": true,
+          "scale": 0.8765432098765432,
+          "bodyHeight": 151.875,
+          "anchor": [
+            228,
+            483
+          ],
+          "head": [
+            226,
+            67
+          ],
+          "eyes": [
+            246,
+            153
+          ],
+          "neck": [
+            223,
+            229
+          ],
+          "back": [
+            218,
+            279
+          ],
+          "hand": [
+            326,
+            132
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/felicity-sister-poses-oct27.webp",
+          "rect": [
+            10,
+            514,
+            394,
+            504
+          ],
+          "isolate": true,
+          "scale": 0.8765432098765432,
+          "bodyHeight": 151.875,
+          "anchor": [
+            244,
+            495
+          ],
+          "head": [
+            228,
+            75
+          ],
+          "eyes": [
+            231,
+            135
+          ],
+          "neck": [
+            246,
+            211
+          ],
+          "back": [
+            243,
+            283
+          ],
+          "hand": [
+            324,
+            289
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/felicity-sister-poses-oct27.webp",
+          "rect": [
+            417,
+            558,
+            354,
+            372
+          ],
+          "isolate": true,
+          "scale": 0.8765432098765432,
+          "bodyHeight": 151.875,
+          "anchor": [
+            178,
+            227
+          ],
+          "head": [
+            194,
+            99
+          ],
+          "eyes": [
+            193,
+            153
+          ],
+          "neck": [
+            193,
+            196
+          ],
+          "back": [
+            151,
+            236
+          ],
+          "hand": [
+            248,
+            241
+          ],
+          "headAngle": 0.25
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/felicity-sister-poses-oct27.webp",
+          "rect": [
+            769,
+            516,
+            417,
+            481
+          ],
+          "isolate": true,
+          "scale": 0.8765432098765432,
+          "bodyHeight": 151.875,
+          "anchor": [
+            246,
+            469
+          ],
+          "head": [
+            249,
+            80
+          ],
+          "eyes": [
+            258,
+            171
+          ],
+          "neck": [
+            250,
+            226
+          ],
+          "back": [
+            250,
+            304
+          ],
+          "hand": [
+            320,
+            301
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/felicity-sister-poses-oct27.webp",
+          "rect": [
+            1192,
+            511,
+            343,
+            508
+          ],
+          "isolate": true,
+          "scale": 0.8765432098765432,
+          "bodyHeight": 151.875,
+          "anchor": [
+            213,
+            503
+          ],
+          "head": [
+            207,
+            71
+          ],
+          "eyes": [
+            210,
+            123
+          ],
+          "neck": [
+            219,
+            197
+          ],
+          "back": [
+            219,
+            275
+          ],
+          "hand": [
+            248,
+            265
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
       "facing": 1
     }
   },

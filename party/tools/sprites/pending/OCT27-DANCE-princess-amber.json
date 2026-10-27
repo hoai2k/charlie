@@ -1,0 +1,403 @@
+{
+  "asset": "princess-amber",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-bb55-7c21-80cd-5af33e6d6c6a/exec-a33587d5-ab18-41ac-9856-8a0e437d482b.png",
+  "source": "party/tools/sprites/sources/princess-amber-dance-moves-oct27.webp",
+  "status": "intaken; pending runtime visual QA",
+  "losslessRGBA": true,
+  "exact": true,
+  "prompt": "Use case: identity-preserve. Create a transparent game sprite sheet of Princess Amber matching two reference images: long auburn hair,brown eyes,fair skin,gold flower tiara,orange princess gown with black sleeves and white flowers outlined black,orange shoes,navy outlines. Adapt full gown folds for dance. Covered modest costume throughout; if raised skirt reveals legs use opaque orange leggings matching outfit. Same head/torso proportions, same outfit, joyful extreme expressive poses. Exactly nine full-body figures arranged 3 columns by 3 rows, generous transparent gutters, no text, background, floor, shadows, effects, props or extra characters. Ordered left-to-right then top-to-bottom: 1 disco: right arm points up-left at45degrees,index up,left hand hip,hips right,bent knee,cocky grin; 2 airborne star jump: arms legs huge X,hair flying,open WHEE smile,feet elevated; 3 hula: both arms stretched to right at shoulder height,soft wrists,hips far left,knees bent,eyes closed smile; 4 cartwheel preparation: side-on lunge,arms overhead,excited grin; 5 cartwheel fully upside-down: both palms on floor,straight arms,legs wide V above body,hair hanging down,upside-down happy face; 6 cancan: one straight leg kicks up past head,other straight supporting leg,hands hold skirt hem apart,lean back,open smile; 7 floor splits: legs stretched straight in opposite directions flat on floor,torso upright,arms big V,surprised proud happy face; 8 moonwalk facing screen-right: front foot flat,back heel raised knee bent,lean back,one hand forehead tipping imaginary hat,no hat; 9 moonwalk same with feet swapped. Keep all nine heads and torsos the SAME scale; wide/inverted poses naturally lower or wider, never shrink them to fit. Full figure and every shoe,hand,hair strand,crown inside its cell.",
+  "poses": {
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            695,
+            50,
+            329,
+            480
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            177,
+            463
+          ],
+          "head": [
+            169,
+            69
+          ],
+          "eyes": [
+            168,
+            117
+          ],
+          "neck": [
+            169,
+            169
+          ],
+          "back": [
+            161,
+            229
+          ],
+          "hand": [
+            282,
+            187
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            5,
+            40,
+            320,
+            480
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            159,
+            462
+          ],
+          "head": [
+            216,
+            73
+          ],
+          "eyes": [
+            209,
+            118
+          ],
+          "neck": [
+            197,
+            170
+          ],
+          "back": [
+            181,
+            229
+          ],
+          "hand": [
+            194,
+            249
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            5,
+            1140,
+            480,
+            310
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            246,
+            287
+          ],
+          "head": [
+            231,
+            88
+          ],
+          "eyes": [
+            235,
+            112
+          ],
+          "neck": [
+            234,
+            159
+          ],
+          "back": [
+            234,
+            220
+          ],
+          "hand": [
+            365,
+            66
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            450,
+            1045,
+            275,
+            420
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            175,
+            397
+          ],
+          "head": [
+            121,
+            73
+          ],
+          "eyes": [
+            121,
+            106
+          ],
+          "neck": [
+            120,
+            146
+          ],
+          "back": [
+            127,
+            195
+          ],
+          "hand": [
+            187,
+            81
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            730,
+            1045,
+            294,
+            420
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            167,
+            398
+          ],
+          "head": [
+            151,
+            68
+          ],
+          "eyes": [
+            153,
+            105
+          ],
+          "neck": [
+            161,
+            145
+          ],
+          "back": [
+            151,
+            196
+          ],
+          "hand": [
+            225,
+            81
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            305,
+            45,
+            410,
+            415
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            205,
+            491
+          ],
+          "head": [
+            210,
+            69
+          ],
+          "eyes": [
+            209,
+            110
+          ],
+          "neck": [
+            208,
+            166
+          ],
+          "back": [
+            207,
+            221
+          ],
+          "hand": [
+            366,
+            108
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            685,
+            540,
+            339,
+            490
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            191,
+            478
+          ],
+          "head": [
+            157,
+            96
+          ],
+          "eyes": [
+            154,
+            131
+          ],
+          "neck": [
+            163,
+            170
+          ],
+          "back": [
+            171,
+            252
+          ],
+          "hand": [
+            64,
+            209
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            0,
+            545,
+            370,
+            480
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            194,
+            466
+          ],
+          "head": [
+            231,
+            129
+          ],
+          "eyes": [
+            237,
+            165
+          ],
+          "neck": [
+            228,
+            213
+          ],
+          "back": [
+            220,
+            275
+          ],
+          "hand": [
+            287,
+            69
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            325,
+            535,
+            400,
+            490
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            200,
+            471
+          ],
+          "head": [
+            200,
+            354
+          ],
+          "eyes": [
+            198,
+            343
+          ],
+          "neck": [
+            197,
+            283
+          ],
+          "back": [
+            197,
+            238
+          ],
+          "hand": [
+            277,
+            462
+          ],
+          "headAngle": 3.141592653589793
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    }
+  },
+  "reviewContact": "/tmp/amber-dance-review.png",
+  "postBuildPortraitResolution": {
+    "size": [
+      256,
+      256
+    ],
+    "quality": 86,
+    "method": 6,
+    "sourceArchive": "party/tools/sprites/sources/princess-amber-portraits-pre-oct27",
+    "operation": "After normal build, resize each archived pre-intake RGBA portrait to256x256 with Pillow LANCZOS and save WebP quality86 method6; archive preserves exact pre-resize decoded RGBA."
+  }
+}

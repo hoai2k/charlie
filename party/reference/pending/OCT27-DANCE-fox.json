@@ -3,7 +3,7 @@
   "prompt": "Use case: stylized-concept. Asset type: game sprite sheet on true transparent RGBA background. Reference image1 approved canonical; image2 exact shipping idle. Preserve EXACT identity, anatomy, proportions, colors, outfit, face details and dark outlines. Exactly NINE full-body figures in THREE columns by THREE rows, equal spacious cells, left-to-right top-to-bottom. Keep consistent HEAD/TORSO scale through every pose (never normalize total silhouette height), camera three-quarter toward screen-right. Big joyful extreme silhouettes child can recognize. Generous gutters all tails/hands/ears/feet inside own cell; no effects, motion lines, shadows, floor, props, text or labels. Poses in order: R1C1 DISCO one limb shoots up-left 45 degrees other on hip, cocked hips, huge grin; R1C2 airborne STARFISH wide X, all limbs as wide as possible, joyful open mouth, hair/ears/tail up; R1C3 HULA arms/front appendages together stretched to one side, hips opposite, bent support, happy closed eyes. R2C1 CARTWHEEL PREP side lunge arms/front limbs overhead, excited grin; R2C2 CARTWHEEL INVERTED fully upside down front limbs support on floor, rear limbs wide high V above head, happy upside-down face; R2C3 CAN-CAN rear leg kicks straight up PAST head, other supports, lean backward, hands on hips if no skirt, open HOO smile. R3C1 full flat SPLITS on floor, front/back legs straight along floor, upright torso, front limbs up big V, proud surprised happy face; R3C2 MOONWALK 1 facing right leaning backward front foot flat rear foot on toe, one hand to forehead like tipping INVISIBLE hat; R3C3 MOONWALK 2 same with feet swapped. No actual hat. Adapt to reference anatomy as described next: FOX is the slim orange red fox with white chest/muzzle, WHITE paws, huge upright white-tipped bushy orange tail, triangular dark-lined ears, happy brown eyes and NO flower/crown/clothes. FOUR fox legs only, paws instead of human fingers, rear up to gesture with front paws. Match slender head and torso of approved canonical/idle (not round baby-fox). Cartwheel support front paws with both hind legs high V, tail hanging. Splits front legs stretched forward and hind legs backward flat floor. Disco one front paw points sky, hula both front paws to side, can-can one hind paw past head. Moonwalk alternate hind-foot toe position, front paw at forehead.",
   "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-d2cbf884-4c57-459a-964f-d503aeb0cf95.png",
   "source": "party/tools/sprites/sources/fox-dance-moves.webp",
-  "status": "intaken; runtime landmark review pending",
+  "status": "runtime landmarks/head-scale reviewed; optimized; root game review pending",
   "annotations": [
     {
       "pixelScale": 0.73,
@@ -30,7 +30,8 @@
       "back": [
         282,
         253
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.73,
@@ -57,7 +58,8 @@
       "back": [
         693,
         257
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.73,
@@ -84,7 +86,8 @@
       "back": [
         1135,
         265
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.73,
@@ -111,7 +114,8 @@
       "back": [
         290,
         670
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.73,
@@ -139,7 +143,8 @@
         693,
         568
       ],
-      "headAngle": 3.14159265
+      "headAngle": 3.14159265,
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.73,
@@ -166,7 +171,8 @@
       "back": [
         1166,
         649
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.73,
@@ -193,7 +199,8 @@
       "back": [
         284,
         1092
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.73,
@@ -220,7 +227,8 @@
       "back": [
         764,
         1041
-      ]
+      ],
+      "resolutionFactor": 0.65
     },
     {
       "pixelScale": 0.73,
@@ -247,7 +255,8 @@
       "back": [
         1202,
         1037
-      ]
+      ],
+      "resolutionFactor": 0.65
     }
   ],
   "crops": [
@@ -306,5 +315,32 @@
       1169
     ]
   ],
-  "oldShippingPosesPreserved": 86
+  "oldShippingPosesPreserved": 93,
+  "portraitBudget": {
+    "resolution": 256,
+    "nativeArchives": [
+      {
+        "file": "party/tools/sprites/sources/fox-portraits-native-oct27/portrait-neutral.webp",
+        "sha256": "42d9cb352fc1e097e737e8f7b335222a078bdd9a66135a0f55d2a66ce2abc8f0"
+      },
+      {
+        "file": "party/tools/sprites/sources/fox-portraits-native-oct27/portrait-happy.webp",
+        "sha256": "214c58c27ba1700a7d82a5d8c907ac795c4dcc3f12edc060a974febef44be58e"
+      },
+      {
+        "file": "party/tools/sprites/sources/fox-portraits-native-oct27/portrait-sad.webp",
+        "sha256": "e722632ecda64217ba15bacf7dc7e3b4369a0d97d43e8346102f99d000d25e24"
+      },
+      {
+        "file": "party/tools/sprites/sources/fox-portraits-native-oct27/portrait-surprised.webp",
+        "sha256": "575815c783c4890687bf9e4067376df84a0c8f1ce9dd96c9490c055c67949a54"
+      },
+      {
+        "file": "party/tools/sprites/sources/fox-portraits-native-oct27/portrait-determined.webp",
+        "sha256": "d5f4b0d3d0a9bf1fa38a873ec7dc9d6bc5e6d36a4653559428d1f89aaab2f4bc"
+      }
+    ],
+    "reason": "Preserve old bodyframes while fitting new dance and Sister poses below25MiB decoded."
+  },
+  "reviewContact": "/tmp/fox-dance-review.png"
 }

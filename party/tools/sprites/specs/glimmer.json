@@ -3705,6 +3705,396 @@
           ]
         }
       ]
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            36,
+            21,
+            357,
+            407
+          ],
+          "isolate": true,
+          "scale": 0.6338833499046523,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            214,
+            393
+          ],
+          "head": [
+            207,
+            15
+          ],
+          "eyes": [
+            207,
+            125
+          ],
+          "neck": [
+            214,
+            183
+          ],
+          "back": [
+            192,
+            214
+          ],
+          "hand": [
+            64,
+            86
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            442,
+            14,
+            414,
+            405
+          ],
+          "isolate": true,
+          "scale": 0.5824874026150859,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            214,
+            464
+          ],
+          "head": [
+            200,
+            22
+          ],
+          "eyes": [
+            200,
+            137
+          ],
+          "neck": [
+            207,
+            197
+          ],
+          "back": [
+            186,
+            236
+          ],
+          "hand": [
+            343,
+            122
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            885,
+            21,
+            378,
+            405
+          ],
+          "isolate": true,
+          "scale": 0.6157723970502337,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            199,
+            391
+          ],
+          "head": [
+            199,
+            25
+          ],
+          "eyes": [
+            206,
+            129
+          ],
+          "neck": [
+            206,
+            186
+          ],
+          "back": [
+            185,
+            222
+          ],
+          "hand": [
+            42,
+            186
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            29,
+            442,
+            378,
+            378
+          ],
+          "isolate": true,
+          "scale": 0.6338833499046523,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            185,
+            360
+          ],
+          "head": [
+            235,
+            29
+          ],
+          "eyes": [
+            263,
+            129
+          ],
+          "neck": [
+            261,
+            190
+          ],
+          "back": [
+            221,
+            223
+          ],
+          "hand": [
+            335,
+            46
+          ]
+        },
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            464,
+            435,
+            399,
+            378
+          ],
+          "isolate": true,
+          "scale": 0.5986676082432828,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            192,
+            365
+          ],
+          "head": [
+            192,
+            334
+          ],
+          "eyes": [
+            194,
+            243
+          ],
+          "neck": [
+            195,
+            188
+          ],
+          "back": [
+            194,
+            150
+          ],
+          "hand": [
+            264,
+            364
+          ],
+          "headAngle": 3.141592653589793
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            885,
+            435,
+            378,
+            385
+          ],
+          "isolate": true,
+          "scale": 0.6338833499046523,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            252,
+            378
+          ],
+          "head": [
+            172,
+            22
+          ],
+          "eyes": [
+            196,
+            119
+          ],
+          "neck": [
+            221,
+            173
+          ],
+          "back": [
+            192,
+            207
+          ],
+          "hand": [
+            335,
+            180
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            21,
+            885,
+            492,
+            300
+          ],
+          "isolate": true,
+          "scale": 0.6338833499046523,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            236,
+            283
+          ],
+          "head": [
+            229,
+            10
+          ],
+          "eyes": [
+            243,
+            105
+          ],
+          "neck": [
+            249,
+            165
+          ],
+          "back": [
+            223,
+            202
+          ],
+          "hand": [
+            343,
+            32
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            514,
+            820,
+            321,
+            371
+          ],
+          "isolate": true,
+          "scale": 0.6157723970502337,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            214,
+            358
+          ],
+          "head": [
+            185,
+            10
+          ],
+          "eyes": [
+            186,
+            119
+          ],
+          "neck": [
+            211,
+            172
+          ],
+          "back": [
+            178,
+            211
+          ],
+          "hand": [
+            255,
+            69
+          ]
+        },
+        {
+          "source": "../sources/glimmer-dance-moves-oct27.webp",
+          "rect": [
+            899,
+            820,
+            350,
+            371
+          ],
+          "isolate": true,
+          "scale": 0.6338833499046523,
+          "bodyHeight": 140,
+          "dur": 0.25,
+          "anchor": [
+            185,
+            360
+          ],
+          "head": [
+            171,
+            12
+          ],
+          "eyes": [
+            178,
+            109
+          ],
+          "neck": [
+            192,
+            164
+          ],
+          "back": [
+            162,
+            206
+          ],
+          "hand": [
+            251,
+            79
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
     }
   },
   "portraits": {

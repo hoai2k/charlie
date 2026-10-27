@@ -1,0 +1,393 @@
+{
+  "asset": "kpop-girl-left",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-bb55-7c21-80cd-5af33e6d6c6a/exec-04075d50-efbb-44de-bb7f-1d7efc8d0fbe.png",
+  "source": "party/tools/sprites/sources/kpop-girl-left-dance-moves-oct27.webp",
+  "status": "intaken; source and runtime contact reviewed; integrator game review pending",
+  "losslessRGBA": true,
+  "exact": true,
+  "prompt": "Use case: identity-preserve. Create a transparent game sprite sheet of KPop left girl matching two reference images: brown side bun, brown eyes,light skin,sleeveless pale blue top,royal blue wide leg trousers,white ballet flat shoes,navy outlines. Hands on hips for cancan because trousers. Same head/torso proportions, same outfit, joyful extreme expressive poses. Exactly nine full-body figures arranged 3 columns by 3 rows, generous transparent gutters, no text, background, floor, shadows, effects, props or extra characters. Ordered left-to-right then top-to-bottom: 1 disco: right arm points up-left at45degrees,index up,left hand hip,hips right,bent knee,cocky grin; 2 airborne star jump: arms legs huge X,hair flying,open WHEE smile,feet elevated; 3 hula: both arms stretched to right at shoulder height,soft wrists,hips far left,knees bent,eyes closed smile; 4 cartwheel preparation: side-on lunge,arms overhead,excited grin; 5 cartwheel fully upside-down: both palms on floor,straight arms,legs wide V above body,hair hanging down,upside-down happy face; 6 cancan: one straight leg kicks up past head,other straight supporting leg,hands hold skirt hem apart,lean back,open smile; 7 floor splits: legs stretched straight in opposite directions flat on floor,torso upright,arms big V,surprised proud happy face; 8 moonwalk facing screen-right: front foot flat,back heel raised knee bent,lean back,one hand forehead tipping imaginary hat,no hat; 9 moonwalk same with feet swapped. Keep all nine heads and torsos the SAME scale; wide/inverted poses naturally lower or wider, never shrink them to fit. Full figure and every boot,hand,hair strand inside its cell.",
+  "poses": {
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-moves-oct27.webp",
+          "rect": [
+            715,
+            80,
+            309,
+            450
+          ],
+          "isolate": true,
+          "scale": 0.9435636363636364,
+          "bodyHeight": 216.66666666666666,
+          "anchor": [
+            149,
+            429
+          ],
+          "head": [
+            117,
+            30
+          ],
+          "eyes": [
+            120,
+            97
+          ],
+          "neck": [
+            132,
+            155
+          ],
+          "back": [
+            157,
+            211
+          ],
+          "hand": [
+            275,
+            157
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-moves-oct27.webp",
+          "rect": [
+            10,
+            555,
+            352,
+            475
+          ],
+          "isolate": true,
+          "scale": 0.9435636363636364,
+          "bodyHeight": 216.66666666666666,
+          "anchor": [
+            177,
+            459
+          ],
+          "head": [
+            207,
+            106
+          ],
+          "eyes": [
+            222,
+            162
+          ],
+          "neck": [
+            202,
+            224
+          ],
+          "back": [
+            195,
+            278
+          ],
+          "hand": [
+            280,
+            71
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-dance-moves-oct27.webp",
+          "rect": [
+            325,
+            545,
+            390,
+            477
+          ],
+          "isolate": true,
+          "scale": 0.9435636363636364,
+          "bodyHeight": 216.66666666666666,
+          "anchor": [
+            208,
+            460
+          ],
+          "head": [
+            207,
+            405
+          ],
+          "eyes": [
+            213,
+            352
+          ],
+          "neck": [
+            210,
+            286
+          ],
+          "back": [
+            209,
+            229
+          ],
+          "hand": [
+            295,
+            453
+          ],
+          "headAngle": 3.141592653589793
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-moves-oct27.webp",
+          "rect": [
+            20,
+            50,
+            300,
+            480
+          ],
+          "isolate": true,
+          "scale": 0.9435636363636364,
+          "bodyHeight": 216.66666666666666,
+          "anchor": [
+            165,
+            458
+          ],
+          "head": [
+            172,
+            43
+          ],
+          "eyes": [
+            167,
+            115
+          ],
+          "neck": [
+            170,
+            167
+          ],
+          "back": [
+            170,
+            220
+          ],
+          "hand": [
+            237,
+            234
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-moves-oct27.webp",
+          "rect": [
+            10,
+            1100,
+            505,
+            345
+          ],
+          "isolate": true,
+          "scale": 0.9435636363636364,
+          "bodyHeight": 216.66666666666666,
+          "anchor": [
+            253,
+            324
+          ],
+          "head": [
+            225,
+            61
+          ],
+          "eyes": [
+            232,
+            125
+          ],
+          "neck": [
+            229,
+            189
+          ],
+          "back": [
+            229,
+            244
+          ],
+          "hand": [
+            373,
+            79
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-moves-oct27.webp",
+          "rect": [
+            330,
+            45,
+            400,
+            450
+          ],
+          "isolate": true,
+          "scale": 0.9435636363636364,
+          "bodyHeight": 216.66666666666666,
+          "anchor": [
+            195,
+            518
+          ],
+          "head": [
+            185,
+            29
+          ],
+          "eyes": [
+            186,
+            84
+          ],
+          "neck": [
+            189,
+            136
+          ],
+          "back": [
+            189,
+            212
+          ],
+          "hand": [
+            344,
+            70
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-moves-oct27.webp",
+          "rect": [
+            465,
+            1040,
+            280,
+            425
+          ],
+          "isolate": true,
+          "scale": 0.9435636363636364,
+          "bodyHeight": 216.66666666666666,
+          "anchor": [
+            210,
+            410
+          ],
+          "head": [
+            141,
+            37
+          ],
+          "eyes": [
+            152,
+            84
+          ],
+          "neck": [
+            145,
+            143
+          ],
+          "back": [
+            167,
+            207
+          ],
+          "hand": [
+            219,
+            55
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-dance-moves-oct27.webp",
+          "rect": [
+            755,
+            1040,
+            269,
+            429
+          ],
+          "isolate": true,
+          "scale": 0.9435636363636364,
+          "bodyHeight": 216.66666666666666,
+          "anchor": [
+            177,
+            419
+          ],
+          "head": [
+            147,
+            35
+          ],
+          "eyes": [
+            154,
+            87
+          ],
+          "neck": [
+            154,
+            140
+          ],
+          "back": [
+            163,
+            208
+          ],
+          "hand": [
+            224,
+            55
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-moves-oct27.webp",
+          "rect": [
+            700,
+            545,
+            324,
+            480
+          ],
+          "isolate": true,
+          "scale": 0.9435636363636364,
+          "bodyHeight": 216.66666666666666,
+          "anchor": [
+            183,
+            468
+          ],
+          "head": [
+            104,
+            96
+          ],
+          "eyes": [
+            113,
+            153
+          ],
+          "neck": [
+            121,
+            204
+          ],
+          "back": [
+            150,
+            269
+          ],
+          "hand": [
+            156,
+            265
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    }
+  },
+  "reviewContact": "/tmp/left-dance-review.png"
+}

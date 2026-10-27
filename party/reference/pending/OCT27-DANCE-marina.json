@@ -1,0 +1,312 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: precise-object-edit. Target supplied Marina nine-pose dance sheet. Preserve all colors, proportions, poses, layout and reference identity. Correct ONLY single-tail anatomy in CENTER cell row2 (inverted handstand) and LEFT cell row3 (splits). Marina has ONE continuous fish tail terminating in ONE PAIR of purple fins. In inverted handstand center cell replace forked pair of tails with ONE unbranched scaled tail rising straight above upside-down torso ending in two purple fins splayed V at top. In bottom-left splits cell replace double-ended fishtail with ONE continuous mermaid tail curved FLAT along floor toward screen-RIGHT ending in one pair of purple fins; LEFT of her waist keep only flowing red hair, no tail or fins. Keep torso upright, arms high V and happy proud face, and keep flat low floor silhouette. Other seven figures unchanged. Absolutely NO legs. True transparent RGBA.",
+  "originalPrompt": "Use case: stylized-concept. Asset type: game sprite sheet on true transparent RGBA background. Reference image1 approved canonical; image2 exact shipping idle. Preserve EXACT identity, anatomy, proportions, colors, outfit, face details and dark outlines. Exactly NINE full-body figures in THREE columns by THREE rows, equal spacious cells, left-to-right top-to-bottom. Keep consistent HEAD/TORSO scale through every pose (never normalize total silhouette height), camera three-quarter toward screen-right. Big joyful extreme silhouettes child can recognize. Generous gutters all tails/hands/ears/feet inside own cell; no effects, motion lines, shadows, floor, props, text or labels. Poses in order: R1C1 DISCO one limb shoots up-left 45 degrees other on hip, cocked hips, huge grin; R1C2 airborne STARFISH wide X, all limbs as wide as possible, joyful open mouth, hair/ears/tail up; R1C3 HULA arms/front appendages together stretched to one side, hips opposite, bent support, happy closed eyes. R2C1 CARTWHEEL PREP side lunge arms/front limbs overhead, excited grin; R2C2 CARTWHEEL INVERTED fully upside down front limbs support on floor, rear limbs wide high V above head, happy upside-down face; R2C3 CAN-CAN rear leg kicks straight up PAST head, other supports, lean backward, hands on hips if no skirt, open HOO smile. R3C1 full flat SPLITS on floor, front/back legs straight along floor, upright torso, front limbs up big V, proud surprised happy face; R3C2 MOONWALK 1 facing right leaning backward front foot flat rear foot on toe, one hand to forehead like tipping INVISIBLE hat; R3C3 MOONWALK 2 same with feet swapped. No actual hat. Adapt to reference anatomy as described next: MARINA is the red-haired young cartoon mermaid with gold purple-jewel crown, purple shell top, green/teal-and-purple scaled tail with purple tailfins. Preserve TWO ARMS and ONE FISH TAIL, NO legs or feet. Adapt starfish: both arms wide high V and tail stretched/curling wide with fins flared, airborne joy. Disco right arm straight up-left pointing, other at waist; hula both arms side with tail swung opposite. Cartwheel frame1 tail lunge arms overhead, frame2 fully upside-down HANDSTAND on both palms with single tail high overhead and two tailfins splayed wide V (do NOT split tail into legs). Can-can single tail kicked straight up past head while balancing on lower tail curl. Splits single tail stretched FLAT wide on floor to one side with fins spread, upright torso and both arms up V. Moonwalk two alternating tail-curl glide positions, leaning backward facing right, one hand tipping invisible hat. Huge happy smiles.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-6697318e-9bed-47b9-a296-98041b15dcac.png",
+  "source": "party/tools/sprites/sources/marina-dance-moves.webp",
+  "status": "runtime landmarks/head-scale reviewed; optimized; root game review pending",
+  "annotations": [
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        297,
+        406
+      ],
+      "head": [
+        211,
+        46
+      ],
+      "eyes": [
+        206,
+        116
+      ],
+      "neck": [
+        196,
+        174
+      ],
+      "hand": [
+        73,
+        59
+      ],
+      "back": [
+        224,
+        243
+      ]
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        679,
+        500
+      ],
+      "head": [
+        637,
+        54
+      ],
+      "eyes": [
+        626,
+        120
+      ],
+      "neck": [
+        621,
+        178
+      ],
+      "hand": [
+        822,
+        97
+      ],
+      "back": [
+        650,
+        235
+      ]
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        1110,
+        405
+      ],
+      "head": [
+        1134,
+        64
+      ],
+      "eyes": [
+        1134,
+        133
+      ],
+      "neck": [
+        1126,
+        182
+      ],
+      "hand": [
+        1279,
+        207
+      ],
+      "back": [
+        1120,
+        261
+      ]
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        250,
+        798
+      ],
+      "head": [
+        311,
+        505
+      ],
+      "eyes": [
+        305,
+        559
+      ],
+      "neck": [
+        320,
+        615
+      ],
+      "hand": [
+        372,
+        454
+      ],
+      "back": [
+        287,
+        681
+      ]
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        684,
+        808
+      ],
+      "head": [
+        689,
+        742
+      ],
+      "eyes": [
+        688,
+        692
+      ],
+      "neck": [
+        692,
+        634
+      ],
+      "hand": [
+        592,
+        801
+      ],
+      "back": [
+        685,
+        570
+      ],
+      "headAngle": 3.14159265
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        1138,
+        800
+      ],
+      "head": [
+        1164,
+        505
+      ],
+      "eyes": [
+        1156,
+        555
+      ],
+      "neck": [
+        1150,
+        605
+      ],
+      "hand": [
+        1153,
+        671
+      ],
+      "back": [
+        1135,
+        704
+      ]
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        267,
+        1167
+      ],
+      "head": [
+        250,
+        898
+      ],
+      "eyes": [
+        246,
+        964
+      ],
+      "neck": [
+        242,
+        1026
+      ],
+      "hand": [
+        127,
+        905
+      ],
+      "back": [
+        271,
+        1086
+      ]
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        755,
+        1161
+      ],
+      "head": [
+        747,
+        863
+      ],
+      "eyes": [
+        751,
+        909
+      ],
+      "neck": [
+        760,
+        958
+      ],
+      "hand": [
+        804,
+        860
+      ],
+      "back": [
+        771,
+        1030
+      ]
+    },
+    {
+      "pixelScale": 0.51,
+      "anchor": [
+        1144,
+        1161
+      ],
+      "head": [
+        1083,
+        860
+      ],
+      "eyes": [
+        1095,
+        909
+      ],
+      "neck": [
+        1105,
+        956
+      ],
+      "hand": [
+        1132,
+        862
+      ],
+      "back": [
+        1105,
+        1034
+      ]
+    }
+  ],
+  "crops": [
+    [
+      62,
+      5,
+      466,
+      412
+    ],
+    [
+      470,
+      10,
+      885,
+      388
+    ],
+    [
+      939,
+      10,
+      1296,
+      405
+    ],
+    [
+      25,
+      430,
+      427,
+      805
+    ],
+    [
+      532,
+      394,
+      834,
+      809
+    ],
+    [
+      991,
+      423,
+      1307,
+      808
+    ],
+    [
+      97,
+      848,
+      583,
+      1178
+    ],
+    [
+      586,
+      818,
+      847,
+      1177
+    ],
+    [
+      954,
+      809,
+      1295,
+      1176
+    ]
+  ],
+  "oldShippingPosesPreserved": 93,
+  "reviewContact": "/tmp/marina-dance-review.png"
+}
