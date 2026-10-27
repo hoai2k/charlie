@@ -37,7 +37,7 @@ import { sfx, voice, hasSound } from '../engine/audio.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
 import { bodyRadius, claimed, spread } from '../engine/crowd.js';
-import { easySteer, easyNearest, easyPrompt } from '../engine/easy.js';
+import { easySteer, easyNearest, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { clamp, damp, rand, randInt, pick, chance, TAU, dist, lerp, later, placementsFromScores } from '../engine/util.js';
 import {
   NAVY, PORCH_Y, PUDDLES, MEGA, MUD, MUD_COLS, drawPuppy, drawMudBlobs, makeBlobs, drawBackyard, drawLine, lineY,
@@ -123,7 +123,7 @@ function drawOneSplat(g, s, x, y, grow) {
 export class Game {
   constructor(api) {
     this.api = api;
-    this.easy = !!api.easy;   // Molly Easy: humans walk by themselves, A splats
+    this.easy = !!api.easy;   // Molly Easy: A splats; A again and again (no steering) walks you to the mud / washing
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -172,7 +172,7 @@ export class Game {
       // each human starts on a different bit of washing and a different puddle
       const order = this.easyOrder = [5, 0, 1, 4, 2, 3, 6];   // basket, sheets, rug, sheets, fence (round the yard)
       this.ents.filter((e) => !e.p.isAI).forEach((e, k) => {
-        e.ez = { mode: 'mud', ti: (k * 3) % order.length, k, waitT: 0, pud: null, ox: rand(-0.4, 0.4), oy: rand(-0.3, 0.3) };
+        e.ez = { mode: 'idle', ti: (k * 3) % order.length, k, waitT: 0, pud: null, ox: rand(-0.4, 0.4), oy: rand(-0.3, 0.3) };
       });
     }
     // puppies
@@ -596,11 +596,11 @@ export class Game {
     e.cd -= dt; e.cleanT -= dt; e.immuneT -= dt; e.hintT -= dt; e.giggleCd -= dt; e.splatFlash = Math.max(0, e.splatFlash - dt);
     let ix = c.x, iy = c.y, manual = false;
     if (e.ez) {
-      // Easy: the stick runs you like Medium while pushed (the autopilot waits);
-      // let go and the autopilot carries on from wherever you are
+      // Easy: the stick runs you like Medium while pushed; nobody walks you otherwise,
+      // except an A pressed again and again with no steering (easyA)
       const st = easySteer(e, c, dt);
       if (st.pushing) e.ez.goA = false;
-      if (st.manual && !e.ez.goA) { [ix, iy] = [st.x, st.y]; e.ez.resume = true; manual = true; }
+      if (st.manual && !e.ez.goA) { [ix, iy] = [st.x, st.y]; e.ez.mode = 'idle'; manual = true; }
       else [ix, iy] = this.easyPilot(e, dt);
     }
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
@@ -633,7 +633,7 @@ export class Game {
     // A: shake and splat
     if (c.pressed('a') && e.cd <= 0) {
       if (e.ez && e.ez.mode === 'wait') e.ez.waitT = Math.max(e.ez.waitT, 2.6);   // keep splatting here
-      if (e.ez && !this.cueUp(e)) this.easyA(e);   // Easy: nothing in reach - A walks you to it
+      if (e.ez && !this.cueUp(e)) this.easyA(e);   // Easy: nothing in reach - A again (no steering) walks you to it
       else this.shake(e);
     }
     if (!a._once) a.moveAnim(e.vx, e.vy, sp, { run: speed > sp * 0.6 });
@@ -684,36 +684,32 @@ export class Game {
     if (e.mud <= 0.02) a.tint(null);
   }
 
-  /** Molly Easy autopilot for a human: puddle -> roll until muddy -> walk to the
-   *  next bit of washing -> wait there (glowing, big A) while A splats -> on to
-   *  the next one; back to the mud when the mud runs out. Returns stick x/y. */
   /** Easy: point the autopilot at the washing nearest where this player is now. */
   easyNearest(e) {
     const z = e.ez, i = this.easyOrder.indexOf(this.targets.indexOf(this.nearestTarget(e.x, e.y)));
     if (i >= 0) z.ti = i;
   }
 
-  /** Easy A with nothing to splat in reach: muddy -> walk to the nearest washing
-   *  and splat it on arrival; not muddy -> trot to the nearest puddle. */
+  /** Easy A with nothing to splat in reach: a shake where she is - and only when A comes again
+   *  with no steering (easyAutoOk): muddy -> walk to the nearest washing and splat it on
+   *  arrival; not muddy -> trot to the nearest puddle and roll until muddy. Then she stops. */
   easyA(e) {
     const z = e.ez;
-    e._ezSteer = 0; z.resume = false;
+    if (!easyAutoOk(e)) { this.shake(e); return; }
+    e._ezSteer = 0;
     e.cd = 0.15;
     if (e.mud < 0.12) { z.mode = 'mud'; z.pud = this.nearestPuddle(e.x, e.y); e.hintT = 1.8; sfx('pop', { vol: 0.2 }); return; }
     this.easyNearest(e); z.mode = 'go'; z.goA = true;
   }
 
+  /** Molly Easy, on an A-A errand: to a puddle (rolling until muddy) or to a bit of washing
+   *  (splat on arrival, then wait there while A splats). Idle: stand still. Returns stick x/y. */
   easyPilot(e, dt) {
     const z = e.ez, order = this.easyOrder;
-    if (z.resume) {
-      // just stopped steering: pick up from here (nearest puddle / washing)
-      z.resume = false;
-      if (e.mud < 0.12 || (z.mode === 'mud' && e.mud < 0.6)) { z.mode = 'mud'; z.pud = this.nearestPuddle(e.x, e.y); }
-      else { this.easyNearest(e); z.mode = 'go'; }
-    }
+    if (z.mode === 'idle') return [0, 0];
     const T = this.targets[order[z.ti % order.length]];
     let gx = e.x, gy = e.y;
-    if (z.mode !== 'mud' && e.mud < 0.12) { z.mode = 'mud'; z.pud = null; z.goA = false; }
+    if (z.mode === 'go' && e.mud < 0.12) { z.mode = 'idle'; z.goA = false; return [0, 0]; }
     if (z.mode === 'mud') {
       if (!z.pud || (z.pud !== MEGA && this.mega.state === 'open' && chance(dt * 0.5))) {
         // nearest puddle, but each player prefers a different one
@@ -722,7 +718,7 @@ export class Game {
         z.pud = list[ds.indexOf(Math.min(...ds))];
       }
       gx = z.pud.x + z.ox * z.pud.rx; gy = z.pud.y + z.oy * z.pud.ry;
-      if (this.puddleAt(e.x, e.y) && e.mud >= (this.puddleAt(e.x, e.y) === MEGA ? SUPER - 0.05 : 0.98)) { z.mode = 'go'; z.ti++; }
+      if (this.puddleAt(e.x, e.y) && e.mud >= (this.puddleAt(e.x, e.y) === MEGA ? SUPER - 0.05 : 0.98)) { z.mode = 'idle'; return [0, 0]; }   // muddy: A, A takes her to the washing
     } else if (z.mode === 'go') {
       gx = clamp(T.hit.x + (((z.k % 3) - 1) * 0.35 + z.ox * 0.2) * T.hit.rx, BOUNDS.x0 + 30, BOUNDS.x1 - 30);
       gy = clamp(T.hit.y + (0.15 + z.oy * 0.3) * T.hit.ry, BOUNDS.y0 + 5, BOUNDS.y1 - 20);
@@ -733,7 +729,7 @@ export class Game {
     } else {
       // waiting at the washing: stand still; move on if nothing happens
       z.waitT -= dt;
-      if (z.waitT <= 0) { z.mode = 'go'; z.ti++; }
+      if (z.waitT <= 0) z.mode = 'idle';
       return [0, 0];
     }
     const dx = gx - e.x, dy = gy - e.y, d = Math.hypot(dx, dy);
@@ -962,7 +958,7 @@ export class Game {
         const tx = clamp(e.x, T.x - T.hit.rx * 0.6, T.x + T.hit.rx * 0.6);
         easyPrompt(g, e.p, { target: { x: tx, y: T.flat ? T.y - 40 : T.y }, child: { x: e.x, y: e.y - e.a.height } });
       } else ui.glyph(g, 'a', e.x, top - 30 + bob, 54, { pulse: true });
-    } else if (!e.ez && e.mud < 0.12 && (this.playT < 12 || e.hintT > 0)) {
+    } else if (e.mud < 0.12 && (this.playT < 12 || e.hintT > 0)) {
       // arrow toward the nearest puddle
       const p = this.nearestPuddle(e.x, e.y);
       const ang = Math.atan2(p.y - e.y, p.x - e.x);
