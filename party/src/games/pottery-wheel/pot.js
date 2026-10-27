@@ -45,7 +45,7 @@ export const GOLD = 9, RAINBOW_I = 10;
 
 export const STICKERS = ['heart', 'star', 'flower', 'butterfly', 'rainbow', 'moon', 'cat', 'fish', 'sun', 'strawberry'];
 
-// Ready-made shapes (Surprise! and what CPU potters aim for): [u, radius] control points.
+// Ready-made shapes (what CPU potters aim for): [u, radius] control points.
 export const PRESETS = {
   vase: { h: 300, pts: [[0, 62], [0.3, 118], [0.55, 96], [0.8, 46], [1, 70]] },
   bowl: { h: 120, pts: [[0, 58], [0.35, 118], [0.7, 150], [1, 166]] },
