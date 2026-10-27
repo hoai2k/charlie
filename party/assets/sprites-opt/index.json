@@ -109,10 +109,19 @@
     "dig-00.webp": 0.98765,
     "skip-hop-00.webp": 0.98765,
     "roll-push-00.webp": 1.0,
-    "roll-push-01.webp": 1.0
+    "roll-push-01.webp": 1.0,
+    "dance-cancan-00.webp": 1.0,
+    "dance-splits-00.webp": 1.0,
+    "dance-disco-00.webp": 1.0,
+    "dance-moonwalk-00.webp": 1.0,
+    "dance-moonwalk-01.webp": 1.0,
+    "dance-hula-00.webp": 1.0,
+    "dance-cartwheel-00.webp": 1.0,
+    "dance-cartwheel-01.webp": 1.0,
+    "dance-starfish-00.webp": 1.0
    },
    "portrait": 192,
-   "source": "effd0a331edc8abc"
+   "source": "453648812d41fab5"
   },
   "fellowfox": {
    "scale": 1.0,
@@ -223,10 +232,19 @@
     "dig-00.webp": 1.0,
     "skip-hop-00.webp": 1.0,
     "roll-push-00.webp": 1.0,
-    "roll-push-01.webp": 1.0
+    "roll-push-01.webp": 1.0,
+    "dance-moonwalk-00.webp": 1.0,
+    "dance-moonwalk-01.webp": 1.0,
+    "dance-starfish-00.webp": 1.0,
+    "dance-splits-00.webp": 1.0,
+    "dance-disco-00.webp": 1.0,
+    "dance-hula-00.webp": 1.0,
+    "dance-cancan-00.webp": 1.0,
+    "dance-cartwheel-00.webp": 1.0,
+    "dance-cartwheel-01.webp": 1.0
    },
    "portrait": 192,
-   "source": "8db3b88088f7d6cd"
+   "source": "1659d9923695e381"
   },
   "troll": {
    "scale": 0.75,
