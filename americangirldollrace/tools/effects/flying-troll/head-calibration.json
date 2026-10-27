@@ -1,4 +1,0 @@
-{
-  "mode": "built-in ImageGen",
-  "prompt": "Use case: precise-object-edit. This is a game sprite strip of the SAME troll in three poses. Increase the size of his HEAD AND FACE by about18percent in EVERY pose, keeping the same face, hair, nose, grumpy expression and skin detail. Keep body, limbs, hips, pose silhouettes apart from head, camera, cell separation, transparent background and all other pixels unchanged. This corrects scale against his standing game art. Do not enlarge the whole body or add props/wings/shadow/text. Exactly3 poses same horizontal layout."
-}

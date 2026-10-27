@@ -1,9 +1,0 @@
-{
-  "prompt": "Use case: style-transfer. Six glossy painted game pickup icons matching the supplied existing icon atlases. Transparent background. Exactly3 columns x2 rows, six equal SQUARE cells, landscape3:2. Large clear silhouettes, bold dark outlines and shiny dimensional highlights, cheerful saturated toy palette. Each icon safely separated with generous transparent gutter and outer margin. TOP LEFT: pair of beach-bright quad roller skates, turquoise boots and coral wheels. TOP MIDDLE: pair of midnight-purple quad roller skates, glowing neon light-up wheels. TOP RIGHT: pair of colorful toy quad roller skates with a gold wind-up key on the outer side. BOTTOM LEFT: colorful toy pogo stick with a jack-in-the-box silver coil spring, red pole, black handlebar and footpegs, rubber tip, no clown or box. BOTTOM MIDDLE: purple pogo stick with colorful string lights wound around its pole, black handlebar, footpegs and spring. BOTTOM RIGHT: candy-cane red-white striped pogo stick with black handlebar and footpegs, silver spring and a small pink gumdrop rubber tip. All three pogo sticks must clearly look like pogo sticks with a visible vertical pole from handlebar to tip. No lettering, grid, floor, shadows or other props. Match illustration finish of input icons.",
-  "refs": [
-    "beach",
-    "festival",
-    "toyroom",
-    "candy"
-  ]
-}

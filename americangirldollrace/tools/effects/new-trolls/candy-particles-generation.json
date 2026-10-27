@@ -1,5 +1,0 @@
-{
-  "prompt": "Create a transparent candy PARTICLE SPRITE ATLAS, exactly FOUR columns by TWO rows, EIGHT separate equal cells. Each cell contains ONE individual big sweet matching the colorful Candy Troll reference's glossy tactile painted game art. Left to right row1: turquoise sugar-coated gumdrop; orange sugar-coated gumdrop; chunky short red-and-cream twisted taffy; round peppermint red-and-white spiral disc. Row2: chunky short purple-and-yellow twisted taffy; lime-green shiny jellybean; cyan shiny oval candy lozenge; pale cream-yellow rounded marshmallow block. ONE distinct candy per cell, not a pile, no wrappers, no character body parts or facial features. Center each sweet separately, fill only 55% of cell width/height with wide clean transparent gutters. Entire silhouettes comfortably inside cells. Strong readable simple shape at 24px. Same materials/palette as reference. True transparent alpha, no background/floor/cast shadows or glow, no text, labels or grid lines.",
-  "source": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-3534189b-bbcd-425c-953d-e20b8efec57b.png",
-  "tool": "built-in ImageGen"
-}
