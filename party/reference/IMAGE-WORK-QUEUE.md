@@ -1,3 +1,5 @@
+Latest published image delivery revision: `52d79344868808c451c2da813ade7fdac4b6c73c`. Immediate post-delivery check UTC: `2026-10-27T23:25:23.226854+00:00`; checked main revision: `52d79344868808c451c2da813ade7fdac4b6c73c`; request blob: `d37a7675c5f40e7ede371a5a605b5cb79b267328`. No further requests. One-time automation `charlie-party-image-check-in-15-minutes` deleted after this completed run.
+
 ## October27 follow-up — all eight new images delivered
 
 Seven512×640 Madame Papillon dance props plus the revised160×160 Twirl icon are generated, reviewed and integrated. Exact built-in prompts and native RGBA archives are recorded in OCT27-DANCE-ALONG.json and OCT27-TWIRL-REVISION.json. Full decoded group22.806884765625MiB after reversible runtime derivatives; original teacher/backdrop files remain unchanged. Actual teacher-renderer review passes for all eight moves;17 Party Node test files and opposite-ballet4-player CPU smoke passed. The current main still uses the previous ballet call sequence; authored new move names are now supported by drawTeacher for the pending Dance Along redesign.
