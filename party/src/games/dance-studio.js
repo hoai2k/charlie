@@ -125,7 +125,8 @@ class Dancer {
     this.dur = Math.max(0.45, M.beats * beatDur);
     this.dir = this.baseFacing * this.side;
     a.facing = this.dir;
-    a.playOnce(pickPose(a, M.poses), this.dur * 0.97, 'idle');
+    this.pose = pickPose(a, M.poses);
+    a.playOnce(this.pose, this.dur * 0.97, 'idle');
     a.squash(M.drop ? 0.3 : -0.15);
   }
   update(dt, beat = 0) {
@@ -137,8 +138,9 @@ class Dancer {
       const k = Math.min(1, this.u), s = Math.sin(k * Math.PI), h = a.height, d = this.dir;
       if (M.hop) z = s * h * M.hop;
       if (M.lean) this.rot += s * M.lean * d;
-      if (M.roll) {
-        // a whole turn about the middle: upside down halfway
+      if (M.roll && this.pose !== M.poses[0]) {
+        // stand-in cartwheel: a whole turn about the middle, upside down halfway
+        // (the dance-cartwheel art is upside down itself, so it isn't turned)
         this.rot = ease.inOutQuad(k) * TAU * d; this.pivot = 0.5; z = s * h * 0.12;
       }
       if (M.travel) {
