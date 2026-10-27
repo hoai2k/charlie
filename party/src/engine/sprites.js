@@ -98,7 +98,7 @@ export const POSES = {
   'dance-disco': { loop: false, fallback: ['dance-side'], proc: 'dance-side', desc: 'Exaggerated disco point up-left, hand on hip and hips cocked.' },
   'dance-starfish': { loop: false, fallback: ['dance-star'], proc: 'ready', desc: 'Joyful airborne starfish with limbs spread wide.' },
   'dance-hula': { loop: false, fallback: ['float', 'balance'], proc: 'float', desc: 'Arms waving to one side, hips to the other, happy hula.' },
-  'dance-cartwheel': { loop: false, fallback: ['dance-star'], proc: 'ready', desc: 'Overhead lunge then upside-down cartwheel supported on the hands.' },
+  'dance-cartwheel': { loop: false, fallback: ['dance-star'], desc: 'Overhead lunge then upside-down cartwheel supported on the hands.' },
   'dance-cancan': { loop: false, fallback: ['balance'], proc: 'balance', desc: 'Delighted high kick past the head, skirt held out or hands on hips.' },
   'dance-splits': { loop: false, fallback: ['dance-down'], proc: 'dance-down', desc: 'Full floor splits with arms up in a proud ta-da.' },
   'dance-moonwalk': { loop: false, fallback: ['walk'], proc: 'walk', desc: 'Two backward-gliding strides with a cool imaginary hat tip.' },

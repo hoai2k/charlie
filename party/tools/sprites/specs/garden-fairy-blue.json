@@ -3726,6 +3726,396 @@
           ]
         }
       ]
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-blue-dance-moves-oct27.webp",
+          "rect": [
+            931,
+            429,
+            377,
+            384
+          ],
+          "isolate": true,
+          "scale": 0.7529712211563391,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            239,
+            376
+          ],
+          "head": [
+            118,
+            13
+          ],
+          "eyes": [
+            189,
+            107
+          ],
+          "neck": [
+            204,
+            168
+          ],
+          "back": [
+            171,
+            202
+          ],
+          "hand": [
+            315,
+            165
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-blue-dance-moves-oct27.webp",
+          "rect": [
+            924,
+            0,
+            384,
+            429
+          ],
+          "isolate": true,
+          "scale": 0.7529712211563391,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            187,
+            418
+          ],
+          "head": [
+            100,
+            15
+          ],
+          "eyes": [
+            180,
+            164
+          ],
+          "neck": [
+            193,
+            223
+          ],
+          "back": [
+            162,
+            253
+          ],
+          "hand": [
+            323,
+            213
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-blue-dance-moves-oct27.webp",
+          "rect": [
+            59,
+            432,
+            369,
+            377
+          ],
+          "isolate": true,
+          "scale": 0.7798630504833511,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            163,
+            362
+          ],
+          "head": [
+            155,
+            8
+          ],
+          "eyes": [
+            244,
+            134
+          ],
+          "neck": [
+            237,
+            190
+          ],
+          "back": [
+            208,
+            221
+          ],
+          "hand": [
+            328,
+            79
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-blue-dance-moves-oct27.webp",
+          "rect": [
+            488,
+            442,
+            384,
+            337
+          ],
+          "isolate": true,
+          "scale": 0.7529712211563391,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            187,
+            326
+          ],
+          "head": [
+            178,
+            321
+          ],
+          "eyes": [
+            184,
+            222
+          ],
+          "neck": [
+            186,
+            167
+          ],
+          "back": [
+            184,
+            120
+          ],
+          "hand": [
+            279,
+            322
+          ],
+          "headAngle": 3.141592653589793
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-blue-dance-moves-oct27.webp",
+          "rect": [
+            466,
+            0,
+            414,
+            421
+          ],
+          "isolate": true,
+          "scale": 0.7278721804511278,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            206,
+            488
+          ],
+          "head": [
+            128,
+            13
+          ],
+          "eyes": [
+            202,
+            152
+          ],
+          "neck": [
+            202,
+            216
+          ],
+          "back": [
+            181,
+            244
+          ],
+          "hand": [
+            317,
+            161
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-blue-dance-moves-oct27.webp",
+          "rect": [
+            547,
+            791,
+            332,
+            384
+          ],
+          "isolate": true,
+          "scale": 0.7529712211563391,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            204,
+            371
+          ],
+          "head": [
+            108,
+            10
+          ],
+          "eyes": [
+            186,
+            133
+          ],
+          "neck": [
+            189,
+            190
+          ],
+          "back": [
+            159,
+            220
+          ],
+          "hand": [
+            247,
+            107
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-blue-dance-moves-oct27.webp",
+          "rect": [
+            961,
+            791,
+            347,
+            384
+          ],
+          "isolate": true,
+          "scale": 0.7529712211563391,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            224,
+            369
+          ],
+          "head": [
+            125,
+            11
+          ],
+          "eyes": [
+            198,
+            133
+          ],
+          "neck": [
+            198,
+            192
+          ],
+          "back": [
+            165,
+            220
+          ],
+          "hand": [
+            257,
+            103
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-blue-dance-moves-oct27.webp",
+          "rect": [
+            66,
+            0,
+            355,
+            433
+          ],
+          "isolate": true,
+          "scale": 0.7529712211563391,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            175,
+            420
+          ],
+          "head": [
+            113,
+            10
+          ],
+          "eyes": [
+            199,
+            148
+          ],
+          "neck": [
+            201,
+            214
+          ],
+          "back": [
+            179,
+            236
+          ],
+          "hand": [
+            60,
+            118
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-blue-dance-moves-oct27.webp",
+          "rect": [
+            22,
+            850,
+            517,
+            325
+          ],
+          "isolate": true,
+          "scale": 0.7278721804511278,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            257,
+            295
+          ],
+          "head": [
+            191,
+            9
+          ],
+          "eyes": [
+            275,
+            153
+          ],
+          "neck": [
+            274,
+            211
+          ],
+          "back": [
+            251,
+            241
+          ],
+          "hand": [
+            387,
+            115
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
     }
   },
   "portraits": {

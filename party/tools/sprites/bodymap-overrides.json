@@ -84,6 +84,17 @@
     121,
     130
    ]
+  },
+  "dance-cartwheel-01.webp": {
+   "artHash": "8c8ec61a39c021fe458057ac8ea9dd86bfba9d0f38125c33d2f648c720dc16ad",
+   "footFront": [
+    145,
+    13
+   ],
+   "footBack": [
+    22,
+    12
+   ]
   }
  },
  "hotdog": {
@@ -180,6 +191,225 @@
    "tail": [
     30,
     113
+   ]
+  },
+  "dance-cartwheel-01.webp": {
+   "artHash": "c8b10167473e1bf70914fcde92bffa6ec3091327dcc0ce020cb5492f810b8077",
+   "footFront": [
+    161,
+    62
+   ],
+   "footBack": [
+    22,
+    47
+   ]
+  }
+ },
+ "garden-fairy-pink": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "1ffedf5993f542c1366ee1559731e4b2b1d5729ff399354828b9eaccc227f1a8",
+   "footFront": [
+    164,
+    13
+   ],
+   "footBack": [
+    16,
+    10
+   ]
+  }
+ },
+ "garden-fairy-blue": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "1b618654b42ec2b53b3b52ae110bea436f2226c0fd97d7c74b235af00a055198",
+   "footFront": [
+    139,
+    13
+   ],
+   "footBack": [
+    18,
+    14
+   ]
+  }
+ },
+ "garden-fairy-green": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "86fdc3791016da23c98def38932199f2661f423e8c569787fc2f3304b9eedafe",
+   "footFront": [
+    151,
+    18
+   ],
+   "footBack": [
+    19,
+    12
+   ]
+  }
+ },
+ "garden-fairy-purple": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "2b14e460e0067325c9c9e74193545a538083b4d355ac7d208c8fb3b8e7d34bf3",
+   "footFront": [
+    136,
+    13
+   ],
+   "footBack": [
+    16,
+    13
+   ]
+  }
+ },
+ "garden-fairy-yellow": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "bd9e8127a477353146d1c88a783d42fc7517a077c34b8ee36a4f6b27baa3507f",
+   "footFront": [
+    128,
+    10
+   ],
+   "footBack": [
+    14,
+    9
+   ]
+  }
+ },
+ "felicity": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "0d77597ac33429a943d9d8a6760b9076ce7d83199d3f0a7cb152c8a36b1b7e84",
+   "footFront": [
+    192,
+    13
+   ],
+   "footBack": [
+    24,
+    16
+   ]
+  }
+ },
+ "kpop-girl-center": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "2c13d7d0840a1c6ff62e3dec987c54b7b7a657b06a2ee00756924aa901c470c6",
+   "footFront": [
+    199,
+    21
+   ],
+   "footBack": [
+    21,
+    13
+   ]
+  }
+ },
+ "kpop-girl-left": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "df03e06f08644ebb4ff7eceb79a8a0ddc00cfac199add1cb4c88f5b7a3d0a25d",
+   "footFront": [
+    185,
+    12
+   ],
+   "footBack": [
+    19,
+    13
+   ]
+  }
+ },
+ "kpop-girl-right": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "6284a63002792bba60f10a9ce3f8fce4dc19c5b34bf1c9428866066bbb82c8cd",
+   "footFront": [
+    140,
+    15
+   ],
+   "footBack": [
+    17,
+    12
+   ]
+  }
+ },
+ "princess-amber": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "fd289ea0d39170f1705e9543d1fd8eee7f1ec2b2addaf729a6e7d11f2116e630",
+   "footFront": [
+    122,
+    15
+   ],
+   "footBack": [
+    14,
+    10
+   ]
+  }
+ },
+ "bronze": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "98bb302530be399a1f88daed9917bb450018fa25346ea296153ee4ee1d8f19cd",
+   "footFront": [
+    148,
+    25
+   ],
+   "footBack": [
+    17,
+    14
+   ]
+  }
+ },
+ "cotton-candy": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "4f714cabbd5948bdcc7787ace9f69fc905bf4f2be90ed1779ffca25ba3b28e7c",
+   "footFront": [
+    119,
+    12
+   ],
+   "footBack": [
+    14,
+    23
+   ]
+  }
+ },
+ "fox": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "c7a91ef0d10049e4657e128e040d81dc82e8aaf0316e299b6517ba9be397dc53",
+   "footFront": [
+    150,
+    20
+   ],
+   "footBack": [
+    16,
+    12
+   ]
+  }
+ },
+ "snowstar": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "94ab8452ba13af28137eca7d39c450c555b3df7c63196d02b13bca3570c68f61",
+   "footFront": [
+    129,
+    16
+   ],
+   "footBack": [
+    18,
+    16
+   ]
+  }
+ },
+ "unicorn": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "c0e76921488883173e45ac1d511e4139154b9b4a936d42fdf38b2d401f0ebdb5",
+   "footFront": [
+    113,
+    10
+   ],
+   "footBack": [
+    24,
+    7
+   ]
+  }
+ },
+ "glimmer": {
+  "dance-cartwheel-01.webp": {
+   "artHash": "ab6dc10b1e7e24e5d7c6ea11fae48a1ce8efa5b0b0e0e829319faa9ec8878d02",
+   "footFront": [
+    110,
+    10
+   ],
+   "footBack": [
+    12,
+    11
    ]
   }
  }

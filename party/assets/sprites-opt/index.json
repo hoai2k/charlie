@@ -577,10 +577,19 @@
     "roll-push-00.webp": 1.0,
     "roll-push-01.webp": 1.0,
     "hold-balloons-00.webp": 1.0,
-    "hold-balloons-01.webp": 1.0
+    "hold-balloons-01.webp": 1.0,
+    "dance-cartwheel-00.webp": 1.0,
+    "dance-cartwheel-01.webp": 1.0,
+    "dance-cancan-00.webp": 1.0,
+    "dance-splits-00.webp": 1.0,
+    "dance-hula-00.webp": 1.0,
+    "dance-starfish-00.webp": 1.0,
+    "dance-disco-00.webp": 1.0,
+    "dance-moonwalk-00.webp": 1.0,
+    "dance-moonwalk-01.webp": 1.0
    },
    "portrait": 192,
-   "source": "e7c291c6d020c8c0"
+   "source": "9413826d17f72b55"
   },
   "garden-fairy-blue": {
    "scale": 1.0,
@@ -671,10 +680,19 @@
     "roll-push-00.webp": 1.0,
     "roll-push-01.webp": 1.0,
     "hold-balloons-00.webp": 1.0,
-    "hold-balloons-01.webp": 1.0
+    "hold-balloons-01.webp": 1.0,
+    "dance-cancan-00.webp": 1.0,
+    "dance-hula-00.webp": 1.0,
+    "dance-cartwheel-00.webp": 1.0,
+    "dance-cartwheel-01.webp": 1.0,
+    "dance-starfish-00.webp": 1.0,
+    "dance-moonwalk-00.webp": 1.0,
+    "dance-moonwalk-01.webp": 1.0,
+    "dance-disco-00.webp": 1.0,
+    "dance-splits-00.webp": 1.0
    },
    "portrait": 192,
-   "source": "888fa547a3636a70"
+   "source": "bf5ed98f6d86ae62"
   },
   "garden-fairy-yellow": {
    "scale": 1.0,
@@ -765,10 +783,19 @@
     "roll-push-00.webp": 1.0,
     "roll-push-01.webp": 1.0,
     "hold-balloons-00.webp": 1.0,
-    "hold-balloons-01.webp": 1.0
+    "hold-balloons-01.webp": 1.0,
+    "dance-cancan-00.webp": 1.0,
+    "dance-hula-00.webp": 1.0,
+    "dance-cartwheel-00.webp": 1.0,
+    "dance-cartwheel-01.webp": 1.0,
+    "dance-starfish-00.webp": 1.0,
+    "dance-moonwalk-00.webp": 1.0,
+    "dance-moonwalk-01.webp": 1.0,
+    "dance-disco-00.webp": 1.0,
+    "dance-splits-00.webp": 1.0
    },
    "portrait": 192,
-   "source": "195c9ef0a99f162e"
+   "source": "320fd279c251d79d"
   },
   "garden-fairy-green": {
    "scale": 1.0,
@@ -859,10 +886,19 @@
     "roll-push-00.webp": 1.0,
     "roll-push-01.webp": 1.0,
     "hold-balloons-00.webp": 1.0,
-    "hold-balloons-01.webp": 1.0
+    "hold-balloons-01.webp": 1.0,
+    "dance-cancan-00.webp": 1.0,
+    "dance-hula-00.webp": 1.0,
+    "dance-cartwheel-00.webp": 1.0,
+    "dance-cartwheel-01.webp": 1.0,
+    "dance-starfish-00.webp": 1.0,
+    "dance-moonwalk-00.webp": 1.0,
+    "dance-moonwalk-01.webp": 1.0,
+    "dance-disco-00.webp": 1.0,
+    "dance-splits-00.webp": 1.0
    },
    "portrait": 192,
-   "source": "cd627f35ff633b90"
+   "source": "f8bb2001dbdb974d"
   },
   "garden-fairy-purple": {
    "scale": 1.0,
@@ -953,10 +989,19 @@
     "roll-push-00.webp": 1.0,
     "roll-push-01.webp": 1.0,
     "hold-balloons-00.webp": 1.0,
-    "hold-balloons-01.webp": 1.0
+    "hold-balloons-01.webp": 1.0,
+    "dance-cancan-00.webp": 1.0,
+    "dance-hula-00.webp": 1.0,
+    "dance-cartwheel-00.webp": 1.0,
+    "dance-cartwheel-01.webp": 1.0,
+    "dance-starfish-00.webp": 1.0,
+    "dance-moonwalk-00.webp": 1.0,
+    "dance-moonwalk-01.webp": 1.0,
+    "dance-disco-00.webp": 1.0,
+    "dance-splits-00.webp": 1.0
    },
    "portrait": 192,
-   "source": "2cb53de1e223a507"
+   "source": "76bdac4c35eb28ab"
   },
   "marina": {
    "scale": 1.0,

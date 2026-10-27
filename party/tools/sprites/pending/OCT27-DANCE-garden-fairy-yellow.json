@@ -1,0 +1,415 @@
+{
+  "asset": "garden-fairy-yellow",
+  "prompt": "Use case: illustration-story. Transparent game sprite sheet 3 columns x3 rows, EXACT NINE FULL BODY figures ordered row-major. Image1 approved character IDENTITY reference; image2 actual SHIPPING IDLE reference for proportions and outline weight. SAME yellow daisy fairy girl with fair peachy pink skin, brown bob, green eyes, giant white DAISY hat with golden domed centre, yellow and cream petal dress white daisy collar with round gold bead tips, yellow gold translucent four wings with daisy veins, yellow flower shoes. Keep exact skin/outfit/colors/head-to-torso size. Three-quarter camera faces screen-right, except inverted cartwheel; all huge expressive happy faces. Funny extreme readable dance silhouettes. Nine cells equal spacing, generous gutters, every wing/hat/hand/shoe within its own cell. NO shadows, scenery, props, text, numbers, effects or motion lines. Ordered poses: row1col1 DISCO right arm straight up-left45degrees index pointing, left hand hip elbow out, hips hardright, knee bent heelup, cocky grin. row1col2 STARFISH JUMP arms+legs stretched very wide X, body airborne30percent above virtual floor, WHEE openmouth. row1col3 HULA both arms stretched left shoulderheight wrists soft, hips hardright kneesbent, happy closedeyes. row2col1 CARTWHEEL START side-on lunge arms overhead excitedgrin. row2col2 CARTWHEEL INVERTED fully UPSIDE DOWN both hands flatfloor straightarms, legs wide V upward, hat/hair pointing down, upside-down gigglingface. row2col3 CANCAN one straightleg kicked UP PAST HEAD other standing straight, hands hold petaldress wide, leanback happy openmouth. row3col1 FULL SPLITS flat onfloor one leg forward oneback straight horizontal, uprighttorso, armsup bigV, proud surprised grin. row3col2 MOONWALK frame1 facingright leaningback, frontfootflat backfoottoes knee bent, handatforehead tipping invisiblehat(no addedhat), coolsmile. row3col3 MOONWALK frame2 samepose feet swapped. Do not replace any pose with neutral. Transparent RGBA background.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17ae0-0747-7731-bf9f-8bd792b434b5/exec-de79f59d-bfb4-4d54-bf5b-2703cfe683b3.png",
+  "source": "party/tools/sprites/sources/garden-fairy-yellow-dance-moves-oct27.webp",
+  "status": "intaken; root runtime QA pending",
+  "poses": {
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-dance-moves-oct27.webp",
+          "rect": [
+            528,
+            779,
+            347,
+            365
+          ],
+          "isolate": true,
+          "scale": 0.5789883129839898,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            196,
+            350
+          ],
+          "head": [
+            165,
+            7
+          ],
+          "eyes": [
+            186,
+            122
+          ],
+          "neck": [
+            192,
+            179
+          ],
+          "back": [
+            157,
+            211
+          ],
+          "hand": [
+            249,
+            96
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-dance-moves-oct27.webp",
+          "rect": [
+            936,
+            779,
+            362,
+            370
+          ],
+          "isolate": true,
+          "scale": 0.5789883129839898,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            178,
+            353
+          ],
+          "head": [
+            173,
+            4
+          ],
+          "eyes": [
+            176,
+            125
+          ],
+          "neck": [
+            185,
+            181
+          ],
+          "back": [
+            150,
+            214
+          ],
+          "hand": [
+            248,
+            107
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-dance-moves-oct27.webp",
+          "rect": [
+            483,
+            0,
+            407,
+            419
+          ],
+          "isolate": true,
+          "scale": 0.5982879234167894,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            198,
+            490
+          ],
+          "head": [
+            194,
+            9
+          ],
+          "eyes": [
+            202,
+            142
+          ],
+          "neck": [
+            201,
+            202
+          ],
+          "back": [
+            178,
+            232
+          ],
+          "hand": [
+            333,
+            140
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-dance-moves-oct27.webp",
+          "rect": [
+            60,
+            422,
+            385,
+            364
+          ],
+          "isolate": true,
+          "scale": 0.6189185414656442,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            195,
+            351
+          ],
+          "head": [
+            215,
+            11
+          ],
+          "eyes": [
+            263,
+            114
+          ],
+          "neck": [
+            260,
+            171
+          ],
+          "back": [
+            219,
+            203
+          ],
+          "hand": [
+            356,
+            80
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-dance-moves-oct27.webp",
+          "rect": [
+            498,
+            410,
+            392,
+            367
+          ],
+          "isolate": true,
+          "scale": 0.5789883129839898,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            198,
+            352
+          ],
+          "head": [
+            189,
+            334
+          ],
+          "eyes": [
+            193,
+            233
+          ],
+          "neck": [
+            190,
+            178
+          ],
+          "back": [
+            192,
+            132
+          ],
+          "hand": [
+            265,
+            350
+          ],
+          "headAngle": 3.141592653589793
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-dance-moves-oct27.webp",
+          "rect": [
+            920,
+            0,
+            407,
+            419
+          ],
+          "isolate": true,
+          "scale": 0.6410227750894173,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            178,
+            404
+          ],
+          "head": [
+            141,
+            12
+          ],
+          "eyes": [
+            194,
+            152
+          ],
+          "neck": [
+            203,
+            210
+          ],
+          "back": [
+            169,
+            240
+          ],
+          "hand": [
+            341,
+            160
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-dance-moves-oct27.webp",
+          "rect": [
+            75,
+            0,
+            365,
+            421
+          ],
+          "isolate": true,
+          "scale": 0.6410227750894173,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            157,
+            407
+          ],
+          "head": [
+            191,
+            12
+          ],
+          "eyes": [
+            175,
+            137
+          ],
+          "neck": [
+            178,
+            199
+          ],
+          "back": [
+            153,
+            225
+          ],
+          "hand": [
+            73,
+            94
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-dance-moves-oct27.webp",
+          "rect": [
+            15,
+            821,
+            551,
+            318
+          ],
+          "isolate": true,
+          "scale": 0.5982879234167894,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            276,
+            288
+          ],
+          "head": [
+            272,
+            7
+          ],
+          "eyes": [
+            279,
+            127
+          ],
+          "neck": [
+            281,
+            191
+          ],
+          "back": [
+            257,
+            223
+          ],
+          "hand": [
+            386,
+            78
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-dance-moves-oct27.webp",
+          "rect": [
+            936,
+            413,
+            398,
+            385
+          ],
+          "isolate": true,
+          "scale": 0.6189185414656442,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            235,
+            373
+          ],
+          "head": [
+            159,
+            11
+          ],
+          "eyes": [
+            196,
+            126
+          ],
+          "neck": [
+            212,
+            182
+          ],
+          "back": [
+            170,
+            216
+          ],
+          "hand": [
+            283,
+            168
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    }
+  },
+  "qaContact": "/private/tmp/garden-fairy-yellow-dance-build/qa-contact-sheet.jpg",
+  "sourcePixelExact": true,
+  "scaleMethod": "Measured hair/head width relative to shipping idle, reviewed in contact at240pixel on-screen body size; new physical bodyHeight180 with runtime proportional compensation",
+  "reviewedBodymapOverrides": {
+    "dance-cartwheel-01.webp": {
+      "artHash": "bd9e8127a477353146d1c88a783d42fc7517a077c34b8ee36a4f6b27baa3507f",
+      "footFront": [
+        128,
+        10
+      ],
+      "footBack": [
+        14,
+        9
+      ]
+    }
+  }
+}
