@@ -7,6 +7,7 @@
 // are "station units" (the station scales them). The nails are what the
 // player paints, so their geometry is exact and shared by drawing and the
 // cursor hit test.
+import { HAND_ART_NAILS, HAND_ART_SHAPES } from './hand-art-geometry.js';
 import { drawArt, hasArt } from '../../engine/art.js';
 import { RAINBOW } from '../../engine/particles.js';
 import { drawSparkleShape, drawStarShape, drawHeartShape, starPath } from '../../engine/emotes.js';
@@ -119,6 +120,10 @@ export function geom(style, wig = 0, t = 0) {
     const nh = f.nh, nw = w * TAPER * 0.86, d = tr + NAIL_OVER - nh / 2;
     nails.push({ x: tx + dx * d, y: ty + dy * d, w: nw, h: nh, rot: a, i });
   });
+  if (hasHandArt(style)) {
+    // Native canvas remains untrimmed; painting and hit tests share measured nail beds.
+    return { fingers, nails: HAND_ART_NAILS[style.tone].map(n => ({ ...n })) };
+  }
   return { fingers, nails };
 }
 
@@ -189,9 +194,11 @@ function wristPath(g) {
 const CUFF_Y = 200;
 
 /** The client's sleeve cuff (with a lace edge) and a bead bracelet, over the wrist. */
-function drawCuff(g, style) {
+function drawCuff(g, style, generated = false) {
   g.save();
-  g.beginPath(); wristPath(g); g.clip();
+  g.beginPath();
+  if (generated) g.rect(-62, 140, 124, 120); else wristPath(g);
+  g.clip();
   // sleeve with a scalloped lace edge
   g.fillStyle = '#ffffff';
   g.beginPath(); g.moveTo(-80, 260); g.lineTo(-80, CUFF_Y + 6);
@@ -237,7 +244,7 @@ export function drawHandBase(g, style, G, o = {}) {
     if (!wrist) { g.beginPath(); g.rect(-256, -256, 512, 256 + 176); g.clip(); }
     drawArt(g, handArtKey(style), 0, 0, 512, 512);
     g.restore();
-    if (wrist) { g.save(); drawCuff(g, style); g.restore(); }
+    if (wrist) { g.save(); g.translate(21.5, 0); g.scale(1.16, 1); drawCuff(g, style, true); g.restore(); }
     return;
   }
   const shapes = [];
@@ -291,7 +298,12 @@ export function drawHandBase(g, style, G, o = {}) {
 }
 
 // --- nails ----------------------------------------------------------------------------
-function nailPath(g, w, h) {
+function nailPath(g, w, h, shape = null) {
+  if (shape != null) {
+    const points = HAND_ART_SHAPES[shape];
+    g.beginPath(); points.forEach(([x, y], i) => i ? g.lineTo(x * w, y * h) : g.moveTo(x * w, y * h));
+    g.closePath(); return;
+  }
   const r = w / 2;
   g.beginPath();
   g.moveTo(-r, h / 2 - w * 0.28);
@@ -387,7 +399,7 @@ export function drawNail(g, n, s, t = 0, o = {}) {
   g.translate(n.x, n.y); g.rotate(n.rot);
   const pop = s.pop > 0 ? 1 + Math.sin(s.pop * Math.PI) * 0.18 : 1;
   if (pop !== 1) g.scale(pop, pop);
-  nailPath(g, w, h);
+  nailPath(g, w, h, n.shape);
   g.fillStyle = o.bare || '#ffe4ec'; g.fill();
   g.save(); g.clip();
   // natural nail: a pale tip
@@ -435,12 +447,12 @@ export function drawNail(g, n, s, t = 0, o = {}) {
     g.beginPath(); g.ellipse(w * 0.15, yy, w * 0.08, h * 0.12, 0, 0, TAU); g.fill();
   }
   g.restore();
-  nailPath(g, w, h);
+  nailPath(g, w, h, n.shape);
   g.lineWidth = o.line ?? 4; g.strokeStyle = NAVY; g.stroke();
   if (o.hover) {
     g.save(); g.setLineDash([7, 6]); g.lineDashOffset = -t * 30;
     g.lineWidth = 4; g.strokeStyle = '#ffffff';
-    g.scale(1.22, 1.14); nailPath(g, w, h); g.stroke();
+    g.scale(1.22, 1.14); nailPath(g, w, h, n.shape); g.stroke();
     g.restore();
   }
   g.restore();

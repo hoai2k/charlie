@@ -1,0 +1,406 @@
+{
+  "generator": "built-in image_gen",
+  "notes": "Native RGBA preserved pixel-exact lossless. Runtime full canvas resized without trim. Geometry measured from solid pale-pink connected nail interiors with covariance ellipse incl approximate outline. Each tone measured independently because built-in edit has slight contour drift. Wrist runs off bottom at x~416\u2013694 in runtime; cuff should follow actual wrist.",
+  "assets": [
+    {
+      "prompt": "Use case: illustration-story. Generate a game sprite: a child's (about 8 years old) RIGHT HAND seen from BACK, palm down, fingers gently spread pointing UP, thumb out LEFT. EXACT 1024x1024 transparent RGBA canvas, no trimming. Clean appealing slim soft rounded tapered cartoon fingers, smooth knuckles, no veins/wrinkles/jewelry/sleeve. Bold smooth dark navy #24163f outlines, clean flat cel shading only a soft shade on right. Fair skin #ffe2d0 shade #f0bfa4. Back of hand occupies approximately x304\u2013706 y470\u2013844. Wrist x392\u2013632 continues straight down off bottom edge y1024 (no rounded termination). FIVE clearly separate nails: plain solid pale pink #ffe4ec beds with navy outlines, absolutely NO highlights, shine, polish, white tips, pattern or gradients on nails. Slightly long oval nails about14px beyond fingertip. Target nail centres and dimensions and tilt (0 points up, positive right): thumb(172,533)70x92 tilt-53deg; index(357,216)67x108 tilt-7; middle(477,166)68x112 tilt-1; ring(599,199)65x108 tilt+5; pinky(704,304)58x92 tilt+13. Natural graceful child hand, five fingers only. No text, no shadow, no background, no extra items.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a17ae0-0747-7731-bf9f-8bd792b434b5/exec-e8c05e58-f844-4535-92c9-7c15ec73ca43.png",
+      "key": "prop/nail-hand-0",
+      "runtimeFile": "party/assets/art/prop/nail-hand-0.webp",
+      "source": "party/reference/sources/studio/nail-studio/nail-hand-0-source.webp",
+      "measurements": {
+        "thumb": {
+          "centre": [
+            225.88,
+            509.33
+          ],
+          "size": [
+            46.96,
+            82.87
+          ],
+          "tilt": -42.26,
+          "pixels": 3832
+        },
+        "index": {
+          "centre": [
+            363.87,
+            169.78
+          ],
+          "size": [
+            52.04,
+            91.27
+          ],
+          "tilt": -12.47,
+          "pixels": 4768
+        },
+        "middle": {
+          "centre": [
+            509.82,
+            108.0
+          ],
+          "size": [
+            55.1,
+            95.25
+          ],
+          "tilt": 0.84,
+          "pixels": 5314
+        },
+        "ring": {
+          "centre": [
+            658.37,
+            165.23
+          ],
+          "size": [
+            50.41,
+            90.76
+          ],
+          "tilt": 13.38,
+          "pixels": 4576
+        },
+        "pinky": {
+          "centre": [
+            787.18,
+            309.28
+          ],
+          "size": [
+            42.66,
+            77.34
+          ],
+          "tilt": 26.86,
+          "pixels": 3201
+        }
+      },
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "runtimeBytes": 62566,
+      "sourcePixelExact": true,
+      "runtimeAlphaExact": true
+    },
+    {
+      "prompt": "Use case: precise-object-edit. Image1 EDIT TARGET. Recolour ONLY the skin of this exact hand to light skin #f6c8a2 with cel shade #dfa27a. Preserve the exact same canvas, transparent background alpha edges, silhouette, all finger geometry and wrist placement, nail locations/shapes/size/rotation, navy outlines, and plain pale-pink nail bed colors. Pixel-aligned identical drawing required for game overlays. NO new highlights, no nail polish, no text or objects. Change skin color only.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a17ae0-0747-7731-bf9f-8bd792b434b5/exec-073764c4-c11d-45d1-bce5-d2f4d81fd495.png",
+      "key": "prop/nail-hand-1",
+      "runtimeFile": "party/assets/art/prop/nail-hand-1.webp",
+      "source": "party/reference/sources/studio/nail-studio/nail-hand-1-source.webp",
+      "measurements": {
+        "thumb": {
+          "centre": [
+            225.76,
+            509.11
+          ],
+          "size": [
+            46.47,
+            82.35
+          ],
+          "tilt": -42.16,
+          "pixels": 3768
+        },
+        "index": {
+          "centre": [
+            363.97,
+            169.52
+          ],
+          "size": [
+            51.6,
+            90.98
+          ],
+          "tilt": -12.35,
+          "pixels": 4707
+        },
+        "middle": {
+          "centre": [
+            509.95,
+            107.77
+          ],
+          "size": [
+            54.7,
+            94.76
+          ],
+          "tilt": 0.98,
+          "pixels": 5247
+        },
+        "ring": {
+          "centre": [
+            658.85,
+            164.7
+          ],
+          "size": [
+            49.89,
+            90.28
+          ],
+          "tilt": 13.37,
+          "pixels": 4499
+        },
+        "pinky": {
+          "centre": [
+            787.78,
+            309.14
+          ],
+          "size": [
+            42.33,
+            77.18
+          ],
+          "tilt": 26.78,
+          "pixels": 3162
+        }
+      },
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "runtimeBytes": 60484,
+      "sourcePixelExact": true,
+      "runtimeAlphaExact": true
+    },
+    {
+      "prompt": "Use case: precise-object-edit. Image1 EDIT TARGET. Recolour ONLY the skin of this exact hand to TAN skin #dfa577 with cel shade #c08055. Preserve exact same canvas, transparent background alpha edges, silhouette, all finger geometry and wrist placement, nail locations/shapes/size/rotation, navy outlines, and plain pale-pink nail bed colors. Pixel-aligned identical drawing required for game overlays. NO new highlights, no nail polish, no text or objects. Change skin color only.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a17ae0-0747-7731-bf9f-8bd792b434b5/exec-9b1dee8d-0701-4303-a648-5e544e36e06d.png",
+      "key": "prop/nail-hand-2",
+      "runtimeFile": "party/assets/art/prop/nail-hand-2.webp",
+      "source": "party/reference/sources/studio/nail-studio/nail-hand-2-source.webp",
+      "measurements": {
+        "thumb": {
+          "centre": [
+            225.67,
+            509.25
+          ],
+          "size": [
+            46.38,
+            82.22
+          ],
+          "tilt": -42.36,
+          "pixels": 3753
+        },
+        "index": {
+          "centre": [
+            363.86,
+            169.79
+          ],
+          "size": [
+            51.51,
+            90.99
+          ],
+          "tilt": -12.46,
+          "pixels": 4699
+        },
+        "middle": {
+          "centre": [
+            509.77,
+            108.01
+          ],
+          "size": [
+            54.43,
+            94.87
+          ],
+          "tilt": 0.9,
+          "pixels": 5225
+        },
+        "ring": {
+          "centre": [
+            658.4,
+            165.11
+          ],
+          "size": [
+            50.09,
+            90.23
+          ],
+          "tilt": 13.15,
+          "pixels": 4514
+        },
+        "pinky": {
+          "centre": [
+            787.15,
+            309.3
+          ],
+          "size": [
+            42.28,
+            77.0
+          ],
+          "tilt": 27.02,
+          "pixels": 3153
+        }
+      },
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "runtimeBytes": 62572,
+      "sourcePixelExact": true,
+      "runtimeAlphaExact": true
+    },
+    {
+      "prompt": "Use case: precise-object-edit. Image1 EDIT TARGET. Recolour ONLY the skin of this exact hand to BROWN skin #b97c52 with cel shade #985c37. Preserve exact same canvas, transparent background alpha edges, silhouette, all finger geometry and wrist placement, nail locations/shapes/size/rotation, navy outlines, and plain pale-pink nail bed colors. Pixel-aligned identical drawing required for game overlays. NO new highlights, no nail polish, no text or objects. Change skin color only.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a17ae0-0747-7731-bf9f-8bd792b434b5/exec-08f46dbd-8372-4cd6-9020-385ca1d7e2d9.png",
+      "key": "prop/nail-hand-3",
+      "runtimeFile": "party/assets/art/prop/nail-hand-3.webp",
+      "source": "party/reference/sources/studio/nail-studio/nail-hand-3-source.webp",
+      "measurements": {
+        "thumb": {
+          "centre": [
+            225.81,
+            509.14
+          ],
+          "size": [
+            46.56,
+            82.58
+          ],
+          "tilt": -42.64,
+          "pixels": 3788
+        },
+        "index": {
+          "centre": [
+            364.04,
+            169.77
+          ],
+          "size": [
+            51.91,
+            90.75
+          ],
+          "tilt": -12.56,
+          "pixels": 4725
+        },
+        "middle": {
+          "centre": [
+            509.77,
+            107.94
+          ],
+          "size": [
+            55.66,
+            95.25
+          ],
+          "tilt": 0.84,
+          "pixels": 5375
+        },
+        "ring": {
+          "centre": [
+            658.38,
+            164.86
+          ],
+          "size": [
+            50.44,
+            90.89
+          ],
+          "tilt": 13.33,
+          "pixels": 4584
+        },
+        "pinky": {
+          "centre": [
+            787.05,
+            309.22
+          ],
+          "size": [
+            42.95,
+            77.66
+          ],
+          "tilt": 27.41,
+          "pixels": 3244
+        }
+      },
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "runtimeBytes": 57156,
+      "sourcePixelExact": true,
+      "runtimeAlphaExact": true
+    },
+    {
+      "prompt": "Use case: precise-object-edit. Image1 EDIT TARGET. Recolour ONLY the skin of this exact hand to DEEP BROWN skin #8a5838 with cel shade #6c4027. Preserve exact same canvas, transparent background alpha edges, silhouette, all finger geometry and wrist placement, nail locations/shapes/size/rotation, navy outlines, and plain pale-pink nail bed colors. Pixel-aligned identical drawing required for game overlays. NO new highlights, no nail polish, no text or objects. Change skin color only.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a17ae0-0747-7731-bf9f-8bd792b434b5/exec-76690e8c-4eab-470e-a0ec-f0909970c4ff.png",
+      "key": "prop/nail-hand-4",
+      "runtimeFile": "party/assets/art/prop/nail-hand-4.webp",
+      "source": "party/reference/sources/studio/nail-studio/nail-hand-4-source.webp",
+      "measurements": {
+        "thumb": {
+          "centre": [
+            225.57,
+            509.04
+          ],
+          "size": [
+            46.32,
+            82.42
+          ],
+          "tilt": -42.66,
+          "pixels": 3760
+        },
+        "index": {
+          "centre": [
+            363.88,
+            169.62
+          ],
+          "size": [
+            51.71,
+            90.86
+          ],
+          "tilt": -12.6,
+          "pixels": 4710
+        },
+        "middle": {
+          "centre": [
+            509.91,
+            107.96
+          ],
+          "size": [
+            54.46,
+            94.8
+          ],
+          "tilt": 0.87,
+          "pixels": 5220
+        },
+        "ring": {
+          "centre": [
+            658.46,
+            164.96
+          ],
+          "size": [
+            50.27,
+            90.29
+          ],
+          "tilt": 13.27,
+          "pixels": 4537
+        },
+        "pinky": {
+          "centre": [
+            787.38,
+            309.1
+          ],
+          "size": [
+            42.33,
+            76.96
+          ],
+          "tilt": 27.09,
+          "pixels": 3157
+        }
+      },
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "runtimeBytes": 60324,
+      "sourcePixelExact": true,
+      "runtimeAlphaExact": true
+    }
+  ]
+}
