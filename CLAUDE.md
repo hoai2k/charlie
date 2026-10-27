@@ -80,7 +80,7 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   `timeUp.goal` instead: its own title, "Go!" first and the default, "stay" for more time;
   only creative activities offer "stay" - a game with rounds just says "Time's up!"
   and moves on, like Hide & Seek Picnic),
-  `api.finishTogether`, `showstopper()` in `engine/util.js`, `engine/easy.js`
+  `api.finishTogether`, `showstopper()` in `engine/util.js`, `engine/dash.js` (B dashes in every game where the stick walks a character; humans only), `engine/easy.js`
   (Sister Party Easy: the stick is optional, A does everything, `easyPrompt` is
   the one big-A cue; A only walks a child somewhere on a repeated press with no
   recent stick use - `easyAutoOk` / `easyErrand`; in a no-losers game other buttons may do their own things too, as long as mashing A alone is fun) and `engine/crowd.js` (8-player spacing).
