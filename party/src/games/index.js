@@ -172,8 +172,12 @@ const MOLLY_SWAPS = {
 };
 const mollyAll = GAMES.filter((g) => g.category === 'molly');
 const swapIns = new Set(Object.values(MOLLY_SWAPS).filter((id) => mollyAll.some((g) => g.id === id)));
-export const MOLLY_GAMES = mollyAll.filter((g) => !swapIns.has(g.id))
+// The owner's order: these go at the end of the Sister Party shelf (in this order).
+const MOLLY_LAST = ['whoopee-tea', 'sock-match'];
+const mollyShelfOrder = mollyAll.filter((g) => !swapIns.has(g.id))
   .map((g) => (swapIns.has(MOLLY_SWAPS[g.id]) ? mollyAll.find((x) => x.id === MOLLY_SWAPS[g.id]) : g));
+export const MOLLY_GAMES = [...mollyShelfOrder.filter((g) => !MOLLY_LAST.includes(g.id)),
+  ...MOLLY_LAST.map((id) => mollyShelfOrder.find((g) => g.id === id)).filter(Boolean)];
 // Play Studio works the same way once it has more than 12 games: 11 per page
 // and a "More Play" tile.
 export const STUDIO_PAGES = STUDIO_GAMES.length <= 12 ? [STUDIO_GAMES] : [STUDIO_GAMES.slice(0, 11), STUDIO_GAMES.slice(11)];
