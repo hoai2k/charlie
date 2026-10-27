@@ -1179,12 +1179,15 @@ export class Game {
       list.push({ y: st.actor.y, st, actor: true });
     }
     for (const c of this.crabs) list.push({ y: c.y, crab: c });
+    for (const c of this.crumbs) list.push({ y: this.oy + c.pc.sy * k, crumb: c });
     list.sort((a, b) => a.y - b.y);
     for (const e of list) {
       if (e.crab) this.drawCrab(g, e.crab);
       else if (e.actor) e.st.actor.draw(g, { ring: e.st.p.color });
+      else if (e.crumb) this.drawCrumb(g, e.crumb);
       else this.drawPlaced(g, e.pc, e.held);
     }
+    this.drawGrains(g, false);
     for (const st of this.stations) if (this.phase === 'build' && !st.ready) this.drawCursor(g, st);
     if (this.sunsetK > 0.01) {
       g.save(); g.globalAlpha = this.sunsetK * 0.07; g.fillStyle = '#ff7a59'; g.fillRect(0, SHORE, W, H - SHORE); g.restore();
@@ -1195,8 +1198,10 @@ export class Game {
     g.save();
     g.translate(this.ox, this.oy); g.scale(this.k, this.k);
     this.drawMoat(g);
+    this.drawSpots(g);
     for (const pc of this.pieces) drawPieceShadow(g, pc);
     g.restore();
+    this.drawGrains(g, true);
   }
 
   drawMoat(g) {
@@ -1240,15 +1245,9 @@ export class Game {
       const lift = 26 + Math.sin(this.t * 6) * 5;
       drawPiece(g, { ...pc, z: pc.z + lift }, this.t, { alpha: 0.92 });
     } else {
-      let alpha;
-      if (pc.washT != null) {
-        // washing away: slumps into a soft wet heap, drifts toward the sea and melts into the water
-        const u = clamp(pc.washT / WASH, 0, 1), r = this.root(pc);
-        g.translate(r.x, r.y - u * 16); g.scale(1 + u * 0.3, 1 - u * 0.7); g.translate(-r.x, -r.y);
-        alpha = 1 - u * u;
-      }
-      drawPiece(g, { ...pc, z: pc.z + (pc.dz || 0) }, this.t, { wet: pc.washT != null ? 1 : pc.wet, alpha });
-      if (this.phase === 'build' && pc.washT == null) {
+      if (pc.washT != null) { this.drawMelt(g, pc); g.restore(); return; }
+      drawPiece(g, { ...pc, z: pc.z + (pc.dz || 0) }, this.t, { wet: pc.wet });
+      if (this.phase === 'build') {
         for (const st of this.stations) {
           if (st.hover !== pc || st.ready) continue;
           const [x0, x1, y0, y1] = silhouette({ ...pc, z: pc.z + (pc.dz || 0) });
@@ -1258,6 +1257,100 @@ export class Game {
           g.restore();
         }
       }
+    }
+    g.restore();
+  }
+
+  /**
+   * Washed away (beach units): the piece's two snapshots drawn in horizontal bands that sag toward its
+   * stack's base and spread out there, the top wobbling and fading first, dry above a rising wet line
+   * and soaked below it; a wet mound grows at the base of the stack.
+   */
+  drawMelt(g, pc) {
+    const m = pc.melt || (pc.melt = { snap: null, mh: 0, seed: 0 });
+    const u = clamp(pc.washT / WASH, 0, 1), r = this.root(pc), rf = foot(r), f = foot(pc);
+    if (!m.snap) { const tr = g.getTransform(); m.snap = snapPiece(pc, Math.min(3, Math.hypot(tr.a, tr.b)), this.t); }
+    const S = m.snap, base = r.y - r.z + rf.hd, by = pc.y - pc.z;
+    const sag = smooth(0, 0.92, u), wetH = 12 + 300 * smooth(0, 0.6, u), alpha = 1 - smooth(0.6, 1, u);
+    const top = by + f.hd + 12 - S.h, N = this.melting > 40 ? 5 : 10, bandH = S.h / N, srcH = S.ch / N;
+    const lift = (h) => (h > 0 ? h * (1 - 0.82 * sag) : h);
+    if (alpha > 0.01) {
+      g.save();
+      for (let j = N - 1; j >= 0; j--) {   // bottom up, each band overlapping the one below a little
+        const y0 = top + j * bandH, y1 = y0 + bandH, hm = base - (y0 + y1) / 2;
+        const rel = clamp(hm / 150, 0, 1);
+        const wf = 1 + sag * (0.1 + 0.45 * (1 - rel));
+        const dx = Math.sin(hm * 0.07 + m.seed + this.t * 2.6) * sag * 8 * rel;
+        const dy0 = base - lift(base - y0), dy1 = base - lift(base - y1);
+        const w = S.w * wf, x = r.x + (pc.x - r.x) * wf + dx - w / 2;
+        const ba = alpha * (1 - sag * rel * 0.55);
+        const wet = clamp((wetH - hm) / 24 + 0.5, 0, 1);
+        if (wet < 1) { g.globalAlpha = ba; g.drawImage(S.pics[0], 0, j * srcH, S.cw, srcH, x, dy0, w, dy1 - dy0 + 0.8); }
+        if (wet > 0) { g.globalAlpha = ba * wet; g.drawImage(S.pics[1], 0, j * srcH, S.cw, srcH, x, dy0, w, dy1 - dy0 + 0.8); }
+      }
+      g.restore();
+    }
+    if (m.mh && !pc.on) {
+      const rx = rf.hw * (0.8 + 0.55 * sag) + 6, ry = rf.hd + 6 + 4 * sag;
+      g.fillStyle = `rgba(120,80,40,${0.3 * smooth(0, 0.3, u)})`;
+      g.beginPath(); g.ellipse(r.x, r.y, rx + 10, ry + 5, 0, 0, TAU); g.fill();
+      mound(g, r.x, r.y, rx, ry, m.mh * smooth(0.05, 0.6, u), WET_SAND, WET_SAND_D);
+    }
+  }
+  /** Taken away (B): crumbling down from the top and sinking into the sand, shaking a little. */
+  drawCrumb(g, c) {
+    const p = c.pc, u = clamp(c.t / CRUMBLE, 0, 1), f = foot(p);
+    const [x0, x1, y0] = silhouette(p), by = p.y - p.z, base = by + f.hd + 2;
+    const cut = y0 - 6 + (base - y0 + 6) * ease.outQuad(u), sink = (base - y0) * 0.22 * u;
+    g.save();
+    g.translate(this.ox, this.oy); g.scale(this.k, this.k);
+    g.beginPath();
+    const n = c.jag.length, wd = x1 - x0 + 24;
+    g.moveTo(x0 - 12, base);
+    for (let i = 0; i < n; i++) g.lineTo(x0 - 12 + (i * wd) / (n - 1), cut + c.jag[i] * (u > 0.05 ? 1 : 0));
+    g.lineTo(x1 + 12, base);
+    g.closePath(); g.clip();
+    g.translate(Math.sin(c.t * 70) * 2 * (1 - u), 0);
+    drawPiece(g, { ...p, z: p.z - sink }, this.t, { wet: p.wet });
+    g.restore();
+  }
+  /** Sand piles left by crumbles; wet mounds smoothed flat by the water, then dark wet patches drying. */
+  drawSpots(g) {
+    for (const sp of this.spots) {
+      if (sp.wet) {
+        const k = smooth(0, MELT_FLAT, sp.t), fade = 1 - smooth(MELT_FLAT, MELT_FLAT + WET_PATCH, sp.t);
+        const rx = sp.rx * (1 + 0.18 * k), ry = sp.ry * (1 + 0.1 * k);
+        g.fillStyle = `rgba(120,80,40,${0.36 * fade})`;
+        g.beginPath(); g.ellipse(sp.x, sp.y, rx + 10, ry + 5, 0, 0, TAU); g.fill();
+        if (k < 1) mound(g, sp.x, sp.y, rx, ry, sp.mh * (1 - k), WET_SAND, WET_SAND_D);
+        if (fade > 0.3) {   // a little shine on the wet sand
+          g.fillStyle = `rgba(255,255,255,${0.16 * fade})`;
+          g.beginPath(); g.ellipse(sp.x - rx * 0.25, sp.y - ry * 0.2, rx * 0.35, ry * 0.25, 0, 0, TAU); g.fill();
+        }
+      } else {
+        const fade = 1 - smooth(PILE_TIME - 0.9, PILE_TIME, sp.t), grow = smooth(0, 0.25, sp.t);
+        g.save(); g.globalAlpha = fade;
+        mound(g, sp.x, sp.y, sp.rx * (0.6 + 0.4 * grow), sp.ry, sp.mh * grow * (0.4 + 0.6 * fade), SAND_L, SAND_D);
+        g.restore();
+      }
+    }
+  }
+  /** Sand grains: settled ones on the sand go under everything (ground), the rest over it. */
+  drawGrains(g, ground) {
+    if (!this.grains.length) return;
+    g.save();
+    g.translate(this.ox, this.oy); g.scale(this.k, this.k);
+    for (let ci = 0; ci < GRAIN_COLORS.length; ci++) {
+      g.beginPath();
+      let any = false;
+      for (const q of this.grains) {
+        if (q.c !== ci || (q.set && !q.top) !== ground) continue;
+        const r = q.set ? q.r * Math.min(1, q.life / 0.6) : q.r;
+        if (r < 0.4) continue;
+        if (q.r > 3.4) { g.moveTo(q.x + r, q.y); g.arc(q.x, q.y, r, 0, TAU); } else g.rect(q.x - r / 2, q.y - r / 2, r, r);
+        any = true;
+      }
+      if (any) { g.fillStyle = GRAIN_COLORS[ci]; g.fill(); }
     }
     g.restore();
   }
