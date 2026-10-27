@@ -1,0 +1,19 @@
+{
+  "asset": "kpop-girl-right",
+  "source": "../sources/kpop-girl-right-full-actions-e.webp",
+  "input_image_1": "../../../reference/canonical/kpop-girl-right.webp",
+  "poses": [
+    "pose-twirl",
+    "pose-twirl",
+    "tumble",
+    "shake-sprinkles"
+  ],
+  "grid": [
+    2,
+    2
+  ],
+  "status": "Generated from exact reinforced square prompt with approved canonical reference; inspected true back view (face hidden) and three-quarter-left view; saved lossless WebP and added with manually entered source-local landmarks.",
+  "prompt": "Use case: stylized-concept. Asset type: transparent full-body sprite sheet for Charlie Party. Input image 1 is the approved canonical kpop-girl-right reference; reproduce this exact character. Subject: very long coral hair, navy tee with pink and purple abstract graphic, golden skirt with brown panels, tall navy boots with pink knee accents, warm brown eyes. Personality: bouncy, playful, flowing motion with expressive long hair. Style: match the canonical 2D cartoon with bold smooth navy outlines, clean cel shading and the same face, hair, body proportions and outfit. Primary request: create a square transparent image with exactly 4 distinct full-body figures in a 2 columns across by 2 rows grid, in row-major order. Use equal-width cells and equal-height rows; each figure must stay entirely inside its own cell with at least 32 pixels of clear transparent gutter on every side. Each cell has one pose only; generous transparent gutters; consistent head size and figure scale in every cell; leave clear margins around hair, hands and shoes. Never add another character. Exact row-major pose order: 1 pose-twirl angle three: true direct back view, back of head and outfit visible, face fully hidden, no facial features. 2 pose-twirl angle four: three-quarter view turned left, continuing the same spin. 3 tumble: controlled sideways rolling tumble key pose with limbs tucked, full character visible. 4 shake-sprinkles: playful shoulder-and-head shake as if brushing off sprinkles, draw no sprinkles or effects.. Constraints: preserve the complete canonical identity and colors in every pose; normal human anatomy; true transparent alpha; keep props and effects separate when instructions call for an imaginary held object. Avoid: backdrop, scenery, shadows, cell borders, text, labels, extra accessories, props, watermark, detached marks, clipped hair, hands or feet.",
+  "output": "../../sources/kpop-girl-right-full-actions-e.webp",
+  "generation_output": "/Users/hoai/.codex/generated_images/01a0fe43-c681-7392-88c4-b71670e6a1a4/exec-738af4b0-7768-4f95-b7ab-58d743f9bd34.png"
+}

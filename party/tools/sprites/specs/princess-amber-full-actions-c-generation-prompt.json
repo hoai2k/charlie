@@ -1,0 +1,21 @@
+{
+  "asset": "princess-amber",
+  "source": "../sources/princess-amber-full-actions-c.webp",
+  "input_image_1": "../../../reference/canonical/princess-amber.webp",
+  "poses": [
+    "flip",
+    "giggle",
+    "photo",
+    "sooty",
+    "splat-throw",
+    "squeak-tiny",
+    "stomp-giant",
+    "swim"
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "status": "exact prompt saved before built-in image_gen; not yet generated. Crop each actual connected figure, inspect and hand-annotate all landmarks before build.",
+  "prompt": "Use case: stylized-concept. Asset type: transparent full-body sprite sheet for Charlie Party. Input image 1 is the approved canonical princess-amber reference; reproduce this exact character. Subject: long copper-auburn hair, amber flower-star crown, floor-length orange gown, black sleeves and bodice accents, white flower-star motifs outlined in black, warm brown eyes. Personality: graceful and expressive princess gestures with flowing hair and gown. Style: match the canonical 2D cartoon with bold smooth navy outlines, clean cel shading and the same face, hair, body proportions and outfit. Primary request: draw exactly 8 distinct full-body figures in a 4 columns by 2 rows transparent grid, in row-major order. Each cell has one pose only; generous transparent gutters; consistent head size and figure scale in every cell; leave clear margins around hair, hands and shoes. Never add another character. Exact row-major pose order: 1 flip: midair forward somersault key pose, limbs tucked naturally, full silhouette visible. 2 giggle: shoulders lifted in a bright laugh, one hand near the mouth. 3 photo: cheerful still portrait pose with a peace sign, no phone or camera. 4 sooty: surprised reaction to imaginary soot, hands near cheeks; keep face and clothes clean with no marks. 5 splat-throw: energetic empty-handed throwing follow-through, no paint, splash or prop. 6 squeak-tiny: tiny startled recoil silhouette with shoulders tucked, do not alter character scale. 7 stomp-giant: bold grounded stomp pose with one foot planted and arms braced, no size change or effects. 8 swim: horizontal swimming mime in open air, arms sweeping and legs extended, no water.. Constraints: preserve the complete canonical identity and colors in every pose; normal human anatomy; true transparent alpha; keep props and effects separate when instructions call for an imaginary held object. Avoid: backdrop, scenery, shadows, cell borders, text, labels, extra accessories, props, watermark, detached marks, clipped hair, hands or feet."
+}

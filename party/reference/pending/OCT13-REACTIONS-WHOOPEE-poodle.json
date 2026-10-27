@@ -1,0 +1,123 @@
+{
+  "date": "2026-10-13",
+  "family": "Whoopee Tea poodle reactions",
+  "assets": [
+    {
+      "key": "prop/whoopee-guest-poodle-shock",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle-shock.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-poodle-shock-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-poodle-shock-source.webp",
+      "editPrompt": "Edit the input image. Keep the character, seated pose, expression, pearls, fur, dress, colors, scale, canvas proportions, and transparent background completely unchanged. Remove ONLY the two pairs of stray decorative shock lines beside the head. There must be no other marks or decoration outside the character. Preserve genuine transparency.",
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-c6aa24a4-4e85-47df-93f0-fe6d88262af4.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-poodle-gasp.webp"
+      ],
+      "sourceSize": [
+        1094,
+        1437
+      ],
+      "sourceBytes": 1031308,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 128570,
+      "prompt": "Use the attached art as identity reference. A proper seated pink poodle lady in a sustained scandalised reaction, one paw clutching pearls, other flung up, wide eyes, small O mouth. Keep the same 320x420 framing and character size, curled pink fur, lavender dress and cream lace. Crisp navy outlines, clean cel shading, transparent background, no text.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        8,
+        0,
+        309,
+        420
+      ],
+      "tool": "built-in imagegen",
+      "editInputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-bbf80865-a439-4140-b3b9-6b9b7c0f24fb.png"
+    },
+    {
+      "key": "prop/whoopee-guest-poodle-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle-scold.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-poodle-scold-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-poodle-scold-source.webp",
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-ea016726-e0d9-4edf-bf06-f7c1ea2b5e1e.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-poodle-gasp.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 923176,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 117870,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved poodle guest reference; reproduce this exact character. Create a 320x420 transparent character image that exactly matches the reference canvas, seated scale, bottom-center seat anchor, framing, fur silhouette, face, and proportions. The same prim pink poodle lady with pearl necklace, cream cuffs, pale lavender puff-sleeve dress, cream lace skirt, pink legs and paws, curled pom-pom tail. Comically stern and indignant: brows down, eyes narrowed, tight disapproving mouth, cheeks puffed and flushed red, chin up. One paw is raised on the right side of the picture in a dainty white glove with one finger raised to scold; the other paw rests on her hip. Prim, pompous, funny, never scary. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, no text, no steam, no shock lines, no shadows, no scenery, no extra decorations, no watermark, no other characters. Keep the entire figure visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        11,
+        0,
+        311,
+        420
+      ],
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/whoopee-guest-poodle-huff",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle-huff.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-poodle-huff-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-poodle-huff-source.webp",
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-2279e7a4-b98a-4e35-83d0-e2e64ec6e66f.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-poodle-sit.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 776396,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 97702,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved poodle seated guest reference; reproduce this exact character. Create a 320x420 transparent character image with exactly the same canvas, bottom-center seat anchor, framing, character size, fur silhouette, and palette as the reference. The same prim pink poodle lady with pearl necklace, cream cuffs, pale lavender puff-sleeve dress, cream lace skirt, pink legs and paws, curled pom-pom tail. In a grand huff: arms folded tight across her chest, nose and chin turned high to the right, eyes shut in offended dignity, mouth a pouty hmph, one eyebrow arched. Hoity-toity and funny. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, no text, no steam, no shock lines, no shadows, no scenery, no extra decorations, no watermark, no other characters. Keep the entire figure visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        48,
+        0,
+        294,
+        418
+      ],
+      "tool": "built-in imagegen"
+    }
+  ],
+  "qa": "Exact runtime alpha/canvas checks; seated gameplay renderer with separate hats/chairs reviewed; scold glove duplication suppressed only when authored scold is available."
+}

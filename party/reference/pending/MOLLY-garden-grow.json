@@ -1,0 +1,1394 @@
+{
+  "tool": "built-in imagegen",
+  "assets": [
+    {
+      "key": "bg/garden-grow",
+      "width": 1920,
+      "height": 1080,
+      "transparent": false,
+      "description": "A sunny cottage garden seen from slightly above: blue sky with fluffy clouds, a white picket fence with rose bushes across the top third, then a wide plain bright-green lawn with soft mowing stripes",
+      "geometry": "Full screen. Sky and picket fence above y\u2248330, lawn below where players run (the code draws the dirt patches at rows y 500 / 680 / 860). Keep the lawn plain",
+      "geometryRaw": "Full screen. Sky and picket fence above y\u2248330, lawn below where players run (the code draws the dirt patches at rows y 500 / 680 / 860). Keep the lawn plain",
+      "formatSpec": "1920\u00d71080, opaque",
+      "sourceLine": 1216,
+      "keyCell": "`bg/garden-grow`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Asset type: 2D children's browser game raster art, bg/garden-grow. Primary request: A sunny cottage garden seen from slightly above: blue sky with fluffy clouds, a white picket fence with rose bushes across the top third, then a wide plain bright-green lawn with soft mowing stripes. Composition and runtime geometry: Full screen. Sky and picket fence above y\u2248330, lawn below where players run (the code draws the dirt patches at rows y 500 / 680 / 860). Keep the lawn plain. Final runtime canvas 1920\u00d71080. Opaque full-bleed landscape. No characters, plant plots, giant flowers or foreground gameplay objects. Keep stated lawn area empty. Input images 1 Felicity and 2 GardenFairies are STYLE ONLY: match crisp navy #24163f outlines, bright candy palette, polished soft CEL shading, friendly elegant shapes. Do not copy these characters, clothing or faces into this asset. Flat readable 2D cartoon illustration, no 3D render, no realistic textures, no text, letters, watermark, signature, ground shadow outside object.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-af24b9ec-11d4-4a0b-b7fd-cdddd5fe4a31.png",
+      "fit": "crop",
+      "bottom": true,
+      "sourceDimensions": [
+        1672,
+        941
+      ],
+      "sourceAlphaBounds": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "file": "party/assets/art/bg/garden-grow.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 188520,
+      "sha256": "916ace08b24d237e576734aa3ab136031c89998f674c84da586a8e7b6b4e88bc",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "anchor": "bottom-centre"
+      },
+      "source": "party/reference/pending/molly-sources/garden-grow/bg-garden-grow.webp",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "key": "prop/gg-dirt",
+      "width": 260,
+      "height": 140,
+      "transparent": true,
+      "description": "A round mound of soft brown tilled garden soil with a few pebbles, top-down 3/4 view",
+      "geometry": "Centred on each plot, drawn ~200\u00d7108",
+      "geometryRaw": "Centred on each plot, drawn ~200\u00d7108",
+      "formatSpec": "260\u00d7140, transparent",
+      "sourceLine": 1218,
+      "keyCell": "`prop/gg-dirt`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Asset type: 2D children's browser game raster art, prop/gg-dirt. Primary request: A round mound of soft brown tilled garden soil with a few pebbles, top-down 3/4 view. Composition and runtime geometry: Centred on each plot, drawn ~200\u00d7108. Final runtime canvas 260\u00d7140. One isolated object on TRUE transparent background. Keep entire outline inside canvas; bottom-centre ground anchor for standing plants. Input images 1 Felicity and 2 GardenFairies are STYLE ONLY: match crisp navy #24163f outlines, bright candy palette, polished soft CEL shading, friendly elegant shapes. Do not copy these characters, clothing or faces into this asset. Flat readable 2D cartoon illustration, no 3D render, no realistic textures, no text, letters, watermark, signature, ground shadow outside object.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-cfce9f8a-b1c2-4d88-b23f-d485a062febd.png",
+      "fit": "crop",
+      "bottom": false,
+      "sourceDimensions": [
+        1708,
+        921
+      ],
+      "sourceAlphaBounds": [
+        0,
+        36,
+        1688,
+        921
+      ],
+      "file": "party/assets/art/prop/gg-dirt.webp",
+      "dimensions": [
+        260,
+        140
+      ],
+      "alphaBounds": [
+        0,
+        10,
+        260,
+        130
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 9398,
+      "sha256": "7942327ab792bdf68df088d5678787c0cc07f0053220f6bf56c1719e11c2bcb4",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          0,
+          10,
+          260,
+          130
+        ],
+        "anchor": "centre"
+      },
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-dirt.webp",
+      "size": [
+        260,
+        140
+      ]
+    },
+    {
+      "key": "prop/gg-sprout",
+      "width": 160,
+      "height": 200,
+      "transparent": true,
+      "description": "A tiny green sprout with two round leaves popping out of the soil, cute and perky",
+      "geometry": "Bottom-centre on the plot, ~90\u00d7112",
+      "geometryRaw": "Bottom-centre on the plot, ~90\u00d7112",
+      "formatSpec": "160\u00d7200, transparent",
+      "sourceLine": 1219,
+      "keyCell": "`prop/gg-sprout`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Asset type: 2D children's browser game raster art, prop/gg-sprout. Primary request: A tiny green sprout with two round leaves popping out of the soil, cute and perky. Composition and runtime geometry: Bottom-centre on the plot, ~90\u00d7112. Final runtime canvas 160\u00d7200. One isolated object on TRUE transparent background. Keep entire outline inside canvas; bottom-centre ground anchor for standing plants. Input images 1 Felicity and 2 GardenFairies are STYLE ONLY: match crisp navy #24163f outlines, bright candy palette, polished soft CEL shading, friendly elegant shapes. Do not copy these characters, clothing or faces into this asset. Flat readable 2D cartoon illustration, no 3D render, no realistic textures, no text, letters, watermark, signature, ground shadow outside object.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-c9137af1-7e1a-4ec8-8bc7-64c00620ca87.png",
+      "fit": "crop",
+      "bottom": true,
+      "sourceDimensions": [
+        1122,
+        1402
+      ],
+      "sourceAlphaBounds": [
+        97,
+        94,
+        1015,
+        1402
+      ],
+      "file": "party/assets/art/prop/gg-sprout.webp",
+      "dimensions": [
+        160,
+        200
+      ],
+      "alphaBounds": [
+        0,
+        66,
+        160,
+        200
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 8080,
+      "sha256": "96ba340e3fa49417e2aa20d3474724069ecc9ae70d54f3a2ba054026d47e6507",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          0,
+          66,
+          160,
+          200
+        ],
+        "anchor": "bottom-centre"
+      },
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-sprout.webp",
+      "size": [
+        160,
+        200
+      ]
+    },
+    {
+      "key": "prop/gg-bud",
+      "width": 200,
+      "height": 280,
+      "transparent": true,
+      "description": "A taller leafy stalk with a closed round bud on top, wobbling as if about to burst",
+      "geometry": "Bottom-centre, ~120\u00d7168",
+      "geometryRaw": "Bottom-centre, ~120\u00d7168",
+      "formatSpec": "200\u00d7280, transparent",
+      "sourceLine": 1220,
+      "keyCell": "`prop/gg-bud`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Asset type: 2D children's browser game raster art, prop/gg-bud. Primary request: A taller leafy stalk with a closed round bud on top, wobbling as if about to burst. Composition and runtime geometry: Bottom-centre, ~120\u00d7168. Final runtime canvas 200\u00d7280. One isolated object on TRUE transparent background. Keep entire outline inside canvas; bottom-centre ground anchor for standing plants. Input images 1 Felicity and 2 GardenFairies are STYLE ONLY: match crisp navy #24163f outlines, bright candy palette, polished soft CEL shading, friendly elegant shapes. Do not copy these characters, clothing or faces into this asset. Flat readable 2D cartoon illustration, no 3D render, no realistic textures, no text, letters, watermark, signature, ground shadow outside object.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-dfe57029-10b7-4d84-b7d3-7960280c0d02.png",
+      "fit": "crop",
+      "bottom": true,
+      "sourceDimensions": [
+        1060,
+        1484
+      ],
+      "sourceAlphaBounds": [
+        0,
+        19,
+        1046,
+        1484
+      ],
+      "file": "party/assets/art/prop/gg-bud.webp",
+      "dimensions": [
+        200,
+        280
+      ],
+      "alphaBounds": [
+        28,
+        0,
+        171,
+        280
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 17550,
+      "sha256": "7512c9ccc109dfcaa42c4edbf04f6235a99bb5a8155160e96e0c414cf2f8a8ae",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          28,
+          0,
+          171,
+          280
+        ],
+        "anchor": "bottom-centre"
+      },
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-bud.webp",
+      "size": [
+        200,
+        280
+      ]
+    },
+    {
+      "key": "prop/gg-sunflower-giggle",
+      "width": 360,
+      "height": 720,
+      "transparent": true,
+      "description": "A giant sunflower on a tall stem with big leaves and a happy face in the brown centre. Giggle: same flower, eyes squeezed shut, mouth wide open laughing",
+      "geometry": "Bottom-centre, drawn ~230\u00d7460 (much taller than the players), swaying",
+      "geometryRaw": "Bottom-centre, drawn ~230\u00d7460 (much taller than the players), swaying",
+      "formatSpec": "360\u00d7720 each, transparent",
+      "sourceLine": 1221,
+      "keyCell": "`prop/gg-sunflower`, `prop/gg-sunflower-giggle`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Asset type: 2D children's browser game raster art, prop/gg-sunflower. Primary request: A giant sunflower on a tall stem with big leaves and a happy face in the brown centre. Giggle: same flower, eyes squeezed shut, mouth wide open laughing. Composition and runtime geometry: Bottom-centre, drawn ~230\u00d7460 (much taller than the players), swaying. Final runtime canvas 360\u00d7720. One isolated object on TRUE transparent background. Keep entire outline inside canvas; bottom-centre ground anchor for standing plants. Input images 1 Felicity and 2 GardenFairies are STYLE ONLY: match crisp navy #24163f outlines, bright candy palette, polished soft CEL shading, friendly elegant shapes. Do not copy these characters, clothing or faces into this asset. Flat readable 2D cartoon illustration, no 3D render, no realistic textures, no text, letters, watermark, signature, ground shadow outside object.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-beba3a30-e19e-4c55-a4f3-034976ebb20d.png",
+      "fit": "resize",
+      "bottom": true,
+      "sourceDimensions": [
+        887,
+        1774
+      ],
+      "sourceAlphaBounds": [
+        24,
+        22,
+        887,
+        1759
+      ],
+      "file": "party/assets/art/prop/gg-sunflower-giggle.webp",
+      "dimensions": [
+        360,
+        720
+      ],
+      "alphaBounds": [
+        8,
+        7,
+        360,
+        715
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 59490,
+      "sha256": "af0ce844e008c696fba8254c98dfae62cf837eb88d4e3a08db89c8b2b605db4f",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [],
+      "intakeNotes": "Generated happy expression already has eyes squeezed shut and open laugh; assigned to requested giggle frame. Neutral edited from this exact source to retain framing.",
+      "intakeGeometry": {
+        "alphaBounds": [
+          8,
+          7,
+          360,
+          715
+        ],
+        "anchor": "bottom-centre"
+      },
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-sunflower-giggle.webp",
+      "size": [
+        360,
+        720
+      ]
+    },
+    {
+      "key": "prop/gg-sunflower",
+      "width": 360,
+      "height": 720,
+      "transparent": true,
+      "description": "A giant sunflower on a tall stem with big leaves and a happy face in the brown centre. Giggle: same flower, eyes squeezed shut, mouth wide open laughing",
+      "geometry": "Bottom-centre, drawn ~230\u00d7460 (much taller than the players), swaying",
+      "geometryRaw": "Bottom-centre, drawn ~230\u00d7460 (much taller than the players), swaying",
+      "formatSpec": "360\u00d7720 each, transparent",
+      "sourceLine": 1221,
+      "keyCell": "`prop/gg-sunflower`, `prop/gg-sunflower-giggle`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: precise-object-edit. Image 1 is edit target. Change ONLY facial expression of this exact sunflower to open sparkling happy eyes and a small cheerful smile, distinguishing neutral from laughing frame. Preserve identical canvas dimensions, exact face centre, petals, stem, leaves, base, colors, shading, outline and all pixels outside face. True transparent background, no extra marks, text or objects.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-6b1f9d67-04fa-4117-b7ad-de8da91fda84.png",
+      "fit": "resize",
+      "bottom": true,
+      "sourceDimensions": [
+        887,
+        1774
+      ],
+      "sourceAlphaBounds": [
+        23,
+        21,
+        887,
+        1759
+      ],
+      "file": "party/assets/art/prop/gg-sunflower.webp",
+      "dimensions": [
+        360,
+        720
+      ],
+      "alphaBounds": [
+        8,
+        7,
+        360,
+        715
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 59210,
+      "sha256": "5038c8e0ff5bd2abde0c9b07d28518b7fdfb31b555c42025e2f1cc00b1b90127",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          8,
+          7,
+          360,
+          715
+        ],
+        "anchor": "bottom-centre"
+      },
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-sunflower.webp",
+      "size": [
+        360,
+        720
+      ]
+    },
+    {
+      "key": "prop/gg-carrot",
+      "width": 240,
+      "height": 340,
+      "transparent": true,
+      "description": "An orange carrot standing half out of the ground, leafy green top, cheerful face, one little arm raised waving",
+      "geometry": "Bottom-centre, ~150\u00d7212; pops up from the soil and the code rocks it side to side",
+      "geometryRaw": "Bottom-centre, ~150\u00d7212; pops up from the soil and the code rocks it side to side",
+      "formatSpec": "240\u00d7340, transparent",
+      "sourceLine": 1222,
+      "keyCell": "`prop/gg-carrot`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Asset type: 2D children's game isolated prop prop/gg-carrot. Primary request: An orange carrot standing half out of the ground, leafy green top, cheerful face, one little arm raised waving. Composition/geometry: Bottom-centre, ~150\u00d7212; pops up from the soil and the code rocks it side to side. Canvas 240\u00d7340, full entire object in frame. TRUE transparent background. Input images1Felicity and2GardenFairies STYLE ONLY: crisp navy #24163f outlines, polished soft CEL shading, bright candy palette. No copied character/costumes. Flat readable 2D cartoon, no 3D, no text, no watermark, no separate particles or motion marks. ",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-b991a14e-c747-4afe-a89d-b549fa7e9ab6.png",
+      "fit": "crop",
+      "bottom": true,
+      "sourceDimensions": [
+        1054,
+        1493
+      ],
+      "sourceAlphaBounds": [
+        24,
+        18,
+        1012,
+        1475
+      ],
+      "file": "party/assets/art/prop/gg-carrot.webp",
+      "dimensions": [
+        240,
+        340
+      ],
+      "alphaBounds": [
+        5,
+        0,
+        235,
+        340
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 27316,
+      "sha256": "6cd9d1a7550ec3f73757f28245a29e85d114f68d5f7af7753bee0e0f4074b086",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-carrot.webp",
+      "intakeGeometry": {
+        "alphaBounds": [
+          5,
+          0,
+          235,
+          340
+        ],
+        "anchor": "bottom-centre"
+      },
+      "size": [
+        240,
+        340
+      ]
+    },
+    {
+      "key": "prop/gg-pumpkin",
+      "width": 260,
+      "height": 240,
+      "transparent": true,
+      "description": "A round orange pumpkin with a curly stem and a big friendly grin (not a jack-o'-lantern)",
+      "geometry": "Pumpkin centred (it rolls, the code rotates it), ~170\u00d7157; the vine stays on the plot, bottom-centre",
+      "geometryRaw": "Pumpkin centred (it rolls, the code rotates it), ~170\u00d7157; the vine stays on the plot, bottom-centre",
+      "formatSpec": "260\u00d7240 / 260\u00d7120, transparent",
+      "sourceLine": 1224,
+      "keyCell": "`prop/gg-pumpkin`, `prop/gg-vine`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Asset type: 2D children's game isolated prop prop/gg-pumpkin. Primary request: A round orange pumpkin with a curly stem and a big friendly grin (not a jack-o'-lantern). Composition/geometry: Pumpkin centred (it rolls, the code rotates it), ~170\u00d7157; the vine stays on the plot, bottom-centre. Canvas 260\u00d7240, full entire object in frame. TRUE transparent background. Input images1Felicity and2GardenFairies STYLE ONLY: crisp navy #24163f outlines, polished soft CEL shading, bright candy palette. No copied character/costumes. Flat readable 2D cartoon, no 3D, no text, no watermark, no separate particles or motion marks. ",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-47ff6aaa-d2d3-4329-908e-3892d33beaf0.png",
+      "fit": "crop",
+      "bottom": false,
+      "sourceDimensions": [
+        1217,
+        1293
+      ],
+      "sourceAlphaBounds": [
+        62,
+        53,
+        1167,
+        1293
+      ],
+      "file": "party/assets/art/prop/gg-pumpkin.webp",
+      "dimensions": [
+        260,
+        240
+      ],
+      "alphaBounds": [
+        14,
+        0,
+        246,
+        240
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 21992,
+      "sha256": "e67f2668df920c71ffb021d9138bbe5758feb54eac610af204e6e93ee6873826",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-pumpkin.webp",
+      "intakeGeometry": {
+        "alphaBounds": [
+          14,
+          0,
+          246,
+          240
+        ],
+        "anchor": "centre"
+      },
+      "size": [
+        260,
+        240
+      ]
+    },
+    {
+      "key": "prop/gg-sneeze-flower",
+      "width": 240,
+      "height": 400,
+      "transparent": true,
+      "description": "A pink puffball flower with a face, nose twitching (eyes half shut, about to sneeze). Achoo: same flower, eyes shut tight, mouth wide in a big sneeze, petals blown back",
+      "geometry": "Bottom-centre, ~150\u00d7250",
+      "geometryRaw": "Bottom-centre, ~150\u00d7250",
+      "formatSpec": "240\u00d7400 each, transparent",
+      "sourceLine": 1225,
+      "keyCell": "`prop/gg-sneeze-flower`, `prop/gg-sneeze-flower-achoo`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Asset type: 2D children's game isolated prop prop/gg-sneeze-flower. Primary request: A pink puffball flower with a face, nose twitching (eyes half shut, about to sneeze). Achoo: same flower, eyes shut tight, mouth wide in a big sneeze, petals blown back. Composition/geometry: Bottom-centre, ~150\u00d7250. Canvas 240\u00d7400, full entire object in frame. TRUE transparent background. Input images1Felicity and2GardenFairies STYLE ONLY: crisp navy #24163f outlines, polished soft CEL shading, bright candy palette. No copied character/costumes. Flat readable 2D cartoon, no 3D, no text, no watermark, no separate particles or motion marks. Plain tall pink puffball flower with visible halfclosed eyes and twitching nose, leaves and stem; reserve facialexpressionchange for sisterframe.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-4a10eaee-5fee-4484-8144-a94640e8ccfa.png",
+      "fit": "resize",
+      "bottom": true,
+      "sourceDimensions": [
+        971,
+        1619
+      ],
+      "sourceAlphaBounds": [
+        40,
+        64,
+        957,
+        1586
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-sneeze-flower.webp",
+      "file": "party/assets/art/prop/gg-sneeze-flower.webp",
+      "dimensions": [
+        240,
+        400
+      ],
+      "alphaBounds": [
+        8,
+        14,
+        233,
+        394
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 27318,
+      "sha256": "df7917df014d236021e4edb866c446ae8b8227e4e29333578129fc93189c4a9e",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          8,
+          14,
+          233,
+          394
+        ],
+        "anchor": "bottom-centre"
+      },
+      "size": [
+        240,
+        400
+      ]
+    },
+    {
+      "key": "prop/gg-watering-can",
+      "width": 160,
+      "height": 120,
+      "transparent": true,
+      "description": "A small shiny blue watering can with a sprinkler rose spout",
+      "geometry": "Held in the character's hand, spout facing right, drawn ~70\u00d752, tilted by code",
+      "geometryRaw": "Held in the character's hand, spout facing right, drawn ~70\u00d752, tilted by code",
+      "formatSpec": "160\u00d7120, transparent",
+      "sourceLine": 1226,
+      "keyCell": "`prop/gg-watering-can`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Asset type: 2D children's game isolated prop prop/gg-watering-can. Primary request: A small shiny blue watering can with a sprinkler rose spout. Composition/geometry: Held in the character's hand, spout facing right, drawn ~70\u00d752, tilted by code. Canvas 160\u00d7120, full entire object in frame. TRUE transparent background. Input images1Felicity and2GardenFairies STYLE ONLY: crisp navy #24163f outlines, polished soft CEL shading, bright candy palette. No copied character/costumes. Flat readable 2D cartoon, no 3D, no text, no watermark, no separate particles or motion marks. ",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-04976281-96e0-47e4-8be9-25df17b388af.png",
+      "fit": "crop",
+      "bottom": false,
+      "sourceDimensions": [
+        1448,
+        1086
+      ],
+      "sourceAlphaBounds": [
+        0,
+        17,
+        1433,
+        1086
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-watering-can.webp",
+      "file": "party/assets/art/prop/gg-watering-can.webp",
+      "dimensions": [
+        160,
+        120
+      ],
+      "alphaBounds": [
+        0,
+        14,
+        160,
+        105
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 8530,
+      "sha256": "9595e25d327b16be235bae44bba62cc1664114067ba97b1bd8178a2512125df6",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          0,
+          14,
+          160,
+          105
+        ],
+        "anchor": "centre"
+      },
+      "size": [
+        160,
+        120
+      ]
+    },
+    {
+      "key": "prop/gg-strawberry-bush",
+      "width": 260,
+      "height": 180,
+      "transparent": true,
+      "description": "A low leafy strawberry plant with white flowers",
+      "geometry": "Bush bottom-centre ~190\u00d7130; three berries ~66\u00d772 bounce up and down above it",
+      "geometryRaw": "Bush bottom-centre ~190\u00d7130; three berries ~66\u00d772 bounce up and down above it",
+      "formatSpec": "260\u00d7180 / 120\u00d7130, transparent",
+      "sourceLine": 1223,
+      "keyCell": "`prop/gg-strawberry-bush`, `prop/gg-strawberry`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: precise-object-edit. Image1 is edit target. Remove ONLY all three red strawberry fruits and their stalks. Preserve the low dense green foliage, all whiteflowers, exact style, outline and bottomanchored framing. Result is ONE leafy strawberry bush with whiteflowers, NO berries. TRUE transparent background, no new objects or text. Target runtimecanvas 260\u00d7180.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-d2ba2fca-5a3d-44e1-949d-52600b8cee02.png",
+      "fit": "crop",
+      "bottom": true,
+      "sourceDimensions": [
+        1507,
+        1044
+      ],
+      "sourceAlphaBounds": [
+        0,
+        21,
+        1458,
+        1018
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-strawberry-bush.webp",
+      "file": "party/assets/art/prop/gg-strawberry-bush.webp",
+      "dimensions": [
+        260,
+        180
+      ],
+      "alphaBounds": [
+        0,
+        70,
+        260,
+        180
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 13214,
+      "sha256": "b7d8eb4639fe024aece24b323ba8f5d848189ed35312e7662dce53bc185e0e42",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [
+        {
+          "key": "prop/gg-strawberry-bush",
+          "width": 260,
+          "height": 180,
+          "transparent": true,
+          "description": "A low leafy strawberry plant with white flowers",
+          "geometry": "Bush bottom-centre ~190\u00d7130; three berries ~66\u00d772 bounce up and down above it",
+          "geometryRaw": "Bush bottom-centre ~190\u00d7130; three berries ~66\u00d772 bounce up and down above it",
+          "formatSpec": "260\u00d7180 / 120\u00d7130, transparent",
+          "sourceLine": 1223,
+          "keyCell": "`prop/gg-strawberry-bush`, `prop/gg-strawberry`",
+          "existingIndexed": false,
+          "existingFile": null,
+          "needsNewKey": true,
+          "optional": false,
+          "authoredFrames": 1,
+          "game": "garden-grow",
+          "prompt": "Use case: illustration-story. Asset type: 2D children's game isolated prop prop/gg-strawberry-bush. Primary request: A low leafy strawberry plant with white flowers. Composition/geometry: Bush bottom-centre ~190\u00d7130; three berries ~66\u00d772 bounce up and down above it. Canvas 260\u00d7180, full entire object in frame. TRUE transparent background. Input images1Felicity and2GardenFairies STYLE ONLY: crisp navy #24163f outlines, polished soft CEL shading, bright candy palette. No copied character/costumes. Flat readable 2D cartoon, no 3D, no text, no watermark, no separate particles or motion marks. ",
+          "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-297f9874-c5ff-49ad-864b-fee634e01f39.png",
+          "fit": "crop",
+          "bottom": true,
+          "sourceDimensions": [
+            1507,
+            1044
+          ],
+          "sourceAlphaBounds": [
+            0,
+            36,
+            1471,
+            1013
+          ],
+          "file": "party/assets/art/prop/gg-strawberry-bush.webp",
+          "dimensions": [
+            260,
+            180
+          ],
+          "alphaBounds": [
+            6,
+            0,
+            253,
+            180
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bytes": 21056,
+          "sha256": "841b0bd7c85abbf5977c46794943aede76b9dee02c0eb1d315e8df1a6bdeb1ef",
+          "encoding": {
+            "format": "WebP",
+            "quality": 86,
+            "method": 6,
+            "losslessAlpha": true
+          },
+          "status": "generated; pending visual review"
+        }
+      ],
+      "intakeGeometry": {
+        "alphaBounds": [
+          0,
+          70,
+          260,
+          180
+        ],
+        "anchor": "bottom-centre"
+      },
+      "size": [
+        260,
+        180
+      ]
+    },
+    {
+      "key": "prop/gg-strawberry",
+      "width": 120,
+      "height": 130,
+      "transparent": true,
+      "description": "a single plump red strawberry with seeds, a leafy cap and a smiling face",
+      "geometry": "Bush bottom-centre ~190\u00d7130; three berries ~66\u00d772 bounce up and down above it",
+      "geometryRaw": "Bush bottom-centre ~190\u00d7130; three berries ~66\u00d772 bounce up and down above it",
+      "formatSpec": "260\u00d7180 / 120\u00d7130, transparent",
+      "sourceLine": 1223,
+      "keyCell": "`prop/gg-strawberry-bush`, `prop/gg-strawberry`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: precise-object-edit. Image1 is edit target. Replace the group with exactly ONE isolated plump RED strawberry fruit with yellowseeds, onegreenleafycap and a sweet smiling face. NO bush, NO flowers, NO otherfruits. Centre the single fruit, occupying canvas. Maintain exact2D house style. TRUE transparent background, no new objects or text. Target runtimecanvas 120\u00d7130.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-e35e2483-d294-4b0f-aecb-0f1d049f77ff.png",
+      "fit": "crop",
+      "bottom": false,
+      "sourceDimensions": [
+        1205,
+        1306
+      ],
+      "sourceAlphaBounds": [
+        0,
+        32,
+        1125,
+        1282
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-strawberry.webp",
+      "file": "party/assets/art/prop/gg-strawberry.webp",
+      "dimensions": [
+        120,
+        130
+      ],
+      "alphaBounds": [
+        10,
+        0,
+        109,
+        130
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 7936,
+      "sha256": "c09030e78ab8429f075b18380ef70e46e253aa0375af51ce9ac74559176ca766",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [
+        {
+          "key": "prop/gg-strawberry",
+          "width": 120,
+          "height": 130,
+          "transparent": true,
+          "description": "a single plump red strawberry with seeds, a leafy cap and a smiling face",
+          "geometry": "Bush bottom-centre ~190\u00d7130; three berries ~66\u00d772 bounce up and down above it",
+          "geometryRaw": "Bush bottom-centre ~190\u00d7130; three berries ~66\u00d772 bounce up and down above it",
+          "formatSpec": "260\u00d7180 / 120\u00d7130, transparent",
+          "sourceLine": 1223,
+          "keyCell": "`prop/gg-strawberry-bush`, `prop/gg-strawberry`",
+          "existingIndexed": false,
+          "existingFile": null,
+          "needsNewKey": true,
+          "optional": false,
+          "authoredFrames": 1,
+          "game": "garden-grow",
+          "prompt": "Use case: illustration-story. Asset type: 2D children's game isolated prop prop/gg-strawberry. Primary request: a single plump red strawberry with seeds, a leafy cap and a smiling face. Composition/geometry: Bush bottom-centre ~190\u00d7130; three berries ~66\u00d772 bounce up and down above it. Canvas 120\u00d7130, full entire object in frame. TRUE transparent background. Input images1Felicity and2GardenFairies STYLE ONLY: crisp navy #24163f outlines, polished soft CEL shading, bright candy palette. No copied character/costumes. Flat readable 2D cartoon, no 3D, no text, no watermark, no separate particles or motion marks. ",
+          "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-2d9e78c7-f278-4421-9e5f-8a9b90492d95.png",
+          "fit": "crop",
+          "bottom": false,
+          "sourceDimensions": [
+            1205,
+            1306
+          ],
+          "sourceAlphaBounds": [
+            0,
+            21,
+            1183,
+            1306
+          ],
+          "file": "party/assets/art/prop/gg-strawberry.webp",
+          "dimensions": [
+            120,
+            130
+          ],
+          "alphaBounds": [
+            1,
+            0,
+            119,
+            130
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bytes": 11708,
+          "sha256": "b5b544830e3944917b09c90f4c171209c44494c7493def949d15da8bf7e37e1b",
+          "encoding": {
+            "format": "WebP",
+            "quality": 86,
+            "method": 6,
+            "losslessAlpha": true
+          },
+          "status": "generated; pending visual review"
+        }
+      ],
+      "intakeGeometry": {
+        "alphaBounds": [
+          10,
+          0,
+          109,
+          130
+        ],
+        "anchor": "centre"
+      },
+      "size": [
+        120,
+        130
+      ]
+    },
+    {
+      "key": "prop/gg-vine",
+      "width": 260,
+      "height": 120,
+      "transparent": true,
+      "description": "a curly green pumpkin vine with leaves",
+      "geometry": "Pumpkin centred (it rolls, the code rotates it), ~170\u00d7157; the vine stays on the plot, bottom-centre",
+      "geometryRaw": "Pumpkin centred (it rolls, the code rotates it), ~170\u00d7157; the vine stays on the plot, bottom-centre",
+      "formatSpec": "260\u00d7240 / 260\u00d7120, transparent",
+      "sourceLine": 1224,
+      "keyCell": "`prop/gg-pumpkin`, `prop/gg-vine`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: precise-object-edit. Image1 is edit target. Remove ONLY the orange pumpkin and itsstem. Preserve all green curlingleafyvines, outline, shading, approximateframing. Result is ONE low curling green pumpkinvine with leaves, NO fruit. TRUE transparent background, no new objects or text. Target runtimecanvas 260\u00d7120.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-cf81c43f-dddc-487a-bafe-84c17084c41a.png",
+      "fit": "crop",
+      "bottom": true,
+      "sourceDimensions": [
+        1846,
+        852
+      ],
+      "sourceAlphaBounds": [
+        0,
+        56,
+        1840,
+        852
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-vine.webp",
+      "file": "party/assets/art/prop/gg-vine.webp",
+      "dimensions": [
+        260,
+        120
+      ],
+      "alphaBounds": [
+        0,
+        46,
+        260,
+        120
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 10444,
+      "sha256": "41fa73977587649bf4bba058ca5546312a52d19b3beab19b7eb2be562205d194",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [
+        {
+          "key": "prop/gg-vine",
+          "width": 260,
+          "height": 120,
+          "transparent": true,
+          "description": "a curly green pumpkin vine with leaves",
+          "geometry": "Pumpkin centred (it rolls, the code rotates it), ~170\u00d7157; the vine stays on the plot, bottom-centre",
+          "geometryRaw": "Pumpkin centred (it rolls, the code rotates it), ~170\u00d7157; the vine stays on the plot, bottom-centre",
+          "formatSpec": "260\u00d7240 / 260\u00d7120, transparent",
+          "sourceLine": 1224,
+          "keyCell": "`prop/gg-pumpkin`, `prop/gg-vine`",
+          "existingIndexed": false,
+          "existingFile": null,
+          "needsNewKey": true,
+          "optional": false,
+          "authoredFrames": 1,
+          "game": "garden-grow",
+          "prompt": "Use case: illustration-story. Asset type: 2D children's game isolated prop prop/gg-vine. Primary request: a curly green pumpkin vine with leaves. Composition/geometry: Pumpkin centred (it rolls, the code rotates it), ~170\u00d7157; the vine stays on the plot, bottom-centre. Canvas 260\u00d7120, full entire object in frame. TRUE transparent background. Input images1Felicity and2GardenFairies STYLE ONLY: crisp navy #24163f outlines, polished soft CEL shading, bright candy palette. No copied character/costumes. Flat readable 2D cartoon, no 3D, no text, no watermark, no separate particles or motion marks. ",
+          "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-6f84f1a6-d852-4a57-825d-e4e043665460.png",
+          "fit": "crop",
+          "bottom": true,
+          "sourceDimensions": [
+            1846,
+            852
+          ],
+          "sourceAlphaBounds": [
+            16,
+            69,
+            1830,
+            834
+          ],
+          "file": "party/assets/art/prop/gg-vine.webp",
+          "dimensions": [
+            260,
+            120
+          ],
+          "alphaBounds": [
+            0,
+            37,
+            260,
+            120
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bytes": 12804,
+          "sha256": "be884d980e81573b443f3b9b5f4e5e6680c39d2fd02a8db3830d17e1139f422d",
+          "encoding": {
+            "format": "WebP",
+            "quality": 86,
+            "method": 6,
+            "losslessAlpha": true
+          },
+          "status": "generated; pending visual review"
+        }
+      ],
+      "intakeGeometry": {
+        "alphaBounds": [
+          0,
+          46,
+          260,
+          120
+        ],
+        "anchor": "bottom-centre"
+      },
+      "size": [
+        260,
+        120
+      ]
+    },
+    {
+      "key": "prop/gg-sneeze-flower-achoo",
+      "width": 240,
+      "height": 400,
+      "transparent": true,
+      "description": "A pink puffball flower with a face, nose twitching (eyes half shut, about to sneeze). Achoo: same flower, eyes shut tight, mouth wide in a big sneeze, petals blown back",
+      "geometry": "Bottom-centre, ~150\u00d7250",
+      "geometryRaw": "Bottom-centre, ~150\u00d7250",
+      "formatSpec": "240\u00d7400 each, transparent",
+      "sourceLine": 1225,
+      "keyCell": "`prop/gg-sneeze-flower`, `prop/gg-sneeze-flower-achoo`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: precise-object-edit. Image1 edit target. Exact same pink puffball flower, change only expression to forceful sneeze: eyes tightly squeezed shut, mouth wideopen, upperpetals blown slightlyback. Keep facecentre, stem, leaves, bottom supportpoint, entire canvas dimensions and pinkpalette unchanged. True transparentbackground. No pollenparticles or effects (code adds), no text.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-2905e260-f52b-4ca5-a02f-fcb65a9f690d.png",
+      "fit": "resize",
+      "bottom": true,
+      "sourceDimensions": [
+        971,
+        1619
+      ],
+      "sourceAlphaBounds": [
+        21,
+        20,
+        955,
+        1603
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-sneeze-flower-achoo.webp",
+      "file": "party/assets/art/prop/gg-sneeze-flower-achoo.webp",
+      "dimensions": [
+        240,
+        400
+      ],
+      "alphaBounds": [
+        9,
+        5,
+        236,
+        394
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 27244,
+      "sha256": "6123f76ec2be8fd0d0f43417d82d1a9eaa2c4fd95523da3c36e018212f667e8b",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          9,
+          5,
+          236,
+          394
+        ],
+        "anchor": "bottom-centre"
+      },
+      "size": [
+        240,
+        400
+      ]
+    },
+    {
+      "key": "prop/gg-butterfly",
+      "width": 160,
+      "height": 128,
+      "transparent": true,
+      "description": "A pretty butterfly seen from above, wings fully open, pink and purple wings with yellow dots",
+      "geometry": "Centred, ~80 px, flapping (the code squashes it horizontally)",
+      "geometryRaw": "Centred, ~80 px, flapping (the code squashes it horizontally)",
+      "formatSpec": "160\u00d7128, transparent",
+      "sourceLine": 1227,
+      "keyCell": "`prop/gg-butterfly`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Image1 approved butterfly identityreference. Generate this same pretty butterfly seen fromabove/front, wings fullyopen, pinkandpurple wings with yellowdots. Preserve approved face, curlyantennae, anatomy and2D outlined cel style. One isolated butterfly, no scenery or extraobjects, true transparentbackground. Centre in160\u00d7128 runtimecanvas, entirewingoutline inside.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-2feb4a67-48c7-4fc5-9f85-d2306729e79a.png",
+      "fit": "crop",
+      "bottom": false,
+      "sourceDimensions": [
+        1402,
+        1122
+      ],
+      "sourceAlphaBounds": [
+        0,
+        62,
+        1402,
+        1122
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-butterfly.webp",
+      "file": "party/assets/art/prop/gg-butterfly.webp",
+      "dimensions": [
+        160,
+        128
+      ],
+      "alphaBounds": [
+        0,
+        7,
+        160,
+        121
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 11306,
+      "sha256": "c4f8188e8f15ebd749f4bf8f2805e09736c9b42b6c5f4ee5b3aedf6af18d062a",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          0,
+          7,
+          160,
+          121
+        ],
+        "anchor": "centre"
+      },
+      "size": [
+        160,
+        128
+      ]
+    },
+    {
+      "key": "thumb/garden-grow",
+      "width": 800,
+      "height": 500,
+      "transparent": false,
+      "description": "A character with a watering can watering a giant giggling sunflower, a carrot waving from the dirt, a pumpkin rolling away, butterflies, water droplets",
+      "geometry": "Game-select / how-to",
+      "geometryRaw": "Game-select / how-to",
+      "formatSpec": "800\u00d7500, opaque",
+      "sourceLine": 1217,
+      "keyCell": "`thumb/garden-grow`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Opaque800\u00d7500 game thumbnail. Image1 approved pinkgardenfairy identity, images2\u20134 approved sunflower/carrot/pumpkin identities. Show this exact fairy with a smallbluewateringcan watering this giantgiggling sunflower, smilingcarrot waving fromdirt, friendlypumpkin rollingaway, prettybutterflies and waterdroplets in sunnygarden. Preserve referenced identities and crispnavy outlines, brightcandycolors, 2D celshading. Composition centred legible atsmall shelfsize. No CharlieParty rostercharacters. No text, no letters, no watermark. Fullbleed lively illustration.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-455b6afa-327c-4100-b6ab-4d008b7e5e66.png",
+      "fit": "crop",
+      "bottom": false,
+      "sourceDimensions": [
+        1586,
+        992
+      ],
+      "sourceAlphaBounds": [
+        0,
+        0,
+        1586,
+        992
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/thumb-garden-grow.webp",
+      "file": "party/assets/art/thumb/garden-grow.webp",
+      "dimensions": [
+        800,
+        500
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 119106,
+      "sha256": "8c57395298d6e1a1f77e160348768014082ead94a5d960079ebcabfe6d4020cb",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          0,
+          0,
+          800,
+          500
+        ],
+        "anchor": "centre"
+      },
+      "size": [
+        800,
+        500
+      ]
+    },
+    {
+      "key": "prop/gg-rain-cloud",
+      "width": 400,
+      "height": 230,
+      "transparent": true,
+      "description": "A plump happy rain cloud, white-blue with a smiling face and rosy cheeks, flat-ish bottom",
+      "geometry": "Centred, drawn ~300\u00d7170, drifts across the top of the lawn while the code rains drops under it",
+      "geometryRaw": "Centred, drawn ~300\u00d7170, drifts across the top of the lawn while the code rains drops under it",
+      "formatSpec": "400\u00d7230, transparent",
+      "sourceLine": 1231,
+      "keyCell": "`prop/gg-rain-cloud`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "sourcePath": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/molly-cloud-friend.webp",
+      "prompt": "Reuse exact user-approved Molly Cloud Friend canonical as permitted by root for prop/gg-rain-cloud: white-blue smiling cloud, rosycheeks. Alpha crop+contain only, preserve colors/facialidentity; no additional generation.",
+      "fit": "crop",
+      "bottom": false,
+      "provenance": "approved canonical reuse; no new generation",
+      "sourceDimensions": [
+        1536,
+        1024
+      ],
+      "sourceAlphaBounds": [
+        0,
+        46,
+        1502,
+        1024
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-rain-cloud.webp",
+      "file": "party/assets/art/prop/gg-rain-cloud.webp",
+      "dimensions": [
+        400,
+        230
+      ],
+      "alphaBounds": [
+        19,
+        0,
+        381,
+        230
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 16232,
+      "sha256": "9675e1f50a6769addb248cf86cc0efd58f61d3365ba0c2ae1ef2149d55374c5f",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root visual/geometry/alpha review passed; gameplay QA underway",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          19,
+          0,
+          381,
+          230
+        ],
+        "anchor": "centre",
+        "notes": "Preserved approvedcloudidentity; bottomlow scallops ratherthanflatline, drawbox300\u00d7170 fits."
+      },
+      "size": [
+        400,
+        230
+      ]
+    }
+  ],
+  "qaNotes": [
+    "First six outputs visually reviewed: crisp 2D house style, true prop alpha and no gameplay plots baked into background.",
+    "Background rose/fence band reaches y430; first gameplay plot y500 remains clear.",
+    "Sunflower expressions have identical360\u00d7720 canvas and alpha bounds (8,7,360,715).",
+    "All16 assets inspected; separated strawberry bush/berry and pumpkin/vine subjects. Sneeze frames use samecanvas and groundbase y394.",
+    "17th raincloud reusesapproved MollyCloudFriend exactly; noadditional imagegeneration."
+  ],
+  "status": "All17currentGardenGrowimages delivered"
+}

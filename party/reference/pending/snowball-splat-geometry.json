@@ -1,0 +1,37 @@
+{
+  "bg/snowball-splat": {
+    "pondCenter": [
+      960,
+      652
+    ],
+    "pondRadii": [
+      205,
+      88
+    ],
+    "sourceCyanPondBounds": [
+      624,
+      511,
+      1290,
+      739
+    ]
+  },
+  "prop/snow-wall": {
+    "topFaceBottomY": 87,
+    "topFaceFraction": 0.33984375
+  },
+  "prop/snow-wall-side": {
+    "topFaceBottomY": 681,
+    "topFaceFraction": 0.6702755905511811
+  },
+  "snowmanStates": {
+    "canvas": [
+      300,
+      420
+    ],
+    "base": [
+      150,
+      420
+    ],
+    "sameCameraAndBodyPosition": true
+  }
+}

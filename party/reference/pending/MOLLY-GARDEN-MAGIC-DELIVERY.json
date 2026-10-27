@@ -1,0 +1,630 @@
+{
+  "status": "12 reviewed early garden/magic integration images",
+  "assets": [
+    {
+      "key": "prop/wand-shooting-star",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Transparent centred star; code spins it and draws rainbow trail, so avoid long baked tail. Symbolic expressive pickup prop, not a character canon.",
+      "description": "A plump golden star with a happy face, closed smiling eyes, rosy cheeks, tiny sparkles near its tips.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is an approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A plump golden star with a happy face, closed smiling eyes, rosy cheeks, tiny sparkles near its tips. Style: polished 2D candy-colour game illustration, smooth bold dark navy #24163f outlines, clean soft cel-shading, rounded appealing shapes; no 3D or photorealism. Composition: Transparent centred star; code spins it and draws rainbow trail, so avoid long baked tail. Symbolic expressive pickup prop, not a character canon.. Keep it as a small emblem-like object, not a full character; no limbs or body. Genuine transparent alpha, no shadow, text or watermark.",
+      "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-c542b4f7-68bc-4c34-a9f4-0826c2156e3c.png",
+      "runtimeFile": "party/assets/art/prop/wand-shooting-star.webp",
+      "status": "Root reviewed style,geometry,dimensions and alpha; ready for runtime integration",
+      "sourcePath": "party/reference/pending/molly-sources/prop-wand-shooting-star.png",
+      "actualAlphaBBox": [
+        24,
+        23,
+        243,
+        245
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "runtimeBytes": 14724,
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "game": "wand-shapes",
+      "source": "party/reference/pending/molly-sources/wand-shapes/prop-wand-shooting-star.webp"
+    },
+    {
+      "key": "prop/ff-sparkle",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Transparent centred pickup, compact, readable while spinning.",
+      "description": "A chunky golden four-point sparkle star with a clean white glint.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is an approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A chunky golden four-point sparkle star with a clean white glint. Style: polished 2D candy-colour game illustration, smooth bold dark navy #24163f outlines, clean soft cel-shading, rounded appealing shapes; no 3D or photorealism. Composition: Transparent centred pickup, compact, readable while spinning.. No broad glow halo or background; code adds effects. Genuine transparent alpha, no shadow, text or watermark.",
+      "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-b27e7d66-2b30-44c7-b3f8-96071fbcb4b9.png",
+      "runtimeFile": "party/assets/art/prop/ff-sparkle.webp",
+      "status": "Root reviewed style,geometry,dimensions and alpha; ready for runtime integration",
+      "sourcePath": "party/reference/pending/molly-sources/prop-ff-sparkle.png",
+      "actualAlphaBBox": [
+        5,
+        5,
+        116,
+        124
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "runtimeBytes": 4828,
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "game": "fairy-flutter",
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-sparkle.webp"
+    },
+    {
+      "key": "prop/ff-dewdrop",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Transparent centred water drop, compact, readable while bobbing.",
+      "description": "A single shiny pale-aqua water dewdrop with a subtle rainbow sheen and one crisp white highlight.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is an approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A single shiny pale-aqua water dewdrop with a subtle rainbow sheen and one crisp white highlight. Style: polished 2D candy-colour game illustration, smooth bold dark navy #24163f outlines, clean soft cel-shading, rounded appealing shapes; no 3D or photorealism. Composition: Transparent centred water drop, compact, readable while bobbing.. No bubble trail, background, glow halo, or other objects. Genuine transparent alpha, no shadow, text or watermark.",
+      "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-15711e96-f12c-4e66-a767-75957e68053d.png",
+      "runtimeFile": "party/assets/art/prop/ff-dewdrop.webp",
+      "status": "Root reviewed style,geometry,dimensions and alpha; ready for runtime integration",
+      "sourcePath": "party/reference/pending/molly-sources/prop-ff-dewdrop.png",
+      "actualAlphaBBox": [
+        26,
+        11,
+        113,
+        116
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "runtimeBytes": 3838,
+      "nativeOutputSize": [
+        1222,
+        1287
+      ],
+      "game": "fairy-flutter",
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-dewdrop.webp"
+    },
+    {
+      "key": "prop/ff-petal",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Transparent centred petal, single piece, tumbling rotation remains legible.",
+      "description": "A single soft pink flower petal, slightly curled, with a deeper pink base.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is an approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A single soft pink flower petal, slightly curled, with a deeper pink base. Style: polished 2D candy-colour game illustration, smooth bold dark navy #24163f outlines, clean soft cel-shading, rounded appealing shapes; no 3D or photorealism. Composition: Transparent centred petal, single piece, tumbling rotation remains legible.. One petal only, no whole flower, leaves, scene, text, or shadow. Genuine transparent alpha, no shadow, text or watermark.",
+      "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-ae333863-8a88-46fb-a482-dbaa10c5c4fc.png",
+      "runtimeFile": "party/assets/art/prop/ff-petal.webp",
+      "status": "Root reviewed style,geometry,dimensions and alpha; ready for runtime integration",
+      "sourcePath": "party/reference/pending/molly-sources/prop-ff-petal.png",
+      "actualAlphaBBox": [
+        14,
+        20,
+        113,
+        104
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "runtimeBytes": 3726,
+      "nativeOutputSize": [
+        1222,
+        1287
+      ],
+      "game": "fairy-flutter",
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-petal.webp"
+    },
+    {
+      "key": "prop/ff-star",
+      "size": [
+        192,
+        192
+      ],
+      "geometry": "Transparent centred rare pickup; plump five-point star and its short left-side trail fully inside canvas.",
+      "description": "A plump shiny golden five-point star with a happy little face and a short rainbow sparkle trail on the left.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is an approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A plump shiny golden five-point star with a happy little face and a short rainbow sparkle trail on the left. Style: polished 2D candy-colour game illustration, smooth bold dark navy #24163f outlines, clean soft cel-shading, rounded appealing shapes; no 3D or photorealism. Composition: Transparent centred rare pickup; plump five-point star and its short left-side trail fully inside canvas.. Keep it as a symbolic pickup prop rather than a separate character; no limbs or body, no broad glow halo. Genuine transparent alpha, no shadow, text or watermark.",
+      "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-28f05bac-7031-4f74-a6e2-49f3e85d2233.png",
+      "runtimeFile": "party/assets/art/prop/ff-star.webp",
+      "status": "Root reviewed style,geometry,dimensions and alpha; ready for runtime integration",
+      "sourcePath": "party/reference/pending/molly-sources/prop-ff-star.png",
+      "actualAlphaBBox": [
+        5,
+        27,
+        188,
+        154
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "runtimeBytes": 10972,
+      "nativeOutputSize": [
+        1361,
+        1156
+      ],
+      "game": "fairy-flutter",
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-star.webp"
+    },
+    {
+      "key": "bg/fairy-hide-seek",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Opaque 16:9 garden lawn. 10 prop spots are placed over y\u2248330\u2013900; keep lawn relatively plain there. Top ~120 px and bottom ~140 px calm/plain.",
+      "description": "A sunny storybook garden lawn in a gentle three-quarter view, soft green grass with simple mown stripes, a winding pale stone path, tiny daisies and clover, a white picket fence and rose hedge along the top, a narrow blue sky strip with fluffy clouds.",
+      "prompt": "Use case: illustration-story. Asset type: full-screen game background. Input images: Image 1 is an approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A sunny storybook garden lawn in a gentle three-quarter view, soft green grass with simple mown stripes, a winding pale stone path, tiny daisies and clover, a white picket fence and rose hedge along the top, a narrow blue sky strip with fluffy clouds. Style: polished 2D candy-colour game illustration, smooth bold dark navy #24163f outlines, clean soft cel-shading, rounded appealing shapes; no 3D or photorealism. Composition: Opaque 16:9 garden lawn. 10 prop spots are placed over y\u2248330\u2013900; keep lawn relatively plain there. Top ~120 px and bottom ~140 px calm/plain.. Wide 16:9 full-screen background. Keep the lawn plain and open for hiding spots; no large foreground objects. No characters, no props, no lettering. Opaque background, no text or watermark.",
+      "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-3a407490-0817-41ea-967c-9d8f990335a9.png",
+      "runtimeFile": "party/assets/art/bg/fairy-hide-seek.webp",
+      "status": "Root reviewed style,geometry,dimensions and alpha; ready for runtime integration",
+      "sourcePath": "party/reference/pending/molly-sources/bg-fairy-hide-seek.png",
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "runtimeBytes": 183052,
+      "nativeOutputSize": [
+        1672,
+        941
+      ],
+      "game": "fairy-hide-seek",
+      "source": "party/reference/pending/molly-sources/fairy-hide-seek/bg-fairy-hide-seek.webp"
+    },
+    {
+      "key": "bg/garden-grow",
+      "width": 1920,
+      "height": 1080,
+      "transparent": false,
+      "description": "A sunny cottage garden seen from slightly above: blue sky with fluffy clouds, a white picket fence with rose bushes across the top third, then a wide plain bright-green lawn with soft mowing stripes",
+      "geometry": "Full screen. Sky and picket fence above y\u2248330, lawn below where players run (the code draws the dirt patches at rows y 500 / 680 / 860). Keep the lawn plain",
+      "geometryRaw": "Full screen. Sky and picket fence above y\u2248330, lawn below where players run (the code draws the dirt patches at rows y 500 / 680 / 860). Keep the lawn plain",
+      "formatSpec": "1920\u00d71080, opaque",
+      "sourceLine": 1216,
+      "keyCell": "`bg/garden-grow`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Asset type: 2D children's browser game raster art, bg/garden-grow. Primary request: A sunny cottage garden seen from slightly above: blue sky with fluffy clouds, a white picket fence with rose bushes across the top third, then a wide plain bright-green lawn with soft mowing stripes. Composition and runtime geometry: Full screen. Sky and picket fence above y\u2248330, lawn below where players run (the code draws the dirt patches at rows y 500 / 680 / 860). Keep the lawn plain. Final runtime canvas 1920\u00d71080. Opaque full-bleed landscape. No characters, plant plots, giant flowers or foreground gameplay objects. Keep stated lawn area empty. Input images 1 Felicity and 2 GardenFairies are STYLE ONLY: match crisp navy #24163f outlines, bright candy palette, polished soft CEL shading, friendly elegant shapes. Do not copy these characters, clothing or faces into this asset. Flat readable 2D cartoon illustration, no 3D render, no realistic textures, no text, letters, watermark, signature, ground shadow outside object.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-af24b9ec-11d4-4a0b-b7fd-cdddd5fe4a31.png",
+      "fit": "crop",
+      "bottom": true,
+      "sourceDimensions": [
+        1672,
+        941
+      ],
+      "sourceAlphaBounds": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "file": "party/assets/art/bg/garden-grow.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 188520,
+      "sha256": "916ace08b24d237e576734aa3ab136031c89998f674c84da586a8e7b6b4e88bc",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root reviewed style,geometry,dimensions and alpha; ready for runtime integration",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "anchor": "bottom-centre"
+      },
+      "size": [
+        1920,
+        1080
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/bg-garden-grow.webp"
+    },
+    {
+      "key": "prop/gg-dirt",
+      "width": 260,
+      "height": 140,
+      "transparent": true,
+      "description": "A round mound of soft brown tilled garden soil with a few pebbles, top-down 3/4 view",
+      "geometry": "Centred on each plot, drawn ~200\u00d7108",
+      "geometryRaw": "Centred on each plot, drawn ~200\u00d7108",
+      "formatSpec": "260\u00d7140, transparent",
+      "sourceLine": 1218,
+      "keyCell": "`prop/gg-dirt`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Asset type: 2D children's browser game raster art, prop/gg-dirt. Primary request: A round mound of soft brown tilled garden soil with a few pebbles, top-down 3/4 view. Composition and runtime geometry: Centred on each plot, drawn ~200\u00d7108. Final runtime canvas 260\u00d7140. One isolated object on TRUE transparent background. Keep entire outline inside canvas; bottom-centre ground anchor for standing plants. Input images 1 Felicity and 2 GardenFairies are STYLE ONLY: match crisp navy #24163f outlines, bright candy palette, polished soft CEL shading, friendly elegant shapes. Do not copy these characters, clothing or faces into this asset. Flat readable 2D cartoon illustration, no 3D render, no realistic textures, no text, letters, watermark, signature, ground shadow outside object.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-cfce9f8a-b1c2-4d88-b23f-d485a062febd.png",
+      "fit": "crop",
+      "bottom": false,
+      "sourceDimensions": [
+        1708,
+        921
+      ],
+      "sourceAlphaBounds": [
+        0,
+        36,
+        1688,
+        921
+      ],
+      "file": "party/assets/art/prop/gg-dirt.webp",
+      "dimensions": [
+        260,
+        140
+      ],
+      "alphaBounds": [
+        0,
+        10,
+        260,
+        130
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 9398,
+      "sha256": "7942327ab792bdf68df088d5678787c0cc07f0053220f6bf56c1719e11c2bcb4",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root reviewed style,geometry,dimensions and alpha; ready for runtime integration",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          0,
+          10,
+          260,
+          130
+        ],
+        "anchor": "centre"
+      },
+      "size": [
+        260,
+        140
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-dirt.webp"
+    },
+    {
+      "key": "prop/gg-sprout",
+      "width": 160,
+      "height": 200,
+      "transparent": true,
+      "description": "A tiny green sprout with two round leaves popping out of the soil, cute and perky",
+      "geometry": "Bottom-centre on the plot, ~90\u00d7112",
+      "geometryRaw": "Bottom-centre on the plot, ~90\u00d7112",
+      "formatSpec": "160\u00d7200, transparent",
+      "sourceLine": 1219,
+      "keyCell": "`prop/gg-sprout`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Asset type: 2D children's browser game raster art, prop/gg-sprout. Primary request: A tiny green sprout with two round leaves popping out of the soil, cute and perky. Composition and runtime geometry: Bottom-centre on the plot, ~90\u00d7112. Final runtime canvas 160\u00d7200. One isolated object on TRUE transparent background. Keep entire outline inside canvas; bottom-centre ground anchor for standing plants. Input images 1 Felicity and 2 GardenFairies are STYLE ONLY: match crisp navy #24163f outlines, bright candy palette, polished soft CEL shading, friendly elegant shapes. Do not copy these characters, clothing or faces into this asset. Flat readable 2D cartoon illustration, no 3D render, no realistic textures, no text, letters, watermark, signature, ground shadow outside object.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-c9137af1-7e1a-4ec8-8bc7-64c00620ca87.png",
+      "fit": "crop",
+      "bottom": true,
+      "sourceDimensions": [
+        1122,
+        1402
+      ],
+      "sourceAlphaBounds": [
+        97,
+        94,
+        1015,
+        1402
+      ],
+      "file": "party/assets/art/prop/gg-sprout.webp",
+      "dimensions": [
+        160,
+        200
+      ],
+      "alphaBounds": [
+        0,
+        66,
+        160,
+        200
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 8080,
+      "sha256": "96ba340e3fa49417e2aa20d3474724069ecc9ae70d54f3a2ba054026d47e6507",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root reviewed style,geometry,dimensions and alpha; ready for runtime integration",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          0,
+          66,
+          160,
+          200
+        ],
+        "anchor": "bottom-centre"
+      },
+      "size": [
+        160,
+        200
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-sprout.webp"
+    },
+    {
+      "key": "prop/gg-bud",
+      "width": 200,
+      "height": 280,
+      "transparent": true,
+      "description": "A taller leafy stalk with a closed round bud on top, wobbling as if about to burst",
+      "geometry": "Bottom-centre, ~120\u00d7168",
+      "geometryRaw": "Bottom-centre, ~120\u00d7168",
+      "formatSpec": "200\u00d7280, transparent",
+      "sourceLine": 1220,
+      "keyCell": "`prop/gg-bud`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Asset type: 2D children's browser game raster art, prop/gg-bud. Primary request: A taller leafy stalk with a closed round bud on top, wobbling as if about to burst. Composition and runtime geometry: Bottom-centre, ~120\u00d7168. Final runtime canvas 200\u00d7280. One isolated object on TRUE transparent background. Keep entire outline inside canvas; bottom-centre ground anchor for standing plants. Input images 1 Felicity and 2 GardenFairies are STYLE ONLY: match crisp navy #24163f outlines, bright candy palette, polished soft CEL shading, friendly elegant shapes. Do not copy these characters, clothing or faces into this asset. Flat readable 2D cartoon illustration, no 3D render, no realistic textures, no text, letters, watermark, signature, ground shadow outside object.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-dfe57029-10b7-4d84-b7d3-7960280c0d02.png",
+      "fit": "crop",
+      "bottom": true,
+      "sourceDimensions": [
+        1060,
+        1484
+      ],
+      "sourceAlphaBounds": [
+        0,
+        19,
+        1046,
+        1484
+      ],
+      "file": "party/assets/art/prop/gg-bud.webp",
+      "dimensions": [
+        200,
+        280
+      ],
+      "alphaBounds": [
+        28,
+        0,
+        171,
+        280
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 17550,
+      "sha256": "7512c9ccc109dfcaa42c4edbf04f6235a99bb5a8155160e96e0c414cf2f8a8ae",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root reviewed style,geometry,dimensions and alpha; ready for runtime integration",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          28,
+          0,
+          171,
+          280
+        ],
+        "anchor": "bottom-centre"
+      },
+      "size": [
+        200,
+        280
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-bud.webp"
+    },
+    {
+      "key": "prop/gg-sunflower-giggle",
+      "width": 360,
+      "height": 720,
+      "transparent": true,
+      "description": "A giant sunflower on a tall stem with big leaves and a happy face in the brown centre. Giggle: same flower, eyes squeezed shut, mouth wide open laughing",
+      "geometry": "Bottom-centre, drawn ~230\u00d7460 (much taller than the players), swaying",
+      "geometryRaw": "Bottom-centre, drawn ~230\u00d7460 (much taller than the players), swaying",
+      "formatSpec": "360\u00d7720 each, transparent",
+      "sourceLine": 1221,
+      "keyCell": "`prop/gg-sunflower`, `prop/gg-sunflower-giggle`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: illustration-story. Asset type: 2D children's browser game raster art, prop/gg-sunflower. Primary request: A giant sunflower on a tall stem with big leaves and a happy face in the brown centre. Giggle: same flower, eyes squeezed shut, mouth wide open laughing. Composition and runtime geometry: Bottom-centre, drawn ~230\u00d7460 (much taller than the players), swaying. Final runtime canvas 360\u00d7720. One isolated object on TRUE transparent background. Keep entire outline inside canvas; bottom-centre ground anchor for standing plants. Input images 1 Felicity and 2 GardenFairies are STYLE ONLY: match crisp navy #24163f outlines, bright candy palette, polished soft CEL shading, friendly elegant shapes. Do not copy these characters, clothing or faces into this asset. Flat readable 2D cartoon illustration, no 3D render, no realistic textures, no text, letters, watermark, signature, ground shadow outside object.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-beba3a30-e19e-4c55-a4f3-034976ebb20d.png",
+      "fit": "resize",
+      "bottom": true,
+      "sourceDimensions": [
+        887,
+        1774
+      ],
+      "sourceAlphaBounds": [
+        24,
+        22,
+        887,
+        1759
+      ],
+      "file": "party/assets/art/prop/gg-sunflower-giggle.webp",
+      "dimensions": [
+        360,
+        720
+      ],
+      "alphaBounds": [
+        8,
+        7,
+        360,
+        715
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 59490,
+      "sha256": "af0ce844e008c696fba8254c98dfae62cf837eb88d4e3a08db89c8b2b605db4f",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root reviewed style,geometry,dimensions and alpha; ready for runtime integration",
+      "previousVersions": [],
+      "intakeNotes": "Generated happy expression already has eyes squeezed shut and open laugh; assigned to requested giggle frame. Neutral edited from this exact source to retain framing.",
+      "intakeGeometry": {
+        "alphaBounds": [
+          8,
+          7,
+          360,
+          715
+        ],
+        "anchor": "bottom-centre"
+      },
+      "size": [
+        360,
+        720
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-sunflower-giggle.webp"
+    },
+    {
+      "key": "prop/gg-sunflower",
+      "width": 360,
+      "height": 720,
+      "transparent": true,
+      "description": "A giant sunflower on a tall stem with big leaves and a happy face in the brown centre. Giggle: same flower, eyes squeezed shut, mouth wide open laughing",
+      "geometry": "Bottom-centre, drawn ~230\u00d7460 (much taller than the players), swaying",
+      "geometryRaw": "Bottom-centre, drawn ~230\u00d7460 (much taller than the players), swaying",
+      "formatSpec": "360\u00d7720 each, transparent",
+      "sourceLine": 1221,
+      "keyCell": "`prop/gg-sunflower`, `prop/gg-sunflower-giggle`",
+      "existingIndexed": false,
+      "existingFile": null,
+      "needsNewKey": true,
+      "optional": false,
+      "authoredFrames": 1,
+      "game": "garden-grow",
+      "prompt": "Use case: precise-object-edit. Image 1 is edit target. Change ONLY facial expression of this exact sunflower to open sparkling happy eyes and a small cheerful smile, distinguishing neutral from laughing frame. Preserve identical canvas dimensions, exact face centre, petals, stem, leaves, base, colors, shading, outline and all pixels outside face. True transparent background, no extra marks, text or objects.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-6b1f9d67-04fa-4117-b7ad-de8da91fda84.png",
+      "fit": "resize",
+      "bottom": true,
+      "sourceDimensions": [
+        887,
+        1774
+      ],
+      "sourceAlphaBounds": [
+        23,
+        21,
+        887,
+        1759
+      ],
+      "file": "party/assets/art/prop/gg-sunflower.webp",
+      "dimensions": [
+        360,
+        720
+      ],
+      "alphaBounds": [
+        8,
+        7,
+        360,
+        715
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 59210,
+      "sha256": "5038c8e0ff5bd2abde0c9b07d28518b7fdfb31b555c42025e2f1cc00b1b90127",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "Root reviewed style,geometry,dimensions and alpha; ready for runtime integration",
+      "previousVersions": [],
+      "intakeGeometry": {
+        "alphaBounds": [
+          8,
+          7,
+          360,
+          715
+        ],
+        "anchor": "bottom-centre"
+      },
+      "size": [
+        360,
+        720
+      ],
+      "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-sunflower.webp"
+    }
+  ]
+}

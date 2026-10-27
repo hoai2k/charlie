@@ -1,0 +1,23 @@
+{
+  "asset": "kpop-girl-right",
+  "source": "../sources/kpop-girl-right-full-actions-d.webp",
+  "input_image_1": "../../../reference/canonical/kpop-girl-right.webp",
+  "poses": [
+    "dash",
+    "dash",
+    "hip-bump",
+    "hip-bump",
+    "knockback",
+    "knockback",
+    "pose-twirl",
+    "pose-twirl"
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "status": "Generated from the saved reinforced landscape prompt with approved canonical reference; saved lossless WebP, inspected all 4x2 cells and added to spec with manually entered source-local landmarks.",
+  "prompt": "Use case: stylized-concept. Asset type: transparent full-body sprite sheet for Charlie Party. Input image 1 is the approved canonical kpop-girl-right reference; reproduce this exact character. Subject: very long coral hair, navy tee with pink and purple abstract graphic, golden skirt with brown panels, tall navy boots with pink knee accents, warm brown eyes. Personality: bouncy, playful, flowing motion with expressive long hair. Style: match the canonical 2D cartoon with bold smooth navy outlines, clean cel shading and the same face, hair, body proportions and outfit. Primary request: create a wide landscape image with exactly 8 distinct full-body figures in a 4 columns across by 2 rows grid, in row-major order. Use four equal-width cells across the landscape image and two equal-height rows; each figure must stay entirely inside its own cell with at least 32 pixels of clear transparent gutter on every side. Do not use a portrait page or stack the columns vertically. Each cell has one pose only; generous transparent gutters; consistent head size and figure scale in every cell; leave clear margins around hair, hands and shoes. Never add another character. Exact row-major pose order: 1 dash launch: low forward launch with lead knee lifted and arms driving. 2 dash held: sustained forward lunge, same head size, clear run silhouette. 3 hip-bump preparation: cock one hip toward facing, arms counterbalancing and playful grin. 4 hip-bump swing: swing the hip toward facing with a short decisive follow-through. 5 knockback start: recoil from an unseen hit, torso leaning back, arms beginning to windmill. 6 knockback continuation: skid farther backward with balance arms spread, no injury marks. 7 pose-twirl angle one: exact front-facing view, poised arms and flowing cloth. 8 pose-twirl angle two: clean three-quarter view turned to the character\u2019s right, continuing the same spin.. Constraints: preserve the complete canonical identity and colors in every pose; normal human anatomy; true transparent alpha; keep props and effects separate when instructions call for an imaginary held object. Avoid: backdrop, scenery, shadows, cell borders, text, labels, extra accessories, props, watermark, detached marks, clipped hair, hands or feet.",
+  "output": "../../sources/kpop-girl-right-full-actions-d.webp",
+  "generation_output": "/Users/hoai/.codex/generated_images/01a0fe43-c681-7392-88c4-b71670e6a1a4/exec-9033c00f-c60e-4406-b4eb-068e21a6ff58.png"
+}

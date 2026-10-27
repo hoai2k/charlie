@@ -1,0 +1,162 @@
+{
+  "asset": "garden-fairy-pink",
+  "prompt": "Use case: illustration-story. Asset type: playable 2D fairy sprite animation sheet. Image 1 is the APPROVED exact pink tulip garden fairy identity reference: preserve short brown bob, teal eyes, peach skin, enormous pink tulip cap with green leaves, pink petal dress green collar and waist bow, pink flower shoes, four translucent pink patterned wings, head/body proportions. Produce exactly FOUR full-body frames in a 2 columns x 2 rows grid with generous transparent gutters. Top row left-to-right: roll-push walking phase A then opposite phase B, facing RIGHT in 3/4 side view, bent forward from hips with BOTH hands extended together at waist height to push a large invisible snowball, feet alternate forward/back strides on same ground line, fingers curved for contact. Bottom row: hold-balloons phase A then B, delighted floating upward with one raised arm high overhead, CLOSED FIST gripping invisible strings, other arm out for balance, dangling legs and visibly alternate wing flutter open/narrow phases. Same head size and torso scale across all four; preserve exact reference character and outfit. True transparent background. No snowball, balloons, strings, props, sparkles, effects, ground shadows, scenery, labels or text. Entire cap wings hands and feet fully inside each cell. House style: crisp smooth navy #24163f outlines, polished soft 2D cel shading, no 3D, no photorealism. Output square 1536x1536.",
+  "sourcePath": "/Users/hoai/.codex/generated_images/01a144da-abdd-73f0-8f4a-558bedc86623/exec-8d05b7db-f752-4aaf-9612-fb7952dd2af3.png",
+  "reference": "party/reference/canonical/garden-fairy-pink.webp",
+  "source": "party/tools/sprites/sources/garden-fairy-pink-oct16-molly-actions.webp",
+  "tool": "built-in imagegen",
+  "status": "Native and runtime visual review accepted; measured source-local grip points; prior shipped poses preserved",
+  "sourceEncoding": "Full native RGBA, lossless WebP exact=True method=6",
+  "sourceSize": [
+    1254,
+    1254
+  ],
+  "sourceSha256": "92424ff0e23d70a639743582aa63e2a7a8fd9f2bab7f91add15f84dd5a9fb412",
+  "poses": [
+    "roll-push",
+    "roll-push",
+    "hold-balloons",
+    "hold-balloons"
+  ],
+  "spec": "party/tools/sprites/specs/garden-fairy-pink.json",
+  "decodedMiB": 16.442772,
+  "runtimeFrames": {
+    "roll-push": [
+      {
+        "src": "roll-push-00.webp",
+        "anchor": [
+          91,
+          243
+        ],
+        "artHash": "f64a4cb420b8ac9871ba2dea1cb2238c18e140434fc3d9c55ac4f86b93a384ec",
+        "fileHash": "baa0ac4b9f4bb39b66a4890291d3611bd9c034d2af32a56ab02edff7fb530999",
+        "head": [
+          94,
+          5
+        ],
+        "hand": [
+          165,
+          136
+        ],
+        "eyes": [
+          118,
+          104
+        ],
+        "neck": [
+          102,
+          132
+        ],
+        "back": [
+          81,
+          141
+        ],
+        "dur": 0.24,
+        "bodyHeight": 240
+      },
+      {
+        "src": "roll-push-01.webp",
+        "anchor": [
+          100,
+          243
+        ],
+        "artHash": "31079100e8a43b280a404a87d2c904f50b3560e53464193fa18e8ea3d95ac812",
+        "fileHash": "0804cd0d52f7dca9a60fd2b0c411acd502e5eeb18a583a5f6d2cfcb8cd61dd48",
+        "head": [
+          104,
+          5
+        ],
+        "hand": [
+          174,
+          137
+        ],
+        "eyes": [
+          127,
+          106
+        ],
+        "neck": [
+          111,
+          134
+        ],
+        "back": [
+          90,
+          143
+        ],
+        "dur": 0.24,
+        "bodyHeight": 240
+      }
+    ],
+    "hold-balloons": [
+      {
+        "src": "hold-balloons-00.webp",
+        "anchor": [
+          108,
+          244
+        ],
+        "artHash": "1329fda46553aa7e19d92eb0670de6c8740cb5d865a9de49650a920c824462cb",
+        "fileHash": "26011ff547bca0a5ffbfe17491d16fdcbf6f146bc3ff51904c2d063117499ffb",
+        "head": [
+          108,
+          6
+        ],
+        "hand": [
+          178,
+          35
+        ],
+        "eyes": [
+          124,
+          82
+        ],
+        "neck": [
+          128,
+          117
+        ],
+        "back": [
+          108,
+          131
+        ],
+        "dur": 0.18,
+        "bodyHeight": 240
+      },
+      {
+        "src": "hold-balloons-01.webp",
+        "anchor": [
+          82,
+          244
+        ],
+        "artHash": "c8e7574e03eb0de4a7388310fef7bcab0f3dd354b9c7b0a0983d9f77c558954c",
+        "fileHash": "9b61c5f0149791220acdf6042c4b62f17efd9a54bb3508b8fe17ed95de0e1b35",
+        "head": [
+          82,
+          6
+        ],
+        "hand": [
+          144,
+          35
+        ],
+        "eyes": [
+          98,
+          82
+        ],
+        "neck": [
+          102,
+          117
+        ],
+        "back": [
+          82,
+          131
+        ],
+        "dur": 0.18,
+        "bodyHeight": 240
+      }
+    ]
+  },
+  "verification": {
+    "newPacketsRebuiltByteExactlyFromSpec": true,
+    "priorManifestFieldsPreserved": true,
+    "sourceAlpha": [
+      0,
+      255
+    ],
+    "review": "Native sheet and runtime contact sheets, measured hand/fist landmarks; approved canonical identities preserved"
+  }
+}

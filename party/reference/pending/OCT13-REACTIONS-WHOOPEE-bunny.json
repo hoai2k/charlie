@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-13",
+  "family": "Whoopee Tea bunny reactions",
+  "assets": [
+    {
+      "key": "prop/whoopee-guest-bunny-shock",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-bunny-shock.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-bunny-shock-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-bunny-shock-source.webp",
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-6468c86e-3e78-4495-a251-ea2277f4c356.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-bunny-gasp.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 1008576,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 125784,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved bunny guest; reproduce this exact character. Create a 320x420 transparent character image with the exact same canvas, seated scale, bottom-center seat anchor, framing, long-ear silhouette, face, and proportions. The same proper white bunny lady with pale pink inner ears, pearl necklace, pale blue dress with delicate floral details, cream lace collar and cuffs, and lace parasol. Utterly scandalised: one paw pressed to her pearls, the other flung up, eyes huge, eyebrows shot up, mouth a small prim O, leaning back in horror, ears bristling. A lady clutching pearls at a garden party, never smiling or laughing. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, no text, no steam, no shock lines, no shadows, no scenery, no extra decorations, no watermark, no other characters. Keep the whole figure and parasol visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        15,
+        1,
+        305,
+        415
+      ],
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/whoopee-guest-bunny-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-bunny-scold.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-bunny-scold-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-bunny-scold-source.webp",
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-e6c293f4-aa24-47f4-8fa2-f455cb82a57c.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-bunny-gasp.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 846206,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 106990,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved bunny guest; reproduce this exact character. Create a 320x420 transparent character image that exactly matches the reference canvas, seated scale, bottom-center seat anchor, framing, ear silhouette, face and proportions. Same white bunny lady with pink inner ears, lace collar and cuffs, pearl necklace, pale blue floral dress. Comically stern and indignant: brows down, narrowed eyes, tight disapproving mouth, cheeks puffed and flushed red, chin up. One paw raised on the right side of the picture in a dainty white glove with one finger raised to scold; the other paw on her hip. Prim, pompous and funny, never scary. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No parasol, hat, text, steam, shock lines, shadows, scenery, decorations, watermark or other characters. Keep both long ears and the entire seated figure visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        45,
+        0,
+        296,
+        418
+      ],
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/whoopee-guest-bunny-huff",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-bunny-huff.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-bunny-huff-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-bunny-huff-source.webp",
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-62b2db01-07ff-486f-92db-d0b65f72d3e7.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-bunny-sit.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 736158,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 94136,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved seated bunny guest; reproduce this exact character. Create a 320x420 transparent character image with the exact same canvas, bottom-center seat anchor, framing, scale and palette as the reference. Same proper white bunny lady with pink inner ears, pearl necklace, pale blue floral dress, lace collar and cuffs. In a grand huff: arms folded tight across her chest, nose and chin tipped high, ears turned to the side, eyes shut in offended dignity, mouth a pouty hmph, one eyebrow arched. Hoity-toity and funny. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No parasol, hat, text, steam, shock lines, shadows, scenery, decorations, watermark or other characters. Keep both long ears and the entire seated figure visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        24,
+        3,
+        307,
+        413
+      ],
+      "tool": "built-in imagegen"
+    }
+  ],
+  "qa": "Exact runtime alpha/canvas checks; seated gameplay renderer with separate hats/chairs reviewed; scold glove duplication suppressed only when authored scold is available."
+}

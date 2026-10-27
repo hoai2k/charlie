@@ -1,0 +1,35 @@
+{
+  "tool": "built-in imagegen",
+  "jobs": [
+    {
+      "kind": "background",
+      "alpha": false,
+      "refs": [
+        "assets/tracks/wizard/background.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Asset: horizontally repeating race background, wide landscape exactly3:1, final2172x724, opaque. Image1 is painted STYLE and track geometry reference only. Paint Fairy Woods: a deep mossy enchanted fairy forest at twilight, giant old trees with tiny warm glowing fairy doors, glowing toadstools, friendly golden fireflies, ferns and a babbling brook BEHIND a low fence of twisted branches and roots. Rich charming soft-painted detailed storybook toy-world like reference. Straight side-on race view, backdrop scrolls RIGHT TO LEFT. CRITICAL: back fence is perfectly horizontal at y535 of724 (74% down); entire bottom26% is a broad flat clear warm mossy-brown dirt racing path down to the very bottom. Faint moss texture only, no lumps, flowers, stones, mushrooms, logs, roots, stream or foreground objects on the playable floor. No narrowing perspective road. Calm upper corners for HUD. This tile will directly repeat: match left/right edge color, light, tree/foliage density and boundary height; gentle continuous forest at both edges, no central light-to-dark gradient. Keep fairy-door trees and brook in central area. Friendly luminous twilight, bright enough to read dolls, not spooky. No people, racers, text, signs, logos, UI or obstacles on path."
+    },
+    {
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "tools/tracks/white-hurdle-reference.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One transparent Fairy Woods race hurdle: a compact fallen log fence with soft green moss and a few rounded pink and blue mushrooms. Image1 is geometry and straight-on ANGLE reference only; ignore grey background. Chunky log forms stacked as three short horizontal logs, upright cut-log posts at either end, similar near-square silhouette and same front elevation as original picket. Face the broad front toward camera: horizontal logs, vertical posts, level baseline, no receding side or three-quarter angle. Slight painted material shading, friendly storybook toy-world, bold readable shapes at64x68. Object slightly wider than tall, no sharp branches, entire object visible inside central80% of square canvas. True transparent background, no ground plane/cast shadow/scenery/glow/text/borders."
+    },
+    {
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/tracks/fairy/powerups.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Transparent source atlas for Fairy Woods power-up icons. Image1 is bold colorful painted icon STYLE reference only. EXACTLY 3 columns by2 rows of equal square cells, landscape3:2. Five separate icons, sixth cell EMPTY. Read left-to-right top then bottom: (1) giant bouncy red toadstool with a visible coiled spring under its cap; (2) compact bright golden swirl of friendly glowing fireflies; (3) brass acorn-shaped hand bell with visible clapper and sound rays; (4) messy dark green-brown mossy bog puddle with wet splashes, visibly a harmful slippery mess; (5) little pile of plump brown acorns with distinct caps; (6) empty transparent. Keep each whole icon inside central75% of its cell, with true transparent empty gutters, no overlapping or cropped spring/glow/rays. Bold chunky outlines, bright highlights, friendly polished painted game icons, readable at68px. No text, logos, labels, frame/gridlines, ground or background."
+    },
+    {
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [],
+      "prompt": "Use case: stylized-concept. One roundish plump brown acorn with a warm nut body, softly textured darker cup cap and very short stem, isolated on genuine transparent background. Fairy Woods doll racing game projectile, bold chunky painted storybook icon, warm highlight and clean dark outline matching colorful game icons. Centered on square canvas with generous20% clear transparent margins. Round compact silhouette reads at34px and spins. No leaves, pile, ground, shadow, background, text or effects."
+    }
+  ]
+}

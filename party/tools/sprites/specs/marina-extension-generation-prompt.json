@@ -1,0 +1,28 @@
+{
+  "asset": "marina",
+  "source": "../sources/marina-extensions.webp",
+  "original_generated_png": "/Users/hoai/.codex/generated_images/01a0fe16-24ef-7f73-ab82-e8e89711ab48/exec-423aba85-48af-4f68-90a6-549987c99510.png",
+  "input_image_1": "../../../reference/canonical/marina.webp",
+  "tool": "built-in image_gen",
+  "layout": [
+    4,
+    4
+  ],
+  "occupied_cells": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "prompt": "Use case: sprite animation keyframes for Charlie Party, a children's 2D party game. Asset type: transparent full-body character sprite sheet. Input image 1 is Marina's approved canonical reference; reproduce this exact character in every cell.\n\nCreate an exact 4-column by 4-row transparent sprite sheet. Cells are equally sized, with generous clear gutters and one complete figure per occupied cell, in row-major order:\n1) IDLE BLINK: same upright gentle-glide pose and body silhouette as canonical, both eyes closed for a brief blink, hair gently drifting.\n2) CELEBRATE ANTICIPATION: compact curled-tail crouch, arms tucked, joyful anticipation.\n3) CELEBRATE LEAP: springing upward with both arms high, tail lifted and fins spread.\n4) CELEBRATE PEAK: highest buoyant leap, huge joyful smile, both arms stretched up in a clear V.\n5) CELEBRATE LAND: soft tail-first landing with arms open, joyful smile.\n6) POUT STOMP: arms crossed, huge comic bottom lip, tail curled under with one fin making a strong downward tail-slap/stomp gesture; no legs or feet.\n7) CHEER: small proud one-arm fist pump near shoulder, warm confident smile, distinct from the large celebration.\n8) SAD: gentle disappointed droop, shoulders and arms lowered, raised inner brows, small quivering lip; restrained and readable.\n9-12) DANCE cycle, four distinct rhythmic full-body poses: open arms and tail sway; one arm overhead with tail curling opposite; hands near chest while tail curls; arms open as tail and fins sweep back. These are four different readable silhouettes.\n13-14) RIDE, two side-saddle riding poses: seated upright in the air, torso turned three-quarter toward screen-right, hands gripping an invisible broom handle in front; long tail curves along the implied seat and behind, fins trailing. Pose 14 is the same ride silhouette with hair and tail fluttering back. Draw no broom or other prop.\n15-16) leave fully transparent and empty.\n\nStyle: bold smooth dark navy outlines, rounded appealing shapes, expressive teal eyes, bright original colors and simple clean cel shading matching the canonical. Preserve Marina's long red hair, gold crown with purple jewels, purple shell top, teal scaled mermaid tail with purple bands and large purple fins. Match the canonical head size, face, palette, outline weight and shading in every frame. Three-quarter view toward screen-right. Full body, crown, hair, hands and tail fins entirely inside every occupied cell. Mermaid anatomy: two arms and one continuous fish tail only, absolutely no legs or feet. Transparent background, no floor, no shadow, no scenery, no glow, no motion lines, no baked sparkles, no text, labels or borders. Keep each cell separate and aligned on a consistent common scale."
+}

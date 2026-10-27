@@ -1,0 +1,10 @@
+{
+  "asset": "marina",
+  "status": "complete reviewed",
+  "poseKeys": 75,
+  "authoredFrames": 92,
+  "portraits": 5,
+  "bodyHeight": 240,
+  "review": "Corrected per-frame head/eyes/neck/hand from common-baseline full-resolution runtime sheets; preserved neutral blink pose; resized sleep/shake/stir/eat/carry/card reach; reviewed full and optimized Fashion Show. Exact imagegen prompts in specs/*-generation-prompt.json, lossless masters in sources/.",
+  "canonicalApproved": true
+}

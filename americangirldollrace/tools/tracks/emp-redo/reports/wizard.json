@@ -1,0 +1,22 @@
+{
+  "key": "wizard",
+  "path": "assets/tracks/wizard/powerups.webp",
+  "size": [
+    1280,
+    256
+  ],
+  "cell": 2,
+  "bounds": [
+    43,
+    12,
+    212,
+    244
+  ],
+  "unchanged": {
+    "0": "a28fb685a97a97974aed963b5a11b4668d376fe4fba6060a8f24c590bc109954",
+    "1": "af2208cfac8800155ff068001c288a579668604b794c38ee7d3e969735a960a2",
+    "3": "7ea4a9abd305bc0f4f9fe255f29522f94e435ae43edbd67ff7b0fed0c6e3a08d",
+    "4": "0b6d273212682010f66749c72921a497eb6098a7f5dc1f14b1ac17a90bb43176"
+  },
+  "sha256": "1e44f6c9bd62cb46fd2895a08fabf765bb9f7f113ef1eed8b10f96c22882309d"
+}

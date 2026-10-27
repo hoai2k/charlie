@@ -1,0 +1,30 @@
+{
+  "asset": "marina",
+  "source": "../sources/marina-tier23-actions-g.webp",
+  "input_image_1": "../../../reference/canonical/marina.webp",
+  "poses": [
+    "strike1",
+    "strike2",
+    "strike3",
+    "dance-up",
+    "dance-down",
+    "dance-side",
+    "dance-star",
+    "stir"
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "pose_descriptions": [
+    "STRIKE1: runway pose, one hand on hip, confident smile.",
+    "STRIKE2: runway pose, clear peace sign beside face, playful smile.",
+    "STRIKE3: runway finale pose, both arms up in a star shape, tail and fins spread wide.",
+    "DANCE-UP: dance hit with both arms straight overhead, body stretched tall.",
+    "DANCE-DOWN: dance hit with torso dipped low and hands near knees, tail curled underneath.",
+    "DANCE-SIDE: dance hit leaning to the side and pointing toward that side, tail curves opposite.",
+    "DANCE-STAR: midair dance jump, arms and fins spread into a clear star silhouette, one continuous fish tail.",
+    "STIR: repeated circular hand motion as if stirring a pot in front, focused face; no spoon or pot."
+  ],
+  "prompt": "Use case: illustration-story. Asset type: transparent full-body mermaid action sprite sheet. Input image 1 is the approved canonical marina reference; reproduce the exact character.\n\nCreate an actual-alpha transparent sheet with 4 columns and 2 rows, one fully visible figure per cell, row-major order. Keep a consistent head and torso scale, bold smooth navy outlines and clean cel shading. Each pose is a distinct silhouette:\n1) STRIKE1: runway pose, one hand on hip, confident smile.\n2) STRIKE2: runway pose, clear peace sign beside face, playful smile.\n3) STRIKE3: runway finale pose, both arms up in a star shape, tail and fins spread wide.\n4) DANCE-UP: dance hit with both arms straight overhead, body stretched tall.\n5) DANCE-DOWN: dance hit with torso dipped low and hands near knees, tail curled underneath.\n6) DANCE-SIDE: dance hit leaning to the side and pointing toward that side, tail curves opposite.\n7) DANCE-STAR: midair dance jump, arms and fins spread into a clear star silhouette, one continuous fish tail.\n8) STIR: repeated circular hand motion as if stirring a pot in front, focused face; no spoon or pot.\n\nIdentity: marina has long red hair, teal eyes, gold crown set with purple jewels, purple shell top, teal scales with purple bands and large purple fins. Preserve canonical face, colors and proportions. Exactly two arms and one continuous fish tail, absolutely no legs or feet. Adapt actions with arm gestures, torso lean, tail curls and fin movement. No props, ground, water, scenery, shadows, glow, motion lines, particles, text, grid borders or watermark. Leave generous transparent gutters and margin around each figure; never clip crown, hair, hands or tail.\n"
+}

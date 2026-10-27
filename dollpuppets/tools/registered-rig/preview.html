@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claudia puppet check</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 20px; background: #21142d; color: #fff8ec; font: 16px system-ui; }
+  h1 { margin: 0 0 8px; } p { max-width: 70ch; }
+  #checks { display: grid; grid-template-columns: repeat(auto-fit,minmax(230px,1fr)); gap: 12px; }
+  figure { margin: 0; overflow: hidden; border-radius: 16px; background: #4c335d; }
+  figcaption { padding: 10px; font-weight: bold; }
+  canvas { display: block; width: 100%; background: #74c8ef; }
+  button { padding: 10px 16px; margin: 0 0 16px; font: inherit; }
+  output { display: block; padding: 8px 10px; font: 12px monospace; }
+</style>
+<h1>Claudia puppet check</h1>
+<p>The same head, curls, bow and neck stay in place through expressions and poses. This preview uses simulated tracking; it never requests the camera.</p>
+<button id="motion">Pause motion</button>
+<button id="anchors">Show anchors</button>
+<div id="checks"></div>
+<script type="module">
+import { renderDollsEffect, DOLL_CONFIGS } from '../../effect/render.js?v=20261022a';
+import legacyClaudia from '../../assets/claudia/config.js';
+import { createDemoPuppetState } from '../../src/core/puppet-state.js';
+DOLL_CONFIGS['claudia-legacy'] = {...legacyClaudia, name: 'claudia-legacy'};
+const fixtures = [
+  ['Claudia — updated', {}, null],
+  ['Claudia — original', {}, null, 0, 'claudia-legacy'],
+  ['Marisol', {}, null, 0, 'marisol'],
+  ['Rumi', {}, null, 0, 'rumi'],
+  ['Juliette', {}, null, 0, 'juliette'],
+  ['Smile', { smile: .85 }, null],
+  ['Speech', { mouthOpen: .4 }, null],
+  ['Laugh', { mouthOpen: .7, smile: .85 }, null],
+  ['Kiss', { mouthPucker: .9 }, null],
+  ['Tongue', { mouthOpen: .3, tongueOut: .95 }, null],
+  ['Frown', { frown: .7 }, null],
+  ['Blink', { leftEyeClosed: 1, rightEyeClosed: 1 }, null],
+  ['Left wink', { leftEyeClosed: 1 }, null],
+  ['Raised brows', { browRaise: .95 }, null],
+  ['Left hand', { smile: .65 }, 'leftRaised'],
+  ['Both hands', { mouthOpen: .28 }, 'bothRaised'],
+  ['Right hand', { smile: .65 }, 'rightRaised'],
+  ['Heart hands', { smile: .75 }, 'bothMiddle'],
+  ['Head tilt left', {}, null, -.26],
+  ['Head tilt right', {}, null, .26],
+  ['Bubble effect', { mouthPucker: .9 }, null, -.2],
+  ['Legacy Rumi control', { smile: .65 }, null, 0, 'rumi']
+];
+const checks = fixtures.map(([label, expressions, gesture, tilt = 0, character = 'claudia']) => {
+  const figure = document.createElement('figure');
+  const caption = document.createElement('figcaption'); caption.textContent = label;
+  const canvas = document.createElement('canvas'); canvas.width = 320; canvas.height = 500;
+  const output = document.createElement('output'); output.textContent = 'Loading';
+  figure.append(caption, canvas, output); document.querySelector('#checks').append(figure);
+  const effect = renderDollsEffect({ character, gameConfig: {
+    enable_tongue_out_detection: true, enable_tongue_blendshape_detection: true,
+    enable_tongue_color_detection: false, enable_hand_tracking: true,
+    enable_kiss_gesture: label === 'Bubble effect', kiss_bubble_hold_ms: 400
+  } });
+  const state = createDemoPuppetState(0);
+  for (const name of Object.keys(state.face.expressions)) state.face.expressions[name] = 0;
+  Object.assign(state.face.expressions, expressions);
+  state.face.tracked = true; state.face.rotation = tilt; state.hands = [];
+  const hand = (label, x, y) => ({ label, landmarks: [{x, y, z: 0}] });
+  if (gesture === 'leftRaised' || gesture === 'bothRaised') state.hands.push(hand('Left', .2, .15));
+  if (gesture === 'rightRaised' || gesture === 'bothRaised') state.hands.push(hand('Right', .8, .15));
+  if (gesture === 'bothMiddle') state.hands.push(hand('Left', .44, .6), hand('Right', .56, .6));
+  return { label, canvas, output, effect, state, tilt, hands: state.hands, gesture };
+});
+let paused = false;
+let showAnchors = false;
+document.querySelector('#anchors').onclick = event => {
+  showAnchors = !showAnchors;
+  event.target.textContent = showAnchors ? 'Hide anchors' : 'Show anchors';
+};
+document.querySelector('#motion').onclick = event => {
+  paused = !paused; event.target.textContent = paused ? 'Resume motion' : 'Pause motion';
+};
+let clock = 0;
+let previous = performance.now();
+function frame(now) {
+  if (!paused) clock += Math.min(50, now-previous);
+  previous = now;
+  for (const check of checks) {
+    const ctx = check.canvas.getContext('2d'); ctx.clearRect(0, 0, 320, 500);
+    check.state.hands = check.gesture === 'bothMiddle' && clock % 3400 > 2400 ? [] : check.hands;
+    if (check.label === 'Bubble effect') {
+      const puckering = clock % 4000 < 2200;
+      check.state.face.expressions.mouthPucker = puckering ? .9 : 0;
+      check.state.face.expressions.mouthOpen = puckering ? 0 : .6;
+    }
+    check.state.face.rotation = check.tilt + (paused ? 0 : Math.sin(clock/1300) * .025);
+    check.effect.render(ctx, check.state, { width: 320, height: 500, now: clock, stage: 'dolls-game', mode: 'demo', trackingMode: 'face-hands' });
+    const debug = check.effect.getDebugState();
+    if (showAnchors && debug.anchors) {
+      for (const [name, point, color] of [
+        ['lips', debug.anchors.mouth, '#ffff00'], ['neck', debug.anchors.neck, '#00ff80'],
+        ['L eye', debug.anchors.eyes.leftEye, '#00ffff'], ['R eye', debug.anchors.eyes.rightEye, '#00ffff'],
+        ['heart', debug.anchors.poseAction, '#ff7cff']
+      ]) {
+        if (!point) continue;
+        ctx.strokeStyle = color; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(point.x-6, point.y); ctx.lineTo(point.x+6, point.y);
+        ctx.moveTo(point.x, point.y-6); ctx.lineTo(point.x, point.y+6); ctx.stroke();
+        ctx.fillStyle = color; ctx.font = '10px system-ui'; ctx.fillText(name, point.x+7, point.y-3);
+      }
+    }
+    check.output.textContent = debug.error ?? (debug.ready ? `${debug.activeMouth} · ${debug.activeTalking ?? 'rest'} · pose ${debug.pose}` : 'Loading');
+    check.output.dataset.ready = String(debug.ready);
+    check.output.dataset.pose = debug.pose;
+    check.output.dataset.mouth = debug.activeMouth;
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</html>

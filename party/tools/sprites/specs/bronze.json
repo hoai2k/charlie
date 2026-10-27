@@ -1,0 +1,4472 @@
+{
+  "asset": "bronze",
+  "bodyHeight": 280,
+  "frameSize": [
+    560,
+    490
+  ],
+  "anchor": [
+    280,
+    455
+  ],
+  "facing": 0,
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/bronze-core.webp",
+          "rect": [
+            54,
+            5,
+            459,
+            704
+          ],
+          "isolate": true,
+          "anchor": [
+            197.0,
+            700
+          ],
+          "scale": 1.0,
+          "head": [
+            196,
+            150
+          ],
+          "eyes": [
+            196,
+            251
+          ],
+          "neck": [
+            196,
+            324
+          ],
+          "back": [
+            196,
+            436
+          ],
+          "hand": [
+            404,
+            170
+          ],
+          "dur": 4.1
+        },
+        {
+          "source": "../sources/bronze-blink-v2.webp",
+          "scale": 0.456151832460733,
+          "dur": 0.12,
+          "anchor": [
+            426,
+            1519
+          ],
+          "head": [
+            426,
+            326
+          ],
+          "eyes": [
+            426,
+            544
+          ],
+          "neck": [
+            426,
+            705
+          ],
+          "back": [
+            426,
+            946
+          ],
+          "hand": [
+            875,
+            369
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 0
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "source": "../sources/bronze-celebrate-v3.webp",
+          "rect": [
+            39,
+            132,
+            450,
+            577
+          ],
+          "isolate": true,
+          "anchor": [
+            225,
+            568
+          ],
+          "scale": 0.95,
+          "head": [
+            207,
+            133
+          ],
+          "eyes": [
+            207,
+            225
+          ],
+          "neck": [
+            207,
+            288
+          ],
+          "back": [
+            207,
+            375
+          ],
+          "hand": [
+            378,
+            144
+          ],
+          "dur": 0.16
+        },
+        {
+          "source": "../sources/bronze-celebrate-v3.webp",
+          "rect": [
+            563,
+            19,
+            422,
+            662
+          ],
+          "isolate": true,
+          "anchor": [
+            211,
+            681
+          ],
+          "scale": 0.95,
+          "head": [
+            194,
+            152
+          ],
+          "eyes": [
+            194,
+            258
+          ],
+          "neck": [
+            194,
+            331
+          ],
+          "back": [
+            194,
+            430
+          ],
+          "hand": [
+            354,
+            166
+          ],
+          "dur": 0.15
+        },
+        {
+          "source": "../sources/bronze-celebrate-v3.webp",
+          "rect": [
+            1022,
+            13,
+            575,
+            598
+          ],
+          "isolate": true,
+          "anchor": [
+            288,
+            687
+          ],
+          "scale": 0.95,
+          "head": [
+            264,
+            138
+          ],
+          "eyes": [
+            264,
+            233
+          ],
+          "neck": [
+            264,
+            299
+          ],
+          "back": [
+            264,
+            389
+          ],
+          "hand": [
+            483,
+            150
+          ],
+          "dur": 0.28
+        },
+        {
+          "source": "../sources/bronze-celebrate-v3.webp",
+          "rect": [
+            1672,
+            133,
+            450,
+            575
+          ],
+          "isolate": true,
+          "anchor": [
+            225,
+            567
+          ],
+          "scale": 0.95,
+          "head": [
+            207,
+            132
+          ],
+          "eyes": [
+            207,
+            224
+          ],
+          "neck": [
+            207,
+            288
+          ],
+          "back": [
+            207,
+            374
+          ],
+          "hand": [
+            378,
+            144
+          ],
+          "dur": 0.22
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 0
+    },
+    "pout": {
+      "frames": [
+        {
+          "source": "../sources/bronze-core.webp",
+          "rect": [
+            1108,
+            125,
+            473,
+            583
+          ],
+          "isolate": true,
+          "anchor": [
+            187.5,
+            580
+          ],
+          "scale": 0.983,
+          "head": [
+            188,
+            14
+          ],
+          "eyes": [
+            188,
+            116
+          ],
+          "neck": [
+            188,
+            190
+          ],
+          "back": [
+            188,
+            361
+          ],
+          "hand": [
+            416,
+            34
+          ],
+          "dur": 0.8
+        },
+        {
+          "source": "../sources/bronze-emotions-v3.webp",
+          "rect": [
+            1669,
+            5,
+            463,
+            711
+          ],
+          "isolate": true,
+          "anchor": [
+            199,
+            704
+          ],
+          "scale": 0.95,
+          "head": [
+            199,
+            164
+          ],
+          "eyes": [
+            199,
+            277
+          ],
+          "neck": [
+            199,
+            348
+          ],
+          "back": [
+            199,
+            448
+          ],
+          "hand": [
+            407,
+            164
+          ],
+          "dur": 0.25
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "wave": {
+      "frames": [
+        {
+          "source": "../sources/bronze-core.webp",
+          "rect": [
+            1616,
+            12,
+            521,
+            701
+          ],
+          "isolate": true,
+          "anchor": [
+            331.5,
+            697
+          ],
+          "scale": 0.983,
+          "head": [
+            252,
+            135
+          ],
+          "eyes": [
+            252,
+            237
+          ],
+          "neck": [
+            252,
+            312
+          ],
+          "back": [
+            252,
+            435
+          ],
+          "hand": [
+            458,
+            155
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/bronze-reactions.webp",
+          "rect": [
+            66,
+            82,
+            440,
+            632
+          ],
+          "isolate": true,
+          "anchor": [
+            335.0,
+            628
+          ],
+          "scale": 0.983,
+          "head": [
+            200,
+            13
+          ],
+          "eyes": [
+            200,
+            115
+          ],
+          "neck": [
+            200,
+            190
+          ],
+          "back": [
+            200,
+            392
+          ],
+          "hand": [
+            387,
+            33
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "dizzy": {
+      "frames": [
+        {
+          "source": "../sources/bronze-reactions.webp",
+          "rect": [
+            583,
+            7,
+            476,
+            705
+          ],
+          "isolate": true,
+          "anchor": [
+            243.5,
+            701
+          ],
+          "scale": 0.9253,
+          "head": [
+            200,
+            46
+          ],
+          "eyes": [
+            200,
+            155
+          ],
+          "neck": [
+            200,
+            234
+          ],
+          "back": [
+            200,
+            437
+          ],
+          "hand": [
+            419,
+            66
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/bronze-reactions.webp",
+          "rect": [
+            1064,
+            7,
+            529,
+            701
+          ],
+          "isolate": true,
+          "anchor": [
+            261.5,
+            698
+          ],
+          "scale": 0.9132,
+          "head": [
+            260,
+            137
+          ],
+          "eyes": [
+            260,
+            247
+          ],
+          "neck": [
+            260,
+            327
+          ],
+          "back": [
+            260,
+            435
+          ],
+          "hand": [
+            466,
+            157
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "ready": {
+      "frames": [
+        {
+          "source": "../sources/bronze-reactions.webp",
+          "rect": [
+            1639,
+            52,
+            495,
+            661
+          ],
+          "isolate": true,
+          "anchor": [
+            90.5,
+            657
+          ],
+          "scale": 0.972,
+          "head": [
+            244,
+            31
+          ],
+          "eyes": [
+            244,
+            135
+          ],
+          "neck": [
+            244,
+            210
+          ],
+          "back": [
+            244,
+            410
+          ],
+          "hand": [
+            436,
+            51
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "jump": {
+      "frames": [
+        {
+          "source": "../sources/bronze-air.webp",
+          "rect": [
+            45,
+            0,
+            449,
+            625
+          ],
+          "isolate": true,
+          "anchor": [
+            236.0,
+            692
+          ],
+          "scale": 1.0,
+          "head": [
+            196,
+            129
+          ],
+          "eyes": [
+            196,
+            230
+          ],
+          "neck": [
+            196,
+            302
+          ],
+          "back": [
+            196,
+            388
+          ],
+          "hand": [
+            395,
+            149
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "fall": {
+      "frames": [
+        {
+          "source": "../sources/bronze-air.webp",
+          "rect": [
+            564,
+            0,
+            448,
+            709
+          ],
+          "isolate": true,
+          "anchor": [
+            214.0,
+            706
+          ],
+          "scale": 1.0146,
+          "head": [
+            222,
+            136
+          ],
+          "eyes": [
+            222,
+            235
+          ],
+          "neck": [
+            222,
+            307
+          ],
+          "back": [
+            222,
+            440
+          ],
+          "hand": [
+            394,
+            156
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "land": {
+      "frames": [
+        {
+          "source": "../sources/bronze-air.webp",
+          "rect": [
+            1059,
+            158,
+            533,
+            580
+          ],
+          "isolate": true,
+          "anchor": [
+            278.5,
+            576
+          ],
+          "scale": 0.9507,
+          "head": [
+            262,
+            136
+          ],
+          "eyes": [
+            262,
+            242
+          ],
+          "neck": [
+            262,
+            318
+          ],
+          "back": [
+            262,
+            360
+          ],
+          "hand": [
+            469,
+            156
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/bronze-air.webp",
+          "rect": [
+            1650,
+            68,
+            440,
+            667
+          ],
+          "isolate": true,
+          "anchor": [
+            209.0,
+            663
+          ],
+          "scale": 1.0579,
+          "head": [
+            206,
+            18
+          ],
+          "eyes": [
+            206,
+            113
+          ],
+          "neck": [
+            206,
+            182
+          ],
+          "back": [
+            206,
+            414
+          ],
+          "hand": [
+            387,
+            38
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "action": {
+      "frames": [
+        {
+          "source": "../sources/bronze-actions.webp",
+          "rect": [
+            27,
+            8,
+            538,
+            686
+          ],
+          "isolate": true,
+          "anchor": [
+            369.0,
+            682
+          ],
+          "scale": 1.0743,
+          "head": [
+            288,
+            145
+          ],
+          "eyes": [
+            288,
+            239
+          ],
+          "neck": [
+            288,
+            306
+          ],
+          "back": [
+            288,
+            425
+          ],
+          "hand": [
+            473,
+            165
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "throw": {
+      "frames": [
+        {
+          "source": "../sources/bronze-actions.webp",
+          "rect": [
+            573,
+            68,
+            522,
+            633
+          ],
+          "isolate": true,
+          "anchor": [
+            427.5,
+            629
+          ],
+          "scale": 1.0946,
+          "head": [
+            224,
+            97
+          ],
+          "eyes": [
+            224,
+            189
+          ],
+          "neck": [
+            224,
+            256
+          ],
+          "back": [
+            224,
+            392
+          ],
+          "hand": [
+            459,
+            117
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/bronze-actions.webp",
+          "rect": [
+            1134,
+            65,
+            546,
+            636
+          ],
+          "isolate": true,
+          "anchor": [
+            389.5,
+            632
+          ],
+          "scale": 1.1086,
+          "head": [
+            292,
+            143
+          ],
+          "eyes": [
+            292,
+            234
+          ],
+          "neck": [
+            292,
+            300
+          ],
+          "back": [
+            292,
+            394
+          ],
+          "hand": [
+            480,
+            163
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/bronze-actions.webp",
+          "rect": [
+            1728,
+            9,
+            419,
+            692
+          ],
+          "isolate": true,
+          "anchor": [
+            250.5,
+            688
+          ],
+          "scale": 1.1414,
+          "head": [
+            164,
+            152
+          ],
+          "eyes": [
+            164,
+            240
+          ],
+          "neck": [
+            164,
+            304
+          ],
+          "back": [
+            164,
+            429
+          ],
+          "hand": [
+            369,
+            172
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-v3.webp",
+          "rect": [
+            22,
+            29,
+            518,
+            685
+          ],
+          "isolate": true,
+          "anchor": [
+            259,
+            678
+          ],
+          "scale": 0.95,
+          "head": [
+            243,
+            158
+          ],
+          "eyes": [
+            243,
+            260
+          ],
+          "neck": [
+            243,
+            349
+          ],
+          "back": [
+            249,
+            438
+          ],
+          "hand": [
+            445,
+            158
+          ],
+          "dur": 0.25
+        },
+        {
+          "source": "../sources/bronze-dance-v3.webp",
+          "rect": [
+            558,
+            3,
+            514,
+            612
+          ],
+          "isolate": true,
+          "anchor": [
+            257,
+            606
+          ],
+          "scale": 0.95,
+          "head": [
+            242,
+            141
+          ],
+          "eyes": [
+            242,
+            233
+          ],
+          "neck": [
+            242,
+            312
+          ],
+          "back": [
+            247,
+            392
+          ],
+          "hand": [
+            442,
+            141
+          ],
+          "dur": 0.25
+        },
+        {
+          "source": "../sources/bronze-dance-v3.webp",
+          "rect": [
+            1153,
+            29,
+            484,
+            682
+          ],
+          "isolate": true,
+          "anchor": [
+            242,
+            675
+          ],
+          "scale": 0.95,
+          "head": [
+            227,
+            157
+          ],
+          "eyes": [
+            227,
+            259
+          ],
+          "neck": [
+            227,
+            348
+          ],
+          "back": [
+            232,
+            436
+          ],
+          "hand": [
+            416,
+            157
+          ],
+          "dur": 0.25
+        },
+        {
+          "source": "../sources/bronze-dance-v3.webp",
+          "rect": [
+            1690,
+            29,
+            454,
+            682
+          ],
+          "isolate": true,
+          "anchor": [
+            227,
+            675
+          ],
+          "scale": 0.95,
+          "head": [
+            213,
+            157
+          ],
+          "eyes": [
+            213,
+            259
+          ],
+          "neck": [
+            213,
+            348
+          ],
+          "back": [
+            218,
+            436
+          ],
+          "hand": [
+            390,
+            157
+          ],
+          "dur": 0.25
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 0
+    },
+    "paint": {
+      "frames": [
+        {
+          "source": "../sources/bronze-studio.webp",
+          "rect": [
+            555,
+            77,
+            540,
+            632
+          ],
+          "isolate": true,
+          "anchor": [
+            360.0,
+            629
+          ],
+          "scale": 1.0176,
+          "head": [
+            270,
+            57
+          ],
+          "eyes": [
+            270,
+            156
+          ],
+          "neck": [
+            270,
+            228
+          ],
+          "back": [
+            270,
+            392
+          ],
+          "hand": [
+            475,
+            77
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "sleep": {
+      "frames": [
+        {
+          "source": "../sources/bronze-studio.webp",
+          "rect": [
+            1089,
+            123,
+            541,
+            587
+          ],
+          "isolate": true,
+          "anchor": [
+            245.0,
+            584
+          ],
+          "scale": 0.9747,
+          "head": [
+            292,
+            81
+          ],
+          "eyes": [
+            292,
+            184
+          ],
+          "neck": [
+            292,
+            259
+          ],
+          "back": [
+            292,
+            364
+          ],
+          "hand": [
+            476,
+            101
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/bronze-studio.webp",
+          "rect": [
+            1652,
+            34,
+            508,
+            682
+          ],
+          "isolate": true,
+          "anchor": [
+            271.0,
+            678
+          ],
+          "scale": 0.9036,
+          "head": [
+            254,
+            33
+          ],
+          "eyes": [
+            254,
+            144
+          ],
+          "neck": [
+            254,
+            225
+          ],
+          "back": [
+            254,
+            423
+          ],
+          "hand": [
+            447,
+            53
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/bronze-social.webp",
+          "rect": [
+            58,
+            5,
+            400,
+            682
+          ],
+          "isolate": true,
+          "anchor": [
+            166.0,
+            680
+          ],
+          "scale": 1.0878,
+          "head": [
+            172,
+            144
+          ],
+          "eyes": [
+            172,
+            237
+          ],
+          "neck": [
+            172,
+            304
+          ],
+          "back": [
+            172,
+            423
+          ],
+          "hand": [
+            352,
+            164
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/bronze-social.webp",
+          "rect": [
+            575,
+            25,
+            548,
+            689
+          ],
+          "isolate": true,
+          "anchor": [
+            248.5,
+            685
+          ],
+          "scale": 1.0612,
+          "head": [
+            304,
+            138
+          ],
+          "eyes": [
+            304,
+            233
+          ],
+          "neck": [
+            304,
+            302
+          ],
+          "back": [
+            304,
+            427
+          ],
+          "hand": [
+            482,
+            158
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "ride": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-a.webp",
+          "rect": [
+            4,
+            38,
+            466,
+            664
+          ],
+          "isolate": true,
+          "anchor": [
+            224,
+            657
+          ],
+          "scale": 0.95,
+          "head": [
+            210,
+            153
+          ],
+          "eyes": [
+            210,
+            266
+          ],
+          "neck": [
+            210,
+            339
+          ],
+          "back": [
+            210,
+            432
+          ],
+          "hand": [
+            410,
+            199
+          ],
+          "dur": 0.2
+        },
+        {
+          "source": "../sources/bronze-round3-a.webp",
+          "rect": [
+            497,
+            62,
+            470,
+            640
+          ],
+          "isolate": true,
+          "anchor": [
+            226,
+            634
+          ],
+          "scale": 0.95,
+          "head": [
+            212,
+            147
+          ],
+          "eyes": [
+            212,
+            256
+          ],
+          "neck": [
+            212,
+            326
+          ],
+          "back": [
+            212,
+            416
+          ],
+          "hand": [
+            414,
+            192
+          ],
+          "dur": 0.2
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 0
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/bronze-social.webp",
+          "rect": [
+            1734,
+            88,
+            408,
+            625
+          ],
+          "isolate": true,
+          "anchor": [
+            244.0,
+            621
+          ],
+          "scale": 1.0547,
+          "head": [
+            176,
+            124
+          ],
+          "eyes": [
+            176,
+            219
+          ],
+          "neck": [
+            176,
+            288
+          ],
+          "back": [
+            176,
+            388
+          ],
+          "hand": [
+            359,
+            144
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "strike1": {
+      "frames": [
+        {
+          "source": "../sources/bronze-runway.webp",
+          "rect": [
+            49,
+            24,
+            414,
+            721
+          ],
+          "isolate": true,
+          "anchor": [
+            152.5,
+            718
+          ],
+          "scale": 1.0844,
+          "head": [
+            171,
+            125
+          ],
+          "eyes": [
+            171,
+            218
+          ],
+          "neck": [
+            171,
+            285
+          ],
+          "back": [
+            171,
+            447
+          ],
+          "hand": [
+            364,
+            145
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "strike2": {
+      "frames": [
+        {
+          "source": "../sources/bronze-runway.webp",
+          "rect": [
+            522,
+            37,
+            489,
+            699
+          ],
+          "isolate": true,
+          "anchor": [
+            287.0,
+            695
+          ],
+          "scale": 1.0644,
+          "head": [
+            265,
+            112
+          ],
+          "eyes": [
+            265,
+            207
+          ],
+          "neck": [
+            265,
+            275
+          ],
+          "back": [
+            265,
+            433
+          ],
+          "hand": [
+            430,
+            132
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/bronze-runway.webp",
+          "rect": [
+            1034,
+            44,
+            486,
+            671
+          ],
+          "isolate": true,
+          "anchor": [
+            250.0,
+            667
+          ],
+          "scale": 1.0087,
+          "head": [
+            220,
+            126
+          ],
+          "eyes": [
+            220,
+            226
+          ],
+          "neck": [
+            220,
+            298
+          ],
+          "back": [
+            220,
+            416
+          ],
+          "hand": [
+            428,
+            146
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/bronze-runway.webp",
+          "rect": [
+            1542,
+            27,
+            496,
+            680
+          ],
+          "isolate": true,
+          "anchor": [
+            248.5,
+            676
+          ],
+          "scale": 1.0389,
+          "head": [
+            244,
+            147
+          ],
+          "eyes": [
+            244,
+            244
+          ],
+          "neck": [
+            244,
+            314
+          ],
+          "back": [
+            244,
+            422
+          ],
+          "hand": [
+            436,
+            167
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/bronze-rhythm.webp",
+          "rect": [
+            43,
+            3,
+            394,
+            749
+          ],
+          "isolate": true,
+          "anchor": [
+            175.5,
+            746
+          ],
+          "scale": 1.0776,
+          "head": [
+            172,
+            150
+          ],
+          "eyes": [
+            172,
+            243
+          ],
+          "neck": [
+            172,
+            311
+          ],
+          "back": [
+            172,
+            464
+          ],
+          "hand": [
+            347,
+            170
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/bronze-rhythm.webp",
+          "rect": [
+            481,
+            182,
+            514,
+            559
+          ],
+          "isolate": true,
+          "anchor": [
+            257.5,
+            555
+          ],
+          "scale": 1.0579,
+          "head": [
+            256,
+            140
+          ],
+          "eyes": [
+            256,
+            235
+          ],
+          "neck": [
+            256,
+            304
+          ],
+          "back": [
+            256,
+            347
+          ],
+          "hand": [
+            452,
+            160
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/bronze-rhythm.webp",
+          "rect": [
+            1067,
+            130,
+            436,
+            617
+          ],
+          "isolate": true,
+          "anchor": [
+            169.0,
+            613
+          ],
+          "scale": 1.1377,
+          "head": [
+            164,
+            99
+          ],
+          "eyes": [
+            164,
+            187
+          ],
+          "neck": [
+            164,
+            252
+          ],
+          "back": [
+            164,
+            383
+          ],
+          "hand": [
+            384,
+            119
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "stir": {
+      "frames": [
+        {
+          "source": "../sources/bronze-rhythm.webp",
+          "rect": [
+            1554,
+            169,
+            472,
+            578
+          ],
+          "isolate": true,
+          "anchor": [
+            225.0,
+            574
+          ],
+          "scale": 1.1414,
+          "head": [
+            239,
+            107
+          ],
+          "eyes": [
+            239,
+            195
+          ],
+          "neck": [
+            239,
+            259
+          ],
+          "back": [
+            239,
+            358
+          ],
+          "hand": [
+            415,
+            127
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/bronze-extras2.webp",
+          "rect": [
+            57,
+            24,
+            575,
+            759
+          ],
+          "isolate": true,
+          "anchor": [
+            281.5,
+            756
+          ],
+          "scale": 0.8361,
+          "head": [
+            264,
+            148
+          ],
+          "eyes": [
+            264,
+            268
+          ],
+          "neck": [
+            264,
+            356
+          ],
+          "back": [
+            264,
+            471
+          ],
+          "hand": [
+            506,
+            168
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "wave-goodbye": {
+      "frames": [
+        {
+          "source": "../sources/bronze-extras2.webp",
+          "rect": [
+            784,
+            8,
+            512,
+            775
+          ],
+          "isolate": true,
+          "anchor": [
+            231.5,
+            772
+          ],
+          "scale": 0.756,
+          "head": [
+            240,
+            72
+          ],
+          "eyes": [
+            240,
+            205
+          ],
+          "neck": [
+            240,
+            302
+          ],
+          "back": [
+            240,
+            480
+          ],
+          "hand": [
+            451,
+            92
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/bronze-extras2.webp",
+          "rect": [
+            1380,
+            79,
+            530,
+            705
+          ],
+          "isolate": true,
+          "anchor": [
+            379.0,
+            701
+          ],
+          "scale": 0.8547,
+          "head": [
+            261,
+            113
+          ],
+          "eyes": [
+            261,
+            231
+          ],
+          "neck": [
+            261,
+            316
+          ],
+          "back": [
+            261,
+            437
+          ],
+          "hand": [
+            466,
+            133
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/bronze-extras.webp",
+          "rect": [
+            3,
+            10,
+            460,
+            712
+          ],
+          "isolate": true,
+          "anchor": [
+            259.5,
+            709
+          ],
+          "scale": 1.0389,
+          "head": [
+            228,
+            140
+          ],
+          "eyes": [
+            228,
+            237
+          ],
+          "neck": [
+            228,
+            307
+          ],
+          "back": [
+            228,
+            441
+          ],
+          "hand": [
+            405,
+            160
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/bronze-extras.webp",
+          "rect": [
+            527,
+            0,
+            466,
+            719
+          ],
+          "isolate": true,
+          "anchor": [
+            373.0,
+            715
+          ],
+          "scale": 0.9481,
+          "head": [
+            232,
+            146
+          ],
+          "eyes": [
+            232,
+            252
+          ],
+          "neck": [
+            232,
+            329
+          ],
+          "back": [
+            232,
+            446
+          ],
+          "hand": [
+            410,
+            166
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/bronze-extras.webp",
+          "rect": [
+            1071,
+            203,
+            468,
+            499
+          ],
+          "isolate": true,
+          "anchor": [
+            230.0,
+            495
+          ],
+          "scale": 0.9559,
+          "head": [
+            212,
+            46
+          ],
+          "eyes": [
+            212,
+            151
+          ],
+          "neck": [
+            212,
+            228
+          ],
+          "back": [
+            212,
+            309
+          ],
+          "hand": [
+            412,
+            66
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "dash": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-c.webp",
+          "rect": [
+            16,
+            10,
+            398,
+            472
+          ],
+          "isolate": true,
+          "anchor": [
+            180,
+            494
+          ],
+          "scale": 1.4,
+          "head": [
+            238,
+            128
+          ],
+          "eyes": [
+            251,
+            209
+          ],
+          "neck": [
+            212,
+            269
+          ],
+          "back": [
+            200,
+            317
+          ],
+          "hand": [
+            334,
+            137
+          ]
+        },
+        {
+          "source": "../sources/bronze-round2-final-c.webp",
+          "rect": [
+            412,
+            29,
+            477,
+            464
+          ],
+          "isolate": true,
+          "anchor": [
+            246,
+            466
+          ],
+          "scale": 1.4,
+          "head": [
+            298,
+            134
+          ],
+          "eyes": [
+            343,
+            206
+          ],
+          "neck": [
+            282,
+            259
+          ],
+          "back": [
+            263,
+            317
+          ],
+          "hand": [
+            415,
+            140
+          ]
+        }
+      ],
+      "fps": 9,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1,
+      "holdLast": true
+    },
+    "walk": {
+      "frames": [
+        {
+          "source": "../sources/bronze-walk.webp",
+          "rect": [
+            76,
+            3,
+            438,
+            688
+          ],
+          "isolate": true,
+          "anchor": [
+            200.0,
+            685
+          ],
+          "scale": 1.0743,
+          "head": [
+            206,
+            44
+          ],
+          "eyes": [
+            206,
+            138
+          ],
+          "neck": [
+            206,
+            206
+          ],
+          "back": [
+            206,
+            427
+          ],
+          "hand": [
+            385,
+            64
+          ]
+        },
+        {
+          "source": "../sources/bronze-walk.webp",
+          "rect": [
+            603,
+            2,
+            417,
+            693
+          ],
+          "isolate": true,
+          "anchor": [
+            127.5,
+            689
+          ],
+          "scale": 1.0644,
+          "head": [
+            174,
+            143
+          ],
+          "eyes": [
+            174,
+            238
+          ],
+          "neck": [
+            174,
+            306
+          ],
+          "back": [
+            174,
+            430
+          ],
+          "hand": [
+            367,
+            163
+          ]
+        },
+        {
+          "source": "../sources/bronze-walk.webp",
+          "rect": [
+            1140,
+            3,
+            419,
+            688
+          ],
+          "isolate": true,
+          "anchor": [
+            213.5,
+            684
+          ],
+          "scale": 1.0579,
+          "head": [
+            189,
+            34
+          ],
+          "eyes": [
+            189,
+            129
+          ],
+          "neck": [
+            189,
+            198
+          ],
+          "back": [
+            189,
+            427
+          ],
+          "hand": [
+            369,
+            54
+          ]
+        },
+        {
+          "source": "../sources/bronze-walk.webp",
+          "rect": [
+            1674,
+            3,
+            417,
+            684
+          ],
+          "isolate": true,
+          "anchor": [
+            160.0,
+            680
+          ],
+          "scale": 1.0677,
+          "head": [
+            182,
+            141
+          ],
+          "eyes": [
+            182,
+            235
+          ],
+          "neck": [
+            182,
+            304
+          ],
+          "back": [
+            182,
+            424
+          ],
+          "hand": [
+            367,
+            161
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "run": {
+      "alias": "walk",
+      "fps": 12,
+      "motion": 0.35
+    },
+    "cheer": {
+      "frames": [
+        {
+          "source": "../sources/bronze-emotions-v3.webp",
+          "rect": [
+            556,
+            7,
+            482,
+            704
+          ],
+          "isolate": true,
+          "anchor": [
+            207,
+            697
+          ],
+          "scale": 0.95,
+          "head": [
+            207,
+            162
+          ],
+          "eyes": [
+            207,
+            275
+          ],
+          "neck": [
+            207,
+            345
+          ],
+          "back": [
+            207,
+            444
+          ],
+          "hand": [
+            424,
+            162
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.35,
+      "facing": 0
+    },
+    "sad": {
+      "frames": [
+        {
+          "source": "../sources/bronze-emotions-v3.webp",
+          "rect": [
+            1131,
+            24,
+            442,
+            687
+          ],
+          "isolate": true,
+          "anchor": [
+            190,
+            680
+          ],
+          "scale": 0.95,
+          "head": [
+            190,
+            158
+          ],
+          "eyes": [
+            190,
+            268
+          ],
+          "neck": [
+            190,
+            337
+          ],
+          "back": [
+            190,
+            433
+          ],
+          "hand": [
+            389,
+            158
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.35,
+      "facing": 0
+    },
+    "sing": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-a.webp",
+          "rect": [
+            999,
+            15,
+            472,
+            736
+          ],
+          "isolate": true,
+          "anchor": [
+            227,
+            729
+          ],
+          "scale": 0.95,
+          "head": [
+            212,
+            169
+          ],
+          "eyes": [
+            212,
+            294
+          ],
+          "neck": [
+            212,
+            375
+          ],
+          "back": [
+            212,
+            478
+          ],
+          "hand": [
+            415,
+            221
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 0
+    },
+    "water": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-a.webp",
+          "rect": [
+            1463,
+            121,
+            518,
+            629
+          ],
+          "isolate": true,
+          "anchor": [
+            249,
+            623
+          ],
+          "scale": 0.95,
+          "head": [
+            233,
+            145
+          ],
+          "eyes": [
+            233,
+            252
+          ],
+          "neck": [
+            233,
+            321
+          ],
+          "back": [
+            233,
+            409
+          ],
+          "hand": [
+            456,
+            189
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 0
+    },
+    "count": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-b.webp",
+          "rect": [
+            62,
+            13,
+            428,
+            670
+          ],
+          "isolate": true,
+          "anchor": [
+            197,
+            663
+          ],
+          "scale": 0.98,
+          "head": [
+            184,
+            147
+          ],
+          "eyes": [
+            184,
+            261
+          ],
+          "neck": [
+            184,
+            328
+          ],
+          "back": [
+            188,
+            422
+          ],
+          "hand": [
+            377,
+            154
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "look-up": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-b.webp",
+          "rect": [
+            613,
+            5,
+            426,
+            688
+          ],
+          "isolate": true,
+          "anchor": [
+            196,
+            681
+          ],
+          "scale": 0.98,
+          "head": [
+            183,
+            151
+          ],
+          "eyes": [
+            183,
+            268
+          ],
+          "neck": [
+            183,
+            337
+          ],
+          "back": [
+            187,
+            433
+          ],
+          "hand": [
+            375,
+            158
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "hold-present": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-b.webp",
+          "rect": [
+            1100,
+            16,
+            448,
+            669
+          ],
+          "isolate": true,
+          "anchor": [
+            206,
+            662
+          ],
+          "scale": 0.98,
+          "head": [
+            193,
+            147
+          ],
+          "eyes": [
+            193,
+            261
+          ],
+          "neck": [
+            193,
+            328
+          ],
+          "back": [
+            197,
+            421
+          ],
+          "hand": [
+            394,
+            355
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "toss": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-b.webp",
+          "rect": [
+            1623,
+            13,
+            498,
+            679
+          ],
+          "isolate": true,
+          "anchor": [
+            229,
+            672
+          ],
+          "scale": 0.98,
+          "head": [
+            214,
+            149
+          ],
+          "eyes": [
+            214,
+            265
+          ],
+          "neck": [
+            214,
+            333
+          ],
+          "back": [
+            219,
+            428
+          ],
+          "hand": [
+            438,
+            156
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "sooty": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-c.webp",
+          "rect": [
+            46,
+            42,
+            446,
+            647
+          ],
+          "isolate": true,
+          "anchor": [
+            214,
+            641
+          ],
+          "scale": 1.0,
+          "head": [
+            214,
+            149
+          ],
+          "eyes": [
+            214,
+            259
+          ],
+          "neck": [
+            214,
+            343
+          ],
+          "back": [
+            205,
+            421
+          ],
+          "hand": [
+            379,
+            181
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 0
+    },
+    "swim": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-c.webp",
+          "rect": [
+            509,
+            169,
+            549,
+            459
+          ],
+          "isolate": true,
+          "anchor": [
+            274,
+            505
+          ],
+          "scale": 1.0,
+          "head": [
+            264,
+            106
+          ],
+          "eyes": [
+            264,
+            184
+          ],
+          "neck": [
+            264,
+            243
+          ],
+          "back": [
+            253,
+            298
+          ],
+          "hand": [
+            467,
+            129
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 0
+    },
+    "sit": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-c.webp",
+          "rect": [
+            1145,
+            142,
+            428,
+            529
+          ],
+          "isolate": true,
+          "anchor": [
+            205,
+            524
+          ],
+          "scale": 1.0,
+          "head": [
+            205,
+            122
+          ],
+          "eyes": [
+            205,
+            212
+          ],
+          "neck": [
+            205,
+            280
+          ],
+          "back": [
+            197,
+            344
+          ],
+          "hand": [
+            364,
+            148
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 0
+    },
+    "balance": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-c.webp",
+          "rect": [
+            1657,
+            66,
+            443,
+            606
+          ],
+          "isolate": true,
+          "anchor": [
+            213,
+            600
+          ],
+          "scale": 1.0,
+          "head": [
+            213,
+            139
+          ],
+          "eyes": [
+            213,
+            242
+          ],
+          "neck": [
+            213,
+            321
+          ],
+          "back": [
+            204,
+            394
+          ],
+          "hand": [
+            377,
+            170
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 0
+    },
+    "blow": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-d.webp",
+          "rect": [
+            35,
+            46,
+            467,
+            684
+          ],
+          "isolate": true,
+          "anchor": [
+            224,
+            677
+          ],
+          "scale": 0.95,
+          "head": [
+            215,
+            150
+          ],
+          "eyes": [
+            215,
+            267
+          ],
+          "neck": [
+            215,
+            349
+          ],
+          "back": [
+            219,
+            438
+          ],
+          "hand": [
+            416,
+            301
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "float": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-d.webp",
+          "rect": [
+            573,
+            4,
+            458,
+            667
+          ],
+          "isolate": true,
+          "anchor": [
+            229,
+            720
+          ],
+          "scale": 0.95,
+          "head": [
+            211,
+            147
+          ],
+          "eyes": [
+            211,
+            260
+          ],
+          "neck": [
+            211,
+            340
+          ],
+          "back": [
+            215,
+            427
+          ],
+          "hand": [
+            403,
+            160
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "drink": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-d.webp",
+          "rect": [
+            1073,
+            46,
+            418,
+            687
+          ],
+          "isolate": true,
+          "anchor": [
+            201,
+            680
+          ],
+          "scale": 0.95,
+          "head": [
+            192,
+            151
+          ],
+          "eyes": [
+            192,
+            268
+          ],
+          "neck": [
+            192,
+            350
+          ],
+          "back": [
+            196,
+            440
+          ],
+          "hand": [
+            293,
+            295
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "catch-present": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round3-d.webp",
+          "rect": [
+            1589,
+            67,
+            456,
+            665
+          ],
+          "isolate": true,
+          "anchor": [
+            219,
+            658
+          ],
+          "scale": 0.95,
+          "head": [
+            210,
+            146
+          ],
+          "eyes": [
+            210,
+            259
+          ],
+          "neck": [
+            210,
+            339
+          ],
+          "back": [
+            214,
+            426
+          ],
+          "hand": [
+            401,
+            160
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "splat-throw": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-a.webp",
+          "rect": [
+            24,
+            37,
+            380,
+            462
+          ],
+          "isolate": true,
+          "anchor": [
+            184,
+            456
+          ],
+          "scale": 1.5,
+          "head": [
+            228,
+            119
+          ],
+          "eyes": [
+            220,
+            185
+          ],
+          "neck": [
+            199,
+            245
+          ],
+          "back": [
+            172,
+            298
+          ],
+          "hand": [
+            355,
+            358
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wand-up": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-a.webp",
+          "rect": [
+            451,
+            5,
+            304,
+            495
+          ],
+          "isolate": true,
+          "anchor": [
+            140,
+            489
+          ],
+          "scale": 1.5,
+          "head": [
+            116,
+            117
+          ],
+          "eyes": [
+            116,
+            176
+          ],
+          "neck": [
+            120,
+            241
+          ],
+          "back": [
+            126,
+            300
+          ],
+          "hand": [
+            221,
+            93
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "broom-rise": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-a.webp",
+          "rect": [
+            827,
+            62,
+            327,
+            432
+          ],
+          "isolate": true,
+          "anchor": [
+            122,
+            461
+          ],
+          "scale": 1.5,
+          "head": [
+            124,
+            124
+          ],
+          "eyes": [
+            135,
+            189
+          ],
+          "neck": [
+            131,
+            251
+          ],
+          "back": [
+            126,
+            308
+          ],
+          "hand": [
+            300,
+            283
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "broom-glide": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-a.webp",
+          "rect": [
+            1213,
+            62,
+            293,
+            434
+          ],
+          "isolate": true,
+          "anchor": [
+            159,
+            461
+          ],
+          "scale": 1.5,
+          "head": [
+            130,
+            124
+          ],
+          "eyes": [
+            138,
+            184
+          ],
+          "neck": [
+            146,
+            252
+          ],
+          "back": [
+            145,
+            301
+          ],
+          "hand": [
+            265,
+            228
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "broom-zapped": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-a.webp",
+          "rect": [
+            58,
+            565,
+            361,
+            396
+          ],
+          "isolate": true,
+          "anchor": [
+            191,
+            423
+          ],
+          "scale": 1.5,
+          "head": [
+            101,
+            76
+          ],
+          "eyes": [
+            115,
+            125
+          ],
+          "neck": [
+            130,
+            181
+          ],
+          "back": [
+            161,
+            226
+          ],
+          "hand": [
+            270,
+            90
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "crowned": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-a.webp",
+          "rect": [
+            444,
+            506,
+            307,
+            485
+          ],
+          "isolate": true,
+          "anchor": [
+            171,
+            481
+          ],
+          "scale": 1.5,
+          "head": [
+            123,
+            113
+          ],
+          "eyes": [
+            132,
+            167
+          ],
+          "neck": [
+            135,
+            228
+          ],
+          "back": [
+            138,
+            299
+          ],
+          "hand": [
+            245,
+            118
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tumble": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-a.webp",
+          "rect": [
+            823,
+            565,
+            373,
+            400
+          ],
+          "isolate": true,
+          "anchor": [
+            230,
+            434
+          ],
+          "scale": 1.5,
+          "head": [
+            94,
+            93
+          ],
+          "eyes": [
+            109,
+            150
+          ],
+          "neck": [
+            144,
+            194
+          ],
+          "back": [
+            179,
+            248
+          ],
+          "hand": [
+            258,
+            23
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "hiccup": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-a.webp",
+          "rect": [
+            1219,
+            584,
+            294,
+            387
+          ],
+          "isolate": true,
+          "anchor": [
+            144,
+            383
+          ],
+          "scale": 1.5,
+          "head": [
+            148,
+            113
+          ],
+          "eyes": [
+            145,
+            177
+          ],
+          "neck": [
+            131,
+            232
+          ],
+          "back": [
+            130,
+            275
+          ],
+          "hand": [
+            232,
+            117
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "giggle": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-b.webp",
+          "rect": [
+            49,
+            7,
+            288,
+            501
+          ],
+          "isolate": true,
+          "anchor": [
+            159,
+            497
+          ],
+          "scale": 1.4,
+          "head": [
+            128,
+            121
+          ],
+          "eyes": [
+            142,
+            189
+          ],
+          "neck": [
+            133,
+            262
+          ],
+          "back": [
+            145,
+            327
+          ],
+          "hand": [
+            228,
+            151
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "stomp-giant": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-b.webp",
+          "rect": [
+            368,
+            4,
+            392,
+            504
+          ],
+          "isolate": true,
+          "anchor": [
+            184,
+            500
+          ],
+          "scale": 1.4,
+          "head": [
+            182,
+            117
+          ],
+          "eyes": [
+            186,
+            182
+          ],
+          "neck": [
+            182,
+            255
+          ],
+          "back": [
+            182,
+            324
+          ],
+          "hand": [
+            314,
+            99
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "squeak-tiny": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-b.webp",
+          "rect": [
+            787,
+            19,
+            310,
+            457
+          ],
+          "isolate": true,
+          "anchor": [
+            157,
+            492
+          ],
+          "scale": 1.4,
+          "head": [
+            144,
+            123
+          ],
+          "eyes": [
+            134,
+            192
+          ],
+          "neck": [
+            137,
+            251
+          ],
+          "back": [
+            129,
+            306
+          ],
+          "hand": [
+            240,
+            109
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "flip": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-b.webp",
+          "rect": [
+            1100,
+            76,
+            407,
+            433
+          ],
+          "isolate": true,
+          "anchor": [
+            248,
+            427
+          ],
+          "scale": 1.4,
+          "head": [
+            202,
+            98
+          ],
+          "eyes": [
+            262,
+            183
+          ],
+          "neck": [
+            200,
+            224
+          ],
+          "back": [
+            186,
+            274
+          ],
+          "hand": [
+            358,
+            357
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "shake-sprinkles": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-b.webp",
+          "rect": [
+            35,
+            509,
+            341,
+            484
+          ],
+          "isolate": true,
+          "anchor": [
+            176,
+            478
+          ],
+          "scale": 1.4,
+          "head": [
+            124,
+            111
+          ],
+          "eyes": [
+            143,
+            184
+          ],
+          "neck": [
+            145,
+            242
+          ],
+          "back": [
+            160,
+            304
+          ],
+          "hand": [
+            308,
+            284
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "photo": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-b.webp",
+          "rect": [
+            411,
+            505,
+            342,
+            490
+          ],
+          "isolate": true,
+          "anchor": [
+            166,
+            485
+          ],
+          "scale": 1.4,
+          "head": [
+            142,
+            117
+          ],
+          "eyes": [
+            144,
+            185
+          ],
+          "neck": [
+            144,
+            244
+          ],
+          "back": [
+            146,
+            306
+          ],
+          "hand": [
+            237,
+            97
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "hip-bump": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-c.webp",
+          "rect": [
+            898,
+            5,
+            294,
+            502
+          ],
+          "isolate": true,
+          "anchor": [
+            159,
+            498
+          ],
+          "scale": 1.4,
+          "head": [
+            162,
+            118
+          ],
+          "eyes": [
+            209,
+            177
+          ],
+          "neck": [
+            168,
+            246
+          ],
+          "back": [
+            168,
+            302
+          ],
+          "hand": [
+            76,
+            100
+          ]
+        },
+        {
+          "source": "../sources/bronze-round2-final-c.webp",
+          "rect": [
+            1202,
+            14,
+            324,
+            494
+          ],
+          "isolate": true,
+          "anchor": [
+            182,
+            489
+          ],
+          "scale": 1.4,
+          "head": [
+            97,
+            123
+          ],
+          "eyes": [
+            167,
+            183
+          ],
+          "neck": [
+            147,
+            253
+          ],
+          "back": [
+            166,
+            305
+          ],
+          "hand": [
+            218,
+            115
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1,
+      "holdLast": true
+    },
+    "knockback": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-c.webp",
+          "rect": [
+            42,
+            502,
+            403,
+            496
+          ],
+          "isolate": true,
+          "anchor": [
+            214,
+            487
+          ],
+          "scale": 1.4,
+          "head": [
+            93,
+            99
+          ],
+          "eyes": [
+            132,
+            145
+          ],
+          "neck": [
+            143,
+            211
+          ],
+          "back": [
+            177,
+            274
+          ],
+          "hand": [
+            232,
+            65
+          ]
+        },
+        {
+          "source": "../sources/bronze-round2-final-c.webp",
+          "rect": [
+            486,
+            494,
+            303,
+            510
+          ],
+          "isolate": true,
+          "anchor": [
+            220,
+            502
+          ],
+          "scale": 1.4,
+          "head": [
+            147,
+            114
+          ],
+          "eyes": [
+            197,
+            156
+          ],
+          "neck": [
+            179,
+            228
+          ],
+          "back": [
+            200,
+            289
+          ],
+          "hand": [
+            63,
+            100
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1,
+      "holdLast": true
+    },
+    "pose-twirl": {
+      "frames": [
+        {
+          "source": "../sources/bronze-round2-final-b.webp",
+          "rect": [
+            787,
+            499,
+            322,
+            503
+          ],
+          "isolate": true,
+          "anchor": [
+            161,
+            495
+          ],
+          "scale": 1.4,
+          "head": [
+            142,
+            113
+          ],
+          "eyes": [
+            143,
+            178
+          ],
+          "neck": [
+            142,
+            245
+          ],
+          "back": [
+            143,
+            306
+          ],
+          "hand": [
+            255,
+            119
+          ]
+        },
+        {
+          "source": "../sources/bronze-round2-final-b.webp",
+          "rect": [
+            1207,
+            508,
+            288,
+            498
+          ],
+          "isolate": true,
+          "anchor": [
+            130,
+            491
+          ],
+          "scale": 1.4,
+          "head": [
+            106,
+            106
+          ],
+          "eyes": [
+            183,
+            158
+          ],
+          "neck": [
+            148,
+            248
+          ],
+          "back": [
+            160,
+            305
+          ],
+          "hand": [
+            218,
+            80
+          ]
+        },
+        {
+          "source": "../sources/bronze-round2-final-c.webp",
+          "rect": [
+            872,
+            510,
+            288,
+            495
+          ],
+          "isolate": true,
+          "anchor": [
+            147,
+            489
+          ],
+          "scale": 1.4,
+          "head": [
+            130,
+            121
+          ],
+          "eyes": [
+            125,
+            181
+          ],
+          "neck": [
+            125,
+            252
+          ],
+          "back": [
+            128,
+            306
+          ],
+          "hand": [
+            224,
+            125
+          ]
+        },
+        {
+          "source": "../sources/bronze-round2-final-c.webp",
+          "rect": [
+            1218,
+            511,
+            275,
+            497
+          ],
+          "isolate": true,
+          "anchor": [
+            160,
+            490
+          ],
+          "scale": 1.4,
+          "head": [
+            153,
+            121
+          ],
+          "eyes": [
+            242,
+            170
+          ],
+          "neck": [
+            181,
+            255
+          ],
+          "back": [
+            184,
+            305
+          ],
+          "hand": [
+            59,
+            149
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/bronze-pump.webp",
+          "rect": [
+            42,
+            6,
+            725,
+            981
+          ],
+          "isolate": true,
+          "anchor": [
+            316,
+            970
+          ],
+          "scale": 0.72,
+          "hand": [
+            670,
+            522
+          ],
+          "head": [
+            306,
+            212
+          ],
+          "eyes": [
+            306,
+            354
+          ],
+          "neck": [
+            296,
+            463
+          ],
+          "back": [
+            264,
+            580
+          ]
+        },
+        {
+          "source": "../sources/bronze-pump.webp",
+          "rect": [
+            809,
+            91,
+            651,
+            897
+          ],
+          "isolate": true,
+          "anchor": [
+            330,
+            885
+          ],
+          "scale": 0.72,
+          "hand": [
+            581,
+            610
+          ],
+          "head": [
+            289,
+            205
+          ],
+          "eyes": [
+            309,
+            347
+          ],
+          "neck": [
+            271,
+            456
+          ],
+          "back": [
+            271,
+            554
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            46,
+            5,
+            353,
+            495
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            130,
+            135
+          ],
+          "eyes": [
+            139,
+            179
+          ],
+          "neck": [
+            134,
+            258
+          ],
+          "back": [
+            144,
+            315
+          ],
+          "hand": [
+            332,
+            255
+          ],
+          "anchor": [
+            174,
+            489
+          ]
+        },
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            411,
+            24,
+            389,
+            476
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            105,
+            126
+          ],
+          "eyes": [
+            135,
+            163
+          ],
+          "neck": [
+            127,
+            252
+          ],
+          "back": [
+            149,
+            307
+          ],
+          "hand": [
+            339,
+            236
+          ],
+          "anchor": [
+            220,
+            468
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            812,
+            4,
+            328,
+            496
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            127,
+            139
+          ],
+          "eyes": [
+            142,
+            176
+          ],
+          "neck": [
+            143,
+            266
+          ],
+          "back": [
+            155,
+            332
+          ],
+          "hand": [
+            307,
+            176
+          ],
+          "anchor": [
+            165,
+            486
+          ]
+        },
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            1215,
+            5,
+            304,
+            495
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            127,
+            128
+          ],
+          "eyes": [
+            140,
+            173
+          ],
+          "neck": [
+            142,
+            261
+          ],
+          "back": [
+            145,
+            319
+          ],
+          "hand": [
+            278,
+            254
+          ],
+          "anchor": [
+            163,
+            485
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            59,
+            509,
+            343,
+            484
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            131,
+            140
+          ],
+          "eyes": [
+            142,
+            178
+          ],
+          "neck": [
+            132,
+            258
+          ],
+          "back": [
+            152,
+            307
+          ],
+          "hand": [
+            200,
+            64
+          ],
+          "anchor": [
+            169,
+            476
+          ]
+        },
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            455,
+            518,
+            353,
+            470
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            123,
+            132
+          ],
+          "eyes": [
+            147,
+            160
+          ],
+          "neck": [
+            128,
+            244
+          ],
+          "back": [
+            160,
+            297
+          ],
+          "hand": [
+            286,
+            54
+          ],
+          "anchor": [
+            181,
+            463
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            831,
+            521,
+            299,
+            476
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            125,
+            139
+          ],
+          "eyes": [
+            171,
+            196
+          ],
+          "neck": [
+            134,
+            243
+          ],
+          "back": [
+            122,
+            308
+          ],
+          "hand": [
+            256,
+            355
+          ],
+          "anchor": [
+            154,
+            470
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            1203,
+            524,
+            303,
+            470
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            127,
+            132
+          ],
+          "eyes": [
+            181,
+            185
+          ],
+          "neck": [
+            140,
+            254
+          ],
+          "back": [
+            118,
+            306
+          ],
+          "hand": [
+            257,
+            331
+          ],
+          "anchor": [
+            145,
+            463
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-b.webp",
+          "rect": [
+            25,
+            6,
+            388,
+            657
+          ],
+          "isolate": true,
+          "scale": 1.15,
+          "head": [
+            199,
+            158
+          ],
+          "eyes": [
+            200,
+            233
+          ],
+          "neck": [
+            185,
+            334
+          ],
+          "back": [
+            183,
+            417
+          ],
+          "hand": [
+            337,
+            89
+          ],
+          "anchor": [
+            198,
+            694
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-b.webp",
+          "rect": [
+            516,
+            105,
+            539,
+            594
+          ],
+          "isolate": true,
+          "scale": 1.05,
+          "head": [
+            311,
+            172
+          ],
+          "eyes": [
+            371,
+            257
+          ],
+          "neck": [
+            308,
+            345
+          ],
+          "back": [
+            275,
+            423
+          ],
+          "hand": [
+            509,
+            530
+          ],
+          "anchor": [
+            232,
+            588
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-b.webp",
+          "rect": [
+            1097,
+            170,
+            496,
+            526
+          ],
+          "isolate": true,
+          "scale": 1.15,
+          "head": [
+            308,
+            160
+          ],
+          "eyes": [
+            346,
+            235
+          ],
+          "neck": [
+            284,
+            318
+          ],
+          "back": [
+            238,
+            397
+          ],
+          "hand": [
+            241,
+            466
+          ],
+          "anchor": [
+            248,
+            522
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-b.webp",
+          "rect": [
+            1680,
+            4,
+            461,
+            649
+          ],
+          "isolate": true,
+          "scale": 1.15,
+          "head": [
+            174,
+            166
+          ],
+          "eyes": [
+            187,
+            246
+          ],
+          "neck": [
+            188,
+            344
+          ],
+          "back": [
+            203,
+            420
+          ],
+          "hand": [
+            428,
+            336
+          ],
+          "anchor": [
+            240,
+            696
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "roll-push": {
+      "frames": [
+        {
+          "source": "../sources/bronze-roll-push-oct16.webp",
+          "rect": [
+            0,
+            0,
+            887,
+            887
+          ],
+          "scale": 0.7094464285714285,
+          "bodyHeight": 280,
+          "isolate": true,
+          "anchor": [
+            445,
+            854
+          ],
+          "head": [
+            510,
+            220
+          ],
+          "eyes": [
+            556,
+            357
+          ],
+          "neck": [
+            500,
+            470
+          ],
+          "back": [
+            427,
+            568
+          ],
+          "hand": [
+            720,
+            263
+          ]
+        },
+        {
+          "source": "../sources/bronze-roll-push-oct16.webp",
+          "rect": [
+            887,
+            0,
+            887,
+            887
+          ],
+          "scale": 0.7094464285714285,
+          "bodyHeight": 280,
+          "isolate": true,
+          "anchor": [
+            463,
+            854
+          ],
+          "head": [
+            543,
+            220
+          ],
+          "eyes": [
+            590,
+            357
+          ],
+          "neck": [
+            533,
+            470
+          ],
+          "back": [
+            460,
+            568
+          ],
+          "hand": [
+            753,
+            263
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.08,
+      "facing": 1
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/bronze-portrait-neutral.webp"
+    },
+    "happy": {
+      "source": "../sources/bronze-portrait-happy.webp"
+    },
+    "sad": {
+      "source": "../sources/bronze-portrait-sad.webp"
+    },
+    "surprised": {
+      "source": "../sources/bronze-portrait-surprised.webp"
+    },
+    "determined": {
+      "source": "../sources/bronze-portrait-determined.webp"
+    }
+  },
+  "provenance": "Approved canonical artwork with generated key poses and Round 3 authored blink, celebration, dance, ride and distinct expressions; per-frame landmarks and transparent WebP intake.",
+  "quality": 78,
+  "sourceFiles": [
+    "../sources/bronze-new-games-a.webp",
+    "../sources/bronze-new-games-b.webp"
+  ]
+}

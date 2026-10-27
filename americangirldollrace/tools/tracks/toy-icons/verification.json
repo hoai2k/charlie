@@ -1,0 +1,39 @@
+{
+  "festival": {
+    "changedCells": [
+      1,
+      0
+    ],
+    "cellSha256": {
+      "0": "0d96e70278d5553053ed86bbfcd2936fbf7ed41f27d481024b94e1d9fc98b9f2",
+      "1": "b9e6ef80d40953b4e3b5e7727162139240c945a976e81b0489bd03eee7220418",
+      "2": "dfbc680511fe84baa5f5301b261e878ed793b659f9f28b230f99af37aac1d79d",
+      "3": "7fed32f4834bfeee3f15a65438040c04a21d5cf5acfb0916eb96b58ccac6e332",
+      "4": "14f2bbc05bd421a7188f691066ad054295130b3a6210929f91f381877bdf82e6"
+    }
+  },
+  "toyroom": {
+    "changedCells": [
+      0
+    ],
+    "cellSha256": {
+      "0": "36a43483aed09e993508b42acb29f8bf5365b938fec3a350f7d07101c36a7f6b",
+      "1": "bd613ac085e7e3e6e6f873a2d1504b0bd401a70163dd0e02201fd1bebb7143be",
+      "2": "47803ae6874bf027eef0a271b5106fde6bae2cd0bf0d542a397889dffde54e76",
+      "3": "a6b65b0af4e8e06ddb4b2bb82e318fb3ea751e5ff6786dfd1627ed33c529bd75",
+      "4": "de6a275d0192d130be2b9e1fb130e607a4c0ebc1bd20a134001e0cd4490c7959"
+    }
+  },
+  "candy": {
+    "changedCells": [
+      0
+    ],
+    "cellSha256": {
+      "0": "88b3656c9bc3145e72fd9835279510c320233c899d6a427dfa331d00aba341a5",
+      "1": "3d9f064ed2bed8435ff834d082b678c2e55f83c019ce1686bab74c97c767b313",
+      "2": "3421eb606ec02adafdeba0fb707b4f071d257a09dc1f551c2e323bb1c2a642c0",
+      "3": "7d6877aafc46a95801fd03df9efa0dcb6da0a44360153c61b5b1626ee80b5a8e",
+      "4": "acf24623cb3ba12f54f114223fa3840f8c662451890cf4c47faae837a79eeb44"
+    }
+  }
+}

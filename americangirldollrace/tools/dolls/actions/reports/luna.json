@@ -1,0 +1,169 @@
+{
+  "assetKey": "luna",
+  "frames": [
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.14525326583457,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        62,
+        7,
+        319,
+        409
+      ],
+      "wandTip": [
+        150,
+        11
+      ],
+      "sourceScale": 1.0935672514619883,
+      "packedScale": 0.9548693586698337,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0092374385383027,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        9,
+        7,
+        367,
+        409
+      ],
+      "wandTip": [
+        361,
+        135
+      ],
+      "sourceScale": 1.0935672514619883,
+      "packedScale": 1.0835579514824798,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 217.62228260869563,
+      "offsetX": 0,
+      "scale": 1.0010764889005266,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        25,
+        7,
+        413,
+        409
+      ],
+      "wandTip": [
+        408,
+        89
+      ],
+      "sourceScale": 1.0935672514619883,
+      "packedScale": 1.0923913043478262,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 258.2991913746631,
+      "offsetX": 0,
+      "scale": 1.0092374385383027,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        5,
+        27,
+        407,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0935672514619883,
+      "packedScale": 1.0835579514824798,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 322.27777777777777,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        5,
+        46,
+        403,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0935672514619883,
+      "packedScale": 1.0935672514619883,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 210.28654970760235,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        34,
+        22,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0935672514619883,
+      "packedScale": 1.0935672514619883,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": -47.0,
+      "scale": 1.0173983881760786,
+      "baseline": 409,
+      "targetY": 413.5906432748538,
+      "bounds": [
+        46,
+        7,
+        375,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0935672514619883,
+      "packedScale": 1.0748663101604279,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 255.0233918128655,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        5,
+        16,
+        344,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0935672514619883,
+      "packedScale": 1.0935672514619883,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 213.02046783625732,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        15,
+        28,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0935672514619883,
+      "packedScale": 1.0935672514619883,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    }
+  ],
+  "sha256": "80ae0c29bdbae331265dc0ce2ed7697f4d373aa5169fa68fd66ed2fe26116ae0",
+  "maskSha256": "f9e3128a72ddafd36be19c3d3d50bdae1835ef21f37025321f2dd54239ffaf84"
+}

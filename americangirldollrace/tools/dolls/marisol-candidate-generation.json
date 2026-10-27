@@ -1,0 +1,31 @@
+{
+  "tool": "built-in image_gen",
+  "status": "Lower-hairline design approved by user; cleaned canonical saved. Runtime migration not yet requested.",
+  "canonicalCandidate": "sources/marisol/canonical-candidate-v1.webp",
+  "references": [
+    "../../assets/portraits/marisol.webp",
+    "../../assets/doll_marisol_sprites.webp"
+  ],
+  "prompts": {
+    "initial": "Use case: stylized-concept\nAsset type: proposed canonical full-body character reference for Marisol in American Girl Doll Race.\nInput images: Image 1 is the existing Marisol portrait, the primary face/hair/material identity reference. Image 2 is her current race sprite sheet, reference for full-body outfit, proportions and footwear only. Create ONE new high-resolution full-body image of this same doll, not a sprite sheet.\nSubject: a sturdy 18-inch vinyl play doll with a rounded childlike face, warm medium golden-brown vinyl skin, brown inset doll eyes, softly arched eyebrows, a small friendly closed-mouth smile, long dark brown almost-black wavy rooted hair swept back from the forehead in the same voluminous half-up/crown styling. Preserve her recognizable face and hair identity. Navy varsity zip jacket with pink sleeves, pink zipper, pink-and-white striped collar/cuffs/hem and the small pink '06' chest applique; light grey pleated above-knee skirt with the tiny pink decoration; white mid-calf socks; bright pink low-top shoes matching the sprite sheet. Preserve these colours and clothing designs.\nStyle/medium: polished photographic toy render, clearly a real vinyl play doll with miniature sewn fabrics and natural rooted hair, consistent with the existing game. Improve crispness and material definition without making her a human child, fashion model, cartoon, or adult. Gentle satin vinyl highlights, detailed but tidy soft waves, believable fabric seams and skirt pleats. Avoid the heavy orange cast of the old low-resolution sprite.\nComposition: one centered complete doll from top of hair to shoe soles, front-facing with a very slight turn toward the viewer's right, both arms relaxed slightly away from the body, both hands visible, feet planted naturally, warm approachable expression. Neutral reusable identity-reference pose. Portrait canvas, generous transparent margin around every body part, shoes fully shown. Soft even studio lighting.\nConstraints: true transparent background, no floor or cast shadow, no props, no skates, no text except the existing small 06 jacket applique, no labels, no watermark. Keep original doll proportions, outfit, hair colour and skin identity. Single doll only.",
+    "refinement": "Use case: background-extraction. Edit this image of Marisol: remove ALL background glow, coloured haze, gradients, shadow and backdrop pixels outside the doll. Produce a clean isolated doll cutout on genuinely fully transparent empty background. Preserve the doll itself exactly: same full-body framing, face, brown eyes, warm vinyl skin, dark wavy hair, navy and pink 06 jacket, grey pleated skirt, socks, pink shoes, anatomy, hands and pose. Keep detailed hair edges but no diffuse halo. Every pixel away from the immediate doll silhouette must have alpha zero. Do not draw a studio background, floor or cast shadow. Single complete doll with margins."
+  },
+  "review": "Full body and outfit retained; sharper hair, eyes and fabric; warmer smile. Diffuse coloured halo remains after background-extraction refinement. Needs clean alpha before production pose generation. No runtime assets changed.",
+  "validation": "Visually inspected generated output. WebP round-trip verified exact RGBA preservation and dimensions; no game code changed.",
+  "hairlineRevision": {
+    "tool": "built-in image_gen",
+    "candidate": "sources/marisol/canonical-candidate-v2.webp",
+    "comparison": "sources/marisol/hairline-comparison-v1-v2.webp",
+    "status": "Candidate for review; runtime unchanged.",
+    "review": "Hairline visibly lower, less forehead; swept-back style retained. Some generated texture variation. Existing halo remains.",
+    "validation": "Visual review and exact lossless RGBA WebP round-trip passed."
+  },
+  "canonical": "sources/marisol/canonical.webp",
+  "cleanup": {
+    "tool": "built-in image_gen",
+    "promptFile": "sources/marisol/canonical-cleanup-prompt.txt",
+    "review": "Blocky hair-edge patches removed. Lower hairline, face and outfit retained; minor generated texture variation. Visually inspected composites on cream and navy backgrounds.",
+    "preview": "sources/marisol/canonical-transparency-review.webp",
+    "validation": "Exact lossless RGBA WebP round-trip passed. Runtime unchanged."
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "asset": "princess-amber",
+  "source": "../sources/princess-amber-full-actions-b.webp",
+  "input_image_1": "../../../reference/canonical/princess-amber.webp",
+  "poses": [
+    "broom-rise",
+    "broom-glide",
+    "broom-zapped",
+    "wand-up",
+    "hold-present",
+    "catch-present",
+    "toss",
+    "crowned"
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "status": "exact prompt saved before built-in image_gen; not yet generated. Crop each actual connected figure, inspect and hand-annotate all landmarks before build.",
+  "prompt": "Use case: stylized-concept. Asset type: transparent full-body sprite sheet for Charlie Party. Input image 1 is the approved canonical princess-amber reference; reproduce this exact character. Subject: long copper-auburn hair, amber flower-star crown, floor-length orange gown, black sleeves and bodice accents, white flower-star motifs outlined in black, warm brown eyes. Personality: graceful and expressive princess gestures with flowing hair and gown. Style: match the canonical 2D cartoon with bold smooth navy outlines, clean cel shading and the same face, hair, body proportions and outfit. Primary request: draw exactly 8 distinct full-body figures in a 4 columns by 2 rows transparent grid, in row-major order. Each cell has one pose only; generous transparent gutters; consistent head size and figure scale in every cell; leave clear margins around hair, hands and shoes. Never add another character. Exact row-major pose order: 1 broom-rise: seated side-saddle riding mime, forward lean and hands gripping empty space, angled upward. 2 broom-glide: same invisible ride mime in a steady horizontal glide, calm. 3 broom-zapped: same ride mime tipped sideways with startled expression and briefly tousled hair; draw no lightning. 4 wand-up: confident spell-casting stance with one raised hand holding an imaginary wand, draw no wand or magic. 5 hold-present: both empty hands lifted overhead as if holding an invisible box, nervous smile. 6 catch-present: reach overhead with both empty hands to receive an invisible box. 7 toss: toss an invisible object upward with one hand, keep both hands empty. 8 crowned: graciously accept an invisible crown above the head with hands lifted, do not draw or change headwear.. Constraints: preserve the complete canonical identity and colors in every pose; normal human anatomy; true transparent alpha; keep props and effects separate when instructions call for an imaginary held object. Avoid: backdrop, scenery, shadows, cell borders, text, labels, extra accessories, props, watermark, detached marks, clipped hair, hands or feet."
+}

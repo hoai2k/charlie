@@ -1,0 +1,100 @@
+{
+  "character": "cotton-candy",
+  "reference": "../../../reference/canonical/cotton-candy.png",
+  "round": "round5",
+  "sheets": [
+    {
+      "name": "actions-a",
+      "source": "../../sources/cotton-candy-round5-actions-a.webp",
+      "poses": [
+        "swim",
+        "balance",
+        "splat-throw",
+        "wand-up",
+        "broom-rise",
+        "broom-glide",
+        "broom-zapped",
+        "count"
+      ],
+      "prompt": "The ONLY character is the exact small pony shown in reference image 1; it is not a person. Create a clean transparent sprite sheet for a children's party game, 4 columns by 2 rows, eight separate full-body poses of that same pony. Preserve exact reference identity: a white quadruped pony with enormous flowing pastel pink, lavender, and cyan mane and tail, a small gold crown with three blue gems, very large blue eyes, and a yellow flower cutie mark. Four short pony legs and four hooves only; no hands, no fingers, no human anatomy, no wing, no unicorn horn. The mane and tail are cotton-candy colors. Bold dark navy outlines and smooth cel shading like reference. Use the reference as the strongest authority for character design. All figures face right, same head/torso scale, full mane and tail visible, generous transparent gutters. Ordered left to right, top row then bottom row: swim floating prone and paddling; balance wobble standing on three hooves with one foreleg raised, no platform; splat-throw playful forward toss gesture, empty hoof; wand-up rearing and lifting one empty hoof; broom-rise angled airborne ascent as though riding a separate broom, no broom drawn; broom-glide level forward flight, hooves tucked, no broom drawn; broom-zapped startled midair pose, no lightning or effects; count thoughtfully lifting a forehoof. Keep all art crisp, simple, and individually separated. Real alpha transparency. No backgrounds, glow, shadows, props, platforms, text, labels, borders, or other figures.",
+      "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-20b5923c-48e4-488e-a793-cefc7935b19a.png"
+    },
+    {
+      "name": "actions-b",
+      "source": "../sources/cotton-candy-round5-actions-b.webp",
+      "poses": [
+        "look-up",
+        "crowned",
+        "dash-0",
+        "dash-1",
+        "hip-bump-0",
+        "hip-bump-1",
+        "knockback-0",
+        "knockback-1"
+      ],
+      "prompt": "Use reference image 1 as the exact Cotton Candy character. Asset: one transparent 4-by-2 sheet of eight separate full-body quadruped pony frames, preserving her white coat, huge flowing pink-lavender-cyan mane and tail, gold crown with blue gems, large blue eyes, yellow flower cutie mark, navy outline and smooth cel shading. Four pony legs and hooves only, no hands or human anatomy, no wings or horn. Keep right-facing profile, same idle-sized head and body in every cell, full crown/mane/tail visible with clear transparent gutters. Ordered left-right, top row then bottom row: (1) look-up, standing and gazing high above; (2) crowned, proudly lifting her chin while the same small crown stays on her head; (3-4) dash cycle, two distinct fast quadruped gallop beats, mane streaming, legs extending then gathering, both on the same scale; (5-6) hip-bump cycle, two playful quadruped poses that shift her rump and shoulder sideways then rebound, no other character; (7-8) knockback cycle, startled recoil with mane flicking back and hooves bracing, then recovery, no impact marks. No new crown, no extra accessory, no prop or other figure. True transparent background, no scene, floor, shadows, glow, motion lines, labels or text.",
+      "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-36a86c2c-b651-42d0-b283-c0ee7fa467c8.png"
+    },
+    {
+      "name": "actions-b2",
+      "source": "../sources/cotton-candy-round5-actions-b2.webp",
+      "poses": [
+        "sit",
+        "tumble",
+        "hold-present"
+      ],
+      "prompt": "Use reference image 1 to reproduce the same Cotton Candy pony exactly: white quadruped with large blue eyes, gold crown with blue gems, yellow flower cutie mark, huge flowing pastel pink-lavender-cyan mane and tail, dark navy outline and clean soft cel shading. Create one real-transparent horizontal 3-cell action strip, full body and mane visible in each separated cell, all facing right at consistent idle head size. Only four pony legs and hooves; no hands, no human anatomy, no wings or horn. Left to right: (1) sit, politely seated low on her hindquarters with forehooves resting in front, tail curled beside her; (2) tumble, a playful sideways rolling pose on her back with all four hooves visible, keep crown on; (3) hold-present, standing and leaning forward with her muzzle gently open at the mouth attachment point as if holding a separate present, no present drawn. Keep identity, crown, flower and mane patterns consistent. No props, floor, shadow, scene, effects, text, labels, borders or extra characters.",
+      "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-9f2a4249-1ff6-4649-8457-0dcc14ca3662.png"
+    },
+    {
+      "name": "actions-c",
+      "source": "../sources/cotton-candy-round5-actions-c.webp",
+      "poses": [
+        "toss",
+        "catch-present",
+        "sooty",
+        "drink",
+        "float",
+        "hiccup",
+        "stomp-giant",
+        "squeak-tiny"
+      ],
+      "prompt": "Use the approved Cotton Candy pony in reference image 1 exactly: small white quadruped pony, huge flowing pink-lavender-cyan mane and tail, gold crown set with blue gems, expressive blue eyes, yellow flower cutie mark, bold navy outlines and simple cel shading. Create one transparent 4-column by 2-row sheet of eight separated full-body poses. Four legs and hooves only, no hands, fingers, human anatomy, wings or horn; keep head size consistent and face right except a natural tumble. Order left-to-right top row then bottom row: (1) toss, lift her muzzle and one forehoof in a gentle upward toss gesture, empty mouth and hoof, no object; (2) catch-present, look up with muzzle open at the mouth attachment point as if catching a separate present, no present drawn; (3) sooty, same pony with two small soft gray soot smudges on muzzle and cheek, no explosion; (4) drink, tip head toward an absent cup at the mouth attachment point, no cup or liquid; (5) float, drift weightlessly with all four hooves lifted and mane hanging softly; (6) hiccup, startled little jolt with puffed cheeks and a tiny head bob; (7) stomp-giant, proud wide quadruped stance with one forehoof planted strongly, not enlarged; (8) squeak-tiny, a startled little hop with legs tucked, keep normal body size. Preserve her crown, flower and pastel mane consistently. Real transparent background. No floor, shadow, scenery, props, effects, lettering, borders or extra figures.",
+      "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-b0011113-6ff5-45f4-b597-4d94b48a0ea7.png"
+    },
+    {
+      "name": "actions-d",
+      "source": "../sources/cotton-candy-round5-actions-d.webp",
+      "poses": [
+        "flip",
+        "blow",
+        "shake-sprinkles",
+        "photo",
+        "sing",
+        "water"
+      ],
+      "prompt": "Use the exact Cotton Candy pony from reference image 1: white quadruped, enormous flowing pastel pink-lavender-cyan mane and tail, small gold crown with blue gems, large blue eyes, yellow flower cutie mark, navy outlines and cel shading. Make a transparent 3-column by 2-row sheet with six distinct full-body poses, generous clear gutters, consistent head/body scale, four legs and hooves only; no hands, fingers, human anatomy, wings or horn. Keep her identity, crown and mane pattern consistent; all face right unless the photo pose naturally faces the viewer. Order left to right top then bottom: flip, a compact safe-looking sideways somersault with all hooves visible; blow, standing with lips pursed at the muzzle as if blowing gently, no bubbles or effects; shake-sprinkles, vigorous head/mane shake with loose mane motion but no particles or sprinkles drawn; photo, cheerful square stance turned slightly toward camera with a bright smile, no camera or flash; sing, joyful open-mouth singing stance with one forehoof lifted, no microphone or notes; water, lean forward with an empty mouth/forehoof attachment pose as if tipping a separate watering can, no can or water drawn. Real alpha transparency. No floor, shadow, scene, props, effects, text, labels, borders or extra figures.",
+      "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-6b4df0fb-69a4-4af4-9137-e2cd586cccd6.png"
+    },
+    {
+      "name": "pose-twirl",
+      "source": "../sources/cotton-candy-round5-pose-twirl.webp",
+      "poses": [
+        "front",
+        "three-quarter",
+        "back",
+        "three-quarter-return"
+      ],
+      "prompt": "Use the exact Cotton Candy pony from reference image 1: white pony, gold crown with blue gems, huge flowing cotton-candy pink/lavender/cyan mane and tail, large blue eyes, yellow flower cutie mark, clean dark navy outline and soft cel shading. Create one true-transparent horizontal strip with exactly four separate full-body views of the same pony, equal head/body size, crown and entire mane/tail visible in every cell, all four hooves grounded at a consistent baseline. This is a real 4-angle turning cycle, not a paper-thin spin: left to right (1) front view looking toward camera, (2) three-quarter view turned to her right, (3) full back view showing her mane, tail and flower mark, (4) three-quarter view returning toward front from the opposite side. Smooth naturally linked rotation while the body remains in place; no walk steps. Four pony legs and hooves only, no human arms/hands, no wings or horn. Keep mane color bands and crown identical in every view. Transparent background, no floor, shadows, scene, motion trails, props, text, labels or borders.",
+      "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-c56ceba6-34fd-493b-b432-a1dad3c37a45.png"
+    },
+    {
+      "name": "card-flip",
+      "source": "../sources/cotton-candy-round5-card-flip.webp",
+      "poses": [
+        "flip"
+      ],
+      "prompt": "Use reference image 1 as the exact Cotton Candy pony. Create one single isolated full-body sprite on a true transparent background: white quadruped pony, giant flowing pastel pink/lavender/cyan mane and tail, gold crown with blue gems, large blue eye, yellow flower cutie mark, bold navy outline and cel shading. Four pony legs and hooves only; no human arms or hands, no wings or horn. Pose for the party-game action \u201cflip a memory card\u201d: facing right in profile three-quarter view, neck curved downward and body leaning forward. Keep three hooves planted. The near-side front leg is unmistakably lifted and bent at the knee, reaching diagonally forward and down past the muzzle; its empty hoof is turned slightly downward as if tapping and turning a card on the ground. Leave a clear silhouette gap between the reaching hoof and planted legs. Her lowered muzzle and eye look directly at the same spot just ahead of that hoof. This must clearly read as reaching down to flip a memory card, absolutely not a somersault, tumble, roll, wave, or rear. Keep idle-sized head and body. Preserve full crown, mane, tail and all hooves without cropping. No card, table, platform, floor, shadows, props, scene, effects, text, labels or borders."
+    }
+  ]
+}

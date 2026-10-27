@@ -1,0 +1,152 @@
+[
+  {
+    "key": "bg/snowball-splat",
+    "size": [
+      1920,
+      1080
+    ],
+    "layout": "Full screen, 1:1 (the camera zooms up to ~1.2\u00d7). Layout must match: sky and backdrop above y\u2248200, a wooden picket fence along y\u2248200\u2013245, open snowy ground below. Players walk in x 90\u20131830, y 280\u20131028. A frozen pond sits exactly at the centre: ellipse centre (960, 652), radii 205\u00d788, with a ~20 px snowy rim. Keep the top ~110 px calm (scoreboard chips) and the ground plain \u2014 the code draws the walls, snowmen, splats and scoop dents",
+    "description": "A cozy winter cottage garden seen from a high 3/4 top-down angle: pale blue sky with soft clouds, snowy hills, two candy-coloured cottages with thick snow on the roofs and warm yellow windows, snow-tipped pine trees, a honey-wood picket fence with snow caps and a string of colourful party lights; below it a wide smooth field of fresh snow with gentle blue-shaded drifts and tiny sparkles, a small oval frozen pond (pale cyan ice with white streaks) in the middle, snowbanks and pines along the left, right and bottom edges",
+    "transparent": false
+  },
+  {
+    "key": "thumb/snowball-splat",
+    "size": [
+      800,
+      500
+    ],
+    "layout": "Game-select shelf and how-to screen (`drawIcon` is the fallback)",
+    "description": "Two cheerful roster characters mid snowball fight in a snowy garden: one ducking behind a snow-fort wall, a snowball flying in a dotted arc toward a snowman with a red scarf, a white splat burst, a giant snowball and a red knitted mitten in the corners, falling snowflakes. Subject centred",
+    "transparent": false
+  },
+  {
+    "key": "prop/snowball",
+    "size": [
+      64,
+      64
+    ],
+    "layout": "Centred on the ball, drawn at 2.3 \u00d7 its radius (7\u201312 px radius: in hands, in flight, and as the 3 ammo pips over each head). The ball should fill ~87% of the canvas",
+    "description": "A single round packed snowball: white with soft blue shading at the lower right, a small white highlight at the upper left, a few tiny lumps, thin navy outline",
+    "transparent": true
+  },
+  {
+    "key": "prop/giant-snowball",
+    "size": [
+      256,
+      256
+    ],
+    "layout": "Centred on the ball, drawn at 2.15 \u00d7 its radius (26\u201366 px). The code does not rotate it, so keep it nearly round",
+    "description": "A huge round snowball, lumpy packed snow with blue cel shading and a big white highlight, navy outline",
+    "transparent": true
+  },
+  {
+    "key": "prop/powerup-giant",
+    "size": [
+      192,
+      192
+    ],
+    "layout": "Centred inside the floating pickup bubble, ~97 px wide; the code draws the glow and the bubble around it",
+    "description": "Power-up icon: a giant sparkly snowball with a little gold star twinkle on it, cheerful and chunky",
+    "transparent": true
+  },
+  {
+    "key": "prop/triple-mitten",
+    "size": [
+      160,
+      160
+    ],
+    "layout": "Centred, drawn 30\u2013100 px tall: on the pickup bubble (the code adds \"x3\" beside it), in the player's hand, and next to the ammo pips",
+    "description": "A red knitted mitten with a yellow and a white stripe and a fluffy white cuff, upright, thumb on the left",
+    "transparent": true
+  },
+  {
+    "key": "prop/snow-splat",
+    "size": [
+      256,
+      256
+    ],
+    "layout": "Ground decal centred where a snowball landed; the code squashes it vertically to 42% and fades it out. Drawn 36\u2013150 px wide, so paint it as a round splat seen from straight above",
+    "description": "A white snow splat seen from above: a star-shaped burst of packed snow with little round blobs flung around it, faint blue shading, thin soft-blue outline",
+    "transparent": true
+  },
+  {
+    "key": "prop/face-splat",
+    "size": [
+      128,
+      128
+    ],
+    "layout": "Centred on a character's eyes for ~2 s after a hit, drawn at 2.4 \u00d7 (15% of the character's height), fades out",
+    "description": "A cartoony blob of white snow stuck on a face: a round splat with three bumps and two little drips, navy outline, light blue shading",
+    "transparent": true
+  },
+  {
+    "key": "prop/snow-wall",
+    "size": [
+      460,
+      256
+    ],
+    "layout": "Stretched over a horizontal fort-wall block: footprint 230\u00d744 plus an 84 px front face, so the top 34% of the image is the top face and the bottom 66% the front face. Damage lowers it to ~60% height (stretched) and the code adds cracks",
+    "description": "A packed-snow fort wall made of stacked snow bricks, seen from a high 3/4 angle: flat white top face with a slightly lumpy edge, blue-shaded front face with brick seams, navy outline",
+    "transparent": true
+  },
+  {
+    "key": "prop/snow-wall-side",
+    "size": [
+      176,
+      1016
+    ],
+    "layout": "Same, for the two walls that run away from the viewer at the sides: footprint 44 wide \u00d7 170 deep plus the 84 px front face, so the top 67% is the top face and the bottom 33% the front face",
+    "description": "The same snow-brick fort wall seen end-on: a long narrow white top face and a short blue-shaded front end with brick seams",
+    "transparent": true
+  },
+  {
+    "key": "prop/snow-rubble",
+    "size": [
+      520,
+      120
+    ],
+    "layout": "Bottom-centre anchored at the wall's front edge, fitted into (wall length + 30)\u00d760 px; shown while a crumbled wall waits to rebuild",
+    "description": "A low pile of broken snow bricks and lumps, white with blue shading, navy outline",
+    "transparent": true
+  },
+  {
+    "key": "prop/snowman",
+    "size": [
+      300,
+      420
+    ],
+    "layout": "Bottom-centre (base of the bottom ball) on the snowman's foot point, fitted into 150\u00d7210 px. Hit 1 swaps to `-nohat`, hit 2 to `-body`, hit 3 to `-pile`",
+    "description": "A friendly three-ball snowman: coal eyes and smile, carrot nose, pink cheeks, twig arms, a red knitted scarf, a blue bobble hat",
+    "transparent": true
+  },
+  {
+    "key": "prop/snowman-nohat",
+    "size": [
+      300,
+      420
+    ],
+    "layout": "Same canvas, scale and placement as `prop/snowman`",
+    "description": "The same snowman without its hat",
+    "transparent": true
+  },
+  {
+    "key": "prop/snowman-body",
+    "size": [
+      300,
+      420
+    ],
+    "layout": "Same canvas, scale and placement as `prop/snowman`",
+    "description": "The same snowman with only the two lower balls, the scarf and twig arms (its head has been knocked off)",
+    "transparent": true
+  },
+  {
+    "key": "prop/snowman-pile",
+    "size": [
+      260,
+      140
+    ],
+    "layout": "Bottom-centre on the snowman's foot point, fitted into 130\u00d770 px, until it rebuilds",
+    "description": "A flattened snowman: a lumpy snow heap with the red scarf and the carrot on top",
+    "transparent": true
+  }
+]

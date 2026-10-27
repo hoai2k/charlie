@@ -1,0 +1,4 @@
+# Generated PNG masters stay local; canonical WebP copies preserve their pixels.
+*.png
+# macOS metadata sidecars are not character assets.
+._*

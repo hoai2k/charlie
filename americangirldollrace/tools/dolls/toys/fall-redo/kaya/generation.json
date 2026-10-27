@@ -1,0 +1,8 @@
+{
+  "keys": [
+    "kaya",
+    "marisol",
+    "amanda"
+  ],
+  "prompt": "Use case: precise-object-edit. Six replacement doll FALL frames, exactly3 columns by2rows, equal square cells, transparent background, landscape3:2 with wide transparent gutters. Each column copies EXACTLY its corresponding original falling doll reference, including exact identity, face, hair, clothes, expression, head tilt, torso slope, hip rotation, arm angles, knee bend and leg positions. Do NOT lie flatter or change the body geometry. TOP ROW: same exact falling body but wear white-boot quad roller skates with four colored wheels (column1 ochre brown, column2 pink, column3 navy blue). BOTTOM ROW: exact original falling doll including her original footwear, plus ONE separate red pogo tipping away beside her to the RIGHT with silver spring, black grips footpegs rubber tip. Do not alter her pose to accommodate it, leave extra padding. Keep every doll and every prop fully visible, no overlap between cells, lots of margin. No floor, background, shadows, text or grid. Every figure has the same doll body/head proportions as her reference. Column identities kaya, marisol, amanda."
+}

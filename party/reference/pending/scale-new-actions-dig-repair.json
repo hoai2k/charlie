@@ -1,0 +1,8 @@
+{
+  "pose": "dig",
+  "frame": 0,
+  "prompt": "Use case: precise-object-edit. Preserve this exact fully clothed green-tunic blonde mermaid Scale sprite, all positions, expression, hands, crown, hair, red fish tail, blue ribbon lattice and teal flukes. Remove ONLY the tiny opaque WHITE blob/patch trapped between the fingertips near the lower-right red tail area. Restore the underlying RED tail surface and BLUE ribbon lattice there. Her hands must be EMPTY and unobstructed; no snowball, tool, pebble, object or white material between them. Do not otherwise alter the pose, camera, anatomy, scale or shading. One continuous mermaid tail, no legs/feet. Genuinely transparent outside background; no new shadows, effects, scenery, text or marks.",
+  "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-7fe4a214-07cd-4787-bfc4-dcbd5ab6408c.png",
+  "status": "reviewed-built-optimized",
+  "shippingSource": "party/tools/sprites/sources/scale-new-games-dig-repair.webp"
+}

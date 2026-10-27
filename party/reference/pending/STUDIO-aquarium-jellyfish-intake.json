@@ -1,0 +1,175 @@
+[
+  {
+    "key": "prop/aq-jellyfish-pink",
+    "output_path": "party/assets/art/prop/aq-jellyfish-pink.webp",
+    "prompt": "Use case: stylized-concept. Asset type: CANONICAL identity reference for one Dream Aquarium creature. Input Felicity is a STYLE reference ONLY: bold smooth dark navy outlines #24163f, rounded appealing shapes, expressive eyes, bright candy colors, simple clean cel shading. No 3D or photorealism. Subject: A friendly translucentpinkjellyfish withroundbell inTOP45% andsoft frillyribbon tentacles, sweetface. Single complete creature centered, side view facing RIGHT; jellyfish is front view. Friendly big eye and small CLOSED smiling mouth, no teeth. Entire tail, fins and tentacles visible with generous transparent margin. Real transparent background, no glow halos, bubbles, scenery, ground, shadows, text or watermark. Do not borrow Felicity anatomy, fur or costume. The jellyfish bell is in the upper45 percent and tentacles extend below.",
+    "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-jellyfish-pink.webp",
+    "source_size_px": [
+      1222,
+      1287
+    ],
+    "target_size_px": [
+      180,
+      280
+    ],
+    "actual_geometry": "Re-intaken approved source at original proportional contain scale (180\u00d7190 layer), translated -2 px x / -23 px y within transparent 180\u00d7280 canvas; full alpha silhouette remains visible. Measured bell centre \u2248(92,86) before, placed at (90,63) after.",
+    "format": "webp",
+    "bytes": 19388,
+    "alpha_bounds_px": [
+      7,
+      25,
+      173,
+      209
+    ],
+    "canonical_reference": "party/reference/canonical/studio/aq-jellyfish-pink.webp",
+    "status": "approved-source re-intake; bell-centre anchor corrected to (90,63), full tentacles visible",
+    "anchor": {
+      "kind": "bell-centre",
+      "before_px_approx": [
+        92,
+        86
+      ],
+      "after_px": [
+        90,
+        63
+      ],
+      "normalized": [
+        0.5,
+        0.225
+      ]
+    },
+    "actual_alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  {
+    "key": "prop/aq-jellyfish-lilac",
+    "output_path": "party/assets/art/prop/aq-jellyfish-lilac.webp",
+    "prompt": "Using the supplied approved pink jellyfish canonical as the exact identity and composition reference, recolor its translucent bell and ribbon tentacles to soft lilac while preserving the same gentle white-pink highlights, face, bell shape, tentacle arrangement, outline, proportions, and centered front view. The bell's center remains in the upper 45% of the canvas and the full tentacles extend below it; no cropping. True transparent background, no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+    "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-312df7ce-6b2b-45eb-8f42-4964c9eac34b.png",
+    "source_size_px": [
+      1222,
+      1287
+    ],
+    "target_size_px": [
+      180,
+      280
+    ],
+    "actual_geometry": "Re-intaken approved source at original proportional contain scale (180\u00d7190 layer), translated -2 px x / -23 px y within transparent 180\u00d7280 canvas; full alpha silhouette remains visible. Measured bell centre \u2248(92,86) before, placed at (90,63) after.",
+    "format": "webp",
+    "bytes": 19334,
+    "alpha_bounds_px": [
+      7,
+      26,
+      173,
+      209
+    ],
+    "status": "approved-source re-intake; bell-centre anchor corrected to (90,63), full tentacles visible",
+    "anchor": {
+      "kind": "bell-centre",
+      "before_px_approx": [
+        92,
+        86
+      ],
+      "after_px": [
+        90,
+        63
+      ],
+      "normalized": [
+        0.5,
+        0.225
+      ]
+    },
+    "actual_alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  {
+    "key": "prop/aq-jellyfish-blue",
+    "output_path": "party/assets/art/prop/aq-jellyfish-blue.webp",
+    "prompt": "Using the supplied approved pink jellyfish canonical as the exact identity and composition reference, recolor its translucent bell and ribbon tentacles to clear cool sky-blue while preserving the same gentle white-pink highlights, face, bell shape, tentacle arrangement, outline, proportions, and centered front view. The bell's center remains in the upper 45% of the canvas and the full tentacles extend below it; no cropping. True transparent background, no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+    "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e8660653-2f77-4c8a-988b-dcabe7139cd0.png",
+    "source_size_px": [
+      1222,
+      1287
+    ],
+    "target_size_px": [
+      180,
+      280
+    ],
+    "actual_geometry": "Re-intaken approved source at original proportional contain scale (180\u00d7190 layer), translated -2 px x / -23 px y within transparent 180\u00d7280 canvas; full alpha silhouette remains visible. Measured bell centre \u2248(92,86) before, placed at (90,63) after.",
+    "format": "webp",
+    "bytes": 19714,
+    "alpha_bounds_px": [
+      7,
+      26,
+      173,
+      209
+    ],
+    "status": "approved-source re-intake; bell-centre anchor corrected to (90,63), full tentacles visible",
+    "anchor": {
+      "kind": "bell-centre",
+      "before_px_approx": [
+        92,
+        86
+      ],
+      "after_px": [
+        90,
+        63
+      ],
+      "normalized": [
+        0.5,
+        0.225
+      ]
+    },
+    "actual_alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  {
+    "key": "prop/aq-jellyfish-peach",
+    "output_path": "party/assets/art/prop/aq-jellyfish-peach.webp",
+    "prompt": "Using the supplied approved pink jellyfish canonical as the exact identity and composition reference, recolor its translucent bell and ribbon tentacles to soft warm peach while preserving the same gentle white-pink highlights, face, bell shape, tentacle arrangement, outline, proportions, and centered front view. The bell's center remains in the upper 45% of the canvas and the full tentacles extend below it; no cropping. True transparent background, no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+    "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f6baa894-030a-4630-b8de-ee1987b24356.png",
+    "source_size_px": [
+      1222,
+      1287
+    ],
+    "target_size_px": [
+      180,
+      280
+    ],
+    "actual_geometry": "Re-intaken approved source at original proportional contain scale (180\u00d7190 layer), translated -2 px x / -23 px y within transparent 180\u00d7280 canvas; full alpha silhouette remains visible. Measured bell centre \u2248(92,86) before, placed at (90,63) after.",
+    "format": "webp",
+    "bytes": 19462,
+    "alpha_bounds_px": [
+      7,
+      26,
+      173,
+      208
+    ],
+    "status": "approved-source re-intake; bell-centre anchor corrected to (90,63), full tentacles visible",
+    "anchor": {
+      "kind": "bell-centre",
+      "before_px_approx": [
+        92,
+        86
+      ],
+      "after_px": [
+        90,
+        63
+      ],
+      "normalized": [
+        0.5,
+        0.225
+      ]
+    },
+    "actual_alpha_extrema": [
+      0,
+      255
+    ]
+  }
+]

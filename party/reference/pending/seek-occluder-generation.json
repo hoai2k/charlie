@@ -1,0 +1,917 @@
+[
+  {
+    "key": "prop/seek-tree",
+    "size": [
+      860,
+      1104
+    ],
+    "box": [
+      430,
+      552
+    ],
+    "layout": "Base = middle of the trunk foot; roots reach 12 px below it. Trunk about 70 wide, with a dark round hollow centered 150 px above the base (an owl or a gem sits in it). Big round canopy from 230 to 540 px up, about 400 wide.",
+    "description": "Big friendly cartoon oak: a round lumpy canopy of overlapping leaf clusters with a few red apples (night: dark teal leaves with tiny glowing yellow fruit), and a sturdy brown trunk with root flares and a round knot-hole.",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-tree. Big friendly cartoon oak: a round lumpy canopy of overlapping leaf clusters with a few red apples (night: dark teal leaves with tiny glowing yellow fruit), and a sturdy brown trunk with root flares and a round knot-hole. Layout: Base = middle of the trunk foot; roots reach 12 px below it. Trunk about 70 wide, with a dark round hollow centered 150 px above the base (an owl or a gem sits in it). Big round canopy from 230 to 540 px up, about 400 wide.. GEOMETRY: tightly composed target 860x1104. Base is (430,1080), roots reach bottom1104. Canopy occupies y0..620, widthabout800. Straight trunk only 140pixels wide. Dark round hollow center at (442,780), diameter96x120. Hollow is DARK OPAQUE, not transparent. Opaque leaf puffs, no gaps in canopy silhouette except tiny exterior scallops. Target canvas 860x1104, match its aspect ratio precisely; minimal transparent margins, complete object. Bold smooth dark navy outlines, rounded appealing shapes, bright original colors, simple clean cel shading, no photorealism, no 3D. Front view slightly from above. Genuine transparent outside background. Entire object material must be fully opaque wherever it hides a character. No ground shadow, no scenery, no characters, no text or watermark. Daylight palette.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-dd6993e6-6fb5-44e8-80b1-ddd93a50f740.png",
+    "sourceRect": [
+      7,
+      8,
+      1103,
+      1412
+    ],
+    "targetRect": [
+      0,
+      0,
+      860,
+      1104
+    ],
+    "runtimePath": "party/assets/art/prop/seek-tree.webp",
+    "runtimeBytes": 151460,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-bush",
+    "size": [
+      552,
+      296
+    ],
+    "box": [
+      276,
+      148
+    ],
+    "layout": "Bottom center; dome shape, flat bottom.",
+    "description": "Round leafy bush made of 5-6 overlapping puffs, with a few tiny pink flowers or yellow berries (night: dark teal with glowing berries).",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-bush. Round leafy bush made of 5-6 overlapping puffs, with a few tiny pink flowers or yellow berries (night: dark teal with glowing berries). Layout: Bottom center; dome shape, flat bottom..  Target canvas 552x296, match its aspect ratio precisely; minimal transparent margins, complete object. Bold smooth dark navy outlines, rounded appealing shapes, bright original colors, simple clean cel shading, no photorealism, no 3D. Front view slightly from above. Genuine transparent outside background. Entire object material must be fully opaque wherever it hides a character. No ground shadow, no scenery, no characters, no text or watermark. Daylight palette.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-436c9eeb-49f0-4c00-802a-82ca48ed25e9.png",
+    "sourceRect": [
+      119,
+      43,
+      1594,
+      871
+    ],
+    "targetRect": [
+      0,
+      0,
+      552,
+      296
+    ],
+    "runtimePath": "party/assets/art/prop/seek-bush.webp",
+    "runtimeBytes": 37838,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-rock",
+    "size": [
+      368,
+      184
+    ],
+    "box": [
+      184,
+      92
+    ],
+    "layout": "Flat bottom; the top is fairly flat so a snail can sit on it (92 px up).",
+    "description": "Smooth lavender-grey boulder with two crack lines (night: violet-grey with a cap of glowing green moss).",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-rock. Smooth lavender-grey boulder with two crack lines (night: violet-grey with a cap of glowing green moss). Layout: Flat bottom; the top is fairly flat so a snail can sit on it (92 px up)..  Target canvas 368x184, match its aspect ratio precisely; minimal transparent margins, complete object. Bold smooth dark navy outlines, rounded appealing shapes, bright original colors, simple clean cel shading, no photorealism, no 3D. Front view slightly from above. Genuine transparent outside background. Entire object material must be fully opaque wherever it hides a character. No ground shadow, no scenery, no characters, no text or watermark. Daylight palette.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-b86ac708-f6d9-46d5-99ec-f82fb0c6b695.png",
+    "sourceRect": [
+      254,
+      40,
+      1519,
+      858
+    ],
+    "targetRect": [
+      0,
+      0,
+      368,
+      184
+    ],
+    "runtimePath": "party/assets/art/prop/seek-rock.webp",
+    "runtimeBytes": 13472,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-log",
+    "size": [
+      512,
+      168
+    ],
+    "box": [
+      256,
+      84
+    ],
+    "layout": "Lying on its side. The cut end, with a dark hole, is on the right, centered about 100 px right of and 34 px above the base.",
+    "description": "Fallen log with bark lines, a ring-cut end with a dark hollow, and two tiny mushrooms on top (night: mossy, with glowing mushrooms).",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-log. Fallen log with bark lines, a ring-cut end with a dark hollow, and two tiny mushrooms on top (night: mossy, with glowing mushrooms). Layout: Lying on its side. The cut end, with a dark hole, is on the right, centered about 100 px right of and 34 px above the base.. GEOMETRY: target512x168. Base (256,156). Log cut end on RIGHT; hollowcenter (456,88), dark opaque hollow. Body broad flat horizontal shape, tiny mushrooms protrude at top. Target canvas 512x168, match its aspect ratio precisely; minimal transparent margins, complete object. Bold smooth dark navy outlines, rounded appealing shapes, bright original colors, simple clean cel shading, no photorealism, no 3D. Front view slightly from above. Genuine transparent outside background. Entire object material must be fully opaque wherever it hides a character. No ground shadow, no scenery, no characters, no text or watermark. Daylight palette.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-2062d66a-5adb-4baf-907c-3316170e9b74.png",
+    "sourceRect": [
+      13,
+      13,
+      2176,
+      705
+    ],
+    "targetRect": [
+      0,
+      0,
+      512,
+      168
+    ],
+    "runtimePath": "party/assets/art/prop/seek-log.webp",
+    "runtimeBytes": 23802,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-tuft",
+    "size": [
+      192,
+      124
+    ],
+    "box": [
+      96,
+      62
+    ],
+    "layout": "Flat bottom.",
+    "description": "Small clump of 6 pointy grass blades fanning out.",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-tuft. Small clump of 6 pointy grass blades fanning out. Layout: Flat bottom..  Target canvas 192x124, match its aspect ratio precisely; minimal transparent margins, complete object. Bold smooth dark navy outlines, rounded appealing shapes, bright original colors, simple clean cel shading, no photorealism, no 3D. Front view slightly from above. Genuine transparent outside background. Entire object material must be fully opaque wherever it hides a character. No ground shadow, no scenery, no characters, no text or watermark. Daylight palette.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-ccac296e-06e5-48e8-8d04-ef3a4186e8ab.png",
+    "sourceRect": [
+      46,
+      34,
+      1527,
+      969
+    ],
+    "targetRect": [
+      0,
+      0,
+      192,
+      124
+    ],
+    "runtimePath": "party/assets/art/prop/seek-tuft.webp",
+    "runtimeBytes": 8446,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-reeds",
+    "size": [
+      440,
+      312
+    ],
+    "box": [
+      220,
+      156
+    ],
+    "layout": "Flat bottom (stands on the back edge of the pond).",
+    "description": "Cluster of tall pond reeds and 4 cattails.",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-reeds. Cluster of tall pond reeds and 4 cattails. Layout: Flat bottom (stands on the back edge of the pond)..  Target canvas 440x312, match its aspect ratio precisely; minimal transparent margins, complete object. Bold smooth dark navy outlines, rounded appealing shapes, bright original colors, simple clean cel shading, no photorealism, no 3D. Front view slightly from above. Genuine transparent outside background. Entire object material must be fully opaque wherever it hides a character. No ground shadow, no scenery, no characters, no text or watermark. Daylight palette.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-631c16b8-c9c5-434b-be47-d540bde1abd4.png",
+    "sourceRect": [
+      35,
+      23,
+      1474,
+      1029
+    ],
+    "targetRect": [
+      0,
+      0,
+      440,
+      312
+    ],
+    "runtimePath": "party/assets/art/prop/seek-reeds.webp",
+    "runtimeBytes": 57440,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-tree-night",
+    "size": [
+      860,
+      1104
+    ],
+    "box": [
+      430,
+      552
+    ],
+    "layout": "Base = middle of the trunk foot; roots reach 12 px below it. Trunk about 70 wide, with a dark round hollow centered 150 px above the base (an owl or a gem sits in it). Big round canopy from 230 to 540 px up, about 400 wide.",
+    "description": "Big friendly cartoon oak: a round lumpy canopy of overlapping leaf clusters with a few red apples (night: dark teal leaves with tiny glowing yellow fruit), and a sturdy brown trunk with root flares and a round knot-hole.",
+    "prompt": "Use case: lighting-weather. Edit target is the exact day prop/seek-tree sprite. Create its moonlit NIGHT twin. Preserve the exact complete alpha silhouette, canvas size, positions, outlines, object structure and scale pixel for pixel. Change ONLY surface colors and lighting: dark teal leaves, violet-brown trunk, existing apples become softly glowing pale yellow fruit; dark opaque trunk hollow stays unchanged. Keep glow restricted inside the object silhouette: no exterior halo. Opaque object material remains fully opaque; transparent outside remains genuinely transparent. No additions, removals, text, shadows, scenery, characters, watermark, or new fireflies.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-ee2e89ed-871b-41d1-8782-33755367841f.png",
+    "referenceSource": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-dd6993e6-6fb5-44e8-80b1-ddd93a50f740.png",
+    "sharedFraming": "prop/seek-tree",
+    "sourceRect": [
+      7,
+      8,
+      1103,
+      1412
+    ],
+    "alphaSilhouetteLockedTo": "prop/seek-tree",
+    "runtimePath": "party/assets/art/prop/seek-tree-night.webp",
+    "runtimeBytes": 131038,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-bush-night",
+    "size": [
+      552,
+      296
+    ],
+    "box": [
+      276,
+      148
+    ],
+    "layout": "Bottom center; dome shape, flat bottom.",
+    "description": "Round leafy bush made of 5-6 overlapping puffs, with a few tiny pink flowers or yellow berries (night: dark teal with glowing berries).",
+    "prompt": "Use case: lighting-weather. Edit target is the exact day prop/seek-bush sprite. Create its moonlit NIGHT twin. Preserve the exact complete alpha silhouette, canvas size, positions, outlines, object structure and scale pixel for pixel. Change ONLY surface colors and lighting: dark teal leaves and grass, cool violet-grey shadows, cyan edge accents; any existing berries become pale glowing yellow and flowers pale cyan. Keep glow restricted inside the object silhouette: no exterior halo. Opaque object material remains fully opaque; transparent outside remains genuinely transparent. No additions, removals, text, shadows, scenery, characters, watermark, or new fireflies.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-50ad10bf-7f98-4d23-9c23-96e1c77ea4db.png",
+    "referenceSource": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-436c9eeb-49f0-4c00-802a-82ca48ed25e9.png",
+    "sharedFraming": "prop/seek-bush",
+    "sourceRect": [
+      119,
+      43,
+      1594,
+      871
+    ],
+    "alphaSilhouetteLockedTo": "prop/seek-bush",
+    "runtimePath": "party/assets/art/prop/seek-bush-night.webp",
+    "runtimeBytes": 34712,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-rock-night",
+    "size": [
+      368,
+      184
+    ],
+    "box": [
+      184,
+      92
+    ],
+    "layout": "Flat bottom; the top is fairly flat so a snail can sit on it (92 px up).",
+    "description": "Smooth lavender-grey boulder with two crack lines (night: violet-grey with a cap of glowing green moss).",
+    "prompt": "Use case: lighting-weather. Edit target is the exact day prop/seek-rock sprite. Create its moonlit NIGHT twin. Preserve the exact complete alpha silhouette, canvas size, positions, outlines, object structure and scale pixel for pixel. Change ONLY surface colors and lighting: violet-grey stone, existing moss becomes softly luminous green. Keep glow restricted inside the object silhouette: no exterior halo. Opaque object material remains fully opaque; transparent outside remains genuinely transparent. No additions, removals, text, shadows, scenery, characters, watermark, or new fireflies.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-92d25773-7401-4803-9679-f8d2632d01dd.png",
+    "referenceSource": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-b86ac708-f6d9-46d5-99ec-f82fb0c6b695.png",
+    "sharedFraming": "prop/seek-rock",
+    "sourceRect": [
+      254,
+      40,
+      1519,
+      858
+    ],
+    "alphaSilhouetteLockedTo": "prop/seek-rock",
+    "runtimePath": "party/assets/art/prop/seek-rock-night.webp",
+    "runtimeBytes": 12692,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-log-night",
+    "size": [
+      512,
+      168
+    ],
+    "box": [
+      256,
+      84
+    ],
+    "layout": "Lying on its side. The cut end, with a dark hole, is on the right, centered about 100 px right of and 34 px above the base.",
+    "description": "Fallen log with bark lines, a ring-cut end with a dark hollow, and two tiny mushrooms on top (night: mossy, with glowing mushrooms).",
+    "prompt": "Use case: lighting-weather. Edit target is the exact day prop/seek-log sprite. Create its moonlit NIGHT twin. Preserve the exact complete alpha silhouette, canvas size, positions, outlines, object structure and scale pixel for pixel. Change ONLY surface colors and lighting: violet-brown bark, dark mossy teal green moss, existing mushrooms luminous cyan and pale yellow. Keep glow restricted inside the object silhouette: no exterior halo. Opaque object material remains fully opaque; transparent outside remains genuinely transparent. No additions, removals, text, shadows, scenery, characters, watermark, or new fireflies.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-a6674971-739f-4ef2-8e3e-15111e927ff8.png",
+    "referenceSource": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-2062d66a-5adb-4baf-907c-3316170e9b74.png",
+    "sharedFraming": "prop/seek-log",
+    "sourceRect": [
+      13,
+      13,
+      2176,
+      705
+    ],
+    "alphaSilhouetteLockedTo": "prop/seek-log",
+    "runtimePath": "party/assets/art/prop/seek-log-night.webp",
+    "runtimeBytes": 20098,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-tuft-night",
+    "size": [
+      192,
+      124
+    ],
+    "box": [
+      96,
+      62
+    ],
+    "layout": "Flat bottom.",
+    "description": "Small clump of 6 pointy grass blades fanning out.",
+    "prompt": "Use case: lighting-weather. Edit target is the exact day prop/seek-tuft sprite. Create its moonlit NIGHT twin. Preserve the exact complete alpha silhouette, canvas size, positions, outlines, object structure and scale pixel for pixel. Change ONLY surface colors and lighting: dark teal leaves and grass, cool violet-grey shadows, cyan edge accents; any existing berries become pale glowing yellow and flowers pale cyan. Keep glow restricted inside the object silhouette: no exterior halo. Opaque object material remains fully opaque; transparent outside remains genuinely transparent. No additions, removals, text, shadows, scenery, characters, watermark, or new fireflies.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-befc0ef4-bdf0-4514-8038-87b137e80d4d.png",
+    "referenceSource": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-ccac296e-06e5-48e8-8d04-ef3a4186e8ab.png",
+    "sharedFraming": "prop/seek-tuft",
+    "sourceRect": [
+      46,
+      34,
+      1527,
+      969
+    ],
+    "alphaSilhouetteLockedTo": "prop/seek-tuft",
+    "runtimePath": "party/assets/art/prop/seek-tuft-night.webp",
+    "runtimeBytes": 7406,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-reeds-night",
+    "size": [
+      440,
+      312
+    ],
+    "box": [
+      220,
+      156
+    ],
+    "layout": "Flat bottom (stands on the back edge of the pond).",
+    "description": "Cluster of tall pond reeds and 4 cattails.",
+    "prompt": "Use case: lighting-weather. Edit target is the exact day prop/seek-reeds sprite. Create its moonlit NIGHT twin. Preserve the exact complete alpha silhouette, canvas size, positions, outlines, object structure and scale pixel for pixel. Change ONLY surface colors and lighting: dark teal leaves and grass, cool violet-grey shadows, cyan edge accents; any existing berries become pale glowing yellow and flowers pale cyan. Keep glow restricted inside the object silhouette: no exterior halo. Opaque object material remains fully opaque; transparent outside remains genuinely transparent. No additions, removals, text, shadows, scenery, characters, watermark, or new fireflies.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-c2435e74-7fd5-409d-89b9-7cb464d6839b.png",
+    "referenceSource": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-631c16b8-c9c5-434b-be47-d540bde1abd4.png",
+    "sharedFraming": "prop/seek-reeds",
+    "sourceRect": [
+      35,
+      23,
+      1474,
+      1029
+    ],
+    "alphaSilhouetteLockedTo": "prop/seek-reeds",
+    "runtimePath": "party/assets/art/prop/seek-reeds-night.webp",
+    "runtimeBytes": 54194,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-fern",
+    "size": [
+      400,
+      252
+    ],
+    "box": [
+      200,
+      126
+    ],
+    "layout": "Flat bottom (night forest only).",
+    "description": "Six arching dark-green fern fronds fanning out, with moonlit edges.",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-fern. Six arching dark-green fern fronds fanning out, with moonlit edges. Layout: Flat bottom (night forest only)..  Target canvas 400x252, match its aspect ratio precisely; preserve specified empty regions, entire object visible. Bold smooth dark navy outlines, rounded appealing shapes, soft pastelcolors, simple clean cel shading, no photorealism, no3D. Front view slightlyfromabove. Genuine transparent outside background. Entire object material fullyopaque wherever it hides acharacter except explicitly transparent jar glass/windowholes. No groundshadow, scenery, characters, text or watermark.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-7aab559c-88ab-42a2-9179-863454118fa1.png",
+    "sourceRect": [
+      43,
+      21,
+      1564,
+      970
+    ],
+    "targetRect": [
+      0,
+      0,
+      400,
+      252
+    ],
+    "runtimePath": "party/assets/art/prop/seek-fern.webp",
+    "runtimeBytes": 39272,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-basket",
+    "size": [
+      400,
+      272
+    ],
+    "box": [
+      200,
+      136
+    ],
+    "layout": "The front is the woven body, the front half of the rim and the handle. The back image is only the dark inside and the back half of the rim, with a pink napkin corner. Things peek up out of the basket between the two, so the front must be opaque below the rim line (74 px up).",
+    "description": "Classic wicker picnic basket, open, with an arched handle.",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-basket. Classic wicker picnic basket, open, with an arched handle. Layout: The front is the woven body, the front half of the rim and the handle. The back image is only the dark inside and the back half of the rim, with a pink napkin corner. Things peek up out of the basket between the two, so the front must be opaque below the rim line (74 px up).. LAYER FRONT ONLY: opaque wicker BODY below the FRONT RIM, plus arch handle. Leave the opening ABOVE the front rim genuinely transparent: no dark inside and no back rim/napkin. Target400x272; handle arch reaches top; rim across y112 (about41%down); body reaches basey260; front body wide and continuous opaque belowrim. Image is one layer that overlays characters. No lid. Target canvas 400x272, match its aspect ratio precisely; preserve specified empty regions, entire object visible. Bold smooth dark navy outlines, rounded appealing shapes, soft pastelcolors, simple clean cel shading, no photorealism, no3D. Front view slightlyfromabove. Genuine transparent outside background. Entire object material fullyopaque wherever it hides acharacter except explicitly transparent jar glass/windowholes. No groundshadow, scenery, characters, text or watermark.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-e9f7f479-e247-426a-b7c7-1ffc93f08562.png",
+    "normalizedMaster": "/tmp/seek-basket-master.png",
+    "sourceRect": [
+      81,
+      9,
+      1438,
+      1028
+    ],
+    "targetRect": [
+      0,
+      0,
+      400,
+      272
+    ],
+    "runtimePath": "party/assets/art/prop/seek-basket.webp",
+    "runtimeBytes": 32552,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-books",
+    "size": [
+      320,
+      200
+    ],
+    "box": [
+      160,
+      100
+    ],
+    "layout": "Stands on a shelf board; uneven top edge.",
+    "description": "A row of 7-8 chunky colorful picture books standing upright, in different heights.",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-books. A row of 7-8 chunky colorful picture books standing upright, in different heights. Layout: Stands on a shelf board; uneven top edge..  Target canvas 320x200, match its aspect ratio precisely; preserve specified empty regions, entire object visible. Bold smooth dark navy outlines, rounded appealing shapes, soft pastelcolors, simple clean cel shading, no photorealism, no3D. Front view slightlyfromabove. Genuine transparent outside background. Entire object material fullyopaque wherever it hides acharacter except explicitly transparent jar glass/windowholes. No groundshadow, scenery, characters, text or watermark.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-6ca344bb-e0d1-4e4e-a152-3f6b4615b545.png",
+    "sourceRect": [
+      26,
+      78,
+      1559,
+      912
+    ],
+    "targetRect": [
+      0,
+      0,
+      320,
+      200
+    ],
+    "runtimePath": "party/assets/art/prop/seek-books.webp",
+    "runtimeBytes": 21340,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-blocks",
+    "size": [
+      360,
+      308
+    ],
+    "box": [
+      180,
+      154
+    ],
+    "layout": "Stands on the base: a stepped pyramid of 6 cubes (3-2-1).",
+    "description": "Wooden toy blocks with painted stars and dots in bright colors.",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-blocks. Wooden toy blocks with painted stars and dots in bright colors. Layout: Stands on the base: a stepped pyramid of 6 cubes (3-2-1)..  Target canvas 360x308, match its aspect ratio precisely; preserve specified empty regions, entire object visible. Bold smooth dark navy outlines, rounded appealing shapes, soft pastelcolors, simple clean cel shading, no photorealism, no3D. Front view slightlyfromabove. Genuine transparent outside background. Entire object material fullyopaque wherever it hides acharacter except explicitly transparent jar glass/windowholes. No groundshadow, scenery, characters, text or watermark.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-2d0f251b-5d56-419d-94a4-c7fd879011f3.png",
+    "sourceRect": [
+      103,
+      35,
+      1256,
+      1121
+    ],
+    "targetRect": [
+      0,
+      0,
+      360,
+      308
+    ],
+    "runtimePath": "party/assets/art/prop/seek-blocks.webp",
+    "runtimeBytes": 22740,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-jar",
+    "size": [
+      176,
+      232
+    ],
+    "box": [
+      88,
+      116
+    ],
+    "layout": "A see-through glass candy jar: the glass must be mostly transparent (alpha under 40%), so a hidden lollipop shows through. The lid and the sweets are opaque.",
+    "description": "Round glass sweet jar with a colored lid and three gumballs at the bottom.",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-jar. Round glass sweet jar with a colored lid and three gumballs at the bottom. Layout: A see-through glass candy jar: the glass must be mostly transparent (alpha under 40%), so a hidden lollipop shows through. The lid and the sweets are opaque.. LAYER FRONT ONLY: lid opaque pink, three gumballs opaque at bottom; glass material is REALLY see-through, mostly completely transparent alpha with only thin navy outline and small paleblue/white reflection strokes at opacitybelow40%. No solid blue/white glass fill. No back layer, no contents besides3gumballs. Target176x232. Empty jar interior lets another sprite show THROUGH the glass. No background. Target canvas 176x232, match its aspect ratio precisely; preserve specified empty regions, entire object visible. Bold smooth dark navy outlines, rounded appealing shapes, soft pastelcolors, simple clean cel shading, no photorealism, no3D. Front view slightlyfromabove. Genuine transparent outside background. Entire object material fullyopaque wherever it hides acharacter except explicitly transparent jar glass/windowholes. No groundshadow, scenery, characters, text or watermark.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-c9fa5809-f587-433f-a112-23d3961ddfdf.png",
+    "normalizedMaster": "/tmp/seek-jar-master.png",
+    "sourceRect": [
+      12,
+      21,
+      1078,
+      1410
+    ],
+    "targetRect": [
+      0,
+      0,
+      176,
+      232
+    ],
+    "runtimePath": "party/assets/art/prop/seek-jar.webp",
+    "runtimeBytes": 17738,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-chest",
+    "size": [
+      520,
+      432
+    ],
+    "box": [
+      260,
+      216
+    ],
+    "layout": "Front = the chest body (bottom 116 px) with its rim. Back = the open lid leaning back, and the dark inside. Things and friends peek up out of the chest between the two.",
+    "description": "Pastel striped toy chest with a gold rim and a star on the front, lid open.",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-chest. Pastel striped toy chest with a gold rim and a star on the front, lid open. Layout: Front = the chest body (bottom 116 px) with its rim. Back = the open lid leaning back, and the dark inside. Things and friends peek up out of the chest between the two.. LAYER FRONT ONLY: no lid, no dark interior. Render opaque pastel striped chest BODY and gold front rim only, BODY occupying LOWER116/216 of the full canvas520x432. Retain the TOP100/216 as transparent EMPTY space reserved for open lid in separate layer. Front rim topy172 approximately40%down, body basey420. Gold rim, small gold clasp, white star front. IMPORTANT keep full520x432 composition with empty upper half; do not vertically recenter body. Target canvas 520x432, match its aspect ratio precisely; preserve specified empty regions, entire object visible. Bold smooth dark navy outlines, rounded appealing shapes, soft pastelcolors, simple clean cel shading, no photorealism, no3D. Front view slightlyfromabove. Genuine transparent outside background. Entire object material fullyopaque wherever it hides acharacter except explicitly transparent jar glass/windowholes. No groundshadow, scenery, characters, text or watermark.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-b3a0356c-9b38-444c-9934-1ec2c72e7664.png",
+    "normalizedMaster": "/tmp/seek-chest-master.png",
+    "sourceRect": [
+      0,
+      0,
+      1375,
+      1144
+    ],
+    "targetRect": [
+      0,
+      0,
+      520,
+      432
+    ],
+    "runtimePath": "party/assets/art/prop/seek-chest.webp",
+    "runtimeBytes": 19058,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-curtain",
+    "size": [
+      360,
+      1208
+    ],
+    "box": [
+      180,
+      604
+    ],
+    "layout": "Hangs from the top (600 px up) to the floor. The inner edge (the right side, unmirrored) bows inward, with a gold tie-back 330 px up. Used twice (once mirrored) beside the window.",
+    "description": "Soft pink velvet curtain with vertical folds and a gold tie-back.",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-curtain. Soft pink velvet curtain with vertical folds and a gold tie-back. Layout: Hangs from the top (600 px up) to the floor. The inner edge (the right side, unmirrored) bows inward, with a gold tie-back 330 px up. Used twice (once mirrored) beside the window.. A SINGLE left curtain panel only; straight outer LEFT edge, inner RIGHT edge pulled toward LEFT at narrow gold tieback about55%down (330pxupbase). Fullheight pinkvelvet opaque curtain hanging top-tofloor. No rod or window, no secondcurtain. Target canvas 360x1208, match its aspect ratio precisely; preserve specified empty regions, entire object visible. Bold smooth dark navy outlines, rounded appealing shapes, soft pastelcolors, simple clean cel shading, no photorealism, no3D. Front view slightlyfromabove. Genuine transparent outside background. Entire object material fullyopaque wherever it hides acharacter except explicitly transparent jar glass/windowholes. No groundshadow, scenery, characters, text or watermark.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-41df1828-81a7-47c3-b199-2c6f4cbbadb5.png",
+    "sourceRect": [
+      346,
+      13,
+      809,
+      1350
+    ],
+    "targetRect": [
+      0,
+      0,
+      360,
+      1208
+    ],
+    "runtimePath": "party/assets/art/prop/seek-curtain.webp",
+    "runtimeBytes": 56714,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-dollhouse",
+    "size": [
+      600,
+      668
+    ],
+    "box": [
+      300,
+      334
+    ],
+    "layout": "Front = walls and roof with transparent window and door holes at these rectangles, relative to the base: windows (-100,-200)-(-36,-144), (36,-200)-(100,-144) and (-100,-96)-(-36,-40); door (32,-100)-(88,0). Things are seen through them. Back = the warm interior wall (only needed behind the holes).",
+    "description": "Cute two-storey dollhouse with a pink roof, a round attic window and flower boxes.",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-dollhouse. Cute two-storey dollhouse with a pink roof, a round attic window and flower boxes. Layout: Front = walls and roof with transparent window and door holes at these rectangles, relative to the base: windows (-100,-200)-(-36,-144), (36,-200)-(100,-144) and (-100,-96)-(-36,-40); door (32,-100)-(88,0). Things are seen through them. Back = the warm interior wall (only needed behind the holes).. LAYER FRONT ONLY: walls and roof, window frames/flowerboxes. Target600x668, BASE=(300,660). Four genuinely transparent OPENINGS: upper-left rectangle (100,260)-(228,372), upper-right(372,260)-(500,372), lower-left(100,468)-(228,580), and tall right-side door(364,460)-(476,660). Three rectangular windows and one tall rectangular door only. DO NOT fill windows/door with blue or dark interior: those are true alpha holes. Roof spans y0..212, warm cream walls fromy200to660. Round atticwindow may beopaque pale yellow. Pink roof, soft navy outlines. Plain transparent outside. Target canvas 600x668, match its aspect ratio precisely; preserve specified empty regions, entire object visible. Bold smooth dark navy outlines, rounded appealing shapes, soft pastelcolors, simple clean cel shading, no photorealism, no3D. Front view slightlyfromabove. Genuine transparent outside background. Entire object material fullyopaque wherever it hides acharacter except explicitly transparent jar glass/windowholes. No groundshadow, scenery, characters, text or watermark.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-124ee6c4-9690-44aa-9697-af6c7ecac75f.png",
+    "normalizedMaster": "/tmp/seek-dollhouse-master.png",
+    "sourceRect": [
+      1,
+      2,
+      1188,
+      1315
+    ],
+    "targetRect": [
+      0,
+      0,
+      600,
+      668
+    ],
+    "runtimePath": "party/assets/art/prop/seek-dollhouse.webp",
+    "runtimeBytes": 75352,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-bigteddy",
+    "size": [
+      480,
+      512
+    ],
+    "box": [
+      240,
+      256
+    ],
+    "layout": "Sitting, flat bottom.",
+    "description": "Giant sitting teddy bear with a red bow tie, cuddly and soft.",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-bigteddy. Giant sitting teddy bear with a red bow tie, cuddly and soft. Layout: Sitting, flat bottom..  Target canvas 480x512, match its aspect ratio precisely; preserve specified empty regions, entire object visible. Bold smooth dark navy outlines, rounded appealing shapes, soft pastelcolors, simple clean cel shading, no photorealism, no3D. Front view slightlyfromabove. Genuine transparent outside background. Entire object material fullyopaque wherever it hides acharacter except explicitly transparent jar glass/windowholes. No groundshadow, scenery, characters, text or watermark.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-f2fb2e4a-3061-47ca-ab4b-26046454b913.png",
+    "sourceRect": [
+      20,
+      19,
+      1195,
+      1277
+    ],
+    "targetRect": [
+      0,
+      0,
+      480,
+      512
+    ],
+    "runtimePath": "party/assets/art/prop/seek-bigteddy.webp",
+    "runtimeBytes": 49036,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-presents",
+    "size": [
+      480,
+      348
+    ],
+    "box": [
+      240,
+      174
+    ],
+    "layout": "Flat bottom.",
+    "description": "Stack of three gift boxes (blue, pink, lilac) with ribbons and bows.",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-presents. Stack of three gift boxes (blue, pink, lilac) with ribbons and bows. Layout: Flat bottom..  Target canvas 480x348, match its aspect ratio precisely; preserve specified empty regions, entire object visible. Bold smooth dark navy outlines, rounded appealing shapes, soft pastelcolors, simple clean cel shading, no photorealism, no3D. Front view slightlyfromabove. Genuine transparent outside background. Entire object material fullyopaque wherever it hides acharacter except explicitly transparent jar glass/windowholes. No groundshadow, scenery, characters, text or watermark.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-60a94ae7-b3c6-4f25-9afb-2ac71bc53052.png",
+    "sourceRect": [
+      274,
+      15,
+      1200,
+      1052
+    ],
+    "targetRect": [
+      0,
+      0,
+      480,
+      348
+    ],
+    "runtimePath": "party/assets/art/prop/seek-presents.webp",
+    "runtimeBytes": 40580,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-drum",
+    "size": [
+      320,
+      228
+    ],
+    "box": [
+      160,
+      114
+    ],
+    "layout": "Flat bottom; a drumstick rests on top at the right.",
+    "description": "Toy drum with a zigzag pattern and a cream drumhead.",
+    "prompt": "Use case: illustration-story. One children's hide-and-seek game occluder prop/seek-drum. Toy drum with a zigzag pattern and a cream drumhead. Layout: Flat bottom; a drumstick rests on top at the right..  Target canvas 320x228, match its aspect ratio precisely; preserve specified empty regions, entire object visible. Bold smooth dark navy outlines, rounded appealing shapes, soft pastelcolors, simple clean cel shading, no photorealism, no3D. Front view slightlyfromabove. Genuine transparent outside background. Entire object material fullyopaque wherever it hides acharacter except explicitly transparent jar glass/windowholes. No groundshadow, scenery, characters, text or watermark.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-358258c1-350f-40e4-b376-8a4e49bbdb79.png",
+    "sourceRect": [
+      148,
+      117,
+      1405,
+      970
+    ],
+    "targetRect": [
+      0,
+      0,
+      320,
+      228
+    ],
+    "runtimePath": "party/assets/art/prop/seek-drum.webp",
+    "runtimeBytes": 20588,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-basket-back",
+    "size": [
+      400,
+      272
+    ],
+    "box": [
+      200,
+      136
+    ],
+    "layout": "The front is the woven body, the front half of the rim and the handle. The back image is only the dark inside and the back half of the rim, with a pink napkin corner. Things peek up out of the basket between the two, so the front must be opaque below the rim line (74 px up).",
+    "description": "Classic wicker picnic basket, open, with an arched handle.",
+    "prompt": "Use case: precise-object-edit. Input image is the exact normalized FRONT layer for a two-layer hide-and-seek game prop. Output ONLY the basket BACK layer: a dark brown opaque inside ellipse immediately behind the front rim, plus the woven BACK semicircle rim and one small pink napkin corner. The input front rim is around y130 of its400x272 canvas. Place dark inside oval at(200,127), width360 height60, upper edgey97 loweredge157. Woven back half rim follows upper edge. Small napkin triangle within left openingy85..125. Remove the ENTIRE front woven body and remove handle: these become genuinely transparent. DO NOT crop, center, or enlarge the remaining pieces: retain original full400x272 canvas and original object's x/y coordinates. Bold navy-outline clean cel-shaded style matching input. No characters, text, scenery, ground shadow, watermark. True transparent alpha required.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-0650862b-905a-4ace-9414-90ca378cebed.png",
+    "referenceSource": "/tmp/seek-basket-master.png",
+    "sharedFraming": "prop/seek-basket",
+    "sourceRect": [
+      0,
+      0,
+      1521,
+      1034
+    ],
+    "targetRect": [
+      0,
+      0,
+      400,
+      272
+    ],
+    "runtimePath": "party/assets/art/prop/seek-basket-back.webp",
+    "runtimeBytes": 8308,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-jar-back",
+    "size": [
+      176,
+      232
+    ],
+    "box": [
+      88,
+      116
+    ],
+    "layout": "A see-through glass candy jar: the glass must be mostly transparent (alpha under 40%), so a hidden lollipop shows through. The lid and the sweets are opaque.",
+    "description": "Round glass sweet jar with a colored lid and three gumballs at the bottom.",
+    "prompt": "Use case: precise-object-edit. Input image is the exact normalized FRONT layer for a two-layer hide-and-seek game prop. Output ONLY the jar BACK glass layer: a very faint pale-blue glass body tint matching exact same body silhouette seen in input, completely transparent outside. No lid, no outline, no highlights, no gumballs. Glass tint alpha must be around15% (well under40%), so a sprite drawn on top of this back layer is visible and other scene remains visible. Preserve original full176x232 canvas and exact geometry. Do NOT crop or recenter. Bold navy-outline clean cel-shaded style matching input. No characters, text, scenery, ground shadow, watermark. True transparent alpha required.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-878c5f65-abbd-4d80-8758-7192a75e4981.png",
+    "referenceSource": "/tmp/seek-jar-master.png",
+    "sharedFraming": "prop/seek-jar",
+    "sourceRect": [
+      0,
+      0,
+      1092,
+      1440
+    ],
+    "targetRect": [
+      0,
+      0,
+      176,
+      232
+    ],
+    "glassAlphaMultiplier": 0.15,
+    "runtimePath": "party/assets/art/prop/seek-jar-back.webp",
+    "runtimeBytes": 7174,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-chest-back",
+    "size": [
+      520,
+      432
+    ],
+    "box": [
+      260,
+      216
+    ],
+    "layout": "Front = the chest body (bottom 116 px) with its rim. Back = the open lid leaning back, and the dark inside. Things and friends peek up out of the chest between the two.",
+    "description": "Pastel striped toy chest with a gold rim and a star on the front, lid open.",
+    "prompt": "Use case: precise-object-edit. Input image is the exact normalized FRONT layer for a two-layer hide-and-seek game prop. Output ONLY the chest BACK layer: the open lid leaning back into the input's reserved transparent upper half, plus dark brown inside visible behind the front rim. Keep the input front body entirely REMOVED and transparent. Original canvas520x432. Front rim is aroundy238; put dark inside ellipse centered(260,232), width470,height55. Open lid spans approximatelyx30..490,y20..230, hinging at samey230; pastel pink rim gold edging, deep brown interior panel. Same exact camera/size/style, preserve complete original canvas and x/y placement. No chestbody, clasp, or frontstar. DO NOT crop/recenter. Bold navy-outline clean cel-shaded style matching input. No characters, text, scenery, ground shadow, watermark. True transparent alpha required.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-1e82d53b-9e61-49c4-93d1-4274832aa55e.png",
+    "referenceSource": "/tmp/seek-chest-master.png",
+    "sharedFraming": "prop/seek-chest",
+    "sourceRect": [
+      0,
+      0,
+      1377,
+      1142
+    ],
+    "targetRect": [
+      0,
+      0,
+      520,
+      432
+    ],
+    "runtimePath": "party/assets/art/prop/seek-chest-back.webp",
+    "runtimeBytes": 21508,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  },
+  {
+    "key": "prop/seek-dollhouse-back",
+    "size": [
+      600,
+      668
+    ],
+    "box": [
+      300,
+      334
+    ],
+    "layout": "Front = walls and roof with transparent window and door holes at these rectangles, relative to the base: windows (-100,-200)-(-36,-144), (36,-200)-(100,-144) and (-100,-96)-(-36,-40); door (32,-100)-(88,0). Things are seen through them. Back = the warm interior wall (only needed behind the holes).",
+    "description": "Cute two-storey dollhouse with a pink roof, a round attic window and flower boxes.",
+    "prompt": "Use case: precise-object-edit. Input image is the exact normalized FRONT layer for a two-layer hide-and-seek game prop. Output ONLY the dollhouse BACK layer: a warm cream/honey interior wall behind the input's three window openings and tall door opening, with subtle interior floor divider. No windows, flowerboxes, exteriorwalls, roof, atticwindow, outlines or gardenplants. Original canvas600x668: interior flat wall rectangle from aboutx80..520,y240..645, subtle horizontal floordivider at y416. Everything else genuinely transparent. The back image is deliberately a modest plain warm rectangle only, because front layer supplies all detail. Preserve exact original full600x668 canvas and no crop or recenter. Bold navy-outline clean cel-shaded style matching input. No characters, text, scenery, ground shadow, watermark. True transparent alpha required.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-b1b97d51-14ed-4f7b-806c-61c1deaddf68.png",
+    "referenceSource": "/tmp/seek-dollhouse-master.png",
+    "sharedFraming": "prop/seek-dollhouse",
+    "previousSource": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-5545facd-6a4d-4998-a7fc-f5d2e20666b7.png",
+    "repairPrompt": "Use case: illustration-story. Asset type: the BACK INTERIOR WALL for a toy dollhouse in a layered game sprite. Draw a simple solid continuous warm cream-and-honey interior wall panel with gentle clean cel shading, faint wallpaper dots, and one thin horizontal honey-wood floor divider. Important: this is just the INSIDE back wall, NOT a dollhouse building. Absolutely no window openings, no door openings, no holes, no window frames, no doorframes, no roof, no flowerboxes, no garden, no furniture, no text. The panel must be fully opaque and uninterrupted across its whole rectangle so it is visible through holes in a separate front sprite. Target600x668 canvas: put the rectangular panel only in x80..520, y240..645; everything outside this modest wall rectangle is genuinely transparent alpha. Retain the empty top240px and empty side80px as transparent space. No recentering, no cropping. Front view, simple soft pastel children's game art, navy outer edge if needed, no shadow.",
+    "sourceRect": [
+      151,
+      500,
+      1039,
+      1176
+    ],
+    "targetRect": [
+      75,
+      225,
+      525,
+      650
+    ],
+    "runtimePath": "party/assets/art/prop/seek-dollhouse-back.webp",
+    "runtimeBytes": 12678,
+    "encoding": {
+      "quality": 86,
+      "method": 6,
+      "alphaQuality": 100
+    }
+  }
+]

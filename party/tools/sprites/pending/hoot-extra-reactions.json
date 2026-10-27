@@ -1,0 +1,15 @@
+{
+  "tool": "built-in image_gen",
+  "status": "COMPLETE:2framepoint,2framelaugh,2framebravo; manual runtime landmarks inspected, optimizer saved. Hoot genuine hoot art retained.",
+  "prompt": "Use case: stylized-concept. ONE transparent sprite sheet of EXACT approved Professor Hoot reference owl teacher. THREE COLUMNS TWO ROWS, six separate full-body figures, wide transparent gutters, equal head size and consistent rightthreequarter camera. Toprow lefttoright: point-A (one wing extends strongly to screenright, one long feather finger clearly pointing at imaginary chalkboard, beak gentlyopen); point-B (same stance pointed wing slightly higher and closedbeak); laugh-A (eyes happy crescent, beak open joyful laughter, one wing covering lowerbeak and other resting belly); bottomrow: laugh-B (gentle belly-shake lowerbody compressed a little, laughing beak open wider, same feet); bravo-A (both wings raised in wide V, delighted openbeak, upright planted feet); bravo-B (small joyful hop both wings high spread, feet raised slightly, same headsize). Keep plump tawny owl cream heart face, ambereyes roundgold spectacles, purple floppy pointedhat goldstarband, midnightblue robe silverstar/moontrim, orangebeak orange talons. NO props wand lantern chalkboard heldobjects effects motionlines text shadows background. Empty wing-hands. Clean navy outlines and cel shading exactly approvedreference. No new characterdesign.",
+  "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-f279f96e-2d7b-4d69-9487-57515431618c.png",
+  "sheet": "professor-hoot-extra-reactions",
+  "poses": [
+    "point-a",
+    "point-b",
+    "laugh-a",
+    "laugh-b",
+    "bravo-a",
+    "bravo-b"
+  ]
+}

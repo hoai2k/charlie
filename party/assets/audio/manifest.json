@@ -1,0 +1,1328 @@
+{
+ "sfx": {
+  "applause": [
+   "sfx/applause-1.mp3",
+   "sfx/applause-2.mp3"
+  ],
+  "aww": [
+   "sfx/aww-1.mp3",
+   "sfx/aww-2.mp3"
+  ],
+  "balloon-stretch": "sfx/balloon-stretch.mp3",
+  "big-imp-poof": "sfx/big-imp-poof.mp3",
+  "bigpop": [
+   "sfx/bigpop-1.wav",
+   "sfx/bigpop-2.wav"
+  ],
+  "boing": [
+   "sfx/boing-1.mp3",
+   "sfx/boing-2.mp3"
+  ],
+  "bonk": [
+   "sfx/bonk-1.wav",
+   "sfx/bonk-2.wav"
+  ],
+  "boom": [
+   "sfx/boom-1.wav",
+   "sfx/boom-2.mp3"
+  ],
+  "broom-glide": "sfx/broom-glide.wav",
+  "broom-whoosh": "sfx/broom-whoosh.wav",
+  "brush": [
+   "sfx/brush-1.wav",
+   "sfx/brush-2.wav",
+   "sfx/brush-3.wav"
+  ],
+  "bubble": [
+   "sfx/bubble-2.wav",
+   "sfx/bubble-3.wav",
+   "sfx/bubble-4.wav"
+  ],
+  "cake-blorp": "sfx/cake-blorp.wav",
+  "camera-flash": [
+   "sfx/camera-flash-1.mp3",
+   "sfx/camera-flash-2.mp3"
+  ],
+  "candle-blow": "sfx/candle-blow.mp3",
+  "card-flip": [
+   "sfx/card-flip-1.wav",
+   "sfx/card-flip-2.wav"
+  ],
+  "card-whoosh": "sfx/card-whoosh.wav",
+  "cauldron": "sfx/cauldron.wav",
+  "cauldron-plop": "sfx/cauldron-plop.mp3",
+  "cheer": [
+   "sfx/cheer-1.mp3",
+   "sfx/cheer-2.mp3",
+   "sfx/cheer-3.mp3"
+  ],
+  "cookie-snap": [
+   "sfx/cookie-snap-1.wav",
+   "sfx/cookie-snap-2.wav"
+  ],
+  "count-chime": "sfx/count-chime.wav",
+  "crack": [
+   "sfx/crack-1.wav",
+   "sfx/crack-2.wav",
+   "sfx/crack-3.wav"
+  ],
+  "crowd-aww": [
+   "sfx/crowd-aww-1.mp3",
+   "sfx/crowd-aww-2.mp3"
+  ],
+  "crowd-gasp": "sfx/crowd-gasp.mp3",
+  "crowd-ooh": "sfx/crowd-ooh.mp3",
+  "crown-land": "sfx/crown-land.mp3",
+  "crown-sting": "sfx/crown-sting.mp3",
+  "crumble": [
+   "sfx/crumble-1.mp3",
+   "sfx/crumble-2.wav"
+  ],
+  "crumble-plop": [
+   "sfx/crumble-plop-1.mp3",
+   "sfx/crumble-plop-2.wav"
+  ],
+  "double-time": "sfx/double-time.mp3",
+  "drumroll": "sfx/drumroll.mp3",
+  "fanfare": "sfx/fanfare.mp3",
+  "fever": "sfx/fever.mp3",
+  "firefly-catch": [
+   "sfx/firefly-catch-1.wav",
+   "sfx/firefly-catch-2.mp3",
+   "sfx/firefly-catch-3.wav"
+  ],
+  "fizzle": [
+   "sfx/fizzle-1.mp3",
+   "sfx/fizzle-2.mp3"
+  ],
+  "flip": [
+   "sfx/flip-1.wav",
+   "sfx/flip-2.wav"
+  ],
+  "frosting-crumble": "sfx/frosting-crumble.wav",
+  "fuse-sizzle": "sfx/fuse-sizzle.wav",
+  "giant-stomp": [
+   "sfx/giant-stomp-1.mp3",
+   "sfx/giant-stomp-2.wav"
+  ],
+  "giggle": [
+   "sfx/giggle-1.mp3",
+   "sfx/giggle-2.mp3",
+   "sfx/giggle-3.mp3"
+  ],
+  "golden-chime": "sfx/golden-chime.mp3",
+  "grow-flower": "sfx/grow-flower.mp3",
+  "hic": "sfx/hic.wav",
+  "hose-sputter": "sfx/hose-sputter.mp3",
+  "lose": "sfx/lose.mp3",
+  "match-chime": "sfx/match-chime.wav",
+  "munch": [
+   "sfx/munch-1.wav",
+   "sfx/munch-2.wav",
+   "sfx/munch-3.wav"
+  ],
+  "night-crickets": "sfx/night-crickets.wav",
+  "note-d": "sfx/note-d.wav",
+  "note-hit-a": "sfx/note-hit-a.wav",
+  "note-hit-b": "sfx/note-hit-b.wav",
+  "note-hit-x": "sfx/note-hit-x.wav",
+  "note-hit-y": "sfx/note-hit-y.wav",
+  "note-l": "sfx/note-l.wav",
+  "note-r": "sfx/note-r.wav",
+  "note-star": "sfx/note-star.wav",
+  "note-u": "sfx/note-u.wav",
+  "paint-splat-wet": [
+   "sfx/paint-splat-wet-1.wav",
+   "sfx/paint-splat-wet-2.wav"
+  ],
+  "pet-shake": [
+   "sfx/pet-shake-1.mp3",
+   "sfx/pet-shake-2.mp3"
+  ],
+  "petal-firework": [
+   "sfx/petal-firework-1.mp3",
+   "sfx/petal-firework-2.mp3"
+  ],
+  "plant-seed": [
+   "sfx/plant-seed-1.wav",
+   "sfx/plant-seed-2.wav",
+   "sfx/plant-seed-3.wav"
+  ],
+  "pump": [
+   "sfx/pump-1.wav",
+   "sfx/pump-2.wav",
+   "sfx/pump-3.wav"
+  ],
+  "ring": [
+   "sfx/ring-1.mp3",
+   "sfx/ring-2.mp3"
+  ],
+  "ring-combo": "sfx/ring-combo.wav",
+  "roar": [
+   "sfx/troll-roar-1.mp3",
+   "sfx/troll-roar-2.mp3"
+  ],
+  "roller-ding": "sfx/roller-ding.wav",
+  "rubber-bounce": [
+   "sfx/rubber-bounce-1.wav",
+   "sfx/rubber-bounce-2.wav"
+  ],
+  "scrub": [
+   "sfx/scrub-1.mp3",
+   "sfx/scrub-2.wav"
+  ],
+  "shower": "sfx/shower.mp3",
+  "shutter": [
+   "sfx/shutter-1.mp3",
+   "sfx/shutter-2.mp3"
+  ],
+  "snore": [
+   "sfx/troll-snore-1.mp3",
+   "sfx/troll-snore-2.mp3"
+  ],
+  "sparkle-beam": "sfx/sparkle-beam.mp3",
+  "splash": [
+   "sfx/splash-1.mp3",
+   "sfx/splash-2.mp3"
+  ],
+  "splat": [
+   "sfx/splat-1.wav",
+   "sfx/splat-2.wav",
+   "sfx/splat-3.wav"
+  ],
+  "sprinkle-shake": "sfx/sprinkle-shake.wav",
+  "squeak": [
+   "sfx/squeak-1.wav",
+   "sfx/squeak-2.wav"
+  ],
+  "star": "sfx/star.mp3",
+  "stir": "sfx/stir.wav",
+  "stomp": [
+   "sfx/stomp-1.wav",
+   "sfx/stomp-2.wav",
+   "sfx/stomp-3.wav"
+  ],
+  "thunder": "sfx/thunder.mp3",
+  "tick-tock": "sfx/tick-tock.wav",
+  "tiny-squeak": [
+   "sfx/tiny-squeak-1.mp3",
+   "sfx/tiny-squeak-2.wav"
+  ],
+  "towel": "sfx/towel.wav",
+  "water": [
+   "sfx/water-1.mp3",
+   "sfx/water-2.mp3"
+  ],
+  "wheee-fall": "sfx/wheee-fall.mp3",
+  "whistle": "sfx/whistle.mp3",
+  "win": [
+   "sfx/win-1.mp3",
+   "sfx/win-2.mp3"
+  ],
+  "wing-twinkle": "sfx/wing-twinkle.wav",
+  "yay": [
+   "sfx/yay-1.mp3",
+   "sfx/yay-2.mp3",
+   "sfx/yay-3.mp3"
+  ],
+  "zap": [
+   "sfx/zap-1.mp3",
+   "sfx/zap-2.mp3"
+  ],
+  "npc/fairy/chime": [
+   "npc/fairy/chime-1.mp3",
+   "npc/fairy/chime-2.mp3",
+   "npc/fairy/chime-3.mp3"
+  ],
+  "npc/hoot/hoo": [
+   "npc/hoot/hoo-1.mp3",
+   "npc/hoot/hoo-2.mp3"
+  ],
+  "npc/imp/eep": "npc/imp/eep.wav",
+  "npc/imp/giggle": [
+   "npc/imp/giggle-1.mp3",
+   "npc/imp/giggle-2.mp3",
+   "npc/imp/giggle-3.mp3"
+  ],
+  "npc/imp/poof": "npc/imp/poof.mp3",
+  "npc/troll/grumble": [
+   "npc/troll/grumble-1.mp3",
+   "npc/troll/grumble-2.mp3",
+   "npc/troll/grumble-3.mp3"
+  ],
+  "npc/troll/laugh": [
+   "npc/troll/laugh-1.mp3",
+   "npc/troll/laugh-2.mp3"
+  ],
+  "npc/troll/windup": "npc/troll/windup.mp3",
+  "npc/troll/yawn": "npc/troll/yawn.mp3",
+  "jingle/happy-birthday": "jingle/happy-birthday.mp3",
+  "jingle/marathon-start": "jingle/marathon-start.mp3",
+  "jingle/results": "jingle/results.mp3",
+  "jingle/round": "jingle/round.mp3",
+  "jingle/showstopper": "jingle/showstopper.mp3",
+  "jingle/star-award": "jingle/star-award.mp3",
+  "jingle/trophy": "jingle/trophy.mp3",
+  "voice/bronze/aww": [
+   "voice/bronze/aww-1.mp3",
+   "voice/bronze/aww-2.mp3"
+  ],
+  "voice/bronze/gasp": [
+   "voice/bronze/gasp-1.wav",
+   "voice/bronze/gasp-2.mp3"
+  ],
+  "voice/bronze/hello": [
+   "voice/bronze/hello-1.mp3",
+   "voice/bronze/hello-2.mp3"
+  ],
+  "voice/bronze/laugh": [
+   "voice/bronze/laugh-1.mp3",
+   "voice/bronze/laugh-2.mp3"
+  ],
+  "voice/bronze/ouch": [
+   "voice/bronze/ouch-1.wav",
+   "voice/bronze/ouch-2.mp3",
+   "voice/bronze/ouch-3.wav"
+  ],
+  "voice/bronze/ready": [
+   "voice/bronze/ready-1.mp3",
+   "voice/bronze/ready-2.mp3"
+  ],
+  "voice/bronze/woo": [
+   "voice/bronze/woo-1.mp3",
+   "voice/bronze/woo-2.mp3"
+  ],
+  "voice/bronze/yay": [
+   "voice/bronze/yay-1.mp3",
+   "voice/bronze/yay-2.mp3",
+   "voice/bronze/yay-3.mp3"
+  ],
+  "voice/cotton-candy/aww": [
+   "voice/cotton-candy/aww-1.mp3",
+   "voice/cotton-candy/aww-2.mp3"
+  ],
+  "voice/cotton-candy/gasp": [
+   "voice/cotton-candy/gasp-1.wav",
+   "voice/cotton-candy/gasp-2.mp3"
+  ],
+  "voice/cotton-candy/hello": [
+   "voice/cotton-candy/hello-1.mp3",
+   "voice/cotton-candy/hello-2.mp3"
+  ],
+  "voice/cotton-candy/laugh": [
+   "voice/cotton-candy/laugh-1.mp3",
+   "voice/cotton-candy/laugh-2.mp3"
+  ],
+  "voice/cotton-candy/ouch": [
+   "voice/cotton-candy/ouch-1.wav",
+   "voice/cotton-candy/ouch-2.mp3",
+   "voice/cotton-candy/ouch-3.mp3"
+  ],
+  "voice/cotton-candy/ready": [
+   "voice/cotton-candy/ready-1.mp3",
+   "voice/cotton-candy/ready-2.mp3"
+  ],
+  "voice/cotton-candy/woo": [
+   "voice/cotton-candy/woo-1.mp3",
+   "voice/cotton-candy/woo-2.mp3"
+  ],
+  "voice/cotton-candy/yay": [
+   "voice/cotton-candy/yay-1.mp3",
+   "voice/cotton-candy/yay-2.mp3",
+   "voice/cotton-candy/yay-3.mp3"
+  ],
+  "voice/felicity/aww": [
+   "voice/felicity/aww-1.mp3",
+   "voice/felicity/aww-2.mp3"
+  ],
+  "voice/felicity/gasp": [
+   "voice/felicity/gasp-1.wav",
+   "voice/felicity/gasp-2.mp3"
+  ],
+  "voice/felicity/hello": [
+   "voice/felicity/hello-1.mp3",
+   "voice/felicity/hello-2.mp3"
+  ],
+  "voice/felicity/laugh": [
+   "voice/felicity/laugh-1.mp3",
+   "voice/felicity/laugh-2.mp3"
+  ],
+  "voice/felicity/ouch": [
+   "voice/felicity/ouch-1.wav",
+   "voice/felicity/ouch-2.mp3",
+   "voice/felicity/ouch-3.mp3"
+  ],
+  "voice/felicity/ready": [
+   "voice/felicity/ready-1.mp3",
+   "voice/felicity/ready-2.mp3"
+  ],
+  "voice/felicity/woo": [
+   "voice/felicity/woo-1.mp3",
+   "voice/felicity/woo-2.mp3"
+  ],
+  "voice/felicity/yay": [
+   "voice/felicity/yay-1.mp3",
+   "voice/felicity/yay-2.mp3",
+   "voice/felicity/yay-3.mp3"
+  ],
+  "voice/fox/aww": [
+   "voice/fox/aww-1.mp3",
+   "voice/fox/aww-2.mp3"
+  ],
+  "voice/fox/gasp": [
+   "voice/fox/gasp-1.wav",
+   "voice/fox/gasp-2.mp3"
+  ],
+  "voice/fox/hello": [
+   "voice/fox/hello-1.mp3",
+   "voice/fox/hello-2.mp3"
+  ],
+  "voice/fox/laugh": [
+   "voice/fox/laugh-1.mp3",
+   "voice/fox/laugh-2.mp3"
+  ],
+  "voice/fox/ouch": [
+   "voice/fox/ouch-1.mp3",
+   "voice/fox/ouch-2.mp3",
+   "voice/fox/ouch-3.mp3"
+  ],
+  "voice/fox/ready": [
+   "voice/fox/ready-1.mp3",
+   "voice/fox/ready-2.mp3"
+  ],
+  "voice/fox/woo": [
+   "voice/fox/woo-1.mp3",
+   "voice/fox/woo-2.mp3"
+  ],
+  "voice/fox/yay": [
+   "voice/fox/yay-1.mp3",
+   "voice/fox/yay-2.mp3",
+   "voice/fox/yay-3.mp3"
+  ],
+  "voice/hotdog/aww": [
+   "voice/hotdog/aww-1.mp3",
+   "voice/hotdog/aww-2.mp3"
+  ],
+  "voice/hotdog/gasp": [
+   "voice/hotdog/gasp-1.mp3",
+   "voice/hotdog/gasp-2.wav"
+  ],
+  "voice/hotdog/hello": [
+   "voice/hotdog/hello-1.mp3",
+   "voice/hotdog/hello-2.mp3"
+  ],
+  "voice/hotdog/laugh": [
+   "voice/hotdog/laugh-1.mp3",
+   "voice/hotdog/laugh-2.mp3"
+  ],
+  "voice/hotdog/ouch": [
+   "voice/hotdog/ouch-1.mp3",
+   "voice/hotdog/ouch-2.mp3",
+   "voice/hotdog/ouch-3.mp3"
+  ],
+  "voice/hotdog/ready": [
+   "voice/hotdog/ready-1.mp3",
+   "voice/hotdog/ready-2.mp3"
+  ],
+  "voice/hotdog/woo": [
+   "voice/hotdog/woo-1.mp3",
+   "voice/hotdog/woo-2.mp3"
+  ],
+  "voice/hotdog/yay": [
+   "voice/hotdog/yay-1.mp3",
+   "voice/hotdog/yay-2.mp3",
+   "voice/hotdog/yay-3.mp3"
+  ],
+  "voice/kpop-girls/aww": [
+   "voice/kpop-girls/aww-1.mp3",
+   "voice/kpop-girls/aww-2.mp3"
+  ],
+  "voice/kpop-girls/gasp": [
+   "voice/kpop-girls/gasp-1.mp3",
+   "voice/kpop-girls/gasp-2.mp3"
+  ],
+  "voice/kpop-girls/hello": [
+   "voice/kpop-girls/hello-1.mp3",
+   "voice/kpop-girls/hello-2.mp3"
+  ],
+  "voice/kpop-girls/laugh": [
+   "voice/kpop-girls/laugh-1.mp3",
+   "voice/kpop-girls/laugh-2.mp3"
+  ],
+  "voice/kpop-girls/ouch": [
+   "voice/kpop-girls/ouch-1.mp3",
+   "voice/kpop-girls/ouch-2.mp3",
+   "voice/kpop-girls/ouch-3.mp3"
+  ],
+  "voice/kpop-girls/ready": [
+   "voice/kpop-girls/ready-1.mp3",
+   "voice/kpop-girls/ready-2.mp3"
+  ],
+  "voice/kpop-girls/woo": [
+   "voice/kpop-girls/woo-1.mp3",
+   "voice/kpop-girls/woo-2.mp3"
+  ],
+  "voice/kpop-girls/yay": [
+   "voice/kpop-girls/yay-1.mp3",
+   "voice/kpop-girls/yay-2.mp3"
+  ],
+  "voice/marina/aww": [
+   "voice/marina/aww-1.mp3",
+   "voice/marina/aww-2.mp3"
+  ],
+  "voice/marina/gasp": [
+   "voice/marina/gasp-1.wav",
+   "voice/marina/gasp-2.mp3"
+  ],
+  "voice/marina/hello": [
+   "voice/marina/hello-1.mp3",
+   "voice/marina/hello-2.mp3"
+  ],
+  "voice/marina/laugh": [
+   "voice/marina/laugh-1.mp3",
+   "voice/marina/laugh-2.mp3"
+  ],
+  "voice/marina/ouch": [
+   "voice/marina/ouch-1.mp3",
+   "voice/marina/ouch-2.mp3",
+   "voice/marina/ouch-3.mp3"
+  ],
+  "voice/marina/ready": [
+   "voice/marina/ready-1.mp3",
+   "voice/marina/ready-2.mp3"
+  ],
+  "voice/marina/woo": [
+   "voice/marina/woo-1.mp3",
+   "voice/marina/woo-2.mp3"
+  ],
+  "voice/marina/yay": [
+   "voice/marina/yay-1.mp3",
+   "voice/marina/yay-2.mp3",
+   "voice/marina/yay-3.mp3"
+  ],
+  "voice/marshmallow-birthday-cake/aww": [
+   "voice/marshmallow-birthday-cake/aww-1.mp3",
+   "voice/marshmallow-birthday-cake/aww-2.mp3"
+  ],
+  "voice/marshmallow-birthday-cake/gasp": "voice/marshmallow-birthday-cake/gasp-2.mp3",
+  "voice/marshmallow-birthday-cake/hello": [
+   "voice/marshmallow-birthday-cake/hello-1.mp3",
+   "voice/marshmallow-birthday-cake/hello-2.mp3"
+  ],
+  "voice/marshmallow-birthday-cake/laugh": [
+   "voice/marshmallow-birthday-cake/laugh-1.mp3",
+   "voice/marshmallow-birthday-cake/laugh-2.mp3"
+  ],
+  "voice/marshmallow-birthday-cake/ouch": [
+   "voice/marshmallow-birthday-cake/ouch-1.mp3",
+   "voice/marshmallow-birthday-cake/ouch-2.mp3",
+   "voice/marshmallow-birthday-cake/ouch-3.mp3"
+  ],
+  "voice/marshmallow-birthday-cake/ready": [
+   "voice/marshmallow-birthday-cake/ready-1.mp3",
+   "voice/marshmallow-birthday-cake/ready-2.mp3"
+  ],
+  "voice/marshmallow-birthday-cake/woo": [
+   "voice/marshmallow-birthday-cake/woo-1.mp3",
+   "voice/marshmallow-birthday-cake/woo-2.mp3"
+  ],
+  "voice/marshmallow-birthday-cake/yay": [
+   "voice/marshmallow-birthday-cake/yay-1.mp3",
+   "voice/marshmallow-birthday-cake/yay-2.mp3",
+   "voice/marshmallow-birthday-cake/yay-3.mp3"
+  ],
+  "voice/princess-amber/aww": [
+   "voice/princess-amber/aww-1.mp3",
+   "voice/princess-amber/aww-2.mp3"
+  ],
+  "voice/princess-amber/gasp": [
+   "voice/princess-amber/gasp-1.mp3",
+   "voice/princess-amber/gasp-2.wav"
+  ],
+  "voice/princess-amber/hello": [
+   "voice/princess-amber/hello-1.mp3",
+   "voice/princess-amber/hello-2.mp3"
+  ],
+  "voice/princess-amber/laugh": [
+   "voice/princess-amber/laugh-1.mp3",
+   "voice/princess-amber/laugh-2.mp3"
+  ],
+  "voice/princess-amber/ouch": [
+   "voice/princess-amber/ouch-1.mp3",
+   "voice/princess-amber/ouch-2.mp3",
+   "voice/princess-amber/ouch-3.mp3"
+  ],
+  "voice/princess-amber/ready": [
+   "voice/princess-amber/ready-1.mp3",
+   "voice/princess-amber/ready-2.mp3"
+  ],
+  "voice/princess-amber/woo": [
+   "voice/princess-amber/woo-1.mp3",
+   "voice/princess-amber/woo-2.mp3"
+  ],
+  "voice/princess-amber/yay": [
+   "voice/princess-amber/yay-1.mp3",
+   "voice/princess-amber/yay-2.mp3",
+   "voice/princess-amber/yay-3.mp3"
+  ],
+  "voice/scale/aww": [
+   "voice/scale/aww-1.mp3",
+   "voice/scale/aww-2.mp3"
+  ],
+  "voice/scale/gasp": [
+   "voice/scale/gasp-1.mp3",
+   "voice/scale/gasp-2.wav"
+  ],
+  "voice/scale/hello": [
+   "voice/scale/hello-1.mp3",
+   "voice/scale/hello-2.mp3"
+  ],
+  "voice/scale/laugh": [
+   "voice/scale/laugh-1.mp3",
+   "voice/scale/laugh-2.mp3"
+  ],
+  "voice/scale/ouch": [
+   "voice/scale/ouch-1.mp3",
+   "voice/scale/ouch-2.mp3",
+   "voice/scale/ouch-3.wav"
+  ],
+  "voice/scale/ready": [
+   "voice/scale/ready-1.mp3",
+   "voice/scale/ready-2.mp3"
+  ],
+  "voice/scale/woo": [
+   "voice/scale/woo-1.mp3",
+   "voice/scale/woo-2.mp3"
+  ],
+  "voice/scale/yay": [
+   "voice/scale/yay-1.mp3",
+   "voice/scale/yay-2.mp3",
+   "voice/scale/yay-3.mp3"
+  ],
+  "voice/snowstar/aww": [
+   "voice/snowstar/aww-1.mp3",
+   "voice/snowstar/aww-2.mp3"
+  ],
+  "voice/snowstar/gasp": [
+   "voice/snowstar/gasp-1.mp3",
+   "voice/snowstar/gasp-2.mp3"
+  ],
+  "voice/snowstar/hello": [
+   "voice/snowstar/hello-1.mp3",
+   "voice/snowstar/hello-2.mp3"
+  ],
+  "voice/snowstar/laugh": [
+   "voice/snowstar/laugh-1.mp3",
+   "voice/snowstar/laugh-2.mp3"
+  ],
+  "voice/snowstar/ouch": [
+   "voice/snowstar/ouch-1.mp3",
+   "voice/snowstar/ouch-2.mp3",
+   "voice/snowstar/ouch-3.mp3"
+  ],
+  "voice/snowstar/ready": [
+   "voice/snowstar/ready-1.mp3",
+   "voice/snowstar/ready-2.mp3"
+  ],
+  "voice/snowstar/woo": [
+   "voice/snowstar/woo-1.mp3",
+   "voice/snowstar/woo-2.mp3"
+  ],
+  "voice/snowstar/yay": [
+   "voice/snowstar/yay-1.mp3",
+   "voice/snowstar/yay-2.mp3",
+   "voice/snowstar/yay-3.mp3"
+  ],
+  "voice/unicorn/aww": [
+   "voice/unicorn/aww-1.mp3",
+   "voice/unicorn/aww-2.mp3"
+  ],
+  "voice/unicorn/gasp": [
+   "voice/unicorn/gasp-1.wav",
+   "voice/unicorn/gasp-2.wav"
+  ],
+  "voice/unicorn/hello": [
+   "voice/unicorn/hello-1.mp3",
+   "voice/unicorn/hello-2.mp3"
+  ],
+  "voice/unicorn/laugh": [
+   "voice/unicorn/laugh-1.mp3",
+   "voice/unicorn/laugh-2.mp3"
+  ],
+  "voice/unicorn/ouch": [
+   "voice/unicorn/ouch-1.wav",
+   "voice/unicorn/ouch-2.wav",
+   "voice/unicorn/ouch-3.mp3"
+  ],
+  "voice/unicorn/ready": [
+   "voice/unicorn/ready-1.mp3",
+   "voice/unicorn/ready-2.mp3"
+  ],
+  "voice/unicorn/woo": [
+   "voice/unicorn/woo-1.mp3",
+   "voice/unicorn/woo-2.mp3"
+  ],
+  "voice/unicorn/yay": [
+   "voice/unicorn/yay-1.mp3",
+   "voice/unicorn/yay-2.mp3",
+   "voice/unicorn/yay-3.mp3"
+  ],
+  "bead-click": [
+   "sfx/bead-click-1.wav",
+   "sfx/bead-click-2.wav",
+   "sfx/bead-click-3.wav"
+  ],
+  "bead-zip": [
+   "sfx/bead-zip-1.wav",
+   "sfx/bead-zip-2.wav"
+  ],
+  "inst/bells": "sfx/inst/bells.mp3",
+  "inst/piano": "sfx/inst/piano.mp3",
+  "inst/marimba": "sfx/inst/marimba.mp3",
+  "inst/choir": "sfx/inst/choir.mp3",
+  "inst/kick": "sfx/inst/kick.wav",
+  "inst/clap": "sfx/inst/clap.wav",
+  "inst/shaker": "sfx/inst/shaker.wav",
+  "snow-throw": "sfx/snow-throw.wav",
+  "snow-splat": "sfx/snow-splat.wav",
+  "snow-land": "sfx/snow-land.wav",
+  "snow-thud": "sfx/snow-thud.wav",
+  "snow-scoop": "sfx/snow-scoop.wav",
+  "snow-pack": "sfx/snow-pack.wav",
+  "snow-rebuild": "sfx/snow-rebuild.mp3",
+  "snow-powerup": "sfx/snow-powerup.mp3",
+  "snow-powerup-get": "sfx/snow-powerup-get.mp3",
+  "snow-giant-roll": "sfx/snow-giant-roll.mp3",
+  "snow-burst": "sfx/snow-burst.mp3",
+  "snow-frenzy": "sfx/snow-frenzy.mp3",
+  "fish-cast": "sfx/fish-cast.wav",
+  "fish-plop": "sfx/fish-plop.wav",
+  "fish-nibble": "sfx/fish-nibble.wav",
+  "fish-bite": "sfx/fish-bite.mp3",
+  "fish-hook": "sfx/fish-hook.mp3",
+  "fish-reel": "sfx/fish-reel.wav",
+  "fish-tug": "sfx/fish-tug.mp3",
+  "fish-creak": "sfx/fish-creak.mp3",
+  "fish-snap": "sfx/fish-snap.mp3",
+  "fish-catch": "sfx/fish-catch.mp3",
+  "fish-missed": "sfx/fish-missed.mp3",
+  "fish-scare": "sfx/fish-scare.mp3",
+  "fish-boot": "sfx/fish-boot.mp3",
+  "fish-duck": "sfx/fish-duck.wav",
+  "tug-heave": "sfx/tug-heave.mp3",
+  "tug-team-heave": "sfx/tug-team-heave.mp3",
+  "tug-superpull": "sfx/tug-superpull.mp3",
+  "tug-yank": "sfx/tug-yank.mp3",
+  "tug-splash": "sfx/tug-splash.mp3",
+  "tug-pop-out": "sfx/tug-pop-out.wav",
+  "tug-banana": "sfx/tug-banana.mp3",
+  "tug-slip": "sfx/tug-slip.wav",
+  "tug-hop": "sfx/tug-hop.wav",
+  "tug-plop": "sfx/tug-plop.wav",
+  "jr-slap": "sfx/jr-slap.wav",
+  "jr-whoosh": "sfx/jr-whoosh.mp3",
+  "jr-hop": "sfx/jr-hop.wav",
+  "jr-tangle": "sfx/jr-tangle.mp3",
+  "jr-double": "sfx/jr-double.mp3",
+  "jr-slowdown": "sfx/jr-slowdown.mp3",
+  "jr-speedup": "sfx/jr-speedup.mp3",
+  "cush-scratch": "sfx/cush-scratch.mp3",
+  "cush-plop": "sfx/cush-plop.wav",
+  "cush-boing": "sfx/cush-boing.mp3",
+  "cush-out": "sfx/cush-out.mp3",
+  "cush-fakeout": "sfx/cush-fakeout.mp3",
+  "cush-needle": "sfx/cush-needle.wav",
+  "pancake-flip": "sfx/pancake-flip.mp3",
+  "pancake-plop": "sfx/pancake-plop.wav",
+  "pancake-perfect": "sfx/pancake-perfect.mp3",
+  "pancake-crash": "sfx/pancake-crash.mp3",
+  "syrup-pour": "sfx/syrup-pour.mp3",
+  "tower-wobble": "sfx/tower-wobble.mp3",
+  "topping-squish": "sfx/topping-squish.mp3",
+  "td-beep": "sfx/td-beep.wav",
+  "td-dig": "sfx/td-dig.mp3",
+  "td-treasure": "sfx/td-treasure.mp3",
+  "td-jackpot": "sfx/td-jackpot.mp3",
+  "td-crab": "sfx/td-crab.mp3",
+  "td-seaweed": "sfx/td-seaweed.mp3",
+  "td-sock": "sfx/td-sock.mp3",
+  "td-wave": "sfx/td-wave.mp3",
+  "td-chest-thunk": "sfx/td-chest-thunk.wav",
+  "td-chest-open": "sfx/td-chest-open.mp3",
+  "td-goldrush": "sfx/td-goldrush.mp3",
+  "cloudhop-bounce": "sfx/cloudhop-bounce.wav",
+  "cloudhop-spring": "sfx/cloudhop-spring.mp3",
+  "cloudhop-poof": "sfx/cloudhop-poof.wav",
+  "cloudhop-flutter": "sfx/cloudhop-flutter.mp3",
+  "cloudhop-star": "sfx/cloudhop-star.mp3",
+  "cloudhop-rocket": "sfx/cloudhop-rocket.mp3",
+  "cloudhop-bubble": "sfx/cloudhop-bubble.mp3",
+  "cloudhop-bonk": "sfx/cloudhop-bonk.wav",
+  "cloudhop-finish": "sfx/cloudhop-finish.mp3",
+  "pinata-swish": "sfx/pinata-swish.wav",
+  "pinata-whack": "sfx/pinata-whack.wav",
+  "pinata-crack": "sfx/pinata-crack.mp3",
+  "pinata-burst": "sfx/pinata-burst.mp3",
+  "pinata-candy-bounce": "sfx/pinata-candy-bounce.wav",
+  "pinata-rope": "sfx/pinata-rope.mp3",
+  "golf-putt": "sfx/golf-putt.wav",
+  "golf-clack": "sfx/golf-clack.wav",
+  "golf-rail": "sfx/golf-rail.wav",
+  "golf-gumdrop": "sfx/golf-gumdrop.wav",
+  "golf-whack": "sfx/golf-whack.wav",
+  "golf-jelly": "sfx/golf-jelly.mp3",
+  "golf-cup": "sfx/golf-cup.mp3",
+  "golf-hio": "sfx/golf-hio.mp3",
+  "golf-lip": "sfx/golf-lip.wav",
+  "golf-choc-splash": "sfx/golf-choc-splash.mp3",
+  "golf-warp": "sfx/golf-warp.mp3",
+  "golf-warp-out": "sfx/golf-warp-out.wav",
+  "golf-charge": "sfx/golf-charge.wav",
+  "golf-wipe": "sfx/golf-wipe.mp3",
+  "sm-place": "sfx/sm-place.wav",
+  "sm-link": "sfx/sm-link.mp3",
+  "sm-pickup": "sfx/sm-pickup.wav",
+  "sm-drop": "sfx/sm-drop.wav",
+  "sm-remove": "sfx/sm-remove.mp3",
+  "sm-lift": "sfx/sm-lift.wav",
+  "sm-alive": "sfx/sm-alive.mp3",
+  "sm-unfinish": "sfx/sm-unfinish.mp3",
+  "sm-trick": "sfx/sm-trick.mp3",
+  "sm-greet": "sfx/sm-greet.mp3",
+  "sm-shooting": "sfx/sm-shooting.mp3",
+  "sm-wish": "sfx/sm-wish.mp3",
+  "sm-moon": "sfx/sm-moon.mp3",
+  "sc-mold-plop": "sfx/sc-mold-plop.mp3",
+  "sc-dig": "sfx/sc-dig.mp3",
+  "sc-water": "sfx/sc-water.mp3",
+  "sc-shell": "sfx/sc-shell.mp3",
+  "sc-flag": "sfx/sc-flag.wav",
+  "sc-remove": "sfx/sc-remove.mp3",
+  "sc-fill": "sfx/sc-fill.mp3",
+  "sc-crab": "sfx/sc-crab.mp3",
+  "sc-crab-giggle": "sfx/sc-crab-giggle.mp3",
+  "sc-wave": "sfx/sc-wave.mp3",
+  "sc-sunset": "sfx/sc-sunset.mp3",
+  "pt-curtain": "sfx/pt-curtain.mp3",
+  "pt-laugh": "sfx/pt-laugh.mp3",
+  "pt-honk": "sfx/pt-honk.mp3",
+  "pt-slide-whistle": "sfx/pt-slide-whistle.mp3",
+  "pt-pop": "sfx/pt-pop.wav",
+  "pt-peekaboo": "sfx/pt-peekaboo.wav",
+  "pt-popup": "sfx/pt-popup.wav",
+  "pt-twirl": "sfx/pt-twirl.wav",
+  "pt-bonk": "sfx/pt-bonk.wav",
+  "pt-sock-chatter": "sfx/pt-sock-chatter.mp3",
+  "pt-place": "sfx/pt-place.wav",
+  "pt-poof": "sfx/pt-poof.mp3",
+  "pt-backdrop": "sfx/pt-backdrop.mp3",
+  "snowman-roll": "sfx/snowman-roll.mp3",
+  "snowman-pat": "sfx/snowman-pat.mp3",
+  "snowman-stack": "sfx/snowman-stack.mp3",
+  "snowman-built": "sfx/snowman-built.mp3",
+  "snowman-place": "sfx/snowman-place.wav",
+  "snowman-alive": "sfx/snowman-alive.mp3",
+  "nail-brush": "sfx/nail-brush.mp3",
+  "nail-bottle-clink": "sfx/nail-bottle-clink.wav",
+  "nail-wipe": "sfx/nail-wipe.wav",
+  "nail-pattern": "sfx/nail-pattern.wav",
+  "nail-glitter": "sfx/nail-glitter.mp3",
+  "nail-gem-click": "sfx/nail-gem-click.wav",
+  "nail-fan": "sfx/nail-fan.wav",
+  "nail-dry-ding": "sfx/nail-dry-ding.mp3",
+  "nail-all-done": "sfx/nail-all-done.mp3",
+  "pottery-wheel-hum": "sfx/pottery-wheel-hum.mp3",
+  "pottery-squish": "sfx/pottery-squish.mp3",
+  "pottery-plop": "sfx/pottery-plop.mp3",
+  "pottery-kiln-door": "sfx/pottery-kiln-door.wav",
+  "pottery-bellows": "sfx/pottery-bellows.wav",
+  "pottery-ding": "sfx/pottery-ding.mp3",
+  "pottery-reveal": "sfx/pottery-reveal.mp3",
+  "pottery-glaze": "sfx/pottery-glaze.mp3",
+  "pottery-swish": "sfx/pottery-swish.wav",
+  "pottery-dab": "sfx/pottery-dab.wav",
+  "pottery-sticker": "sfx/pottery-sticker.wav",
+  "pottery-clink": "sfx/pottery-clink.wav",
+  "salon-snip": "sfx/salon-snip.wav",
+  "salon-spray": "sfx/salon-spray.mp3",
+  "salon-grow": "sfx/salon-grow.mp3",
+  "salon-curl": "sfx/salon-curl.mp3",
+  "salon-steam": "sfx/salon-steam.mp3",
+  "salon-poof": "sfx/salon-poof.mp3",
+  "salon-chair-spin": "sfx/salon-chair-spin.mp3",
+  "salon-clip": "sfx/salon-clip.wav",
+  "salon-tada": "sfx/salon-tada.mp3",
+  "ds-clap": "sfx/ds-clap.wav",
+  "ds-twirl": "sfx/ds-twirl.mp3",
+  "ds-slide": "sfx/ds-slide.mp3",
+  "ds-curtain": "sfx/ds-curtain.mp3",
+  "ac-boing": "sfx/ac-boing.wav",
+  "ac-flip": "sfx/ac-flip.wav",
+  "ac-clap": "sfx/ac-clap.mp3",
+  "ac-tada": "sfx/ac-tada.mp3",
+  "ac-catch": "sfx/ac-catch.wav",
+  "ac-net": "sfx/ac-net.mp3",
+  "ac-wobble": "sfx/ac-wobble.mp3",
+  "ac-pop": "sfx/ac-pop.wav",
+  "ac-stack": "sfx/ac-stack.wav",
+  "aq-plop": "sfx/aq-plop.mp3",
+  "aq-splash": "sfx/aq-splash.mp3",
+  "aq-name": "sfx/aq-name.mp3",
+  "aq-feed": "sfx/aq-feed.mp3",
+  "aq-munch": "sfx/aq-munch.wav",
+  "aq-tap": "sfx/aq-tap.wav",
+  "aq-scared": "sfx/aq-scared.wav",
+  "aq-volcano": "sfx/aq-volcano.mp3",
+  "aq-chest": "sfx/aq-chest.wav",
+  "aq-chest-close": "sfx/aq-chest-close.wav",
+  "aq-kiss": "sfx/aq-kiss.wav",
+  "aq-puff": "sfx/aq-puff.mp3",
+  "aq-wiggle": "sfx/aq-wiggle.mp3",
+  "aq-sand": "sfx/aq-sand.mp3",
+  "sock-pickup": "sfx/sock-pickup.mp3",
+  "sock-match": "sfx/sock-match.mp3",
+  "sock-rocket": "sfx/sock-rocket.mp3",
+  "sock-pin": "sfx/sock-pin.wav",
+  "sock-basket-burst": "sfx/sock-basket-burst.mp3",
+  "sock-flyoff": "sfx/sock-flyoff.mp3",
+  "sock-puppy-yip": "sfx/sock-puppy-yip.mp3",
+  "sock-puppy-grab": "sfx/sock-puppy-grab.wav",
+  "uh-gallop": "sfx/uh-gallop.mp3",
+  "uh-hop": "sfx/uh-hop.wav",
+  "uh-land": "sfx/uh-land.wav",
+  "uh-clear": "sfx/uh-clear.mp3",
+  "uh-rainbow": "sfx/uh-rainbow.mp3",
+  "uh-splash": "sfx/uh-splash.mp3",
+  "uh-boing": "sfx/uh-boing.mp3",
+  "uh-bunny": "sfx/uh-bunny.wav",
+  "uh-bunny-boing": "sfx/uh-bunny-boing.mp3",
+  "uh-star": "sfx/uh-star.wav",
+  "uh-candy": "sfx/uh-candy.wav",
+  "uh-lolly": "sfx/uh-lolly.mp3",
+  "uh-rush": "sfx/uh-rush.mp3",
+  "mp-zoom": "sfx/mp-zoom.mp3",
+  "mp-pearl": "sfx/mp-pearl.wav",
+  "mp-gold": "sfx/mp-gold.mp3",
+  "mp-chest-plink": "sfx/mp-chest-plink.wav",
+  "mp-clam-open": "sfx/mp-clam-open.mp3",
+  "mp-clam-snap": "sfx/mp-clam-snap.wav",
+  "mp-clam-happy": "sfx/mp-clam-happy.wav",
+  "mp-clam-giggle": "sfx/mp-clam-giggle.mp3",
+  "mp-chomp": "sfx/mp-chomp.mp3",
+  "mp-vent": "sfx/mp-vent.mp3",
+  "mp-bubble-pop": "sfx/mp-bubble-pop.wav",
+  "mp-current": "sfx/mp-current.mp3",
+  "mp-tickle": "sfx/mp-tickle.mp3",
+  "mp-octo-giggle": "sfx/mp-octo-giggle.mp3",
+  "mp-octo-laugh": "sfx/mp-octo-laugh.mp3",
+  "mp-octo-snore": "sfx/mp-octo-snore.mp3",
+  "mp-octo-yawn": "sfx/mp-octo-yawn.mp3",
+  "mp-octo-throw": "sfx/mp-octo-throw.wav",
+  "mp-rainbow-fish": "sfx/mp-rainbow-fish.mp3",
+  "mp-fish-join": "sfx/mp-fish-join.mp3",
+  "mp-milestone": "sfx/mp-milestone.mp3",
+  "mp-storm": "sfx/mp-storm.mp3",
+  "mp-chest-open": "sfx/mp-chest-open.mp3",
+  "pp-pop": "sfx/pp-pop.mp3",
+  "pp-boop": "sfx/pp-boop.wav",
+  "pp-giggle": "sfx/pp-giggle.mp3",
+  "pp-candy-spit": "sfx/pp-candy-spit.mp3",
+  "pp-raspberry": "sfx/pp-raspberry.mp3",
+  "pp-golden-pop": "sfx/pp-golden-pop.mp3",
+  "pp-golden-boop": "sfx/pp-golden-boop.mp3",
+  "pp-candy-rain": "sfx/pp-candy-rain.mp3",
+  "pp-meow": "sfx/pp-meow.mp3",
+  "pp-purr": "sfx/pp-purr.mp3",
+  "pp-party": "sfx/pp-party.mp3",
+  "gg-giggle": "sfx/gg-giggle.mp3",
+  "gg-tickle": "sfx/gg-tickle.wav",
+  "gg-teehee": "sfx/gg-teehee.mp3",
+  "gg-whoosh": "sfx/gg-whoosh.mp3",
+  "gg-peek": "sfx/gg-peek.wav",
+  "gg-curtain": "sfx/gg-curtain.mp3",
+  "gg-peekaboo": "sfx/gg-peekaboo.mp3",
+  "gg-costume": "sfx/gg-costume.mp3",
+  "gg-wave": "sfx/gg-wave.mp3",
+  "gg-party": "sfx/gg-party.mp3",
+  "kit-mew": "sfx/kit-mew.wav",
+  "kit-purr": "sfx/kit-purr.mp3",
+  "kit-plop": "sfx/kit-plop.wav",
+  "kit-boing": "sfx/kit-boing.mp3",
+  "kit-pounce": "sfx/kit-pounce.mp3",
+  "kit-nap": "sfx/kit-nap.wav",
+  "kit-fairy": "sfx/kit-fairy.mp3",
+  "kit-triple": "sfx/kit-triple.mp3",
+  "kit-party": "sfx/kit-party.mp3",
+  "sfc-catch": "sfx/sfc-catch.wav",
+  "sfc-big": "sfx/sfc-big.mp3",
+  "sfc-tongue": "sfx/sfc-tongue.wav",
+  "sfc-toss": "sfx/sfc-toss.wav",
+  "sfc-poof": "sfx/sfc-poof.mp3",
+  "sfc-wheee": "sfx/sfc-wheee.mp3",
+  "sfc-stage": "sfx/sfc-stage.mp3",
+  "sfc-done": "sfx/sfc-done.mp3",
+  "sfc-storm": "sfx/sfc-storm.mp3",
+  "tot-knock": "sfx/tot-knock.wav",
+  "tot-door": "sfx/tot-door.mp3",
+  "tot-ding": "sfx/tot-ding.mp3",
+  "tot-candy": "sfx/tot-candy.mp3",
+  "tot-skeleton": "sfx/tot-skeleton.mp3",
+  "tot-witch": "sfx/tot-witch.mp3",
+  "tot-scarecrow": "sfx/tot-scarecrow.mp3",
+  "tot-mummy": "sfx/tot-mummy.mp3",
+  "tot-meow": "sfx/tot-meow.mp3",
+  "tot-ghost": "sfx/tot-ghost.mp3",
+  "tot-popper": "sfx/tot-popper.wav",
+  "tot-chicken": "sfx/tot-chicken.mp3",
+  "tot-jack": "sfx/tot-jack.mp3",
+  "tot-fountain": "sfx/tot-fountain.mp3",
+  "tot-candy-ghost": "sfx/tot-candy-ghost.wav",
+  "tot-pour": "sfx/tot-pour.mp3",
+  "tot-boo": "sfx/tot-boo.wav",
+  "ws-appear": "sfx/ws-appear.mp3",
+  "ws-burst": "sfx/ws-burst.mp3",
+  "ws-whoosh": "sfx/ws-whoosh.mp3",
+  "ws-spell": "sfx/ws-spell.mp3",
+  "ws-frog": "sfx/ws-frog.mp3",
+  "ws-balloon": "sfx/ws-balloon.mp3",
+  "ws-rainbow": "sfx/ws-rainbow.mp3",
+  "cs-drop": "sfx/cs-drop.mp3",
+  "cs-squish": "sfx/cs-squish.wav",
+  "cs-perfect": "sfx/cs-perfect.mp3",
+  "cs-pop-in": "sfx/cs-pop-in.wav",
+  "cs-candle-light": "sfx/cs-candle-light.mp3",
+  "cs-milestone": "sfx/cs-milestone.mp3",
+  "cs-blow": "sfx/cs-blow.mp3",
+  "bp-pop": "sfx/bp-pop.wav",
+  "bp-bigpop": "sfx/bp-bigpop.mp3",
+  "bp-blast": "sfx/bp-blast.mp3",
+  "bp-boing": "sfx/bp-boing.mp3",
+  "bp-wobble": "sfx/bp-wobble.mp3",
+  "bp-quack": "sfx/bp-quack.mp3",
+  "bp-bath": "sfx/bp-bath.mp3",
+  "bf-boing": "sfx/bf-boing.mp3",
+  "bf-gust": "sfx/bf-gust.mp3",
+  "bf-cloud-giggle": "sfx/bf-cloud-giggle.mp3",
+  "bf-chirp": "sfx/bf-chirp.mp3",
+  "bf-heart": "sfx/bf-heart.wav",
+  "bf-golden": "sfx/bf-golden.mp3",
+  "bf-shower": "sfx/bf-shower.mp3",
+  "bf-rise": "sfx/bf-rise.mp3",
+  "rp-spray": "sfx/rp-spray.wav",
+  "rp-band": "sfx/rp-band.mp3",
+  "rp-alive": "sfx/rp-alive.mp3",
+  "rp-bird": "sfx/rp-bird.mp3",
+  "rp-firework": "sfx/rp-firework.mp3",
+  "rp-splash": "sfx/rp-splash.mp3",
+  "rp-boing": "sfx/rp-boing.mp3",
+  "rp-star": "sfx/rp-star.mp3",
+  "rp-snore": "sfx/rp-snore.mp3",
+  "rp-sun-wake": "sfx/rp-sun-wake.mp3",
+  "rp-party": "sfx/rp-party.mp3",
+  "gg-plant": "sfx/gg-plant.mp3",
+  "gg-water": "sfx/gg-water.mp3",
+  "gg-sprout": "sfx/gg-sprout.wav",
+  "gg-pop": "sfx/gg-pop.mp3",
+  "gg-carrot": "sfx/gg-carrot.mp3",
+  "gg-boing": "sfx/gg-boing.wav",
+  "gg-whee": "sfx/gg-whee.mp3",
+  "gg-roll": "sfx/gg-roll.mp3",
+  "gg-achoo": "sfx/gg-achoo.mp3",
+  "gg-rain": "sfx/gg-rain.mp3",
+  "dp-quack": "sfx/dp-quack.wav",
+  "dp-call": "sfx/dp-call.mp3",
+  "dp-peek": "sfx/dp-peek.wav",
+  "dp-sneeze": "sfx/dp-sneeze.mp3",
+  "dp-hiccup": "sfx/dp-hiccup.wav",
+  "dp-twirl": "sfx/dp-twirl.mp3",
+  "dp-splash": "sfx/dp-splash.wav",
+  "dp-golden": "sfx/dp-golden.mp3",
+  "dp-rush": "sfx/dp-rush.mp3",
+  "dp-milestone": "sfx/dp-milestone.mp3",
+  "dp-hooray": "sfx/dp-hooray.mp3",
+  "dp-parade": "sfx/dp-parade.mp3",
+  "ps-bark": "sfx/ps-bark.wav",
+  "ps-big-woof": "sfx/ps-big-woof.mp3",
+  "ps-shake": "sfx/ps-shake.mp3",
+  "ps-clean": "sfx/ps-clean.mp3",
+  "ps-hose": "sfx/ps-hose.mp3",
+  "ps-spray": "sfx/ps-spray.wav",
+  "ps-scrub": "sfx/ps-scrub.wav",
+  "ps-squelch": "sfx/ps-squelch.wav",
+  "ps-flop": "sfx/ps-flop.wav",
+  "ps-bubbles": "sfx/ps-bubbles.mp3",
+  "ps-zoomies": "sfx/ps-zoomies.wav",
+  "ps-hooray": "sfx/ps-hooray.mp3",
+  "ff-loop": "sfx/ff-loop.mp3",
+  "ff-wheee": "sfx/ff-wheee.mp3",
+  "ff-rainbow": "sfx/ff-rainbow.mp3",
+  "ff-star": "sfx/ff-star.mp3",
+  "ff-dew": "sfx/ff-dew.wav",
+  "ff-bee-giggle": "sfx/ff-bee-giggle.mp3",
+  "ff-jar-chime": "sfx/ff-jar-chime.mp3",
+  "ff-jar-full": "sfx/ff-jar-full.mp3",
+  "ff-firework": "sfx/ff-firework.mp3",
+  "ff-shower": "sfx/ff-shower.mp3",
+  "fhs-giggle": "sfx/fhs-giggle.mp3",
+  "fhs-pop": "sfx/fhs-pop.mp3",
+  "fhs-fairy-giggle": "sfx/fhs-fairy-giggle.mp3",
+  "fhs-boing": "sfx/fhs-boing.mp3",
+  "fhs-ribbit": "sfx/fhs-ribbit.mp3",
+  "fhs-snail": "sfx/fhs-snail.mp3",
+  "fhs-ladybug": "sfx/fhs-ladybug.mp3",
+  "fhs-hide": "sfx/fhs-hide.mp3",
+  "fhs-party": "sfx/fhs-party.mp3",
+  "fhs-finale": "sfx/fhs-finale.mp3",
+  "mm-squelch": "sfx/mm-squelch.mp3",
+  "mm-splat": "sfx/mm-splat.mp3",
+  "mm-shake": "sfx/mm-shake.mp3",
+  "mm-honk": "sfx/mm-honk.mp3",
+  "mm-gasp": "sfx/mm-gasp.wav",
+  "mm-hose": "sfx/mm-hose.mp3",
+  "mm-spray": "sfx/mm-spray.wav",
+  "mm-clean": "sfx/mm-clean.mp3",
+  "mm-bark": "sfx/mm-bark.wav",
+  "mm-bloop": "sfx/mm-bloop.mp3",
+  "mm-erupt": "sfx/mm-erupt.mp3",
+  "mm-slip": "sfx/mm-slip.mp3",
+  "mm-sploosh": "sfx/mm-sploosh.mp3",
+  "mm-granny-laugh": "sfx/mm-granny-laugh.mp3",
+  "mm-party": "sfx/mm-party.mp3",
+  "mm-throw": "sfx/mm-throw.wav",
+  "sd-snore": "sfx/sd-snore.mp3",
+  "sd-stir": "sfx/sd-stir.mp3",
+  "sd-hush": "sfx/sd-hush.wav",
+  "sd-peek": "sfx/sd-peek.wav",
+  "sd-hmm": "sfx/sd-hmm.mp3",
+  "sd-drop": "sfx/sd-drop.mp3",
+  "sd-grab": "sfx/sd-grab.wav",
+  "sd-freeze": "sfx/sd-freeze.mp3",
+  "sd-phew": "sfx/sd-phew.mp3",
+  "sd-yawn": "sfx/sd-yawn.mp3",
+  "sd-spin": "sfx/sd-spin.wav",
+  "sd-books": "sfx/sd-books.mp3",
+  "sd-lamp": "sfx/sd-lamp.mp3",
+  "sd-disco": "sfx/sd-disco.mp3",
+  "sd-wake": "sfx/sd-wake.mp3",
+  "sd-shades": "sfx/sd-shades.mp3",
+  "bb-boing": "sfx/bb-boing.mp3",
+  "bb-boing-big": "sfx/bb-boing-big.mp3",
+  "bb-flop": "sfx/bb-flop.wav",
+  "bb-pillow": "sfx/bb-pillow.mp3",
+  "bb-ceiling": "sfx/bb-ceiling.mp3",
+  "bb-footstep": "sfx/bb-footstep.wav",
+  "bb-handle": "sfx/bb-handle.mp3",
+  "bb-door-open": "sfx/bb-door-open.mp3",
+  "bb-door-shut": "sfx/bb-door-shut.wav",
+  "bb-snore": "sfx/bb-snore.mp3",
+  "bb-caught": "sfx/bb-caught.mp3",
+  "bb-moo": "sfx/bb-moo.mp3",
+  "bb-sigh": "sfx/bb-sigh.mp3",
+  "bb-giant": "sfx/bb-giant.mp3",
+  "pt-pick": "sfx/pt-pick.wav",
+  "pt-swoosh": "sfx/pt-swoosh.wav",
+  "pt-scribble": "sfx/pt-scribble.mp3",
+  "pt-prank": "sfx/pt-prank.mp3",
+  "pt-tickle": "sfx/pt-tickle.mp3",
+  "pt-achoo": "sfx/pt-achoo.mp3",
+  "pt-big-snore": "sfx/pt-big-snore.mp3",
+  "pt-stir": "sfx/pt-stir.mp3",
+  "pt-mumble": "sfx/pt-mumble.mp3",
+  "pt-swat": "sfx/pt-swat.wav",
+  "pt-boing": "sfx/pt-boing.wav",
+  "pt-freeze": "sfx/pt-freeze.wav",
+  "pt-roar-laugh": "sfx/pt-roar-laugh.mp3",
+  "pt-yawn": "sfx/pt-yawn.mp3",
+  "pt-fairy": "sfx/pt-fairy.mp3",
+  "ob-flip": "sfx/ob-flip.wav",
+  "ob-imp-giggle": "sfx/ob-imp-giggle.mp3",
+  "ob-golden": "sfx/ob-golden.mp3",
+  "ob-stamp": "sfx/ob-stamp.wav",
+  "ob-sproing": "sfx/ob-sproing.mp3",
+  "ob-huff": "sfx/ob-huff.mp3",
+  "ob-oops": "sfx/ob-oops.wav",
+  "ob-silly": "sfx/ob-silly.mp3",
+  "ob-statue": "sfx/ob-statue.wav",
+  "ob-tiara": "sfx/ob-tiara.wav",
+  "ob-sneeze": "sfx/ob-sneeze.mp3",
+  "ob-wig": "sfx/ob-wig.mp3",
+  "ob-shoo": "sfx/ob-shoo.mp3",
+  "ob-giveup": "sfx/ob-giveup.mp3",
+  "wt-gate": "sfx/wt-gate.mp3",
+  "wt-sit": "sfx/wt-sit.wav",
+  "wt-grab": "sfx/wt-grab.wav",
+  "wt-place": "sfx/wt-place.wav",
+  "wt-pfft": "sfx/wt-pfft.wav",
+  "wt-mega-pfft": "sfx/wt-mega-pfft.mp3",
+  "wt-gasp": "sfx/wt-gasp.mp3",
+  "wt-giggles": "sfx/wt-giggles.mp3",
+  "wt-cups": "sfx/wt-cups.wav",
+  "wt-hat": "sfx/wt-hat.wav",
+  "wt-hat-plop": "sfx/wt-hat-plop.wav",
+  "wt-butler": "sfx/wt-butler.mp3",
+  "wt-confiscate": "sfx/wt-confiscate.mp3",
+  "wt-frog": "sfx/wt-frog.mp3",
+  "wt-frog-get": "sfx/wt-frog-get.wav",
+  "wt-frog-spring": "sfx/wt-frog-spring.mp3",
+  "wt-heave": "sfx/wt-heave.mp3",
+  "wt-super": "sfx/wt-super.mp3",
+  "wt-duchess": "sfx/wt-duchess.mp3",
+  "wt-hat-launch": "sfx/wt-hat-launch.mp3",
+  "wt-moon": "sfx/wt-moon.mp3"
+ },
+ "music": {
+  "molly": {
+   "file": "music/molly-time.mp3",
+   "stream": true,
+   "label": "Molly Time"
+  },
+  "title": {
+   "file": "music/charlies-party.mp3",
+   "stream": true,
+   "label": "Charlie's Party"
+  },
+  "party": {
+   "file": "music/bubblegum-radar.mp3",
+   "stream": true,
+   "label": "Bubblegum Radar",
+   "takes": [
+    {
+     "file": "music/takes/title-1.mp3",
+     "take": 1,
+     "loopStart": 0.2,
+     "loopEnd": 46.65161,
+     "label": "New title theme"
+    },
+    {
+     "file": "music/takes/title-2.mp3",
+     "take": 2,
+     "loopStart": 0.2,
+     "loopEnd": 46.65161,
+     "label": "New title theme"
+    }
+   ]
+  },
+  "dance": {
+   "file": "music/takes/dance-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 64.2,
+   "label": "Shadow Banish",
+   "take": 1
+  },
+  "menu": {
+   "file": "music/takes/menu-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 34.485714,
+   "label": "Menu",
+   "take": 1,
+   "takes": [
+    {
+     "file": "music/takes/menu-3.mp3",
+     "take": 3,
+     "loopStart": 0.2,
+     "loopEnd": 51.628571
+    }
+   ]
+  },
+  "chill": {
+   "file": "music/takes/chill-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 62.808685,
+   "label": "Chill",
+   "take": 1
+  },
+  "chase": {
+   "file": "music/takes/chase-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 37.123084,
+   "label": "Chase",
+   "take": 1
+  },
+  "bouncy": {
+   "file": "music/takes/bouncy-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 45.2,
+   "label": "Bouncy",
+   "take": 1,
+   "takes": [
+    {
+     "file": "music/takes/bouncy-2.mp3",
+     "take": 2,
+     "loopStart": 0.2,
+     "loopEnd": 45.2
+    }
+   ]
+  },
+  "tense": {
+   "file": "music/takes/tense-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 32.2,
+   "label": "Tense",
+   "take": 1,
+   "takes": [
+    {
+     "file": "music/takes/tense-2.mp3",
+     "take": 2,
+     "loopStart": 0.2,
+     "loopEnd": 32.2
+    }
+   ]
+  },
+  "victory": {
+   "file": "music/takes/victory-2.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 43.836372,
+   "label": "Victory",
+   "take": 2
+  },
+  "gameon": {
+   "file": "music/takes/gameon-1.mp3",
+   "loopStart": 20.739002,
+   "loopEnd": 102.940907,
+   "label": "Game On Dash",
+   "take": 1,
+   "start": 0,
+   "offset": 0.189
+  },
+  "cozy": {
+   "file": "music/takes/cozy-1.mp3",
+   "loopStart": 17.62,
+   "loopEnd": 80.232109,
+   "label": "Cozy Craft Time",
+   "take": 1,
+   "start": 0
+  },
+  "runway": {
+   "file": "music/takes/runway-1.mp3",
+   "loopStart": 26.16,
+   "loopEnd": 104.829592,
+   "label": "Runway Glam",
+   "take": 1,
+   "start": 0
+  },
+  "splash": {
+   "file": "music/takes/splash-1.mp3",
+   "loopStart": 7.16,
+   "loopEnd": 62.526803,
+   "label": "Splash Lagoon",
+   "take": 1,
+   "start": 0
+  },
+  "spooky": {
+   "file": "music/takes/spooky-1.mp3",
+   "loopStart": 16.54,
+   "loopEnd": 74.598299,
+   "label": "Spooky Scramble",
+   "take": 1,
+   "start": 0
+  },
+  "sneaky": {
+   "file": "music/takes/sneaky-1.mp3",
+   "loopStart": 20.72,
+   "loopEnd": 59.117007,
+   "label": "Sneaky Tiptoes",
+   "take": 1,
+   "start": 0
+  }
+ }
+}

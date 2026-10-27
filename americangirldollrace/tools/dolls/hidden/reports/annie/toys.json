@@ -1,0 +1,452 @@
+{
+  "assetKey": "annie",
+  "sourceAnatomicalRatio": 1.5148090131198044,
+  "frames": [
+    {
+      "bounds": [
+        37,
+        9,
+        404,
+        409
+      ],
+      "packedScale": 1.1799410029498525,
+      "scale": 0.9447410276575259,
+      "renderScale": 0.9447410276575259,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        151.5,
+        345
+      ],
+      "placement": [
+        37,
+        9,
+        404,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        317,
+        345
+      ],
+      "sourceScale": 1.1147386757020954,
+      "hand": [
+        403,
+        189
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        71,
+        9,
+        350,
+        409
+      ],
+      "packedScale": 1.1560693641618498,
+      "scale": 0.9642489544823123,
+      "renderScale": 0.9642489544823123,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        125.5,
+        352
+      ],
+      "placement": [
+        71,
+        9,
+        350,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        247,
+        352
+      ],
+      "sourceScale": 1.1147386757020954,
+      "hand": [
+        347,
+        213
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        43,
+        9,
+        407,
+        409
+      ],
+      "packedScale": 1.1661807580174928,
+      "scale": 0.9558884144145466,
+      "renderScale": 0.9558884144145466,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        148.0,
+        349
+      ],
+      "placement": [
+        43,
+        9,
+        407,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        318,
+        349
+      ],
+      "sourceScale": 1.1147386757020954,
+      "hand": [
+        405,
+        177
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        64,
+        10,
+        378,
+        409
+      ],
+      "packedScale": 1.1527377521613833,
+      "scale": 0.9670358011715676,
+      "renderScale": 0.9670358011715676,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        132.0,
+        353
+      ],
+      "placement": [
+        64,
+        9,
+        378,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        278,
+        353
+      ],
+      "sourceScale": 1.1147386757020954,
+      "hand": [
+        376,
+        186
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        12,
+        25,
+        411,
+        409
+      ],
+      "packedScale": 1.1627906976744187,
+      "scale": 0.9586752611038019,
+      "renderScale": 0.9586752611038019,
+      "anchorX": 208.81395348837208,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        161.5,
+        336
+      ],
+      "placement": [
+        12,
+        25,
+        412,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        350,
+        336
+      ],
+      "sourceScale": 1.1147386757020954,
+      "hand": [
+        409,
+        166
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        12,
+        75,
+        412,
+        409
+      ],
+      "packedScale": 1.3201320132013201,
+      "scale": 0.8444145468443373,
+      "renderScale": 0.8444145468443373,
+      "anchorX": 214.7986798679868,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        147.5,
+        259
+      ],
+      "placement": [
+        12,
+        75,
+        412,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        309,
+        259
+      ],
+      "sourceScale": 1.1147386757020954,
+      "hand": [
+        392,
+        270
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        110,
+        10,
+        328,
+        409
+      ],
+      "packedScale": 1.1904761904761905,
+      "scale": 0.9384554228926862,
+      "renderScale": 0.9384554228926862,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        89.0,
+        342
+      ],
+      "placement": [
+        110,
+        9,
+        328,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        189,
+        342
+      ],
+      "sourceScale": 1.1172088367770074,
+      "hand": [
+        318,
+        185
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        139,
+        9,
+        297,
+        409
+      ],
+      "packedScale": 1.095890410958904,
+      "scale": 1.0194530635590193,
+      "renderScale": 1.0194530635590193,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        69.5,
+        371
+      ],
+      "placement": [
+        139,
+        9,
+        297,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        150,
+        371
+      ],
+      "sourceScale": 1.1172088367770074,
+      "hand": [
+        290,
+        169
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        112,
+        9,
+        314,
+        409
+      ],
+      "packedScale": 1.2048192771084338,
+      "scale": 0.9272833345249161,
+      "renderScale": 0.9272833345249161,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        86.5,
+        338
+      ],
+      "placement": [
+        112,
+        9,
+        314,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        174,
+        338
+      ],
+      "sourceScale": 1.1172088367770074,
+      "hand": [
+        302,
+        183
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        136,
+        9,
+        294,
+        409
+      ],
+      "packedScale": 1.0554089709762533,
+      "scale": 1.0585553728462145,
+      "renderScale": 1.0585553728462145,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        75.0,
+        385
+      ],
+      "placement": [
+        136,
+        9,
+        294,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        156,
+        385
+      ],
+      "sourceScale": 1.1172088367770074,
+      "hand": [
+        285,
+        158
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        113,
+        9,
+        364,
+        409
+      ],
+      "packedScale": 1.0554089709762533,
+      "scale": 1.0585553728462145,
+      "renderScale": 1.0585553728462145,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        96.5,
+        385
+      ],
+      "placement": [
+        113,
+        9,
+        364,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        244,
+        385
+      ],
+      "sourceScale": 1.1172088367770074,
+      "hand": [
+        363,
+        103
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        25,
+        9,
+        412,
+        409
+      ],
+      "packedScale": 1.183431952662722,
+      "scale": 0.9440414670765712,
+      "renderScale": 0.9440414670765712,
+      "anchorX": 201.96449704142012,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "sourceAnchor": [
+        142.0,
+        344
+      ],
+      "placement": [
+        25,
+        9,
+        412,
+        409
+      ],
+      "sourceBounds": [
+        6,
+        6,
+        333,
+        344
+      ],
+      "sourceScale": 1.1172088367770074,
+      "hand": [
+        280,
+        171
+      ],
+      "wandTip": null
+    }
+  ],
+  "sha256": "9d82fc5394a7edfe79495dc1eabe542e0d2261d707e0edc57ce6dee7e19aa676",
+  "maskSha256": "2b92d87f72917a7f13efcacf96cf4e03727d814264abfb7d817a3735d1310ba9"
+}

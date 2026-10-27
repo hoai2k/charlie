@@ -1,0 +1,599 @@
+{
+  "game": "cupcake-stack",
+  "assets": [
+    {
+      "key": "bg/cupcake-stack",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Full screen at ground level; scrolling background top edge must blend to plain #8fd6ff sky; lawn at y\u2248900\u20131010, cake stand center x960 foot y\u2248930; keep center column calm.",
+      "description": "Sunny garden birthday party with soft blue sky, sparse high clouds, bunting and paper lanterns between far-left/right trees, pastel picket fence, balloons tied to fence, striped grass lawn foreground; calm empty central tower column.",
+      "prompt": "Use case: illustration-story. Asset type: 16:9 opaque background for a kids' stacking game, final 1920\u00d71080. Primary request: A sunny garden birthday party, soft sky blue with only a few small clouds, two leafy trees at far left and far right with bunting and paper lanterns between them, pastel picket fence and a few balloons tied along it, striped green lawn in foreground. Layout: keep a clear calm empty vertical column through the center for a tall cupcake tower; lawn and characters occupy bottom y\u2248900\u20131010 of the final canvas, cake-stand foot at x\u2248960 y\u2248930. Make the TOP edge blend smoothly into a nearly plain solid sky color #8fd6ff so the game can scroll upward. Style: polished 2D candy-cartoon illustration, bold smooth dark navy #24163f outlines, rounded friendly forms, clean bright colors, soft cel shading. No 3D, no photorealism, no text, no watermark.",
+      "source": "party/reference/pending/molly-sources/cupcake-stack/bg-cupcake-stack.webp",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "file": "party/assets/art/bg/cupcake-stack.webp",
+      "width": 1920,
+      "height": 1080,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": null,
+      "actualGeometry": "Scaled from 1672x941 (16:9) to exact requested canvas; evaluated as a full-canvas opaque scene.",
+      "bytes": 169140,
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e4eade78-54c8-43ac-b661-8e0ac9da2dc5.png",
+      "originalNativePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e4eade78-54c8-43ac-b661-8e0ac9da2dc5.png",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e4eade78-54c8-43ac-b661-8e0ac9da2dc5.png",
+      "editTarget": "party/assets/art/bg/cupcake-stack.webp",
+      "editStyleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-clownfish-orange.webp",
+      "editPrompt": "Use case: style-transfer. Image 1 is the existing scene target. Image 2 is an approved Aquarium fish illustration and style reference only. Change only the rendering style and the expressly described removals; preserve target layout, colors, spatial placement and requested background elements. Redraw as clean polished 2D children's game art: bold smooth dark navy #24163f outlines around all major shapes, rounded friendly forms, simple crisp color blocks, soft clean cel shading, bright candy palette. No 3D, no photorealism, no painterly brush texture or blurry gradients; do not add objects. Keep the sunny garden birthday background's same sky, far-side trees, bunting, lanterns, far-back pastel fence, small fence-tied balloons, open center and lawn band. Remove all foreground animals/characters, presents, cake stand, cupcakes and props that were added in the target; the game draws those separately. Preserve calm clear center, plain sky top edge #8fd6ff, and lawn at bottom. Opaque background, no text, watermark or border.",
+      "nativeOutputSize": [
+        1672,
+        941
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "runtimeFile": "party/assets/art/bg/cupcake-stack.webp",
+      "runtimeBytes": 169140,
+      "outputFormat": "WEBP RGB q86 method6",
+      "sourceBytes": 1333034,
+      "sourceFormat": "WEBP RGBA lossless",
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e4eade78-54c8-43ac-b661-8e0ac9da2dc5.png"
+    },
+    {
+      "key": "prop/cupcake-pink",
+      "size": [
+        256,
+        224
+      ],
+      "geometry": "bottom-centred on frosting/wrapper sprite, broad flat frosting top for stack; no topper",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone sprite prop for a preschool game. A single cute smiling cupcake, front view, full object, flat broad frosting top with no topper. Pink strawberry frosting with rainbow sprinkles, rounded pastel wrapper with narrow vertical stripes and a friendly face on the wrapper (shiny eyes, rosy cheeks). Bold smooth dark navy #24163f outline, clean bright candy colors, soft clean cel shading, crisp polished 2D game art. Transparent background, centered, no shadow beyond object, no text, no border, no watermark. Canvas 256x224.\n",
+      "source": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-pink-restyled.webp",
+      "sourceSize": [
+        1341,
+        1173
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-ef331ade-e837-4b51-8e85-1186c3ff851e.png",
+      "file": "party/assets/art/prop/cupcake-pink.webp",
+      "runtimeFile": "party/assets/art/prop/cupcake-pink.webp",
+      "width": 256,
+      "height": 224,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        43,
+        176,
+        1297,
+        1134
+      ],
+      "actualAlphaBBox": [
+        0,
+        28,
+        256,
+        224
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 17898,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-ef331ade-e837-4b51-8e85-1186c3ff851e.png",
+      "sourceBytes": 824980,
+      "sourceFormat": "WEBP RGBA lossless",
+      "originalSource": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-pink.webp",
+      "originalNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d1594725-f800-4e57-804d-48c0d5a43f23.png",
+      "editPrompt": "Use case: precise-object-edit. Image 1 is the exact current cupcake sprite target; Image 2 is an approved house-style illustration reference only. Make only one change: lower the pink frosting swirl so its upper silhouette is broadly and gently flattened, with a wide soft level top suitable for another cupcake to sit on it. Keep the pink frosting, rainbow sprinkles, striped wrapper, smiling face, proportions, bold smooth navy #24163f outline, crisp 2D cel-shaded style, lighting and transparency exactly consistent with Image 1. No cherry, topper, candle, or extra decorations. Preserve full-object framing and center position, transparent background, 256x224 canvas. No text, border, shadow plane or watermark.\n",
+      "editTarget": "party/assets/art/prop/cupcake-pink.webp",
+      "runtimeBytes": 17898
+    },
+    {
+      "key": "prop/cupcake-blue",
+      "size": [
+        256,
+        224
+      ],
+      "geometry": "bottom-centred on frosting/wrapper sprite, broad flat frosting top for stack; no topper",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone sprite prop for a preschool game. A single cute smiling cupcake, front view, full object, flat broad frosting top with no topper. Sky-blue vanilla frosting with rainbow sprinkles, rounded pastel wrapper with narrow vertical stripes and a friendly face on the wrapper (shiny eyes, rosy cheeks). Bold smooth dark navy #24163f outline, clean bright candy colors, soft clean cel shading, crisp polished 2D game art. Transparent background, centered, no shadow beyond object, no text, no border, no watermark. Canvas 256x224.\n",
+      "source": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-blue-restyled.webp",
+      "sourceSize": [
+        1341,
+        1173
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-0b80a397-2e11-493c-a5b8-73b2c8f899bd.png",
+      "file": "party/assets/art/prop/cupcake-blue.webp",
+      "runtimeFile": "party/assets/art/prop/cupcake-blue.webp",
+      "width": 256,
+      "height": 224,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        129,
+        232,
+        1209,
+        1158
+      ],
+      "actualAlphaBBox": [
+        0,
+        5,
+        256,
+        224
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 18468,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-0b80a397-2e11-493c-a5b8-73b2c8f899bd.png",
+      "sourceBytes": 679780,
+      "sourceFormat": "WEBP RGBA lossless",
+      "originalSource": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-blue.webp",
+      "originalNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-638380e8-e526-444b-92f3-04954004de45.png",
+      "editPrompt": "Use case: precise-object-edit. Image 1 is the exact current cupcake sprite target; Image 2 is an approved house-style illustration reference only. Make only one change: lower the sky-blue vanilla frosting swirl so its upper silhouette is broadly and gently flattened, with a wide soft level top suitable for another cupcake to sit on it. Keep the existing frosting color, rainbow sprinkles, striped wrapper, smiling face, proportions, bold smooth navy #24163f outline, crisp 2D cel-shaded style, lighting and transparency exactly consistent with Image 1. No cherry, topper, candle, or extra decorations. Preserve full-object framing and center position, transparent background, 256x224 canvas. No text, border, shadow plane or watermark.\n",
+      "editTarget": "party/assets/art/prop/cupcake-blue.webp",
+      "runtimeBytes": 18468
+    },
+    {
+      "key": "prop/cupcake-mint",
+      "size": [
+        256,
+        224
+      ],
+      "geometry": "Bottom-centred on frosting/wrapper sprite; broad flat frosting top for stacking; no topper.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone sprite prop for a preschool game. A single cute smiling cupcake, front view, full object, flat broad frosting top with no topper. Mint green frosting, rainbow sprinkles, pale mint striped wrapper. A rounded paper wrapper with narrow vertical stripes and a friendly face on the wrapper (shiny eyes, rosy cheeks). Bold smooth dark navy #24163f outline, clean bright candy colors, soft clean cel shading, crisp polished 2D game art. Transparent background, centered, no shadow beyond object, no text, no border, no watermark. Canvas 256x224.\n",
+      "source": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-mint-restyled.webp",
+      "sourceSize": [
+        1341,
+        1173
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-ee829b3e-7f72-4b62-a5b5-0c65811fd449.png",
+      "file": "party/assets/art/prop/cupcake-mint.webp",
+      "runtimeFile": "party/assets/art/prop/cupcake-mint.webp",
+      "width": 256,
+      "height": 224,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        190,
+        233,
+        1146,
+        1111
+      ],
+      "actualAlphaBBox": [
+        6,
+        0,
+        250,
+        224
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 19772,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-ee829b3e-7f72-4b62-a5b5-0c65811fd449.png",
+      "sourceBytes": 597938,
+      "sourceFormat": "WEBP RGBA lossless",
+      "originalSource": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-mint.webp",
+      "originalNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b4c63a96-2d2f-476e-a35c-93dfa90315ae.png",
+      "editPrompt": "Use case: precise-object-edit. Image 1 is the exact current cupcake sprite target; Image 2 is an approved house-style illustration reference only. Make only one change: lower the mint-green frosting swirl so its upper silhouette is broadly and gently flattened, with a wide soft level top suitable for another cupcake to sit on it. Keep the existing frosting color, rainbow sprinkles, striped wrapper, smiling face, proportions, bold smooth navy #24163f outline, crisp 2D cel-shaded style, lighting and transparency exactly consistent with Image 1. No cherry, topper, candle, or extra decorations. Preserve full-object framing and center position, transparent background, 256x224 canvas. No text, border, shadow plane or watermark.\n",
+      "editTarget": "party/assets/art/prop/cupcake-mint.webp",
+      "runtimeBytes": 19772
+    },
+    {
+      "key": "prop/cupcake-lemon",
+      "size": [
+        256,
+        224
+      ],
+      "geometry": "Bottom-centred on frosting/wrapper sprite; broad flat frosting top for stacking; no topper.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone sprite prop for a preschool game. A single cute smiling cupcake, front view, full object, flat broad frosting top with no topper. Lemon-yellow frosting, rainbow sprinkles, sunny yellow striped wrapper. A rounded paper wrapper with narrow vertical stripes and a friendly face on the wrapper (shiny eyes, rosy cheeks). Bold smooth dark navy #24163f outline, clean bright candy colors, soft clean cel shading, crisp polished 2D game art. Transparent background, centered, no shadow beyond object, no text, no border, no watermark. Canvas 256x224.\n",
+      "source": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-lemon-restyled.webp",
+      "sourceSize": [
+        1341,
+        1173
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-20ad8afb-db83-4995-be8f-137f655bc264.png",
+      "file": "party/assets/art/prop/cupcake-lemon.webp",
+      "runtimeFile": "party/assets/art/prop/cupcake-lemon.webp",
+      "width": 256,
+      "height": 224,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        160,
+        249,
+        1184,
+        1137
+      ],
+      "actualAlphaBBox": [
+        0,
+        2,
+        256,
+        224
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 21286,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-20ad8afb-db83-4995-be8f-137f655bc264.png",
+      "sourceBytes": 687682,
+      "sourceFormat": "WEBP RGBA lossless",
+      "originalSource": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-lemon.webp",
+      "originalNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e54c72e2-b1ee-4607-8e0f-2f5308fe0ee0.png",
+      "editPrompt": "Use case: precise-object-edit. Image 1 is the exact current cupcake sprite target; Image 2 is an approved house-style illustration reference only. Make only one change: lower the lemon-yellow frosting swirl so its upper silhouette is broadly and gently flattened, with a wide soft level top suitable for another cupcake to sit on it. Keep the existing frosting color, rainbow sprinkles, striped wrapper, smiling face, proportions, bold smooth navy #24163f outline, crisp 2D cel-shaded style, lighting and transparency exactly consistent with Image 1. No cherry, topper, candle, or extra decorations. Preserve full-object framing and center position, transparent background, 256x224 canvas. No text, border, shadow plane or watermark.\n",
+      "editTarget": "party/assets/art/prop/cupcake-lemon.webp",
+      "runtimeBytes": 21286
+    },
+    {
+      "key": "prop/cupcake-lilac",
+      "size": [
+        256,
+        224
+      ],
+      "geometry": "Bottom-centred on frosting/wrapper sprite; broad flat frosting top for stacking; no topper.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone sprite prop for a preschool game. A single cute smiling cupcake, front view, full object, flat broad frosting top with no topper. Lilac-purple frosting, rainbow sprinkles, soft lavender striped wrapper. A rounded paper wrapper with narrow vertical stripes and a friendly face on the wrapper (shiny eyes, rosy cheeks). Bold smooth dark navy #24163f outline, clean bright candy colors, soft clean cel shading, crisp polished 2D game art. Transparent background, centered, no shadow beyond object, no text, no border, no watermark. Canvas 256x224.\n",
+      "source": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-lilac-restyled.webp",
+      "sourceSize": [
+        1341,
+        1173
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-cbe134eb-6d70-4331-862c-1b4ddc7c7042.png",
+      "file": "party/assets/art/prop/cupcake-lilac.webp",
+      "runtimeFile": "party/assets/art/prop/cupcake-lilac.webp",
+      "width": 256,
+      "height": 224,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        129,
+        197,
+        1212,
+        1149
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        255,
+        224
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 19264,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-cbe134eb-6d70-4331-862c-1b4ddc7c7042.png",
+      "sourceBytes": 673638,
+      "sourceFormat": "WEBP RGBA lossless",
+      "originalSource": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-lilac.webp",
+      "originalNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-5036ae08-a94c-44d2-b697-b0ff4bef81f5.png",
+      "editPrompt": "Use case: precise-object-edit. Image 1 is the exact current cupcake sprite target; Image 2 is an approved house-style illustration reference only. Make only one change: lower the lilac-purple frosting swirl so its upper silhouette is broadly and gently flattened, with a wide soft level top suitable for another cupcake to sit on it. Keep the existing frosting color, rainbow sprinkles, striped wrapper, smiling face, proportions, bold smooth navy #24163f outline, crisp 2D cel-shaded style, lighting and transparency exactly consistent with Image 1. No cherry, topper, candle, or extra decorations. Preserve full-object framing and center position, transparent background, 256x224 canvas. No text, border, shadow plane or watermark.\n",
+      "editTarget": "party/assets/art/prop/cupcake-lilac.webp",
+      "runtimeBytes": 19264
+    },
+    {
+      "key": "prop/cupcake-choc",
+      "size": [
+        256,
+        224
+      ],
+      "geometry": "Bottom-centred; face on lower wrapper, wide flat frosting top for next cupcake; no topper.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone sprite prop for a preschool game. A single cute smiling cupcake, front view, full object, flat broad frosting top with no topper. Chocolate-brown frosting, rainbow sprinkles, warm cocoa striped wrapper. Rounded paper wrapper with narrow vertical stripes and a friendly face on the wrapper (shiny eyes, rosy cheeks). Bold smooth dark navy #24163f outline, clean bright candy colors, soft clean cel shading, crisp polished 2D game art. Transparent background, centered, no shadow beyond object, no text, no border, no watermark. Canvas 256x224.\n",
+      "source": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-choc-restyled.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-f2e12cc2-edd5-4f92-aef1-794daddb161e.png",
+      "sourceSize": [
+        1341,
+        1173
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-f2e12cc2-edd5-4f92-aef1-794daddb161e.png",
+      "file": "party/assets/art/prop/cupcake-choc.webp",
+      "runtimeFile": "party/assets/art/prop/cupcake-choc.webp",
+      "width": 256,
+      "height": 224,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        173,
+        231,
+        1167,
+        1097
+      ],
+      "actualAlphaBBox": [
+        0,
+        1,
+        256,
+        223
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 17862,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "originalSource": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-choc.webp",
+      "originalNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-46f659cd-1cde-4ea5-ae54-8d647e270dc3.png",
+      "sourceBytes": 595772,
+      "sourceFormat": "WEBP RGBA lossless",
+      "editPrompt": "Use case: precise-object-edit. Image 1 is the exact current cupcake sprite target; Image 2 is an approved house-style illustration reference only. Make only one change: lower the chocolate-brown frosting swirl so its upper silhouette is broadly and gently flattened, with a wide soft level top suitable for another cupcake to sit on it. Keep the existing frosting color, rainbow sprinkles, striped wrapper, smiling face, proportions, bold smooth navy #24163f outline, crisp 2D cel-shaded style, lighting and transparency exactly consistent with Image 1. No cherry, topper, candle, or extra decorations. Preserve full-object framing and center position, transparent background, 256x224 canvas. No text, border, shadow plane or watermark.\n",
+      "editTarget": "party/assets/art/prop/cupcake-choc.webp",
+      "runtimeBytes": 17862
+    },
+    {
+      "key": "prop/cupcake-gold",
+      "size": [
+        256,
+        224
+      ],
+      "geometry": "Bottom-centred; face on lower wrapper, wide flat frosting top for next cupcake; no topper.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone sprite prop for a preschool game. A single cute smiling cupcake, front view, full object, flat broad frosting top with no topper. Shiny golden-yellow frosting with rainbow sprinkles, pale cream wrapper with gold stripes; make it confectionery gold, not metallic photorealism. Rounded paper wrapper with narrow vertical stripes and a friendly face on the wrapper (shiny eyes, rosy cheeks). Bold smooth dark navy #24163f outline, clean bright candy colors, soft clean cel shading, crisp polished 2D game art. Transparent background, centered, no shadow beyond object, no text, no border, no watermark. Canvas 256x224.\n",
+      "source": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-gold-restyled.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-2c41a275-4f79-4dd9-ac19-62a42b3234cc.png",
+      "sourceSize": [
+        1341,
+        1173
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-2c41a275-4f79-4dd9-ac19-62a42b3234cc.png",
+      "file": "party/assets/art/prop/cupcake-gold.webp",
+      "runtimeFile": "party/assets/art/prop/cupcake-gold.webp",
+      "width": 256,
+      "height": 224,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        89,
+        210,
+        1254,
+        1141
+      ],
+      "actualAlphaBBox": [
+        0,
+        19,
+        256,
+        224
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 20702,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "originalSource": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-gold.webp",
+      "originalNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-2f16d2ce-9d9e-46b6-90fa-5bdc41821d19.png",
+      "sourceBytes": 743362,
+      "sourceFormat": "WEBP RGBA lossless",
+      "editPrompt": "Use case: precise-object-edit. Image 1 is the exact current cupcake sprite target; Image 2 is an approved house-style illustration reference only. Make only one change: lower the golden-yellow frosting swirl so its upper silhouette is broadly and gently flattened, with a wide soft level top suitable for another cupcake to sit on it. Keep the existing frosting color, rainbow sprinkles, striped wrapper, smiling face, proportions, bold smooth navy #24163f outline, crisp 2D cel-shaded style, lighting and transparency exactly consistent with Image 1. No cherry, topper, candle, or extra decorations. Preserve full-object framing and center position, transparent background, 256x224 canvas. No text, border, shadow plane or watermark.\n",
+      "editTarget": "party/assets/art/prop/cupcake-gold.webp",
+      "runtimeBytes": 20702,
+      "runtimeRevisionRecord": "party/reference/pending/MOLLY-review-corrections.json; original native source retained here as generation history"
+    },
+    {
+      "key": "prop/cupcake-stack-cake-stand",
+      "size": [
+        640,
+        320
+      ],
+      "geometry": "Bottom-centred on lawn; full stand including broad top plate, distinct pedestal and round foot. Top plate surface sits at 18% from top.",
+      "prompt": "Use case: illustration-story. Asset type: standalone transparent game prop. A complete white-and-pink porcelain cake stand in front view, slightly from above: very wide flat circular plate with a scalloped frilly edge, a slender elegant curvy pedestal clearly separated beneath it, and a round stable foot. Keep the top surface empty; no cake, cupcakes or props. Bottom-centred, full object in frame. Clean polished 2D candy cartoon, bold smooth dark navy #24163f outline, bright porcelain white and pink accents, soft clean cel shading. No 3D, no photorealism, no text, watermark or border. Canvas 640x320.\n",
+      "source": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-stack-cake-stand.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-a6d2d332-c699-463f-b834-dcc9902c1f36.png",
+      "sourceSize": [
+        1774,
+        887
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-a6d2d332-c699-463f-b834-dcc9902c1f36.png",
+      "file": "party/assets/art/prop/cupcake-stack-cake-stand.webp",
+      "runtimeFile": "party/assets/art/prop/cupcake-stack-cake-stand.webp",
+      "width": 640,
+      "height": 320,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        15,
+        41,
+        1759,
+        847
+      ],
+      "actualAlphaBBox": [
+        0,
+        13,
+        640,
+        308
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 30036,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "originalRequestedKey": "prop/cake-stand",
+      "collisionResolution": "new Molly-prefixed sibling; shared prop/cake-stand preserved"
+    },
+    {
+      "key": "prop/cupcake-candle",
+      "size": [
+        64,
+        192
+      ],
+      "geometry": "Bottom-centred; narrow candle with clear top wick, intended to poke out of cupcake frosting at angle.",
+      "prompt": "Use case: illustration-story. Asset type: standalone transparent game prop. A very thin birthday candle with gentle twist and diagonal spiral stripes in pink, white and sky blue, no flame and no holder. Front view, perfectly straight, complete wick at top and flat base at bottom, centered. Clean polished 2D candy cartoon, bold smooth dark navy #24163f outline, simple bright colors, soft clean cel shading. No 3D, no photorealism, no text, watermark or border. Canvas 64x192.\n",
+      "source": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-candle.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-eb313c10-bbe0-44ac-b26d-62d7e5922273.png",
+      "sourceSize": [
+        724,
+        2172
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-eb313c10-bbe0-44ac-b26d-62d7e5922273.png",
+      "file": "party/assets/art/prop/cupcake-candle.webp",
+      "runtimeFile": "party/assets/art/prop/cupcake-candle.webp",
+      "width": 64,
+      "height": 192,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        281,
+        112,
+        447,
+        2060
+      ],
+      "actualAlphaBBox": [
+        24,
+        0,
+        40,
+        192
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 3460,
+      "outputFormat": "WEBP RGBA q86 method6"
+    },
+    {
+      "key": "prop/cupcake-cherry",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Anchor bottom of cherry; small exact red fruit with curly green stem, perched at jaunty angle.",
+      "prompt": "Reuse approved prop/cupcake-cherry art and fit it into the specified game canvas, preserving identity, colour and alpha.",
+      "file": "party/assets/art/prop/cupcake-cherry.webp",
+      "runtimeFile": "party/assets/art/prop/cupcake-cherry.webp",
+      "width": 128,
+      "height": 128,
+      "tool": "approved shared artwork reuse with game-specific intake",
+      "status": "root visually reviewed; runtime integration ready",
+      "reusedExistingAsset": true,
+      "actualAlphaBBox": [
+        11,
+        2,
+        117,
+        126
+      ],
+      "bytes": 5594,
+      "source": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-cherry.webp",
+      "originalRequestedKey": "prop/cupcake-cherry",
+      "reusedFrom": "party/assets/art/prop/topper-cherry.webp",
+      "intakeMethod": "Geometric alpha-bounds crop, aspect-preserving resize and bottom padding from approved shared image; no new image generation"
+    },
+    {
+      "key": "prop/cupcake-stack-candle-flame",
+      "size": [
+        96,
+        128
+      ],
+      "geometry": "Bottom-centred at the wick; existing flame sprite has a compatible small upright silhouette and glow.",
+      "prompt": "Reuse approved prop/candle-flame art and fit it into the specified game canvas, preserving identity, colour and alpha.",
+      "file": "party/assets/art/prop/cupcake-stack-candle-flame.webp",
+      "runtimeFile": "party/assets/art/prop/cupcake-stack-candle-flame.webp",
+      "width": 96,
+      "height": 128,
+      "tool": "approved shared artwork reuse with game-specific intake",
+      "status": "root visually reviewed; runtime integration ready",
+      "reusedExistingAsset": true,
+      "actualAlphaBBox": [
+        4,
+        16,
+        92,
+        126
+      ],
+      "bytes": 3916,
+      "source": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-stack-candle-flame.webp",
+      "originalRequestedKey": "prop/candle-flame",
+      "reusedFrom": "party/assets/art/prop/candle-flame.webp",
+      "intakeMethod": "Geometric alpha-bounds crop, aspect-preserving resize and bottom padding from approved shared image; no new image generation"
+    },
+    {
+      "key": "thumb/cupcake-stack",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Opaque game-select thumbnail centered on full cupcake tower, stand and flying garden fairy; include candles, cherries, sparkles/confetti.",
+      "prompt": "Use case: illustration-story. Asset type: opaque game-select thumbnail, 800x500 composition for a preschool cupcake-stacking party game. Show a wobbly tall slightly crooked tower of cheerful colorful cupcakes with flat broad frosting tops, balanced on a white-and-pink porcelain stand with a scalloped plate and clear pedestal. A tiny pink garden fairy matching Image 1 is airborne above, gently dropping one more cupcake onto the tower. Include a few small candle flames, cherries perched at jaunty angles, and light sparkles/confetti. Keep the whole tower, stand, fairy and dropping cupcake visible; composition centered and legible when small. Use candy-colored 2D cartoon art, bold smooth navy #24163f outlines, soft clean cel shading, no 3D or photorealism. No other characters, no text, logo, border or watermark. Opaque background.",
+      "source": "party/reference/pending/molly-sources/cupcake-stack/thumb-cupcake-stack.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-f6ed90b6-1818-4b08-993a-d6c4be6bb458.png",
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-f6ed90b6-1818-4b08-993a-d6c4be6bb458.png",
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "file": "party/assets/art/thumb/cupcake-stack.webp",
+      "runtimeFile": "party/assets/art/thumb/cupcake-stack.webp",
+      "width": 800,
+      "height": 500,
+      "tool": "built-in imagegen",
+      "inputReferences": [
+        "party/reference/canonical/garden-fairy-pink.webp",
+        "party/assets/art/prop/cupcake-pink.webp",
+        "party/assets/art/prop/cupcake-stack-cake-stand.webp"
+      ],
+      "transform": "native 1586x992 resized to exact 800x500 canvas",
+      "status": "root visually reviewed; runtime integration ready",
+      "bytes": 106244,
+      "sourceBytes": 952198,
+      "sourceFormat": "WEBP RGBA lossless",
+      "outputFormat": "WEBP RGB q86 method6",
+      "opaque": true,
+      "runtimeRevisionRecord": "party/reference/pending/MOLLY-review-corrections.json; original native source retained here as generation history"
+    },
+    {
+      "key": "prop/cupcake-topper-cake",
+      "size": [
+        760,
+        600
+      ],
+      "geometry": "Anchor bottom-centre; upper tier top horizontal ledge at y\u2248192 (68% up), lower seam ledge at y\u2248378 (37% up); both plain for code-drawn candles.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone finale cake prop for a preschool game. A complete two-tier birthday cake in front view, bottom-centred. Bottom tier is pink with no face; upper cream tier has a happy smiling face, rosy cheeks. White frosting drips over both tier edges and rainbow sprinkles decorate the sides. Critical geometry: leave the very top surface of the upper tier perfectly flat, plain and horizontal at about 68% up from the bottom of the canvas; no candle or topper. The lower tier top surface/stack seam is a flat horizontal ledge at about 37% up from the bottom. Keep both ledges clear and broad. Clean polished 2D candy-cartoon with bold smooth dark navy #24163f outlines, soft clean cel shading, crisp highlights. Transparent background. No candles, text, watermark, border, shadow plane, 3D or photorealism. Canvas 760x600.\n",
+      "source": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-topper-cake-restyled.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-60432b51-7f72-4133-868c-646f35111687.png",
+      "sourceSize": [
+        1411,
+        1114
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-60432b51-7f72-4133-868c-646f35111687.png",
+      "file": "party/assets/art/prop/cupcake-topper-cake.webp",
+      "runtimeFile": "party/assets/art/prop/cupcake-topper-cake.webp",
+      "width": 760,
+      "height": 600,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": null,
+      "actualAlphaBBox": [
+        88,
+        201,
+        672,
+        587
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 47442,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "transform": "Native complete transparent-canvas image resized nearly proportionally to requested 760\u00d7600, preserving deliberate top headroom and bottom anchor; no alpha crop.",
+      "actualGeometry": "Full native transparent canvas preserved: upper top surface begins around y\u2248201/600; lower-tier seam is around y\u2248400/600; bottom art ends near y\u2248587. This leaves substantial clear candle headroom above the upper tier and keeps the plain top surface.",
+      "runtimeBytes": 47442,
+      "originalSource": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-topper-cake.webp",
+      "originalNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-1ff8622f-42b8-4e1f-b924-e332991f246f.png",
+      "sourceBytes": 584844,
+      "sourceFormat": "WEBP RGBA lossless",
+      "editPrompt": "Use case: precise-object-edit. Image 1 is the exact existing two-tier cake target; Image 2 is a house-style reference only. Correct only its proportions within the transparent canvas: bottom-anchor the cake and reduce its vertical height so its flat blank upper-tier top surface is at y=192 of a 600px canvas (68% up from the bottom), and its lower-tier horizontal seam/top is at y=378 (37% up from bottom). Keep the complete cake width broad and centered, with no cake above y=192; the top 192px must be fully transparent so the game can draw candles there. Keep the tiers neatly stacked, pink lower tier, cream upper tier with the same friendly face, white frosting drips, rainbow sprinkles, bold navy outlines, clean 2D cel shading and colors. Keep the upper top surface plain for candles. Preserve transparent background and 760x600 canvas. No text, props, candles, shadow plane or watermark.\n",
+      "editTarget": "party/assets/art/prop/cupcake-topper-cake.webp"
+    }
+  ],
+  "status": "14 assets generated/reused/intaken; review pending"
+}

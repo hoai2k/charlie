@@ -1,0 +1,26 @@
+{
+  "tool": "built-in imagegen",
+  "jobs": [
+    {
+      "key": "lily",
+      "refs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/assets/doll_lily_toys.webp"
+      ],
+      "prompt": "Use case: identity-preserve. Generate a companion animation sheet for the exact doll shown in reference, preserving her face, hair, outfit, original footwear on the pogo, white quad roller skates with colored wheels on skates, exact body and head proportions, toy-painted rendering, facing RIGHT. Output exactly THREE columns and TWO rows of equal SQUARE cells on transparent canvas (landscape 3:2). All six figures at identical anatomical scale, with generous transparent padding on every side and gutters; occupy at most 78% of cell height. TOP row SKATES: cell1 standing balanced on white quad skates feet together; cell2 thrusting one hand forward in a determined pushing/throwing action, still balanced on skates; cell3 falling backward to the LEFT, leaning strongly back, arms up, both skates pointing forward RIGHT and lifting. BOTTOM row POGO: cell1 balancing upright, both hands on black handlebar at chest, both feet on black pegs, red pole silver coil rubber tip; cell2 one hand thrusts forward RIGHT in pushing/throwing action while other grips handlebar, feet on pegs; cell3 falling backward LEFT off stick with arms up, red pogo tips diagonally away toward RIGHT, fully visible. Use same compact pogo design as reference. Upright pogo tip centered below doll. No extra accessories, floors, shadows, lettering or gridlines. Keep complete hair and all wheels/stick tips inside their cells. The doll is lily."
+    },
+    {
+      "key": "mira",
+      "refs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/assets/doll_mira_toys.webp"
+      ],
+      "prompt": "Use case: identity-preserve. Generate a companion animation sheet for the exact doll shown in reference, preserving her face, hair, outfit, original footwear on the pogo, white quad roller skates with colored wheels on skates, exact body and head proportions, toy-painted rendering, facing RIGHT. Output exactly THREE columns and TWO rows of equal SQUARE cells on transparent canvas (landscape 3:2). All six figures at identical anatomical scale, with generous transparent padding on every side and gutters; occupy at most 78% of cell height. TOP row SKATES: cell1 standing balanced on white quad skates feet together; cell2 thrusting one hand forward in a determined pushing/throwing action, still balanced on skates; cell3 falling backward to the LEFT, leaning strongly back, arms up, both skates pointing forward RIGHT and lifting. BOTTOM row POGO: cell1 balancing upright, both hands on black handlebar at chest, both feet on black pegs, red pole silver coil rubber tip; cell2 one hand thrusts forward RIGHT in pushing/throwing action while other grips handlebar, feet on pegs; cell3 falling backward LEFT off stick with arms up, red pogo tips diagonally away toward RIGHT, fully visible. Use same compact pogo design as reference. Upright pogo tip centered below doll. No extra accessories, floors, shadows, lettering or gridlines. Keep complete hair and all wheels/stick tips inside their cells. The doll is mira."
+    },
+    {
+      "key": "hermione",
+      "refs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/assets/doll_hermione_toys.webp"
+      ],
+      "prompt": "Use case: identity-preserve. Generate a companion animation sheet for the exact doll shown in reference, preserving her face, hair, outfit, original footwear on the pogo, white quad roller skates with colored wheels on skates, exact body and head proportions, toy-painted rendering, facing RIGHT. Output exactly THREE columns and TWO rows of equal SQUARE cells on transparent canvas (landscape 3:2). All six figures at identical anatomical scale, with generous transparent padding on every side and gutters; occupy at most 78% of cell height. TOP row SKATES: cell1 standing balanced on white quad skates feet together; cell2 thrusting one hand forward in a determined pushing/throwing action, still balanced on skates; cell3 falling backward to the LEFT, leaning strongly back, arms up, both skates pointing forward RIGHT and lifting. BOTTOM row POGO: cell1 balancing upright, both hands on black handlebar at chest, both feet on black pegs, red pole silver coil rubber tip; cell2 one hand thrusts forward RIGHT in pushing/throwing action while other grips handlebar, feet on pegs; cell3 falling backward LEFT off stick with arms up, red pogo tips diagonally away toward RIGHT, fully visible. Use same compact pogo design as reference. Upright pogo tip centered below doll. No extra accessories, floors, shadows, lettering or gridlines. Keep complete hair and all wheels/stick tips inside their cells. The doll is hermione."
+    }
+  ]
+}

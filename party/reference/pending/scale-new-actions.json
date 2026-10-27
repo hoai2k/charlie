@@ -1,0 +1,482 @@
+[
+  {
+    "asset": "scale",
+    "batch": "new-games-a",
+    "prompt": "Use case: illustration-story. Asset: transparent game sprite sheet of approved SCALE mermaid, reference image1 is exact identity. Preserve long wavy golden BLONDE hair, teal eyes, gold crown with teal leaflike curved horns and teal gems, leafy green outfit with BLUE flowers and red dotted trim, bright RED fish tail crisscrossed with BLUE ribbon lattice, and TWO TEAL leaf-shaped tail flukes. She has human upper-body/arms and ONE continuous mermaid tail below her waist: absolutely NO legs, feet, shoes or extra fins. For these sports/garden activities she wears a modest JADE GREEN short-sleeve activity tunic over her upper body with her blue flower motif, keeping the leafy hip trim and all distinctive crown/face/hair/tail details. Playful ordinary kid-friendly activity poses. Exactly EIGHT full-body poses, FOUR COLUMNS TWO ROWS, left-to-right reading order. Same face/head/torso scale across cells, bold smooth navy outlines, clean candy cel shading, camera three-quarter facing RIGHT, generous transparent gutters; complete crown, hair, both hands, whole tail and both flukes fully inside cells. ROW1: 1 tug ready: lower tail curve supports the body like a seated stance, torso leaning BACK LEFT away from facing direction, BOTH EMPTY gripping hands together out FRONT RIGHT at waist height, determined happy grin; 2 tug heave: torso leaning farther BACK LEFT, tail coils braced, same empty forward rope grip, cheerful exertion; 3 fishing reel ready: slight back lean, near hand gripping an INVISIBLE rod just above chest forward-right, far hand beside it preparing to crank, focused happy gaze; 4 reel crank: same lower tail position and forward gripping hand, other hand moved inward/down to crank an invisible reel, bright grin. ROW2: 5 overhead bat windup: BOTH EMPTY gripping hands together over right shoulder/above crown, torso braced on tail, gleeful face; 6 overhead followthrough: both empty hands move FORWARD RIGHT and UP above face, gentle overhead strike finished, cheerful grin; 7 putting ready: body seated LOW on folded tail, torso bends forward-right, looking down-right, BOTH empty hands low together forward-right near tail-base height as an INVISIBLE putter grip; 8 putting followthrough: same low seated tail stance, empty hands moved slightly farther forward-right low, eyes look up-right hopefully. NO rope, rod, fishing line, bat, putter, balls, scenery, shadows, ground, words, labels or effects. Genuine transparent background.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-6fd5dea9-e590-40da-92c2-7304c6bf7a83.png",
+    "poses": [
+      "pull",
+      "pull",
+      "reel",
+      "reel",
+      "swing",
+      "swing",
+      "putt",
+      "putt-swing"
+    ],
+    "shippingSource": "party/tools/sprites/sources/scale-new-games-a.webp",
+    "frames": [
+      {
+        "pose": "pull",
+        "source": "../sources/scale-new-games-a.webp",
+        "rect": [
+          12,
+          6,
+          399,
+          489
+        ],
+        "isolate": true,
+        "scale": 1.3,
+        "head": [
+          156,
+          124
+        ],
+        "eyes": [
+          158,
+          164
+        ],
+        "neck": [
+          164,
+          220
+        ],
+        "back": [
+          143,
+          347
+        ],
+        "hand": [
+          302,
+          261
+        ],
+        "anchor": [
+          186,
+          482
+        ]
+      },
+      {
+        "pose": "pull",
+        "source": "../sources/scale-new-games-a.webp",
+        "rect": [
+          358,
+          3,
+          423,
+          497
+        ],
+        "isolate": true,
+        "scale": 1.3,
+        "head": [
+          152,
+          127
+        ],
+        "eyes": [
+          156,
+          169
+        ],
+        "neck": [
+          177,
+          217
+        ],
+        "back": [
+          142,
+          346
+        ],
+        "hand": [
+          282,
+          263
+        ],
+        "anchor": [
+          207,
+          485
+        ]
+      },
+      {
+        "pose": "reel",
+        "source": "../sources/scale-new-games-a.webp",
+        "rect": [
+          727,
+          8,
+          447,
+          486
+        ],
+        "isolate": true,
+        "scale": 1.3,
+        "head": [
+          146,
+          125
+        ],
+        "eyes": [
+          175,
+          160
+        ],
+        "neck": [
+          177,
+          214
+        ],
+        "back": [
+          139,
+          342
+        ],
+        "hand": [
+          270,
+          172
+        ],
+        "anchor": [
+          204,
+          476
+        ]
+      },
+      {
+        "pose": "reel",
+        "source": "../sources/scale-new-games-a.webp",
+        "rect": [
+          1127,
+          6,
+          409,
+          499
+        ],
+        "isolate": true,
+        "scale": 1.3,
+        "head": [
+          152,
+          134
+        ],
+        "eyes": [
+          154,
+          162
+        ],
+        "neck": [
+          158,
+          224
+        ],
+        "back": [
+          146,
+          339
+        ],
+        "hand": [
+          253,
+          195
+        ],
+        "anchor": [
+          222,
+          480
+        ]
+      },
+      {
+        "pose": "swing",
+        "source": "../sources/scale-new-games-a.webp",
+        "rect": [
+          18,
+          501,
+          407,
+          487
+        ],
+        "isolate": true,
+        "scale": 1.3,
+        "head": [
+          151,
+          122
+        ],
+        "eyes": [
+          156,
+          162
+        ],
+        "neck": [
+          144,
+          211
+        ],
+        "back": [
+          127,
+          343
+        ],
+        "hand": [
+          51,
+          115
+        ],
+        "anchor": [
+          177,
+          478
+        ]
+      },
+      {
+        "pose": "swing",
+        "source": "../sources/scale-new-games-a.webp",
+        "rect": [
+          411,
+          496,
+          416,
+          499
+        ],
+        "isolate": true,
+        "scale": 1.3,
+        "head": [
+          173,
+          137
+        ],
+        "eyes": [
+          174,
+          181
+        ],
+        "neck": [
+          183,
+          225
+        ],
+        "back": [
+          133,
+          354
+        ],
+        "hand": [
+          286,
+          111
+        ],
+        "anchor": [
+          189,
+          487
+        ]
+      },
+      {
+        "pose": "putt",
+        "source": "../sources/scale-new-games-a.webp",
+        "rect": [
+          819,
+          517,
+          387,
+          485
+        ],
+        "isolate": true,
+        "scale": 1.4,
+        "head": [
+          163,
+          150
+        ],
+        "eyes": [
+          183,
+          203
+        ],
+        "neck": [
+          174,
+          251
+        ],
+        "back": [
+          120,
+          341
+        ],
+        "hand": [
+          218,
+          357
+        ],
+        "anchor": [
+          195,
+          461
+        ]
+      },
+      {
+        "pose": "putt-swing",
+        "source": "../sources/scale-new-games-a.webp",
+        "rect": [
+          1200,
+          497,
+          331,
+          512
+        ],
+        "isolate": true,
+        "scale": 1.3,
+        "head": [
+          165,
+          126
+        ],
+        "eyes": [
+          161,
+          175
+        ],
+        "neck": [
+          178,
+          221
+        ],
+        "back": [
+          150,
+          358
+        ],
+        "hand": [
+          280,
+          350
+        ],
+        "anchor": [
+          169,
+          482
+        ]
+      }
+    ],
+    "status": "reviewed-built-optimized",
+    "shippingSpec": "party/tools/sprites/specs/scale.json",
+    "decodedFullMiB": 22.592,
+    "bodyHeightUnchanged": 240
+  },
+  {
+    "asset": "scale",
+    "batch": "new-games-b",
+    "prompt": "Use case: illustration-story. Asset: transparent game sprite sheet of approved SCALE mermaid, reference image1 is exact identity. Preserve long wavy golden BLONDE hair, teal eyes, gold crown with teal leaflike curved horns and teal gems, leafy green outfit with BLUE flowers and red dotted trim, bright RED fish tail crisscrossed with BLUE ribbon lattice, and TWO TEAL leaf-shaped tail flukes. She has human upper-body/arms and ONE continuous mermaid tail below her waist: absolutely NO legs, feet, shoes or extra fins. For these sports/garden activities she wears a modest JADE GREEN short-sleeve activity tunic over her upper body with her blue flower motif, keeping the leafy hip trim and all distinctive crown/face/hair/tail details. Playful ordinary kid-friendly activity poses. Exactly FOUR full-body poses in ONE HORIZONTAL ROW, left-to-right. Same head/face/torso scale, generous transparent margins/gutters, entire crown/hair/hands/tail/flukes completely inside cells, three-quarter facing RIGHT. 1 spring-jump: joyful upward launch, BOTH arms straight UP, tail bent/tucked below body with flukes lifted, big grin and upward gaze, whole tail AIRBORNE. 2 snow-scoop: body seated VERY LOW on folded tail, torso bends forward/right, BOTH hands low together in front/right, palms curved packing INVISIBLE snowball near imaginary ground, focused cheerful face. 3 dig: low body seated on tail curve, torso leaning forward/right, both hands scooping DOWN in front of/between folded tail coils then back LEFT, gleeful focused face, lower tail stays grounded. 4 skip-hop: light whole-body jump-rope hop, tail and flukes lifted/tucked gently, BOTH arms extended sideways near waist/chest height, happy face, whole tail AIRBORNE. No snowball, tools, ropes, clouds, ground, shadows, effects, labels, words or background. Genuine transparent alpha.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-d1d3e0f4-29a7-4418-bd19-f66f86bb7c42.png",
+    "poses": [
+      "spring-jump",
+      "snow-scoop",
+      "dig",
+      "skip-hop"
+    ],
+    "shippingSource": "party/tools/sprites/sources/scale-new-games-b.webp",
+    "frames": [
+      {
+        "pose": "spring-jump",
+        "source": "../sources/scale-new-games-b.webp",
+        "rect": [
+          14,
+          12,
+          474,
+          629
+        ],
+        "isolate": true,
+        "scale": 0.94,
+        "head": [
+          246,
+          131
+        ],
+        "eyes": [
+          248,
+          188
+        ],
+        "neck": [
+          238,
+          275
+        ],
+        "back": [
+          241,
+          422
+        ],
+        "hand": [
+          387,
+          129
+        ],
+        "anchor": [
+          254,
+          695
+        ]
+      },
+      {
+        "pose": "snow-scoop",
+        "source": "../sources/scale-new-games-b.webp",
+        "rect": [
+          465,
+          120,
+          567,
+          576
+        ],
+        "isolate": true,
+        "scale": 0.94,
+        "head": [
+          398,
+          180
+        ],
+        "eyes": [
+          397,
+          248
+        ],
+        "neck": [
+          386,
+          308
+        ],
+        "back": [
+          282,
+          414
+        ],
+        "hand": [
+          471,
+          452
+        ],
+        "anchor": [
+          358,
+          570
+        ]
+      },
+      {
+        "pose": "dig",
+        "source": "../sources/scale-new-games-dig-repair.webp",
+        "rect": [
+          5,
+          6,
+          1204,
+          1230
+        ],
+        "isolate": true,
+        "scale": 0.42,
+        "head": [
+          781,
+          428
+        ],
+        "eyes": [
+          790,
+          542
+        ],
+        "neck": [
+          715,
+          679
+        ],
+        "back": [
+          527,
+          904
+        ],
+        "hand": [
+          898,
+          1080
+        ],
+        "anchor": [
+          790,
+          1224
+        ]
+      },
+      {
+        "pose": "skip-hop",
+        "source": "../sources/scale-new-games-b.webp",
+        "rect": [
+          1669,
+          13,
+          492,
+          623
+        ],
+        "isolate": true,
+        "scale": 0.94,
+        "head": [
+          275,
+          127
+        ],
+        "eyes": [
+          276,
+          194
+        ],
+        "neck": [
+          281,
+          268
+        ],
+        "back": [
+          241,
+          441
+        ],
+        "hand": [
+          464,
+          324
+        ],
+        "anchor": [
+          286,
+          690
+        ]
+      }
+    ],
+    "repair": {
+      "pose": "dig",
+      "frame": 0,
+      "prompt": "Use case: precise-object-edit. Preserve this exact fully clothed green-tunic blonde mermaid Scale sprite, all positions, expression, hands, crown, hair, red fish tail, blue ribbon lattice and teal flukes. Remove ONLY the tiny opaque WHITE blob/patch trapped between the fingertips near the lower-right red tail area. Restore the underlying RED tail surface and BLUE ribbon lattice there. Her hands must be EMPTY and unobstructed; no snowball, tool, pebble, object or white material between them. Do not otherwise alter the pose, camera, anatomy, scale or shading. One continuous mermaid tail, no legs/feet. Genuinely transparent outside background; no new shadows, effects, scenery, text or marks.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-7fe4a214-07cd-4787-bfc4-dcbd5ab6408c.png"
+    },
+    "status": "reviewed-built-optimized",
+    "shippingSpec": "party/tools/sprites/specs/scale.json",
+    "decodedFullMiB": 22.592,
+    "bodyHeightUnchanged": 240
+  }
+]

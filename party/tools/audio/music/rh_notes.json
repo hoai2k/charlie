@@ -1,0 +1,18 @@
+{
+ "rh-afro-1": "Kalimba/djembe afrobeat; long 8-bar intro, only one short breather; laid-back 16ths",
+ "rh-afro-2": "Balafon/djembe afrobeat that follows the plan: intro, A, breather, B (highlife guitar + bell), breather, C (full drums); tight beat",
+ "rh-island-1": "Steel-pan calypso with clean breathers between three grooves (calypso, soca, carnival); tightest beat of the set",
+ "rh-island-2": "Marimba/steel-pan calypso; second half is one long section, the beat wobbles in the breathers",
+ "rh-hiphop-1": "Boom-bap with scratches, then one long half-time section (no funk-break C); swung 16ths; tight kicks",
+ "rh-hiphop-2": "Boom-bap (scratches) | half-time 808 section | funk break with horns, with breathers between; swung 16ths (2:1), tight kick/snare, laid-back melody",
+ "rh-reggae-1": "Melodica reggae: long intro, one-drop groove then steppers, no real breathers; very steady",
+ "rh-reggae-2": "Flute reggae; one long groove after the intro, no section changes detected",
+ "rh-bossa-1": "Nylon-guitar bossa then one long batucada/flute section; soft pulse (beat hard to measure)",
+ "rh-bossa-2": "Rhodes/flute bossa with samba percussion; steady beat but no section changes",
+ "rh-tango-1": "Bandoneon tango: habanera | marcato | milonga, each after a full stop (silent breathers); start calibrated by -14 ms",
+ "rh-tango-2": "Accordion tango in many short fragments with rubato; beat wanders (not usable for the game)",
+ "rh-flamenco-1": "Rumba flamenca: strum + palmas + cajon, then contratiempo palmas/castanets; one short break",
+ "rh-flamenco-2": "Rumba flamenca as one long groove; beat hard to follow",
+ "rh-bossa-3": "Nylon-guitar bossa | samba batucada | bossa+samba with flute, with drum stops between; steady beat",
+ "rh-flamenco-3": "Rumba flamenca with crisp palmas: rumba groove | contratiempo + castanets after a one-bar stop; tightest flamenco take"
+}

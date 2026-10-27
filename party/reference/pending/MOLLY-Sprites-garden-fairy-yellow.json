@@ -1,0 +1,1964 @@
+{
+  "asset": "garden-fairy-yellow",
+  "sheet": "molly-core",
+  "prompt": "Use case: illustration-story. Assettype: playable2D fairy sprite sheet. Image1 APPROVEDexact garden-fairy-yellow canonical. Preserve exact identity: lightpeachskin,tealeyes,shortbrownhair,daisycap,yellowandwhitepetal dress,goldenbeadjewels,creamgoldfourornatewings,yellowshoes. Generate EXACTLY8fullbody sprites,grid4columns\u00d72rows,transparentgenerousgutters, nooverlappingcells. Ordered row1lefttoright:1neutralidle gentlehover eyesopen armsrelaxed,2sameexactidlebody eyesclosedblink,3friendlyonehandwave,4surprisedwideeyes armsout. Row2lefttoright:5cheer onefistpumphappyhop,6celebratebotharmsraisedhappyvictory,7giggleeyesclosed onehandbycheeklaughing,8dizzy unsteady leaning sideways, headtilted, unevenoutstretchedarms, worried dazedeyes. Samefullbody/headscale all8,same3/4front camera facingRIGHT. Preserve entirewingtips, cap, shoes insidecells. Emptyhands, noheldprops. TRUEtransparentbackground. No text,labels,extrastars/effects,groundshadows,scenery,watermark. Crispnavyoutlinedpolishedsoft2D celshading, candycolors exactlyasreference. Wide1536\u00d71024sheet.",
+  "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-40e74fec-b97c-401d-86dd-9edf4ab97425.png",
+  "poses": [
+    "idle",
+    "blink",
+    "wave",
+    "surprised",
+    "cheer",
+    "celebrate",
+    "giggle",
+    "dizzy"
+  ],
+  "reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/garden-fairy-yellow.webp",
+  "status": "frozen; all native/runtime contacts reviewed, all59 Molly poses and five landmarks; full-quality Fairy Hide and Seek and optimized Unicorn Jump checked without browser warnings/errors",
+  "source": "party/tools/sprites/sources/garden-fairy-yellow-molly-core.webp",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "intakeStatus": "core sheet reviewed: 8authoredframes/7poses; all5attachmentlandmarks source-local in specs; notshippinguntilremainingposes+movement+portraits complete",
+  "runtimeBudget": {
+    "sprites": {
+      "bytes": 1711304,
+      "decodedRGBABytes": 17782144,
+      "decodedMiB": 16.96
+    },
+    "sprites-opt": {
+      "bytes": 1722148,
+      "decodedRGBABytes": 15570304,
+      "decodedMiB": 14.85
+    }
+  },
+  "additionalSheets": [
+    {
+      "sheet": "molly-walk-run",
+      "prompt": "Image1 is the approved YELLOW DAISY fairy. Preserve EXACT identity: light peach skin, teal eyes, short brown bob, white daisy cap with gold centre, white/gold layered petal dress with bead details, four translucent gold-veined dragonfly wings, yellow daisy shoes. Navy #24163f outlines, clean soft2D cel shading. Generate EXACTLY8fullbody animationframes grid4columns\u00d72rows, transparent generousgutters, sameheadsize/torso/camera3/4front facingRIGHT all8. Row1 FOUR WALK/GLIDING steps lefttoright:1leftlegforward/rightlegback,2legspassingbodyupright,3rightlegforward/leftback,4oppositepassingpose; modestarmswing andgentlewingflutter. Row2 FOUR RUN frames:1forwardlean longleftlegforward/rightback armcounter-swing,2liftedbothfeetpassingstride,3rightlegforward/leftback oppositearmswing,4liftedoppositepassingstride. Clear distinctlimbposes, sequenceformsloops1\u21922\u21923\u21924\u21921. NO staticcopies, no missinglegs/hands/wings, maintainanatomyandflowershoes. Entirewings/cap/shoesinsideeachcell,noclipping/nocelloverlap. Emptyhands/noobjects. True transparentbackground. No text,labels,groundshadows,effects,scenery,watermark. Crispnavyoutlinedsoft2D celshading,candycolorsmatchreference. 1536\u00d71024wide. CRITICAL: show visible opposite shoe/leg as forward on frame3 vsframe1; frame2 and4 clearly different contact/pass phases. Preserve same body scale, full view.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-a56c18dd-361a-4361-80c3-67663503c38a.png",
+      "poses": [
+        "walk",
+        "walk",
+        "walk",
+        "walk",
+        "run",
+        "run",
+        "run",
+        "run"
+      ],
+      "status": "native reviewed; intake pending",
+      "asset": "garden-fairy-yellow",
+      "source": "party/tools/sprites/sources/garden-fairy-yellow-molly-walk-run.webp",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "tool": "built-in imagegen",
+      "reference": "party/reference/canonical/garden-fairy-yellow.webp"
+    },
+    {
+      "sheet": "molly-hover-fly-v1",
+      "prompt": "Image1 is the approved YELLOW DAISY fairy. Preserve EXACT identity: light peach skin, teal eyes, short brown bob, white daisy cap with gold centre, white/gold layered petal dress with bead details, four translucent gold-veined dragonfly wings, yellow daisy shoes. Navy #24163f outlines, clean soft2D cel shading. Use case: precise-object-edit. Image1 is edit target: exact8frame pinkfairy wingcycle sheet. Change ONLY the eyes of TOPROW SECONDfairy to closedeyes blinking, replacing openeye pupils with gracefulclosedeyelids. Preserve exact head/faceoutline, mouth, bodypose, wingpositions, canvas, alpha and every otherframe/pixel. No otherchanges, true transparentbackground, no text.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-5652f7f2-d20b-4ac7-a33a-dc2a3b843237.png",
+      "poses": [
+        "idle",
+        "idle",
+        "idle",
+        "idle",
+        "fly",
+        "fly",
+        "fly",
+        "fly"
+      ],
+      "status": "superseded: wing planes too static; targeted wingbeat revision generating",
+      "asset": "garden-fairy-yellow",
+      "source": "party/tools/sprites/sources/garden-fairy-yellow-molly-hover-fly-v1.webp",
+      "dimensions": [
+        1458,
+        1079
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "tool": "built-in imagegen",
+      "reference": "party/reference/canonical/garden-fairy-yellow.webp"
+    },
+    {
+      "sheet": "molly-dance",
+      "prompt": "Image1 is the approved YELLOW DAISY fairy. Preserve EXACT identity: light peach skin, teal eyes, short brown bob, white daisy cap with gold centre, white/gold layered petal dress with bead details, four translucent gold-veined dragonfly wings, yellow daisy shoes. Navy #24163f outlines, clean soft2D cel shading. EXACTLY8fullbody sprites in4columns\u00d72rows withTRUEtransparentbackground andgenerousgutters. SAMEHEAD/TORSOsize/camera3/4frontfacingRIGHT. Row1FOURdistinctDANCEloopframes:1step/tapLEFT leg arms swingleft,2step/tapRIGHT leg arms swingright,3onehandraised twirlturnquarterangle flowingdress,4hipwiggle oppositelean bothhandsonhips. Cleararm/leggesturechanges, cheerfulsmiles, sequence1\u21922\u21923\u21924\u21921. Row2lefttoright FOURspecificfreeze poses:1POSE-TWIRL onelegpointedtoes,onearmcurvedabovehead,otherarmout skirtflaring;2DANCE-STAR airborne jumpingjack armsandlegsextendedstarshape;3DANCE-UP uprightbotharmsstraightup;4DANCE-DOWN lowcrouch bentknees bothhandsonknees,eyeslaughing. Preservewinganatomy,dressidentityandcap. ENTIREbody/wings/cap/shoesinsideeachcell, nooverlap/clipping. Emptyhands,nobakedprops, no text/labels/effects/particles/shadows/scenery/watermark. Crispnavyoutlines soft2D celshading candycolors exactreference. Wide1536\u00d71024.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-cd2f7d39-ffeb-41de-8f10-3519aebaf87d.png",
+      "poses": [
+        "dance",
+        "dance",
+        "dance",
+        "dance",
+        "pose-twirl",
+        "dance-star",
+        "dance-up",
+        "dance-down"
+      ],
+      "status": "native reviewed; intake pending",
+      "asset": "garden-fairy-yellow",
+      "source": "party/tools/sprites/sources/garden-fairy-yellow-molly-dance.webp",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "tool": "built-in imagegen",
+      "reference": "party/reference/canonical/garden-fairy-yellow.webp"
+    },
+    {
+      "sheet": "molly-hover-fly",
+      "prompt": "Generate a playable2D animation sprite sheet for this exact approved YELLOW DAISY fairy. Preserve lightpeach skin, tealeyes, brownbob, white/gold daisycap, layered white/gold petaldress, four translucent gold-veined wings and daisy shoes. EXACTLY8fullbody frames in4columns2rows, generous transparent gutters, no overlap. Row1 four IDLE hover wingbeat frames with identical body/head/arms/feet: wings1RAISED steeply up,2OPEN horizontally,3LOWERED diagonally down,4OPEN horizontally, gentle blink onlyframe4. Row2 four FLY frames, bodyleans right arms slightlyforward, feet trailleft: wings1RAISED high,2OPEN horizontal,3LOWERED down,4OPEN horizontal. The FOUR WING PLANES MUST VISIBLY CHANGE ANGLE (not fourstaticcopies). Keep face/torso exactsame scale and position across eachrow, preserve complete4wings, cap/shoes. Crisp navy #24163f outlines, clean soft2D celshading, candycolors fromref, no3D. True transparent background. No text, labels, shadows, props, effects orscenery. Wide1536x1024.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-628ba513-b809-4f6d-9cc3-ae62aeb24e31.png",
+      "source": "party/tools/sprites/sources/garden-fairy-yellow-molly-hover-fly.webp",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "poses": [
+        "idle",
+        "idle",
+        "idle",
+        "idle",
+        "fly",
+        "fly",
+        "fly",
+        "fly"
+      ],
+      "status": "native reviewed, distinct raised/open/lowered wingplanes and blink; intake pending"
+    },
+    {
+      "sheet": "molly-float-swim",
+      "prompt": "Image1 is the approved YELLOW DAISY fairy. Preserve EXACT identity: light peach skin, teal eyes, short brown bob, white daisy cap with gold centre, white/gold layered petal dress with bead details, four translucent gold-veined dragonfly wings, yellow daisy shoes. Navy #24163f outlines, clean soft2D cel shading. EXACTLY8fullbody sprites, grid4columns\u00d72rows, TRUEtransparentbackground withgenerousgutters. Samehead/torso size all8, same3/4front camera facingRIGHT. Row1fourFLOATframes: bodyupright calmlydriftingarmsout atshoulderheight,legsrelaxed toesdown, happyexpression; fourwingposes cycle1wideopenatneutralangle,2upwardtiltednarrower,3downwardedge-on/narrowest,4midopeningangle. Row2fourSWIMframes: treadingwater/paddlingbodyupright, kneesbent feetbehind (FULLbodyvisible although codeclipsunderwater),1leftarmforward/rightarmbackstroke,2botharmsextendoutpalmsdown,3rightarmforward/leftarmbackstroke,4botharmssweepinward. Cheerful determinedface; wingsflutter fouranglesasfloat; clear distinctarmposes. NO waterdrawn, no swimmingpool, waves,ripples orprops. Preserve4wings,petals,cap,shoes/limbsentirelyinsidecells, nooverlap/clipping. No text/labels/effects/groundshadows/scenery/watermark. Crispnavyoutline,soft2Dcelshading candycolors exactlyreference. Wide1536\u00d71024.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-b8a93191-07eb-4404-ba05-37f02bef3054.png",
+      "poses": [
+        "float",
+        "float",
+        "float",
+        "float",
+        "swim",
+        "swim",
+        "swim",
+        "swim"
+      ],
+      "status": "native reviewed; intake pending",
+      "asset": "garden-fairy-yellow",
+      "source": "party/tools/sprites/sources/garden-fairy-yellow-molly-float-swim.webp",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "tool": "built-in imagegen",
+      "reference": "party/reference/canonical/garden-fairy-yellow.webp"
+    },
+    {
+      "sheet": "molly-actions-a",
+      "prompt": "Image1 is the approved YELLOW DAISY fairy. Preserve EXACT identity: light peach skin, teal eyes, short brown bob, white daisy cap with gold centre, white/gold layered petal dress with bead details, four translucent gold-veined dragonfly wings, yellow daisy shoes. Navy #24163f outlines, clean soft2D cel shading. EXACTLY8fullbody sprites grid4columns\u00d72rows TRUEtransparentbackground generousgutters, samehead/torso scale and3/4frontcamera facingRIGHT, nooverlap/clipping. Ordered row1:1CARRY botharmshighoverhead palmsup supportingimaginarylargepresent,emptyhands;2CATCH botharmsforwardcuppedhands receivingimaginarypresent softrecoil;3LOOK-AROUND onehandshadeseyes searchingcuriouslyheadturnedright;4RIDE-SIT sittingastrideinvisiblemount legseitherside,handsholdingimaginaryreins forward,noactualmount/reins. Row2:1SIT sittingfloating legsdown/dangling armsrelaxed noactualchair;2DASH bodylungingforward armstrailingback,onelegforwardonelegback,exciteddeterminedface;3BOOP leanforward oneINDEXFINGERextendedtopokeinvisiblefriendnose,cheekygrin;4DANCE-SIDE sidelean oneextendedarmpointstoside otherarmbent, hipssideways. Differentmeaningfulposes; no duplicategenericstanding. Preserve4wings,cap,dressandfulllegs/shoes. Allhandsempty, NO props/mounts/chairs/boxes/reins/wands, no extraobjects/particles/text/labels/shadows/scenery/watermarks. Crispnavyoutline soft2Dcelshading exactreferencecandycolors. Wide1536\u00d71024.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-03af1652-ef97-4f3a-b664-0048c55188ec.png",
+      "poses": [
+        "carry",
+        "catch",
+        "look-around",
+        "ride-sit",
+        "sit",
+        "dash",
+        "boop",
+        "dance-side"
+      ],
+      "status": "native reviewed; intake pending",
+      "asset": "garden-fairy-yellow",
+      "source": "party/tools/sprites/sources/garden-fairy-yellow-molly-actions-a.webp",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "tool": "built-in imagegen",
+      "reference": "party/reference/canonical/garden-fairy-yellow.webp"
+    },
+    {
+      "sheet": "molly-actions-b",
+      "prompt": "Image1 is the approved YELLOW DAISY fairy. Preserve EXACT identity: light peach skin, teal eyes, short brown bob, white daisy cap with gold centre, white/gold layered petal dress with bead details, four translucent gold-veined dragonfly wings, yellow daisy shoes. Navy #24163f outlines, clean soft2D cel shading. EXACTLY8fullbody sprites grid4columns\u00d72rows TRUEtransparentbackground generousgutters, samehead/torso scale and3/4frontcamera facingRIGHT, nooverlap/clipping. Ordered row1:1HIGH-FIVE leaningforward oneOPENPALM raisedforward forfriendlyhighfive;2JUMP takeoffrising armsup onelegbent otherextendeddown happy;3FALL descending armsoutfeetbelowbody eyeswide excitedsurprise;4SPRING-JUMP highspringup BOTHKNEESTUCKEDunderbody BOTHarmsraised gleeful. Row2:1HURT recoilingbackward freehandnearforehead startled bonkedexpression, nothingharmfuldrawn;2THROW midforwardthrow rightarmextendedtowardsRIGHT,leftarmback counterbalance, emptygrippinghand;3WAND-UP rightarmholdingEMPTYimaginarywand highabovehead anticipationbigeyes,otherhandonhip;4CAST emptyrightgrippinghandthrustforwardforcefully towardsRIGHT, forwardlean/freearmback focusedhappyface. Distinctmeaningfulposes, no duplicate genericstanding. Preserve4wings,cap,dressfulllegs/shoes. Allhandsempty: NO actualwand,ball,object/partner, no particles/stars/effects/text/labels/shadows/scenery/watermark. Entirebodyinallcells includingraisedhands capwings feet. Crispnavyoutline soft2Dcelshading exactreferencecandycolors. Wide1536\u00d71024.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-c79c76b4-54f3-4f65-8e1e-f020bef2b278.png",
+      "poses": [
+        "high-five",
+        "jump",
+        "fall",
+        "spring-jump",
+        "hurt",
+        "throw",
+        "wand-up",
+        "cast"
+      ],
+      "status": "native reviewed; intake pending",
+      "asset": "garden-fairy-yellow",
+      "source": "party/tools/sprites/sources/garden-fairy-yellow-molly-actions-b.webp",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "tool": "built-in imagegen",
+      "reference": "party/reference/canonical/garden-fairy-yellow.webp"
+    },
+    {
+      "sheet": "molly-actions-c",
+      "prompt": "Image1 is the approved YELLOW DAISY fairy. Preserve EXACT identity: light peach skin, teal eyes, short brown bob, white daisy cap with gold centre, white/gold layered petal dress with bead details, four translucent gold-veined dragonfly wings, yellow daisy shoes. Navy #24163f outlines, clean soft2D cel shading. EXACTLY eight full-body sprites in a four-column/two-row grid, TRUE transparent background, generous gutters. Identical head and torso scale, three-quarter front camera facing RIGHT, entire wings/cap/hands/shoes inside every cell. Ordered top row: 1 LOOK-UP head tipped backward, eyes watching above; 2 TOSS two-handed underhand release forward, palms up and hands empty; 3 BLOW puffed cheeks, pursed lips, one empty hand near mouth; 4 READY confident pose, one hand on hip, other fist raised by shoulder. Bottom row: 1 EAT empty cupped hand near mouth, happy tasting expression; 2 PAINT leaning forward, empty brush-gripping hand extended at waist, other arm balancing; 3 WATER holding an imaginary watering can with empty hands extended forward and tilted; 4 LAUGH both hands on belly, eyes squeezed shut, big open laughing mouth. Make each gesture distinct and readable. NO actual brush, can, food, cupcake, bubbles or any other props; code attaches objects. No extra particles, text, labels, shadows, scenery or watermark. Crisp navy outlines, soft 2D cel shading, exact approved candy palette. Wide 1536\u00d71024 sheet.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-0a35dcf7-ef58-45b5-90a1-03838a48ee9f.png",
+      "poses": [
+        "look-up",
+        "toss",
+        "blow",
+        "ready",
+        "eat",
+        "paint",
+        "water",
+        "laugh"
+      ],
+      "status": "native reviewed; intake pending",
+      "asset": "garden-fairy-yellow",
+      "source": "party/tools/sprites/sources/garden-fairy-yellow-molly-actions-c.webp",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "tool": "built-in imagegen",
+      "reference": "party/reference/canonical/garden-fairy-yellow.webp"
+    },
+    {
+      "sheet": "molly-actions-d",
+      "prompt": "Image1 is the approved YELLOW DAISY fairy. Preserve EXACT identity: light peach skin, teal eyes, short brown bob, white daisy cap with gold centre, white/gold layered petal dress with bead details, four translucent gold-veined dragonfly wings, yellow daisy shoes. Navy #24163f outlines, clean soft2D cel shading. EXACTLY FOUR full-body sprites in a TWO-column/TWO-row grid, TRUE transparent background, large clear gutters. Same head and torso scale across four figures; same three-quarter front camera facing RIGHT, except tuck slightly side-on. Ordered top row: 1 CUDDLE both arms wrapped around an imaginary kitten against chest, hands empty, eyes shut and warm squeezing smile; 2 TONGUE-OUT head tipped back watching above, mouth open, clearly visible extended little pink tongue catching imaginary snowflakes, silly happy face. Bottom row: 1 TUCK tightly hugging BOTH knees against chest in a somersault ball, eyes happily closed, entire body/cap/wings/shoes present; 2 ACTION quick forward grab/tap gesture, one arm extending and the other balancing, happy focused eyes. No held kittens, snowflakes, objects or props: code attaches them. No text, labels, extra particles, ground shadows, scenery or watermark. Preserve full wing tips, cap, hands and shoes inside cells, no overlap/clipping. Crisp navy outline, soft 2D cel shading, exact approved palette. Approximately 230px-wide faces like Image2, leave broad transparent margins around shorter tuck pose; do not enlarge tuck head. Square 1024\u00d71024.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-17f3d3cd-b3c1-4ab0-98f1-1c26d4fb8249.png",
+      "poses": [
+        "cuddle",
+        "tongue-out",
+        "tuck",
+        "action"
+      ],
+      "status": "native reviewed; intake pending",
+      "asset": "garden-fairy-yellow",
+      "source": "party/tools/sprites/sources/garden-fairy-yellow-molly-actions-d.webp",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "tool": "built-in imagegen",
+      "reference": "party/reference/canonical/garden-fairy-yellow.webp"
+    },
+    {
+      "sheet": "molly-actions-e",
+      "prompt": "Image1 is the approved YELLOW DAISY fairy. Preserve EXACT identity: light peach skin, teal eyes, short brown bob, white daisy cap with gold centre, white/gold layered petal dress with bead details, four translucent gold-veined dragonfly wings, yellow daisy shoes. Navy #24163f outlines, clean soft2D cel shading. EXACTLY EIGHT full-body sprites in a FOUR-column/TWO-row grid, TRUE transparent background, generous gutters. Same head/torso scale, three-quarter front view facing RIGHT unless action requires tilt. Ordered top row: 1 BALANCE arms stretched wide, body wobbling sideways, one foot lifted, worried amused expression; 2 SHAKE wet-dog style shivering shake, eyes squeezed shut, arms loose outward, dress and wings quivering, no water particles; 3 STRIKE3 confident arms-up star runway pose, broad grin, feet planted apart; 4 SLEEP curled sideways, knees bent, head resting on folded empty hands, peaceful closed eyes, no bed/pillow/blanket. Bottom row: 1 FLIP airborne mid-somersault, side-on body diagonally tilted, knees folded and one leg lifted, gleeful face (used for bed bouncing, not turning a card); 2 CROUCH low playful hiding crouch, hands near bent knees, alert cheeky eyes; 3 TUMBLE tipped backward losing balance, arms windmilling, one leg up, goofy surprised face; 4 BOW polite forward curtsy with one hand gently holding own skirt edge and other hand across chest, eyes happily closed. Keep complete anatomy, all four wings, cap, hands and shoes inside each cell. No props, cards, partners, text, labels, effects, shadows, scenery or watermark. Crisp navy outlines, soft 2D cel shading and exact approved palette. Wide1536\u00d71024.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-4be72df4-c1eb-4bb5-a838-d4812cb715ff.png",
+      "poses": [
+        "balance",
+        "shake",
+        "strike3",
+        "sleep",
+        "flip",
+        "crouch",
+        "tumble",
+        "bow"
+      ],
+      "status": "native reviewed; intake pending",
+      "asset": "garden-fairy-yellow",
+      "source": "party/tools/sprites/sources/garden-fairy-yellow-molly-actions-e.webp",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "tool": "built-in imagegen",
+      "reference": "party/reference/canonical/garden-fairy-yellow.webp"
+    },
+    {
+      "sheet": "molly-actions-f",
+      "prompt": "Image1 is the approved YELLOW DAISY fairy. Preserve EXACT identity: light peach skin, teal eyes, short brown bob, white daisy cap with gold centre, white/gold layered petal dress with bead details, four translucent gold-veined dragonfly wings, yellow daisy shoes. Navy #24163f outlines, clean soft2D cel shading. EXACTLY SEVEN full-body sprites in FOUR columns/TWO rows; bottom-right EIGHTH cell is EMPTY transparent. TRUE transparent background and generous gutters. Same head/torso scale and three-quarter front camera facing RIGHT. Top row left-to-right: 1 SILLY-POSE flamboyant goofy ta-da, one leg kicked behind, arms wide, tongue poking out and cheeky grin; 2 PUSH both empty palms forward, lean into imaginary object, bent knees; 3 THINK one finger against chin, other hand on hip, thoughtful eyes; 4 TIPTOE frame1 sneaking hunched, left toe forward/right heel lifted, both empty hands overhead supporting imaginary tray, cheeky sideways grin. Bottom row left-to-right: 1 TIPTOE frame2 knees bent, feet passing under body; 2 TIPTOE frame3 right toe forward/left heel lifted; 3 TIPTOE frame4 opposite passing pose. The four TIPTOE frames form a smooth distinct sneaking cycle and maintain the same empty overhead grip, head size and hunch. No actual tray, objects, partners, text, labels, particles, shadows, scenery or watermark. Preserve all wing tips, cap, hands, legs and shoes inside every cell, no overlap/clipping. Crisp navy outlines, soft 2D cel shading, exact approved colors. Wide1536\u00d71024.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-fe5daaa2-f201-423a-89f2-a214446f6746.png",
+      "poses": [
+        "silly-pose",
+        "push",
+        "think",
+        "tiptoe",
+        "tiptoe",
+        "tiptoe",
+        "tiptoe"
+      ],
+      "status": "native reviewed; intake pending",
+      "asset": "garden-fairy-yellow",
+      "source": "party/tools/sprites/sources/garden-fairy-yellow-molly-actions-f.webp",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "tool": "built-in imagegen",
+      "reference": "party/reference/canonical/garden-fairy-yellow.webp"
+    },
+    {
+      "sheet": "molly-actions-g",
+      "prompt": "Image1 is the approved YELLOW DAISY fairy. Preserve EXACT identity: light peach skin, teal eyes, short brown bob, white daisy cap with gold centre, white/gold layered petal dress with bead details, four translucent gold-veined dragonfly wings, yellow daisy shoes. Navy #24163f outlines, clean soft2D cel shading. EXACTLY TWO full-body sprites in one horizontal row, TRUE transparent background, generous gutters. Same head/torso scale, three-quarter front view facing RIGHT. Left CLAP: palms meeting at chest height in an enthusiastic clap, smiling open eyes, elbows outward, full body hovering gently. Right HOSE-SPRAY: both empty gripping hands together forward at waist/chest height holding an imaginary garden-hose nozzle, forward lean and braced legs, cheeky focused smile, no actual hose/nozzle or water. Keep all wing tips, cap, hands and shoes entirely inside each figure area. No props, water particles, text, labels, shadows, scenery or watermark. Crisp navy outlines, soft2D cel shading, exact approved colors. Preserve approximately230px-wide heads like Image2; do not inflate heads to fill the canvas. Wide1024\u00d7768.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-11724633-073c-4780-b09a-d3dc2d0bb565.png",
+      "poses": [
+        "clap",
+        "hose-spray"
+      ],
+      "status": "native reviewed; intake pending",
+      "asset": "garden-fairy-yellow",
+      "source": "party/tools/sprites/sources/garden-fairy-yellow-molly-actions-g.webp",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "tool": "built-in imagegen",
+      "reference": "party/reference/canonical/garden-fairy-yellow.webp"
+    },
+    {
+      "sheet": "molly-portraits",
+      "prompt": "Generate EXACTLY FIVE expression bust portraits of this exact approved YELLOW DAISY fairy, in3columns\u00d72rows of square512\u00d7512cells on1536\u00d71024wide canvas. Leave sixth(bottom-right)cell entirely empty transparent. Ordered top row NEUTRAL gently friendly closedmouth, HAPPY cheerful openmouth, SURPRISED wideeyes smallO mouth. Bottom row SAD worried slightfrown, DETERMINED focusedbrows confidence. Preserve lightpeachskin, tealeyes, shortbrownbob, white/gold daisypetalcap, whitegoldpetaldress and goldveinedwings. Same3/4front facingRIGHT bust framing/pose/headsize ineachcell, expressiononlychanges. Fullyfit daisycap and completeface inside inscribedcircle with6%margin; centre face, eyes at45%ofcellheight(y230), shoulders/upperdress run off cellbottom. Show enoughoutfit beneathface for circularHUDcrop. Clear transparentgutters, noothercharacters, no hands/props/labels/scenery/shadows/watermark. TRUE TRANSPARENT background. Crisp navy#24163f outlines, clean soft2D celshading and exactapprovedpalette.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-0d37e5c3-d24e-4807-84f5-ad74173931e4.png",
+      "source": "party/tools/sprites/sources/garden-fairy-yellow-molly-portraits.webp",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "expressions": [
+        "neutral",
+        "happy",
+        "surprised",
+        "sad",
+        "determined"
+      ],
+      "status": "native reviewed, circular busts; intake pending"
+    }
+  ],
+  "runtimeFiles": [
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/action-00.webp",
+      "bytes": 16048,
+      "size": [
+        182,
+        206
+      ],
+      "sha256": "ade269e0675260fb7bd54ebd5960884642e8f8e6031405a6a30c7efbaa9d7162"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/balance-00.webp",
+      "bytes": 19810,
+      "size": [
+        195,
+        254
+      ],
+      "sha256": "42ff4dcd6b9a92d5956e88a15ceb208e606132fc465a9ed54d11cc3c7e934af3"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/blow-00.webp",
+      "bytes": 19890,
+      "size": [
+        192,
+        258
+      ],
+      "sha256": "79537aaf8b21ece29be82a404fff357c8d147b6ade842f491076578515cf32f6"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/boop-00.webp",
+      "bytes": 17608,
+      "size": [
+        198,
+        252
+      ],
+      "sha256": "e51f1ccd7411f4d5aaeeb60f6667eea28f158dbe541939ab10568a4c3230ce82"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/bow-00.webp",
+      "bytes": 17062,
+      "size": [
+        184,
+        254
+      ],
+      "sha256": "53064cc605c6dd6b4b4779ea6ca9ee396ef8b31f52d779499e48d0ee5c7c2a24"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/carry-00.webp",
+      "bytes": 20140,
+      "size": [
+        192,
+        258
+      ],
+      "sha256": "5624fb6f26da41f52c2c0069f87b1d5b9b1297d453523440b5b7c124e7441a4c"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/cast-00.webp",
+      "bytes": 16802,
+      "size": [
+        190,
+        229
+      ],
+      "sha256": "02da6caed981e58324e86c633b4ff30d1dc42ce879695b3bebf8ce40559df133"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/catch-00.webp",
+      "bytes": 19516,
+      "size": [
+        180,
+        253
+      ],
+      "sha256": "f3da4fbdde2a093662587c6f32e9e53584d37b13c194f9a66cfe599f75df869a"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/celebrate-00.webp",
+      "bytes": 19542,
+      "size": [
+        186,
+        256
+      ],
+      "sha256": "3f9a088d57180dfab7475978644e2f483b97799c78ae253e97c1b7bfb8907500"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/cheer-00.webp",
+      "bytes": 18338,
+      "size": [
+        189,
+        248
+      ],
+      "sha256": "0a5484bc538e9af8a8570b987d196fca2a72dc2e40aa68dcddaec856d7d42abf"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/clap-00.webp",
+      "bytes": 18640,
+      "size": [
+        178,
+        243
+      ],
+      "sha256": "dfbc49d27db23f1cd88357212cc07d9261784128a7435f0447e9199fff7eb407"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/crouch-00.webp",
+      "bytes": 15788,
+      "size": [
+        193,
+        196
+      ],
+      "sha256": "a576939080c8b97913715b4af6d68fed2f715be1684f3ae535a1c66772ced45f"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/cuddle-00.webp",
+      "bytes": 15062,
+      "size": [
+        165,
+        210
+      ],
+      "sha256": "c6afac7800f3d85a0c47cf0ed8f5f52ca21253f11e63148339eed23a94124474"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/dance-00.webp",
+      "bytes": 19326,
+      "size": [
+        180,
+        255
+      ],
+      "sha256": "f610b093a96e3f3e08dcd0b7f75442b5006decc416867042036a1b788ac808ef"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/dance-01.webp",
+      "bytes": 19004,
+      "size": [
+        183,
+        257
+      ],
+      "sha256": "697e4d79fd4bcea08b4fef6a62b6389f281854ead3d00516cc0f059a15401925"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/dance-02.webp",
+      "bytes": 19248,
+      "size": [
+        178,
+        259
+      ],
+      "sha256": "1de77e11ef473989959e15b6aa60544e6700e869538d35077231b9fdeff6b75c"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/dance-03.webp",
+      "bytes": 19332,
+      "size": [
+        178,
+        261
+      ],
+      "sha256": "aeaf81d2c544de94e7e3042a13b918a60a7f77da9ff1f70e40f4f030db243bbf"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/dance-down-00.webp",
+      "bytes": 16784,
+      "size": [
+        183,
+        225
+      ],
+      "sha256": "53f304024a78e67074c84655bb6cc3fbc884737cf6aac5ae15400e403bbaf06d"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/dance-side-00.webp",
+      "bytes": 19210,
+      "size": [
+        184,
+        252
+      ],
+      "sha256": "e01ecafff18e957d34e80bf47ad547dac12337ac312b76e5e77613e5b919745e"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/dance-star-00.webp",
+      "bytes": 19574,
+      "size": [
+        194,
+        215
+      ],
+      "sha256": "87080745e7362fd60ec903aa7364712cc8446ac1cf327a1979e3f6de8d22d149"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/dance-up-00.webp",
+      "bytes": 18050,
+      "size": [
+        177,
+        250
+      ],
+      "sha256": "ed3b8fdc7d6b3830c2343329504247f85012e073673eafca24147a3d619f0ea0"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/dash-00.webp",
+      "bytes": 17694,
+      "size": [
+        190,
+        239
+      ],
+      "sha256": "3cdec796d87bcf28bacd96b0314e4bace13e89a8f41e84fd31b557aa9a13cd60"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/dizzy-00.webp",
+      "bytes": 19118,
+      "size": [
+        199,
+        248
+      ],
+      "sha256": "74c452921bd39e19c790b739be26dfbf2539620c7cf77a8d2e200a1202c1cf7d"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/eat-00.webp",
+      "bytes": 19502,
+      "size": [
+        195,
+        257
+      ],
+      "sha256": "ec30d4a7c10559e98b1d04d6821407baf6050563361df508f04107c5f8d67a88"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/fall-00.webp",
+      "bytes": 18516,
+      "size": [
+        189,
+        255
+      ],
+      "sha256": "61e95b653d9e29c38933be955e26c3559bf9a5efc9ae9703ac232835a88f446f"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/flip-00.webp",
+      "bytes": 19538,
+      "size": [
+        204,
+        205
+      ],
+      "sha256": "0cb57ca86ca2d613e3a3cfa7bcfc37e883e354fca60c861d4527f8307365ff73"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/float-00.webp",
+      "bytes": 18614,
+      "size": [
+        192,
+        252
+      ],
+      "sha256": "2f23dee9e855a489645870d5e171ae0445e45653cc95dcd2f45e8630b4217451"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/float-01.webp",
+      "bytes": 17992,
+      "size": [
+        169,
+        250
+      ],
+      "sha256": "ad65eebb24c37993f7a6b4650936605c57d0100f5061757ba8605963385a8112"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/float-02.webp",
+      "bytes": 17068,
+      "size": [
+        190,
+        252
+      ],
+      "sha256": "855f0b7f553cd41e12691da4024a03721e312a07d958c98d34360dd127a1742f"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/float-03.webp",
+      "bytes": 17940,
+      "size": [
+        182,
+        251
+      ],
+      "sha256": "212b4b7666227d70804b8cb4a0f2792281a43dd93e61250ae1af227412a5435c"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/fly-00.webp",
+      "bytes": 17676,
+      "size": [
+        170,
+        228
+      ],
+      "sha256": "a4e694773e59e8245e0dd6e42c3f8ad24d31edb4f596387527a98255b6893d09"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/fly-01.webp",
+      "bytes": 17476,
+      "size": [
+        201,
+        228
+      ],
+      "sha256": "6047fa0ed2fa131f1c8670069b46917c8c8565d29d87848bfa9e84a5be89d745"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/fly-02.webp",
+      "bytes": 17524,
+      "size": [
+        184,
+        228
+      ],
+      "sha256": "75b7f9b16ab5bd12cab9691a30fea95ea57dfad4e12decd7ee0ce28be6077e1c"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/fly-03.webp",
+      "bytes": 17426,
+      "size": [
+        194,
+        228
+      ],
+      "sha256": "550abf24eb252150038bf11ef787ac4dc9f01607ccd9749c1bde028de613e7ba"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/giggle-00.webp",
+      "bytes": 18456,
+      "size": [
+        182,
+        259
+      ],
+      "sha256": "6c69769ca2c4fd66b2ad7f3dc4363eaf4f0d636279113e1c94f23597d5169f02"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/high-five-00.webp",
+      "bytes": 18342,
+      "size": [
+        188,
+        258
+      ],
+      "sha256": "67c6771ac64c1abbb7522491c7ba1898f1e52faf94b4bf55078056a022c814f8"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/hose-spray-00.webp",
+      "bytes": 18768,
+      "size": [
+        169,
+        238
+      ],
+      "sha256": "2f20d66bd4d708043cb24e5be29c512eb95762f51d5128aafdc6e1b48b058615"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/hurt-00.webp",
+      "bytes": 17754,
+      "size": [
+        198,
+        239
+      ],
+      "sha256": "044305c3f6428d2725a37ef3b1054ca6fd61ba680177cacad6b630066c539f34"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/idle-00.webp",
+      "bytes": 18426,
+      "size": [
+        177,
+        243
+      ],
+      "sha256": "aa25af390a8630c027c9ac7e5bc96c0066e02fe1a33464a2aed6db0fe3611338"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/idle-01.webp",
+      "bytes": 18588,
+      "size": [
+        195,
+        244
+      ],
+      "sha256": "841d426c2249f164f0f8d9340473195efef289ccfc6f5821964f71ff9951e5ca"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/idle-02.webp",
+      "bytes": 18072,
+      "size": [
+        193,
+        243
+      ],
+      "sha256": "7b53d4338ebe401cc1b0977bb57dbcd87f736bba62edbd9dc29ecf96b6c35718"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/idle-03.webp",
+      "bytes": 18272,
+      "size": [
+        195,
+        243
+      ],
+      "sha256": "06a9cfd9764d57c5ca338551fa429381d38bd3039ddc3feb8f8f763c2f96d5cd"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/jump-00.webp",
+      "bytes": 18308,
+      "size": [
+        178,
+        256
+      ],
+      "sha256": "5e6510eaf70b1b1341266bd2dac8435a69fa5d043ce979b7b2c3af726e350c6d"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/laugh-00.webp",
+      "bytes": 19084,
+      "size": [
+        181,
+        258
+      ],
+      "sha256": "f8fe3b385aef03670a8bb17b4e1aaa8af9d8e14cd4e13780d3a7a7fbf776af82"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/look-around-00.webp",
+      "bytes": 19624,
+      "size": [
+        193,
+        258
+      ],
+      "sha256": "4b72d680e980804fb6f9f93ed0c4e195d46576aff8d527ead9f5481bb3acfa14"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/look-up-00.webp",
+      "bytes": 20292,
+      "size": [
+        188,
+        256
+      ],
+      "sha256": "fdf1cd28241067c132b2285a2802c1a3eba871d67c99360679823fdf214469f9"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/paint-00.webp",
+      "bytes": 19170,
+      "size": [
+        202,
+        252
+      ],
+      "sha256": "745feee021b1eb82f4c60f3add6abee29266be844ba99ba58d510291643e88d5"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/portrait-determined.webp",
+      "bytes": 39012,
+      "size": [
+        384,
+        384
+      ],
+      "sha256": "20b66e82492805bcf53e09a7ee9ae0f894c7defaf10ca1cd526c524985194ec5"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/portrait-happy.webp",
+      "bytes": 39254,
+      "size": [
+        384,
+        384
+      ],
+      "sha256": "7251d07ec6866e1c7cc7031940f061c19841012950a087778ef3b23923a7e8d9"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/portrait-neutral.webp",
+      "bytes": 38250,
+      "size": [
+        384,
+        384
+      ],
+      "sha256": "d21fb60b4ebf79aabcac1429581879f15d0d480f2bc8644513b3a14f276388a1"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/portrait-sad.webp",
+      "bytes": 38338,
+      "size": [
+        384,
+        384
+      ],
+      "sha256": "bef3a26f0e64dfe742b28d0be114e38710d9941ac64ac4d23493e2459040b708"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/portrait-surprised.webp",
+      "bytes": 38760,
+      "size": [
+        384,
+        384
+      ],
+      "sha256": "5b5d8a8ab98562d6f41884b866a4d16f15431bd0dc3b73588a05baef55820bc3"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/pose-twirl-00.webp",
+      "bytes": 18594,
+      "size": [
+        180,
+        253
+      ],
+      "sha256": "c92e9bda7451d5c67cbeb0e883ab3dcc6b7ce90def8dd144afa20d9f110643f1"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/push-00.webp",
+      "bytes": 19190,
+      "size": [
+        186,
+        248
+      ],
+      "sha256": "9697dd5243e521cc077d4d9d51268e25a4400bfd1c3d5796ee65714eadee2041"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/ready-00.webp",
+      "bytes": 19880,
+      "size": [
+        176,
+        258
+      ],
+      "sha256": "7bec5598f12584807512133397eb82541e4bc243ae9fff6d328e31f5786be133"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/ride-sit-00.webp",
+      "bytes": 19636,
+      "size": [
+        181,
+        251
+      ],
+      "sha256": "d21f1d13693a747eb49506535861c3bfb271f705c585d5b893c935c93f8a239c"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/run-00.webp",
+      "bytes": 18238,
+      "size": [
+        186,
+        239
+      ],
+      "sha256": "74fdfc99598cf3514980cec534d460c7f32d3efaf09005c1848571eb2a0f7438"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/run-01.webp",
+      "bytes": 16904,
+      "size": [
+        175,
+        225
+      ],
+      "sha256": "b8edabb4414c9e55a31ed39bfc1e7503911de5267179bccdf0cf2626c5e64776"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/run-02.webp",
+      "bytes": 17980,
+      "size": [
+        179,
+        238
+      ],
+      "sha256": "66f7d2dde8f0121e357603ab2c96aaea20d63d3f806be8e9c8c5d3409b2cebc7"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/run-03.webp",
+      "bytes": 16906,
+      "size": [
+        181,
+        222
+      ],
+      "sha256": "725c7b0fb20c9e2fa09849c7949f3053420408a05f3c5b3d3d242a883878e79f"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/shake-00.webp",
+      "bytes": 18234,
+      "size": [
+        192,
+        244
+      ],
+      "sha256": "9d297b233bb72a89a2ad209f15dab5178565458e371d3c2ca0fc8ee544213bc3"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/silly-pose-00.webp",
+      "bytes": 18700,
+      "size": [
+        188,
+        256
+      ],
+      "sha256": "9550005b760222517d5c99910120c5884777253b374d2176ca9602b5369a7cd3"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/sit-00.webp",
+      "bytes": 17422,
+      "size": [
+        177,
+        238
+      ],
+      "sha256": "8cfbc595f23712238ed93c00c2c063dbf37a4435c21dac7cb25ad51eca5abfc8"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/sleep-00.webp",
+      "bytes": 15640,
+      "size": [
+        196,
+        210
+      ],
+      "sha256": "6e75fb98d139e0bb361258b5066e7aebe96f8a36bf9f4105963a6b9d6125279e"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/spring-jump-00.webp",
+      "bytes": 16714,
+      "size": [
+        188,
+        217
+      ],
+      "sha256": "03dd3643072fb6ab1cee887fb6ec6e52ccf32ceb3d5bb06f57712dca8bd4da0e"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/strike3-00.webp",
+      "bytes": 22170,
+      "size": [
+        199,
+        259
+      ],
+      "sha256": "1fd8e8e785d4f8fbb3156b184724917ee62e7ab52f3c78836277c569c6a05c50"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/surprised-00.webp",
+      "bytes": 19454,
+      "size": [
+        186,
+        251
+      ],
+      "sha256": "811a7996fb10efe985653194f86274d529c616369ffd79d4a01b8f423ca87aff"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/swim-00.webp",
+      "bytes": 17476,
+      "size": [
+        189,
+        220
+      ],
+      "sha256": "69cabcbef9035db846b956aec3100e745549d01dacdbe6edcbb4f6b5acc23d9d"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/swim-01.webp",
+      "bytes": 18062,
+      "size": [
+        172,
+        220
+      ],
+      "sha256": "2a7bbd4027e5796e9b220386a0dae43cc07dea45e81f3e2dd4b99f0157cc56eb"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/swim-02.webp",
+      "bytes": 16528,
+      "size": [
+        191,
+        219
+      ],
+      "sha256": "1bdd449447cea6a1a50df563220da69c5ecded65ea168432a9ab2ae3cc143ca1"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/swim-03.webp",
+      "bytes": 17090,
+      "size": [
+        170,
+        218
+      ],
+      "sha256": "bbfca9209b70c0428238b7ce2f30127e0fa7974b8774bb801a15b23f92e09b8b"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/think-00.webp",
+      "bytes": 18322,
+      "size": [
+        169,
+        256
+      ],
+      "sha256": "a5dae6e2625cefb990431b6eb08fbf0ff9ff205746ad0076a44eb200539e54b8"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/throw-00.webp",
+      "bytes": 17778,
+      "size": [
+        199,
+        244
+      ],
+      "sha256": "66d371b499fb1af599dfa6c397912eac771d53eb00c8ac576b73fd5ae3459551"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/tiptoe-00.webp",
+      "bytes": 18722,
+      "size": [
+        179,
+        248
+      ],
+      "sha256": "77eec176e9acc8c48db17239519a17843fd2a76f2c45513d7ea4ad5c65d7abb2"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/tiptoe-01.webp",
+      "bytes": 17102,
+      "size": [
+        179,
+        241
+      ],
+      "sha256": "845f65126e2eeb7dbdbd11cac3e15dff348314a5c25757e0091dc22dc1813f82"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/tiptoe-02.webp",
+      "bytes": 18662,
+      "size": [
+        177,
+        243
+      ],
+      "sha256": "e44104350a61d1e9b07a8e73b93a1facb9373143e5af5c148c000975f42d3cc1"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/tiptoe-03.webp",
+      "bytes": 17214,
+      "size": [
+        179,
+        239
+      ],
+      "sha256": "a5eb1f78ee6c8a7e8188428f3992feb9e40cfea51ee5c9941eb02a34a4714cbf"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/tongue-out-00.webp",
+      "bytes": 16232,
+      "size": [
+        166,
+        216
+      ],
+      "sha256": "0c2ba31f0cf1b5558159b1c9377170db3e7d71f506bbb934549c965593b68099"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/toss-00.webp",
+      "bytes": 19820,
+      "size": [
+        198,
+        260
+      ],
+      "sha256": "3ec0bca33dd0e24929a720c12a5437ab998b90792cbf1a532632dad081b9c1ac"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/tuck-00.webp",
+      "bytes": 12444,
+      "size": [
+        162,
+        159
+      ],
+      "sha256": "c144688a37b72c252b9f67858a179d8a702a1e8e4a340b023bda020c0fe08d9f"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/tumble-00.webp",
+      "bytes": 19000,
+      "size": [
+        217,
+        194
+      ],
+      "sha256": "d0cbaf6b067d2e430c7376bcc8f448177bbcc8699bb988c91ecfdaa23ac7aacd"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/walk-00.webp",
+      "bytes": 19194,
+      "size": [
+        180,
+        252
+      ],
+      "sha256": "b261eba364ffa5c5f463ed3b2bd20bf518ce412c3bcf3cd6f3952a4e9e818e10"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/walk-01.webp",
+      "bytes": 18898,
+      "size": [
+        187,
+        251
+      ],
+      "sha256": "6fcd3e3ff40c0af2d2c3edae64daff43fa10db36c33c05d98f865d270be7f086"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/walk-02.webp",
+      "bytes": 19636,
+      "size": [
+        183,
+        254
+      ],
+      "sha256": "7e74f1afde55c383be2bd8fb61f3cad12ab0acb413ef54869092352b8bdfc97a"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/walk-03.webp",
+      "bytes": 18230,
+      "size": [
+        179,
+        252
+      ],
+      "sha256": "7d4d83efd2a0746597c3434c397eb301cc69e9c91577d0081b4dc29d92a6fb63"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/wand-up-00.webp",
+      "bytes": 18236,
+      "size": [
+        176,
+        255
+      ],
+      "sha256": "9bcdaf7569bd2f0b10bade35120298a947ae9d03217b7db8e0e9d524bb57a8db"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/water-00.webp",
+      "bytes": 19992,
+      "size": [
+        188,
+        258
+      ],
+      "sha256": "81bac4ca593e634174a7d24761918d78ca7131d6f8ea71744320eac38d3d3733"
+    },
+    {
+      "path": "party/assets/sprites/garden-fairy-yellow/wave-00.webp",
+      "bytes": 19376,
+      "size": [
+        183,
+        251
+      ],
+      "sha256": "5261b41e944693fdb8a4dd168020afb41590558a685a85c32a4a6db9a98a0156"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/action-00.webp",
+      "bytes": 17386,
+      "size": [
+        182,
+        206
+      ],
+      "sha256": "cbe9d5ed61291fe1a3b3e7275a9ca019f1f8d2578bcead74f7ccb3880c2fc6b0"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/balance-00.webp",
+      "bytes": 21516,
+      "size": [
+        195,
+        254
+      ],
+      "sha256": "3eadd0df323773ebb44e10b1ad656c5f68ec37999c4b724358ef36806d5cedf9"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/blow-00.webp",
+      "bytes": 21368,
+      "size": [
+        192,
+        258
+      ],
+      "sha256": "4e6c545a1c1088eeb150ca7dce03265ee9d9c58fd070e7b9044d3f04411c3422"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/boop-00.webp",
+      "bytes": 19186,
+      "size": [
+        198,
+        252
+      ],
+      "sha256": "4f63c1a4c1f7df6c937b5c42e1a5b52715abf1109c145347ee17db12497d4320"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/bow-00.webp",
+      "bytes": 18628,
+      "size": [
+        184,
+        254
+      ],
+      "sha256": "d229deeabba5c06ce8d9bc496ab0259ee80e1ea58c8180dd3e1c5f58b7dc51dd"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/carry-00.webp",
+      "bytes": 21612,
+      "size": [
+        192,
+        258
+      ],
+      "sha256": "5737d2eab96eb89a704d384f187f182f421fa0fa79797515fe7f3f6f3e17938c"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/cast-00.webp",
+      "bytes": 18098,
+      "size": [
+        190,
+        229
+      ],
+      "sha256": "7b03a2a53d47745a6bf8bbcb9888fd62cecdb6958116d9adee5d7361514c3db5"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/catch-00.webp",
+      "bytes": 21088,
+      "size": [
+        180,
+        253
+      ],
+      "sha256": "2ac885b252ea600ea38a32fc5c11e428fbfa089d9733c43c385677193a803503"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/celebrate-00.webp",
+      "bytes": 21094,
+      "size": [
+        186,
+        256
+      ],
+      "sha256": "bc65ca6e9c14649f37cada0f0ae9847b56abfb28127dd842f8aa15ba1741e6ea"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/cheer-00.webp",
+      "bytes": 19818,
+      "size": [
+        189,
+        248
+      ],
+      "sha256": "6cf92309ea9db627c9ea455d25041c481445ce3c5be5809b21ff8ed2096ca4b1"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/clap-00.webp",
+      "bytes": 20252,
+      "size": [
+        178,
+        243
+      ],
+      "sha256": "4df529186720dffe9b686842c182778db16110d5b3953e9b5ae597dc56eb9359"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/crouch-00.webp",
+      "bytes": 17170,
+      "size": [
+        193,
+        196
+      ],
+      "sha256": "391bb47aaa9fcae2a4845f2101c7e6fecd251ef4ea814244867b213929ff9841"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/cuddle-00.webp",
+      "bytes": 16148,
+      "size": [
+        165,
+        210
+      ],
+      "sha256": "f425b01afed4de7a552d94d5c9a7021edc6b6f03cc021ec9a415c9dc96760379"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/dance-00.webp",
+      "bytes": 20652,
+      "size": [
+        180,
+        255
+      ],
+      "sha256": "de55ca35b172789db533ee497137840fea24bc9b661bbbbb48bb312522f64781"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/dance-01.webp",
+      "bytes": 20422,
+      "size": [
+        183,
+        257
+      ],
+      "sha256": "252e257d6611c5dfb2428d569686d560199b3e937a9ab56a8afd2436db6f234e"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/dance-02.webp",
+      "bytes": 20724,
+      "size": [
+        178,
+        259
+      ],
+      "sha256": "3aa198df26ae252066427a7ca08fd3136d3a165928498d4bf6a49b53c67b7520"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/dance-03.webp",
+      "bytes": 20752,
+      "size": [
+        178,
+        261
+      ],
+      "sha256": "8d471de5758c9b508f5c69ee16fa24a7024a8157e2a8277e0c6c935475749d97"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/dance-down-00.webp",
+      "bytes": 18074,
+      "size": [
+        183,
+        225
+      ],
+      "sha256": "e669bfd60214d6f3068ddcdd8e02446e43e01e6131ad0d3cc675ebf9be0b0f42"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/dance-side-00.webp",
+      "bytes": 20662,
+      "size": [
+        184,
+        252
+      ],
+      "sha256": "81c3b73d7b5214f40473dcf1fda0ae40808733387fad216876241f2805b82988"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/dance-star-00.webp",
+      "bytes": 20884,
+      "size": [
+        194,
+        215
+      ],
+      "sha256": "8d676786ea9528394b4c563b86e1581b6c171f73f289def8597227f3374c459e"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/dance-up-00.webp",
+      "bytes": 19362,
+      "size": [
+        177,
+        250
+      ],
+      "sha256": "a1b36c2b7f5d5c056729e2d30d577de7d968fd6aaa594a7d91a89201fbb2aa10"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/dash-00.webp",
+      "bytes": 19126,
+      "size": [
+        190,
+        239
+      ],
+      "sha256": "91b882b7d0c5ebbf84ce602203676e419ba52d1e4ce683b8ee38e7185a86541f"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/dizzy-00.webp",
+      "bytes": 20730,
+      "size": [
+        199,
+        248
+      ],
+      "sha256": "38f1d32a926453dd1244cd7e3c019a24e7b5a0a39bd74491e128af94781290c4"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/eat-00.webp",
+      "bytes": 21140,
+      "size": [
+        195,
+        257
+      ],
+      "sha256": "ecf61d16080587b526f0cb5034f3ce4fa7df15de1c4ee01debc921458cf89bc3"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/fall-00.webp",
+      "bytes": 20156,
+      "size": [
+        189,
+        255
+      ],
+      "sha256": "60222372acf1277f87f2a8f9e8f0cb02700c80cd34f728aa12849fbfacb08276"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/flip-00.webp",
+      "bytes": 20950,
+      "size": [
+        204,
+        205
+      ],
+      "sha256": "a667547d74760d13fb7d989abab04fe74d1dc17fba553ee27f399d13f00cc9a5"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/float-00.webp",
+      "bytes": 20124,
+      "size": [
+        192,
+        252
+      ],
+      "sha256": "36d8b6ec7ae495ede26cfb5c7f6433396695a96c6bfbba0780eac922feed73a2"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/float-01.webp",
+      "bytes": 19304,
+      "size": [
+        169,
+        250
+      ],
+      "sha256": "4267c47b7d3888867a06f7e83ae346c5319d6b700ceed2a09c3ab86bfc9e88d7"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/float-02.webp",
+      "bytes": 18520,
+      "size": [
+        190,
+        252
+      ],
+      "sha256": "e9072ae76c99c2246c09f7aac22eb335d99def983510d36cfa7db0ec03f8fc81"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/float-03.webp",
+      "bytes": 19470,
+      "size": [
+        182,
+        251
+      ],
+      "sha256": "9881beac670407d78022b755b2d431526e01b08645418366eed1f464513489ea"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/fly-00.webp",
+      "bytes": 18926,
+      "size": [
+        170,
+        228
+      ],
+      "sha256": "1a7acba2da8003d06daf0303d04cfc34adf1700a93b50976fe74d202cdcff087"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/fly-01.webp",
+      "bytes": 18932,
+      "size": [
+        201,
+        228
+      ],
+      "sha256": "409d51a8f71afc0108c433defe29a8e0d0a5e3f14f2125b45aa6d300a84424e9"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/fly-02.webp",
+      "bytes": 18874,
+      "size": [
+        184,
+        228
+      ],
+      "sha256": "bbbf55d321b93dadf94500450b866c6f9b17bd890c61d9d5beea3837a847c34f"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/fly-03.webp",
+      "bytes": 19014,
+      "size": [
+        194,
+        228
+      ],
+      "sha256": "9a892ec4742f7bcd766e253065fa1e788ea8d3d35c0168487e139dedcced5090"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/giggle-00.webp",
+      "bytes": 20192,
+      "size": [
+        182,
+        259
+      ],
+      "sha256": "9a3262028b94900590d1965a66ab1e3aafdba61dc651ab11f6a35b0fc11954bc"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/high-five-00.webp",
+      "bytes": 20002,
+      "size": [
+        188,
+        258
+      ],
+      "sha256": "1d1157aa6cfa5ae3e3b91689fae3c6df310ed0c04678fefc97fc238d95937b50"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/hose-spray-00.webp",
+      "bytes": 20158,
+      "size": [
+        169,
+        238
+      ],
+      "sha256": "2e2bacacd9b8600ac6cb35f88d4fc442c545a3bf5d4e2b3c50b5313b76189607"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/hurt-00.webp",
+      "bytes": 19106,
+      "size": [
+        198,
+        239
+      ],
+      "sha256": "8645cf8a34e8b7a623d367dd6f703a2455ec65fbf5d80ffe769c85021fd11fa6"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/idle-00.webp",
+      "bytes": 19926,
+      "size": [
+        177,
+        243
+      ],
+      "sha256": "2e1079bbc901847ae37a0366ee6275890b63bdf6ab4cbc1bf669200f58d7b4d8"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/idle-01.webp",
+      "bytes": 20308,
+      "size": [
+        195,
+        244
+      ],
+      "sha256": "649e5785a1cd538ece95034fed3901012b36d021cc88fd8ced187e3da2e10872"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/idle-02.webp",
+      "bytes": 19674,
+      "size": [
+        193,
+        243
+      ],
+      "sha256": "15c377ba3db1590f297f6657bb8a8ba0c8b7ac360b069fa494c80f83db82396e"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/idle-03.webp",
+      "bytes": 19790,
+      "size": [
+        195,
+        243
+      ],
+      "sha256": "8cf3f000d562e901bec57f7d7f4d466f652b8107b89def3b22cba69a3709db9e"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/jump-00.webp",
+      "bytes": 19770,
+      "size": [
+        178,
+        256
+      ],
+      "sha256": "8a9f38d997d4cf268faf8d957b32cab539d544148861bb998a04538b5c6d3216"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/laugh-00.webp",
+      "bytes": 20712,
+      "size": [
+        181,
+        258
+      ],
+      "sha256": "5c221d283c3d708405aabcc988d49286c75c0ef16fe27ed5a08b3eb003adcc15"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/look-around-00.webp",
+      "bytes": 21250,
+      "size": [
+        193,
+        258
+      ],
+      "sha256": "ced32a3ec89152ccc54d061db1b1b90c12a69676f42d2bc334b8f42b42f4f674"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/look-up-00.webp",
+      "bytes": 21746,
+      "size": [
+        188,
+        256
+      ],
+      "sha256": "00cf3faa922c659b7b604e0c9ba380000938b33cd763e3481bcd47af17119346"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/paint-00.webp",
+      "bytes": 20684,
+      "size": [
+        202,
+        252
+      ],
+      "sha256": "794e7fd960a8e5a504e55d0728503851653a26b37f220fc8ed79f0f55f440eac"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/portrait-determined.webp",
+      "bytes": 17170,
+      "size": [
+        192,
+        192
+      ],
+      "sha256": "b8ba00628095edec8efea92e0a909f80fac3cad1869d5d359cdbc89ba8e48e3f"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/portrait-happy.webp",
+      "bytes": 17058,
+      "size": [
+        192,
+        192
+      ],
+      "sha256": "58c303aed9e5de925725030a76c761a9c758f208967bea4fc199cef8f25fbf5d"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/portrait-neutral.webp",
+      "bytes": 16806,
+      "size": [
+        192,
+        192
+      ],
+      "sha256": "244b45f530ec6e6b626eb85dd7a998428b2ca5c1c1c9b9252d5d4860449814c2"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/portrait-sad.webp",
+      "bytes": 16880,
+      "size": [
+        192,
+        192
+      ],
+      "sha256": "e6a5eaf952eea0709a4386905bc23776d26337078785535e255526ea3440765c"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/portrait-surprised.webp",
+      "bytes": 17170,
+      "size": [
+        192,
+        192
+      ],
+      "sha256": "9614dd48a9674ee29fd04863e8a9bdfb1977fd464c90a730ff6bd98e3200c1b5"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/pose-twirl-00.webp",
+      "bytes": 20062,
+      "size": [
+        180,
+        253
+      ],
+      "sha256": "28b82c5d4d1916ac512a1ae582238eb9e060f52b7afbdfc2c5689bd02b3dfb46"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/push-00.webp",
+      "bytes": 20664,
+      "size": [
+        186,
+        248
+      ],
+      "sha256": "bf0eda7894ae4f79b870b91b9a08ab22a366ad62601e8f9a67c42469aeddcc75"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/ready-00.webp",
+      "bytes": 21318,
+      "size": [
+        176,
+        258
+      ],
+      "sha256": "9b38cf1ac210e75bbde7e3cb9d0d95174ff12fd136b931aef1719905e78994bb"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/ride-sit-00.webp",
+      "bytes": 20922,
+      "size": [
+        181,
+        251
+      ],
+      "sha256": "a8f4c4b4de6601bac2a68cc66b45d7737054f13d3439489ee575cec91957c989"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/run-00.webp",
+      "bytes": 19654,
+      "size": [
+        186,
+        239
+      ],
+      "sha256": "84780efd124221550bcc8744f121fc9916f5d47211ab700c8acd6c7d4f075192"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/run-01.webp",
+      "bytes": 18144,
+      "size": [
+        175,
+        225
+      ],
+      "sha256": "ce5390ced745c6159be4f3b3222dbb05b336abed5ea97d089758161b21a7a1bc"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/run-02.webp",
+      "bytes": 19240,
+      "size": [
+        179,
+        238
+      ],
+      "sha256": "d5b436a42925c3ca6dfd109d9b4c0f2c3d90c2c3a95d5694c7d903ee5d2ba3f4"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/run-03.webp",
+      "bytes": 18166,
+      "size": [
+        181,
+        222
+      ],
+      "sha256": "6376a84d9145d2b97a7f157a3939a4d8b8115b5371ef38ddc797cc919695d67a"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/shake-00.webp",
+      "bytes": 19842,
+      "size": [
+        192,
+        244
+      ],
+      "sha256": "47f501f36b003c61064895a0ef6e1ebc40b32551fd8f575e4d690b9d9aad879b"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/silly-pose-00.webp",
+      "bytes": 20086,
+      "size": [
+        188,
+        256
+      ],
+      "sha256": "b02052eabf2b9cefc19fd2ff8b94a7b48a9c81d0eaece78c9ecce654faf28d81"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/sit-00.webp",
+      "bytes": 18754,
+      "size": [
+        177,
+        238
+      ],
+      "sha256": "b5b2bc5bbc9bfeef4c5b14788af86171b7ac684a26daaa8288fd60f71117d330"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/sleep-00.webp",
+      "bytes": 16970,
+      "size": [
+        196,
+        210
+      ],
+      "sha256": "016eb7c8af3793570a72b7dea4f83fcf0fb07c6de9ad8fa80b6b81f323e94496"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/spring-jump-00.webp",
+      "bytes": 17900,
+      "size": [
+        188,
+        217
+      ],
+      "sha256": "51b13ceabaef09472f245328f9e3adfc4a8a9aad7af90322be8a5f6dd0324ad9"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/strike3-00.webp",
+      "bytes": 23842,
+      "size": [
+        199,
+        259
+      ],
+      "sha256": "25f459d1811f483d2273522cafd4c67cb82277343687bea27e6dffe6b2e1c1be"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/surprised-00.webp",
+      "bytes": 21108,
+      "size": [
+        186,
+        251
+      ],
+      "sha256": "24789a3530dbf16c99907f226e8915d82376d289e4ff5d24dd4d25f1d097fc8d"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/swim-00.webp",
+      "bytes": 18794,
+      "size": [
+        189,
+        220
+      ],
+      "sha256": "3210ad3976733dc4bc8926a425a9428833ceb5d0c1b3d247764ce52f0c3836cd"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/swim-01.webp",
+      "bytes": 19094,
+      "size": [
+        172,
+        220
+      ],
+      "sha256": "2e8fc0b8cb74c2cf768adc3105f44b0a6f95816c0a2309644cfbe306607fdfdd"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/swim-02.webp",
+      "bytes": 17980,
+      "size": [
+        191,
+        219
+      ],
+      "sha256": "93ebd4d76f6cb405afae3b5a86162684c1a7217c3017d994e60c52f59f87c5fb"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/swim-03.webp",
+      "bytes": 18256,
+      "size": [
+        170,
+        218
+      ],
+      "sha256": "79b66c1101c25b0266de3f0d27caf65a60b5373f534920cb97ac3a18a1f05c34"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/think-00.webp",
+      "bytes": 19684,
+      "size": [
+        169,
+        256
+      ],
+      "sha256": "fc0c0ef73f3db76669cbf7c2208c749a7fa92110e2320c1b07ce15342a7e81bb"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/throw-00.webp",
+      "bytes": 19366,
+      "size": [
+        199,
+        244
+      ],
+      "sha256": "104b3fb6af3470e70a98e54b7dc4ee4b6487c664ad976233b2de1ee665edaafb"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/tiptoe-00.webp",
+      "bytes": 20126,
+      "size": [
+        179,
+        248
+      ],
+      "sha256": "aaeb8aa64b1da15143e0a9f2f97f7695d79cc9a3455e406c3c75b3aade3dd7fb"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/tiptoe-01.webp",
+      "bytes": 18556,
+      "size": [
+        179,
+        241
+      ],
+      "sha256": "2cbde3e42878a437fb57caaee5e523fc2dd37a54f5edf51d6e09df40ad1d5eec"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/tiptoe-02.webp",
+      "bytes": 20128,
+      "size": [
+        177,
+        243
+      ],
+      "sha256": "9edcda50c228972c181bf751456ce8ac8eee1cad2338d73edbb8335ecf15e8a7"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/tiptoe-03.webp",
+      "bytes": 18526,
+      "size": [
+        179,
+        239
+      ],
+      "sha256": "0ee941b0f3ec62cf010335ed4f2e0eb8cfcdadeac37265c405498a102ce6757b"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/tongue-out-00.webp",
+      "bytes": 17498,
+      "size": [
+        166,
+        216
+      ],
+      "sha256": "ca74bb15359d6a6ba23e378a64f80d97d594c7faa6438ff9d8c074cdb3d161d8"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/toss-00.webp",
+      "bytes": 21396,
+      "size": [
+        198,
+        260
+      ],
+      "sha256": "ec0088e847f6d9a20e42d24dbdd46de777b8ebf56f25ce4dd2ba437a7e249647"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/tuck-00.webp",
+      "bytes": 13402,
+      "size": [
+        162,
+        159
+      ],
+      "sha256": "c4467d6d97795490fe2f1accd02a4a213f84eac7c748495826bffafede5a0392"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/tumble-00.webp",
+      "bytes": 20386,
+      "size": [
+        217,
+        194
+      ],
+      "sha256": "ee2510a1bceecfe242bbe9eb32396b83d4bd16bb14279c9d64a5f64d1f7a3cd1"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/walk-00.webp",
+      "bytes": 20560,
+      "size": [
+        180,
+        252
+      ],
+      "sha256": "ea6663776ca3e2d40f01cb8c8ac959e9ff3a968091281e4e697a5820ad02f7d4"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/walk-01.webp",
+      "bytes": 20392,
+      "size": [
+        187,
+        251
+      ],
+      "sha256": "bf2a33f5e5b15a699a041c3c8be83491cfb7ee71018e03249a033457afe8eeaa"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/walk-02.webp",
+      "bytes": 20926,
+      "size": [
+        183,
+        254
+      ],
+      "sha256": "05301d3a62f4e06c2dbf3f116381750b7bfc21a5251cfd95f5d0fcc6ee2cf906"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/walk-03.webp",
+      "bytes": 19650,
+      "size": [
+        179,
+        252
+      ],
+      "sha256": "8345c08a13a464dbf34f1ebe843d89c61bdd484c2031267c789f2383f94dce1c"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/wand-up-00.webp",
+      "bytes": 19616,
+      "size": [
+        176,
+        255
+      ],
+      "sha256": "399b3f39a54aeb1100f01cd61a3a5ba1e219ef2f6614db697ac15dbd0c1efc10"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/water-00.webp",
+      "bytes": 21644,
+      "size": [
+        188,
+        258
+      ],
+      "sha256": "ac546e0ed7e55db9d601a2be2e281bd766f5d56e04490f0435206186445ecd2d"
+    },
+    {
+      "path": "party/assets/sprites-opt/garden-fairy-yellow/wave-00.webp",
+      "bytes": 20932,
+      "size": [
+        183,
+        251
+      ],
+      "sha256": "e7d0024900aafb9bd498e356ef5a4c4b74f3c5d3f7b84dfddd5c35e6a8166e31"
+    }
+  ],
+  "poseCount": 59,
+  "bodyFrameCount": 83,
+  "portraitCount": 5,
+  "landmarkReview": "Manually marked all source landmarks; refined 67 open-eye centres from two teal iris components, checked runtime overlays; run hand points moved to fists; smaller action-D/G packets scaled to match neutral head/body size; all head bounds valid."
+}

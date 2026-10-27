@@ -1,0 +1,52 @@
+{
+  "tool": "built-in image_gen",
+  "status": "COMPLETE: all25 frames intaken, manual source coordinates and runtime landmark overlays reviewed. Fullset75keys91frames5portraits,11.5MiBdecoded. Optimized copies generated.",
+  "assets": [
+    {
+      "sheet": "fellowfox-round2-final-a",
+      "prompt": "Use case: stylized-concept. Make ONE game sprite sheet of this EXACT approved pet Fellowfox, transparent background, FOUR COLUMNS TWO ROWS, eight full-body foxes separated by generous gutters. Ordered row1: splat-throw (playful underhand forepaw flick); wand-up (one empty forepaw raised high); broom-rise (crouched riding posture forepaws forward leaning); broom-glide (relaxed seated riding stance forepaws forward). Row2: broom-zapped (startled ruffled fur tilted seated recoil); crowned (proud chin-up strutting fox, no crown); tumble (tipping backwards airborne, paws splayed); drink (muzzle lowered toward empty raised forepaw as if sipping, no bottle). Keep animal quadruped anatomy: short legs with black paws, orange fur, cream muzzle/chest, huge dark amber eyes, black flower with gold center beside ear, huge white tipped bushy tail. Consistent HEAD SIZE and camera, every complete ear paw and tail visible, navy outlines and clean cel shading exactly reference style. No humans, clothes, props, broom, crown, container, particles, motion lines, shadows, text or background. Actions expressed through animal body.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-e520d4fb-a5ff-4ec6-a378-da810e836e4e.png",
+      "poses": [
+        "splat-throw",
+        "wand-up",
+        "broom-rise",
+        "broom-glide",
+        "broom-zapped",
+        "crowned",
+        "tumble",
+        "drink"
+      ]
+    },
+    {
+      "sheet": "fellowfox-round2-final-b",
+      "prompt": "Use case: stylized-concept. Make ONE transparent game sprite sheet of EXACT reference pet Fellowfox, FOUR COLUMNS TWO ROWS eight full body fox figures, generous gutters. Row1 left-to-right: hiccup (puffed cheeks sudden shoulder jolt); stomp-giant (confident wide planted paws, proud chin); squeak-tiny (surprised small hop tucked paws); flip (reaching forepaw down toward imaginary card). Row2: shake-sprinkles (raised empty forepaw shaking downwards, inquisitive); photo (adorable camera smile headtilt one paw raised); catch-present (startled upward catch with both forepaws ready, nothing held); twirl-front (front facing playful pivot on hindpaws forepaws spread, tail curving). Same head size all eight, normal character size for giant/tiny code scaling. Preserve orange fur cream muzzle/chest, short black paws, huge amber eyes, black flower with gold center beside ear, big white tipped bushy tail. Cute ANIMAL anatomy only. Navy outlines clean cartoon celshading exactly reference. Every ear paw tail fully inside eachcell. No human hands/clothes, props, soil, effects, particles, words, shadows, backdrop.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-44c7fa4b-5fe1-4308-bc96-ebaaab78c567.png",
+      "poses": [
+        "hiccup",
+        "stomp-giant",
+        "squeak-tiny",
+        "flip",
+        "shake-sprinkles",
+        "photo",
+        "catch-present",
+        "twirl-front"
+      ]
+    },
+    {
+      "sheet": "fellowfox-round2-final-c",
+      "prompt": "Use case: stylized-concept. ONE transparent sprite sheet EXACT reference Fellowfox pet. THREE COLUMNS THREE ROWS, nine fullbody foxes with wide gutters. Row1: dash-launch (low forward pounce, forepaws out); dash-held (elongated playful forward lunge, tail streams back); hip-cocked (side-on right, hindquarters pulled back, cheeky grin). Row2: hip-swung (rump pushed screen-right, upperbody leans away); knockback-A (leaning backward startled, paws windmill, sliding on hindpaws); knockback-B (alternate backward teeter same support point). Row3: twirl-right (right-facing threequarter playful spin); twirl-back (TRUE rear view back of head no visible face, tail swishes); twirl-left (leftfacing threequarter turning from rear). Each entire fox including ears and tail within its cell. Keep identical HEAD SIZE to reference proportion in all poses, amber eyes, black-gold earflower, orange fur cream chest/muzzle black paws white-tipped tail. Short quadruped limbs, expressive animated animal posture, no human anatomy or clothing. Clean navy outlines and cel shading. No props, effects, particles, shadows, text, scene or grid. Transparent.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-2997e8b4-3808-4e5a-840d-39a0b28846b3.png",
+      "poses": [
+        "dash-launch",
+        "dash-held",
+        "hip-cocked",
+        "hip-swung",
+        "knockback-a",
+        "knockback-b",
+        "twirl-right",
+        "twirl-back",
+        "twirl-left"
+      ]
+    }
+  ]
+}

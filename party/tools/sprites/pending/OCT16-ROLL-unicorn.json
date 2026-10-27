@@ -1,0 +1,90 @@
+{
+  "asset": "unicorn",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a144da-7f42-71c1-99ea-7fa12a2566c0/exec-03b38224-342e-4770-b535-29b0a8280811.png",
+  "source": "party/tools/sprites/sources/unicorn-roll-push-oct16.webp",
+  "prompt": "Two-frame transparent game sprite strip of SAME elegant quadruped white UNICORN canonical image1, shipping idle image2. Preserve slender horse anatomy, white body, lavender-shaded flowing white mane/tail, long lavender horn, graceful closed eyelash eyes, lavender hooves. Lower neck/head leaning forward pushing invisible ball RIGHT using forehead/muzzle (do not pierce it with horn). LEFT cell long extended walking stride hooves spread. RIGHT cell clear passing step with forehooves close beneath chest, one bent raised foreleg, alternate hindleg. Distinct leg silhouette not duplicated poses. Same head/body proportions and baseline; full horn/mane/tail/hooves, wide gutters. Bold dark clean cartoon outlines/cel shading, true transparent alpha no glow, ball, props, human hands, ground, shadows, effects or text.",
+  "status": "intaken; pending integrator game review",
+  "exact": true,
+  "losslessRGBA": true,
+  "pose": {
+    "frames": [
+      {
+        "source": "../sources/unicorn-roll-push-oct16.webp",
+        "rect": [
+          0,
+          0,
+          957,
+          822
+        ],
+        "scale": 0.6221739130434782,
+        "bodyHeight": 210,
+        "isolate": true,
+        "anchor": [
+          567,
+          755
+        ],
+        "head": [
+          784,
+          194
+        ],
+        "eyes": [
+          768,
+          263
+        ],
+        "neck": [
+          698,
+          361
+        ],
+        "back": [
+          523,
+          364
+        ],
+        "hand": [
+          841,
+          343
+        ]
+      },
+      {
+        "source": "../sources/unicorn-roll-push-oct16.webp",
+        "rect": [
+          957,
+          0,
+          957,
+          822
+        ],
+        "scale": 0.6221739130434782,
+        "bodyHeight": 210,
+        "isolate": true,
+        "anchor": [
+          491,
+          755
+        ],
+        "head": [
+          769,
+          194
+        ],
+        "eyes": [
+          753,
+          263
+        ],
+        "neck": [
+          683,
+          361
+        ],
+        "back": [
+          508,
+          364
+        ],
+        "hand": [
+          826,
+          343
+        ]
+      }
+    ],
+    "fps": 5,
+    "loop": true,
+    "motion": 0.08,
+    "facing": 1
+  },
+  "shippingExistingPosesPreserved": true
+}

@@ -1,0 +1,228 @@
+{
+  "assetKey": "penelope",
+  "anchorX": [
+    225,
+    225,
+    225,
+    225,
+    225,
+    224.7581344902386,
+    225,
+    225,
+    225,
+    225,
+    225,
+    203.81786542923436
+  ],
+  "renderScale": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0108716754028344,
+    1.0,
+    1.0694282663560475,
+    1.0632644146767618,
+    1.0
+  ],
+  "baseline": 409,
+  "standingReferenceHeight": 381,
+  "scale": 1.2450980392156863,
+  "actionScaleRatio": 1.0,
+  "frames": [
+    {
+      "bounds": [
+        36,
+        28,
+        335,
+        409
+      ],
+      "scale": 1.2450980392156863,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 144.0,
+      "targetPivot": 209,
+      "sourceChin": 158.0
+    },
+    {
+      "bounds": [
+        75,
+        29,
+        329,
+        409
+      ],
+      "scale": 1.2450980392156863,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 113.0,
+      "targetPivot": 209,
+      "sourceChin": 158.0
+    },
+    {
+      "bounds": [
+        27,
+        27,
+        331,
+        409
+      ],
+      "scale": 1.2450980392156863,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 151.0,
+      "targetPivot": 209,
+      "sourceChin": 158.0
+    },
+    {
+      "bounds": [
+        92,
+        13,
+        300,
+        409
+      ],
+      "scale": 1.2450980392156863,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 99.0,
+      "targetPivot": 209,
+      "sourceChin": 164.0
+    },
+    {
+      "bounds": [
+        75,
+        17,
+        356,
+        409
+      ],
+      "scale": 1.2450980392156863,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 113.0,
+      "targetPivot": 209,
+      "sourceChin": 162.0
+    },
+    {
+      "bounds": [
+        63,
+        119,
+        355,
+        409
+      ],
+      "anchorX": 224.7581344902386,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        6,
+        5,
+        469,
+        466
+      ],
+      "referenceBodyBounds": [
+        68,
+        119,
+        351,
+        409
+      ],
+      "bodyScale": 0.6290672451193059,
+      "packedScale": 1
+    },
+    {
+      "bounds": [
+        56,
+        45,
+        274,
+        409
+      ],
+      "scale": 1.2450980392156863,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 128.0,
+      "targetPivot": 209,
+      "sourceChin": 140.0
+    },
+    {
+      "bounds": [
+        53,
+        6,
+        271,
+        409
+      ],
+      "scale": 1.2317073170731707,
+      "renderScale": 1.0108716754028344,
+      "anchorX": 225,
+      "sourcePivot": 132.0,
+      "targetPivot": 209,
+      "sourceChin": 143.0
+    },
+    {
+      "bounds": [
+        57,
+        27,
+        270,
+        409
+      ],
+      "scale": 1.2450980392156863,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 127.0,
+      "targetPivot": 209,
+      "sourceChin": 140.0
+    },
+    {
+      "bounds": [
+        76,
+        5,
+        265,
+        409
+      ],
+      "scale": 1.1642651296829971,
+      "renderScale": 1.0694282663560475,
+      "anchorX": 225,
+      "sourcePivot": 119.0,
+      "targetPivot": 209,
+      "sourceChin": 153.0
+    },
+    {
+      "bounds": [
+        67,
+        5,
+        333,
+        409
+      ],
+      "scale": 1.1710144927536232,
+      "renderScale": 1.0632644146767618,
+      "anchorX": 225,
+      "sourcePivot": 126.0,
+      "targetPivot": 209,
+      "sourceChin": 149.0
+    },
+    {
+      "bounds": [
+        45,
+        119,
+        373,
+        409
+      ],
+      "anchorX": 203.81786542923436,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        6,
+        5,
+        430,
+        436
+      ],
+      "referenceBodyBounds": [
+        68,
+        119,
+        351,
+        409
+      ],
+      "bodyScale": 0.6728538283062645,
+      "packedScale": 1
+    }
+  ],
+  "sha256": "c111c4c5b43f1628f5467957f0499a98d365b3ea2eab33c31bbae5f97ea779f7"
+}

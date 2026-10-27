@@ -1,0 +1,116 @@
+{
+  "tool": "built-in image_gen",
+  "status": "COMPLETE: all75posekeys/96frames built, individually reviewed runtime landmarks and consistent headsize; optimized101files with currentfingerprint",
+  "assets": [
+    {
+      "sheet": "hotdog-round2-final-a",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-af47173a-7388-4154-b4d1-6b69320e4d35.png",
+      "prompt": "Use case: stylized-concept. Exact approved Hotdog reference: a very low fluffy QUADRUPED rainbow creature, huge gray ears edged navy, navy face mask, red forehead heart, red-orange-yellow flame tuft, tiny navy paws, white chest, long striped tail. Preserve pink orange yellow lime blue lavender stripe order. Bold navy outlines bright cel shading. All figures same headsize, complete tuft ears tail fourpaws with generous transparent gutters. No human hands, no biped standing, no props/effects/text/shadows. Transparent FOUR COLUMNS TWO ROWS sprite sheet,1536x1024. Top: swim (dog-paddling, head up and forepaws paddling, no water); balance (low wobble with forepaws spread, worried); splat-throw (low underhand-style forepaw toss release, empty); wand-up (head tilted upward proudly, empty mouth gripping imaginary wand, one forepaw raised). Bottom: broom-rise (low belly seated forward lean, paws tucked, ears tail streaming back); broom-glide (relaxed low seated riding posture); broom-zapped (startled tilted sideways, fluffy fur frizzed); count (one tiny forepaw toe raised counting, thoughtful). No broom/wand/balloon/numbers.",
+      "poses": [
+        "swim",
+        "balance",
+        "splat-throw",
+        "wand-up",
+        "broom-rise",
+        "broom-glide",
+        "broom-zapped",
+        "count"
+      ]
+    },
+    {
+      "sheet": "hotdog-round2-final-b",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-0ea22741-55c5-417b-8c9d-f49cee751932.png",
+      "prompt": "Use case: stylized-concept. Exact approved Hotdog reference: a very low fluffy QUADRUPED rainbow creature, huge gray ears edged navy, navy face mask, red forehead heart, red-orange-yellow flame tuft, tiny navy paws, white chest, long striped tail. Preserve pink orange yellow lime blue lavender stripe order. Bold navy outlines bright cel shading. All figures same headsize, complete tuft ears tail fourpaws with generous transparent gutters. No human hands, no biped standing, no props/effects/text/shadows. Transparent FOUR COLUMNS TWO ROWS sheet1536x1024. Each sprite slightly smaller leaving wide gutters. Top: look-up (chin and nose tipped up watching sky); crowned (proud low royal strut chin up, NO crown); sit (relaxed seated hindquarters tiny paws dangling); tumble (diagonal falling with all paws flailing surprised). Bottom: hold-present (nervous, front paws raised to support invisible box overhead while seated quadruped); toss (both forepaws scooping forward underhand release); catch-present (startled bothforepaws forward catching invisiblebox); sooty (dazed slight sootsmudges cheek and ruffledfur). No actual box, objects orscene, preserve fourpaws.",
+      "poses": [
+        "look-up",
+        "crowned",
+        "sit",
+        "tumble",
+        "hold-present",
+        "toss",
+        "catch-present",
+        "sooty"
+      ]
+    },
+    {
+      "sheet": "hotdog-round2-final-c",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-deabb7ab-e1f0-44f4-9218-5da75b160369.png",
+      "prompt": "Use case: stylized-concept. Exact approved Hotdog reference: a very low fluffy QUADRUPED rainbow creature, huge gray ears edged navy, navy face mask, red forehead heart, red-orange-yellow flame tuft, tiny navy paws, white chest, long striped tail. Preserve pink orange yellow lime blue lavender stripe order. Bold navy outlines bright cel shading. All figures same headsize, complete tuft ears tail fourpaws with generous transparent gutters. No human hands, no biped standing, no props/effects/text/shadows. Transparent FOUR COLUMNS TWO ROWS sheet1536x1024, wide margins and gutters, eight fullbody sprites. Top: drink (low sitting, lips pursed sipping imaginary bottle, no bottle); float (low horizontal quadruped hovering gently, forepaws outward, no aura); hiccup (startled little jolt with puffed cheeks); stomp-giant (proud powerful wide stance allfourpaws planted). Bottom: squeak-tiny (surprised tiny hop, four paws tucked just offground, same character/head scale); flip (MEMORY CARD action: low normal quadruped, one forepaw reaching forward/down with tiny toe curling to flip imaginary card, NO somersault); blow (puffed cheeks lips blowing candles, no candles); shake-sprinkles (one forepaw out shaking imaginary jar downward, happy focused, no jar). Keep mouth visible so objects can attach there in code.",
+      "poses": [
+        "drink",
+        "float",
+        "hiccup",
+        "stomp-giant",
+        "squeak-tiny",
+        "flip",
+        "blow",
+        "shake-sprinkles"
+      ]
+    },
+    {
+      "sheet": "hotdog-round2-final-d",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-bbc95c3d-45eb-4729-bea1-333714634c48.png",
+      "prompt": "Use case: stylized-concept. Exact approved Hotdog reference: a very low fluffy QUADRUPED rainbow creature, huge gray ears edged navy, navy face mask, red forehead heart, red-orange-yellow flame tuft, tiny navy paws, white chest, long striped tail. Preserve pink orange yellow lime blue lavender stripe order. Bold navy outlines bright cel shading. All figures same headsize, complete tuft ears tail fourpaws with generous transparent gutters. No human hands, no biped standing, no props/effects/text/shadows. Transparent THREE COLUMNS THREE ROWS nine full-body sprites, square1536x1536. Wide gutters. Top: sing (mouth open singing joyfully, forepaw raised); water (low leaningforward, empty mouth tipping as if pouring from imaginary wateringcan, no can); photo (facing camera cheerful, one tiny forepaw raised with TWO TOES separated V peace sign, no human fingers). Middle: dash-launch (low forward crouched lunge preparing bump ears back); dash-held (body low extended lunge allfourpaws, ears tail streaming backward); hip-anticipation (side-on quadruped rump cocked away, head glances backward cheekygrin). Bottom: hip-impact (same direction rump swung outward, front ofbody leaning away playful); knockback-A (startled backward skid, paws splayed, torso leaning back eyeswide mouthopen); knockback-B (same backward skid deeper lean, alternate paw positions windmilling). Maintain identical head and body proportions allnine. No objects no effects no motion marks.",
+      "poses": [
+        "sing",
+        "water",
+        "photo",
+        "dash1",
+        "dash2",
+        "hip1",
+        "hip2",
+        "knock1",
+        "knock2"
+      ]
+    },
+    {
+      "sheet": "hotdog-round2-final-e",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-23b4befa-cb7d-493d-9ee7-0338db357795.png",
+      "prompt": "Use case: stylized-concept. Exact approved Hotdog reference: a very low fluffy QUADRUPED rainbow creature, huge gray ears edged navy, navy face mask, red forehead heart, red-orange-yellow flame tuft, tiny navy paws, white chest, long striped tail. Preserve pink orange yellow lime blue lavender stripe order. Bold navy outlines bright cel shading. All figures same headsize, complete tuft ears tail fourpaws with generous transparent gutters. No human hands, no biped standing, no props/effects/text/shadows. Transparent single HORIZONTAL ROW of FOUR fullbody turntable poses for runway twirl, landscape1536x1024. In order: FRONT facing camera; RIGHT SIDE PROFILE facing right; TRUE REAR VIEW showing back of head ears flame tuft rearfur rump and tail, NO face or eyes visible; LEFT three-quarter facing left. Playful small paw steps turning body, remain low quadruped allfourpaws. Same exact character/head size across allfour, same grounded baseline. Wide clear transparent gutters and border. No dress or clothing, no props or motionmarks.",
+      "poses": [
+        "twirl1",
+        "twirl2",
+        "twirl3",
+        "twirl4"
+      ]
+    },
+    {
+      "sheet": "hotdog-dance-separated-v2",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-bb9fbdad-2af6-4967-b2e5-9b76d20f9e9d.png",
+      "prompt": "Use case: precise-object-edit. Repair the referenced Hotdog four-frame dance sprite sheet. Preserve the four exact dance poses and character design/style. Rearrange the four sprites into TWO COLUMNS TWO ROWS in original reading order, square1536x1536, with wide transparent gutters and margins so no tail or ear touches any other sprite or canvas edge. All four character drawings same head size and complete flame tuft, ears, fourpaws and whole tail. Frame1 little leftpaw lifted happy; frame2 bouncing allpaws tucked; frame3 frontpaw down leaning toward viewer; frame4 rightpaw lifted opposite bounce. Keep low quadruped same character, same rainbow stripes, whitechest navy mask grayears redheart flame tuft. No new props/effects/shadows/text. True transparent background.",
+      "poses": [
+        "dance1",
+        "dance2",
+        "dance3",
+        "dance4"
+      ],
+      "reason": "Original strip tail overlaps produced clipped tails/neighbor fragments; regenerated same dance poses separated2x2."
+    }
+  ],
+  "intake": {
+    "poses": 75,
+    "frames": 96,
+    "portraits": 5,
+    "newDrawings": 41,
+    "bodyHeight": 180,
+    "landmarks": "All96 authored runtime frames reviewed;54 original frames plus blink corrected, all37newactionframes manually authored, replacement4danceframes with complete separated tails. Final full rebuild and overlay verification complete.",
+    "photo": "two raised paw toes as V peace gesture",
+    "flip": "paw reaching down to flip memory card; no acrobatic action",
+    "qa": "/tmp/hotdog-final-overlay-0.jpg through -6.jpg"
+  },
+  "validation": {
+    "strictTier1": "passed narrow Hotdog validation",
+    "runtimeTests": "passed",
+    "encodedKiB": 1521,
+    "decodedMiB": 19.3,
+    "optimizedFiles": 101,
+    "optimizedScale": 1.0,
+    "fingerprint": "3fad39655ab12f00",
+    "qa": [
+      "/tmp/hotdog-final-overlay-0.jpg through -6.jpg",
+      "/tmp/hotdog-original-overlay-0.jpg through -9.jpg",
+      "/tmp/hotdog-blink-final.jpg"
+    ],
+    "globalValidatorNote": "Concurrent KPop rebuilds yielded transient0bytefileerrors; Hotdog narrow validation is clean."
+  }
+}

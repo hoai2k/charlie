@@ -1,0 +1,127 @@
+{
+  "tool": "built-in image_gen",
+  "status": "User-approved canonical character references",
+  "style": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details.",
+  "characters": [
+    {
+      "name": "felicity",
+      "source": "drawing_felicity_and_fellowfox.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1 is the original drawing reference. Subject: Felicity ONLY, the fox girl in the middle, NOT the small pet. Preserve orange fox face with cream muzzle, huge teal eyes, brown bangs and two flowing pigtails, fox ears with a white daisy, little yellow hair ties, orange-and-black outfit with a white flower at collar and purple flowers on skirt, slim legs and orange shoes, and a large orange white-tipped fox tail. Child-friendly cute proportions.",
+      "image": "felicity.webp"
+    },
+    {
+      "name": "bronze",
+      "source": "drawing_bronze.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1: original child's drawing for character identity. Input image 2: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Subject: Bronze, the quirky one-eyed robot. Preserve a green-rimmed gray dome head with one huge black eye with blue/orange ring, tall purple antenna with violet jewel tip, curved gray pipe on right, cylindrical gray torso with purple control panel and green button, mismatched chunky mechanical legs and orange-rimmed purple shoes. Treat the blue/gold swirl above head and stars around robot as scenery, omit them.",
+      "cleanupPrompt": null,
+      "image": "bronze.webp"
+    },
+    {
+      "name": "cotton-candy",
+      "source": "drawing_cottoncandy.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1: original child's drawing for character identity. Input image 2: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Subject: Cotton Candy, a pale white pony with extra-long flowing mane and tail in broad pink, lavender, and sky-blue ribbons, tiny yellow crown with blue accents, big blue eye, small yellow/blue flower mark on flank, four elegant slim legs. Preserve pony silhouette and huge flowing hair.",
+      "cleanupPrompt": null,
+      "image": "cotton-candy.webp"
+    },
+    {
+      "name": "fellowfox",
+      "source": "drawing_felicity_and_fellowfox.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1: original child's drawing for character identity. Input image 2: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Subject: Fellowfox ONLY, Felicity's little pet at lower right. A tiny round orange fox with huge black expressive eyes, white muzzle and chest, dark ear tips and paws, long bushy orange tail with white tip, and the little dark flower near one ear. No girl. He should be distinctly small and round, separate from the taller fox in drawing_fox.",
+      "cleanupPrompt": null,
+      "image": "fellowfox.webp"
+    },
+    {
+      "name": "fox",
+      "source": "drawing_fox.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1: original child's drawing for character identity. Input image 2: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Subject: Fox, the standalone orange fox. Preserve slender playful quadruped body, large raised bushy white-tipped orange tail, white socks and muzzle, black-tipped triangular ears with pink inner ears, dark eyes and nose, cheerful little red tongue. All four paws visible in standing pose.",
+      "cleanupPrompt": null,
+      "image": "fox.webp"
+    },
+    {
+      "name": "hotdog",
+      "source": "drawing_hotdog.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1: original child's drawing for character identity. Input image 2: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Subject: Hotdog, a whimsical rainbow-colored fantasy animal, NOT food. Preserve the drawing's broad low fluffy body, two enormous upright round gray ears edged navy, huge black shiny eyes, dark-blue central face mask, red heart on forehead, tall flame-shaped orange/yellow/red tuft, striped orange/pink/yellow/lime/blue/lavender fur, tiny navy feet and long striped fluffy tail extending to one side.",
+      "cleanupPrompt": "Remove glow and background; preserve exact character as transparent cutout.",
+      "image": "hotdog.webp"
+    },
+    {
+      "name": "kpop-girl-left",
+      "source": "drawing_kpopgirls.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1: original child's drawing for character identity. Input image 2: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Subject: ONLY the LEFT KPop girl: light skin, brown hair swept into side bun, big brown eyes, pale blue sleeveless shirt with navy collar, loose dark blue long trousers and small light shoes. Friendly youthful fully clothed cartoon performer. Preserve outfit and hair. No middle or right girl.",
+      "cleanupPrompt": "Remove glow and background; preserve exact character as transparent cutout.",
+      "image": "kpop-girl-left.webp"
+    },
+    {
+      "name": "kpop-girl-center",
+      "source": "drawing_kpopgirls.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1: original child's drawing for character identity. Input image 2: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Subject: ONLY the CENTER KPop girl: warm tan/brown skin, purple hair swept up and braided at sides, red drop earrings, bright orange long-sleeved jacket with charcoal zipper trim over pale shirt, orange skirt with brown/gold sweeping panels, tall purple boots. Replace tiny illegible badge writing with simple geometric badge. Friendly youthful fully clothed performer. No left or right girl.",
+      "cleanupPrompt": "Remove glow and background; preserve exact character as transparent cutout.",
+      "image": "kpop-girl-center.webp"
+    },
+    {
+      "name": "kpop-girl-right",
+      "source": "drawing_kpopgirls.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1: original child's drawing for character identity. Input image 2: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Subject: ONLY the RIGHT KPop girl: light skin, very long coral pink hair, expressive brown eyes, navy short-sleeved shirt with abstract pink and purple graphics, golden yellow skirt with brown accent panels, tall navy boots with small pink knee details. Friendly youthful fully clothed cartoon performer. No left or middle girl.",
+      "cleanupPrompt": "Remove glow and background; preserve exact character as transparent cutout.",
+      "image": "kpop-girl-right.webp"
+    },
+    {
+      "name": "marina",
+      "source": "drawing_marine_and_scale.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1: original child's drawing for character identity. Input image 2: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Subject: ONLY Marina, the mermaid on RIGHT: long flowing red hair, warm light skin, gentle smile, gold crown with purple jewels, purple shell top, teal scaled mermaid tail with bold purple bands and large purple tail fins. Full body including entire tail, no legs. No blonde Scale.",
+      "cleanupPrompt": null,
+      "image": "marina.webp"
+    },
+    {
+      "name": "scale",
+      "source": "drawing_marine_and_scale.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1: original child's drawing for character identity. Input image 2: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Subject: ONLY Scale, the character on LEFT: blonde hair, yellow/gold crown, light skin, gentle smile. Preserve unusual royal mermaid design: flared dark green layered scale-like top with blue flower decorations and red dotted edge, long red mermaid tail wrapped with a bold blue crisscross lattice, teal/green tail fins. Full body including entire tail, no legs. No red-haired Marina.",
+      "cleanupPrompt": null,
+      "image": "scale.webp"
+    },
+    {
+      "name": "marshmallow-birthday-cake",
+      "source": "drawing_marshmallowbirthdaycake.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1: original child's drawing for character identity. Input image 2: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Subject: Marshmallow Birthday Cake, a cute rounded pink frosted cake character. Preserve domed stacked cake silhouette, two big black eyelash eyes and smiling mouth on front, rows of white marshmallows, pink frosting ribbon between layers, multicolored sprinkles and a tiny top candle with red/yellow flame. Cake body itself is character; do not add humanoid limbs.",
+      "cleanupPrompt": null,
+      "image": "marshmallow-birthday-cake.webp"
+    },
+    {
+      "name": "princess-amber",
+      "source": "drawing_princessamber.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1: original child's drawing for character identity. Input image 2: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Subject: Princess Amber: long auburn/copper hair nearly to ground, light skin, gentle smile, gold/orange star-shaped crown, floor-length amber-orange gown with prominent white and black outlined star/flower motifs, black sleeve/bodice accents. Keep the orange, black, and white palette, simple friendly royal pose.",
+      "cleanupPrompt": null,
+      "image": "princess-amber.webp"
+    },
+    {
+      "name": "snowstar",
+      "source": "drawing_snowstar.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1: original child's drawing for character identity. Input image 2: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Subject: Snowstar is a girl with an exceptionally oversized round pale face, enormous blue and green teardrop-shaped eyes with tiny flower highlights, smiling mouth, multicolored patchwork bangs/hair in red/orange/blue/green, bow and floral ornaments, rainbow side curls, and GREEN TURTLENECK. Invent a compact full body beneath her huge head: cozy green turtleneck sweater, simple dark teal pants and green boots. Keep huge face as defining feature, hair ornaments controlled and attached, not floating.",
+      "cleanupPrompt": null,
+      "image": "snowstar.webp"
+    },
+    {
+      "name": "unicorn",
+      "source": "drawing_unicorn.JPG",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Turn the child's drawing into a fun polished 2D cartoon while respecting its quirky original design. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. One single full-body character, centered and entirely visible with generous margin, friendly neutral readable pose, slight three-quarter view where appropriate. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Preserve distinctive colors, clothing, anatomy, and motifs from the reference; simplify messy marks into deliberate design details. Input image 1: original child's drawing for character identity. Input image 2: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Subject: The Last Unicorn, a graceful white unicorn with long slender neck, white flowing mane and large flowing white tail, one long pale horn, closed eyelash eye and serene smile. Preserve original elegant horse silhouette with four slim legs. Use soft pale lavender shading so the white body reads on transparency. No wings, no added crown.",
+      "cleanupPrompt": null,
+      "image": "unicorn.webp"
+    }
+  ],
+  "relationships": {
+    "felicity": [
+      "fellowfox"
+    ],
+    "kpop": [
+      "kpop-girl-left",
+      "kpop-girl-center",
+      "kpop-girl-right"
+    ]
+  },
+  "notes": {
+    "marina": "Right character in original",
+    "scale": "Left character in original",
+    "snowstar": "Original oversized face and green turtleneck; body newly designed"
+  },
+  "canonicalFormat": "WebP with lossless color and alpha; generated PNG masters retained locally"
+}

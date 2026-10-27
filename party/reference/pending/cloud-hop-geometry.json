@@ -1,0 +1,26 @@
+{
+  "prop/cloudhop-cloud": {
+    "landingY": 32,
+    "landingFraction": 0.16
+  },
+  "prop/cloudhop-cloud-pink": {
+    "landingY": 32,
+    "landingFraction": 0.16
+  },
+  "prop/cloudhop-cloud-rain": {
+    "landingY": 32,
+    "landingFraction": 0.16
+  },
+  "prop/cloudhop-cloud-drift": {
+    "landingY": 32,
+    "landingFraction": 0.16
+  },
+  "prop/cloudhop-trampoline": {
+    "matTopY": 60,
+    "matTopFraction": 0.3
+  },
+  "prop/cloudhop-bridge": {
+    "landingY": 59,
+    "landingFraction": 0.21071428571428572
+  }
+}

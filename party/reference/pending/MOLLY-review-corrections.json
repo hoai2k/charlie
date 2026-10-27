@@ -1,0 +1,68 @@
+[
+  {
+    "key": "thumb/cupcake-stack",
+    "prompt": "Edit this exact Cupcake Stack game thumbnail. Preserve the pink tulip Garden Fairy character identity, playful stacking action, colourful happy cupcakes with navy outlines and pink cake stand. Replace the blank white background with a beautiful sunny cartoon garden party scene: soft blue sky, pastel bunting across upper corners, gentle low-detail green lawn, small distant flowerbeds. Composition fills opaque wide16:10 thumbnail800x500 with balanced garden scenery behind main subjects. Main fairy and cupcake tower remain large clear central focus. House style bold navy #24163f outlines, bright candy colours, simple soft cel shading, clean2D, no3D or realistictexture, no text/watermark. NO white empty background.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-9694d1f6-9e21-4353-8feb-fa2fac88e49e.png",
+    "nativeOutputSize": [
+      1586,
+      992
+    ],
+    "source": "party/reference/pending/molly-sources/review-corrections/thumb-cupcake-stack.webp",
+    "runtimeFile": "party/assets/art/thumb/cupcake-stack.webp",
+    "file": "party/assets/art/thumb/cupcake-stack.webp",
+    "width": 800,
+    "height": 500,
+    "size": [
+      800,
+      500
+    ],
+    "runtimeBytes": 106244,
+    "intakeMethod": "opaque full canvas resize",
+    "tool": "built-in imagegen",
+    "status": "native and final runtime reviewed; actual how-to/gameplay checked, no browser warnings/errors; quieter Unicorn lanes and distinctly gold crown cupcake read clearly"
+  },
+  {
+    "key": "prop/cupcake-gold",
+    "prompt": "Edit this game cupcake into a unmistakably magical GOLD super-cupcake. Keep front-view cute smiling cupcake silhouette, expressive big eyes, same proportions and thick navy #24163f outlines. Replace striped ordinary wrapper with shiny GOLD FOIL pleated wrapper, rich gold highlights. Replace ordinary yellow frosting/rainbow sprinkles with gorgeous glittering GOLD frosting, a small golden crown or gold star topper and a few isolated four-point golden sparkles. It must read distinctly precious golden at small size, not like a lemon cupcake. Transparent background, generous margin for sparkles/topper, no ground/shadow, no text. Clean2D soft cel shading, polished candy cartoon style.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-16110826-b9c2-4ab3-b16e-c43e8b61a544.png",
+    "nativeOutputSize": [
+      1341,
+      1173
+    ],
+    "source": "party/reference/pending/molly-sources/review-corrections/prop-cupcake-gold.webp",
+    "runtimeFile": "party/assets/art/prop/cupcake-gold.webp",
+    "file": "party/assets/art/prop/cupcake-gold.webp",
+    "width": 256,
+    "height": 224,
+    "size": [
+      256,
+      224
+    ],
+    "runtimeBytes": 20702,
+    "intakeMethod": "uniform alpha-bbox fit, bottom-centre anchor5px margin",
+    "tool": "built-in imagegen",
+    "status": "native and final runtime reviewed; actual how-to/gameplay checked, no browser warnings/errors; quieter Unicorn lanes and distinctly gold crown cupcake read clearly"
+  },
+  {
+    "key": "bg/unicorn-jump",
+    "prompt": "Regenerate this Unicorn Jump scrolling background to improve gameplay readability. Wide opaque16:9 final1920x1080 tile, seamlessly compatible left/right edges. Preserve candy-pastel navy-outline clean2D style and soft lavender-pink sky. CRITICAL LAYOUT: decorative candy trees, tiny distant castle, rainbow, clouds and lollipops mostly confined to TOP250px (top23%); keep HUD top110 calm. The entire y260\u20131000 lane area and bottom edge must be a very plain softly shaded low-contrast mint/cream meadow, almost no outlined objects, no flowers, no bushes or gumdrops filling lanes. Low horizon around250px; large uninterrupted playfield occupying bottom75%. No paths crossing lanes, no foreground border, no characters, no props, no text. Left/right edges same flat meadow colors at matching heights. Gentle broad gradient only in foreground. Bold navy #24163f outlines only distant decoration, simple soft cel shading, no photorealism or3D.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-349b64ad-daaf-4785-bc19-b80011c28d14.png",
+    "nativeOutputSize": [
+      1672,
+      941
+    ],
+    "source": "party/reference/pending/molly-sources/review-corrections/bg-unicorn-jump.webp",
+    "runtimeFile": "party/assets/art/bg/unicorn-jump.webp",
+    "file": "party/assets/art/bg/unicorn-jump.webp",
+    "width": 1920,
+    "height": 1080,
+    "size": [
+      1920,
+      1080
+    ],
+    "runtimeBytes": 73934,
+    "intakeMethod": "opaque full canvas resize",
+    "tool": "built-in imagegen",
+    "status": "native and final runtime reviewed; actual how-to/gameplay checked, no browser warnings/errors; quieter Unicorn lanes and distinctly gold crown cupcake read clearly"
+  }
+]

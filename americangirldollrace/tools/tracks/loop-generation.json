@@ -1,0 +1,95 @@
+{
+  "tool": "built-in imagegen",
+  "jobs": [
+    {
+      "id": "horseshow-loop-repair",
+      "key": "horseshow",
+      "kind": "loop-repair",
+      "prompt": "Use case: precise-object-edit. This is an OFFSET texture for a horizontally looping game panorama. The original left/right image join is now in the middle at x=1086 on this 2172x724 canvas. Repair ONLY the vertical transition around the middle third (x about 740..1430) so sky, clouds, hills, scenery, rear boundary and ground flow naturally across that join. Paint a coherent continuous scene through the central seam, remove any vertical brightness/color break, align fence/hedge/rope or floor texture gracefully. Preserve the outer left and right thirds of this supplied image exactly; do not rearrange the whole composition, do not add landmarks or any foreground props. Maintain the existing horizontal playable-floor top edge at exactly its present height, perfectly clear racing floor below it through the bottom. Keep the same rich soft-painted storybook visual style, colors, landscape content and camera. No words, numbers, logos or crests. Entire image opaque, exactly 3:1, same dimensions as input. This image will then be shifted back so this painted central transition becomes the repeating outer boundary.",
+      "refs": [
+        "tools/tracks/sources/horseshow/offset-input.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "toyroom-loop-repair",
+      "key": "toyroom",
+      "kind": "loop-repair",
+      "prompt": "Use case: precise-object-edit. This is an OFFSET texture for a horizontally looping game panorama. The original left/right image join is now in the middle at x=1086 on this 2172x724 canvas. Repair ONLY the vertical transition around the middle third (x about 740..1430) so sky, clouds, hills, scenery, rear boundary and ground flow naturally across that join. Paint a coherent continuous scene through the central seam, remove any vertical brightness/color break, align fence/hedge/rope or floor texture gracefully. Preserve the outer left and right thirds of this supplied image exactly; do not rearrange the whole composition, do not add landmarks or any foreground props. Maintain the existing horizontal playable-floor top edge at exactly its present height, perfectly clear racing floor below it through the bottom. Keep the same rich soft-painted storybook visual style, colors, landscape content and camera. No words, numbers, logos or crests. Entire image opaque, exactly 3:1, same dimensions as input. This image will then be shifted back so this painted central transition becomes the repeating outer boundary.",
+      "refs": [
+        "tools/tracks/sources/toyroom/offset-input.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "candy-loop-repair",
+      "key": "candy",
+      "kind": "loop-repair",
+      "prompt": "Use case: precise-object-edit. This is an OFFSET texture for a horizontally looping game panorama. The original left/right image join is now in the middle at x=1086 on this 2172x724 canvas. Repair ONLY the vertical transition around the middle third (x about 740..1430) so sky, clouds, hills, scenery, rear boundary and ground flow naturally across that join. Paint a coherent continuous scene through the central seam, remove any vertical brightness/color break, align fence/hedge/rope or floor texture gracefully. Preserve the outer left and right thirds of this supplied image exactly; do not rearrange the whole composition, do not add landmarks or any foreground props. Maintain the existing horizontal playable-floor top edge at exactly its present height, perfectly clear racing floor below it through the bottom. Keep the same rich soft-painted storybook visual style, colors, landscape content and camera. No words, numbers, logos or crests. Entire image opaque, exactly 3:1, same dimensions as input. This image will then be shifted back so this painted central transition becomes the repeating outer boundary.",
+      "refs": [
+        "tools/tracks/sources/candy/offset-input.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "beach-loop-repair",
+      "key": "beach",
+      "kind": "loop-repair",
+      "prompt": "Use case: precise-object-edit. This is an OFFSET texture for a horizontally looping game panorama. The original left/right image join is now in the middle at x=1086 on this 2172x724 canvas. Repair ONLY the vertical transition around the middle third (x about 740..1430) so sky, clouds, hills, scenery, rear boundary and ground flow naturally across that join. Paint a coherent continuous scene through the central seam, remove any vertical brightness/color break, align fence/hedge/rope or floor texture gracefully. Preserve the outer left and right thirds of this supplied image exactly; do not rearrange the whole composition, do not add landmarks or any foreground props. Maintain the existing horizontal playable-floor top edge at exactly its present height, perfectly clear racing floor below it through the bottom. Keep the same rich soft-painted storybook visual style, colors, landscape content and camera. No words, numbers, logos or crests. Entire image opaque, exactly 3:1, same dimensions as input. This image will then be shifted back so this painted central transition becomes the repeating outer boundary.",
+      "refs": [
+        "tools/tracks/sources/beach/offset-input.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "wizard-loop-repair",
+      "key": "wizard",
+      "kind": "loop-repair",
+      "prompt": "Use case: precise-object-edit. This is an OFFSET texture for a horizontally looping game panorama. The original left/right image join is now in the middle at x=1086 on this 2172x724 canvas. Repair ONLY the vertical transition around the middle third (x about 740..1430) so sky, clouds, hills, scenery, rear boundary and ground flow naturally across that join. Paint a coherent continuous scene through the central seam, remove any vertical brightness/color break, align fence/hedge/rope or floor texture gracefully. Preserve the outer left and right thirds of this supplied image exactly; do not rearrange the whole composition, do not add landmarks or any foreground props. Maintain the existing horizontal playable-floor top edge at exactly its present height, perfectly clear racing floor below it through the bottom. Keep the same rich soft-painted storybook visual style, colors, landscape content and camera. No words, numbers, logos or crests. Entire image opaque, exactly 3:1, same dimensions as input. This image will then be shifted back so this painted central transition becomes the repeating outer boundary.",
+      "refs": [
+        "tools/tracks/sources/wizard/offset-input.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "autumn-loop-repair",
+      "key": "autumn",
+      "kind": "loop-repair",
+      "prompt": "Use case: precise-object-edit. This is an OFFSET texture for a horizontally looping game panorama. The original left/right image join is now in the middle at x=1086 on this 2172x724 canvas. Repair ONLY the vertical transition around the middle third (x about 740..1430) so sky, clouds, hills, scenery, rear boundary and ground flow naturally across that join. Paint a coherent continuous scene through the central seam, remove any vertical brightness/color break, align fence/hedge/rope or floor texture gracefully. Preserve the outer left and right thirds of this supplied image exactly; do not rearrange the whole composition, do not add landmarks or any foreground props. Maintain the existing horizontal playable-floor top edge at exactly its present height, perfectly clear racing floor below it through the bottom. Keep the same rich soft-painted storybook visual style, colors, landscape content and camera. No words, numbers, logos or crests. Entire image opaque, exactly 3:1, same dimensions as input. This image will then be shifted back so this painted central transition becomes the repeating outer boundary.",
+      "refs": [
+        "tools/tracks/sources/autumn/offset-input.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "clouds-loop-repair",
+      "key": "clouds",
+      "kind": "loop-repair",
+      "prompt": "Use case: precise-object-edit. This is an OFFSET texture for a horizontally looping game panorama. The original left/right image join is now in the middle at x=1086 on this 2172x724 canvas. Repair ONLY the vertical transition around the middle third (x about 740..1430) so sky, clouds, hills, scenery, rear boundary and ground flow naturally across that join. Paint a coherent continuous scene through the central seam, remove any vertical brightness/color break, align fence/hedge/rope or floor texture gracefully. Preserve the outer left and right thirds of this supplied image exactly; do not rearrange the whole composition, do not add landmarks or any foreground props. Maintain the existing horizontal playable-floor top edge at exactly its present height, perfectly clear racing floor below it through the bottom. Keep the same rich soft-painted storybook visual style, colors, landscape content and camera. No words, numbers, logos or crests. Entire image opaque, exactly 3:1, same dimensions as input. This image will then be shifted back so this painted central transition becomes the repeating outer boundary.",
+      "refs": [
+        "tools/tracks/sources/clouds/offset-input.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "space-loop-repair",
+      "key": "space",
+      "kind": "loop-repair",
+      "prompt": "Use case: precise-object-edit. This is an OFFSET texture for a horizontally looping game panorama. The original left/right image join is now in the middle at x=1086 on this 2172x724 canvas. Repair ONLY the vertical transition around the middle third (x about 740..1430) so sky, clouds, hills, scenery, rear boundary and ground flow naturally across that join. Paint a coherent continuous scene through the central seam, remove any vertical brightness/color break, align fence/hedge/rope or floor texture gracefully. Preserve the outer left and right thirds of this supplied image exactly; do not rearrange the whole composition, do not add landmarks or any foreground props. Maintain the existing horizontal playable-floor top edge at exactly its present height, perfectly clear racing floor below it through the bottom. Keep the same rich soft-painted storybook visual style, colors, landscape content and camera. No words, numbers, logos or crests. Entire image opaque, exactly 3:1, same dimensions as input. This image will then be shifted back so this painted central transition becomes the repeating outer boundary.",
+      "refs": [
+        "tools/tracks/sources/space/offset-input.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "festival-loop-repair",
+      "key": "festival",
+      "kind": "loop-repair",
+      "prompt": "Use case: precise-object-edit. This is an OFFSET texture for a horizontally looping game panorama. The original left/right image join is now in the middle at x=1086 on this 2172x724 canvas. Repair ONLY the vertical transition around the middle third (x about 740..1430) so sky, clouds, hills, scenery, rear boundary and ground flow naturally across that join. Paint a coherent continuous scene through the central seam, remove any vertical brightness/color break, align fence/hedge/rope or floor texture gracefully. Preserve the outer left and right thirds of this supplied image exactly; do not rearrange the whole composition, do not add landmarks or any foreground props. Maintain the existing horizontal playable-floor top edge at exactly its present height, perfectly clear racing floor below it through the bottom. Keep the same rich soft-painted storybook visual style, colors, landscape content and camera. No words, numbers, logos or crests. Entire image opaque, exactly 3:1, same dimensions as input. This image will then be shifted back so this painted central transition becomes the repeating outer boundary.",
+      "refs": [
+        "tools/tracks/sources/festival/offset-input.webp"
+      ],
+      "alpha": false
+    }
+  ]
+}

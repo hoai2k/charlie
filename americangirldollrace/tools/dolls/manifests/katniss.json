@@ -1,0 +1,144 @@
+{
+  "version": 1,
+  "key": "katniss",
+  "name": "Katniss",
+  "color": "#778359",
+  "hidden": true,
+  "verifyAllMoonBoots": true,
+  "standingHeight": 384,
+  "portraitBox": [
+    0,
+    0,
+    208,
+    260
+  ],
+  "mask": {
+    "mode": "katniss-jacket"
+  },
+  "outfitData": {
+    "stats": {
+      "h": -0.293619,
+      "L": 0.276348,
+      "C": 0.01036,
+      "beta": 0.7,
+      "tintNeutral": true
+    },
+    "outfits": [
+      "blue",
+      "mint",
+      "purple",
+      "pink",
+      "orange",
+      "teal",
+      "yellow"
+    ]
+  },
+  "poses": {
+    "idle-0": {
+      "hipX": 103.0,
+      "chin": 131,
+      "garmentBottom": 260,
+      "source": "sources/katniss/poses/idle-0.webp",
+      "scale": 1
+    },
+    "idle-1": {
+      "hipX": 106.5,
+      "chin": 133,
+      "garmentBottom": 264,
+      "source": "sources/katniss/poses/idle-1.webp",
+      "scale": 1
+    },
+    "idle-2": {
+      "hipX": 124.5,
+      "chin": 132,
+      "garmentBottom": 263,
+      "source": "sources/katniss/poses/idle-2.webp",
+      "scale": 1
+    },
+    "run-0": {
+      "hipX": 161.5,
+      "chin": 119,
+      "garmentBottom": 235,
+      "source": "sources/katniss/poses/run-0.webp",
+      "scale": 1.1171669595471736
+    },
+    "run-1": {
+      "hipX": 100.5,
+      "chin": 116,
+      "garmentBottom": 229,
+      "source": "sources/katniss/poses/run-1.webp",
+      "scale": 1.1171669595471736
+    },
+    "run-2": {
+      "hipX": 140.5,
+      "chin": 119,
+      "garmentBottom": 236,
+      "source": "sources/katniss/poses/run-2.webp",
+      "scale": 1.1171669595471736
+    },
+    "jump-0": {
+      "hipX": 104.5,
+      "chin": 88,
+      "garmentBottom": 173,
+      "source": "sources/katniss/poses/jump-0.webp",
+      "scale": 1.0214388790114146
+    },
+    "jump-1": {
+      "hipX": 155.0,
+      "chin": 93,
+      "garmentBottom": 184,
+      "source": "sources/katniss/poses/jump-1.webp",
+      "scale": 1.0214388790114146
+    },
+    "jump-2": {
+      "hipX": 120.5,
+      "chin": 86,
+      "garmentBottom": 169,
+      "source": "sources/katniss/poses/jump-2.webp",
+      "scale": 1.0214388790114146
+    },
+    "ride": {
+      "hipX": 98.0,
+      "chin": 104,
+      "garmentBottom": 206,
+      "source": "sources/katniss/poses/ride.webp",
+      "scale": 1.142639904050899,
+      "anchor": [
+        98.48,
+        232.32
+      ],
+      "target": [
+        209,
+        264
+      ]
+    },
+    "push": {
+      "hipX": 143.0,
+      "chin": 108,
+      "garmentBottom": 213,
+      "source": "sources/katniss/poses/push.webp",
+      "scale": 1.142639904050899
+    },
+    "fall": {
+      "hipX": 180.0,
+      "chin": 83,
+      "garmentBottom": 190,
+      "source": "sources/katniss/poses/fall.webp",
+      "scale": 1.142639904050899
+    },
+    "wave": {
+      "hipX": 253.5,
+      "chin": 217,
+      "garmentBottom": 435,
+      "source": "sources/katniss/poses/wave.webp",
+      "scale": 0.6154674183238635
+    },
+    "cheer": {
+      "hipX": 185.0,
+      "chin": 217,
+      "garmentBottom": 435,
+      "source": "sources/katniss/poses/cheer.webp",
+      "scale": 0.6154674183238635
+    }
+  }
+}

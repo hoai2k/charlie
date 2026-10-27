@@ -1,0 +1,17 @@
+{
+  "asset": "princess-amber",
+  "source": "../sources/princess-amber-full-actions-e.webp",
+  "input_image_1": "../../../reference/canonical/princess-amber.webp",
+  "poses": [
+    "pose-twirl",
+    "pose-twirl",
+    "tumble",
+    "shake-sprinkles"
+  ],
+  "grid": [
+    2,
+    2
+  ],
+  "status": "exact prompt saved before built-in image_gen; not yet generated. Crop each actual connected figure, inspect and hand-annotate all landmarks before build.",
+  "prompt": "Use case: stylized-concept. Asset type: transparent full-body sprite sheet for Charlie Party. Input image 1 is the approved canonical princess-amber reference; reproduce this exact character. Subject: long copper-auburn hair, amber flower-star crown, floor-length orange gown, black sleeves and bodice accents, white flower-star motifs outlined in black, warm brown eyes. Personality: graceful and expressive princess gestures with flowing hair and gown. Style: match the canonical 2D cartoon with bold smooth navy outlines, clean cel shading and the same face, hair, body proportions and outfit. Primary request: draw exactly 4 distinct full-body figures in a 2 columns by 2 rows transparent grid, in row-major order. Each cell has one pose only; generous transparent gutters; consistent head size and figure scale in every cell; leave clear margins around hair, hands and shoes. Never add another character. Exact row-major pose order: 1 pose-twirl angle three: true direct back view, back of head and outfit visible, face fully hidden, no facial features. 2 pose-twirl angle four: three-quarter view turned left, continuing the same spin. 3 tumble: controlled sideways rolling tumble key pose with limbs tucked, full character visible. 4 shake-sprinkles: playful shoulder-and-head shake as if brushing off sprinkles, draw no sprinkles or effects.. Constraints: preserve the complete canonical identity and colors in every pose; normal human anatomy; true transparent alpha; keep props and effects separate when instructions call for an imaginary held object. Avoid: backdrop, scenery, shadows, cell borders, text, labels, extra accessories, props, watermark, detached marks, clipped hair, hands or feet."
+}

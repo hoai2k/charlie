@@ -1,0 +1,773 @@
+:root {
+  color-scheme: light;
+  --ink: #2b1838;
+  --cream: #fff8ec;
+  --pink: #e04f97;
+  --pink-deep: #b02c72;
+  --gold: #ffc94a;
+  --gold-deep: #d8962a;
+  --purple: #6a3aa8;
+  --panel: rgba(255, 248, 236, 0.94);
+  --shadow: 0 12px 32px rgba(43, 24, 56, 0.28);
+  font-family: "Fredoka", "Trebuchet MS", ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #74c8ef;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Fixed to the visual viewport; src/core/screen-chrome.js sets the exact
+   left/top/width/height (CSS vh is wrong on phones with browser bars). */
+.dolls-app {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--ink);
+  isolation: isolate;
+}
+
+/* ---------- Browser bars (src/core/screen-chrome.js) ---------- */
+
+/* iPhone Safari: the page is a little taller than the screen so a swipe up
+   tucks Safari's bars away. During play the canvas owns every gesture, so
+   nothing scrolls. */
+html.ios-scroll,
+html.ios-scroll body {
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+html.ios-scroll body {
+  touch-action: pan-y;
+}
+
+/* The game is fixed and takes no height, so a spacer makes the page taller
+   than the screen (100lvh: as tall as the screen with the bars hidden). */
+html.ios-scroll body::after {
+  content: "";
+  display: block;
+  height: calc(100lvh + 160px);
+}
+
+html.ios-scroll.ios-scroll-play,
+html.ios-scroll.ios-scroll-play body {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.bars-hint {
+  position: fixed;
+  left: 50%;
+  top: max(8px, env(safe-area-inset-top));
+  z-index: 20;
+  padding: 7px 16px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(106, 58, 168, 0.94);
+  box-shadow: var(--shadow);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.bars-hint .arrow {
+  display: inline-block;
+  color: var(--gold);
+  font-weight: 700;
+  animation: nudge 1.4s ease-in-out infinite;
+}
+
+.bars-hint.flash {
+  animation: hint-flash 0.9s ease-in-out 2;
+}
+
+.fullscreen-button {
+  position: absolute;
+  top: max(14px, env(safe-area-inset-top));
+  right: max(14px, env(safe-area-inset-right));
+  z-index: 9;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(106, 58, 168, 0.85);
+  box-shadow: var(--shadow);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* ---------- Scene ---------- */
+
+.scene-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: var(--background-image);
+  background-position: calc(50% + var(--background-x, 0px)) bottom;
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  transition: filter 400ms ease;
+}
+
+.dolls-app[data-background="none"] .scene-background {
+  display: none;
+}
+
+/* Hidden with opacity, not display:none: Safari can stop decoding frames of
+   an undisplayed video, which would starve face tracking. */
+#camera {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #101819;
+}
+
+.dolls-app[data-background="none"] #camera {
+  opacity: 1;
+  transform: scaleX(-1);
+}
+
+#doll-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.dolls-app[data-background="none"] #doll-canvas {
+  cursor: default;
+}
+
+.dolls-app[data-dragging-background="true"] #doll-canvas {
+  cursor: grabbing;
+}
+
+.dolls-app[data-screen="title"] #doll-canvas {
+  visibility: hidden;
+}
+
+.dolls-app[data-screen="title"] .scene-background {
+  filter: saturate(1.1) blur(3px);
+}
+
+/* ---------- In-game HUD ---------- */
+
+.game-hud {
+  display: none;
+}
+
+.dolls-app[data-screen="play"] .game-hud {
+  display: contents;
+}
+
+.hud-button {
+  position: absolute;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 8px 20px 8px 10px;
+  border: 3px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(180deg, #8a55cf, var(--purple));
+  box-shadow:
+    0 4px 0 #46226f,
+    var(--shadow);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 120ms ease;
+}
+
+.hud-button:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 #46226f,
+    var(--shadow);
+}
+
+.hud-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--purple);
+  background: #fff;
+  font-size: 15px;
+  letter-spacing: -0.12em;
+}
+
+#open-select {
+  right: max(16px, env(safe-area-inset-right));
+}
+
+.pause-button {
+  left: max(16px, env(safe-area-inset-left));
+}
+
+.pause-button[aria-pressed="true"] {
+  background: linear-gradient(180deg, #f06aa9, var(--pink-deep));
+  box-shadow:
+    0 4px 0 #7a1c4e,
+    var(--shadow);
+}
+
+.pause-button[aria-pressed="true"] .hud-icon {
+  color: var(--pink-deep);
+  letter-spacing: 0;
+}
+
+.dolls-app[data-screen="play"][data-paused="true"]::after {
+  content: "Paused";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  padding: 14px 40px;
+  border: 4px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(106, 58, 168, 0.88);
+  box-shadow: var(--shadow);
+  font-size: clamp(28px, 6vw, 48px);
+  font-weight: 700;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.notice-stack {
+  position: absolute;
+  top: max(14px, env(safe-area-inset-top));
+  left: 50%;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: min(460px, calc(100vw - 32px));
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.notice-stack > * {
+  pointer-events: auto;
+}
+
+.dolls-app[data-screen="title"] .notice-stack {
+  display: none;
+}
+
+.status {
+  max-width: min(460px, calc(100vw - 32px));
+  margin: 0;
+  padding: 10px 18px;
+  border: 2px solid #fff;
+  border-radius: 18px;
+  color: var(--ink);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.status:empty {
+  display: none;
+}
+
+.camera-retry {
+  min-height: 56px;
+  padding: 12px 30px;
+  border: 3px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(180deg, #f06aa9, var(--pink-deep));
+  box-shadow:
+    0 4px 0 #7a1c4e,
+    var(--shadow);
+  font-size: 21px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gesture-hints {
+  position: absolute;
+  bottom: calc(max(16px, env(safe-area-inset-bottom)) + 74px);
+  left: 50%;
+  z-index: 5;
+  width: min(580px, calc(100vw - 24px));
+  padding: 8px 38px 10px 12px;
+  border: 3px solid #fff;
+  border-radius: 22px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.gesture-hints strong {
+  font-size: 20px;
+  color: var(--purple);
+}
+
+.gesture-hints img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.gesture-hints button {
+  position: absolute;
+  top: 3px;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  color: var(--purple);
+  background: transparent;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+/* ---------- Title screen ---------- */
+
+.title-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: safe center;
+  gap: clamp(8px, 2vh, 18px);
+  padding: max(3vh, env(safe-area-inset-top)) 16px max(3vh, env(safe-area-inset-bottom));
+  overflow-x: hidden;
+  overflow-y: auto;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 30%, rgba(255, 248, 236, 0.55), transparent 70%),
+    linear-gradient(180deg, rgba(118, 70, 190, 0.18), rgba(224, 79, 151, 0.28));
+  text-align: center;
+}
+
+.dolls-app:not([data-screen="title"]) .title-screen {
+  display: none;
+}
+
+/* Optional painted art (see image-requests.md). */
+.title-screen[data-background-art="true"] {
+  background:
+    var(--title-image) center bottom / cover no-repeat,
+    #74c8ef;
+}
+
+.title-screen[data-logo-art="true"] .logo {
+  flex: none;
+  width: min(84vw, 600px, 62vh);
+  aspect-ratio: 1100 / 420;
+  background: var(--logo-image) center / contain no-repeat;
+}
+
+.title-screen[data-logo-art="true"] .logo span {
+  display: none;
+}
+
+.title-glow {
+  position: fixed;
+  top: -30vmax;
+  left: 50%;
+  width: 90vmax;
+  height: 90vmax;
+  background: repeating-conic-gradient(rgba(255, 255, 255, 0.16) 0deg 9deg, transparent 9deg 18deg);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: spin 60s linear infinite;
+  -webkit-mask-image: radial-gradient(circle, #000 20%, transparent 65%);
+  mask-image: radial-gradient(circle, #000 20%, transparent 65%);
+  pointer-events: none;
+}
+
+.logo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  line-height: 0.86;
+  animation: logo-in 700ms cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+.logo span {
+  paint-order: stroke fill;
+  -webkit-text-stroke: 0.14em var(--ink);
+  text-shadow: 0 0.09em 0 var(--ink);
+}
+
+.logo-small {
+  color: var(--gold);
+  font-size: clamp(32px, 7vmin, 64px);
+  font-weight: 700;
+  transform: rotate(-4deg);
+}
+
+.logo-big {
+  color: var(--pink);
+  font-size: clamp(54px, 13vmin, 128px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.tagline {
+  position: relative;
+  margin: 0;
+  padding: 6px 18px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(43, 24, 56, 0.55);
+  font-size: clamp(14px, 2.6vmin, 24px);
+  font-weight: 600;
+}
+
+.camera-note {
+  position: relative;
+  max-width: min(520px, calc(100vw - 32px));
+  margin: 0;
+  padding: 3px 12px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(43, 24, 56, 0.35);
+  font-size: 14px;
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(43, 24, 56, 0.9);
+}
+
+/* ---------- Doll picker (on the title screen) ---------- */
+
+.title-screen {
+  /* Cards wrap into rows of --cols; 10 dolls make two rows of five. */
+  --card: clamp(72px, min(10vw, 13vh), 132px);
+  --card-gap: clamp(8px, 1.4vw, 14px);
+  --cols: 5;
+}
+
+.character-list {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--card-gap);
+  max-width: calc(var(--cols) * (var(--card) + var(--card-gap)));
+  padding: 8px 4px;
+}
+
+.character-card {
+  position: relative;
+  flex: none;
+  display: grid;
+  grid-template-rows: auto auto;
+  width: var(--card);
+  padding: 0;
+  border: 4px solid #fff;
+  border-radius: 18px;
+  background: var(--card-color, var(--purple));
+  box-shadow: 0 4px 0 rgba(43, 24, 56, 0.25);
+  cursor: pointer;
+  overflow: hidden;
+  animation: card-in 420ms cubic-bezier(0.2, 1.3, 0.4, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 40ms);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.character-card:hover,
+.character-card:focus-visible {
+  transform: translateY(-4px) scale(1.04);
+}
+
+/* Highlight the current doll only once one has been picked (or arrowed to),
+   so a first-time player isn't nudged toward the default. */
+.character-list[data-picked="true"] .character-card[aria-selected="true"] {
+  border-color: var(--gold);
+  box-shadow:
+    0 0 0 3px var(--ink),
+    0 6px 0 var(--gold-deep),
+    0 10px 24px rgba(43, 24, 56, 0.35);
+  transform: translateY(-6px) scale(1.04);
+}
+
+.character-art {
+  display: block;
+  aspect-ratio: 4 / 5;
+  background:
+    var(--card-image) center top / var(--card-size, cover) no-repeat,
+    radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.55), transparent 70%),
+    linear-gradient(180deg, color-mix(in srgb, var(--card-color, #6a3aa8) 45%, #fff), var(--card-color, #6a3aa8));
+}
+
+.character-card[data-portrait="head"] .character-art {
+  --card-size: 92%;
+  background-position:
+    center 70%,
+    center,
+    center;
+}
+
+.character-name {
+  padding: 4px 2px 6px;
+  color: #fff;
+  font-size: clamp(11px, calc(var(--card) * 0.155), 16px);
+  font-weight: 700;
+  line-height: 1.1;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scene-picker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  padding: 6px 8px 6px 14px;
+  border: 3px solid #fff;
+  border-radius: 18px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.scene-label {
+  flex: none;
+  margin: 0;
+  color: var(--purple);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.background-list {
+  display: flex;
+  gap: 8px;
+  padding: 2px 4px 4px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.background-choice {
+  position: relative;
+  flex: none;
+  width: 88px;
+  height: 52px;
+  padding: 0;
+  border: 3px solid #fff;
+  border-radius: 12px;
+  background: #ddd;
+  box-shadow: 0 3px 0 rgba(43, 24, 56, 0.2);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.background-choice[data-selected="true"] {
+  border-color: var(--gold);
+  box-shadow:
+    0 0 0 2px var(--ink),
+    0 3px 0 var(--gold-deep);
+}
+
+.background-preview {
+  position: absolute;
+  inset: 0;
+  background-image: var(--preview-image);
+  background-position: center bottom;
+  background-size: cover;
+}
+
+.background-choice[data-background="none"] .background-preview {
+  display: grid;
+  place-items: center;
+  background-color: #241a35;
+  color: #fff;
+  font-size: 20px;
+}
+
+.background-name {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1px 2px 2px;
+  color: #fff;
+  background: linear-gradient(transparent, rgba(43, 24, 56, 0.75));
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.debug-tools {
+  margin-top: 10px;
+}
+
+.debug-button {
+  width: 100%;
+  min-height: 38px;
+  border: 0;
+  border-radius: 10px;
+  color: #fffaf0;
+  background: #344b5a;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 4px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ---------- Motion ---------- */
+
+@keyframes spin {
+  to {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
+
+@keyframes nudge {
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes hint-flash {
+  50% {
+    background: var(--pink-deep);
+  }
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.9);
+  }
+}
+
+@keyframes logo-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6) translateY(-20px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+  }
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 640px) {
+  .hud-button {
+    bottom: max(12px, env(safe-area-inset-bottom));
+    padding-right: 10px;
+  }
+
+  .pause-button .hud-label {
+    display: none;
+  }
+
+  .title-screen {
+    --cols: 4;
+    --card: clamp(64px, 20vw, 96px);
+  }
+
+  .scene-label {
+    display: none;
+  }
+}
+
+@media (max-height: 640px) {
+  .camera-note {
+    display: none;
+  }
+}
+
+@media (max-height: 520px) {
+  .gesture-hints {
+    bottom: calc(max(12px, env(safe-area-inset-bottom)) + 62px);
+    width: min(360px, 50vw);
+    padding: 4px 34px 6px 8px;
+  }
+
+  .gesture-hints strong {
+    font-size: 15px;
+  }
+
+  .title-screen {
+    --cols: 10;
+    --card: clamp(56px, 7.6vw, 80px);
+  }
+
+
+  .tagline,
+  .camera-note {
+    display: none;
+  }
+}

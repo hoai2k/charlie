@@ -1,0 +1,30 @@
+[
+ {
+  "doll": "marisol",
+  "kind": "sheet",
+  "frame": "r3c2",
+  "rect": [
+   175,
+   130,
+   250,
+   230
+  ],
+  "op": "fill",
+  "force": true,
+  "where": {
+   "h": [
+    330,
+    30
+   ],
+   "C": [
+    0.05,
+    1
+   ],
+   "L": [
+    0.55,
+    1
+   ]
+  },
+  "note": "fall frame: pink sleeve cuff by the raised hand was protected as skin"
+ }
+]

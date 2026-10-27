@@ -1,0 +1,3772 @@
+{
+  "asset": "garden-fairy-yellow",
+  "bodyHeight": 300,
+  "frameSize": [
+    600,
+    500
+  ],
+  "anchor": [
+    300,
+    472
+  ],
+  "facing": 1,
+  "provenance": "Approved expandedMollyfairy canonical, built-in generatedsprites with manual five landmarks; fullqualitysources and exactprompts in MOLLY-Sprites-garden-fairy-yellow.json. Physicalraster240/display300 via framebodyHeight.",
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-hover-fly.webp",
+          "rect": [
+            19,
+            15,
+            347,
+            477
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            183,
+            475
+          ],
+          "head": [
+            174,
+            5
+          ],
+          "eyes": [
+            175,
+            168
+          ],
+          "neck": [
+            179,
+            224
+          ],
+          "back": [
+            158,
+            235
+          ],
+          "hand": [
+            290,
+            275
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-hover-fly.webp",
+          "rect": [
+            386,
+            14,
+            382,
+            478
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            200,
+            476
+          ],
+          "head": [
+            191,
+            6
+          ],
+          "eyes": [
+            193,
+            170
+          ],
+          "neck": [
+            196,
+            225
+          ],
+          "back": [
+            175,
+            236
+          ],
+          "hand": [
+            307,
+            276
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-hover-fly.webp",
+          "rect": [
+            771,
+            15,
+            378,
+            477
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            199,
+            475
+          ],
+          "head": [
+            190,
+            5
+          ],
+          "eyes": [
+            191,
+            167
+          ],
+          "neck": [
+            195,
+            224
+          ],
+          "back": [
+            174,
+            235
+          ],
+          "hand": [
+            306,
+            275
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-hover-fly.webp",
+          "rect": [
+            1153,
+            15,
+            382,
+            477
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            201,
+            475
+          ],
+          "head": [
+            192,
+            5
+          ],
+          "eyes": [
+            197,
+            159
+          ],
+          "neck": [
+            197,
+            224
+          ],
+          "back": [
+            176,
+            235
+          ],
+          "hand": [
+            308,
+            275
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "walk": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-walk-run.webp",
+          "rect": [
+            25,
+            14,
+            353,
+            494
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            191,
+            496
+          ],
+          "head": [
+            178,
+            4
+          ],
+          "eyes": [
+            219,
+            178
+          ],
+          "neck": [
+            181,
+            235
+          ],
+          "back": [
+            161,
+            246
+          ],
+          "hand": [
+            300,
+            312
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-walk-run.webp",
+          "rect": [
+            395,
+            11,
+            367,
+            492
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            205,
+            499
+          ],
+          "head": [
+            196,
+            4
+          ],
+          "eyes": [
+            221,
+            178
+          ],
+          "neck": [
+            195,
+            237
+          ],
+          "back": [
+            175,
+            249
+          ],
+          "hand": [
+            305,
+            298
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-walk-run.webp",
+          "rect": [
+            775,
+            11,
+            360,
+            498
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            209,
+            499
+          ],
+          "head": [
+            196,
+            4
+          ],
+          "eyes": [
+            221,
+            178
+          ],
+          "neck": [
+            195,
+            237
+          ],
+          "back": [
+            175,
+            248
+          ],
+          "hand": [
+            305,
+            299
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-walk-run.webp",
+          "rect": [
+            1155,
+            11,
+            351,
+            495
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            213,
+            499
+          ],
+          "head": [
+            204,
+            4
+          ],
+          "eyes": [
+            226,
+            181
+          ],
+          "neck": [
+            203,
+            237
+          ],
+          "back": [
+            183,
+            249
+          ],
+          "hand": [
+            305,
+            314
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "fly": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-hover-fly.webp",
+          "rect": [
+            25,
+            535,
+            334,
+            448
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            181,
+            467
+          ],
+          "head": [
+            195,
+            6
+          ],
+          "eyes": [
+            213,
+            172
+          ],
+          "neck": [
+            201,
+            223
+          ],
+          "back": [
+            179,
+            233
+          ],
+          "hand": [
+            325,
+            242
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-hover-fly.webp",
+          "rect": [
+            385,
+            535,
+            395,
+            448
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            205,
+            467
+          ],
+          "head": [
+            219,
+            6
+          ],
+          "eyes": [
+            235,
+            169
+          ],
+          "neck": [
+            225,
+            223
+          ],
+          "back": [
+            203,
+            233
+          ],
+          "hand": [
+            349,
+            242
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-hover-fly.webp",
+          "rect": [
+            763,
+            535,
+            362,
+            448
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            211,
+            467
+          ],
+          "head": [
+            225,
+            6
+          ],
+          "eyes": [
+            240,
+            170
+          ],
+          "neck": [
+            231,
+            223
+          ],
+          "back": [
+            209,
+            233
+          ],
+          "hand": [
+            355,
+            242
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-hover-fly.webp",
+          "rect": [
+            1154,
+            535,
+            381,
+            448
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            204,
+            467
+          ],
+          "head": [
+            218,
+            6
+          ],
+          "eyes": [
+            231,
+            171
+          ],
+          "neck": [
+            224,
+            223
+          ],
+          "back": [
+            202,
+            233
+          ],
+          "hand": [
+            348,
+            242
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-core.webp",
+          "rect": [
+            394,
+            503,
+            366,
+            502
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.85,
+          "anchor": [
+            202,
+            549
+          ],
+          "head": [
+            163,
+            13
+          ],
+          "eyes": [
+            198,
+            173
+          ],
+          "neck": [
+            204,
+            243
+          ],
+          "back": [
+            185,
+            254
+          ],
+          "hand": [
+            321,
+            123
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-core.webp",
+          "rect": [
+            1155,
+            6,
+            365,
+            492
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.85,
+          "anchor": [
+            209,
+            514
+          ],
+          "head": [
+            183,
+            4
+          ],
+          "eyes": [
+            196,
+            171
+          ],
+          "neck": [
+            212,
+            235
+          ],
+          "back": [
+            194,
+            248
+          ],
+          "hand": [
+            329,
+            280
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wave": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-core.webp",
+          "rect": [
+            779,
+            6,
+            360,
+            492
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.85,
+          "anchor": [
+            201,
+            514
+          ],
+          "head": [
+            175,
+            4
+          ],
+          "eyes": [
+            190,
+            168
+          ],
+          "neck": [
+            204,
+            235
+          ],
+          "back": [
+            186,
+            248
+          ],
+          "hand": [
+            298,
+            199
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cheer": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-core.webp",
+          "rect": [
+            7,
+            508,
+            371,
+            486
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.85,
+          "anchor": [
+            205,
+            544
+          ],
+          "head": [
+            167,
+            8
+          ],
+          "eyes": [
+            199,
+            167
+          ],
+          "neck": [
+            203,
+            234
+          ],
+          "back": [
+            184,
+            244
+          ],
+          "hand": [
+            316,
+            114
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "giggle": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-core.webp",
+          "rect": [
+            774,
+            505,
+            358,
+            508
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.85,
+          "anchor": [
+            206,
+            527
+          ],
+          "head": [
+            171,
+            15
+          ],
+          "eyes": [
+            204,
+            173
+          ],
+          "neck": [
+            209,
+            244
+          ],
+          "back": [
+            190,
+            256
+          ],
+          "hand": [
+            253,
+            212
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dizzy": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-core.webp",
+          "rect": [
+            1139,
+            519,
+            390,
+            487
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.85,
+          "anchor": [
+            225,
+            513
+          ],
+          "head": [
+            271,
+            5
+          ],
+          "eyes": [
+            231,
+            166
+          ],
+          "neck": [
+            238,
+            223
+          ],
+          "back": [
+            221,
+            235
+          ],
+          "hand": [
+            308,
+            281
+          ],
+          "headAngle": 0.47
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "run": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-walk-run.webp",
+          "rect": [
+            26,
+            522,
+            365,
+            469
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            188,
+            493
+          ],
+          "head": [
+            186,
+            4
+          ],
+          "eyes": [
+            262,
+            179
+          ],
+          "neck": [
+            201,
+            231
+          ],
+          "back": [
+            170,
+            236
+          ],
+          "hand": [
+            331,
+            244
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-walk-run.webp",
+          "rect": [
+            417,
+            518,
+            344,
+            441
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            181,
+            497
+          ],
+          "head": [
+            188,
+            4
+          ],
+          "eyes": [
+            238,
+            178
+          ],
+          "neck": [
+            198,
+            237
+          ],
+          "back": [
+            168,
+            243
+          ],
+          "hand": [
+            331,
+            250
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-walk-run.webp",
+          "rect": [
+            788,
+            522,
+            351,
+            468
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            194,
+            493
+          ],
+          "head": [
+            199,
+            4
+          ],
+          "eyes": [
+            242,
+            176
+          ],
+          "neck": [
+            209,
+            232
+          ],
+          "back": [
+            179,
+            238
+          ],
+          "hand": [
+            337,
+            245
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-walk-run.webp",
+          "rect": [
+            1161,
+            518,
+            355,
+            436
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            205,
+            497
+          ],
+          "head": [
+            203,
+            4
+          ],
+          "eyes": [
+            250,
+            178
+          ],
+          "neck": [
+            216,
+            233
+          ],
+          "back": [
+            186,
+            239
+          ],
+          "hand": [
+            358,
+            247
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-dance.webp",
+          "rect": [
+            15,
+            11,
+            353,
+            501
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            200,
+            501
+          ],
+          "head": [
+            186,
+            4
+          ],
+          "eyes": [
+            197,
+            158
+          ],
+          "neck": [
+            194,
+            217
+          ],
+          "back": [
+            170,
+            230
+          ],
+          "hand": [
+            309,
+            279
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-dance.webp",
+          "rect": [
+            391,
+            8,
+            360,
+            504
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            208,
+            504
+          ],
+          "head": [
+            198,
+            4
+          ],
+          "eyes": [
+            190,
+            160
+          ],
+          "neck": [
+            203,
+            218
+          ],
+          "back": [
+            179,
+            233
+          ],
+          "hand": [
+            319,
+            245
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-dance.webp",
+          "rect": [
+            787,
+            6,
+            349,
+            508
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            196,
+            506
+          ],
+          "head": [
+            189,
+            4
+          ],
+          "eyes": [
+            199,
+            154
+          ],
+          "neck": [
+            187,
+            222
+          ],
+          "back": [
+            160,
+            234
+          ],
+          "hand": [
+            313,
+            103
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-dance.webp",
+          "rect": [
+            1175,
+            7,
+            350,
+            512
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            192,
+            505
+          ],
+          "head": [
+            184,
+            4
+          ],
+          "eyes": [
+            184,
+            157
+          ],
+          "neck": [
+            183,
+            220
+          ],
+          "back": [
+            158,
+            233
+          ],
+          "hand": [
+            245,
+            291
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "pose-twirl": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-dance.webp",
+          "rect": [
+            19,
+            521,
+            353,
+            496
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            195,
+            501
+          ],
+          "head": [
+            187,
+            4
+          ],
+          "eyes": [
+            192,
+            151
+          ],
+          "neck": [
+            197,
+            224
+          ],
+          "back": [
+            171,
+            237
+          ],
+          "hand": [
+            299,
+            93
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-dance.webp",
+          "rect": [
+            394,
+            516,
+            380,
+            422
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            205,
+            506
+          ],
+          "head": [
+            183,
+            4
+          ],
+          "eyes": [
+            190,
+            147
+          ],
+          "neck": [
+            189,
+            221
+          ],
+          "back": [
+            164,
+            232
+          ],
+          "hand": [
+            337,
+            106
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-dance.webp",
+          "rect": [
+            797,
+            520,
+            347,
+            490
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            186,
+            502
+          ],
+          "head": [
+            173,
+            4
+          ],
+          "eyes": [
+            171,
+            149
+          ],
+          "neck": [
+            175,
+            221
+          ],
+          "back": [
+            153,
+            234
+          ],
+          "hand": [
+            287,
+            72
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-dance.webp",
+          "rect": [
+            1165,
+            562,
+            359,
+            441
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            201,
+            460
+          ],
+          "head": [
+            198,
+            4
+          ],
+          "eyes": [
+            214,
+            157
+          ],
+          "neck": [
+            204,
+            218
+          ],
+          "back": [
+            180,
+            229
+          ],
+          "hand": [
+            213,
+            330
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "float": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-float-swim.webp",
+          "rect": [
+            12,
+            5,
+            376,
+            495
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            193,
+            505
+          ],
+          "head": [
+            196,
+            5
+          ],
+          "eyes": [
+            216,
+            153
+          ],
+          "neck": [
+            208,
+            226
+          ],
+          "back": [
+            183,
+            243
+          ],
+          "hand": [
+            325,
+            245
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-float-swim.webp",
+          "rect": [
+            402,
+            9,
+            331,
+            491
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            187,
+            501
+          ],
+          "head": [
+            190,
+            1
+          ],
+          "eyes": [
+            198,
+            155
+          ],
+          "neck": [
+            202,
+            222
+          ],
+          "back": [
+            177,
+            239
+          ],
+          "hand": [
+            319,
+            241
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-float-swim.webp",
+          "rect": [
+            760,
+            9,
+            372,
+            494
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            213,
+            501
+          ],
+          "head": [
+            216,
+            1
+          ],
+          "eyes": [
+            212,
+            154
+          ],
+          "neck": [
+            228,
+            222
+          ],
+          "back": [
+            203,
+            239
+          ],
+          "hand": [
+            345,
+            241
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-float-swim.webp",
+          "rect": [
+            1151,
+            8,
+            357,
+            492
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            206,
+            502
+          ],
+          "head": [
+            209,
+            2
+          ],
+          "eyes": [
+            208,
+            155
+          ],
+          "neck": [
+            221,
+            223
+          ],
+          "back": [
+            196,
+            240
+          ],
+          "hand": [
+            338,
+            242
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "swim": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-float-swim.webp",
+          "rect": [
+            16,
+            522,
+            371,
+            431
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            189,
+            490
+          ],
+          "head": [
+            211,
+            5
+          ],
+          "eyes": [
+            238,
+            156
+          ],
+          "neck": [
+            213,
+            219
+          ],
+          "back": [
+            178,
+            239
+          ],
+          "hand": [
+            348,
+            194
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-float-swim.webp",
+          "rect": [
+            426,
+            522,
+            337,
+            431
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            163,
+            490
+          ],
+          "head": [
+            185,
+            5
+          ],
+          "eyes": [
+            196,
+            155
+          ],
+          "neck": [
+            187,
+            219
+          ],
+          "back": [
+            152,
+            239
+          ],
+          "hand": [
+            322,
+            194
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-float-swim.webp",
+          "rect": [
+            777,
+            524,
+            374,
+            429
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            196,
+            488
+          ],
+          "head": [
+            218,
+            3
+          ],
+          "eyes": [
+            234,
+            156
+          ],
+          "neck": [
+            220,
+            217
+          ],
+          "back": [
+            185,
+            237
+          ],
+          "hand": [
+            355,
+            192
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-float-swim.webp",
+          "rect": [
+            1189,
+            525,
+            334,
+            428
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            168,
+            487
+          ],
+          "head": [
+            190,
+            2
+          ],
+          "eyes": [
+            205,
+            154
+          ],
+          "neck": [
+            192,
+            216
+          ],
+          "back": [
+            157,
+            236
+          ],
+          "hand": [
+            233,
+            243
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-a.webp",
+          "rect": [
+            14,
+            8,
+            377,
+            506
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            196,
+            502
+          ],
+          "head": [
+            188,
+            12
+          ],
+          "eyes": [
+            214,
+            158
+          ],
+          "neck": [
+            211,
+            222
+          ],
+          "back": [
+            179,
+            244
+          ],
+          "hand": [
+            315,
+            94
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-a.webp",
+          "rect": [
+            402,
+            8,
+            354,
+            496
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            192,
+            502
+          ],
+          "head": [
+            184,
+            12
+          ],
+          "eyes": [
+            205,
+            164
+          ],
+          "neck": [
+            200,
+            228
+          ],
+          "back": [
+            174,
+            243
+          ],
+          "hand": [
+            322,
+            232
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-a.webp",
+          "rect": [
+            782,
+            8,
+            378,
+            506
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            196,
+            502
+          ],
+          "head": [
+            191,
+            12
+          ],
+          "eyes": [
+            238,
+            166
+          ],
+          "neck": [
+            218,
+            228
+          ],
+          "back": [
+            190,
+            249
+          ],
+          "hand": [
+            288,
+            116
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-a.webp",
+          "rect": [
+            1166,
+            7,
+            356,
+            493
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            196,
+            503
+          ],
+          "head": [
+            202,
+            9
+          ],
+          "eyes": [
+            242,
+            170
+          ],
+          "neck": [
+            231,
+            227
+          ],
+          "back": [
+            198,
+            243
+          ],
+          "hand": [
+            319,
+            306
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "sit": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-a.webp",
+          "rect": [
+            8,
+            519,
+            347,
+            468
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            202,
+            493
+          ],
+          "head": [
+            195,
+            8
+          ],
+          "eyes": [
+            194,
+            164
+          ],
+          "neck": [
+            183,
+            221
+          ],
+          "back": [
+            165,
+            241
+          ],
+          "hand": [
+            279,
+            303
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dash": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-a.webp",
+          "rect": [
+            398,
+            521,
+            373,
+            470
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            196,
+            491
+          ],
+          "head": [
+            216,
+            -0.03750000000000009
+          ],
+          "eyes": [
+            278,
+            174
+          ],
+          "neck": [
+            230,
+            221
+          ],
+          "back": [
+            193,
+            244
+          ],
+          "hand": [
+            26,
+            212
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-a.webp",
+          "rect": [
+            782,
+            519,
+            388,
+            495
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            196,
+            493
+          ],
+          "head": [
+            202,
+            11
+          ],
+          "eyes": [
+            206,
+            158
+          ],
+          "neck": [
+            216,
+            213
+          ],
+          "back": [
+            181,
+            242
+          ],
+          "hand": [
+            369,
+            197
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-a.webp",
+          "rect": [
+            1171,
+            515,
+            361,
+            495
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            191,
+            497
+          ],
+          "head": [
+            194,
+            4
+          ],
+          "eyes": [
+            199,
+            163
+          ],
+          "neck": [
+            226,
+            215
+          ],
+          "back": [
+            192,
+            247
+          ],
+          "hand": [
+            340,
+            203
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-b.webp",
+          "rect": [
+            8,
+            1,
+            368,
+            507
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            202,
+            509
+          ],
+          "head": [
+            198,
+            5
+          ],
+          "eyes": [
+            238,
+            167
+          ],
+          "neck": [
+            215,
+            228
+          ],
+          "back": [
+            182,
+            246
+          ],
+          "hand": [
+            345,
+            189
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "jump": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-b.webp",
+          "rect": [
+            393,
+            0,
+            350,
+            502
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            201,
+            510
+          ],
+          "head": [
+            208,
+            3
+          ],
+          "eyes": [
+            205,
+            153
+          ],
+          "neck": [
+            214,
+            218
+          ],
+          "back": [
+            181,
+            245
+          ],
+          "hand": [
+            313,
+            94
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "fall": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-b.webp",
+          "rect": [
+            783,
+            5,
+            371,
+            501
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            195,
+            505
+          ],
+          "head": [
+            191,
+            2
+          ],
+          "eyes": [
+            221,
+            163
+          ],
+          "neck": [
+            203,
+            224
+          ],
+          "back": [
+            175,
+            242
+          ],
+          "hand": [
+            323,
+            268
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-b.webp",
+          "rect": [
+            1160,
+            2,
+            369,
+            425
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            202,
+            508
+          ],
+          "head": [
+            205,
+            5
+          ],
+          "eyes": [
+            226,
+            161
+          ],
+          "neck": [
+            212,
+            218
+          ],
+          "back": [
+            182,
+            244
+          ],
+          "hand": [
+            353,
+            148
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-b.webp",
+          "rect": [
+            3,
+            521,
+            388,
+            470
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            207,
+            491
+          ],
+          "head": [
+            177,
+            16
+          ],
+          "eyes": [
+            194,
+            168
+          ],
+          "neck": [
+            186,
+            227
+          ],
+          "back": [
+            168,
+            246
+          ],
+          "hand": [
+            232,
+            113
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "throw": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-b.webp",
+          "rect": [
+            390,
+            515,
+            391,
+            479
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            204,
+            497
+          ],
+          "head": [
+            229,
+            7
+          ],
+          "eyes": [
+            260,
+            167
+          ],
+          "neck": [
+            220,
+            229
+          ],
+          "back": [
+            193,
+            249
+          ],
+          "hand": [
+            363,
+            216
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wand-up": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-b.webp",
+          "rect": [
+            788,
+            515,
+            345,
+            500
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            190,
+            497
+          ],
+          "head": [
+            194,
+            11
+          ],
+          "eyes": [
+            205,
+            146
+          ],
+          "neck": [
+            204,
+            229
+          ],
+          "back": [
+            173,
+            253
+          ],
+          "hand": [
+            308,
+            87
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-b.webp",
+          "rect": [
+            1159,
+            523,
+            373,
+            450
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            203,
+            489
+          ],
+          "head": [
+            210,
+            6
+          ],
+          "eyes": [
+            265,
+            170
+          ],
+          "neck": [
+            242,
+            224
+          ],
+          "back": [
+            205,
+            247
+          ],
+          "hand": [
+            351,
+            200
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "look-up": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-c.webp",
+          "rect": [
+            13,
+            8,
+            369,
+            503
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            203,
+            504
+          ],
+          "head": [
+            216,
+            9
+          ],
+          "eyes": [
+            220,
+            149
+          ],
+          "neck": [
+            218,
+            231
+          ],
+          "back": [
+            189,
+            245
+          ],
+          "hand": [
+            321,
+            303
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "toss": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-c.webp",
+          "rect": [
+            390,
+            5,
+            389,
+            511
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            210,
+            507
+          ],
+          "head": [
+            201,
+            10
+          ],
+          "eyes": [
+            232,
+            154
+          ],
+          "neck": [
+            220,
+            231
+          ],
+          "back": [
+            190,
+            245
+          ],
+          "hand": [
+            363,
+            244
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "blow": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-c.webp",
+          "rect": [
+            795,
+            7,
+            377,
+            507
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            189,
+            505
+          ],
+          "head": [
+            188,
+            13
+          ],
+          "eyes": [
+            240,
+            158
+          ],
+          "neck": [
+            214,
+            225
+          ],
+          "back": [
+            183,
+            243
+          ],
+          "hand": [
+            297,
+            205
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ready": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-c.webp",
+          "rect": [
+            1178,
+            6,
+            346,
+            507
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            190,
+            506
+          ],
+          "head": [
+            185,
+            9
+          ],
+          "eyes": [
+            218,
+            160
+          ],
+          "neck": [
+            189,
+            222
+          ],
+          "back": [
+            162,
+            246
+          ],
+          "hand": [
+            302,
+            208
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-c.webp",
+          "rect": [
+            6,
+            509,
+            382,
+            505
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            210,
+            515
+          ],
+          "head": [
+            220,
+            7
+          ],
+          "eyes": [
+            230,
+            172
+          ],
+          "neck": [
+            216,
+            231
+          ],
+          "back": [
+            187,
+            252
+          ],
+          "hand": [
+            269,
+            216
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "paint": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-c.webp",
+          "rect": [
+            393,
+            519,
+            396,
+            495
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            207,
+            505
+          ],
+          "head": [
+            197,
+            9
+          ],
+          "eyes": [
+            258,
+            172
+          ],
+          "neck": [
+            211,
+            232
+          ],
+          "back": [
+            186,
+            251
+          ],
+          "hand": [
+            337,
+            258
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "water": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-c.webp",
+          "rect": [
+            794,
+            512,
+            368,
+            507
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            190,
+            512
+          ],
+          "head": [
+            206,
+            9
+          ],
+          "eyes": [
+            238,
+            176
+          ],
+          "neck": [
+            209,
+            236
+          ],
+          "back": [
+            181,
+            256
+          ],
+          "hand": [
+            306,
+            264
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-c.webp",
+          "rect": [
+            1175,
+            509,
+            356,
+            507
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            193,
+            515
+          ],
+          "head": [
+            185,
+            15
+          ],
+          "eyes": [
+            215,
+            174
+          ],
+          "neck": [
+            191,
+            235
+          ],
+          "back": [
+            165,
+            255
+          ],
+          "hand": [
+            250,
+            298
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-d.webp",
+          "rect": [
+            79,
+            18,
+            481,
+            612
+          ],
+          "isolate": true,
+          "scale": 0.54,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            251,
+            632
+          ],
+          "head": [
+            246,
+            0
+          ],
+          "eyes": [
+            291,
+            190
+          ],
+          "neck": [
+            276,
+            270
+          ],
+          "back": [
+            231,
+            298
+          ],
+          "hand": [
+            335,
+            308
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-d.webp",
+          "rect": [
+            691,
+            12,
+            484,
+            629
+          ],
+          "isolate": true,
+          "scale": 0.54,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            267,
+            638
+          ],
+          "head": [
+            249,
+            4
+          ],
+          "eyes": [
+            306,
+            178
+          ],
+          "neck": [
+            280,
+            291
+          ],
+          "back": [
+            237,
+            317
+          ],
+          "hand": [
+            400,
+            379
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-d.webp",
+          "rect": [
+            97,
+            705,
+            472,
+            462
+          ],
+          "isolate": true,
+          "scale": 0.54,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            233,
+            589
+          ],
+          "head": [
+            237,
+            0.8148148148148149
+          ],
+          "eyes": [
+            260,
+            225
+          ],
+          "neck": [
+            251,
+            254
+          ],
+          "back": [
+            194,
+            295
+          ],
+          "hand": [
+            303,
+            331
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "action": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-d.webp",
+          "rect": [
+            684,
+            640,
+            528,
+            599
+          ],
+          "isolate": true,
+          "scale": 0.54,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            274,
+            654
+          ],
+          "head": [
+            320,
+            5
+          ],
+          "eyes": [
+            343,
+            216
+          ],
+          "neck": [
+            307,
+            288
+          ],
+          "back": [
+            252,
+            318
+          ],
+          "hand": [
+            481,
+            255
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "balance": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-e.webp",
+          "rect": [
+            9,
+            19,
+            383,
+            499
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            207,
+            495
+          ],
+          "head": [
+            236,
+            0.9624999999999999
+          ],
+          "eyes": [
+            213,
+            176
+          ],
+          "neck": [
+            169,
+            233
+          ],
+          "back": [
+            144,
+            250
+          ],
+          "hand": [
+            324,
+            265
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-e.webp",
+          "rect": [
+            395,
+            41,
+            376,
+            478
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            205,
+            473
+          ],
+          "head": [
+            219,
+            3
+          ],
+          "eyes": [
+            205,
+            160
+          ],
+          "neck": [
+            193,
+            227
+          ],
+          "back": [
+            160,
+            243
+          ],
+          "hand": [
+            308,
+            269
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-e.webp",
+          "rect": [
+            771,
+            10,
+            391,
+            509
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            213,
+            504
+          ],
+          "head": [
+            209,
+            5
+          ],
+          "eyes": [
+            204,
+            161
+          ],
+          "neck": [
+            191,
+            224
+          ],
+          "back": [
+            164,
+            244
+          ],
+          "hand": [
+            353,
+            156
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "sleep": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-e.webp",
+          "rect": [
+            1148,
+            76,
+            384,
+            412
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            220,
+            438
+          ],
+          "head": [
+            252,
+            0
+          ],
+          "eyes": [
+            249,
+            173
+          ],
+          "neck": [
+            196,
+            213
+          ],
+          "back": [
+            154,
+            246
+          ],
+          "hand": [
+            278,
+            230
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "flip": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-e.webp",
+          "rect": [
+            18,
+            533,
+            400,
+            403
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            198,
+            491
+          ],
+          "head": [
+            310,
+            88
+          ],
+          "eyes": [
+            269,
+            195
+          ],
+          "neck": [
+            191,
+            257
+          ],
+          "back": [
+            139,
+            221
+          ],
+          "hand": [
+            339,
+            350
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-e.webp",
+          "rect": [
+            389,
+            607,
+            378,
+            385
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            211,
+            417
+          ],
+          "head": [
+            218,
+            19
+          ],
+          "eyes": [
+            228,
+            182
+          ],
+          "neck": [
+            219,
+            234
+          ],
+          "back": [
+            176,
+            255
+          ],
+          "hand": [
+            200,
+            359
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tumble": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-e.webp",
+          "rect": [
+            743,
+            573,
+            426,
+            381
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            241,
+            451
+          ],
+          "head": [
+            198,
+            18
+          ],
+          "eyes": [
+            200,
+            160
+          ],
+          "neck": [
+            241,
+            228
+          ],
+          "back": [
+            215,
+            259
+          ],
+          "hand": [
+            107,
+            271
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-e.webp",
+          "rect": [
+            1162,
+            507,
+            361,
+            499
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            206,
+            517
+          ],
+          "head": [
+            213,
+            15
+          ],
+          "eyes": [
+            218,
+            167
+          ],
+          "neck": [
+            183,
+            252
+          ],
+          "back": [
+            144,
+            281
+          ],
+          "hand": [
+            196,
+            278
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-f.webp",
+          "rect": [
+            20,
+            7,
+            368,
+            503
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            196,
+            505
+          ],
+          "head": [
+            188,
+            8
+          ],
+          "eyes": [
+            218,
+            155
+          ],
+          "neck": [
+            216,
+            222
+          ],
+          "back": [
+            183,
+            242
+          ],
+          "hand": [
+            342,
+            239
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-f.webp",
+          "rect": [
+            402,
+            10,
+            365,
+            486
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            198,
+            502
+          ],
+          "head": [
+            190,
+            5
+          ],
+          "eyes": [
+            238,
+            172
+          ],
+          "neck": [
+            205,
+            221
+          ],
+          "back": [
+            178,
+            243
+          ],
+          "hand": [
+            342,
+            241
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-f.webp",
+          "rect": [
+            785,
+            7,
+            331,
+            503
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            199,
+            505
+          ],
+          "head": [
+            190,
+            7
+          ],
+          "eyes": [
+            205,
+            156
+          ],
+          "neck": [
+            205,
+            220
+          ],
+          "back": [
+            178,
+            245
+          ],
+          "hand": [
+            243,
+            231
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-f.webp",
+          "rect": [
+            1162,
+            11,
+            351,
+            487
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            206,
+            501
+          ],
+          "head": [
+            196,
+            1
+          ],
+          "eyes": [
+            245,
+            170
+          ],
+          "neck": [
+            205,
+            222
+          ],
+          "back": [
+            178,
+            243
+          ],
+          "hand": [
+            318,
+            97
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-f.webp",
+          "rect": [
+            21,
+            523,
+            351,
+            473
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            195,
+            501
+          ],
+          "head": [
+            186,
+            5
+          ],
+          "eyes": [
+            239,
+            168
+          ],
+          "neck": [
+            201,
+            223
+          ],
+          "back": [
+            176,
+            242
+          ],
+          "hand": [
+            321,
+            87
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-f.webp",
+          "rect": [
+            397,
+            524,
+            348,
+            477
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            203,
+            500
+          ],
+          "head": [
+            194,
+            5
+          ],
+          "eyes": [
+            241,
+            168
+          ],
+          "neck": [
+            209,
+            223
+          ],
+          "back": [
+            183,
+            242
+          ],
+          "hand": [
+            329,
+            85
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-f.webp",
+          "rect": [
+            788,
+            522,
+            351,
+            469
+          ],
+          "isolate": true,
+          "scale": 0.8,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            196,
+            502
+          ],
+          "head": [
+            187,
+            7
+          ],
+          "eyes": [
+            240,
+            169
+          ],
+          "neck": [
+            202,
+            225
+          ],
+          "back": [
+            176,
+            244
+          ],
+          "hand": [
+            322,
+            87
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-g.webp",
+          "rect": [
+            35,
+            70,
+            699,
+            952
+          ],
+          "isolate": true,
+          "scale": 0.4,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            365,
+            960
+          ],
+          "head": [
+            349,
+            4
+          ],
+          "eyes": [
+            402,
+            324
+          ],
+          "neck": [
+            365,
+            450
+          ],
+          "back": [
+            315,
+            490
+          ],
+          "hand": [
+            475,
+            490
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "hose-spray": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-molly-actions-g.webp",
+          "rect": [
+            765,
+            89,
+            663,
+            936
+          ],
+          "isolate": true,
+          "scale": 0.4,
+          "bodyHeight": 240,
+          "dur": 0.16,
+          "anchor": [
+            355,
+            941
+          ],
+          "head": [
+            341,
+            5
+          ],
+          "eyes": [
+            408,
+            330
+          ],
+          "neck": [
+            375,
+            459
+          ],
+          "back": [
+            305,
+            503
+          ],
+          "hand": [
+            525,
+            579
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "roll-push": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-oct16-molly-actions.webp",
+          "rect": [
+            0,
+            0,
+            627,
+            610
+          ],
+          "isolate": true,
+          "scale": 0.6123000000000001,
+          "bodyHeight": 240,
+          "dur": 0.24,
+          "head": [
+            380,
+            15
+          ],
+          "eyes": [
+            425,
+            230
+          ],
+          "neck": [
+            385,
+            300
+          ],
+          "back": [
+            320,
+            340
+          ],
+          "hand": [
+            550,
+            325
+          ],
+          "anchor": [
+            340,
+            605
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-oct16-molly-actions.webp",
+          "rect": [
+            627,
+            0,
+            627,
+            610
+          ],
+          "isolate": true,
+          "scale": 0.6123000000000001,
+          "bodyHeight": 240,
+          "dur": 0.24,
+          "head": [
+            380,
+            15
+          ],
+          "eyes": [
+            425,
+            230
+          ],
+          "neck": [
+            385,
+            300
+          ],
+          "back": [
+            320,
+            340
+          ],
+          "hand": [
+            550,
+            325
+          ],
+          "anchor": [
+            340,
+            605
+          ]
+        }
+      ]
+    },
+    "hold-balloons": {
+      "fps": 6,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-oct16-molly-actions.webp",
+          "rect": [
+            0,
+            610,
+            627,
+            644
+          ],
+          "isolate": true,
+          "scale": 0.6123000000000001,
+          "bodyHeight": 240,
+          "dur": 0.18,
+          "head": [
+            330,
+            10
+          ],
+          "eyes": [
+            390,
+            215
+          ],
+          "neck": [
+            400,
+            280
+          ],
+          "back": [
+            350,
+            332
+          ],
+          "hand": [
+            515,
+            85
+          ],
+          "anchor": [
+            350,
+            647
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-oct16-molly-actions.webp",
+          "rect": [
+            627,
+            610,
+            627,
+            644
+          ],
+          "isolate": true,
+          "scale": 0.6123000000000001,
+          "bodyHeight": 240,
+          "dur": 0.18,
+          "head": [
+            313,
+            10
+          ],
+          "eyes": [
+            368,
+            210
+          ],
+          "neck": [
+            373,
+            280
+          ],
+          "back": [
+            325,
+            332
+          ],
+          "hand": [
+            483,
+            80
+          ],
+          "anchor": [
+            350,
+            647
+          ]
+        }
+      ]
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/garden-fairy-yellow-molly-portraits.webp",
+      "rect": [
+        0,
+        0,
+        512,
+        512
+      ]
+    },
+    "happy": {
+      "source": "../sources/garden-fairy-yellow-molly-portraits.webp",
+      "rect": [
+        512,
+        0,
+        512,
+        512
+      ]
+    },
+    "surprised": {
+      "source": "../sources/garden-fairy-yellow-molly-portraits.webp",
+      "rect": [
+        1024,
+        0,
+        512,
+        512
+      ]
+    },
+    "sad": {
+      "source": "../sources/garden-fairy-yellow-molly-portraits.webp",
+      "rect": [
+        0,
+        512,
+        512,
+        512
+      ]
+    },
+    "determined": {
+      "source": "../sources/garden-fairy-yellow-molly-portraits.webp",
+      "rect": [
+        512,
+        512,
+        512,
+        512
+      ]
+    }
+  },
+  "quality": 82
+}

@@ -1,0 +1,224 @@
+{
+  "game": "aquarium",
+  "assets": [
+    {
+      "key": "bg/aquarium",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Full screen behind everything. The tank (code-drawn frame, water, sand, cabinet) covers x 270\u20131650, y 110\u2013950, so that area can be plain; the title ribbon sits at the top centre; characters stand on the floor at both sides (y \u2248 760\u2013940)",
+      "description": "A cozy pastel playroom wall: soft aqua-and-cream striped wallpaper with tiny bubbles and starfish, a round porthole-style window at the upper left showing a sunny sky, a little shelf with plants and books at the upper right, a warm honey-wood floor from y\u2248930 down. Calm in the centre",
+      "transparent": false,
+      "held": false,
+      "prompt": "Use case: stylized-concept. Asset type: standalone Dream Aquarium game art bg/aquarium. Subject: A cozy pastel playroom wall: soft aqua-and-cream striped wallpaper with tiny bubbles and starfish, a round porthole-style window at the upper left showing a sunny sky, a little shelf with plants and books at the upper right, a warm honey-wood floor from y\u2248930 down. Calm in the centre. Selected colour variant: bg/aquarium (use only this variant, NOT all listed colours). Requested canvas 1920x1080. Functional layout: Full screen behind everything. The tank (code-drawn frame, water, sand, cabinet) covers x 270\u20131650, y 110\u2013950, so that area can be plain; the title ribbon sits at the top centre; characters stand on the floor at both sides (y \u2248 760\u2013940). House style: bold smooth dark navy #24163f outlines, rounded friendly shapes, soft clean cel shading, bright candy colours, no 3D or photorealism. Opaque complete background, calm low-detail centre. Daytime art only, no glow halos, no bubbles, no fish or characters, no text or watermark.",
+      "floorIntake": {
+        "generatedBoundary": 786,
+        "targetBoundary": 930
+      },
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-2b7d310c-06f9-4223-b287-331f5c2696f7.png",
+      "sourceCrop": null,
+      "file": "party/assets/art/bg/aquarium.webp",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 112648,
+      "tool": "built-in imagegen",
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
+    },
+    {
+      "key": "bg/aquarium-water",
+      "size": [
+        1340,
+        700
+      ],
+      "geometry": "Stretched over the water rect (x 290\u20131630, y 190\u2013890), behind all decor and fish. The code draws the sand over the bottom ~160 px, and adds light rays, caustics, the surface line and the night overlay",
+      "description": "A printed aquarium backdrop: a soft turquoise-to-deep-blue underwater scene with faint, low-contrast distant rocks, coral and seaweed silhouettes near the bottom, gentle light from the top. No fish, no bubbles, no sand in front",
+      "transparent": false,
+      "held": false,
+      "prompt": "Use case: stylized-concept. Asset type: standalone Dream Aquarium game art bg/aquarium-water. Subject: A printed aquarium backdrop: a soft turquoise-to-deep-blue underwater scene with faint, low-contrast distant rocks, coral and seaweed silhouettes near the bottom, gentle light from the top. No fish, no bubbles, no sand in front. Selected colour variant: water (use only this variant, NOT all listed colours). Requested canvas 1340x700. Functional layout: Stretched over the water rect (x 290\u20131630, y 190\u2013890), behind all decor and fish. The code draws the sand over the bottom ~160 px, and adds light rays, caustics, the surface line and the night overlay. House style: bold smooth dark navy #24163f outlines, rounded friendly shapes, soft clean cel shading, bright candy colours, no 3D or photorealism. Opaque complete background, calm low-detail centre. Daytime art only, no glow halos, no bubbles, no fish or characters, no text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-1b27020f-eb07-41f0-be41-409024e975a5.png",
+      "sourceCrop": null,
+      "file": "party/assets/art/bg/aquarium-water.webp",
+      "width": 1340,
+      "height": 700,
+      "bytes": 63908,
+      "tool": "built-in imagegen",
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
+    },
+    {
+      "key": "prop/aq-kelp-green",
+      "size": [
+        240,
+        720
+      ],
+      "geometry": "World 120\u00d7360, bottom anchor; swayed by a skew that grows toward the top",
+      "description": "Tall wavy seaweed: three ribbon fronds with round air-bladder bobbles, in green / teal / plum purple",
+      "transparent": true,
+      "held": false,
+      "prompt": "Use case: stylized-concept. Asset type: standalone Dream Aquarium game art prop/aq-kelp-green. Subject: Tall wavy seaweed: three ribbon fronds with round air-bladder bobbles, in green / teal / plum purple. Selected colour variant: green (use only this variant, NOT all listed colours). Requested canvas 240x720. Functional layout: World 120\u00d7360, bottom anchor; swayed by a skew that grows toward the top. House style: bold smooth dark navy #24163f outlines, rounded friendly shapes, soft clean cel shading, bright candy colours, no 3D or photorealism. Single complete decor object, transparent background, bottom-center base touching bottom edge; only 2\u20134px side/top margins, no ground/shadow. Daytime art only, no glow halos, no bubbles, no fish or characters, no text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-1bf4f1f2-c489-454a-b7ba-bdb8d53f6ad8.png",
+      "sourceCrop": [
+        23,
+        0,
+        720,
+        2172
+      ],
+      "file": "party/assets/art/prop/aq-kelp-green.webp",
+      "width": 240,
+      "height": 720,
+      "bytes": 47660,
+      "tool": "built-in imagegen",
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
+    },
+    {
+      "key": "prop/aq-kelp-teal",
+      "size": [
+        240,
+        720
+      ],
+      "geometry": "World 120\u00d7360, bottom anchor; swayed by a skew that grows toward the top",
+      "description": "Tall wavy seaweed: three ribbon fronds with round air-bladder bobbles, in green / teal / plum purple",
+      "transparent": true,
+      "held": false,
+      "prompt": "Use case: stylized-concept. Asset type: standalone Dream Aquarium game art prop/aq-kelp-teal. Subject: Tall wavy seaweed: three ribbon fronds with round air-bladder bobbles, in green / teal / plum purple. Selected colour variant: teal (use only this variant, NOT all listed colours). Requested canvas 240x720. Functional layout: World 120\u00d7360, bottom anchor; swayed by a skew that grows toward the top. House style: bold smooth dark navy #24163f outlines, rounded friendly shapes, soft clean cel shading, bright candy colours, no 3D or photorealism. Single complete decor object, transparent background, bottom-center base touching bottom edge; only 2\u20134px side/top margins, no ground/shadow. Daytime art only, no glow halos, no bubbles, no fish or characters, no text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-e57071e0-f85d-4dbb-a91d-414cb74c57c9.png",
+      "sourceCrop": [
+        17,
+        9,
+        712,
+        2164
+      ],
+      "file": "party/assets/art/prop/aq-kelp-teal.webp",
+      "width": 240,
+      "height": 720,
+      "bytes": 49034,
+      "tool": "built-in imagegen",
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
+    },
+    {
+      "key": "prop/aq-kelp-plum",
+      "size": [
+        240,
+        720
+      ],
+      "geometry": "World 120\u00d7360, bottom anchor; swayed by a skew that grows toward the top",
+      "description": "Tall wavy seaweed: three ribbon fronds with round air-bladder bobbles, in green / teal / plum purple",
+      "transparent": true,
+      "held": false,
+      "prompt": "Use case: stylized-concept. Asset type: standalone Dream Aquarium game prop prop/aq-kelp-plum. Subject: Tall wavy seaweed: three ribbon fronds with round air-bladder bobbles, in green / teal / plum purple. Draw ONLY the plum colour variant, not other listed variants. Intended canvas 240x720. Geometry: World 120\u00d7360, bottom anchor; swayed by a skew that grows toward the top. Bold smooth dark navy #24163f outlines, rounded appealing shapes, soft clean cel shading, bright candy colours. ONE complete decor object on true transparent background, bottom centre of base touches bottom edge, no extra scenery, ground or shadow. Full silhouette fits with minimal side/top margin. Daytime, no glowing halos or bubbles, no fish, characters or text. No3D or photorealism.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-15fca1de-1dd3-4d66-a0af-08f3a0db9a95.png",
+      "sourceCrop": [
+        58,
+        33,
+        693,
+        2166
+      ],
+      "file": "party/assets/art/prop/aq-kelp-plum.webp",
+      "width": 240,
+      "height": 720,
+      "bytes": 42840,
+      "tool": "built-in imagegen",
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
+    },
+    {
+      "key": "prop/aq-fern-green",
+      "size": [
+        400,
+        340
+      ],
+      "geometry": "World 200\u00d7170, bottom anchor, sways",
+      "description": "A bushy aquarium plant (java-fern style) with long rounded leaves fanning out from a short base, in green / lime / ruby red",
+      "transparent": true,
+      "held": false,
+      "prompt": "Use case: stylized-concept. Asset type: standalone Dream Aquarium game prop prop/aq-fern-green. Subject: A bushy aquarium plant (java-fern style) with long rounded leaves fanning out from a short base, in green / lime / ruby red. Draw ONLY the green colour variant, not other listed variants. Intended canvas 400x340. Geometry: World 200\u00d7170, bottom anchor, sways. Bold smooth dark navy #24163f outlines, rounded appealing shapes, soft clean cel shading, bright candy colours. ONE complete decor object on true transparent background, bottom centre of base touches bottom edge, no extra scenery, ground or shadow. Full silhouette fits with minimal side/top margin. Daytime, no glowing halos or bubbles, no fish, characters or text. No3D or photorealism.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-bf213bc0-29dc-4e1b-9b9e-e077086b88d8.png",
+      "sourceCrop": [
+        16,
+        15,
+        1346,
+        1156
+      ],
+      "file": "party/assets/art/prop/aq-fern-green.webp",
+      "width": 400,
+      "height": 340,
+      "bytes": 43536,
+      "tool": "built-in imagegen",
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
+    },
+    {
+      "key": "prop/aq-fern-lime",
+      "size": [
+        400,
+        340
+      ],
+      "geometry": "World 200\u00d7170, bottom anchor, sways",
+      "description": "A bushy aquarium plant (java-fern style) with long rounded leaves fanning out from a short base, in green / lime / ruby red",
+      "transparent": true,
+      "held": false,
+      "prompt": "Use case: stylized-concept. Asset type: standalone Dream Aquarium game prop prop/aq-fern-lime. Subject: A bushy aquarium plant (java-fern style) with long rounded leaves fanning out from a short base, in green / lime / ruby red. Draw ONLY the lime colour variant, not other listed variants. Intended canvas 400x340. Geometry: World 200\u00d7170, bottom anchor, sways. Bold smooth dark navy #24163f outlines, rounded appealing shapes, soft clean cel shading, bright candy colours. ONE complete decor object on true transparent background, bottom centre of base touches bottom edge, no extra scenery, ground or shadow. Full silhouette fits with minimal side/top margin. Daytime, no glowing halos or bubbles, no fish, characters or text. No3D or photorealism.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-7316aeaa-49bc-455c-af8e-eb213edffcb3.png",
+      "sourceCrop": [
+        9,
+        10,
+        1351,
+        1153
+      ],
+      "file": "party/assets/art/prop/aq-fern-lime.webp",
+      "width": 400,
+      "height": 340,
+      "bytes": 40674,
+      "tool": "built-in imagegen",
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
+    },
+    {
+      "key": "prop/aq-fern-red",
+      "size": [
+        400,
+        340
+      ],
+      "geometry": "World 200\u00d7170, bottom anchor, sways",
+      "description": "A bushy aquarium plant (java-fern style) with long rounded leaves fanning out from a short base, in green / lime / ruby red",
+      "transparent": true,
+      "held": false,
+      "prompt": "Use case: stylized-concept. Asset type: standalone Dream Aquarium game prop prop/aq-fern-red. Subject: A bushy aquarium plant (java-fern style) with long rounded leaves fanning out from a short base, in green / lime / ruby red. Draw ONLY the red colour variant, not other listed variants. Intended canvas 400x340. Geometry: World 200\u00d7170, bottom anchor, sways. Bold smooth dark navy #24163f outlines, rounded appealing shapes, soft clean cel shading, bright candy colours. ONE complete decor object on true transparent background, bottom centre of base touches bottom edge, no extra scenery, ground or shadow. Full silhouette fits with minimal side/top margin. Daytime, no glowing halos or bubbles, no fish, characters or text. No3D or photorealism.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-aec37353-708a-4579-bf98-af00750600e1.png",
+      "sourceCrop": [
+        7,
+        10,
+        1356,
+        1154
+      ],
+      "file": "party/assets/art/prop/aq-fern-red.webp",
+      "width": 400,
+      "height": 340,
+      "bytes": 35736,
+      "tool": "built-in imagegen",
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
+    },
+    {
+      "key": "thumb/aquarium",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-17c65575-f955-43a9-8bc0-0a3e2bb09445.png",
+      "tool": "built-in imagegen",
+      "targetSize": [
+        800,
+        500
+      ],
+      "bytes": 111384,
+      "status": "Reviewed contact sheet and running game",
+      "prompt": "Use case: stylized-concept. Asset type: Charlie Party Dream Aquarium game thumbnail, final 800\u00d7500 landscape opaque artwork. Input image: approved eight fish-family canonical contact sheet; use orange goldfish, striped orange clownfish, yellow puffer and yellow seahorse identities precisely, other fish not needed. Scene: bright happy fish tank viewed straight from front, pink sandcastle on golden sand, swaying green seaweed, small bubbling diver helmet, smiling goldfish at left, clownfish by a pink anemone, yellow pufferfish at right and a little seahorse. Bubbles and few sparkles allowed in this thumbnail. Centered balanced composition, bold navy outlines and soft candy cel shading matching reference. Fill full landscape frame, friendly and readable at small card size. No text, UI, people, watermark or extra fish species.",
+      "references": [
+        "party/reference/pending/STUDIO-aquarium-canonicals-contact.jpg"
+      ],
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
+    }
+  ],
+  "runtimeReview": "Actual CPU Aquarium building phase: room floor and tank background align with code frame; fish swim as separate transparent sprites, clean outline and colour; decoration fallback remains until revised decor batch ships."
+}

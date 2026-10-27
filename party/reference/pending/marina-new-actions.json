@@ -1,0 +1,488 @@
+[
+  {
+    "asset": "marina",
+    "batch": "new-games-a",
+    "prompt": "Use case: illustration-story. Asset: transparent game sprite sheet of approved MARINA mermaid, reference image1 is exact identity. Preserve long wavy bright RED hair, teal eyes, gold crown with three purple gems, green scaled fish tail with broad PURPLE bands and TWO PURPLE tail flukes. She has human upper-body/arms and ONE continuous mermaid tail below her waist: absolutely NO legs, feet, shoes or extra fins. For these sports/garden activities she wears a modest loose PURPLE short-sleeve activity tunic over her upper body, matching her original purple palette; retain all distinctive hair/crown/face/tail details. Playful ordinary kid-friendly activity poses. Exactly EIGHT full-body poses, FOUR COLUMNS TWO ROWS, left-to-right reading order. Same face/head/torso scale across cells, bold smooth navy outlines, clean candy cel shading, camera three-quarter facing RIGHT, generous transparent gutters; complete crown, hair, both hands, whole tail and both flukes fully inside cells. ROW1: 1 tug ready: lower tail curve supports the body like a seated stance, torso leaning BACK LEFT away from facing direction, BOTH EMPTY gripping hands together out FRONT RIGHT at waist height, determined happy grin; 2 tug heave: torso leaning farther BACK LEFT, tail coils braced, same empty forward rope grip, cheerful exertion; 3 fishing reel ready: slight back lean, near hand gripping an INVISIBLE rod just above chest forward-right, far hand beside it preparing to crank, focused happy gaze; 4 reel crank: same lower tail position and forward gripping hand, other hand moved inward/down to crank an invisible reel, bright grin. ROW2: 5 overhead bat windup: BOTH EMPTY gripping hands together over right shoulder/above crown, torso braced on tail, gleeful face; 6 overhead followthrough: both empty hands move FORWARD RIGHT and UP above face, gentle overhead strike finished, cheerful grin; 7 putting ready: body seated LOW on folded tail, torso bends forward-right, looking down-right, BOTH empty hands low together forward-right near tail-base height as an INVISIBLE putter grip; 8 putting followthrough: same low seated tail stance, empty hands moved slightly farther forward-right low, eyes look up-right hopefully. NO rope, rod, fishing line, bat, putter, balls, scenery, shadows, ground, words, labels or effects. Genuine transparent background.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-712be003-7179-4ed4-828a-564a2fc069f0.png",
+    "poses": [
+      "pull",
+      "pull",
+      "reel",
+      "reel",
+      "swing",
+      "swing",
+      "putt",
+      "putt-swing"
+    ],
+    "shippingSource": "party/tools/sprites/sources/marina-new-games-a.webp",
+    "frames": [
+      {
+        "pose": "pull",
+        "source": "../sources/marina-new-games-a.webp",
+        "rect": [
+          14,
+          10,
+          360,
+          497
+        ],
+        "isolate": true,
+        "scale": 1.4,
+        "head": [
+          149,
+          76
+        ],
+        "eyes": [
+          149,
+          125
+        ],
+        "neck": [
+          162,
+          188
+        ],
+        "back": [
+          131,
+          332
+        ],
+        "hand": [
+          271,
+          266
+        ],
+        "anchor": [
+          180,
+          468
+        ]
+      },
+      {
+        "pose": "pull",
+        "source": "../sources/marina-new-games-pull-heave.webp",
+        "rect": [
+          34,
+          19,
+          1081,
+          1325
+        ],
+        "isolate": true,
+        "scale": 0.58,
+        "head": [
+          704,
+          259
+        ],
+        "eyes": [
+          713,
+          341
+        ],
+        "neck": [
+          704,
+          504
+        ],
+        "back": [
+          656,
+          911
+        ],
+        "hand": [
+          1019,
+          728
+        ],
+        "anchor": [
+          635,
+          1268
+        ]
+      },
+      {
+        "pose": "reel",
+        "source": "../sources/marina-new-games-a.webp",
+        "rect": [
+          797,
+          6,
+          353,
+          510
+        ],
+        "isolate": true,
+        "scale": 1.4,
+        "head": [
+          157,
+          79
+        ],
+        "eyes": [
+          168,
+          133
+        ],
+        "neck": [
+          165,
+          194
+        ],
+        "back": [
+          117,
+          333
+        ],
+        "hand": [
+          314,
+          168
+        ],
+        "anchor": [
+          174,
+          482
+        ]
+      },
+      {
+        "pose": "reel",
+        "source": "../sources/marina-new-games-a.webp",
+        "rect": [
+          1186,
+          10,
+          337,
+          503
+        ],
+        "isolate": true,
+        "scale": 1.4,
+        "head": [
+          169,
+          77
+        ],
+        "eyes": [
+          182,
+          132
+        ],
+        "neck": [
+          178,
+          191
+        ],
+        "back": [
+          131,
+          337
+        ],
+        "hand": [
+          239,
+          231
+        ],
+        "anchor": [
+          182,
+          470
+        ]
+      },
+      {
+        "pose": "swing",
+        "source": "../sources/marina-new-games-a.webp",
+        "rect": [
+          26,
+          501,
+          361,
+          502
+        ],
+        "isolate": true,
+        "scale": 1.4,
+        "head": [
+          142,
+          89
+        ],
+        "eyes": [
+          148,
+          136
+        ],
+        "neck": [
+          134,
+          183
+        ],
+        "back": [
+          121,
+          336
+        ],
+        "hand": [
+          49,
+          63
+        ],
+        "anchor": [
+          170,
+          473
+        ]
+      },
+      {
+        "pose": "swing",
+        "source": "../sources/marina-new-games-a.webp",
+        "rect": [
+          394,
+          500,
+          372,
+          502
+        ],
+        "isolate": true,
+        "scale": 1.4,
+        "head": [
+          160,
+          89
+        ],
+        "eyes": [
+          158,
+          128
+        ],
+        "neck": [
+          156,
+          175
+        ],
+        "back": [
+          127,
+          328
+        ],
+        "hand": [
+          275,
+          65
+        ],
+        "anchor": [
+          185,
+          469
+        ]
+      },
+      {
+        "pose": "putt",
+        "source": "../sources/marina-new-games-a.webp",
+        "rect": [
+          775,
+          537,
+          381,
+          457
+        ],
+        "isolate": true,
+        "scale": 1.5,
+        "head": [
+          190,
+          84
+        ],
+        "eyes": [
+          189,
+          137
+        ],
+        "neck": [
+          171,
+          191
+        ],
+        "back": [
+          128,
+          299
+        ],
+        "hand": [
+          202,
+          313
+        ],
+        "anchor": [
+          197,
+          435
+        ]
+      },
+      {
+        "pose": "putt-swing",
+        "source": "../sources/marina-new-games-a.webp",
+        "rect": [
+          1172,
+          522,
+          361,
+          485
+        ],
+        "isolate": true,
+        "scale": 1.4,
+        "head": [
+          150,
+          91
+        ],
+        "eyes": [
+          158,
+          144
+        ],
+        "neck": [
+          168,
+          195
+        ],
+        "back": [
+          124,
+          324
+        ],
+        "hand": [
+          272,
+          312
+        ],
+        "anchor": [
+          178,
+          452
+        ]
+      }
+    ],
+    "repair": {
+      "pose": "pull",
+      "frame": 1,
+      "prompt": "Use case: illustration-story. Make one complete game sprite of the approved red-haired mermaid Marina from the reference. She wears a loose purple short-sleeve activity tunic covering her upper body and waist. Keep her gold crown with purple gems, teal eyes, flowing red hair, and one green scaled fish tail with purple bands and two purple flukes. No legs. Friendly right-facing sports pose: her face turns to the RIGHT; both empty hands reach together toward the RIGHT at waist height, and her clothed torso tilts gently BACK toward the LEFT. Her lower tail curls underneath to support her. Happy closed eyes and smiling effort. Same clean navy outlines and bright cel shading as reference. Entire crown, hair, hands and tail visible with generous transparent margin. No objects held, no rope or tools, no scenery, shadows, text or effects. Genuinely transparent background. ONE sprite only.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-b55876c7-5719-4adb-8cb1-bb18f41e1dd8.png",
+      "previousAttempt": {
+        "requestId": "1f32e04e-e1e0-4483-899a-f59a97790037",
+        "result": "output moderation_blocked category other; no output"
+      },
+      "previousSource": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-2c806375-2c6c-4e56-a718-14b3fab980fd.png",
+      "handRepairPrompt": "Use case: precise-object-edit. Keep this exact fully clothed purple-tunic mermaid sprite, all body/head/hair/crown/tail positions and scale unchanged. Change ONLY the two hands: bring them close together at their existing forward-right reach, curl the fingers into two gentle EMPTY gripping fists as if holding the SAME invisible jump-rope handle. No object actually drawn. Friendly relaxed sports grip, no punching. Preserve arm sleeves and elbow positions, cheerful face, all existing anatomy and transparency. Both hands must be grouped together rather than open separated palms. No rope, tools, extra arms, text, effects, scenery or shadow."
+    },
+    "status": "reviewed-built-optimized",
+    "shippingSpec": "party/tools/sprites/specs/marina.json",
+    "decodedFullMiB": 23.053,
+    "bodyHeightUnchanged": 240
+  },
+  {
+    "asset": "marina",
+    "batch": "new-games-b",
+    "prompt": "Use case: illustration-story. Asset: transparent game sprite sheet of approved MARINA mermaid, reference image1 is exact identity. Preserve long wavy bright RED hair, teal eyes, gold crown with three purple gems, green scaled fish tail with broad PURPLE bands and TWO PURPLE tail flukes. She has human upper-body/arms and ONE continuous mermaid tail below her waist: absolutely NO legs, feet, shoes or extra fins. For these sports/garden activities she wears a modest loose PURPLE short-sleeve activity tunic over her upper body, matching her original purple palette; retain all distinctive hair/crown/face/tail details. Playful ordinary kid-friendly activity poses. Exactly FOUR full-body poses in ONE HORIZONTAL ROW, left-to-right. Same head/face/torso scale, generous transparent margins/gutters, entire crown/hair/hands/tail/flukes completely inside cells, three-quarter facing RIGHT. 1 spring-jump: joyful upward launch, BOTH arms straight UP, tail bent/tucked below body with flukes lifted, big grin and upward gaze, whole tail AIRBORNE. 2 snow-scoop: body seated VERY LOW on folded tail, torso bends forward/right, BOTH hands low together in front/right, palms curved packing INVISIBLE snowball near imaginary ground, focused cheerful face. 3 dig: low body seated on tail curve, torso leaning forward/right, both hands scooping DOWN in front of/between folded tail coils then back LEFT, gleeful focused face, lower tail stays grounded. 4 skip-hop: light whole-body jump-rope hop, tail and flukes lifted/tucked gently, BOTH arms extended sideways near waist/chest height, happy face, whole tail AIRBORNE. No snowball, tools, ropes, clouds, ground, shadows, effects, labels, words or background. Genuine transparent alpha.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-32945210-1a3d-462d-97df-6770a2f1f65d.png",
+    "poses": [
+      "spring-jump",
+      "snow-scoop",
+      "dig",
+      "skip-hop"
+    ],
+    "shippingSource": "party/tools/sprites/sources/marina-new-games-b.webp",
+    "frames": [
+      {
+        "pose": "spring-jump",
+        "source": "../sources/marina-new-games-b.webp",
+        "rect": [
+          33,
+          12,
+          484,
+          614
+        ],
+        "isolate": true,
+        "scale": 0.94,
+        "head": [
+          210,
+          104
+        ],
+        "eyes": [
+          209,
+          180
+        ],
+        "neck": [
+          207,
+          262
+        ],
+        "back": [
+          199,
+          412
+        ],
+        "hand": [
+          439,
+          182
+        ],
+        "anchor": [
+          208,
+          692
+        ]
+      },
+      {
+        "pose": "snow-scoop",
+        "source": "../sources/marina-new-games-b.webp",
+        "rect": [
+          554,
+          91,
+          473,
+          609
+        ],
+        "isolate": true,
+        "scale": 1.0,
+        "head": [
+          312,
+          113
+        ],
+        "eyes": [
+          327,
+          193
+        ],
+        "neck": [
+          303,
+          284
+        ],
+        "back": [
+          185,
+          434
+        ],
+        "hand": [
+          378,
+          452
+        ],
+        "anchor": [
+          296,
+          564
+        ]
+      },
+      {
+        "pose": "dig",
+        "source": "../sources/marina-new-games-b.webp",
+        "rect": [
+          1065,
+          123,
+          507,
+          576
+        ],
+        "isolate": true,
+        "scale": 1.0,
+        "head": [
+          335,
+          113
+        ],
+        "eyes": [
+          357,
+          205
+        ],
+        "neck": [
+          319,
+          273
+        ],
+        "back": [
+          179,
+          413
+        ],
+        "hand": [
+          418,
+          462
+        ],
+        "anchor": [
+          323,
+          535
+        ]
+      },
+      {
+        "pose": "skip-hop",
+        "source": "../sources/marina-new-games-b.webp",
+        "rect": [
+          1618,
+          18,
+          513,
+          621
+        ],
+        "isolate": true,
+        "scale": 0.94,
+        "head": [
+          295,
+          116
+        ],
+        "eyes": [
+          298,
+          196
+        ],
+        "neck": [
+          306,
+          289
+        ],
+        "back": [
+          223,
+          426
+        ],
+        "hand": [
+          485,
+          331
+        ],
+        "anchor": [
+          292,
+          691
+        ]
+      }
+    ],
+    "status": "reviewed-built-optimized",
+    "shippingSpec": "party/tools/sprites/specs/marina.json",
+    "decodedFullMiB": 23.053,
+    "bodyHeightUnchanged": 240
+  }
+]

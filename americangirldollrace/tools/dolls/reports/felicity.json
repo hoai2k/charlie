@@ -1,0 +1,287 @@
+{
+  "key": "felicity",
+  "standingHeight": 390,
+  "baseline": 409,
+  "frames": {
+    "idle-0": {
+      "bounds": [
+        110,
+        19,
+        303,
+        409
+      ],
+      "scale": 0.5571428571428572,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        420,
+        708
+      ]
+    },
+    "idle-1": {
+      "bounds": [
+        102,
+        18,
+        297,
+        409
+      ],
+      "scale": 0.5571428571428572,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        347,
+        709
+      ]
+    },
+    "idle-2": {
+      "bounds": [
+        83,
+        20,
+        339,
+        409
+      ],
+      "scale": 0.5571428571428572,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        370,
+        707
+      ]
+    },
+    "run-0": {
+      "bounds": [
+        20,
+        17,
+        370,
+        409
+      ],
+      "scale": 0.5571428571428572,
+      "anchor": [
+        209,
+        409
+      ],
+      "sourceAnchor": [
+        480,
+        712
+      ]
+    },
+    "run-1": {
+      "bounds": [
+        65,
+        17,
+        298,
+        409
+      ],
+      "scale": 0.5571428571428572,
+      "anchor": [
+        209,
+        409
+      ],
+      "sourceAnchor": [
+        313,
+        712
+      ]
+    },
+    "run-2": {
+      "bounds": [
+        44,
+        17,
+        362,
+        409
+      ],
+      "scale": 0.5571428571428572,
+      "anchor": [
+        209,
+        409
+      ],
+      "sourceAnchor": [
+        411,
+        713
+      ]
+    },
+    "jump-0": {
+      "bounds": [
+        92,
+        81,
+        289,
+        409
+      ],
+      "scale": 0.5237142857142857,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        435,
+        701
+      ]
+    },
+    "jump-1": {
+      "bounds": [
+        82,
+        63,
+        360,
+        409
+      ],
+      "scale": 0.5237142857142857,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        373,
+        672
+      ]
+    },
+    "jump-2": {
+      "bounds": [
+        91,
+        90,
+        326,
+        408
+      ],
+      "scale": 0.5237142857142857,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        324,
+        702
+      ]
+    },
+    "ride": {
+      "bounds": [
+        106,
+        14,
+        378,
+        360
+      ],
+      "scale": 0.5237142857142857,
+      "anchor": [
+        209,
+        264
+      ],
+      "sourceAnchor": [
+        290,
+        490
+      ],
+      "seat": [
+        252.26,
+        233.81
+      ]
+    },
+    "push": {
+      "bounds": [
+        60,
+        46,
+        361,
+        409
+      ],
+      "scale": 0.5237142857142857,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        369,
+        704
+      ]
+    },
+    "fall": {
+      "bounds": [
+        31,
+        71,
+        397,
+        409
+      ],
+      "scale": 0.5237142857142857,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        385,
+        684
+      ]
+    },
+    "wave": {
+      "bounds": [
+        109,
+        15,
+        312,
+        409
+      ],
+      "scale": 0.5571428571428572,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        420,
+        712
+      ]
+    },
+    "cheer": {
+      "bounds": [
+        109,
+        17,
+        320,
+        409
+      ],
+      "scale": 0.5571428571428572,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        327,
+        713
+      ]
+    }
+  },
+  "runtime": {
+    "name": "Felicity",
+    "color": "#367e62",
+    "spriteKey": "felicity",
+    "jumpScale": 1,
+    "riderXOffset": -22.002,
+    "riderYOffset": 143.297,
+    "outfitData": {
+      "stats": {
+        "h": -1.46052,
+        "L": 0.35763,
+        "C": 0.03918,
+        "beta": 0.7,
+        "tintNeutral": true
+      },
+      "outfits": [
+        "red",
+        "orange",
+        "yellow",
+        "mint",
+        "blue",
+        "purple",
+        "pink"
+      ]
+    }
+  },
+  "sha256": {
+    "assets/doll_felicity_sprites.webp": "1ae711c9d8d64dba71b31be9bed1641fdb5c6645ea692db9f25d3f15ebce4c28",
+    "assets/masks/felicity_sheet_mask.webp": "f3f5186581a9e148ce9ef6dc74247f70a8a8a02c3f8c138a8588032e991ce882",
+    "assets/portraits/felicity.webp": "a921387fb06508c1b9c9a95135a4853462407ade09505ac43d6f1e4031a62a90",
+    "assets/masks/felicity_portrait_mask.webp": "d7a83244c52e17610ccac78a8b79dfedb5788ef8c98c22b859d9b0a00fd986cd",
+    "assets/portraits/felicity_wave.webp": "a6ffee4a34250d9140a9afab80fd952da93538d7517e5f1f5d6385a24152bc99",
+    "assets/masks/felicity_wave_mask.webp": "2f72cd625f22ee867e4e12f489e3ddb09e9b805ae661d9cd8680dd2f27b82db7",
+    "assets/portraits/felicity_cheer.webp": "35573939b6e67d1d162d0ab17c31629672658b28a2f05d81eabe3072cb28cb6f",
+    "assets/masks/felicity_cheer_mask.webp": "22a2f982476e935dfd60d17f3dd69606c86e255f86bbe78d88c6cc0bf2fa701c",
+    "assets/portraits/felicity_ride.webp": "de3734b7684c8de78d74270a90b35464b1cb7cf0f5e562ddef354c6d8a9fc670",
+    "assets/masks/felicity_ride_mask.webp": "63676bdbe4177bad610996e663a928a0b1fa76d61640a0534a745aec9a917b51"
+  }
+}

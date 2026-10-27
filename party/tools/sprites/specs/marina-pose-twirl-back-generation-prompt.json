@@ -1,0 +1,23 @@
+{
+  "asset": "marina",
+  "source": "../sources/marina-pose-twirl-back.webp",
+  "input_image_1": "../../../reference/canonical/marina.webp",
+  "poses": [
+    "pose-twirl frame 2 only"
+  ],
+  "grid": [
+    1,
+    1
+  ],
+  "status": "complete: built-in image_gen using approved canonical; true back-facing frame with no visible facial features; replaced only pose-twirl frame index 2; transparent source archived as lossless WebP; frame size matched to existing turn sequence.",
+  "prompt": "Use case: stylized-concept. Asset type: one transparent full-body sprite keyframe for a character turn. Input image 1 is the approved canonical marina reference; use it as the exact identity and design guide. Primary request: create one clear direct back view, character turned fully 180 degrees away from the viewer, for the back-facing beat of a four-angle twirl. The face is completely hidden by the head turn and hair: no visible eyes, nose, mouth, cheek, or face profile. Show the back of the head, hair, outfit and tail. Subject details to preserve from the reference: long red hair, gold crown with purple jewels, purple shell top, teal fish tail with purple bands, large purple tail fins. Back view details: Back of the red hair, back of the purple top, teal scale pattern with purple bands, same large purple fins. Pose: upright floating pose, tail curved naturally, both arms gently away from the torso so the rear silhouette reads. Style: match the approved 2D reference, same bold navy outline, color palette, and clean cel shading. Composition: single centered full-body figure, consistent with the reference proportions and apparent head size; leave the complete crown, hair, hands and tail fins inside the frame. Background: actual transparent alpha. Constraints: preserve the exact canonical character identity; exactly two arms and one continuous fish tail, no legs; back-facing only, face must not show. Avoid: front view, three-quarter face, visible facial features, extra characters, props, scenery, ground, shadow, glow, particles, text, border, watermark.",
+  "source_rect": [
+    11,
+    11,
+    1079,
+    1354
+  ],
+  "source_frame_scale": 0.37,
+  "source_png": "/Users/hoai/.codex/generated_images/01a0fe43-c681-7392-88c4-b71670e6a1a4/exec-b10c4289-29d5-43cf-8c76-f5bb7b6efb20.png",
+  "runtime_frame_index": 2
+}

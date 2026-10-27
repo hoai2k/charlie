@@ -1,0 +1,9 @@
+{
+  "asset": "marina",
+  "prompt": "Use case: precise-object-edit. Edit this transparent cartoon sprite into its blink frame. Change ONLY the eyes to gently closed smiling eyelids. Preserve the exact full-body pose, silhouette, arm and hand locations, hair shape, outfit, crown, tail, colors, expression, drawing scale and framing. Do not move or redraw the body or add anything. Same clean navy outlines and cel shading. Entire character fully visible. Actual transparent background.",
+  "reference": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/sprites/marina/idle-00.webp",
+  "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-ad2dc408-e476-4170-b256-a4dbe151cce4.png",
+  "tool": "built-in image_gen",
+  "source_webp": "party/tools/sprites/sources/marina-neutral-blink-v2.webp",
+  "status": "generated; final runtime alignment review pending"
+}

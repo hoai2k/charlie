@@ -1,0 +1,228 @@
+{
+  "assetKey": "lily",
+  "anchorX": [
+    225,
+    225,
+    225,
+    225,
+    225,
+    224.54225352112675,
+    225,
+    225,
+    225,
+    225,
+    225,
+    190.46610169491527
+  ],
+  "renderScale": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0391904055270391,
+    1.0367394847592868,
+    1.0367394847592868,
+    1.0058548130387153,
+    1.0,
+    1.0
+  ],
+  "baseline": 409,
+  "standingReferenceHeight": 403,
+  "scale": 0.9901719901719902,
+  "actionScaleRatio": 0.8496868475991649,
+  "frames": [
+    {
+      "bounds": [
+        22,
+        8,
+        329,
+        409
+      ],
+      "scale": 0.9901719901719902,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 320.0,
+      "targetPivot": 209,
+      "sourceChin": 191.0
+    },
+    {
+      "bounds": [
+        87,
+        6,
+        317,
+        409
+      ],
+      "scale": 0.9901719901719902,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 230.0,
+      "targetPivot": 209,
+      "sourceChin": 190.0
+    },
+    {
+      "bounds": [
+        23,
+        10,
+        331,
+        409
+      ],
+      "scale": 0.9901719901719902,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 289.0,
+      "targetPivot": 209,
+      "sourceChin": 191.0
+    },
+    {
+      "bounds": [
+        81,
+        6,
+        315,
+        409
+      ],
+      "scale": 0.8413361169102297,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 273.0,
+      "targetPivot": 209,
+      "sourceChin": 143.0
+    },
+    {
+      "bounds": [
+        60,
+        17,
+        348,
+        409
+      ],
+      "scale": 0.8413361169102297,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 275.0,
+      "targetPivot": 209,
+      "sourceChin": 163.0
+    },
+    {
+      "bounds": [
+        30,
+        72,
+        388,
+        409
+      ],
+      "anchorX": 224.54225352112675,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        5,
+        5,
+        459,
+        431
+      ],
+      "referenceBodyBounds": [
+        46,
+        73,
+        373,
+        409
+      ],
+      "bodyScale": 0.7887323943661971,
+      "packedScale": 1
+    },
+    {
+      "bounds": [
+        79,
+        5,
+        288,
+        409
+      ],
+      "scale": 0.9528301886792453,
+      "renderScale": 1.0391904055270391,
+      "anchorX": 225,
+      "sourcePivot": 283.5,
+      "targetPivot": 209,
+      "sourceChin": 152.0
+    },
+    {
+      "bounds": [
+        82,
+        5,
+        283,
+        409
+      ],
+      "scale": 0.9550827423167849,
+      "renderScale": 1.0367394847592868,
+      "anchorX": 225,
+      "sourcePivot": 276.5,
+      "targetPivot": 209,
+      "sourceChin": 149.0
+    },
+    {
+      "bounds": [
+        71,
+        6,
+        282,
+        409
+      ],
+      "scale": 0.9550827423167849,
+      "renderScale": 1.0367394847592868,
+      "anchorX": 225,
+      "sourcePivot": 283.0,
+      "targetPivot": 209,
+      "sourceChin": 150.0
+    },
+    {
+      "bounds": [
+        80,
+        5,
+        287,
+        409
+      ],
+      "scale": 0.8364389233954451,
+      "renderScale": 1.0058548130387153,
+      "anchorX": 225,
+      "sourcePivot": 277.5,
+      "targetPivot": 209,
+      "sourceChin": 126.0
+    },
+    {
+      "bounds": [
+        92,
+        10,
+        353,
+        409
+      ],
+      "scale": 0.8413361169102297,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 259.0,
+      "targetPivot": 209,
+      "sourceChin": 137.0
+    },
+    {
+      "bounds": [
+        9,
+        73,
+        408,
+        409
+      ],
+      "anchorX": 190.46610169491527,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        6,
+        5,
+        412,
+        418
+      ],
+      "referenceBodyBounds": [
+        46,
+        73,
+        373,
+        409
+      ],
+      "bodyScale": 0.8135593220338984,
+      "packedScale": 1
+    }
+  ],
+  "sha256": "eb6a5f7cc9cd191151abda3ca23cf6e58f754d0f13f583f3b3fbc7a7676a4aa7"
+}

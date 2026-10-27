@@ -1,0 +1,30 @@
+{
+  "asset": "marina",
+  "source": "../sources/marina-tier23-actions-f.webp",
+  "input_image_1": "../../../reference/canonical/marina.webp",
+  "poses": [
+    "action",
+    "throw",
+    "push",
+    "carry",
+    "cast",
+    "clap",
+    "eat",
+    "bow"
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "pose_descriptions": [
+    "ACTION: quick contact pose: reaching forward to tap or grab, one hand extended and eyes focused.",
+    "THROW: clear wind-up and release silhouette: arm draws back then reaches forward while torso twists; no object.",
+    "PUSH: brace then two-hand forward shove, torso and long tail lean firmly toward the target.",
+    "CARRY: careful upright glide with both arms locked high overhead as if carrying an invisible object; attachment hand at top of hands.",
+    "CAST: spell thrust: draw one hand back then point it firmly forward, other hand balancing; no wand or magic effect.",
+    "CLAP: looping spectator pose, both hands meeting in front of chest with an upbeat smile.",
+    "EAT: small bite gesture with one hand near mouth, happy chewing expression; no food.",
+    "BOW: polite graceful bow with head lowered and tail curling in a neat arc."
+  ],
+  "prompt": "Use case: illustration-story. Asset type: transparent full-body mermaid action sprite sheet. Input image 1 is the approved canonical marina reference; reproduce the exact character.\n\nCreate an actual-alpha transparent sheet with 4 columns and 2 rows, one fully visible figure per cell, row-major order. Keep a consistent head and torso scale, bold smooth navy outlines and clean cel shading. Each pose is a distinct silhouette:\n1) ACTION: quick contact pose: reaching forward to tap or grab, one hand extended and eyes focused.\n2) THROW: clear wind-up and release silhouette: arm draws back then reaches forward while torso twists; no object.\n3) PUSH: brace then two-hand forward shove, torso and long tail lean firmly toward the target.\n4) CARRY: careful upright glide with both arms locked high overhead as if carrying an invisible object; attachment hand at top of hands.\n5) CAST: spell thrust: draw one hand back then point it firmly forward, other hand balancing; no wand or magic effect.\n6) CLAP: looping spectator pose, both hands meeting in front of chest with an upbeat smile.\n7) EAT: small bite gesture with one hand near mouth, happy chewing expression; no food.\n8) BOW: polite graceful bow with head lowered and tail curling in a neat arc.\n\nIdentity: marina has long red hair, teal eyes, gold crown set with purple jewels, purple shell top, teal scales with purple bands and large purple fins. Preserve canonical face, colors and proportions. Exactly two arms and one continuous fish tail, absolutely no legs or feet. Adapt actions with arm gestures, torso lean, tail curls and fin movement. No props, ground, water, scenery, shadows, glow, motion lines, particles, text, grid borders or watermark. Leave generous transparent gutters and margin around each figure; never clip crown, hair, hands or tail.\n"
+}

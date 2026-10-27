@@ -1,0 +1,90 @@
+{
+  "asset": "princess-amber",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a144da-7f42-71c1-99ea-7fa12a2566c0/exec-3532d563-878d-47c7-847d-c0783883f670.png",
+  "source": "party/tools/sprites/sources/princess-amber-roll-push-oct16.webp",
+  "prompt": "Two-frame transparent sprite strip of SAME PRINCESS AMBER approved canonical image1 and shipping idle image2 proportions. Preserve long auburn hair, amber eyes, orange flower crown, orange long gown with black/white daisy pattern and black sleeves/cuffs. Bent forward pushing invisible ball RIGHT with both EMPTY palms extended chest-height. LEFT cell long extended step, gown hem spreads behind and one orange shoe peeks forward. RIGHT cell clear passing step with knees close under hips, one foot planted and other heel lifted, gown hem narrower and visibly shifted; do not duplicate pose silhouette. Same head scale and baseline, full hair/crown/dress/feet, generous gutters. Bold dark cartoon outlines clean cel shading. True transparent alpha no glow, ball/props/ground/shadows/effects/text.",
+  "status": "intaken; pending integrator game review",
+  "exact": true,
+  "losslessRGBA": true,
+  "pose": {
+    "frames": [
+      {
+        "source": "../sources/princess-amber-roll-push-oct16.webp",
+        "rect": [
+          0,
+          0,
+          950,
+          1024
+        ],
+        "scale": 0.5216296296296297,
+        "bodyHeight": 270,
+        "isolate": true,
+        "anchor": [
+          640,
+          991
+        ],
+        "head": [
+          643,
+          143
+        ],
+        "eyes": [
+          649,
+          267
+        ],
+        "neck": [
+          613,
+          365
+        ],
+        "back": [
+          593,
+          449
+        ],
+        "hand": [
+          897,
+          400
+        ]
+      },
+      {
+        "source": "../sources/princess-amber-roll-push-oct16.webp",
+        "rect": [
+          935,
+          0,
+          601,
+          1024
+        ],
+        "scale": 0.5216296296296297,
+        "bodyHeight": 270,
+        "isolate": true,
+        "anchor": [
+          325,
+          991
+        ],
+        "head": [
+          363,
+          143
+        ],
+        "eyes": [
+          369,
+          267
+        ],
+        "neck": [
+          333,
+          365
+        ],
+        "back": [
+          313,
+          449
+        ],
+        "hand": [
+          573,
+          415
+        ]
+      }
+    ],
+    "fps": 5,
+    "loop": true,
+    "motion": 0.08,
+    "facing": 1
+  },
+  "shippingExistingPosesPreserved": true
+}

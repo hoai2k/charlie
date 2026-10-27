@@ -1,0 +1,22 @@
+{
+  "key": "space",
+  "path": "assets/tracks/space/powerups.webp",
+  "size": [
+    1280,
+    256
+  ],
+  "cell": 2,
+  "bounds": [
+    12,
+    21,
+    244,
+    234
+  ],
+  "unchanged": {
+    "0": "6ca31f655a6d9a65f37623cb74d2aa3640a84d9c8b611edb37bf85b409c0adea",
+    "1": "21c1e00ba26747c6b951cd15e165a4254cc89141009f6b4a559e27d3aff4fc3f",
+    "3": "3120f16bd1026154f9026629c3505c2d5f9937efe5242e8572ef02081ca40bc7",
+    "4": "c948619d60805499976e37284bf7b9f071e7d3c0f65179e0a41af0c0cc22b46e"
+  },
+  "sha256": "4cb2ad262b75d6834809fe7886681396685bda1aceeb4ce8e744fdb961bcfbf8"
+}

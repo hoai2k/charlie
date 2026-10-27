@@ -1,0 +1,59 @@
+{
+  "prop/pinata-star": {
+    "bodyCenter": [
+      260,
+      280
+    ],
+    "tetherPoint": [
+      260,
+      100
+    ]
+  },
+  "prop/pinata-unicorn": {
+    "bodyCenter": [
+      260,
+      280
+    ],
+    "tetherPoint": [
+      239.86,
+      231.75
+    ],
+    "facing": "right"
+  },
+  "prop/pinata-llama": {
+    "bodyCenter": [
+      260,
+      280
+    ],
+    "tetherPoint": [
+      240.32,
+      245.45
+    ],
+    "facing": "right"
+  },
+  "prop/pinata-donkey": {
+    "bodyCenter": [
+      260,
+      280
+    ],
+    "tetherPoint": [
+      243.61,
+      238.3
+    ],
+    "facing": "right"
+  },
+  "prop/party-bat": {
+    "handGrip": [
+      96,
+      60
+    ],
+    "direction": "right"
+  },
+  "bg/pinata-party": {
+    "crossbarY": [
+      140,
+      168
+    ],
+    "postFootYApprox": 470
+  }
+}

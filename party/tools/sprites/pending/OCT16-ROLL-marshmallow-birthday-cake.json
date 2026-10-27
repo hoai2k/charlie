@@ -1,0 +1,90 @@
+{
+  "asset": "marshmallow-birthday-cake",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a144da-7f42-71c1-99ea-7fa12a2566c0/exec-8c429919-35ad-4da6-8aa0-8d668e6f48dd.png",
+  "source": "party/tools/sprites/sources/marshmallow-birthday-cake-roll-push-oct16.webp",
+  "prompt": "Two-frame transparent game sprite strip of SAME limbless pink two-tier marshmallow birthday cake from approved canonical image1 and shipping idle image2. Preserve pink icing drips, white marshmallow edging, colorful sprinkles, big black sparkling eyelash eyes smile, one red-white striped lit candle. Cake has NO ARMS, NO HANDS, NO LEGS and NO FEET. Pushing invisible ball RIGHT with cake's front/body/head by leaning whole cake forward. LEFT frame forward lean with lower icing compressed at front; RIGHT frame slight more upright recovery/squash with icing shifted, clearly different gentle scooting/bouncing phase. Same face/eye scale and baseline; full cake candle flame each, generous gutters. Bold dark cartoon lines simple cel shading, true transparent alpha, no glow, ball, props, ground, shadows, effects or text. Do not invent limbs.",
+  "status": "intaken; pending integrator game review",
+  "exact": true,
+  "losslessRGBA": true,
+  "pose": {
+    "frames": [
+      {
+        "source": "../sources/marshmallow-birthday-cake-roll-push-oct16.webp",
+        "rect": [
+          0,
+          0,
+          1000,
+          793
+        ],
+        "scale": 0.4958333333333334,
+        "bodyHeight": 240,
+        "isolate": true,
+        "anchor": [
+          570,
+          780
+        ],
+        "head": [
+          673,
+          159
+        ],
+        "eyes": [
+          684,
+          467
+        ],
+        "neck": [
+          630,
+          568
+        ],
+        "back": [
+          462,
+          557
+        ],
+        "hand": [
+          940,
+          488
+        ]
+      },
+      {
+        "source": "../sources/marshmallow-birthday-cake-roll-push-oct16.webp",
+        "rect": [
+          1000,
+          0,
+          983,
+          793
+        ],
+        "scale": 0.4958333333333334,
+        "bodyHeight": 240,
+        "isolate": true,
+        "anchor": [
+          485,
+          780
+        ],
+        "head": [
+          535,
+          159
+        ],
+        "eyes": [
+          520,
+          467
+        ],
+        "neck": [
+          500,
+          568
+        ],
+        "back": [
+          342,
+          557
+        ],
+        "hand": [
+          842,
+          488
+        ]
+      }
+    ],
+    "fps": 5,
+    "loop": true,
+    "motion": 0.08,
+    "facing": 1
+  },
+  "shippingExistingPosesPreserved": true
+}

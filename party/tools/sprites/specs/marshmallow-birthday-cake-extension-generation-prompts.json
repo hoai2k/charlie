@@ -1,0 +1,158 @@
+[
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "actions-a",
+    "poses": [
+      "carry",
+      "push",
+      "paint",
+      "cast",
+      "clap",
+      "eat",
+      "bow",
+      "strike1"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent sprite sheet for Charlie Party. Input image 1 is the approved Marshmallow Birthday Cake canonical; reproduce this exact character in every cell. Exact identity: pink domed three-tier cake body, white marshmallow piping rows, pink frosting band, multicolor sprinkles, big black lash eyes and smile on the front, one tiny red-and-white striped candle with red/yellow flame. ABSOLUTELY NO LIMBS: no arms, hands, legs or feet in any frame. ABSOLUTELY NO LIMBS: express every action only through squash/stretch, whole-cake bounce, gentle tilt, candle motion and facial expression; never add appendages. Keep the candle attached at the top and face on the front tier. Consistent cake proportions and outline weight, bold smooth dark navy outlines, bright clean cel shading. Exactly eight distinct full-body figures in a 4-column by 2-row grid, ordered left-to-right then bottom row, generous transparent gutters and margins, never clipped or overlapping. No text, labels, boxes, scenery, shadows, extra decorations or props. Any held/touched items are invisible and remain invisible. True transparent background. Cell poses in order: carry: carefully balance an invisible box atop the cake; push: firm forward whole-cake lean; paint: attentive tilt toward an invisible canvas; cast: forward magical-looking tilt, no wand; clap: happy rhythmic whole-body squash pulses; eat: satisfied bite, fuller cheeks; bow: polite domed bow; strike1: confident tall hand-on-hip equivalent, proud tilt.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-77811130-6e0c-4280-ac7b-5d9af212e347.png",
+    "source": "../sources/marshmallow-birthday-cake-actions-a.webp",
+    "status": "unreviewed source/landmarks reviewed, awaiting root review"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "actions-b",
+    "poses": [
+      "strike2",
+      "strike3",
+      "dance-up",
+      "dance-down",
+      "dance-side",
+      "dance-star",
+      "shake",
+      "stir"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent sprite sheet for Charlie Party. Input image 1 is the approved Marshmallow Birthday Cake canonical; reproduce this exact character in every cell. Exact identity: pink domed three-tier cake body, white marshmallow piping rows, pink frosting band, multicolor sprinkles, big black lash eyes and smile on the front, one tiny red-and-white striped candle with red/yellow flame. ABSOLUTELY NO LIMBS: no arms, hands, legs or feet in any frame. ABSOLUTELY NO LIMBS: express every action only through squash/stretch, whole-cake bounce, gentle tilt, candle motion and facial expression; never add appendages. Keep the candle attached at the top and face on the front tier. Consistent cake proportions and outline weight, bold smooth dark navy outlines, bright clean cel shading. Exactly eight distinct full-body figures in a 4-column by 2-row grid, ordered left-to-right then bottom row, generous transparent gutters and margins, never clipped or overlapping. No text, labels, boxes, scenery, shadows, extra decorations or props. Any held/touched items are invisible and remain invisible. True transparent background. Cell poses: strike2: playful wink and front tilt; strike3: proud upright star pose expressed only by a tilted cake silhouette; dance-up: tall springy bounce; dance-down: deep squash; dance-side: lean to the right; dance-star: airborne starburst silhouette made only by tilted cake tiers; shake: frosting and tiers jiggle; stir: focused stirring mime using only facial expression/tilt, no spoon.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-fb382203-a4c1-4794-b057-d4262d326be3.png",
+    "source": "../sources/marshmallow-birthday-cake-actions-b.webp",
+    "status": "unreviewed source/landmarks reviewed, awaiting root review"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "actions-c",
+    "poses": [
+      "swim",
+      "balance",
+      "splat-throw",
+      "wand-up",
+      "broom-rise",
+      "broom-glide",
+      "broom-zapped",
+      "count"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent sprite sheet for Charlie Party. Input image 1 is the approved Marshmallow Birthday Cake canonical; reproduce this exact character in every cell. Exact identity: pink domed three-tier cake body, white marshmallow piping rows, pink frosting band, multicolor sprinkles, big black lash eyes and smile on the front, one tiny red-and-white striped candle with red/yellow flame. ABSOLUTELY NO LIMBS: no arms, hands, legs or feet in any frame. ABSOLUTELY NO LIMBS: express every action only through squash/stretch, whole-cake bounce, gentle tilt, candle motion and facial expression; never add appendages. Keep the candle attached at the top and face on the front tier. Consistent cake proportions and outline weight, bold smooth dark navy outlines, bright clean cel shading. Exactly eight distinct full-body figures in a 4-column by 2-row grid, ordered left-to-right then bottom row, generous transparent gutters and margins, never clipped or overlapping. No text, labels, boxes, scenery, shadows, extra decorations or props. Any held/touched items are invisible and remain invisible. True transparent background. Cell poses: swim: buoyant head-up bob; balance: wobbling on a precarious tilt; splat-throw: underhand-action equivalent, whole cake tilts forward; wand-up: anticipatory tall pose looking up; broom-rise: bounce diagonally upward as if perched on an invisible broom; broom-glide: relaxed level perch; broom-zapped: startled side tilt and frizzy candle flame; count: focused counting expression and tiny bounce.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-e17b166c-6496-435b-a4c0-56523f7af941.png",
+    "source": "../sources/marshmallow-birthday-cake-actions-c.webp",
+    "status": "unreviewed source/landmarks reviewed, awaiting root review"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "actions-d",
+    "poses": [
+      "look-up",
+      "crowned",
+      "dash-a",
+      "dash-b",
+      "hip-bump-a",
+      "hip-bump-b",
+      "knockback-a",
+      "knockback-b"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent sprite sheet for Charlie Party. Input image 1 is the approved Marshmallow Birthday Cake canonical; reproduce this exact character in every cell. Exact identity: pink domed three-tier cake body, white marshmallow piping rows, pink frosting band, multicolor sprinkles, big black lash eyes and smile on the front, one tiny red-and-white striped candle with red/yellow flame. ABSOLUTELY NO LIMBS: no arms, hands, legs or feet in any frame. ABSOLUTELY NO LIMBS: express every action only through squash/stretch, whole-cake bounce, gentle tilt, candle motion and facial expression; never add appendages. Keep the candle attached at the top and face on the front tier. Consistent cake proportions and outline weight, bold smooth dark navy outlines, bright clean cel shading. Exactly eight distinct full-body figures in a 4-column by 2-row grid, ordered left-to-right then bottom row, generous transparent gutters and margins, never clipped or overlapping. No text, labels, boxes, scenery, shadows, extra decorations or props. Any held/touched items are invisible and remain invisible. True transparent background. Cell poses 1 look-up, upward gaze and tipped-back dome; 2 crowned, proud tall strut without a crown; 3-4 are the two-frame dash: forward tilted launch, then held fast forward lean; 5-6 are two-frame hip-bump: lower cake tier cocks back while upper dome leans away, then base swings toward the facing direction; 7-8 are two-frame knockback: cake skids backward while sharply leaning away, then opposite wobble. Read in order. No hips drawn as limbs.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-894a773e-90ce-4b27-814c-c4692e9338e5.png",
+    "source": "../sources/marshmallow-birthday-cake-actions-d.webp",
+    "status": "unreviewed source/landmarks reviewed, awaiting root review"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "actions-e",
+    "poses": [
+      "catch",
+      "sit",
+      "tumble",
+      "hold-present",
+      "toss",
+      "catch-present",
+      "sooty",
+      "drink"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent sprite sheet for Charlie Party. Input image 1 is the approved Marshmallow Birthday Cake canonical; reproduce this exact character in every cell. Exact identity: pink domed three-tier cake body, white marshmallow piping rows, pink frosting band, multicolor sprinkles, big black lash eyes and smile on the front, one tiny red-and-white striped candle with red/yellow flame. ABSOLUTELY NO LIMBS: no arms, hands, legs or feet in any frame. ABSOLUTELY NO LIMBS: express every action only through squash/stretch, whole-cake bounce, gentle tilt, candle motion and facial expression; never add appendages. Keep the candle attached at the top and face on the front tier. Consistent cake proportions and outline weight, bold smooth dark navy outlines, bright clean cel shading. Exactly eight distinct full-body figures in a 4-column by 2-row grid, ordered left-to-right then bottom row, generous transparent gutters and margins, never clipped or overlapping. No text, labels, boxes, scenery, shadows, extra decorations or props. Any held/touched items are invisible and remain invisible. True transparent background. Cell poses: catch: bounce with wide upward gaze as something lands on cake top, but show no object; sit: low squashed cloud-sitting posture; tumble: whole cake tumbles sideways; hold-present: steady cake with top tier ready to balance an invisible box; toss: forward tilt as if nudging an invisible object; catch-present: startled catch, no object; sooty: dazed expression with soot-smudged cheeks; drink: cheerful sip expression, with no bottle.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-18b21222-b49f-495f-9295-45d2459a2e2d.png",
+    "source": "../sources/marshmallow-birthday-cake-actions-e.webp",
+    "status": "unreviewed source/landmarks reviewed, awaiting root review"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "pose-twirl-r3",
+    "poses": [
+      "pose-twirl"
+    ],
+    "prompt": "Sprite-sheet with true transparent alpha. Use the attached approved Marshmallow Birthday Cake canonical as exact identity/style reference. Draw EXACTLY four separate complete views of the same cake in one horizontal row, front \u2192 three-quarter right \u2192 full back \u2192 three-quarter left. This is a genuine authored view-turning cycle for a runway spin; do not merely flatten or shrink the side-facing drawings. Frame 1 exactly matches canonical front, frame 2 rotates the whole cake visibly about 35 degrees to its right while keeping face recognizable, frame 3 shows the true back with the rear frosting, two tiers and candle visible and no face, frame 4 rotates about 35 degrees toward the left with the face returning. Preserve identical overall body height, round tiered silhouette, white marshmallow rows, pink frosting, sprinkles, one striped candle, dark navy outlines and clean cel shading. ABSOLUTELY NO LIMBS OR LIMB-LIKE APPENDAGES: no arms, hands, legs, feet, wings, ribbons, clothing or extra body parts. Each figure is one complete cake with consistent scale and generous transparent gutters; order strictly left to right. No props, platforms, shadows, labels, scenery, checkerboard, text, duplication or clipping.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-d0df9488-94cc-45b1-9506-4969ed956e4a.png",
+    "source": "../sources/marshmallow-birthday-cake-pose-twirl-r3.webp",
+    "status": "source and landmarks reviewed, awaiting root review"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "dance-r4",
+    "poses": [
+      "dance"
+    ],
+    "prompt": "Transparent-alpha sprite asset with exactly four separate complete views of the approved Marshmallow Birthday Cake in one horizontal row. Match the reference identity exactly: same rounded two-tier pink cake, white marshmallow border rows, multicolor sprinkles, striped single candle, huge glossy lash eyes, small smile, smooth navy outline and clean cel shading. Absolutely no limbs, arms, hands, legs, feet, ribbons or limb-like shapes. Four dance beats, left to right, one loop lasting exactly one second at 4 fps: A anticipatory low squash with attentive smile; B joyful high bounce tilted left, eyes happy; C joyful high bounce tilted right, eyes happy; D soft landing squash with satisfied smile. Change only whole-cake tilt and squash/stretch plus face/candle expression; maintain same head/body size and complete outline. One full cake per cell, generous transparent gutters. No checkerboard, props, platforms, shadows, extra figures, labels, scenery, text, clipping or overlap.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-5072c292-3eca-47e7-b18b-2cd6ccb1e406.png",
+    "source": "../sources/marshmallow-birthday-cake-dance-r4.webp",
+    "status": "source and landmarks reviewed, awaiting root review"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "actions-f",
+    "poses": [
+      "float",
+      "hiccup",
+      "giggle",
+      "stomp-giant",
+      "squeak-tiny",
+      "flip",
+      "blow",
+      "shake-sprinkles"
+    ],
+    "prompt": "Sprite-sheet asset with a genuinely transparent alpha background, not a checkerboard image. Use the attached approved Marshmallow Birthday Cake canonical as exact identity/style reference. Exactly eight separate full cake figures in a clean 4 columns \u00d7 2 rows grid with wide transparent gutters and no overlap. Preserve the same adorable round two-tier pink frosted cake, white marshmallow borders, multicolor sprinkles, huge glossy black lash eyes, small smile and single striped candle; bold dark navy outlines and clean cel shading. ABSOLUTELY NO LIMBS OR LIMB-LIKE APPENDAGES: no arms, hands, legs, feet, wings, handles, sticks, or extra body parts. Use only whole-cake tilt, squash/stretch, bounce, facial expression and candle/flame movement. Row-major order, left to right: 1 float: cake gently lifted and tilted, delighted; 2 hiccup: tiny jolt with puffed cheeks and startled eyes; 3 giggle: eyes joyfully squeezed, big smile, subtle bouncing cake; 4 stomp-giant: proud broad grounded stance achieved by squashing the cake wider, confident grin; 5 squeak-tiny: tiny startled upward hop, body compressed and expressive; 6 flip: determined tilt, no props; 7 blow: cheeks puffed and candle flame blown sideways, preserve lit candle; 8 shake-sprinkles: cake wobbling side to side, no jar or object. Keep cake scale and face size consistent across all eight. Each cell contains exactly one complete cake with generous transparent margin. True transparent alpha background, no checkerboard, no labels, text, scenery, platforms, shadows, duplicate characters or cropped parts.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-2175abe8-228f-49b4-9c7f-8fec552f9170.png",
+    "source": "../sources/marshmallow-birthday-cake-actions-f.webp",
+    "status": "source and landmarks reviewed, awaiting root review"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "actions-g",
+    "poses": [
+      "look-around",
+      "high-five",
+      "crouch",
+      "wave-goodbye",
+      "photo",
+      "sing",
+      "water"
+    ],
+    "prompt": "Transparent-alpha sprite sheet, not checkerboard. Use the attached approved Marshmallow Birthday Cake canonical as exact identity. Exactly seven separate complete cake figures in this 4-column grid: four poses in the top row and three poses left-to-right in the bottom row, leaving the bottom-right cell empty and transparent. Preserve the round pink two-tier cake, white marshmallow border rows, sprinkles, single striped candle, huge lash eyes and navy outline; consistent scale. Absolutely no limbs or limb-like appendages, no arms/hands/legs/feet. Express every action using only cake tilt, squash, bounce and face. Row-major order: 1 look-around, tilt body and gaze upward to one side with curious eyes; 2 high-five adapted to this limbless cake, lean cheerfully toward an unseen friend with bright open smile, no raised appendage; 3 crouch, deep low wide squash while remaining one whole cake; 4 wave-goodbye adapted to limbless cake, friendly alternating side tilt and warm smile; 5 photo, face camera with a cheerful pose and sparkly eyes, no hand gesture; 6 sing, open mouth joyfully with subtle beat bounce; 7 water, calmly tilt forward with focused face as if attending a plant, no watering can or prop. Full bodies, generous transparent gutters; no detached symbols or gestures. No platforms, shadows, props, scenery, labels, text, checkerboard, extra characters, clipping or overlap.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-a12b4df5-7005-409d-a5f7-6a204aa13614.png",
+    "source": "../sources/marshmallow-birthday-cake-actions-g.webp",
+    "status": "source and landmarks reviewed, awaiting root review"
+  }
+]

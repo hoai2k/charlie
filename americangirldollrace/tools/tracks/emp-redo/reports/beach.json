@@ -1,0 +1,22 @@
+{
+  "key": "beach",
+  "path": "assets/tracks/beach/powerups.webp",
+  "size": [
+    1280,
+    256
+  ],
+  "cell": 2,
+  "bounds": [
+    12,
+    32,
+    244,
+    224
+  ],
+  "unchanged": {
+    "0": "f58b21e88eef0dbd70e38120ed0adbc35306282ee42563b98f30c9b353923efd",
+    "1": "30b0df849d61f6f9007215d6f05394ecb3829d6cc9ec482bace7e287beb777ea",
+    "3": "c491bf95de28dc38585528b9e17e81a1c085d100633990021311afe5cee667c4",
+    "4": "90440ae7b482b7200a80760590de75141c1a3a82975651fde705851051ae0eb4"
+  },
+  "sha256": "3211ee2898a78e1025a274614acedd98ab6994e62e101c43dc12275811d45a8e"
+}

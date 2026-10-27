@@ -1,0 +1,12 @@
+{
+  "pose": "pull",
+  "frame": 1,
+  "prompt": "Use case: illustration-story. Make one complete game sprite of the approved red-haired mermaid Marina from the reference. She wears a loose purple short-sleeve activity tunic covering her upper body and waist. Keep her gold crown with purple gems, teal eyes, flowing red hair, and one green scaled fish tail with purple bands and two purple flukes. No legs. Friendly right-facing sports pose: her face turns to the RIGHT; both empty hands reach together toward the RIGHT at waist height, and her clothed torso tilts gently BACK toward the LEFT. Her lower tail curls underneath to support her. Happy closed eyes and smiling effort. Same clean navy outlines and bright cel shading as reference. Entire crown, hair, hands and tail visible with generous transparent margin. No objects held, no rope or tools, no scenery, shadows, text or effects. Genuinely transparent background. ONE sprite only.",
+  "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-b55876c7-5719-4adb-8cb1-bb18f41e1dd8.png",
+  "previousAttempt": {
+    "requestId": "1f32e04e-e1e0-4483-899a-f59a97790037",
+    "result": "output moderation_blocked category other; no output"
+  },
+  "previousSource": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-2c806375-2c6c-4e56-a718-14b3fab980fd.png",
+  "handRepairPrompt": "Use case: precise-object-edit. Keep this exact fully clothed purple-tunic mermaid sprite, all body/head/hair/crown/tail positions and scale unchanged. Change ONLY the two hands: bring them close together at their existing forward-right reach, curl the fingers into two gentle EMPTY gripping fists as if holding the SAME invisible jump-rope handle. No object actually drawn. Friendly relaxed sports grip, no punching. Preserve arm sleeves and elbow positions, cheerful face, all existing anatomy and transparency. Both hands must be grouped together rather than open separated palms. No rope, tools, extra arms, text, effects, scenery or shadow."
+}

@@ -1,0 +1,95 @@
+{
+  "tool": "built-in imagegen",
+  "jobs": [
+    {
+      "id": "horseshow-background",
+      "key": "horseshow",
+      "kind": "background",
+      "prompt": "Use case: stylized-concept. American Girl Doll Race background. Use the attached existing background only as a painted STYLE reference. Wide landscape exactly 3:1, final 2172x724. Bright polished soft-painted detailed storybook toy-world scenery, friendly for children, same rich visual style as the reference. Straight side-on camera for a left-to-right race whose scenery scrolls RIGHT TO LEFT. Scene: Sunny show-jumping arena, grandstand of tiny cheering spectators, triangular flags and bunting, judges' booth and ribbon display, white rails along the back. Bright blue sky, distant green hills. Raked golden sand arena floor. CRITICAL GAME GEOMETRY: the flat playable floor begins at y=535 of a 724px-high image (74% down) and continues completely unobstructed to the very bottom edge. Rear border sits just above that line and is perfectly horizontal. No grass strip or foreground flowers across the bottom. Top 74% contains scenery, bottom 26% is clear floor. CRITICAL LOOP: this is a horizontally repeating panorama; left and right edges must match in sky color, horizon, border height, floor texture and lighting, with smooth continuation. Keep both outer 8% zones calm and horizontal, no cut-off objects, buildings or characters at either edge, so both repeated and mirror-repeated tiles read smoothly as they move right to left. Keep key landmarks in the middle 1280 pixels. Quiet top corners for HUD. No foreground obstacles, racers, power-ups, text, numbers, crests, logos or UI. Opaque full scene.",
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "toyroom-background",
+      "key": "toyroom",
+      "kind": "background",
+      "prompt": "Use case: stylized-concept. American Girl Doll Race background. Use the attached existing background only as a painted STYLE reference. Wide landscape exactly 3:1, final 2172x724. Bright polished soft-painted detailed storybook toy-world scenery, friendly for children, same rich visual style as the reference. Straight side-on camera for a left-to-right race whose scenery scrolls RIGHT TO LEFT. Scene: Cosy colorful child's bedroom seen at doll size: giant bed, bookshelf, toy chest and teddy bear behind, books and blank colorful blocks form the low back border. Bright gentle daylight from a window. A broad flat woven cream-and-peach rug is the racing floor, a few subtle threads but no scattered objects. CRITICAL GAME GEOMETRY: the flat playable floor begins at y=535 of a 724px-high image (74% down) and continues completely unobstructed to the very bottom edge. Rear border sits just above that line and is perfectly horizontal. No grass strip or foreground flowers across the bottom. Top 74% contains scenery, bottom 26% is clear floor. CRITICAL LOOP: this is a horizontally repeating panorama; left and right edges must match in sky color, horizon, border height, floor texture and lighting, with smooth continuation. Keep both outer 8% zones calm and horizontal, no cut-off objects, buildings or characters at either edge, so both repeated and mirror-repeated tiles read smoothly as they move right to left. Keep key landmarks in the middle 1280 pixels. Quiet top corners for HUD. No foreground obstacles, racers, power-ups, text, numbers, crests, logos or UI. Opaque full scene.",
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "candy-background",
+      "key": "candy",
+      "kind": "background",
+      "prompt": "Use case: stylized-concept. American Girl Doll Race background. Use the attached existing background only as a painted STYLE reference. Wide landscape exactly 3:1, final 2172x724. Bright polished soft-painted detailed storybook toy-world scenery, friendly for children, same rich visual style as the reference. Straight side-on camera for a left-to-right race whose scenery scrolls RIGHT TO LEFT. Scene: Candy wonderland with lollipop trees, gumdrop hills, a pastel frosting castle and a chocolate river behind a low red-and-white candy-cane fence. Cheerful blue sky, soft cotton-candy clouds. Broad plain golden graham-cracker sugar-sand racing floor. CRITICAL GAME GEOMETRY: the flat playable floor begins at y=535 of a 724px-high image (74% down) and continues completely unobstructed to the very bottom edge. Rear border sits just above that line and is perfectly horizontal. No grass strip or foreground flowers across the bottom. Top 74% contains scenery, bottom 26% is clear floor. CRITICAL LOOP: this is a horizontally repeating panorama; left and right edges must match in sky color, horizon, border height, floor texture and lighting, with smooth continuation. Keep both outer 8% zones calm and horizontal, no cut-off objects, buildings or characters at either edge, so both repeated and mirror-repeated tiles read smoothly as they move right to left. Keep key landmarks in the middle 1280 pixels. Quiet top corners for HUD. No foreground obstacles, racers, power-ups, text, numbers, crests, logos or UI. Opaque full scene.",
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "beach-background",
+      "key": "beach",
+      "kind": "background",
+      "prompt": "Use case: stylized-concept. American Girl Doll Race background. Use the attached existing background only as a painted STYLE reference. Wide landscape exactly 3:1, final 2172x724. Bright polished soft-painted detailed storybook toy-world scenery, friendly for children, same rich visual style as the reference. Straight side-on camera for a left-to-right race whose scenery scrolls RIGHT TO LEFT. Scene: Sunny seaside boardwalk, turquoise waves and distant lighthouse, colorful beach umbrellas and a wooden pier behind a low rope-and-post rail. Blue sky and puffy white clouds. Broad smooth pale-golden sand racing floor, flat with only faint sand texture and no objects. CRITICAL GAME GEOMETRY: the flat playable floor begins at y=535 of a 724px-high image (74% down) and continues completely unobstructed to the very bottom edge. Rear border sits just above that line and is perfectly horizontal. No grass strip or foreground flowers across the bottom. Top 74% contains scenery, bottom 26% is clear floor. CRITICAL LOOP: this is a horizontally repeating panorama; left and right edges must match in sky color, horizon, border height, floor texture and lighting, with smooth continuation. Keep both outer 8% zones calm and horizontal, no cut-off objects, buildings or characters at either edge, so both repeated and mirror-repeated tiles read smoothly as they move right to left. Keep key landmarks in the middle 1280 pixels. Quiet top corners for HUD. No foreground obstacles, racers, power-ups, text, numbers, crests, logos or UI. Opaque full scene.",
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "wizard-background",
+      "key": "wizard",
+      "kind": "background",
+      "prompt": "Use case: stylized-concept. American Girl Doll Race background. Use the attached existing background only as a painted STYLE reference. Wide landscape exactly 3:1, final 2172x724. Bright polished soft-painted detailed storybook toy-world scenery, friendly for children, same rich visual style as the reference. Straight side-on camera for a left-to-right race whose scenery scrolls RIGHT TO LEFT. Scene: Generic magical boarding-school castle at blue-lilac dusk, warm windows, distant owl tower, tiny floating candles, broom-racing pitch with round hoops in the distance behind a clipped green hedge. Enchanting and friendly, not spooky. NO names, house crests or logos. Broad level warm grey-gold fine gravel racing path. CRITICAL GAME GEOMETRY: the flat playable floor begins at y=535 of a 724px-high image (74% down) and continues completely unobstructed to the very bottom edge. Rear border sits just above that line and is perfectly horizontal. No grass strip or foreground flowers across the bottom. Top 74% contains scenery, bottom 26% is clear floor. CRITICAL LOOP: this is a horizontally repeating panorama; left and right edges must match in sky color, horizon, border height, floor texture and lighting, with smooth continuation. Keep both outer 8% zones calm and horizontal, no cut-off objects, buildings or characters at either edge, so both repeated and mirror-repeated tiles read smoothly as they move right to left. Keep key landmarks in the middle 1280 pixels. Quiet top corners for HUD. No foreground obstacles, racers, power-ups, text, numbers, crests, logos or UI. Opaque full scene.",
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "autumn-background",
+      "key": "autumn",
+      "kind": "background",
+      "prompt": "Use case: stylized-concept. American Girl Doll Race background. Use the attached existing background only as a painted STYLE reference. Wide landscape exactly 3:1, final 2172x724. Bright polished soft-painted detailed storybook toy-world scenery, friendly for children, same rich visual style as the reference. Straight side-on camera for a left-to-right race whose scenery scrolls RIGHT TO LEFT. Scene: Warm autumn farm, orange and red trees, friendly scarecrow, pumpkins, corn maze and hay wagon behind a low split-rail fence. Golden afternoon sunlight and blue sky. Broad plain warm-brown dirt racing floor with only faint leaf impressions, no actual leaves or pumpkins on the playable path. CRITICAL GAME GEOMETRY: the flat playable floor begins at y=535 of a 724px-high image (74% down) and continues completely unobstructed to the very bottom edge. Rear border sits just above that line and is perfectly horizontal. No grass strip or foreground flowers across the bottom. Top 74% contains scenery, bottom 26% is clear floor. CRITICAL LOOP: this is a horizontally repeating panorama; left and right edges must match in sky color, horizon, border height, floor texture and lighting, with smooth continuation. Keep both outer 8% zones calm and horizontal, no cut-off objects, buildings or characters at either edge, so both repeated and mirror-repeated tiles read smoothly as they move right to left. Keep key landmarks in the middle 1280 pixels. Quiet top corners for HUD. No foreground obstacles, racers, power-ups, text, numbers, crests, logos or UI. Opaque full scene.",
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "clouds-background",
+      "key": "clouds",
+      "kind": "background",
+      "prompt": "Use case: stylized-concept. American Girl Doll Race background. Use the attached existing background only as a painted STYLE reference. Wide landscape exactly 3:1, final 2172x724. Bright polished soft-painted detailed storybook toy-world scenery, friendly for children, same rich visual style as the reference. Straight side-on camera for a left-to-right race whose scenery scrolls RIGHT TO LEFT. Scene: Friendly sky kingdom, floating cloud castles, broad pastel rainbows and tiny hot-air balloons above a low puffy cloud bank marking the rear boundary. Gentle blue sky, warm sunshine. Broad firm pale lavender-and-cream cloud racing path along bottom, smooth and level with no bumps or holes in the playable floor. CRITICAL GAME GEOMETRY: the flat playable floor begins at y=535 of a 724px-high image (74% down) and continues completely unobstructed to the very bottom edge. Rear border sits just above that line and is perfectly horizontal. No grass strip or foreground flowers across the bottom. Top 74% contains scenery, bottom 26% is clear floor. CRITICAL LOOP: this is a horizontally repeating panorama; left and right edges must match in sky color, horizon, border height, floor texture and lighting, with smooth continuation. Keep both outer 8% zones calm and horizontal, no cut-off objects, buildings or characters at either edge, so both repeated and mirror-repeated tiles read smoothly as they move right to left. Keep key landmarks in the middle 1280 pixels. Quiet top corners for HUD. No foreground obstacles, racers, power-ups, text, numbers, crests, logos or UI. Opaque full scene.",
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "space-background",
+      "key": "space",
+      "kind": "background",
+      "prompt": "Use case: stylized-concept. American Girl Doll Race background. Use the attached existing background only as a painted STYLE reference. Wide landscape exactly 3:1, final 2172x724. Bright polished soft-painted detailed storybook toy-world scenery, friendly for children, same rich visual style as the reference. Straight side-on camera for a left-to-right race whose scenery scrolls RIGHT TO LEFT. Scene: Playful moon base, Earth large in a deep starry sky, smooth white domes and one parked friendly rocket behind a low row of glowing blue beacons. Soft pastel science-fiction toy world, silver and violet rocks in the distant scenery. Broad level grey moon-dust racing floor, flat fine dust texture with no craters or props on the playable path. CRITICAL GAME GEOMETRY: the flat playable floor begins at y=535 of a 724px-high image (74% down) and continues completely unobstructed to the very bottom edge. Rear border sits just above that line and is perfectly horizontal. No grass strip or foreground flowers across the bottom. Top 74% contains scenery, bottom 26% is clear floor. CRITICAL LOOP: this is a horizontally repeating panorama; left and right edges must match in sky color, horizon, border height, floor texture and lighting, with smooth continuation. Keep both outer 8% zones calm and horizontal, no cut-off objects, buildings or characters at either edge, so both repeated and mirror-repeated tiles read smoothly as they move right to left. Keep key landmarks in the middle 1280 pixels. Quiet top corners for HUD. No foreground obstacles, racers, power-ups, text, numbers, crests, logos or UI. Opaque full scene.",
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "alpha": false
+    },
+    {
+      "id": "festival-background",
+      "key": "festival",
+      "kind": "background",
+      "prompt": "Use case: stylized-concept. American Girl Doll Race background. Use the attached existing background only as a painted STYLE reference. Wide landscape exactly 3:1, final 2172x724. Bright polished soft-painted detailed storybook toy-world scenery, friendly for children, same rich visual style as the reference. Straight side-on camera for a left-to-right race whose scenery scrolls RIGHT TO LEFT. Scene: Warm cheerful evening fair, glowing lanterns, lit Ferris wheel, colorful carousel and a few gentle fireworks behind a low string-light rope fence. Deep blue and violet evening sky. Broad plain level warm peach-gold lantern-lit racing path, bright enough to see dolls clearly, no props or dark pits on the floor. CRITICAL GAME GEOMETRY: the flat playable floor begins at y=535 of a 724px-high image (74% down) and continues completely unobstructed to the very bottom edge. Rear border sits just above that line and is perfectly horizontal. No grass strip or foreground flowers across the bottom. Top 74% contains scenery, bottom 26% is clear floor. CRITICAL LOOP: this is a horizontally repeating panorama; left and right edges must match in sky color, horizon, border height, floor texture and lighting, with smooth continuation. Keep both outer 8% zones calm and horizontal, no cut-off objects, buildings or characters at either edge, so both repeated and mirror-repeated tiles read smoothly as they move right to left. Keep key landmarks in the middle 1280 pixels. Quiet top corners for HUD. No foreground obstacles, racers, power-ups, text, numbers, crests, logos or UI. Opaque full scene.",
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "alpha": false
+    }
+  ]
+}

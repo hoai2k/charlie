@@ -1,0 +1,4660 @@
+{
+  "asset": "kpop-girl-center",
+  "bodyHeight": 275,
+  "frameSize": [
+    550,
+    560
+  ],
+  "anchor": [
+    275,
+    473
+  ],
+  "facing": 1,
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-core-v2.webp",
+          "rect": [
+            85,
+            4,
+            242,
+            501
+          ],
+          "isolate": true,
+          "anchor": [
+            146.5,
+            498
+          ],
+          "scale": 1,
+          "head": [
+            121.0,
+            30.06
+          ],
+          "eyes": [
+            112.0,
+            123.0
+          ],
+          "neck": [
+            123.42,
+            185.37
+          ],
+          "back": [
+            108.9,
+            255.51
+          ],
+          "hand": [
+            217.55,
+            319.46
+          ],
+          "dur": 2.8
+        },
+        {
+          "source": "../sources/kpop-girl-center-core-v2.webp",
+          "rect": [
+            451,
+            3,
+            243,
+            502
+          ],
+          "isolate": true,
+          "anchor": [
+            147.5,
+            499
+          ],
+          "scale": 1,
+          "head": [
+            121.5,
+            30.119999999999997
+          ],
+          "eyes": [
+            112.0,
+            123.0
+          ],
+          "neck": [
+            123.93,
+            185.74
+          ],
+          "back": [
+            109.35000000000001,
+            256.02
+          ],
+          "hand": [
+            218.69,
+            320.11
+          ],
+          "dur": 0.12
+        },
+        {
+          "source": "../sources/kpop-girl-center-core-v2.webp",
+          "rect": [
+            85,
+            4,
+            242,
+            501
+          ],
+          "isolate": true,
+          "anchor": [
+            146.5,
+            498
+          ],
+          "scale": 1,
+          "head": [
+            121.0,
+            30.06
+          ],
+          "eyes": [
+            112.0,
+            123.0
+          ],
+          "neck": [
+            123.42,
+            185.37
+          ],
+          "back": [
+            108.9,
+            255.51
+          ],
+          "hand": [
+            217.55,
+            319.46
+          ],
+          "dur": 1.4
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "ready": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-core-v2.webp",
+          "rect": [
+            1211,
+            2,
+            223,
+            503
+          ],
+          "isolate": true,
+          "anchor": [
+            143.5,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            111.5,
+            30.18
+          ],
+          "eyes": [
+            120.42,
+            125.75
+          ],
+          "neck": [
+            113.73,
+            186.10999999999999
+          ],
+          "back": [
+            100.35000000000001,
+            256.53000000000003
+          ],
+          "hand": [
+            27,
+            151
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-core-v2.webp",
+          "rect": [
+            114,
+            518,
+            202,
+            497
+          ],
+          "isolate": true,
+          "anchor": [
+            98.0,
+            494
+          ],
+          "scale": 1,
+          "head": [
+            101.0,
+            29.82
+          ],
+          "eyes": [
+            109.08000000000001,
+            124.25
+          ],
+          "neck": [
+            103.02,
+            183.89
+          ],
+          "back": [
+            90.9,
+            253.47
+          ],
+          "hand": [
+            167.66,
+            248.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "sad": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-core-v2.webp",
+          "rect": [
+            473,
+            521,
+            202,
+            494
+          ],
+          "isolate": true,
+          "anchor": [
+            112.0,
+            491
+          ],
+          "scale": 1,
+          "head": [
+            101.0,
+            29.64
+          ],
+          "eyes": [
+            109.08000000000001,
+            123.5
+          ],
+          "neck": [
+            103.02,
+            182.78
+          ],
+          "back": [
+            90.9,
+            251.94
+          ],
+          "hand": [
+            167.66,
+            247.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cheer": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-core-v2.webp",
+          "rect": [
+            840,
+            512,
+            222,
+            503
+          ],
+          "isolate": true,
+          "anchor": [
+            95.5,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            111.0,
+            30.18
+          ],
+          "eyes": [
+            119.88000000000001,
+            125.75
+          ],
+          "neck": [
+            113.22,
+            186.10999999999999
+          ],
+          "back": [
+            99.9,
+            256.53000000000003
+          ],
+          "hand": [
+            184.26,
+            251.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wave": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-core-v2.webp",
+          "rect": [
+            1202,
+            517,
+            260,
+            498
+          ],
+          "isolate": true,
+          "anchor": [
+            154.5,
+            495
+          ],
+          "scale": 1,
+          "head": [
+            130.0,
+            29.88
+          ],
+          "eyes": [
+            140.4,
+            124.5
+          ],
+          "neck": [
+            132.6,
+            184.26
+          ],
+          "back": [
+            117.0,
+            253.98000000000002
+          ],
+          "hand": [
+            215.79999999999998,
+            249.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "walk": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-locomotion.webp",
+          "rect": [
+            63,
+            0,
+            267,
+            516
+          ],
+          "isolate": true,
+          "anchor": [
+            152.5,
+            513
+          ],
+          "scale": 1,
+          "head": [
+            133.5,
+            30.959999999999997
+          ],
+          "eyes": [
+            144.18,
+            129.0
+          ],
+          "neck": [
+            136.17000000000002,
+            190.92
+          ],
+          "back": [
+            120.15,
+            263.16
+          ],
+          "hand": [
+            221.60999999999999,
+            258.0
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-locomotion.webp",
+          "rect": [
+            463,
+            4,
+            214,
+            514
+          ],
+          "isolate": true,
+          "anchor": [
+            99.5,
+            511
+          ],
+          "scale": 1,
+          "head": [
+            107.0,
+            30.84
+          ],
+          "eyes": [
+            115.56,
+            128.5
+          ],
+          "neck": [
+            109.14,
+            190.18
+          ],
+          "back": [
+            96.3,
+            262.14
+          ],
+          "hand": [
+            177.62,
+            257.0
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-locomotion.webp",
+          "rect": [
+            831,
+            2,
+            268,
+            516
+          ],
+          "isolate": true,
+          "anchor": [
+            149.0,
+            513
+          ],
+          "scale": 1,
+          "head": [
+            134.0,
+            30.959999999999997
+          ],
+          "eyes": [
+            144.72,
+            129.0
+          ],
+          "neck": [
+            136.68,
+            190.92
+          ],
+          "back": [
+            120.60000000000001,
+            263.16
+          ],
+          "hand": [
+            222.44,
+            258.0
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-locomotion.webp",
+          "rect": [
+            1234,
+            5,
+            215,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            129.0,
+            509
+          ],
+          "scale": 1,
+          "head": [
+            107.5,
+            30.72
+          ],
+          "eyes": [
+            116.10000000000001,
+            128.0
+          ],
+          "neck": [
+            109.65,
+            189.44
+          ],
+          "back": [
+            96.75,
+            261.12
+          ],
+          "hand": [
+            178.45,
+            256.0
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "run": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-locomotion.webp",
+          "rect": [
+            22,
+            526,
+            350,
+            483
+          ],
+          "isolate": true,
+          "anchor": [
+            280.5,
+            480
+          ],
+          "scale": 1,
+          "head": [
+            175.0,
+            28.98
+          ],
+          "eyes": [
+            189.0,
+            120.75
+          ],
+          "neck": [
+            178.5,
+            178.71
+          ],
+          "back": [
+            157.5,
+            246.33
+          ],
+          "hand": [
+            290.5,
+            241.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-locomotion.webp",
+          "rect": [
+            455,
+            519,
+            286,
+            406
+          ],
+          "isolate": true,
+          "anchor": [
+            100.0,
+            463
+          ],
+          "scale": 1,
+          "head": [
+            143.0,
+            24.36
+          ],
+          "eyes": [
+            154.44,
+            101.5
+          ],
+          "neck": [
+            145.86,
+            150.22
+          ],
+          "back": [
+            128.70000000000002,
+            207.06
+          ],
+          "hand": [
+            237.38,
+            203.0
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-locomotion.webp",
+          "rect": [
+            809,
+            525,
+            318,
+            485
+          ],
+          "isolate": true,
+          "anchor": [
+            259.5,
+            482
+          ],
+          "scale": 1,
+          "head": [
+            159.0,
+            29.099999999999998
+          ],
+          "eyes": [
+            171.72,
+            121.25
+          ],
+          "neck": [
+            162.18,
+            179.45
+          ],
+          "back": [
+            143.1,
+            247.35
+          ],
+          "hand": [
+            263.94,
+            242.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-locomotion.webp",
+          "rect": [
+            1247,
+            526,
+            254,
+            396
+          ],
+          "isolate": true,
+          "anchor": [
+            62.5,
+            453
+          ],
+          "scale": 1,
+          "head": [
+            127.0,
+            23.759999999999998
+          ],
+          "eyes": [
+            137.16,
+            99.0
+          ],
+          "neck": [
+            129.54,
+            146.52
+          ],
+          "back": [
+            114.3,
+            201.96
+          ],
+          "hand": [
+            210.82,
+            198.0
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-celebrate-ride.webp",
+          "rect": [
+            68,
+            27,
+            240,
+            482
+          ],
+          "isolate": true,
+          "anchor": [
+            128.5,
+            479
+          ],
+          "scale": 1.04,
+          "head": [
+            120.0,
+            28.919999999999998
+          ],
+          "eyes": [
+            129.60000000000002,
+            120.5
+          ],
+          "neck": [
+            122.4,
+            178.34
+          ],
+          "back": [
+            108.0,
+            245.82
+          ],
+          "hand": [
+            199.2,
+            241.0
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-celebrate-ride.webp",
+          "rect": [
+            364,
+            6,
+            388,
+            429
+          ],
+          "isolate": true,
+          "anchor": [
+            206.0,
+            471
+          ],
+          "scale": 1.04,
+          "head": [
+            194.0,
+            25.74
+          ],
+          "eyes": [
+            209.52,
+            107.25
+          ],
+          "neck": [
+            197.88,
+            158.73
+          ],
+          "back": [
+            174.6,
+            218.79
+          ],
+          "hand": [
+            322.03999999999996,
+            214.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-celebrate-ride.webp",
+          "rect": [
+            792,
+            7,
+            347,
+            442
+          ],
+          "isolate": true,
+          "anchor": [
+            141.0,
+            484
+          ],
+          "scale": 1.04,
+          "head": [
+            173.5,
+            26.52
+          ],
+          "eyes": [
+            187.38000000000002,
+            110.5
+          ],
+          "neck": [
+            176.97,
+            163.54
+          ],
+          "back": [
+            156.15,
+            225.42000000000002
+          ],
+          "hand": [
+            288.01,
+            221.0
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-celebrate-ride.webp",
+          "rect": [
+            1232,
+            58,
+            279,
+            454
+          ],
+          "isolate": true,
+          "anchor": [
+            56.0,
+            451
+          ],
+          "scale": 1.04,
+          "head": [
+            139.5,
+            27.24
+          ],
+          "eyes": [
+            150.66,
+            113.5
+          ],
+          "neck": [
+            142.29,
+            167.98
+          ],
+          "back": [
+            125.55,
+            231.54
+          ],
+          "hand": [
+            231.57,
+            227.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "pout": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-celebrate-ride.webp",
+          "rect": [
+            84,
+            517,
+            249,
+            497
+          ],
+          "isolate": true,
+          "anchor": [
+            64.5,
+            494
+          ],
+          "scale": 1.04,
+          "head": [
+            124.5,
+            29.82
+          ],
+          "eyes": [
+            134.46,
+            124.25
+          ],
+          "neck": [
+            126.99000000000001,
+            183.89
+          ],
+          "back": [
+            112.05,
+            253.47
+          ],
+          "hand": [
+            206.67,
+            248.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-celebrate-ride.webp",
+          "rect": [
+            436,
+            510,
+            301,
+            508
+          ],
+          "isolate": true,
+          "anchor": [
+            121.0,
+            505
+          ],
+          "scale": 1.04,
+          "head": [
+            150.5,
+            30.48
+          ],
+          "eyes": [
+            162.54000000000002,
+            127.0
+          ],
+          "neck": [
+            153.51,
+            187.96
+          ],
+          "back": [
+            135.45000000000002,
+            259.08
+          ],
+          "hand": [
+            249.82999999999998,
+            254.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "ride": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-celebrate-ride.webp",
+          "rect": [
+            825,
+            516,
+            312,
+            451
+          ],
+          "isolate": true,
+          "anchor": [
+            216.0,
+            448
+          ],
+          "scale": 1.04,
+          "head": [
+            171.60000000000002,
+            40.589999999999996
+          ],
+          "eyes": [
+            168.48000000000002,
+            112.75
+          ],
+          "neck": [
+            171.60000000000002,
+            193.93
+          ],
+          "back": [
+            140.4,
+            230.01
+          ],
+          "hand": [
+            175,
+            289
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-celebrate-ride.webp",
+          "rect": [
+            1234,
+            524,
+            237,
+            468
+          ],
+          "isolate": true,
+          "anchor": [
+            135.5,
+            465
+          ],
+          "scale": 1.04,
+          "head": [
+            130.35000000000002,
+            42.12
+          ],
+          "eyes": [
+            127.98,
+            117.0
+          ],
+          "neck": [
+            130.35000000000002,
+            201.24
+          ],
+          "back": [
+            106.65,
+            238.68
+          ],
+          "hand": [
+            133,
+            300
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-dance-jump.webp",
+          "rect": [
+            63,
+            9,
+            298,
+            507
+          ],
+          "isolate": true,
+          "anchor": [
+            181.5,
+            504
+          ],
+          "scale": 1,
+          "head": [
+            149.0,
+            30.419999999999998
+          ],
+          "eyes": [
+            160.92000000000002,
+            126.75
+          ],
+          "neck": [
+            151.98,
+            187.59
+          ],
+          "back": [
+            134.1,
+            258.57
+          ],
+          "hand": [
+            247.33999999999997,
+            253.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-dance-jump.webp",
+          "rect": [
+            453,
+            12,
+            274,
+            503
+          ],
+          "isolate": true,
+          "anchor": [
+            160.0,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            137.0,
+            30.18
+          ],
+          "eyes": [
+            147.96,
+            125.75
+          ],
+          "neck": [
+            139.74,
+            186.10999999999999
+          ],
+          "back": [
+            123.3,
+            256.53000000000003
+          ],
+          "hand": [
+            227.42,
+            251.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-dance-jump.webp",
+          "rect": [
+            805,
+            11,
+            337,
+            507
+          ],
+          "isolate": true,
+          "anchor": [
+            208.5,
+            504
+          ],
+          "scale": 1,
+          "head": [
+            168.5,
+            30.419999999999998
+          ],
+          "eyes": [
+            181.98000000000002,
+            126.75
+          ],
+          "neck": [
+            171.87,
+            187.59
+          ],
+          "back": [
+            151.65,
+            258.57
+          ],
+          "hand": [
+            279.71,
+            253.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-dance-jump.webp",
+          "rect": [
+            1204,
+            10,
+            331,
+            508
+          ],
+          "isolate": true,
+          "anchor": [
+            123.0,
+            505
+          ],
+          "scale": 1,
+          "head": [
+            165.5,
+            30.48
+          ],
+          "eyes": [
+            178.74,
+            127.0
+          ],
+          "neck": [
+            168.81,
+            187.96
+          ],
+          "back": [
+            148.95000000000002,
+            259.08
+          ],
+          "hand": [
+            274.72999999999996,
+            254.0
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "jump": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-dance-jump.webp",
+          "rect": [
+            54,
+            525,
+            292,
+            416
+          ],
+          "isolate": true,
+          "anchor": [
+            179.5,
+            458
+          ],
+          "scale": 1,
+          "head": [
+            146.0,
+            24.96
+          ],
+          "eyes": [
+            157.68,
+            104.0
+          ],
+          "neck": [
+            148.92000000000002,
+            153.92
+          ],
+          "back": [
+            131.4,
+            212.16
+          ],
+          "hand": [
+            242.35999999999999,
+            208.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "fall": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-dance-jump.webp",
+          "rect": [
+            405,
+            523,
+            354,
+            456
+          ],
+          "isolate": true,
+          "anchor": [
+            196.5,
+            498
+          ],
+          "scale": 1,
+          "head": [
+            177.0,
+            27.36
+          ],
+          "eyes": [
+            191.16000000000003,
+            114.0
+          ],
+          "neck": [
+            180.54,
+            168.72
+          ],
+          "back": [
+            159.3,
+            232.56
+          ],
+          "hand": [
+            293.82,
+            228.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "land": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-dance-jump.webp",
+          "rect": [
+            861,
+            565,
+            233,
+            418
+          ],
+          "isolate": true,
+          "anchor": [
+            57.5,
+            415
+          ],
+          "scale": 1,
+          "head": [
+            121.16000000000001,
+            33.44
+          ],
+          "eyes": [
+            128.15,
+            121.21999999999998
+          ],
+          "neck": [
+            125.82000000000001,
+            192.28
+          ],
+          "back": [
+            104.85000000000001,
+            213.18
+          ],
+          "hand": [
+            193.39,
+            209.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-dance-jump.webp",
+          "rect": [
+            1253,
+            523,
+            217,
+            480
+          ],
+          "isolate": true,
+          "anchor": [
+            124.0,
+            477
+          ],
+          "scale": 1,
+          "head": [
+            108.5,
+            28.799999999999997
+          ],
+          "eyes": [
+            117.18,
+            120.0
+          ],
+          "neck": [
+            110.67,
+            177.6
+          ],
+          "back": [
+            97.65,
+            244.8
+          ],
+          "hand": [
+            180.10999999999999,
+            240.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dizzy": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-actions.webp",
+          "rect": [
+            69,
+            7,
+            286,
+            506
+          ],
+          "isolate": true,
+          "anchor": [
+            128.5,
+            503
+          ],
+          "scale": 1.03,
+          "head": [
+            143.0,
+            30.36
+          ],
+          "eyes": [
+            154.44,
+            126.5
+          ],
+          "neck": [
+            145.86,
+            187.22
+          ],
+          "back": [
+            128.70000000000002,
+            258.06
+          ],
+          "hand": [
+            237.38,
+            253.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-actions.webp",
+          "rect": [
+            449,
+            6,
+            228,
+            513
+          ],
+          "isolate": true,
+          "anchor": [
+            140.5,
+            510
+          ],
+          "scale": 1.03,
+          "head": [
+            114.0,
+            30.779999999999998
+          ],
+          "eyes": [
+            123.12,
+            128.25
+          ],
+          "neck": [
+            116.28,
+            189.81
+          ],
+          "back": [
+            102.60000000000001,
+            261.63
+          ],
+          "hand": [
+            189.23999999999998,
+            256.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "action": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-actions.webp",
+          "rect": [
+            765,
+            8,
+            331,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            184.5,
+            509
+          ],
+          "scale": 1.03,
+          "head": [
+            165.5,
+            30.72
+          ],
+          "eyes": [
+            178.74,
+            128.0
+          ],
+          "neck": [
+            168.81,
+            189.44
+          ],
+          "back": [
+            148.95000000000002,
+            261.12
+          ],
+          "hand": [
+            66,
+            184
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "throw": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-actions.webp",
+          "rect": [
+            1181,
+            8,
+            333,
+            510
+          ],
+          "isolate": true,
+          "anchor": [
+            148.0,
+            507
+          ],
+          "scale": 1.03,
+          "head": [
+            166.5,
+            30.599999999999998
+          ],
+          "eyes": [
+            179.82000000000002,
+            127.5
+          ],
+          "neck": [
+            169.83,
+            188.7
+          ],
+          "back": [
+            149.85,
+            260.1
+          ],
+          "hand": [
+            300,
+            184
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-actions.webp",
+          "rect": [
+            47,
+            518,
+            310,
+            486
+          ],
+          "isolate": true,
+          "anchor": [
+            42.0,
+            483
+          ],
+          "scale": 1.03,
+          "head": [
+            155.0,
+            29.16
+          ],
+          "eyes": [
+            167.4,
+            121.5
+          ],
+          "neck": [
+            158.1,
+            179.82
+          ],
+          "back": [
+            139.5,
+            247.86
+          ],
+          "hand": [
+            146,
+            204
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-actions.webp",
+          "rect": [
+            437,
+            511,
+            276,
+            501
+          ],
+          "isolate": true,
+          "anchor": [
+            149.0,
+            498
+          ],
+          "scale": 1.03,
+          "head": [
+            138.0,
+            70.14
+          ],
+          "eyes": [
+            149.04000000000002,
+            125.25
+          ],
+          "neck": [
+            140.76,
+            185.37
+          ],
+          "back": [
+            124.2,
+            255.51
+          ],
+          "hand": [
+            138,
+            15
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "paint": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-actions.webp",
+          "rect": [
+            784,
+            521,
+            382,
+            483
+          ],
+          "isolate": true,
+          "anchor": [
+            159.0,
+            480
+          ],
+          "scale": 1.03,
+          "head": [
+            191.0,
+            28.98
+          ],
+          "eyes": [
+            206.28,
+            120.75
+          ],
+          "neck": [
+            194.82,
+            178.71
+          ],
+          "back": [
+            171.9,
+            246.33
+          ],
+          "hand": [
+            359,
+            193
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "sleep": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-actions.webp",
+          "rect": [
+            1226,
+            592,
+            278,
+            409
+          ],
+          "isolate": true,
+          "anchor": [
+            220.5,
+            406
+          ],
+          "scale": 1.03,
+          "head": [
+            144.56,
+            32.72
+          ],
+          "eyes": [
+            152.9,
+            118.60999999999999
+          ],
+          "neck": [
+            150.12,
+            188.14000000000001
+          ],
+          "back": [
+            125.10000000000001,
+            208.59
+          ],
+          "hand": [
+            230.73999999999998,
+            204.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-performance.webp",
+          "rect": [
+            65,
+            1,
+            288,
+            514
+          ],
+          "isolate": true,
+          "anchor": [
+            125.5,
+            511
+          ],
+          "scale": 1.03,
+          "head": [
+            144.0,
+            30.84
+          ],
+          "eyes": [
+            155.52,
+            128.5
+          ],
+          "neck": [
+            146.88,
+            190.18
+          ],
+          "back": [
+            129.6,
+            262.14
+          ],
+          "hand": [
+            55,
+            195
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-performance.webp",
+          "rect": [
+            476,
+            0,
+            213,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            96.0,
+            509
+          ],
+          "scale": 1.03,
+          "head": [
+            106.5,
+            30.72
+          ],
+          "eyes": [
+            115.02000000000001,
+            128.0
+          ],
+          "neck": [
+            108.63,
+            189.44
+          ],
+          "back": [
+            95.85000000000001,
+            261.12
+          ],
+          "hand": [
+            176.79,
+            256.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-performance.webp",
+          "rect": [
+            839,
+            3,
+            249,
+            511
+          ],
+          "isolate": true,
+          "anchor": [
+            66.0,
+            508
+          ],
+          "scale": 1.03,
+          "head": [
+            124.5,
+            30.66
+          ],
+          "eyes": [
+            134.46,
+            127.75
+          ],
+          "neck": [
+            126.99000000000001,
+            189.07
+          ],
+          "back": [
+            112.05,
+            260.61
+          ],
+          "hand": [
+            77,
+            153
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-performance.webp",
+          "rect": [
+            1224,
+            23,
+            267,
+            489
+          ],
+          "isolate": true,
+          "anchor": [
+            112.5,
+            486
+          ],
+          "scale": 1.03,
+          "head": [
+            133.5,
+            29.34
+          ],
+          "eyes": [
+            144.18,
+            122.25
+          ],
+          "neck": [
+            136.17000000000002,
+            180.93
+          ],
+          "back": [
+            120.15,
+            249.39000000000001
+          ],
+          "hand": [
+            221.60999999999999,
+            244.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "strike1": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-performance.webp",
+          "rect": [
+            106,
+            508,
+            251,
+            514
+          ],
+          "isolate": true,
+          "anchor": [
+            156.5,
+            511
+          ],
+          "scale": 1.03,
+          "head": [
+            125.5,
+            30.84
+          ],
+          "eyes": [
+            135.54000000000002,
+            128.5
+          ],
+          "neck": [
+            128.01,
+            190.18
+          ],
+          "back": [
+            112.95,
+            262.14
+          ],
+          "hand": [
+            208.32999999999998,
+            257.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "strike2": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-performance.webp",
+          "rect": [
+            460,
+            510,
+            264,
+            511
+          ],
+          "isolate": true,
+          "anchor": [
+            98.0,
+            508
+          ],
+          "scale": 1.03,
+          "head": [
+            132.0,
+            30.66
+          ],
+          "eyes": [
+            142.56,
+            127.75
+          ],
+          "neck": [
+            134.64000000000001,
+            189.07
+          ],
+          "back": [
+            118.8,
+            260.61
+          ],
+          "hand": [
+            219.11999999999998,
+            255.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-performance.webp",
+          "rect": [
+            793,
+            511,
+            355,
+            509
+          ],
+          "isolate": true,
+          "anchor": [
+            138.5,
+            506
+          ],
+          "scale": 1.03,
+          "head": [
+            177.5,
+            30.54
+          ],
+          "eyes": [
+            191.70000000000002,
+            127.25
+          ],
+          "neck": [
+            181.05,
+            188.32999999999998
+          ],
+          "back": [
+            159.75,
+            259.59000000000003
+          ],
+          "hand": [
+            294.65,
+            254.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "stir": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-performance.webp",
+          "rect": [
+            1225,
+            508,
+            230,
+            511
+          ],
+          "isolate": true,
+          "anchor": [
+            128.0,
+            508
+          ],
+          "scale": 1.03,
+          "head": [
+            115.0,
+            30.66
+          ],
+          "eyes": [
+            124.2,
+            127.75
+          ],
+          "neck": [
+            117.3,
+            189.07
+          ],
+          "back": [
+            103.5,
+            260.61
+          ],
+          "hand": [
+            120,
+            256
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-extras.webp",
+          "rect": [
+            103,
+            4,
+            257,
+            515
+          ],
+          "isolate": true,
+          "anchor": [
+            115.0,
+            512
+          ],
+          "scale": 1.0,
+          "head": [
+            128.5,
+            30.9
+          ],
+          "eyes": [
+            138.78,
+            128.75
+          ],
+          "neck": [
+            131.07,
+            190.55
+          ],
+          "back": [
+            115.65,
+            262.65
+          ],
+          "hand": [
+            188,
+            221
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wave-goodbye": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-extras.webp",
+          "rect": [
+            448,
+            11,
+            281,
+            507
+          ],
+          "isolate": true,
+          "anchor": [
+            149.0,
+            504
+          ],
+          "scale": 1.0,
+          "head": [
+            140.5,
+            30.419999999999998
+          ],
+          "eyes": [
+            151.74,
+            126.75
+          ],
+          "neck": [
+            143.31,
+            187.59
+          ],
+          "back": [
+            126.45,
+            258.57
+          ],
+          "hand": [
+            233.23,
+            253.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-extras.webp",
+          "rect": [
+            863,
+            8,
+            260,
+            516
+          ],
+          "isolate": true,
+          "anchor": [
+            135.5,
+            513
+          ],
+          "scale": 1.0,
+          "head": [
+            130.0,
+            30.959999999999997
+          ],
+          "eyes": [
+            140.4,
+            129.0
+          ],
+          "neck": [
+            132.6,
+            190.92
+          ],
+          "back": [
+            117.0,
+            263.16
+          ],
+          "hand": [
+            205,
+            217
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-extras.webp",
+          "rect": [
+            1268,
+            8,
+            235,
+            515
+          ],
+          "isolate": true,
+          "anchor": [
+            121.5,
+            512
+          ],
+          "scale": 1.0,
+          "head": [
+            117.5,
+            30.9
+          ],
+          "eyes": [
+            126.9,
+            128.75
+          ],
+          "neck": [
+            119.85000000000001,
+            190.55
+          ],
+          "back": [
+            105.75,
+            262.65
+          ],
+          "hand": [
+            195.04999999999998,
+            257.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-extras.webp",
+          "rect": [
+            56,
+            515,
+            292,
+            495
+          ],
+          "isolate": true,
+          "anchor": [
+            95.5,
+            492
+          ],
+          "scale": 1.0,
+          "head": [
+            146.0,
+            29.7
+          ],
+          "eyes": [
+            157.68,
+            123.75
+          ],
+          "neck": [
+            148.92000000000002,
+            183.15
+          ],
+          "back": [
+            131.4,
+            252.45000000000002
+          ],
+          "hand": [
+            242.35999999999999,
+            247.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-extras.webp",
+          "rect": [
+            432,
+            632,
+            311,
+            351
+          ],
+          "isolate": true,
+          "anchor": [
+            176.0,
+            348
+          ],
+          "scale": 1.0,
+          "head": [
+            161.72,
+            28.080000000000002
+          ],
+          "eyes": [
+            171.05,
+            101.78999999999999
+          ],
+          "neck": [
+            167.94,
+            161.46
+          ],
+          "back": [
+            139.95000000000002,
+            179.01
+          ],
+          "hand": [
+            258.13,
+            175.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dash": {
+      "fps": 12,
+      "loop": true,
+      "motion": 0.25,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-d.webp",
+          "rect": [
+            0,
+            0,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            180,
+            90
+          ],
+          "eyes": [
+            190,
+            130
+          ],
+          "neck": [
+            180,
+            190
+          ],
+          "back": [
+            180,
+            280
+          ],
+          "hand": [
+            330,
+            190
+          ],
+          "dur": 0.12
+        },
+        {
+          "source": "../sources/kpop-girl-center-full-actions-d.webp",
+          "rect": [
+            384,
+            0,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            180,
+            90
+          ],
+          "eyes": [
+            190,
+            130
+          ],
+          "neck": [
+            180,
+            190
+          ],
+          "back": [
+            190,
+            280
+          ],
+          "hand": [
+            330,
+            180
+          ],
+          "dur": 0.12
+        }
+      ]
+    },
+    "sing": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-extras.webp",
+          "rect": [
+            1245,
+            521,
+            270,
+            489
+          ],
+          "isolate": true,
+          "anchor": [
+            133.5,
+            486
+          ],
+          "scale": 1.0,
+          "head": [
+            135.0,
+            29.34
+          ],
+          "eyes": [
+            145.8,
+            122.25
+          ],
+          "neck": [
+            137.7,
+            180.93
+          ],
+          "back": [
+            121.5,
+            249.39000000000001
+          ],
+          "hand": [
+            78,
+            152
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-dance-jump.webp",
+          "rect": [
+            63,
+            9,
+            298,
+            507
+          ],
+          "isolate": true,
+          "anchor": [
+            181.5,
+            504
+          ],
+          "scale": 1,
+          "head": [
+            149.0,
+            30.419999999999998
+          ],
+          "eyes": [
+            160.92000000000002,
+            126.75
+          ],
+          "neck": [
+            151.98,
+            187.59
+          ],
+          "back": [
+            134.1,
+            258.57
+          ],
+          "hand": [
+            247.33999999999997,
+            253.5
+          ]
+        }
+      ],
+      "fps": 4,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-dance-jump.webp",
+          "rect": [
+            453,
+            12,
+            274,
+            503
+          ],
+          "isolate": true,
+          "anchor": [
+            160.0,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            137.0,
+            30.18
+          ],
+          "eyes": [
+            147.96,
+            125.75
+          ],
+          "neck": [
+            139.74,
+            186.10999999999999
+          ],
+          "back": [
+            123.3,
+            256.53000000000003
+          ],
+          "hand": [
+            227.42,
+            251.5
+          ]
+        }
+      ],
+      "fps": 4,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-dance-jump.webp",
+          "rect": [
+            805,
+            11,
+            337,
+            507
+          ],
+          "isolate": true,
+          "anchor": [
+            208.5,
+            504
+          ],
+          "scale": 1,
+          "head": [
+            168.5,
+            30.419999999999998
+          ],
+          "eyes": [
+            181.98000000000002,
+            126.75
+          ],
+          "neck": [
+            171.87,
+            187.59
+          ],
+          "back": [
+            151.65,
+            258.57
+          ],
+          "hand": [
+            279.71,
+            253.5
+          ]
+        }
+      ],
+      "fps": 4,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-dance-jump.webp",
+          "rect": [
+            1204,
+            10,
+            331,
+            508
+          ],
+          "isolate": true,
+          "anchor": [
+            123.0,
+            505
+          ],
+          "scale": 1,
+          "head": [
+            165.5,
+            30.48
+          ],
+          "eyes": [
+            178.74,
+            127.0
+          ],
+          "neck": [
+            168.81,
+            187.96
+          ],
+          "back": [
+            148.95000000000002,
+            259.08
+          ],
+          "hand": [
+            274.72999999999996,
+            254.0
+          ]
+        }
+      ],
+      "fps": 4,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "balance": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            200,
+            492
+          ],
+          "head": [
+            211,
+            22
+          ],
+          "eyes": [
+            218,
+            122
+          ],
+          "neck": [
+            218,
+            197
+          ],
+          "back": [
+            206,
+            254
+          ],
+          "hand": [
+            54,
+            203
+          ]
+        }
+      ]
+    },
+    "blow": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 1,
+          "isolate": true,
+          "anchor": [
+            190,
+            492
+          ],
+          "head": [
+            194,
+            22
+          ],
+          "eyes": [
+            192,
+            119
+          ],
+          "neck": [
+            194,
+            183
+          ],
+          "back": [
+            192,
+            257
+          ],
+          "hand": [
+            152,
+            188
+          ]
+        }
+      ]
+    },
+    "count": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 2,
+          "isolate": true,
+          "anchor": [
+            193,
+            492
+          ],
+          "head": [
+            205,
+            25
+          ],
+          "eyes": [
+            210,
+            120
+          ],
+          "neck": [
+            203,
+            190
+          ],
+          "back": [
+            190,
+            258
+          ],
+          "hand": [
+            85,
+            154
+          ]
+        }
+      ]
+    },
+    "drink": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 3,
+          "isolate": true,
+          "anchor": [
+            205,
+            492
+          ],
+          "head": [
+            205,
+            20
+          ],
+          "eyes": [
+            204,
+            117
+          ],
+          "neck": [
+            205,
+            183
+          ],
+          "back": [
+            200,
+            250
+          ],
+          "hand": [
+            127,
+            145
+          ]
+        }
+      ]
+    },
+    "look-up": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 4,
+          "isolate": true,
+          "anchor": [
+            200,
+            492
+          ],
+          "head": [
+            195,
+            17
+          ],
+          "eyes": [
+            192,
+            137
+          ],
+          "neck": [
+            195,
+            214
+          ],
+          "back": [
+            194,
+            280
+          ],
+          "hand": [
+            145,
+            35
+          ]
+        }
+      ]
+    },
+    "sit": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 5,
+          "isolate": true,
+          "anchor": [
+            193,
+            491
+          ],
+          "head": [
+            161,
+            125
+          ],
+          "eyes": [
+            157,
+            238
+          ],
+          "neck": [
+            160,
+            289
+          ],
+          "back": [
+            165,
+            329
+          ],
+          "hand": [
+            205,
+            370
+          ]
+        }
+      ]
+    },
+    "float": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-a.webp",
+          "isolate": true,
+          "anchor": [
+            200,
+            524
+          ],
+          "head": [
+            192,
+            44
+          ],
+          "eyes": [
+            195,
+            134
+          ],
+          "neck": [
+            192,
+            202
+          ],
+          "back": [
+            196,
+            274
+          ],
+          "hand": [
+            333,
+            260
+          ],
+          "rect": [
+            768,
+            488,
+            384,
+            536
+          ]
+        }
+      ]
+    },
+    "water": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 7,
+          "isolate": true,
+          "anchor": [
+            202,
+            491
+          ],
+          "head": [
+            193,
+            34
+          ],
+          "eyes": [
+            193,
+            114
+          ],
+          "neck": [
+            195,
+            185
+          ],
+          "back": [
+            189,
+            245
+          ],
+          "hand": [
+            119,
+            215
+          ]
+        }
+      ]
+    },
+    "broom-rise": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-b.webp",
+          "rect": [
+            0,
+            0,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            175,
+            500
+          ],
+          "head": [
+            145,
+            28
+          ],
+          "eyes": [
+            143,
+            118
+          ],
+          "neck": [
+            147,
+            191
+          ],
+          "back": [
+            172,
+            253
+          ],
+          "hand": [
+            80,
+            266
+          ]
+        }
+      ]
+    },
+    "broom-glide": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-b.webp",
+          "rect": [
+            384,
+            0,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            193,
+            500
+          ],
+          "head": [
+            180,
+            32
+          ],
+          "eyes": [
+            172,
+            122
+          ],
+          "neck": [
+            180,
+            190
+          ],
+          "back": [
+            185,
+            252
+          ],
+          "hand": [
+            160,
+            270
+          ]
+        }
+      ]
+    },
+    "broom-zapped": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-b.webp",
+          "rect": [
+            768,
+            0,
+            448,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            205,
+            500
+          ],
+          "head": [
+            187,
+            40
+          ],
+          "eyes": [
+            180,
+            122
+          ],
+          "neck": [
+            200,
+            190
+          ],
+          "back": [
+            235,
+            250
+          ],
+          "hand": [
+            245,
+            270
+          ]
+        }
+      ]
+    },
+    "wand-up": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-b.webp",
+          "rect": [
+            1152,
+            0,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            190,
+            490
+          ],
+          "head": [
+            185,
+            25
+          ],
+          "eyes": [
+            187,
+            120
+          ],
+          "neck": [
+            187,
+            190
+          ],
+          "back": [
+            185,
+            250
+          ],
+          "hand": [
+            110,
+            12
+          ]
+        }
+      ]
+    },
+    "hold-present": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-b.webp",
+          "rect": [
+            0,
+            480,
+            384,
+            544
+          ],
+          "isolate": true,
+          "anchor": [
+            195,
+            524
+          ],
+          "head": [
+            195,
+            70
+          ],
+          "eyes": [
+            190,
+            143
+          ],
+          "neck": [
+            195,
+            208
+          ],
+          "back": [
+            195,
+            268
+          ],
+          "hand": [
+            118,
+            34
+          ]
+        }
+      ]
+    },
+    "catch-present": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-b.webp",
+          "rect": [
+            384,
+            480,
+            384,
+            544
+          ],
+          "isolate": true,
+          "anchor": [
+            194,
+            524
+          ],
+          "head": [
+            185,
+            70
+          ],
+          "eyes": [
+            180,
+            150
+          ],
+          "neck": [
+            185,
+            210
+          ],
+          "back": [
+            185,
+            275
+          ],
+          "hand": [
+            135,
+            38
+          ]
+        }
+      ]
+    },
+    "toss": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-b.webp",
+          "rect": [
+            768,
+            480,
+            384,
+            544
+          ],
+          "isolate": true,
+          "anchor": [
+            200,
+            524
+          ],
+          "head": [
+            195,
+            70
+          ],
+          "eyes": [
+            195,
+            145
+          ],
+          "neck": [
+            195,
+            206
+          ],
+          "back": [
+            195,
+            265
+          ],
+          "hand": [
+            82,
+            37
+          ]
+        }
+      ]
+    },
+    "crowned": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-b.webp",
+          "rect": [
+            1152,
+            480,
+            384,
+            544
+          ],
+          "isolate": true,
+          "anchor": [
+            190,
+            524
+          ],
+          "head": [
+            192,
+            70
+          ],
+          "eyes": [
+            192,
+            144
+          ],
+          "neck": [
+            192,
+            206
+          ],
+          "back": [
+            192,
+            265
+          ],
+          "hand": [
+            121,
+            40
+          ]
+        }
+      ]
+    },
+    "flip": {
+      "fps": 7,
+      "loop": false,
+      "motion": 0.8,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-c.webp",
+          "rect": [
+            0,
+            0,
+            384,
+            545
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            536
+          ],
+          "scale": 1,
+          "head": [
+            180,
+            90
+          ],
+          "eyes": [
+            208,
+            125
+          ],
+          "neck": [
+            183,
+            189
+          ],
+          "back": [
+            195,
+            270
+          ],
+          "hand": [
+            80,
+            220
+          ],
+          "dur": 0.12
+        }
+      ]
+    },
+    "giggle": {
+      "fps": 7,
+      "loop": false,
+      "motion": 0.8,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-c.webp",
+          "rect": [
+            384,
+            0,
+            384,
+            545
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            536
+          ],
+          "scale": 1,
+          "head": [
+            181,
+            89
+          ],
+          "eyes": [
+            169,
+            90
+          ],
+          "neck": [
+            181,
+            168
+          ],
+          "back": [
+            183,
+            257
+          ],
+          "hand": [
+            105,
+            176
+          ],
+          "dur": 0.12
+        }
+      ]
+    },
+    "photo": {
+      "fps": 7,
+      "loop": false,
+      "motion": 0.8,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-c.webp",
+          "rect": [
+            768,
+            0,
+            384,
+            545
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            536
+          ],
+          "scale": 1,
+          "head": [
+            178,
+            89
+          ],
+          "eyes": [
+            154,
+            123
+          ],
+          "neck": [
+            181,
+            168
+          ],
+          "back": [
+            185,
+            256
+          ],
+          "hand": [
+            55,
+            190
+          ],
+          "dur": 0.12
+        }
+      ]
+    },
+    "sooty": {
+      "fps": 7,
+      "loop": false,
+      "motion": 0.8,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-c.webp",
+          "rect": [
+            1152,
+            0,
+            384,
+            545
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            536
+          ],
+          "scale": 1,
+          "head": [
+            178,
+            89
+          ],
+          "eyes": [
+            172,
+            91
+          ],
+          "neck": [
+            181,
+            168
+          ],
+          "back": [
+            185,
+            256
+          ],
+          "hand": [
+            72,
+            174
+          ],
+          "dur": 0.12
+        }
+      ]
+    },
+    "splat-throw": {
+      "fps": 7,
+      "loop": false,
+      "motion": 0.8,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-c.webp",
+          "rect": [
+            0,
+            512,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            180,
+            89
+          ],
+          "eyes": [
+            174,
+            91
+          ],
+          "neck": [
+            185,
+            174
+          ],
+          "back": [
+            190,
+            264
+          ],
+          "hand": [
+            340,
+            181
+          ],
+          "dur": 0.12
+        }
+      ]
+    },
+    "squeak-tiny": {
+      "fps": 7,
+      "loop": false,
+      "motion": 0.8,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-c.webp",
+          "rect": [
+            384,
+            512,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            178,
+            89
+          ],
+          "eyes": [
+            169,
+            93
+          ],
+          "neck": [
+            181,
+            165
+          ],
+          "back": [
+            188,
+            250
+          ],
+          "hand": [
+            182,
+            200
+          ],
+          "dur": 0.12
+        }
+      ]
+    },
+    "stomp-giant": {
+      "fps": 7,
+      "loop": false,
+      "motion": 0.8,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-c.webp",
+          "rect": [
+            768,
+            512,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            177,
+            90
+          ],
+          "eyes": [
+            168,
+            97
+          ],
+          "neck": [
+            181,
+            166
+          ],
+          "back": [
+            190,
+            260
+          ],
+          "hand": [
+            312,
+            183
+          ],
+          "dur": 0.12
+        }
+      ]
+    },
+    "swim": {
+      "fps": 7,
+      "loop": false,
+      "motion": 0.8,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-c.webp",
+          "rect": [
+            1152,
+            512,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            258,
+            110
+          ],
+          "eyes": [
+            264,
+            124
+          ],
+          "neck": [
+            215,
+            180
+          ],
+          "back": [
+            130,
+            251
+          ],
+          "hand": [
+            44,
+            177
+          ],
+          "dur": 0.12
+        }
+      ]
+    },
+    "hip-bump": {
+      "fps": 7,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-d.webp",
+          "rect": [
+            768,
+            0,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            180,
+            80
+          ],
+          "eyes": [
+            180,
+            115
+          ],
+          "neck": [
+            185,
+            190
+          ],
+          "back": [
+            190,
+            270
+          ],
+          "hand": [
+            340,
+            240
+          ],
+          "dur": 0.12
+        },
+        {
+          "source": "../sources/kpop-girl-center-full-actions-d.webp",
+          "rect": [
+            1152,
+            0,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            180,
+            80
+          ],
+          "eyes": [
+            175,
+            115
+          ],
+          "neck": [
+            180,
+            190
+          ],
+          "back": [
+            185,
+            270
+          ],
+          "hand": [
+            350,
+            210
+          ],
+          "dur": 0.12
+        }
+      ]
+    },
+    "knockback": {
+      "fps": 7,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-d.webp",
+          "rect": [
+            0,
+            512,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            180,
+            80
+          ],
+          "eyes": [
+            180,
+            120
+          ],
+          "neck": [
+            180,
+            185
+          ],
+          "back": [
+            190,
+            270
+          ],
+          "hand": [
+            300,
+            185
+          ],
+          "dur": 0.12
+        },
+        {
+          "source": "../sources/kpop-girl-center-full-actions-d.webp",
+          "rect": [
+            384,
+            512,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            180,
+            90
+          ],
+          "eyes": [
+            180,
+            110
+          ],
+          "neck": [
+            180,
+            190
+          ],
+          "back": [
+            190,
+            270
+          ],
+          "hand": [
+            320,
+            180
+          ],
+          "dur": 0.12
+        }
+      ]
+    },
+    "pose-twirl": {
+      "fps": 7,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-d.webp",
+          "rect": [
+            768,
+            512,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            180,
+            90
+          ],
+          "eyes": [
+            180,
+            120
+          ],
+          "neck": [
+            180,
+            180
+          ],
+          "back": [
+            190,
+            260
+          ],
+          "hand": [
+            30,
+            210
+          ],
+          "dur": 0.12
+        },
+        {
+          "source": "../sources/kpop-girl-center-full-actions-d.webp",
+          "rect": [
+            1152,
+            512,
+            384,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            180,
+            90
+          ],
+          "eyes": [
+            225,
+            120
+          ],
+          "neck": [
+            180,
+            180
+          ],
+          "back": [
+            190,
+            260
+          ],
+          "hand": [
+            350,
+            230
+          ],
+          "dur": 0.12
+        },
+        {
+          "source": "../sources/kpop-girl-center-full-actions-e.webp",
+          "rect": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "isolate": true,
+          "anchor": [
+            313,
+            610
+          ],
+          "scale": 1,
+          "head": [
+            357,
+            90
+          ],
+          "neck": [
+            355,
+            210
+          ],
+          "back": [
+            360,
+            340
+          ],
+          "hand": [
+            568,
+            300
+          ],
+          "dur": 0.12
+        },
+        {
+          "source": "../sources/kpop-girl-center-full-actions-e.webp",
+          "rect": [
+            627,
+            0,
+            627,
+            627
+          ],
+          "isolate": true,
+          "anchor": [
+            313,
+            610
+          ],
+          "scale": 1,
+          "head": [
+            350,
+            100
+          ],
+          "neck": [
+            330,
+            230
+          ],
+          "back": [
+            330,
+            350
+          ],
+          "hand": [
+            500,
+            350
+          ],
+          "dur": 0.12,
+          "eyes": [
+            335,
+            132
+          ]
+        }
+      ]
+    },
+    "tumble": {
+      "fps": 7,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-e.webp",
+          "rect": [
+            0,
+            627,
+            627,
+            627
+          ],
+          "isolate": true,
+          "anchor": [
+            313,
+            610
+          ],
+          "scale": 1,
+          "head": [
+            310,
+            250
+          ],
+          "neck": [
+            340,
+            360
+          ],
+          "back": [
+            320,
+            440
+          ],
+          "hand": [
+            490,
+            340
+          ],
+          "dur": 0.12,
+          "eyes": [
+            340,
+            280
+          ]
+        }
+      ]
+    },
+    "shake-sprinkles": {
+      "fps": 7,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-full-actions-e.webp",
+          "rect": [
+            627,
+            627,
+            627,
+            627
+          ],
+          "isolate": true,
+          "anchor": [
+            313,
+            610
+          ],
+          "scale": 1,
+          "head": [
+            330,
+            200
+          ],
+          "neck": [
+            330,
+            270
+          ],
+          "back": [
+            350,
+            420
+          ],
+          "hand": [
+            200,
+            300
+          ],
+          "dur": 0.12,
+          "eyes": [
+            310,
+            200
+          ]
+        }
+      ]
+    },
+    "hiccup": {
+      "fps": 7,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-hiccup.webp",
+          "rect": [
+            270,
+            17,
+            606,
+            1480
+          ],
+          "isolate": true,
+          "anchor": [
+            242,
+            1476
+          ],
+          "scale": 0.3385,
+          "head": [
+            250,
+            23
+          ],
+          "eyes": [
+            240,
+            305
+          ],
+          "neck": [
+            248,
+            495
+          ],
+          "back": [
+            225,
+            640
+          ],
+          "hand": [
+            220,
+            555
+          ],
+          "dur": 0.12
+        }
+      ]
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-pump.webp",
+          "rect": [
+            324,
+            16,
+            396,
+            983
+          ],
+          "isolate": true,
+          "anchor": [
+            209,
+            978
+          ],
+          "scale": 0.55,
+          "hand": [
+            294,
+            397
+          ],
+          "head": [
+            170,
+            142
+          ],
+          "eyes": [
+            175,
+            205
+          ],
+          "neck": [
+            183,
+            310
+          ],
+          "back": [
+            175,
+            452
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-pump.webp",
+          "rect": [
+            891,
+            71,
+            417,
+            925
+          ],
+          "isolate": true,
+          "anchor": [
+            198,
+            923
+          ],
+          "scale": 0.59,
+          "hand": [
+            311,
+            511
+          ],
+          "head": [
+            189,
+            155
+          ],
+          "eyes": [
+            211,
+            214
+          ],
+          "neck": [
+            209,
+            308
+          ],
+          "back": [
+            119,
+            424
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-new-games-a.webp",
+          "rect": [
+            73,
+            10,
+            321,
+            484
+          ],
+          "isolate": true,
+          "scale": 1.08,
+          "head": [
+            110,
+            10
+          ],
+          "eyes": [
+            112,
+            111
+          ],
+          "neck": [
+            111,
+            169
+          ],
+          "back": [
+            106.1,
+            236.03
+          ],
+          "hand": [
+            224,
+            239
+          ],
+          "anchor": [
+            163,
+            477
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-new-games-a.webp",
+          "rect": [
+            410,
+            20,
+            375,
+            472
+          ],
+          "isolate": true,
+          "scale": 1.08,
+          "head": [
+            103,
+            13
+          ],
+          "eyes": [
+            104,
+            106
+          ],
+          "neck": [
+            106,
+            160
+          ],
+          "back": [
+            131.37,
+            223.03
+          ],
+          "hand": [
+            261,
+            222
+          ],
+          "anchor": [
+            205,
+            464
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-new-games-a.webp",
+          "rect": [
+            830,
+            9,
+            298,
+            488
+          ],
+          "isolate": true,
+          "scale": 1.08,
+          "head": [
+            108,
+            13
+          ],
+          "eyes": [
+            108,
+            110
+          ],
+          "neck": [
+            105,
+            167
+          ],
+          "back": [
+            98.43,
+            232.34
+          ],
+          "hand": [
+            230,
+            139
+          ],
+          "anchor": [
+            157,
+            480
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-new-games-a.webp",
+          "rect": [
+            1202,
+            11,
+            305,
+            488
+          ],
+          "isolate": true,
+          "scale": 1.08,
+          "head": [
+            109,
+            14
+          ],
+          "eyes": [
+            110,
+            110
+          ],
+          "neck": [
+            109,
+            168
+          ],
+          "back": [
+            83.04,
+            239.03
+          ],
+          "hand": [
+            244,
+            134
+          ],
+          "anchor": [
+            155,
+            480
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-new-games-a.webp",
+          "rect": [
+            68,
+            502,
+            317,
+            494
+          ],
+          "isolate": true,
+          "scale": 1.08,
+          "head": [
+            151,
+            16
+          ],
+          "eyes": [
+            154.98,
+            96.77
+          ],
+          "neck": [
+            151.63,
+            153.67
+          ],
+          "back": [
+            153,
+            218
+          ],
+          "hand": [
+            49,
+            74
+          ],
+          "anchor": [
+            160,
+            485
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-new-games-a.webp",
+          "rect": [
+            450,
+            508,
+            282,
+            486
+          ],
+          "isolate": true,
+          "scale": 1.08,
+          "head": [
+            90,
+            14
+          ],
+          "eyes": [
+            112.9,
+            74.71
+          ],
+          "neck": [
+            121.27,
+            131.61
+          ],
+          "back": [
+            132.98,
+            186.83
+          ],
+          "hand": [
+            258,
+            52
+          ],
+          "anchor": [
+            138,
+            478
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-new-games-a.webp",
+          "rect": [
+            856,
+            505,
+            224,
+            495
+          ],
+          "isolate": true,
+          "scale": 1.08,
+          "head": [
+            147,
+            14
+          ],
+          "eyes": [
+            153.79,
+            116.18
+          ],
+          "neck": [
+            129,
+            160
+          ],
+          "back": [
+            75.14,
+            211.56
+          ],
+          "hand": [
+            159,
+            300
+          ],
+          "anchor": [
+            122,
+            486
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-new-games-a.webp",
+          "rect": [
+            1223,
+            502,
+            234,
+            497
+          ],
+          "isolate": true,
+          "scale": 1.08,
+          "head": [
+            100,
+            13
+          ],
+          "eyes": [
+            114.63,
+            84.04
+          ],
+          "neck": [
+            111,
+            156
+          ],
+          "back": [
+            107.94,
+            227.95
+          ],
+          "hand": [
+            197,
+            281
+          ],
+          "anchor": [
+            123,
+            489
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-new-games-b.webp",
+          "rect": [
+            93,
+            7,
+            413,
+            650
+          ],
+          "isolate": true,
+          "scale": 0.74,
+          "head": [
+            213,
+            22
+          ],
+          "eyes": [
+            253.1,
+            135.67
+          ],
+          "neck": [
+            250,
+            236
+          ],
+          "back": [
+            214,
+            313
+          ],
+          "hand": [
+            381,
+            44
+          ],
+          "anchor": [
+            236,
+            756
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-new-games-b.webp",
+          "rect": [
+            603,
+            132,
+            360,
+            578
+          ],
+          "isolate": true,
+          "scale": 0.74,
+          "head": [
+            242,
+            17
+          ],
+          "eyes": [
+            264.92,
+            158.82
+          ],
+          "neck": [
+            225,
+            240
+          ],
+          "back": [
+            149,
+            283
+          ],
+          "hand": [
+            316,
+            482
+          ],
+          "anchor": [
+            177,
+            574
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-new-games-b.webp",
+          "rect": [
+            1082,
+            156,
+            525,
+            554
+          ],
+          "isolate": true,
+          "scale": 0.74,
+          "head": [
+            265,
+            19
+          ],
+          "eyes": [
+            279.1,
+            162.12
+          ],
+          "neck": [
+            251,
+            236
+          ],
+          "back": [
+            202,
+            278
+          ],
+          "hand": [
+            190,
+            444
+          ],
+          "anchor": [
+            262,
+            548
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-new-games-b.webp",
+          "rect": [
+            1591,
+            7,
+            572,
+            691
+          ],
+          "isolate": true,
+          "scale": 0.74,
+          "head": [
+            262,
+            23
+          ],
+          "eyes": [
+            303.54,
+            135.69
+          ],
+          "neck": [
+            293.77,
+            240.7
+          ],
+          "back": [
+            263,
+            308
+          ],
+          "hand": [
+            525.78,
+            282.22
+          ],
+          "anchor": [
+            284,
+            778
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "roll-push": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-roll-push-oct16.webp",
+          "rect": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "scale": 0.5060363636363637,
+          "bodyHeight": 275,
+          "isolate": true,
+          "anchor": [
+            325,
+            988
+          ],
+          "head": [
+            431,
+            49
+          ],
+          "eyes": [
+            449,
+            217
+          ],
+          "neck": [
+            407,
+            322
+          ],
+          "back": [
+            367,
+            408
+          ],
+          "hand": [
+            731,
+            323
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-roll-push-oct16-corrected.webp",
+          "rect": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "scale": 0.5060363636363637,
+          "bodyHeight": 275,
+          "isolate": true,
+          "anchor": [
+            372,
+            984
+          ],
+          "head": [
+            387,
+            49
+          ],
+          "eyes": [
+            405,
+            217
+          ],
+          "neck": [
+            363,
+            322
+          ],
+          "back": [
+            323,
+            408
+          ],
+          "hand": [
+            686,
+            323
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.08,
+      "facing": 1
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/kpop-girl-center-portraits.webp",
+      "rect": [
+        23,
+        34,
+        405,
+        596
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "happy": {
+      "source": "../sources/kpop-girl-center-portraits.webp",
+      "rect": [
+        422,
+        34,
+        404,
+        595
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "sad": {
+      "source": "../sources/kpop-girl-center-portraits.webp",
+      "rect": [
+        821,
+        41,
+        401,
+        590
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "surprised": {
+      "source": "../sources/kpop-girl-center-portraits.webp",
+      "rect": [
+        22,
+        655,
+        406,
+        591
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "determined": {
+      "source": "../sources/kpop-girl-center-portraits.webp",
+      "rect": [
+        425,
+        659,
+        406,
+        587
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "thinking": {
+      "source": "../sources/kpop-girl-center-portraits.webp",
+      "rect": [
+        827,
+        658,
+        385,
+        588
+      ],
+      "isolate": true,
+      "trim": true
+    }
+  },
+  "quality": 82,
+  "provenance": "Built-in image_gen from approved canonical; authored action sets use saved exact prompts. Group A source cells were reviewed, isolated and hand-annotated with source-local landmarks. Added group B action set from exact prompt; row-one source rectangles extend above nominal cells to retain overhead hands and isolate neighboring cells.",
+  "sourceFiles": [
+    "../sources/kpop-girl-center-new-games-a.webp",
+    "../sources/kpop-girl-center-new-games-b.webp"
+  ]
+}

@@ -1,0 +1,284 @@
+[
+  {
+    "key": "bg/pinata-party",
+    "size": [
+      1920,
+      1080
+    ],
+    "layout": "Full screen, drawn as is. Layout must match: keep the top ~110 px calm (score chips sit there); a wooden crossbar spans the width at y\u2248145\u2013170 (x 40\u20131880) on two candy-cane striped posts at x\u224864 and x\u22481856 that stand on the lawn at y\u2248470 (the ropes hang from the crossbar, the code draws ropes and knots); sky and trees above a white picket fence at y\u2248300\u2013410; lawn from y\u2248400 to the bottom. The play area (x 100\u20131820, y 455\u20131035) must stay open, plain grass",
+    "description": "A sunny backyard birthday party seen from a slightly raised angle: soft blue sky with puffy clouds and a sun at the upper right, round green trees behind a white picket fence with balloon bunches tied to it, a party table with a striped cloth, a small cake and presents at the back right just behind the fence line, rainbow triangle bunting hanging under a honey-wood crossbar held up by red-and-white striped posts at both edges, and a wide bright striped lawn with a few daisies",
+    "transparent": false,
+    "prompt": "Use case: illustration-story. Asset: bg/pinata-party. Request: A sunny backyard birthday party seen from a slightly raised angle: soft blue sky with puffy clouds and a sun at the upper right, round green trees behind a white picket fence with balloon bunches tied to it, a party table with a striped cloth, a small cake and presents at the back right just behind the fence line, rainbow triangle bunting hanging under a honey-wood crossbar held up by red-and-white striped posts at both edges, and a wide bright striped lawn with a few daisies. Game layout: Full screen, drawn as is. Layout must match: keep the top ~110 px calm (score chips sit there); a wooden crossbar spans the width at y\u2248145\u2013170 (x 40\u20131880) on two candy-cane striped posts at x\u224864 and x\u22481856 that stand on the lawn at y\u2248470 (the ropes hang from the crossbar, the code draws ropes and knots); sky and trees above a white picket fence at y\u2248300\u2013410; lawn from y\u2248400 to the bottom. The play area (x 100\u20131820, y 455\u20131035) must stay open, plain grass.  Target 1920\u00d71080; preserve specified framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. Opaque full-frame composition. No watermark. Cute friendly toy pi\u00f1atas, cheerful and never scary.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-240afa3f-ea5c-426e-ba51-a9d0797c321d.png",
+    "runtimePath": "party/assets/art/bg/pinata-party.webp",
+    "runtimeBytes": 145796,
+    "intake": {
+      "sourceVerticalRows": [
+        0,
+        220,
+        630,
+        1080
+      ],
+      "targetVerticalRows": [
+        0,
+        170,
+        470,
+        1080
+      ],
+      "reason": "align generated crossbar/posts with rope anchors and lawn foot line"
+    }
+  },
+  {
+    "key": "thumb/pinata-party",
+    "size": [
+      800,
+      500
+    ],
+    "layout": "Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback)",
+    "description": "A rainbow star pi\u00f1ata with crepe-paper fringe and tassels swinging on a rope over a backyard lawn, a cute character swinging a striped padded party bat at it, wrapped candies, lollipops and one glowing golden candy bursting out with confetti. Subject centred",
+    "transparent": false,
+    "prompt": "Use case: illustration-story. Asset: thumb/pinata-party. Request: A rainbow star pi\u00f1ata with crepe-paper fringe and tassels swinging on a rope over a backyard lawn, a cute character swinging a striped padded party bat at it, wrapped candies, lollipops and one glowing golden candy bursting out with confetti. Subject centred. Game layout: Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback).  Target 800\u00d7500; preserve specified framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. Opaque full-frame composition. No watermark. Cute friendly toy pi\u00f1atas, cheerful and never scary. Use approved Cotton Candy reference as the character swinging the padded bat with forehooves, rearing slightly on hindlegs. Preserve her quadruped pony anatomy, exact white coat, pink/blue/lilac mane and tail, yellow crown with blue tips, blue eyes and yellow flower flank emblem.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-6311f8b6-2183-4a57-acc8-cb7120b39045.png",
+    "runtimePath": "party/assets/art/thumb/pinata-party.webp",
+    "runtimeBytes": 105718
+  },
+  {
+    "key": "prop/pinata-star",
+    "size": [
+      520,
+      520
+    ],
+    "layout": "Body centre at pixel (260, 280); fills ~70% of the width; drawn rotated/squashed/twirled as it swings (scale ~0.7\u20131.1). The rope ties on at the top point, pixel \u2248 (260, 100). The code adds the rainbow tassels on the four lower points, cracks over the middle and nothing else, so include a cute face (two eyes, smile, pink cheeks)",
+    "description": "A classic five-pointed star pi\u00f1ata covered in horizontal rows of rainbow crepe-paper fringe (pink, orange, yellow, green, blue, purple), cute smiling face in the middle, front view",
+    "transparent": true,
+    "prompt": "Use case: illustration-story. Asset: prop/pinata-star. Request: A classic five-pointed star pi\u00f1ata covered in horizontal rows of rainbow crepe-paper fringe (pink, orange, yellow, green, blue, purple), cute smiling face in the middle, front view. Game layout: Body centre at pixel (260, 280); fills ~70% of the width; drawn rotated/squashed/twirled as it swings (scale ~0.7\u20131.1). The rope ties on at the top point, pixel \u2248 (260, 100). The code adds the rainbow tassels on the four lower points, cracks over the middle and nothing else, so include a cute face (two eyes, smile, pink cheeks). Exact framing: 520\u00d7520 canvas. Star body center (260,280), roughly360pixels wide, uppermost star tip at (260,100). Retain transparent padding around star. Face centered around(260,280). No dangling tassels, no ropes; the game draws them separately. Target 520\u00d7520; preserve specified framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background; no cast shadow, scenery, characters or text. No watermark. Cute friendly toy pi\u00f1atas, cheerful and never scary.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-8948bccb-67b5-4ef7-9309-18090e2d28a4.png",
+    "intake": {
+      "sourceRect": [
+        28,
+        85,
+        1226,
+        1186
+      ],
+      "targetRect": [
+        79,
+        100,
+        443,
+        435
+      ]
+    },
+    "runtimePath": "party/assets/art/prop/pinata-star.webp",
+    "runtimeBytes": 29506
+  },
+  {
+    "key": "prop/pinata-unicorn",
+    "size": [
+      520,
+      520
+    ],
+    "layout": "Body centre (middle of the torso) at pixel (260, 280), facing right, spanning about x 80\u2013480. The rope ties on the middle of the back, pixel \u2248 (240, 232). The code draws the rainbow tail tassel at the rump (left)",
+    "description": "A unicorn pi\u00f1ata in side view: pastel white, pink, lilac and sky crepe-paper fringe rows, a rainbow curly mane, a gold spiral horn, lilac hooves, a cute happy eye and smile",
+    "transparent": true,
+    "prompt": "Use case: illustration-story. Asset: prop/pinata-unicorn. Request: A unicorn pi\u00f1ata in side view: pastel white, pink, lilac and sky crepe-paper fringe rows, a rainbow curly mane, a gold spiral horn, lilac hooves, a cute happy eye and smile. Game layout: Body centre (middle of the torso) at pixel (260, 280), facing right, spanning about x 80\u2013480. The rope ties on the middle of the back, pixel \u2248 (240, 232). The code draws the rainbow tail tassel at the rump (left). Exact framing: 520\u00d7520 canvas. Entire animal facing RIGHT; torso center (260,280). Body back/top around y232, rope ties near x240 at that back edge. Whole figure spans roughlyx80..480, feet aroundy425; horns/ears may rise to y65..100. Keep transparent margins and this camera/position. NO tail tassel and NO rope; code draws them separately. Target 520\u00d7520; preserve specified framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background; no cast shadow, scenery, characters or text. No watermark. Cute friendly toy pi\u00f1atas, cheerful and never scary.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-f147e992-c8fc-47db-921a-be9f0bf349a1.png",
+    "intake": {
+      "sourceRect": [
+        125,
+        78,
+        1175,
+        1187
+      ],
+      "targetRect": [
+        97,
+        79,
+        497,
+        429
+      ],
+      "sourceTetherPoint": [
+        500,
+        562
+      ]
+    },
+    "runtimePath": "party/assets/art/prop/pinata-unicorn.webp",
+    "runtimeBytes": 33632
+  },
+  {
+    "key": "prop/pinata-llama",
+    "size": [
+      520,
+      520
+    ],
+    "layout": "Same placement as the unicorn: torso centre at (260, 280), facing right, rope on the middle of the back \u2248 (240, 245)",
+    "description": "A llama pi\u00f1ata in side view with a long neck and banana ears: cream, pink, mint and yellow fringe rows, a woven red/yellow/teal blanket with pom-poms on its back, a cute happy eye and smile",
+    "transparent": true,
+    "prompt": "Use case: illustration-story. Asset: prop/pinata-llama. Request: A llama pi\u00f1ata in side view with a long neck and banana ears: cream, pink, mint and yellow fringe rows, a woven red/yellow/teal blanket with pom-poms on its back, a cute happy eye and smile. Game layout: Same placement as the unicorn: torso centre at (260, 280), facing right, rope on the middle of the back \u2248 (240, 245). Exact framing: 520\u00d7520 canvas. Entire animal facing RIGHT; torso center (260,280). Body back/top around y232, rope ties near x240 at that back edge. Whole figure spans roughlyx80..480, feet aroundy425; horns/ears may rise to y65..100. Keep transparent margins and this camera/position. NO tail tassel and NO rope; code draws them separately. Target 520\u00d7520; preserve specified framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background; no cast shadow, scenery, characters or text. No watermark. Cute friendly toy pi\u00f1atas, cheerful and never scary.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-b453e609-b4f5-496d-b98f-5f6338f295f6.png",
+    "intake": {
+      "sourceRect": [
+        200,
+        51,
+        1167,
+        1218
+      ],
+      "targetRect": [
+        79,
+        79,
+        479,
+        429
+      ],
+      "sourceTetherPoint": [
+        590,
+        606
+      ]
+    },
+    "runtimePath": "party/assets/art/prop/pinata-llama.webp",
+    "runtimeBytes": 38104
+  },
+  {
+    "key": "prop/pinata-donkey",
+    "size": [
+      520,
+      520
+    ],
+    "layout": "Same placement as the unicorn: torso centre at (260, 280), facing right, rope on the middle of the back \u2248 (244, 238). The code draws the tail tassel at the rump",
+    "description": "A classic donkey (burro) pi\u00f1ata in side view with tall ears: bright rainbow crepe-paper fringe rows, a pink spiky fringe mane, a cute happy eye and smile",
+    "transparent": true,
+    "prompt": "Use case: illustration-story. Asset: prop/pinata-donkey. Request: A classic donkey (burro) pi\u00f1ata in side view with tall ears: bright rainbow crepe-paper fringe rows, a pink spiky fringe mane, a cute happy eye and smile. Game layout: Same placement as the unicorn: torso centre at (260, 280), facing right, rope on the middle of the back \u2248 (244, 238). The code draws the tail tassel at the rump. Exact framing: 520\u00d7520 canvas. Entire animal facing RIGHT; torso center (260,280). Body back/top around y232, rope ties near x240 at that back edge. Whole figure spans roughlyx80..480, feet aroundy425; horns/ears may rise to y65..100. Keep transparent margins and this camera/position. NO tail tassel and NO rope; code draws them separately. Target 520\u00d7520; preserve specified framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background; no cast shadow, scenery, characters or text. No watermark. Cute friendly toy pi\u00f1atas, cheerful and never scary.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-de9d786c-5b91-4793-b217-bb994a14e64d.png",
+    "intake": {
+      "sourceRect": [
+        196,
+        71,
+        1184,
+        1218
+      ],
+      "targetRect": [
+        76,
+        72,
+        476,
+        422
+      ],
+      "sourceTetherPoint": [
+        610,
+        616
+      ]
+    },
+    "runtimePath": "party/assets/art/prop/pinata-donkey.webp",
+    "runtimeBytes": 34396
+  },
+  {
+    "key": "prop/party-bat",
+    "size": [
+      480,
+      120
+    ],
+    "layout": "Horizontal, knob at the left edge, the hand's grip point 20% in (x=96, vertical centre), padded barrel out to the right edge. Drawn rotated in the character's hand at 1.2 \u00d7 0.6 \u00d7 the character's height long (\u2248120\u2013150 px), swung overhead",
+    "description": "A soft padded party bat for kids: a blue grip-taped handle with a yellow knob and a fat rounded foam barrel with pink-and-white candy stripes. Clearly soft and toy-like",
+    "transparent": true,
+    "prompt": "Use case: illustration-story. Asset: prop/party-bat. Request: A soft padded party bat for kids: a blue grip-taped handle with a yellow knob and a fat rounded foam barrel with pink-and-white candy stripes. Clearly soft and toy-like. Game layout: Horizontal, knob at the left edge, the hand's grip point 20% in (x=96, vertical centre), padded barrel out to the right edge. Drawn rotated in the character's hand at 1.2 \u00d7 0.6 \u00d7 the character's height long (\u2248120\u2013150 px), swung overhead. Exact geometry: horizontal toy bat, yellow knob atLEFT x0, grip centered x96 (20%fromleft), barrel extends RIGHT to x480. Preserve 4:1 aspect ratio. No hands, no characters. Target 480\u00d7120; preserve specified framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background; no cast shadow, scenery, characters or text. No watermark. Cute friendly toy pi\u00f1atas, cheerful and never scary.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-35f3363b-5f9e-44f7-a976-b3460455d5e1.png",
+    "intake": {
+      "sourceRect": [
+        9,
+        199,
+        1974,
+        589
+      ],
+      "targetRect": [
+        0,
+        0,
+        480,
+        120
+      ]
+    },
+    "runtimePath": "party/assets/art/prop/party-bat.webp",
+    "runtimeBytes": 15038
+  },
+  {
+    "key": "prop/candy-wrapped",
+    "size": [
+      128,
+      128
+    ],
+    "layout": "Centred, drawn at 72\u00d772 (contain); bounces and spins on the lawn",
+    "description": "A twist-wrapped round sweet (bow-tie wrapper ends), glossy pink wrapper with white diagonal stripes",
+    "transparent": true,
+    "prompt": "Use case: illustration-story. Asset: prop/candy-wrapped. Request: A twist-wrapped round sweet (bow-tie wrapper ends), glossy pink wrapper with white diagonal stripes. Game layout: Centred, drawn at 72\u00d772 (contain); bounces and spins on the lawn.  Target 128\u00d7128; preserve specified framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background; no cast shadow, scenery, characters or text. No watermark. Cute friendly toy pi\u00f1atas, cheerful and never scary.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-452bd30f-1f74-4e02-95af-6e0a389b5c28.png",
+    "intake": {
+      "sourceRect": [
+        34,
+        212,
+        1220,
+        1032
+      ],
+      "targetRect": [
+        0,
+        20,
+        128,
+        108
+      ],
+      "fit": "contain"
+    },
+    "runtimePath": "party/assets/art/prop/candy-wrapped.webp",
+    "runtimeBytes": 5642
+  },
+  {
+    "key": "prop/candy-lollipop",
+    "size": [
+      128,
+      128
+    ],
+    "layout": "Centred, drawn at 72\u00d772 (contain)",
+    "description": "A round swirl lollipop (blue and white spiral) on a short white stick",
+    "transparent": true,
+    "prompt": "Use case: illustration-story. Asset: prop/candy-lollipop. Request: A round swirl lollipop (blue and white spiral) on a short white stick. Game layout: Centred, drawn at 72\u00d772 (contain).  Target 128\u00d7128; preserve specified framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background; no cast shadow, scenery, characters or text. No watermark. Cute friendly toy pi\u00f1atas, cheerful and never scary.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-01c19031-8435-416c-b756-fcacb1c137c1.png",
+    "intake": {
+      "sourceRect": [
+        299,
+        175,
+        954,
+        1082
+      ],
+      "targetRect": [
+        18,
+        0,
+        110,
+        128
+      ],
+      "fit": "contain"
+    },
+    "runtimePath": "party/assets/art/prop/candy-lollipop.webp",
+    "runtimeBytes": 5402
+  },
+  {
+    "key": "prop/candy-golden",
+    "size": [
+      128,
+      128
+    ],
+    "layout": "Centred, drawn at 72\u00d772 (contain); the code adds a pulsing glow behind it",
+    "description": "A shiny golden twist-wrapped candy with a white sparkle on it, extra glossy (worth 5 points)",
+    "transparent": true,
+    "prompt": "Use case: illustration-story. Asset: prop/candy-golden. Request: A shiny golden twist-wrapped candy with a white sparkle on it, extra glossy (worth 5 points). Game layout: Centred, drawn at 72\u00d772 (contain); the code adds a pulsing glow behind it.  Target 128\u00d7128; preserve specified framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background; no cast shadow, scenery, characters or text. No watermark. Cute friendly toy pi\u00f1atas, cheerful and never scary.",
+    "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-f018fc80-b3f5-4745-9361-1d430b2c8b09.png",
+    "intake": {
+      "sourceRect": [
+        31,
+        333,
+        1241,
+        922
+      ],
+      "targetRect": [
+        0,
+        33,
+        128,
+        95
+      ],
+      "fit": "contain"
+    },
+    "runtimePath": "party/assets/art/prop/candy-golden.webp",
+    "runtimeBytes": 5352
+  }
+]

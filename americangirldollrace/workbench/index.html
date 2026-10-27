@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Race Workbench</title>
+<style>
+  :root {
+    --bg: #1d1a2b;
+    --panel: #2a2640;
+    --edge: #433d63;
+    --text: #f4f0ff;
+    --muted: #b9b1d8;
+    --accent: #ffcf4a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 14px/1.35 system-ui, sans-serif; }
+  body { display: grid; grid-template-columns: 230px 1fr 270px; height: 100vh; }
+  aside { background: var(--panel); border-right: 1px solid var(--edge); overflow-y: auto; padding: 10px; }
+  aside.right { border-right: 0; border-left: 1px solid var(--edge); }
+  main { position: relative; display: flex; flex-direction: column; min-width: 0; }
+  iframe { flex: 1; border: 0; width: 100%; background: #000; }
+  .help { padding: 6px 10px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--edge); }
+  .help b { color: var(--text); }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 14px 0 6px; }
+  h2:first-child { margin-top: 2px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .tile { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 2px 5px; border: 2px solid var(--edge);
+    border-radius: 8px; background: #221f35; color: var(--text); cursor: pointer; font: inherit; font-size: 11px; text-align: center; }
+  .tile:hover { border-color: var(--muted); }
+  .tile.on { border-color: var(--accent); background: #3a3350; }
+  .tile canvas { width: 56px; height: 56px; }
+  .row { display: flex; gap: 6px; align-items: center; margin: 4px 0; flex-wrap: wrap; }
+  select, button.plain { font: inherit; background: #221f35; color: var(--text); border: 1px solid var(--edge); border-radius: 6px; padding: 4px 8px; }
+  button.plain { cursor: pointer; }
+  .note { color: var(--muted); font-size: 12px; margin: 4px 0; }
+  .note b { color: var(--text); }
+  #shield { position: absolute; inset: 0; display: none; cursor: grabbing; }
+  .below { display: flex; gap: 8px; align-items: center; padding: 6px 10px; border-top: 1px solid var(--edge); }
+  button.big { font: inherit; font-weight: 600; background: var(--accent); color: #2a2100; border: 0; border-radius: 8px; padding: 6px 14px; cursor: pointer; }
+  button.big:disabled { opacity: 0.5; cursor: default; }
+  /* The verification queue takes the viewer's place. */
+  #verify { flex: 1; display: none; min-height: 0; flex-direction: column; background: #262236; }
+  body.verifying #verify { display: flex; }
+  body.verifying #game, body.verifying .help, body.verifying .below { display: none; }
+  #verify .bar { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; padding: 8px 10px; border-bottom: 1px solid var(--edge); }
+  #verify .bar .title { font-weight: 700; margin-right: 6px; }
+  #verify .bar .spacer { flex: 1; }
+  #verify .work { flex: 1; display: flex; min-height: 0; }
+  #verify .stage { flex: 1; position: relative; min-width: 0; }
+  #verify canvas.view { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: default; }
+  #verify .tools { width: 200px; padding: 10px; border-left: 1px solid var(--edge); overflow-y: auto; }
+  #verify .tools .views { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  #verify .tools .views button { padding: 2px; border: 2px solid var(--edge); border-radius: 8px; background: #1d1a2b; cursor: pointer; }
+  #verify .tools .views button.on { border-color: var(--accent); }
+  #verify .tools .views canvas { width: 100%; display: block; }
+  #verify .tools button.plain { width: 100%; margin: 3px 0; }
+  #verify .status { font-size: 12px; color: var(--muted); }
+  #verify .status b { color: var(--accent); }
+  #ghost { position: fixed; pointer-events: none; width: 72px; height: 72px; display: none; transform: translate(-50%, -80%); z-index: 9; }
+  body.removing #ghost, body.removing iframe { opacity: 0.55; }
+  /* ---------- phones (desktop above is unchanged) ----------
+     Mostly the viewer: a few buttons over it open the panels as sheets. */
+  .fab, .vfab, .sheet-close, .mobile-only, .short { display: none; }
+  @media (max-width: 820px), (max-height: 520px) and (pointer: coarse) {
+    body { display: block; height: 100dvh; overflow: hidden; }
+    main { position: fixed; inset: 0; }
+    .help, .below { display: none; }
+    .mobile-only { display: block; }
+    aside { position: fixed; left: 0; right: 0; bottom: 0; max-height: 62dvh; z-index: 20; padding: 10px 12px 18px;
+      border: 0; border-top: 1px solid var(--edge); border-radius: 16px 16px 0 0; box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+      transform: translateY(110%); transition: transform 0.2s ease; }
+    aside.right { border-left: 0; }
+    body.sheet-player aside.left, body.sheet-add aside.right, body.sheet-settings aside.right { transform: none; }
+    body.sheet-add .sec-track, body.sheet-add .sec-settings, body.sheet-settings .sec-add { display: none; }
+    .sheet-close { display: block; position: sticky; top: 0; margin: -4px -4px 0 auto; z-index: 2; width: 40px; height: 40px;
+      border: 0; border-radius: 50%; background: #3a3350; color: var(--text); font-size: 20px; cursor: pointer; }
+    aside .note.desk { display: none; }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); }
+    .tile canvas { width: 62px; height: 62px; }
+    .fab { display: flex; position: fixed; left: 50%; top: max(8px, env(safe-area-inset-top)); transform: translateX(-50%); gap: 10px; z-index: 15; }
+    .fab button, .vfab button { min-width: 48px; height: 48px; padding: 0 14px; border: 2px solid rgba(255, 255, 255, 0.85); border-radius: 24px;
+      background: rgba(42, 38, 64, 0.88); color: var(--text); font: 600 16px system-ui, sans-serif; white-space: nowrap; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); cursor: pointer; }
+    body.verifying .fab, body[class*="sheet-"] .fab { display: none; }
+    .seg { display: flex; border: 1px solid var(--edge); border-radius: 8px; overflow: hidden; margin: 6px 0 8px; }
+    .seg label { flex: 1; text-align: center; padding: 8px 4px; cursor: pointer; }
+    .seg input { display: none; }
+    .seg label:has(input:checked) { background: var(--accent); color: #2a2100; font-weight: 700; }
+    .sec-settings button.big { width: 100%; padding: 12px; margin-top: 8px; }
+    /* The verification queue, full screen: its tools are a sheet too. */
+    #verify { position: fixed; inset: 0; z-index: 25; }
+    #verify .bar { padding: 6px; gap: 5px; }
+    #verify .bar .title { display: none; }
+    #verify .bar #vJump { flex: 1 1 100%; order: -1; min-width: 0; padding: 8px; }
+    #verify .bar button { padding: 8px 10px; }
+    #verify .bar .status { flex: 1 1 100%; order: 9; }
+    #verify .tools { position: fixed; left: 0; right: 0; bottom: 0; width: auto; max-height: 58dvh; z-index: 30; padding: 10px 12px 18px;
+      background: var(--panel); border: 0; border-top: 1px solid var(--edge); border-radius: 16px 16px 0 0;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5); transform: translateY(110%); transition: transform 0.2s ease; }
+    body.vtools #verify .tools { transform: none; }
+    #verify .tools .views { grid-template-columns: repeat(4, 1fr); }
+    #verify .tools button.plain { padding: 10px; }
+    #verify .tools .note.desk { display: none; }
+    .vfab { display: flex; position: absolute; right: 10px; bottom: max(10px, env(safe-area-inset-bottom)); gap: 10px; z-index: 5; }
+  }
+  /* Held upright, the scene sits at the top: its buttons go in the space below. */
+  @media (max-width: 820px) and (orientation: portrait) {
+    .fab { top: auto; bottom: max(16px, env(safe-area-inset-bottom)); }
+  }
+  /* A phone on its side is short: the queue's bar stays one row. */
+  @media (max-height: 520px) and (pointer: coarse) {
+    #verify .bar { flex-wrap: nowrap; }
+    #verify .bar #vJump { flex: 1 1 140px; order: 0; }
+    #verify .bar .status { display: none; }
+    #verify .bar .long { display: none; }
+    #verify .bar .short { display: inline; }
+    #verify .bar button { padding: 6px 8px; white-space: nowrap; }
+  }
+</style>
+</head>
+<body>
+<aside class="left">
+  <button class="sheet-close" aria-label="Close">✕</button>
+  <h2>Characters</h2>
+  <p class="note desk"><b>Click</b> to play as one. <b>Drag</b> one into the scene to add it as a target (it stands still to be hit, grabbed or zapped).</p>
+  <div class="seg mobile-only" id="mPickMode">
+    <label><input type="radio" name="pick" value="play" checked> Play as</label>
+    <label><input type="radio" name="pick" value="target"> Add as target</label>
+  </div>
+  <div class="grid" id="players"></div>
+  <div class="row"><button class="plain" id="clearTargets">Clear targets</button></div>
+</aside>
+<main>
+  <iframe id="game" src="../index.html?workbench" title="Race" allow="autoplay; fullscreen"></iframe>
+  <div id="shield"></div>
+  <div class="fab" id="fab">
+    <button id="mPlayer" title="Characters">👤 Play as</button>
+    <button id="mAdd" title="Add power-ups and mounts">＋ Add</button>
+    <button id="mSettings" title="Track and settings">⚙</button>
+  </div>
+  <div class="help">
+    <b>WASD</b> move · <b>Space</b> jump · <b>F</b> / X push (or throw; a troll grabs and throws) ·
+    <b>R</b> / Y a troll's own move (the cloud troll's lightning) · controller works too.
+    Click the scene to give it the keys.
+  </div>
+  <div class="below">
+    <button class="big" id="verifyOpen" disabled>Verification Queue</button>
+    <span class="note">Check poses one by one, fix what's off, then Export a file to send back.</span>
+  </div>
+  <section id="verify">
+    <div class="bar">
+      <span class="title">Verification queue · Moon boots</span>
+      <select id="vJump"></select>
+      <button class="plain" id="vPrev">◀<span class="long"> Prev</span></button>
+      <button class="big" id="vOk">✓<span class="long"> Looks right</span></button>
+      <button class="plain" id="vNext"><span class="long">Next </span>▶</button>
+      <span class="spacer"></span>
+      <span class="status" id="vStatus"></span>
+      <button class="big" id="vExport">Export</button>
+      <button class="plain" id="vClose" title="Back to the race"><span class="long">Back to the race</span><span class="short">✕</span></button>
+    </div>
+    <div class="work">
+      <div class="stage"><canvas class="view" id="vCanvas"></canvas>
+        <div class="vfab"><button id="vFit" title="Fit the pose to the screen">⤢ Fit</button><button id="vToolsOpen">Boot ▴</button></div>
+      </div>
+      <div class="tools">
+        <button class="sheet-close" aria-label="Close">✕</button>
+        <h2>Selected boot</h2>
+        <p class="note" id="vHint">Click a boot to pick it. Drag it to move it; drag the ring's handle to turn it.</p>
+        <div class="views" id="vViews"></div>
+        <button class="plain" id="vMirror">Mirror ⇆</button>
+        <button class="plain" id="vFront">Bring to front</button>
+        <div class="row"><button class="plain" id="vSmaller" style="width:48%">Smaller −</button><button class="plain" id="vBigger" style="width:48%">Bigger +</button></div>
+        <button class="plain" id="vDelete">Remove this boot</button>
+        <h2>This pose</h2>
+        <button class="plain" id="vAdd">Add a boot</button>
+        <button class="plain" id="vReset">Undo my changes</button>
+        <label class="note"><input type="checkbox" id="vSeeThrough"> See-through boots</label><br>
+        <label class="note"><input type="checkbox" id="vZoom"> Zoom on the feet</label>
+        <p class="note">The boot further up the picture is drawn behind; Bring to front swaps that.</p>
+        <p class="note desk">Keys: ←/→ prev/next, Enter = looks right, Delete removes the boot, [ and ] turn it, −/+ size.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<aside class="right">
+  <button class="sheet-close" aria-label="Close">✕</button>
+  <div class="sec-track">
+    <h2>Track</h2>
+    <div class="row">
+      <select id="track"></select>
+    </div>
+    <div class="row">
+      <label><input type="checkbox" id="hurdles"> Hurdles</label>
+      <button class="plain" id="reset">Reset scene</button>
+    </div>
+  </div>
+  <div class="sec-settings mobile-only">
+    <p class="note">Drag anyone or anything in the scene to move it, or off the scene to remove it.</p>
+    <button class="big" id="mVerify">Verification Queue</button>
+  </div>
+  <div class="sec-add">
+    <h2>Power-ups</h2>
+    <p class="note desk"><b>Click</b> to drop one just ahead of you, or <b>drag</b> it to a spot. Each track has its own look and EMP.</p>
+    <p class="note mobile-only">Tap one to drop it just ahead of you.</p>
+    <div class="grid" id="powerups"></div>
+    <h2>Mounts</h2>
+    <p class="note">Anyone can ride any of them here.</p>
+    <p class="note desk">In the scene, drag anyone or anything to move it, or out of the scene to remove it.</p>
+    <div class="grid" id="mounts"></div>
+  </div>
+</aside>
+<canvas id="ghost" width="112" height="112"></canvas>
+<script src="workbench.js"></script>
+<script src="verify.js"></script>
+</body>
+</html>

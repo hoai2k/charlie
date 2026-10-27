@@ -1,0 +1,215 @@
+{
+  "frames": [
+    {
+      "bounds": [
+        26,
+        10,
+        379,
+        409
+      ],
+      "packedScale": 1.010126582278481,
+      "scale": 1.1422787738577211,
+      "renderScale": 1.1422787738577211,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": [
+        373,
+        38
+      ],
+      "sourceAnchor": [
+        187.48000000000002,
+        401
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        7,
+        79,
+        406,
+        409
+      ],
+      "packedScale": 0.9684466019417476,
+      "scale": 1.1914401388085598,
+      "renderScale": 1.1914401388085598,
+      "anchorX": 230.48000000000002,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": [
+        401,
+        166
+      ],
+      "sourceAnchor": [
+        220.24,
+        347
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        7,
+        66,
+        406,
+        409
+      ],
+      "packedScale": 1.0336787564766838,
+      "scale": 1.116252168883748,
+      "renderScale": 1.116252168883748,
+      "anchorX": 230.48,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": [
+        398,
+        174
+      ],
+      "sourceAnchor": [
+        206.72,
+        338
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        7,
+        36,
+        406,
+        409
+      ],
+      "packedScale": 1.0178571428571428,
+      "scale": 1.1336032388663968,
+      "renderScale": 1.1336032388663968,
+      "anchorX": 230.48,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "sourceAnchor": [
+        209.84,
+        372
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        7,
+        45,
+        406,
+        409
+      ],
+      "packedScale": 1.0783783783783785,
+      "scale": 1.0699826489300173,
+      "renderScale": 1.0699826489300173,
+      "anchorX": 230.48000000000002,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "sourceAnchor": [
+        198.4,
+        344
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        21,
+        10,
+        382,
+        409
+      ],
+      "packedScale": 1.0668449197860963,
+      "scale": 1.0815500289184499,
+      "renderScale": 1.0815500289184499,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "sourceAnchor": [
+        181.76000000000002,
+        380
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        7,
+        37,
+        406,
+        409
+      ],
+      "packedScale": 1.1367521367521367,
+      "scale": 1.0150375939849623,
+      "renderScale": 1.0150375939849623,
+      "anchorX": 230.48000000000002,
+      "baseline": 409,
+      "targetY": 424.9048872180451,
+      "offsetX": 20.760601503759418,
+      "hand": [
+        390.04,
+        208.27
+      ],
+      "wandTip": null,
+      "sourceAnchor": [
+        188.52,
+        333
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        7,
+        21,
+        406,
+        409
+      ],
+      "packedScale": 1.1145251396648044,
+      "scale": 1.0352805089647195,
+      "renderScale": 1.0352805089647195,
+      "anchorX": 230.48,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "sourceAnchor": [
+        192.16,
+        354
+      ],
+      "sourceScaleRatio": 1
+    },
+    {
+      "bounds": [
+        7,
+        56,
+        406,
+        409
+      ],
+      "packedScale": 1.0178571428571428,
+      "scale": 1.1336032388663968,
+      "renderScale": 1.1336032388663968,
+      "anchorX": 230.48,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": null,
+      "wandTip": null,
+      "sourceAnchor": [
+        209.84,
+        353
+      ],
+      "sourceScaleRatio": 1
+    }
+  ],
+  "sha256": "cffda1cc674914575a9bb329f96eb103dcecd2e74014c33c29f6ee097a23ce7d"
+}

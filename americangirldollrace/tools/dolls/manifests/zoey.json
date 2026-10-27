@@ -1,0 +1,184 @@
+{
+  "version": 1,
+  "key": "zoey",
+  "name": "Zoey",
+  "color": "#25c8c7",
+  "standingHeight": 376,
+  "portraitBox": [
+    310,
+    0,
+    610,
+    375
+  ],
+  "mask": {
+    "mode": "teal-top",
+    "note": "R: teal top. B: yellow trouser and shoe accents; retain skin, hair, navy fabric, turquoise straps, gold charm and toy hardware."
+  },
+  "outfitData": {
+    "stats": {
+      "h": -2.829441,
+      "L": 0.691173,
+      "C": 0.114331,
+      "beta": 0.7
+    },
+    "outfits": [
+      "pink",
+      "red",
+      "mint",
+      "purple",
+      "orange",
+      "blue",
+      "yellow"
+    ],
+    "secondary": {
+      "stats": {
+        "h": 1.630951,
+        "L": 0.840034,
+        "C": 0.16579,
+        "beta": 0.7
+      },
+      "outfits": [
+        "teal",
+        "mint",
+        "berry",
+        "orange",
+        "blue",
+        "pink",
+        "purple"
+      ]
+    }
+  },
+  "personality": "Upbeat mischievous rapper, springy athletic run, friendly wave and proud one-fist cheer.",
+  "poses": {
+    "idle-0": {
+      "source": "sources/zoey/idle.webp",
+      "cell": 0,
+      "separate": true,
+      "hipX": 450,
+      "chin": 210,
+      "garmentBottom": 325,
+      "scale": 1
+    },
+    "idle-1": {
+      "source": "sources/zoey/idle.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 330,
+      "chin": 210,
+      "garmentBottom": 325,
+      "scale": 1
+    },
+    "idle-2": {
+      "source": "sources/zoey/idle.webp",
+      "cell": 2,
+      "separate": true,
+      "hipX": 250,
+      "chin": 210,
+      "garmentBottom": 325,
+      "scale": 1
+    },
+    "run-0": {
+      "source": "sources/zoey/run.webp",
+      "cell": 0,
+      "separate": true,
+      "hipX": 420,
+      "chin": 220,
+      "garmentBottom": 340,
+      "scale": 1
+    },
+    "run-1": {
+      "source": "sources/zoey/run.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 350,
+      "chin": 225,
+      "garmentBottom": 345,
+      "scale": 1
+    },
+    "run-2": {
+      "source": "sources/zoey/run-opposite.webp",
+      "hipX": 660,
+      "chin": 350,
+      "garmentBottom": 590,
+      "scale": 0.54
+    },
+    "jump-0": {
+      "source": "sources/zoey/jump.webp",
+      "cell": 0,
+      "separate": true,
+      "hipX": 460,
+      "chin": 292,
+      "garmentBottom": 420,
+      "scale": 0.96
+    },
+    "jump-1": {
+      "source": "sources/zoey/jump.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 380,
+      "chin": 210,
+      "garmentBottom": 320,
+      "scale": 0.96
+    },
+    "jump-2": {
+      "source": "sources/zoey/jump.webp",
+      "cell": 2,
+      "separate": true,
+      "hipX": 310,
+      "chin": 310,
+      "garmentBottom": 430,
+      "scale": 0.96
+    },
+    "ride": {
+      "source": "sources/zoey/ride.webp",
+      "hipX": 640,
+      "chin": 410,
+      "garmentBottom": 660,
+      "scale": 0.53,
+      "anchor": [
+        525,
+        875
+      ],
+      "target": [
+        209,
+        264
+      ]
+    },
+    "push": {
+      "source": "sources/zoey/actions.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 360,
+      "chin": 230,
+      "garmentBottom": 365,
+      "scale": 0.92
+    },
+    "fall": {
+      "source": "sources/zoey/actions.webp",
+      "cell": 2,
+      "separate": true,
+      "hipX": 350,
+      "chin": 300,
+      "garmentBottom": 455,
+      "scale": 0.92
+    },
+    "wave": {
+      "source": "sources/zoey/menu.webp",
+      "cell": 0,
+      "separate": true,
+      "hipX": 445,
+      "chin": 210,
+      "garmentBottom": 325,
+      "scale": 1
+    },
+    "cheer": {
+      "source": "sources/zoey/menu.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 330,
+      "chin": 208,
+      "garmentBottom": 325,
+      "scale": 1
+    }
+  }
+}

@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Doll Race">
+    <link rel="manifest" href="manifest.webmanifest">
+    <title>American Girl Doll Race</title>
+    <link rel="icon" type="image/png" href="favicon.png?v=34056e22b7">
+    <link rel="apple-touch-icon" href="favicon.png?v=34056e22b7">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
+    <!-- The workbench runs the race in a frame with no title screen. -->
+    <script>if (/[?&]workbench\b/.test(location.search)) document.documentElement.classList.add("workbench");</script>
+    <!-- The title screen's own art, then its racers, load first so it opens
+         all at once and the opening gallop isn't late. -->
+    <link rel="preload" as="image" href="assets/ui/title_sky.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_clouds.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_hills.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/logo.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_hero_whirlpool.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_hero_juliette.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_hero_hermione.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_hero_lily.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_hero_rumi.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_hero_kaya.webp" fetchpriority="high">
+    <link rel="stylesheet" href="styles.css?v=d76ad14e">
+
+  </head>
+  <body>
+    <main class="shell">
+      <section class="game-frame" aria-label="American Girl Doll Race">
+        <canvas id="game" width="1280" height="720"></canvas>
+        <div class="hud" aria-live="polite">
+          <div class="racer-card whirlpool" id="playerOneHud">
+            <span class="label" id="playerOneLabel">Whirlpool</span>
+            <span id="whirlpoolStatus">Ready</span>
+          </div>
+          <div class="racer-card juliette" id="playerTwoHud">
+            <span class="label" id="playerTwoLabel">Juliette</span>
+            <span id="julietteStatus">Ready</span>
+          </div>
+          <div class="racer-card hidden" id="playerThreeHud">
+            <span class="label" id="playerThreeLabel">Claudia</span>
+            <span id="claudiaStatus">Ready</span>
+          </div>
+          <div class="racer-card hidden" id="playerFourHud">
+            <span class="label" id="playerFourLabel">Kaya</span>
+            <span id="kayaStatus">Ready</span>
+          </div>
+          <div class="racer-card hidden" id="playerFiveHud">
+            <span class="label" id="playerFiveLabel">Player 5</span>
+            <span id="playerFiveStatus">Ready</span>
+          </div>
+          <div class="racer-card hidden" id="playerSixHud">
+            <span class="label" id="playerSixLabel">Player 6</span>
+            <span id="playerSixStatus">Ready</span>
+          </div>
+          <div class="racer-card hidden" id="playerSevenHud">
+            <span class="label" id="playerSevenLabel">Player 7</span>
+            <span id="playerSevenStatus">Ready</span>
+          </div>
+          <div class="racer-card hidden" id="playerEightHud">
+            <span class="label" id="playerEightLabel">Player 8</span>
+            <span id="playerEightStatus">Ready</span>
+          </div>
+        </div>
+        <div class="join-tray hidden" id="joinTray" aria-live="polite"></div>
+        <div class="start-panel lobby" id="startPanel" data-screen="title">
+          <div class="lb-stage" id="lbStage">
+            <!-- Title screen -->
+            <section class="lb-screen" id="lbTitle">
+              <div class="lb-abs" id="lbTitleSky"></div>
+              <div class="lb-abs" id="lbTitleClouds"></div>
+              <div class="lb-abs" id="lbTitleHills"></div>
+              <div class="lb-abs" id="lbTitleHero"></div>
+              <div class="lb-abs" id="lbTitleLogo" role="img" aria-label="American Girl Doll Race"></div>
+              <div class="lb-abs" id="lbPressStart">Press <span class="lb-glyph" data-g="A"></span> to start</div>
+            </section>
+            <!-- Character select: just choose a doll and go -->
+            <section class="lb-screen off" id="lbSelect">
+              <div class="lb-abs" id="lbSelectLogo"></div>
+              <div class="lb-abs" id="lbTopRight">
+                <div class="lb-panel" id="lbSettingsBtn">⚙ Settings <span class="lb-glyph" data-g="Y"></span></div>
+                <div class="lb-panel" id="lbHints"><span class="lb-glyph" data-g="A"></span>choose <span class="lb-hint-arrows">◀▶</span>outfit <span class="lb-glyph" data-g="B"></span>back</div>
+              </div>
+              <div class="lb-abs" id="lbGrid"></div>
+              <div class="lb-abs" id="lbSlots"></div>
+              <!-- Corner buttons, as when paused: sound and full screen (bottom
+                   right; up under the top-right box when players fill the bottom) -->
+              <div class="lb-abs" id="lbCorner">
+                <button type="button" class="corner-button sound-toggle" id="lbSoundButton" aria-label="Sound on or off">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path class="fill" d="M8 18h8l10-9v30l-10-9H8z"/><g class="sound-waves"><path d="M32 17a9 9 0 0 1 0 14"/><path d="M36.5 12.5a15 15 0 0 1 0 23"/></g><g class="sound-off"><path d="M32 18l12 12M44 18L32 30"/></g></svg>
+                </button>
+                <button type="button" class="corner-button fs-toggle" id="lbFullscreenButton" aria-label="Full screen">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><g class="fs-enter"><path d="M6 17V6h11M31 6h11v11M42 31v11H31M17 42H6V31"/></g><g class="fs-exit"><path d="M17 6v11H6M42 17H31V6M31 42V31h11M6 31h11v11"/></g></svg>
+                </button>
+              </div>
+              <!-- Phone (no controller): computer racers right on the select screen -->
+              <div class="lb-abs lb-panel" id="lbCpuChip"><span class="lb-cpu-btn" id="lbCpuLess">−</span><span class="lb-ai-mini"></span><span id="lbCpuCount"></span><span class="lb-cpu-btn" id="lbCpuMore">+</span></div>
+              <div class="lb-abs" id="lbRaceBar"><div id="lbRaceFill"></div><div id="lbRaceText"></div></div>
+              <!-- Settings: everything that isn't "pick a doll" -->
+              <div class="lb-abs off" id="lbSettings">
+                <div class="lb-panel" id="lbSetPanel">
+                  <h2>Settings</h2>
+                  <div class="lb-set-row" data-row="0"><div class="lb-icon"><div class="lb-atlas" id="lbTrackThumb"></div></div><div class="lb-txt"><div class="lb-panel-title">Track</div><div class="lb-val" id="lbTrackVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
+                  <div class="lb-set-row" data-row="1"><div class="lb-icon"><div class="lb-atlas" id="lbMonsterIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">How many monsters</div><div class="lb-val" id="lbMonsterVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
+                  <div class="lb-set-row" data-row="2"><div class="lb-icon"><div class="lb-atlas" id="lbSpecialIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">Specials</div><div class="lb-val" id="lbSpecialVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
+                  <div class="lb-set-row" data-row="3"><div class="lb-icon" id="lbCpuIcons"></div><div class="lb-txt"><div class="lb-panel-title">Computer racers</div><div class="lb-val" id="lbCpuVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
+                  <div class="lb-set-row" data-row="4" id="lbSkillRow"><div class="lb-icon"><div class="lb-screen-icon" id="lbSkillIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">Monster difficulty</div><div class="lb-val" id="lbSkillVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
+                  <div class="lb-set-row" data-row="5" id="lbCoopRow"><div class="lb-icon"><div class="lb-screen-icon" id="lbCoopIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">Play</div><div class="lb-val" id="lbCoopVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
+                  <div id="lbSetFoot">▲▼ choose · ◀▶ change · <span class="lb-glyph" data-g="A"></span> done <span id="lbSetDone">Done</span></div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <!-- The original menu controls stay in the page (hidden): the race
+               reads the players, mode and options from them. menu.js fills them in. -->
+          <div class="legacy-menu hidden" aria-hidden="true">
+          <div class="character-selectors" aria-label="Character selection">
+            <label>
+              <span>Player 1</span>
+              <select id="playerOneCharacter">
+                <option value="whirlpool" selected>Whirlpool</option>
+                <option value="juliette">Juliette</option>
+                <option value="claudia">Claudia</option>
+                <option value="kaya">Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+            <label id="playerTwoSelectWrap">
+              <span id="playerTwoSelectLabel">Player 2</span>
+              <select id="playerTwoCharacter">
+                <option value="whirlpool">Whirlpool</option>
+                <option value="juliette" selected>Juliette</option>
+                <option value="claudia">Claudia</option>
+                <option value="kaya">Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+            <label id="playerThreeSelectWrap" class="hidden">
+              <span id="playerThreeSelectLabel">Player 3</span>
+              <select id="playerThreeCharacter">
+                <option value="whirlpool">Whirlpool</option>
+                <option value="juliette">Juliette</option>
+                <option value="claudia" selected>Claudia</option>
+                <option value="kaya">Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+            <label id="playerFourSelectWrap" class="hidden">
+              <span id="playerFourSelectLabel">Player 4</span>
+              <select id="playerFourCharacter">
+                <option value="whirlpool">Whirlpool</option>
+                <option value="juliette">Juliette</option>
+                <option value="claudia">Claudia</option>
+                <option value="kaya" selected>Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+            <label id="playerFiveSelectWrap" class="hidden">
+              <span id="playerFiveSelectLabel">Player 5</span>
+              <select id="playerFiveCharacter">
+                <option value="whirlpool">Whirlpool</option>
+                <option value="juliette">Juliette</option>
+                <option value="claudia">Claudia</option>
+                <option value="kaya">Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+            <label id="playerSixSelectWrap" class="hidden">
+              <span id="playerSixSelectLabel">Player 6</span>
+              <select id="playerSixCharacter">
+                <option value="whirlpool">Whirlpool</option>
+                <option value="juliette">Juliette</option>
+                <option value="claudia">Claudia</option>
+                <option value="kaya">Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+            <label id="playerSevenSelectWrap" class="hidden">
+              <span id="playerSevenSelectLabel">Player 7</span>
+              <select id="playerSevenCharacter">
+                <option value="whirlpool">Whirlpool</option>
+                <option value="juliette">Juliette</option>
+                <option value="claudia">Claudia</option>
+                <option value="kaya">Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+            <label id="playerEightSelectWrap" class="hidden">
+              <span id="playerEightSelectLabel">Player 8</span>
+              <select id="playerEightCharacter">
+                <option value="whirlpool">Whirlpool</option>
+                <option value="juliette">Juliette</option>
+                <option value="claudia">Claudia</option>
+                <option value="kaya">Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+          </div>
+          <div class="mode-actions">
+            <button id="startButton" type="button">PLAY</button>
+            <button id="settingsButton" type="button">SETTINGS</button>
+          </div>
+          <div class="settings-panel hidden" id="settingsPanel">
+            <label class="mode-select">
+              <span>Players</span>
+              <select id="gameMode">
+                <option value="one">1 Player</option>
+                <option value="one-one-ai">1 Player + 1 AI</option>
+                <option value="one-two-ai">1 Player + 2 AIs</option>
+                <option value="two" selected>2 Players</option>
+                <option value="three">3 Players</option>
+                <option value="four">4 Players</option>
+                <option value="two-one-ai">2 Players + 1 AI</option>
+                <option value="two-two-ai">2 Players + 2 AIs</option>
+                <option value="three-one-ai">3 Players + 1 AI</option>
+                <option value="five">5 Players</option>
+                <option value="six">6 Players</option>
+                <option value="seven">7 Players</option>
+                <option value="eight">8 Players</option>
+              </select>
+            </label>
+            <label class="mode-select hidden">
+              <span>Background</span>
+              <select id="backgroundSelect">
+                <option value="farm" selected>Farm</option>
+                <option value="fairy">Fairy</option>
+                <option value="town">Village</option>
+                <option value="winter">Winter</option>
+                <option value="castles">Castles</option>
+              </select>
+            </label>
+            <label class="mode-select">
+              <span>Difficulty</span>
+              <select id="difficultySelect">
+                <option value="none">No Monsters</option>
+                <option value="normal" selected>Normal</option>
+                <option value="extra">Extra Monsters</option>
+                <option value="too-many">Too Many Monsters</option>
+              </select>
+            </label>
+            <label class="mode-select">
+              <span>Specials</span>
+              <select id="specialsSelect">
+                <option value="none" selected>None</option>
+                <option value="unicorn">All Unicorns</option>
+                <option value="pegasus">All Pegasi</option>
+                <option value="griffon">All Gryphons</option>
+                <option value="broom">All Brooms</option>
+                <option value="all-dolls">All dolls</option>
+                <option value="horsing">Horsing Around</option>
+                <option value="amanda-mode">Amanda Mode</option>
+              </select>
+            </label>
+            <button id="fullscreenButton" type="button">FULLSCREEN</button>
+          </div>
+          <div class="controls">
+            <span>Player 1: controller or WASD + Space + F</span>
+            <span>Player 2: arrows + Enter + Shift or controller 2</span>
+            <span>Xbox: stick or D-pad, A to jump, X to push</span>
+            <span>Spare controller: press A to join (up to 8)</span>
+          </div>
+          </div>
+        </div>
+        <div class="finish-strip hidden" id="finishPanel">
+          <div class="finish-track" aria-hidden="true"></div>
+          <div class="finish-info">
+            <h2 id="finishTitle">Next race</h2>
+            <p id="finishText"></p>
+            <div class="finish-timer"><div class="finish-timer-fill"></div></div>
+          </div>
+          <button id="restartButton" type="button"><span class="lb-glyph finish-glyph-a"></span>Race now</button>
+        </div>
+        <div class="pause-panel hidden" id="pausePanel">
+          <div class="pause-card">
+            <div class="pause-logo" role="img" aria-label="American Girl Doll Race"></div>
+            <h2>Paused</h2>
+            <div class="pause-buttons">
+              <button id="resumeButton" type="button"><span class="pause-icon">▶</span>Keep racing</button>
+              <button id="menuButton" type="button" class="secondary"><span class="pause-icon">⌂</span>Main menu</button>
+            </div>
+            <div class="pause-hint"><span class="lb-glyph pause-glyph-a"></span>choose · Start to keep racing</div>
+          </div>
+          <div class="pause-card pause-settings hidden" id="pauseSettings">
+            <h2>Settings</h2>
+            <label class="pause-slider"><span>Volume</span><input type="range" min="0" max="100" step="5" data-bus="master"></label>
+            <label class="pause-slider"><span>Music</span><input type="range" min="0" max="100" step="5" data-bus="music"></label>
+            <label class="pause-slider"><span>Sounds</span><input type="range" min="0" max="100" step="5" data-bus="sfx"></label>
+            <div class="pause-buttons">
+              <div class="pause-pair">
+                <button id="restartRaceButton" type="button" class="secondary"><span class="pause-icon">↺</span>Restart</button>
+                <button id="skipRaceButton" type="button" class="secondary"><span class="pause-icon">⏭</span>Skip</button>
+              </div>
+              <button id="pauseSettingsDone" type="button" class="secondary">Done</button>
+            </div>
+            <div class="pause-hint">◀ ▶ change · <span class="lb-glyph pause-glyph-a"></span>Done · B back</div>
+          </div>
+          <!-- Corner buttons (bottom right) while paused: sound on/off, settings, full screen -->
+          <div class="pause-corner" id="pauseCorner">
+            <button type="button" class="corner-button sound-toggle" id="pauseSoundButton" aria-label="Sound on or off">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path class="fill" d="M8 18h8l10-9v30l-10-9H8z"/><g class="sound-waves"><path d="M32 17a9 9 0 0 1 0 14"/><path d="M36.5 12.5a15 15 0 0 1 0 23"/></g><g class="sound-off"><path d="M32 18l12 12M44 18L32 30"/></g></svg>
+            </button>
+            <button type="button" class="corner-button" id="pauseSettingsButton" aria-label="Settings">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path class="fill" d="M21 4h6l1 5.5 4.2 1.8 4.6-3.2 4.2 4.2-3.2 4.6 1.8 4.2L45 21v6l-5.5 1-1.8 4.2 3.2 4.6-4.2 4.2-4.6-3.2-4.2 1.8L27 45h-6l-1-5.5-4.2-1.8-4.6 3.2-4.2-4.2 3.2-4.6L8.4 28 3 27v-6l5.5-1 1.8-4.2-3.2-4.6 4.2-4.2 4.6 3.2L20 9z"/><circle class="hole" cx="24" cy="24" r="7"/></svg>
+            </button>
+            <button type="button" class="corner-button fs-toggle" id="pauseFullscreenButton" aria-label="Full screen">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><g class="fs-enter"><path d="M6 17V6h11M31 6h11v11M42 31v11H31M17 42H6V31"/></g><g class="fs-exit"><path d="M17 6v11H6M42 17H31V6M31 42V31h11M6 31h11v11"/></g></svg>
+            </button>
+          </div>
+        </div>
+        <div class="touch-controls hidden" id="touchControls" aria-label="Touch controls">
+          <button class="touch-button" id="touchJumpButton" type="button">Jump</button>
+          <button class="touch-button" id="touchPushButton" type="button">Push</button>
+          <button class="touch-button hidden" id="touchSpecialButton" type="button">Special</button>
+        </div>
+        <button class="touch-pause hidden" id="touchPauseButton" type="button">Pause</button>
+        <audio id="music" src="assets/music/Plastic Shoes.mp3" preload="auto" loop></audio>
+        <audio id="nextMusic" preload="auto" loop></audio>
+      </section>
+    </main>
+    <div id="barsHint" hidden><span class="bars-arrow" aria-hidden="true">↑</span> Swipe up to hide Safari’s bars · or Share → Add to Home Screen</div>
+    <script src="config.js?v=7af12a9a"></script>
+    <script src="tracks.js?v=62d55527"></script>
+    <script src="doll-art.js?v=0a4b11d2"></script>
+    <script src="assets/audio/manifest.js?v=3a5e9bf6"></script>
+    <script src="audio.js?v=72872ef9"></script>
+    <script src="recolor.js?v=5528ab6f"></script>
+    <script src="dolls.js?v=baaf8238"></script>
+    <script src="hands.js?v=b6686d4e"></script>
+    <script src="feet.js?v=eff22665"></script>
+    <script src="pose-shapes.js?v=fe5a2438"></script>
+    <script src="moon-boot-overrides.js?v=3f246bb7"></script>
+    <script src="moon-boot-guesses.js?v=437ee1cf"></script>
+    <script src="outfits.js?v=e9dc41bc"></script>
+    <script src="mounts.js?v=2acd152f"></script>
+    <script src="broom.js?v=aed410a6"></script>
+    <script src="troll-art.js?v=aa876994"></script>
+    <script src="monsters.js?v=26201cf6"></script>
+    <script src="game-audio.js?v=863a5660"></script>
+    <script src="game-monsters.js?v=679311b4"></script>
+    <script src="game-amanda.js?v=d37cd990"></script>
+    <script src="game-mounts.js?v=60e56919"></script>
+    <script src="game-powerups.js?v=e9e84dcd"></script>
+    <script src="game-items.js?v=fb6fe35d"></script>
+    <script src="game-camera.js?v=bb0b2f96"></script>
+    <script src="game-players.js?v=19b723aa"></script>
+    <script src="game-draw.js?v=1a9906b6"></script>
+    <script src="game-terrain.js?v=7a199d29"></script>
+    <script src="game-specials.js?v=9070ab14"></script>
+    <script src="game.js?v=86e4b411"></script>
+    <script src="menu.js?v=38d0aec9"></script>
+    <script src="chrome.js?v=d5f7c463"></script>
+
+
+  </body>
+</html>

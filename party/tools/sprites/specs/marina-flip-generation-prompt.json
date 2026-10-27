@@ -1,0 +1,12 @@
+{
+  "asset": "marina",
+  "source": "../sources/marina-flip-memory-card.webp",
+  "input_image_1": "../../../reference/canonical/marina.webp",
+  "poses": [
+    "flip"
+  ],
+  "grid": null,
+  "status": "Generated from exact prompt with approved canonical reference; transparent source inspected, complete tail/fin retained, and saved lossless WebP for parent runtime intake.",
+  "prompt": "Use case: stylized-concept. Asset type: single full-body transparent action sprite for Charlie Party. Input image 1 is the approved canonical marina reference; reproduce this exact character. Subject: red-haired mermaid with teal eyes, gold crown set with purple gems, purple shell top, turquoise scaled tail with purple bands and a purple split fin. Pose: a stable forward-reaching memory-card flip gesture, upper body leaning slightly toward the front, one empty hand reaching straight forward to turn an imaginary memory card, the other arm naturally counterbalancing. Keep the complete mermaid tail visible and naturally curved; preserve the canonical body proportions and head size. This is a standing/reaching gesture, not a somersault, cartwheel, spin or jump. No card, text, props, water, bubbles or effects. Match the canonical 2D cartoon style with bold clean outlines and cel shading. Draw exactly one complete figure with clear transparent space around all hair, hands and tail; true transparent alpha, no background or shadow; no extra character.",
+  "generation_output": "/Users/hoai/.codex/generated_images/01a0fe43-c681-7392-88c4-b71670e6a1a4/exec-6d65b9e2-aa0b-4a2c-ab04-92e395a94982.png"
+}

@@ -1,0 +1,24 @@
+{
+  "family": "fishing-frenzy",
+  "generated_at": "2026-10-05",
+  "generator": "built-in imagegen",
+  "prompt_record": "party/reference/pending/fishing-frenzy-art-prompts.md",
+  "assets": {
+    "bg/fishing-frenzy": "party/assets/art/bg/fishing-frenzy.webp",
+    "thumb/fishing-frenzy": "party/assets/art/thumb/fishing-frenzy.webp",
+    "prop/fishing-sunny": "party/assets/art/prop/fishing-sunny.webp",
+    "prop/fishing-darty": "party/assets/art/prop/fishing-darty.webp",
+    "prop/fishing-puffy": "party/assets/art/prop/fishing-puffy.webp",
+    "prop/fishing-bubba": "party/assets/art/prop/fishing-bubba.webp",
+    "prop/fishing-golden": "party/assets/art/prop/fishing-golden.webp",
+    "prop/fishing-boot": "party/assets/art/prop/fishing-boot.webp",
+    "prop/fishing-duck": "party/assets/art/prop/fishing-duck.webp",
+    "prop/fishing-chest": "party/assets/art/prop/fishing-chest.webp",
+    "prop/fishing-bobber": "party/assets/art/prop/fishing-bobber.webp",
+    "prop/fishing-rod": "party/assets/art/prop/fishing-rod.webp",
+    "prop/fishing-basket": "party/assets/art/prop/fishing-basket.webp",
+    "prop/fishing-lilypad": "party/assets/art/prop/fishing-lilypad.webp",
+    "prop/fishing-lilypad-flower": "party/assets/art/prop/fishing-lilypad-flower.webp",
+    "prop/fishing-frog": "party/assets/art/prop/fishing-frog.webp"
+  }
+}

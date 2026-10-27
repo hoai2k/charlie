@@ -1,0 +1,88 @@
+[
+  {
+    "character": "fox",
+    "sheet": "round4-actions-a",
+    "poses": [
+      "swim",
+      "balance",
+      "splat-throw",
+      "wand-up",
+      "broom-rise",
+      "broom-glide",
+      "broom-zapped",
+      "count"
+    ],
+    "prompt": "Transparent-alpha sprite sheet for Charlie Party. Use attached approved Fox canonical as identity reference: orange fox with creamy white muzzle/chest, huge orange-brown eyes, very large pale-tipped fluffy orange tail, dark navy outline and friendly smile. Draw exactly eight separate complete full-body fox poses in a clean 4 columns \u00d7 2 rows grid, row-major left to right, consistent scale and style, generous transparent gutters. This is a cute quadruped, not a humanoid: four anatomically correct paws, no human arms or hands, no clothing. Pose order: 1 swim, treading water with head and shoulders clearly above the implied waterline, paddling forepaws; no water drawn; 2 balance, wobbling on hind paws with both forepaws lifted outward and tail counterbalancing, full body visible; 3 splat-throw, low underhand forepaw toss pose as if lobbing a paint balloon, empty paw, no balloon; 4 wand-up, excitedly lifting head and chest with one front paw raised while looking up, leave paw empty for separately attached wand; 5 broom-rise, low forward-leaning flying posture with paws tucked and tail streaming backward, no broom; 6 broom-glide, relaxed airborne level posture, paws tucked and tail flowing, no broom; 7 broom-zapped, startled midair tip to one side, fur puffed and tail flicked, no lightning or broom; 8 count, sit on haunches and raise one forepaw to count with a cheerful attentive face. Keep Fox's muzzle and eyes readable, tail intact, head size consistent with canonical. True transparent background; no water, props, shadows, scenery, text, labels, borders, checkerboard, duplicates, cropped ears/tail/paws, or overlap.",
+    "canonical": "party/reference/canonical/fox.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-f3e7280b-027b-456d-82e2-f02fe536eb26.png",
+    "source": "../sources/fox-round4-actions-a.webp",
+    "status": "unreviewed"
+  },
+  {
+    "character": "fox",
+    "sheet": "round4-actions-b",
+    "poses": [
+      "look-up",
+      "crowned",
+      "dash",
+      "hip-bump",
+      "knockback"
+    ],
+    "prompt": "Create a clean transparent PNG sprite sheet. The background outside the character silhouettes must be fully alpha 0; only smooth anti-aliased character edges have partial alpha. Absolutely no translucent backdrop, vignette, glow, fog, cast shadow or ambient gradient. Use the approved Fox canonical exactly: orange fox, creamy muzzle/chest, warm eyes, oversized pale-tipped tail, navy outline, friendly look. Exactly eight separate full-body right-facing quadruped fox figures in a 4\u00d72 grid with consistent scale and clear gutters; all ears/tails/paws fully in frame, no human hands/clothes. Row-major: 1 look-up, stand with head lifted skyward; 2 crowned, proud royal strut with chin high, no crown because code adds it; 3 dash launch low and fast, forepaws reaching forward and tail streaming backward; 4 dash held forward lunge, same direction; 5 hip-bump cocked-back beat, side-on, upper body leaning away, forepaws up to balance, cheeky grin; 6 hip-bump swung-out beat, hip thrust toward facing direction; 7 knockback skid beat A, leaning sharply backward, paws windmilling, wide whoa eyes; 8 knockback skid beat B, second distinct windmill position, mouth open, still facing the bumper. These are consecutive A/B images for each of the three 2-frame actions. Same exact fox identity, same head size, expressive but believable quadruped anatomy. Transparent empty canvas, no checkerboard appearance, symbols, props, crown, smoke, dust, platform, scenery, labels, text, duplicates or overlap.",
+    "canonical": "party/reference/canonical/fox.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-0b54d9c1-c94e-4a64-b936-e91b51701be8.png",
+    "source": "../sources/fox-round4-actions-b.webp",
+    "status": "unreviewed"
+  },
+  {
+    "character": "fox",
+    "sheet": "round4-actions-c",
+    "poses": [
+      "sit",
+      "tumble",
+      "hold-present",
+      "toss",
+      "catch-present",
+      "sooty",
+      "drink",
+      "float"
+    ],
+    "prompt": "Clean true-transparent alpha sprite sheet for Charlie Party. All pixels outside character silhouettes are alpha 0 except antialiased contour edges; absolutely no vignette, background gradients, glow, smoke, fog or cast shadows. Use the approved Fox canonical exactly: orange fox with cream muzzle/chest, warm expressive eyes, oversized pale-tipped tail, navy outlines. Exactly eight complete right-facing quadruped fox poses in a 4-column \u00d7 2-row grid, row-major, same scale, all ears, paws and tail visible, no human hands or clothing. Poses: 1 sit, relaxed seated on haunches, no cloud; 2 tumble, one full fox rotating sideways in midair with curled tail, no edge/platform; 3 hold-present, anxious upright sit looking toward empty air just above head where a separate present will attach, no box; 4 toss, underhand toss pose with empty forepaws, no object; 5 catch-present, startled friendly reach on hind paws toward empty air above, no box; 6 sooty, dizzy wide eyes with only a small charcoal smudge on cheek fur; 7 drink, gentle sipping posture with muzzle aimed at mouth attachment point, no bottle; 8 float, softly hovering with paws hanging naturally and tail relaxed. Keep the same head/muzzle size throughout. Empty fully transparent canvas. No props, cloud, present, bottle, scenery, labels, text, checkerboard, duplicate character, overlap or clipping.",
+    "canonical": "party/reference/canonical/fox.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-cd996062-db9a-48f9-80e5-f5bfbe18839c.png",
+    "source": "../sources/fox-round4-actions-c.webp",
+    "status": "unreviewed"
+  },
+  {
+    "character": "fox",
+    "sheet": "round4-actions-d",
+    "poses": [
+      "hiccup",
+      "stomp-giant",
+      "squeak-tiny",
+      "flip",
+      "blow",
+      "shake-sprinkles",
+      "photo",
+      "sing",
+      "water"
+    ],
+    "prompt": "A clean true-transparent sprite sheet: outside each character only alpha-zero pixels, with soft antialiasing limited to edges; no gradient, fog, vignette or drop shadow. Use the approved Fox canonical exactly: orange fox, cream muzzle/chest, huge warm eyes, pale-tipped fluffy tail, navy linework. Exactly nine full-body quadruped Fox poses on a 3-column \u00d7 3-row grid, read row-major left-to-right, consistent scale, generous gutters, paws/ears/tail intact, same friendly identity and right-facing orientation. Pose order: 1 hiccup, small body jolt with puffed cheeks and surprised eyes; 2 stomp-giant, proud broad grounded stance with paws planted and chest lifted; 3 squeak-tiny, surprised little hop with legs tucked and tail raised; 4 flip, low forepaw reaching toward an unseen card below, no card; 5 blow, cheeks puffed as Fox blows gently, no candle; 6 shake-sprinkles, whole body shaking with head and fluffy tail in motion, no jar or sprinkles drawn; 7 photo, face camera with a cheerful pose and bright eyes, no hand sign; 8 sing, happy open-mouth singing with a gentle beat bounce; 9 water, careful focused watering posture looking down toward a plant, one forepaw raised naturally, no watering can or plant. Quadruped anatomy only, no clothes or human hands. Transparent empty canvas, no props, backgrounds, platforms, scenery, text, labels, checkerboard, duplicates, clipping or overlap.",
+    "canonical": "party/reference/canonical/fox.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-ccb9b459-2f17-411c-ae60-1c85af0211e5.png",
+    "source": "../sources/fox-round4-actions-d.webp",
+    "status": "unreviewed"
+  },
+  {
+    "character": "fox",
+    "sheet": "round4-pose-twirl",
+    "poses": [
+      "pose-twirl"
+    ],
+    "prompt": "A true transparent-alpha horizontal sprite strip with only four complete characters, no background pixels or shadow. Use approved Fox canonical: cute orange fox, white muzzle/chest and very large fluffy white-tipped tail, huge warm eyes and navy outlines. Exactly four complete full-body Fox views, same scale, a real authored turn cycle left-to-right: frame 1 front view facing camera, both eyes and both ears visible; frame 2 three-quarter view turned toward Fox's left; frame 3 full rear view with no face visible, showing orange back and huge white-tipped tail; frame 4 three-quarter view turned toward Fox's right, face returning. Preserve four-paw fox anatomy and tail identity in every view. Each cell one character with generous transparent gutters, ordered strictly left-to-right; no paper-thin side pose. No clothes, no props, no platform, no floor shadow, no scenery, no duplicate pieces, no text, no labels, no checkerboard, no gradients, no glow, no crop or overlap.",
+    "canonical": "party/reference/canonical/fox.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-7a4a9ec3-53b0-4a1d-a27f-f34a3acaac1a.png",
+    "source": "../sources/fox-round4-pose-twirl.webp",
+    "status": "unreviewed"
+  }
+]

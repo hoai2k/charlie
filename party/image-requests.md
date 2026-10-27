@@ -1,0 +1,1163 @@
+# Charlie Party: image requests and sprite system brief
+
+This brief is for the image agent, which has image-generation tools and repo
+access. It covers every image Charlie Party wants: NPC canonical references,
+character pose sprites, expression portraits, backgrounds, thumbnails, the
+logo and props. It also documents the sprite system as it is implemented today
+in `src/engine/sprites.js`, and invites you to improve it.
+
+**Nothing here is required for the game to run.** The game is fully playable
+with the 16 base images in `assets/characters/`, which it animates with
+procedural motion and vector emotes. Each asset you add replaces a fallback
+for that asset only. Partial work is fine, so ship in phases.
+
+Read these first, then come back:
+
+| File | Why |
+| --- | --- |
+| `PLAN.md` | Game flow, roster, NPCs, and the 20 minigames with their actions |
+| `reference/CHARACTERS.md` | Identity rules for every character, plus companion rules and Troll notes |
+| `reference/canonical/*.webp` | **The** identity references. Every generation uses one as an input image |
+| `reference/canonical/generation-manifest.json` (+ `group-`, `troll-`) | The exact style language that produced the approved art |
+| `src/engine/sprites.js` | Sprite loader, the `POSES` vocabulary, `Actor` and portraits |
+| `src/data/characters.js` | Roster, members, on-screen heights `h`, `face`, `top`, `facing`, `motion` |
+| `src/engine/art.js` | Loader for backgrounds, thumbnails, props, icons and the logo |
+| `src/scenes/spriteviewer.js`, `tools/shot.mjs` | How you test before committing |
+
+All paths in this document are relative to `party/` unless they start with
+`/` or the repo root `charlie/`.
+
+---
+
+> **Start here: [Open requests](#open-requests)** at the end of this
+> document: the re-generation table and any new game sections.
+>
+> **History rule:** this file holds only standing guidance and **open**
+> requests. When a request is fielded (delivered and checked in game, or
+> resolved/dropped), move its section or table row to
+> [`image-requests-history.md`](image-requests-history.md) (newest at the
+> top, with the date and outcome). Keep anything that is still useful
+> context (style rules, specs, lessons) here.
+
+## 1. Purpose, audience and phases
+
+Charlie is a 2nd-grade girl, and the characters are hers. The game is a couch
+party game for kids aged about 5 to 10 on a TV with Xbox controllers.
+Success looks like this: her characters look like *her* characters in every
+frame, and they are bursting with personality. They jump for joy when they
+win, and they pout dramatically (arms crossed, lip out, stomping a foot) when
+they lose.
+
+### Phases
+
+The original A–E delivery plan (NPC canonicals, the Felicity pilot, roster poses and portraits, game art, Troll/NPC sprites) is done; it is archived in `image-requests-history.md`. The gates still apply to new work: **a new NPC needs the user's approval of its canonical before anything that shows it** (§8), and party games come before studio games.
+
+---
+
+## 2. Art direction
+
+### 2.1 House style (from the approved canonical manifests, reuse verbatim)
+
+> Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes,
+> bright original colors, simple clean cel shading, no photorealism, no 3D.
+> One single full-body character, centered and entirely visible with generous
+> margin. Transparent background, no scenery, no floating decorations, no
+> text, no watermark, no other characters. Preserve distinctive colors,
+> clothing, anatomy, and motifs from the reference.
+
+Sprite-specific additions:
+
+- **No baked-in effects.** Leave out ground shadows, motion lines, dust,
+  sparkles, sweat drops, stars, tears, hearts, glow and halos. The engine
+  draws the shadow ellipse, particles and emotes, and baked effects double up
+  or get stuck to the sprite when it flips. Exceptions: tears or a blush that
+  are *part of the face* in sad/pout frames are fine, and so are Bronze's eye
+  graphics and the cake's candle flame.
+- **Same outline weight and shading at every size.** Generate large, then
+  downsample (§5.3) so the outline stays crisp.
+- **Same palette in every frame.** Check hex colors of key areas against the
+  canonical (hair, outfit and fur). Image models drift toward more saturated
+  or more pastel colors over a batch.
+- **Kid-safe.** Use cartoon violence only (bonks, dizzy stars, soot puffs).
+  Nothing scary, and nobody is ever hurt for real. Imps are banished in a
+  puff of glitter. They do not die.
+
+### 2.2 Identity preservation (non-negotiable)
+
+Always pass the character's canonical image as input image 1 with the words
+"reproduce this exact character". Never generate a roster character from text
+alone. Per-character "must keep" lists:
+
+| Asset | Must keep in every frame | Watch out for |
+| --- | --- | --- |
+| `felicity` | Orange fox face, cream muzzle, huge teal eyes, brown bangs, two long brown pigtails with yellow ties, white daisy by ear, orange/black dress with white collar flower and purple skirt flowers, orange shoes, big white-tipped tail | Pigtails turning into one ponytail; daisy disappearing |
+| `fellowfox` | Tiny, round, orange; huge dark eyes; cream muzzle/chest; dark paws and ear tips; black flower by one ear; bushy white-tipped tail | Becoming the slender `fox`; losing the flower |
+| `kpop-girl-left` | Light skin, brown side bun, light-blue sleeveless top with navy collar, wide dark-blue trousers, pale shoes | Bun moving or doubling; trousers becoming jeans |
+| `kpop-girl-center` | Tan skin, purple hair braided at the sides, red drop earrings, orange jacket with charcoal trim and geometric badge, orange/gold paneled skirt, tall purple boots | Badge growing text; jacket losing trim |
+| `kpop-girl-right` | Light skin, very long coral hair, navy tee with pink/purple abstract graphic, golden skirt with brown panels, tall navy boots with pink knee accents | Hair turning red (that is Marina's) |
+| `bronze` | Green-rimmed gray dome, **one** big eye (black with orange/blue ring), purple antenna with violet jewel, bent gray pipe on one side, gray cylinder body with purple panel and green button, mismatched legs, orange-rimmed purple shoes. **No arms, no mouth** | Getting a second eye, arms or a mouth |
+| `cotton-candy` | White pony, blue eye, small yellow crown with blue accents, very long pink/lavender/sky-blue ribbon mane and tail, yellow flower on flank. **No horn** | Gaining a horn and becoming a unicorn |
+| `fox` | Slender orange fox, big upright white-tipped tail, white socks, white muzzle and chest, black ear tips with pink inner ears, little red tongue | Merging with Fellowfox; gaining a flower |
+| `hotdog` | Low fluffy body; rainbow stripes in order pink, orange, yellow, lime, blue, lavender; huge gray ears edged navy; navy face mask; red forehead heart; tall red/orange/yellow flame tuft; tiny navy paws; long striped tail | Becoming a food hot dog; shuffled stripes |
+| `marina` | Long red hair, teal eyes, gold crown with purple jewels, purple shell top, teal scaled tail with purple bands, big purple fins. **No legs** | Swapping colors with Scale |
+| `scale` | Blonde hair, gold crown with teal fin flourishes, flared dark-green layered top with blue flowers and a red dotted edge, red tail with blue crisscross lattice, teal fins. **No legs** | Swapping colors with Marina; dropping the lattice |
+| `marshmallow-birthday-cake` | Pink domed tiered cake, white marshmallow rows, pink frosting band, multicolor sprinkles, big black lash eyes and a smile on the front, tiny candle with red/yellow flame. **No arms or legs, ever** | Models love adding arms. Say "no limbs" twice |
+| `princess-amber` | Long copper/auburn hair, amber star/flower crown, floor-length orange gown, black sleeves/bodice accents, white star/flower motifs outlined in black | Gown changing color; stars floating off the dress |
+| `snowstar` | **Enormous** round face with huge blue/green eyes with tiny flower highlights, patchwork multicolor bangs, rainbow side curls, bow and floral ornaments, green turtleneck sweater, dark teal pants, green boots | Head shrinking to normal proportions |
+| `unicorn` | White horse silhouette, one long pale horn, flowing white mane/tail with lavender shading, serene closed-lash eye. **No wings, no crown** | Wings; rainbow mane; open eye in calm poses |
+| `troll` | Olive green/gray spotted skin, dark shoulder-length hair, heavy brow, amber eyes, broad nose, lower fangs, huge shoulders and hands, pot belly, long arms, bare feet, ragged brown loincloth. Hunched. **No horns or weapon** | Becoming scary; getting a club |
+
+### 2.3 Expressiveness: big, readable, fun
+
+At gameplay size a character is only 124–186 px tall on a 1080p TV, and kids
+read **silhouette first, face second**. So:
+
+- **Push the poses.** Arms way up, whole body leaning, big tail and hair
+  swings. If a pose reads the same as idle in silhouette, it isn't done yet.
+- **Faces are at least 2× more exaggerated than feels natural.** Use a huge
+  open grin, eyes squeezed into happy arcs (^ ^), a giant pout lip, saucer
+  eyes.
+- **Celebrate (win) must feel like pure joy.** Leap with both arms up, legs
+  kicked, eyes closed in a grin, hair and tail flying. Kids should want to
+  win just to see it.
+- **Pout (lose) must be funny-sad, not sad-sad.** Arms crossed tight, bottom
+  lip stuck way out, brows angled, head turned away with a "hmph", shoulders
+  slumped, and one foot stomping (alternate a stomp frame with a slumped
+  frame). It is a tantrum a kid recognizes and laughs at. The engine adds the
+  little rain cloud.
+- **Personality through the whole body** (§4.4): Fox is springy, Unicorn is
+  graceful, Hotdog is floppy, Bronze is clunky, Snowstar is all face.
+
+---
+
+## 3. The sprite system (as implemented in `src/engine/sprites.js`)
+
+### 3.1 How the game uses it
+
+Minigames never touch images. They create an `Actor` for a party entry and
+request **poses** by name:
+
+```js
+const a = new Actor('felicity');      // party entry id (or 'troll')
+a.x = 400; a.y = 800;                 // the FOOT point, logical px on a 1920x1080 canvas
+a.facing = -1;                        // 1 right, -1 left (the engine mirrors)
+a.setPose('walk');                    // looping pose
+a.playOnce('throw', 0.35);            // one-shot for 0.35 s, then back to the previous pose
+a.squash(0.25); a.flash('#fff'); a.emote('heart');
+a.attach((g, info) => drawCrown(g, info.head.x, info.head.y));  // props ride the pose
+```
+
+The Actor draws in one of two modes for each pose:
+
+1. **Sprite mode.** The set has the pose (or a fallback pose, §3.5), so the
+   engine plays those frames. It adds procedural motion (hop, tilt, squash)
+   on top, scaled by the pose's `motion` weight (0..1).
+2. **Base-art mode.** There is no sprite set or no usable pose, so the engine
+   draws `assets/characters/<asset>.webp` with full procedural motion. It
+   adds **fallback emotes** that stand in for facial expressions: a star on
+   cheer, a tear on sad, `!` on surprised, `?` on think, and so on.
+
+`?nosprites=1` (or the **A** button in the sprite viewer) forces base-art mode
+so you can compare.
+
+### 3.2 File layout
+
+```
+assets/sprites/index.json                 { "sets": ["felicity", "fellowfox", ...] }
+assets/sprites/<asset>/sprites.json       the set manifest (below)
+assets/sprites/<asset>/*.webp             frames, strips or atlases, and portraits
+```
+
+- `index.json` lists **asset ids** (member assets such as `kpop-girl-center`),
+  not party entry ids (`kpop-girls`). **A set that is not listed in
+  `index.json` is never loaded.** The index exists to avoid 404 noise.
+- Every image path inside `sprites.json` is relative to that set's folder.
+- `sprites.json` is fetched with `cache: 'no-cache'`, but images are not.
+  GitHub Pages caches for about 10 minutes, so after regenerating a frame you
+  may see the old one briefly. You can give regenerated files new names to
+  avoid this.
+
+### 3.3 `sprites.json` fields (every field the loader reads)
+
+```jsonc
+{
+  "frameSize": [400, 440],     // informational only (the loader ignores it); handy for tools and humans
+  "anchor": [200, 424],        // default FOOT point in frame pixels (x, y): ground contact, horizontally centered on the body
+  "bodyHeight": 320,           // frame pixels that map to the member's on-screen height h (see below)
+  "facing": 1,                 // which way the ART looks: 1 right, -1 left, 0 front
+  "atlas": "atlas.webp",       // optional single atlas; frames given as [x,y,w,h] rects come from it
+  "poses": {
+    "idle": {
+      "frames": [ ... ],       // see frame forms below
+      "fps": 6,                // default 8
+      "loop": true,            // default: POSES[name].loop, else true (custom pose names default to LOOPING)
+      "motion": 0.3,           // procedural overlay weight 0..1, default 0.25
+      "anchor": [200, 424],    // optional per-pose default anchor
+      "head": [212, 96],       // optional per-pose head point (top of head, where a hat sits)
+      "hand": [262, 236],      // optional per-pose hand point (grip of the forward hand)
+      "bodyHeight": 320,       // optional per-pose size correction (a frame object may carry its own; see Scale)
+      "holdLast": true,        // false returns to idle after a non-looping clip ends
+      "facing": 1              // optional per-pose override of the set facing
+    },
+    "run": "walk",                                   // alias (string form)
+    "wave": { "alias": "cheer", "fps": 6, "loop": true, "motion": 0.5 }   // alias with overrides
+  },
+  "portraits": {
+    "neutral": "portrait-neutral.webp", "happy": "portrait-happy.webp", "sad": "portrait-sad.webp",
+    "surprised": "portrait-surprised.webp", "determined": "portrait-determined.webp"
+  }
+}
+```
+
+**Frame forms** (you can mix them in one pose):
+
+| Form | Meaning |
+| --- | --- |
+| `"walk-0.webp"` | A whole image file is one frame. Uses the pose or set `anchor` |
+| `[x, y, w, h]` | A rect inside the set `atlas` |
+| `{ "src": "walk.webp", "rect": [x,y,w,h], "anchor": [ax,ay], "dur": 0.12, "head": [hx,hy], "hand": [px,py] }` | Object form. `src` with no `rect` is a whole file. `src` with `rect` is a rect in **that** file, which lets you use **per-pose strips** with no global atlas. `rect` with no `src` uses the atlas. `dur` (seconds) overrides fps for that frame. When any frame has `dur`, frames without one use `1/fps` |
+
+**Coordinates.** `anchor`, `head` and `hand` are **frame-local pixels**:
+(0, 0) is the top-left of the frame's own rect, not of the atlas.
+
+**Scale.** The engine computes `pxScale = h × actorScale / bodyHeight`, where
+`h` is the member's `h` in `characters.js`. In base-art mode the whole base
+image height maps to `h`, and the base images are alpha-cropped neutral poses,
+so `bodyHeight` should equal **the height in frame pixels of the
+idle/neutral figure, from the lowest foot pixel to the highest pixel** (ear
+tip, antenna jewel, crown point, candle flame). Measure it exactly the way the
+base art is cropped. Then toggling sprites ↔ base art in the viewer shows
+**no size jump**. Poses that reach
+higher (arms up, jumping) simply extend above it.
+
+**Size corrections.** Generated frames are not always drawn at idle's scale.
+When a pose's head/face is a different size from idle's, fix it in data: give
+the pose (or one frame object) its own `bodyHeight` = set `bodyHeight` ×
+(that frame's head size ÷ idle's head size), in frame pixels. The engine draws
+that frame, its anchor and its landmarks with it (frame `bodyHeight`, then pose,
+then set). Judge by head/face size, never by total height: crouches and jumps
+legitimately change height. The October size audit set these for every
+playable set (Fox's `hip-bump` was drawn at 0.7× idle, Amber's dig/snow-scoop/
+spring-jump/skip-hop at 1.36×).
+
+**Anchor.** In base-art mode the anchor is the bottom-center of the cropped
+base image. Match that: `anchor.x` is the horizontal center of the body's
+ground contact (between the feet for bipeds, between the front and back hooves
+for quadrupeds, under the tail curl for mermaids, center of the base for the
+cake), and `anchor.y` is the ground line. **Every frame of every pose must put
+the ground contact on the same anchor**, or the character visibly jitters.
+For airborne frames, see §5.3.
+
+**Facing.** The engine works in *forward space*: +x is the direction the actor
+faces. If `facing` is `-1` the art is pre-mirrored. Otherwise it is drawn as
+is when facing right and mirrored when facing left. **Recommendation: draw
+every pose of every set in three-quarter view looking toward screen-right and
+set `"facing": 1`.** Then `hand` is simply the hand on the right side of the
+image. Asymmetric details (Bronze's pipe, the left KPop girl's bun, Snowstar's
+bow) mirror when the character walks left. The base art already does this, so
+it is accepted.
+
+**Aliases** copy another pose's frames with optional `fps`/`loop`/`motion`
+overrides. Aliases may point to other aliases, in any manifest order. Missing targets and
+cycles are rejected. The alias uses the named pose's loop default when available.
+Explicit per-frame `dur` remains authoritative over an alias fps override.
+
+**Custom pose names.** Any name in `poses` is loaded, even if it is not in
+`POSES`. A game can request it and it plays. It has no fallback chain or
+procedural motion until it is added to `POSES`, and it **loops unless you set
+`"loop": false`**.
+
+### 3.4 Procedural overlay and the `motion` weight
+
+With a sprite pose active, the engine still adds the pose's procedural motion
+(hop height, lean, squash) multiplied by `motion`. The procedural values are
+in `procedural()` in `sprites.js`. Rules of thumb:
+
+| Your frames… | `motion` |
+| --- | --- |
+| …are a single key pose (one frame) that should still hop, sway or squash | `0.8–1.0` |
+| …animate limbs/face but stay planted (idle, wave, think, pout, paint) | `0.2–0.4` |
+| …already contain the vertical motion (a jump arc drawn in the frames) | `0–0.15` |
+| …are a walk/run cycle with drawn bob | `0.1–0.2` |
+
+There are no procedural twirls: the engine never squashes a sprite through
+zero width to fake a spin (it reads as a flat piece of paper turning). Any
+spin or twirl in `celebrate`, `ready` or `pose-twirl` must be **drawn in the
+frames** (front → three-quarter → back → three-quarter). Without frames,
+those poses just hop.
+Any `motion` weight is safe; choose it based on motion already in the artwork.
+
+`playOnce(name)` uses the generated clip's duration when present (0.5 seconds
+for base-art fallback). An explicit `playOnce(name, seconds)` fits the **whole**
+clip to that duration, so quick actions do not skip their follow-through.
+Follower one-shots begin at frame zero; looping poses keep their phase offsets.
+Non-looping clips normally hold their last frame; `holdLast: false` switches
+to idle. Frame durations must be positive finite seconds.
+
+Other overlays that also apply in sprite mode: the blue "sad wash" tint on
+pout/sad (at half strength), the red hit tint on hurt (half strength),
+`squash()` springs, `flash()`, and the per-member phase offset for followers.
+
+### 3.5 Pose fallbacks and partial sets
+
+When a set lacks a requested pose, `resolvePose` walks the `fallback` chain in
+`POSES` breadth-first (for example `pout → sad`, `carry → walk → run`). If the
+chain finds nothing, it uses the set's `idle`. If the set has no idle either,
+the member drops to base-art mode. **A partial set works.** You can ship
+idle + walk + celebrate + pout today and everything else falls back.
+
+Fallback poses keep at least 0.9 procedural motion so a partial set still
+expresses the requested action. Fallback expression emotes are suppressed
+only when the exact requested pose/alias exists, not merely because the
+member has a sprite set. Authored aliases should be chosen for a compatible
+expression. Missing images or invalid frames are skipped without breaking
+base-art fallback.
+
+`auto` emotes are always drawn, sprites or not: sparkles on celebrate, a rain
+cloud on pout, circling dizzy stars, music notes on dance, and Zzz on sleep.
+Don't draw those into the frames.
+
+### 3.6 Attachments and anchor points (why per-frame `head`/`hand` matter)
+
+Games draw props on characters with `actor.attach(fn)`. The callback receives
+`info = { h, w, head, hand, eyes, neck, back (each {x,y}), headAngle, pose, facing, member }` in forward
+space (origin at the feet, +x forward, −y up, screen px). Attachments ride all
+the procedural motion and mirroring. They are used for:
+
+| Game | Attachment | Point |
+| --- | --- | --- |
+| Crown Keeper | Big jeweled crown on the holder's head | `head` |
+| Royal Fashion Show | Crowns, tiaras, hats, bows (and glasses, necklaces, capes, wings; see §5.5 for extra points) | `head`, `eyes`, `neck`, `back` |
+| Pass the Present | Ticking present held overhead | `hand` (in `carry`: top of the raised hands) |
+| Wizard Quick-Draw, Potion Class | Wand | `hand` |
+| Potion Class | Spoon/ladle while stirring | `hand` |
+| Party Marathon | Trophy held up | `hand` in `celebrate`/`carry` |
+| Sprite viewer debug (**Y**) | Test crown on `head`, blue dot on `hand` | both |
+
+Without sprite data, `head` comes from the member's `face`/`top` fields
+(computed for the base art) and `hand` is a guess (0.28 h forward, 0.5 h up).
+Those guesses are wrong for any frame where the head moves. **Provide `head`
+on every frame (or per pose when the head doesn't move), and `hand` on every
+pose that could hold something** (idle, walk, run, carry, throw, action, push,
+paint, celebrate, cheer, plus the new cast, eat and ride). Definitions:
+
+- `head` is the **top-center of the skull**, where a hat brim would rest. Do
+  not use the tip of tall hair, ears, an antenna or an existing crown. For
+  characters that already wear a crown (Cotton Candy, Marina, Scale, Amber),
+  use the top of the existing crown so new crowns stack on it.
+- `hand` is the **grip point of the forward hand** (the image's right side
+  when `facing: 1`). In `carry`, it is the point **between both raised
+  hands** where the bottom-center of an overhead object rests. For
+  characters without usable hands:
+
+| Asset | What "hand" means |
+| --- | --- |
+| `bronze` | Tip of the bent pipe (it works as a gripper). Things can also "float magnetically" just in front of the panel. Don't invent arms |
+| `cotton-candy`, `unicorn`, `fox`, `fellowfox` | The mouth (held in the teeth). For overhead `carry`, the middle of the back. The Unicorn's horn tip works as a wand for cast |
+| `hotdog` | Between the tiny front paws, held up near the face |
+| `marshmallow-birthday-cake` | Top of the cake beside the candle. Things balance on the cake |
+| `marina`, `scale` | Normal hands |
+
+**All five points on every frame** (`head`, `hand`, `eyes`, `neck`, `back`,
+frame pixels, inside the frame). `validate.py` rejects a frame that lacks
+one. The October landmark audit (all 15 playable sets, every frame) settled
+these conventions:
+
+- `eyes`: the point **between the eyes** (bridge of the nose), not one eye
+  or the nose tip. A **true back view** (the `pose-twirl` back frame) sets
+  `"eyes": null`: the face is hidden, so games hide glasses and face items.
+  Never null it for a side or three-quarter view.
+- `neck`: the base of the neck / collar line where a necklace hangs, below
+  the chin. Quadrupeds: the throat below the jaw. Cake: just under the mouth.
+  Bronze: the rim under the dome.
+- `back`: between the shoulder blades (the top of the spine for
+  quadrupeds), where wings or a cape attach. Fashion Show draws quadruped
+  wings 45% of the way from `neck` to `back`.
+- `head` with an existing crown or tiara: on that crown (Marina, Scale,
+  Cotton Candy: the top of the crown band; Amber: the tiara band). Upside
+  down or tumbling: still the crown of the skull (between downward ears),
+  wherever it points. The cake's `head` is the base of the candle.
+- `hand` for quadrupeds (Fox, Fellowfox, Unicorn, Cotton Candy) is the
+  mouth in every pose, except poses whose art grips a tool in a front
+  paw/hoof (pump, pull, reel, swing, putt, putt-swing, dig, snow-scoop,
+  flip), which keep the paw. Hotdog uses its front paws (it holds things
+  like a squirrel). The cake's hand is the cake top just under the candle,
+  except tool poses where the drawn grip is used.
+- Poses drawn looking the other way set the pose `facing` (Cotton Candy
+  `sit` -1, Fox `strike3` 1, KPop right `swim` -1), so `hand` is still the
+  forward side.
+
+### 3.7 Groups, followers and special anatomy
+
+- **Members are independent sets.** The KPop Girls are three sets
+  (`kpop-girl-center` leads, `-left` and `-right` follow with 0.10 s and
+  0.14 s lag). Felicity brings `fellowfox` (0.18 s lag, a quarter her height,
+  trotting behind). Every member plays the **same pose name** as the leader
+  with a small phase offset. So **Fellowfox needs every pose too**, in pet
+  form: Fellowfox's `celebrate` is happy zoomies, its `pout` is flopping down
+  with its chin on its paws, its `throw` is a little pounce. Attachments
+  default to the leader, so the crown goes on Felicity and on the center
+  KPop girl.
+- Make the trio's versions of each pose **coordinated but not identical**:
+  same energy, different arm positions, as in the group reference.
+- **Mermaids (`marina`, `scale`) glide.** Their motion style `glide` lifts
+  them 10–16 px with a floating shadow, so the "foot" anchor is the lowest
+  point of the tail curl. Walk/run is a forward lean with a tail undulation
+  (2–4 frames), not steps. Jumps are a tail-flip leap. A pout can include a
+  tail slap.
+- **Birthday Cake has no limbs.** It expresses everything with face, candle
+  and body: squash and stretch, lean, frosting droop, and the candle flame
+  growing (happy) or shrinking to a wisp of smoke (sad). Walking is bouncing
+  (`motion: bounce`). Many cake poses can be a single expressive frame with
+  `motion: 1`.
+- **Bronze has one eye and no mouth.** It emotes with the eye (iris size,
+  eyelid "shutter" shapes, a happy ^ arc, spiral when dizzy, a big wobbly
+  highlight when sad), with antenna droop or perk, jewel glow, pipe puffs and
+  bouncy legs. Panel lights may change color with mood.
+- **The quadrupeds (`cotton-candy`, `fox`, `fellowfox`, `unicorn`, `hotdog`)**
+  express with ears, tail, head height and rearing or crouching.
+
+### 3.8 Portraits
+
+`drawPortrait(g, charId, x, y, r, { expr })` fills a circle with the entry's
+color (or a given `bg`), then draws the portrait image scaled so that its
+**shorter side equals the circle's diameter**, centered and clipped to the
+circle. It then strokes a ring. A `gray` option desaturates eliminated
+players. Expressions the code uses are `neutral`, `happy`, `sad`,
+`surprised` and `determined`. A missing expression falls back to `neutral`,
+and a missing portraits map falls back to a crop of the base art. **Group
+entries use the leader's portraits**: `felicity` and `kpop-girl-center`. See
+§7 for the format.
+
+---
+
+## 4. The complete action list
+
+### 4.1 Existing `POSES` (in code today)
+
+Tier 1 is every screen and most games. Tier 2 is several games. Tier 3 is one
+or two games. Frame counts are suggestions: use fewer frames plus procedural
+motion where it reads well (§5.2).
+
+| Pose | Loop | Fallback chain | What it is | Used by | Tier | Suggested frames / fps / motion | Read of the motion |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `idle` | ✓ | — | Standing, breathing, blinking. Default | Everywhere: character select, how-to, results (non-podium), waiting in every game | 1 | 3–4 @ 5–6 fps (neutral, breathe-in, blink), motion 0.3 | Subtle; a character-specific fidget (ear twitch, tail swish, eye scan) |
+| `walk` | ✓ | run | Normal movement (side view and top-down) | sprinkle-catch, bumper-bounce, cookie-crumble, paint-party, crown-keeper, troll-trouble, fashion-show runway, fairy-garden, pet-spa, viewer **X** | 1 | 4 @ 8–10 (contact, passing, contact, passing), motion 0.15. Quadrupeds can use 2–4; mermaids 3 tail-wave frames | Clear alternating legs; character gait (§4.4) |
+| `run` | ✓ | walk | Fast, leaning forward | sprinkle-catch, troll-trouble (fleeing), paint-party, crown-keeper, bumper-bounce dash | 1 (alias of walk with higher fps is OK at first) | 4 @ 12, motion 0.15 | Strong forward lean, longer stride, hair and tail streaming back |
+| `celebrate` | ✓ | cheer → dance | **Big** victory celebration (1st place, trophy) | Results podium, Party Marathon trophy, studio finales (art-studio gallery, cake-bakery, potion success), memory-match winner | **1 (hero pose)** | 4–6 @ 8 (crouch → leap with arms up → peak → land), motion ≤ 0.15 (or 1 with a single frame) | Anticipation (crouch), explosive leap, held joy at the peak; eyes ^ ^, mouth wide open |
+| `cheer` | — | celebrate | Small happy fist-pump/hop (scored a point) | sprinkle-catch (golden cupcake), balloon-pump (pop), spotlight-dance (correct), fairy-count (exact), broomstick-dash (ring), paint-party, results 2nd/3rd, eliminated players cheering from the side | 1 | 3 @ 10 (dip, pump up, hold), motion 0.4. **Last frame is held** (it is a one-shot), so make it a nice "yes!" | Quick and punchy; reads in under 0.3 s |
+| `pout` | ✓ | sad | Lost: crossed arms, lip out, slumped | Results last place, cookie-crumble out, fairy-count miss, lost rounds | **1 (hero pose)** | 4 @ 4–5 (slump → hmph head turn → **foot stomp** → slump), motion 0.3 | Funny tantrum; the stomp sells it. Engine adds the rain cloud |
+| `sad` | ✓ | pout | Disappointed, teary (gentler than pout) | Results 2nd-to-last, a lost heart or round, wrong potion, Pass the Present soot | 2 | 2–3 @ 4, motion 0.3 | Droopy: head down, ears and tail low, wobbly-lip teary eyes (tears drawn on the face) |
+| `hurt` | — | dizzy → surprised | Bonked/bumped; recoil | bumper-bounce, crown-keeper (bumped loose), spotlight-dance (miss), broomstick-dash (storm cloud), troll-trouble | 1 | 2–3 @ 12 (impact squash, recoil lean back, recover), motion 0.5 | Snappy: eyes squeezed shut, mouth "ow" |
+| `dizzy` | ✓ | hurt | Stunned; stars circle (auto emote) | sprinkle-catch (broccoli, 1 s), pass-the-present (after the pop), troll-trouble (caught), wizard-quickdraw (fizzle) | 1 | 2–4 @ 6 (sway left, sway right), motion 0.4 | Spiral or X eyes, tongue out, wobbly knees. Bronze: spiral eye |
+| `surprised` | — | hurt | Startled jump, eyes wide | pass-the-present (catching the present, the pop), balloon-pump (pop), troll-trouble (Troll notices you), potion silly fizz, memory-match mismatch | 1 | 2 @ 10 (jolt up with arms out, hold), motion 0.6 | Saucer eyes, O mouth, ears straight up, hair puffed |
+| `think` | ✓ | idle | Pondering / waiting | wizard-quickdraw (waiting for the lantern), fairy-count (counting), memory-match (choosing), potion-class (reading the recipe) | 2 | 2–3 @ 3 (finger to chin, eyes up, tap), motion 0.3 | Clearly "hmm": head tilt, eyes to the side. **No `?` emote with sprites**, so the pose must say it |
+| `wave` | ✓ | cheer | Friendly hello | Character select (joined/hovering), title, how-to | 1 | 3 @ 8 (hand left, center, right), motion 0.3 | Big open-palm wave, smile. Quadrupeds: raise a front paw/hoof, tail wag. Cake: lean side to side. Bronze: antenna wave and hop |
+| `ready` | — | cheer → wave | Confident "I'm ready!" lock-in | Character select confirm, how-to (press A) | 1 | 2–3 @ 10 (quick spin or pose pop into a confident stance), motion ≤ 0.15 or 1 | Signature confident pose: thumbs up, hands on hips, wink, a trio formation pose |
+| `jump` | — | fall → cheer | Takeoff and rising | cookie-crumble (hop a gap), broomstick-dash (rise), any hop | 2 | 2 @ 10 (crouch, launch), motion 0.15 | Anticipation crouch, then a stretched launch |
+| `fall` | — | jump | Airborne/coming down, arms out | bumper-bounce (off the edge), cookie-crumble (dropping through), broomstick-dash (glide down) | 2 | 2 @ 8 (flail A, flail B), motion 0.2 | Arms windmilling, legs dangling, worried face |
+| `land` | — | idle | Landing squash, recover | After every jump | 2 | 2 @ 12 (squash, recover), motion 0.3 | Knees bent, arms out for balance |
+| `action` | — | cheer | Generic quick action: grab, tap, swing, pump | balloon-pump (**pump**), crown-keeper (grab), troll-trouble (pick up gem), memory-match (flip), fairy-garden (plant/water), pet-spa (scrub), cake-bakery (add layer) | 2 | 3 @ 14 (wind-up, strike, recover), motion 0.4 | Short and readable. For balloon pumping: both hands pushing down on a plunger |
+| `throw` | — | action | Throwing forward | pass-the-present (toss), paint-party (splat bomb), wizard-quickdraw (cast, until `cast` exists), potion-class (add ingredient) | 2 | 3 @ 14 (arm back, release, follow-through), motion 0.3 | Big wind-up, clear release frame |
+| `push` | — | action | Shove/bump forward | crown-keeper (bump) | 2 | 2–3 @ 14 (brace, shove with both hands/shoulder), motion 0.4 | Whole body leans in; determined face |
+| `carry` | ✓ | walk | Walking while holding something **overhead** | pass-the-present (holding the present), trophy walk, fairy-garden (carrying a seed or can) | 2 | 4 @ 8 (walk cycle with both arms up), motion 0.15; `hand` = top of the hands | Arms locked up, careful steps. Quadrupeds: object on the back, cake: on top |
+| `dance` | ✓ | celebrate | Dancing on the beat | spotlight-dance, pop-star-stage, fashion-show crowd, title screen | 2 | 4–8 frames, cycle = **exactly 2 beats at 120 bpm (1.0 s)**: 4 @ 4 fps or 8 @ 8 fps, motion ≤ 0.15 | Groovy and bouncy, distinct per character; the trio is coordinated |
+| `paint` | ✓ | action | Painting/crafting with a brush (loop) | art-studio, potion-class (stir, until `stir` exists), pet-spa (brushing), cake-bakery (frosting) | 3 | 3 @ 6 (brush up, across, down), motion 0.3 | Focused tongue-out concentration |
+| `sleep` | ✓ | idle | Sleeping (auto Zzz) | Troll naps (required for Troll); fairy-garden night finale (optional for the roster) | 3 (Troll: 1) | 2 @ 2 (breathe in/out), motion 0.3 | Curled up, eyes closed, a drool bubble for the Troll |
+
+### 4.2 Screen and game usage summary
+
+| Screen / game (id) | Poses it needs |
+| --- | --- |
+| Title / character select | idle, wave, ready, dance (title), portraits (all five) |
+| How-to-play | idle, ready, wave; Glimmer (§8) |
+| Results / podium | celebrate (1st), cheer (2nd/3rd), sad, pout (last), portraits happy/sad |
+| Party Marathon trophy | celebrate holding the trophy (`hand`), clap (proposed) for others |
+| `sprinkle-catch` | walk, run, cheer, dizzy, celebrate, pout |
+| `bumper-bounce` | walk, hip-bump, knockback, hurt, fall, clap/cheer (cheering from a cloud after falling out) |
+| `pass-the-present` | idle, carry, throw, surprised, dizzy, sad |
+| `balloon-pump` | action (pump), surprised, cheer, pout |
+| `troll-trouble` | run, walk, action (grab gem), surprised, dizzy, hurt; Troll set |
+| `spotlight-dance` | dance, dance-up/down/side/star (proposed), cheer, hurt; Shadow Imps |
+| `wizard-quickdraw` | think, cast (proposed; else throw), dizzy, cheer; Professor Hoot |
+| `cookie-crumble` | walk, jump, fall, land, pout |
+| `paint-party` | walk, run, throw, cheer |
+| `broomstick-dash` | ride (proposed; else jump/fall), hurt, cheer |
+| `fairy-count` | think, cheer, pout; Garden Fairies; Glimmer |
+| `crown-keeper` | run, walk, carry-ish (crown on `head`), push, hurt |
+| `fashion-show` | walk (runway), strike1–3 (proposed), bow (proposed), clap, celebrate; head/eyes/neck/back points |
+| `art-studio` | paint, celebrate |
+| `cake-bakery` | action, paint, eat (proposed), celebrate (hearts) |
+| `pet-spa` | idle, happy celebrate, eat, shake (proposed), sad (when soggy) for pets; action/paint for helpers |
+| `pop-star-stage` | dance, dance-star, cheer, celebrate; Shadow Imps |
+| `fairy-garden` | action (plant/water), carry, cast, celebrate, sleep (night, optional); Glimmer, Garden Fairies |
+| `potion-class` | think, throw (add ingredient), stir/paint, cast, surprised, celebrate; Professor Hoot |
+| `memory-match` | think, action (flip), cheer, celebrate, pout |
+
+### 4.3 Proposed new poses
+
+**These are now in `POSES`** (with the fallbacks below and procedural motion
+for base art), as are the NPC poses from §8 (talk, present, point, laugh,
+poof, hoot, lantern, windup, slam, grab, exit). Games may request them today;
+your frames upgrade them. If you invent further poses, add them to `POSES`
+(desc, loop, fallback, optional `proc` motion) in the same commit as their
+frames.
+
+The proposed-pose table (cast, clap, eat, ride, bow, strike1–3, dance-*, shake, stir) is archived in `image-requests-history.md`; all are in `POSES` with frames.
+
+### 4.4 Per-character flavor
+
+Use these personalities (the suggestions in `CHARACTERS.md`) to make the
+same pose feel different for each character.
+
+| Asset | Idle fidget | Walk feel | Celebrate | Pout / sad |
+| --- | --- | --- | --- | --- |
+| `felicity` | Glances down at Fellowfox, ear twitch, tail swish | Lively skip, pigtails bounce | Leaps with arms wide, pigtails and tail flying, huge grin | Arms crossed, ears flat, tail drooping, lip out, stomps a shoe |
+| `fellowfox` | Head tilt, tail wag, looks up at Felicity | Tiny quick steps | Zoomies: spins chasing its tail, pounce-hop | Flops down, chin on paws, ears back, big wet eyes |
+| `kpop-girl-center` | Snaps fingers to a beat, weight shift | Crisp confident strut | Sharp idol victory pose: point to the sky, jump, finger-heart | Hands on hips, head turned away "hmph", foot tap |
+| `kpop-girl-left` | Easy sway, hands in her wide-trouser pockets | Relaxed broad steps | Both arms up swaying side to side, laughing | Big shrug, slumped shoulders, kicks the floor |
+| `kpop-girl-right` | Tucks her long hair, sways | Bouncy steps, hair streaming | Spin with a hair flip, jump, hands clasped | Arms crossed, hair flopped over her face, lip out |
+| `bronze` | Eye scans side to side, iris pulses, antenna jewel blinks | Clunky uneven bounce (mismatched legs) | Spring-hops, antenna jewel flashing, happy ^ eye, pipe puffs little celebratory clouds | Eye half-lidded and drooping, antenna limp, pipe puffs a sad gray cloud, one shoe stomps clank |
+| `cotton-candy` | Mane sway, ear flick, tail swish | Light graceful trot | Rears up prancing, mane swirling in ribbons | Head low, mane over one eye, stamps a hoof, turns away |
+| `fox` | Ears perk, tail wag, tongue out | Springy strides | Pounce-jumps in a circle, tongue out | Sits, ears flat, tail wrapped around itself, looks away |
+| `hotdog` | Ear flops, tail curls | Squat hops | Huge squat-hops, ears flapping like wings, flame tuft flares tall | Flattens like a pancake, ears droop over its eyes, lip out |
+| `marina` | Tail sway, hair drifts | Glide with a tail undulation | Tail flip into the air, arms up, hair fanning | Arms crossed, tail curled under, hair flopped, a tail slap |
+| `scale` | Gentle tail curl, adjusts her crown | Poised glide | Graceful twirl, hands clasped to her chest | Chin up and turned away, arms crossed, prim fin slap |
+| `marshmallow-birthday-cake` | Breathing jiggle, candle flicker, blink | Bounce (squash on land) | Big squash-and-stretch bounces, candle flame grows big, eyes ^ ^ | Frosting sags, candle shrinks to a smoking wisp, lip out, teary eyes |
+| `princess-amber` | Gentle sway, smooths her gown | Graceful glide-walk | Twirl with the gown flaring, hands up | Polite pout, arms crossed, little foot stamp under the gown hem |
+| `snowstar` | Big head tilt, slow giant blinks | Small steps under a big wobbling head | Giant face grin, jumps with both arms up, curls bouncing | Huge teary eyes, wobbling lip, arms crossed |
+| `unicorn` | Tail swish, head bob, serene closed eye | Elegant trot | Graceful rear, mane flowing (sparkles come from the engine) | Head bowed low, turns away; gentle and dignified even when sad |
+| `troll` | Belly breathing, scratches his head, grumpy blink | Heavy stomp | (Rare) grumpy-happy belly laugh | Sulky arms crossed, lower lip over his fangs |
+
+---
+
+## 5. Building sprites, and how to improve the system
+
+### 5.1 You own the method
+
+You know image generation better than this document does. Above is **what**
+must be represented. **How** (strips or single key poses, frame counts,
+layered parts, overlays) is your call. You may extend `src/engine/sprites.js`
+(for example part-based rigs, blink/mouth/eye overlays, extra anchor points,
+per-pose facing) **as long as**:
+
+1. The public Actor API keeps working unchanged: `setPose`, `playOnce`,
+   `squash`, `flash`, `emote`, `attach`/`detach`, `anchor`, `draw`,
+   `moveAnim`, `snap`, `update`, plus `drawPortrait` and `POSES`/`POSE_NAMES`.
+2. Characters without sprites still fall back to base art.
+3. Existing `sprites.json` forms keep loading (new fields are additive).
+4. You **update §3 of this document** whenever you change the format, so it
+   remains the spec.
+
+### 5.2 Generation techniques that work
+
+- **Same reference every time.** Input image 1 is always the canonical. Once
+  a set's idle frame is approved, pass it as input image 2 ("match this
+  scale, camera and rendering") for every other pose of that set.
+- **Edit rather than redraw.** For expression variants (portraits, face-only
+  changes) and small pose changes, use image editing on the canonical or on
+  the idle frame ("change only the face to…", "raise only the right arm…").
+  Identity holds far better than with fresh generations.
+- **Short strips, not big grids.** One image with 2–4 frames of the same pose
+  side by side keeps the frames consistent with each other, and models handle
+  that well. Large grids (4×4) drift, merge figures and miscount. If a strip
+  drifts, generate single key poses instead.
+- **Fixed camera.** Use the same square canvas (1024×1024 or the model's
+  largest), a full body with margin, three-quarter view facing screen-right,
+  and "feet resting on the same invisible ground line near the bottom" in
+  every call.
+- **Fewer key frames plus procedural motion beat many weak frames.** Two
+  strong frames for walk plus `motion 0.15` look better than six wobbly ones.
+  The cake, the mermaids' glide and the quadrupeds' trots lean on procedure.
+  Spend frames on faces and silhouettes. Leave bobbing and squash to the
+  engine.
+- **Quadruped walk cycles are hard for models.** Use a 2–4 frame trot
+  (extended / gathered) and let `motion` do the bounce.
+- **Transparent background.** Prefer native transparency. If you must key,
+  pick a flat color the character doesn't contain: **magenta `#FF00FF`** for
+  greens (Bronze, Snowstar, Scale, Troll, Marina's tail) and **pure green
+  `#00FF00`** for pinks and whites (Cotton Candy, Cake, Unicorn, Amber,
+  KPop-right). Never white (Unicorn and Cotton Candy are white).
+- **Layered parts (optional).** If you judge a rig works better for a
+  character (for example the cake: one body plus face overlays and candle
+  states; Bronze: body plus eye states; Snowstar: head plus body), you may add
+  a part/overlay system (§5.1). A cheap high-value variant is a **blink/face
+  overlay**: idle frames stay static and the engine swaps eye/mouth layers
+  for blinks and expressions.
+
+### 5.3 Post-processing pipeline (Pillow)
+
+Write a reusable script (for example `tools/sprites/build.py`) driven by a
+per-asset config, and commit it. Do **not** commit the large generation
+masters (keep them outside the repo or gitignored). Steps:
+
+1. **Cut out**: native alpha, or chroma key plus 1 px edge erosion. Then
+   **defringe**: remove halo pixels whose color is close to the key or glow,
+   and zero any alpha < 8. Drop specks smaller than about 30 px that aren't
+   connected to the body, but keep detached bits that belong (hair
+   ornaments, the candle flame), so merge components after a small dilation.
+2. **Split strips** into frames with connected components on alpha (after
+   dilation) or with equal cells. Check the frame count.
+3. **Scale-normalize.** Downsample with LANCZOS so the idle figure height
+   equals `bodyHeight`. Scale other poses by a stable measure, not their bbox
+   (arms-up frames are taller): the same generation scale, head width, or
+   foot-line-to-eye-line distance. **Verify with an onion-skin**: composite
+   each frame over the idle frame at 40 % opacity into a contact sheet and
+   look at it (the Read tool shows images).
+4. **Anchor.** The ground point is the lowest opaque row of the contact area,
+   and x is the center of the opaque pixels in the bottom ~4 % rows (between
+   the feet). For airborne frames (jump peak, celebrate leap, fall), keep the
+   **body** where it would be in the take-off frame (align hips or torso x
+   with idle) and let the figure sit *above* the anchor inside the frame. The
+   shadow stays on the ground. Lower `motion` accordingly so the leap isn't
+   doubled.
+5. **Place** on a common canvas (`frameSize`) with the anchor at the same
+   pixel for every frame. Optionally **trim and pack** into strips or an
+   atlas and write per-frame `anchor` = common anchor − crop offset. This
+   saves a lot of memory.
+6. **Points.** Write `head` and `hand` per frame. Auto-detection plus manual
+   correction works well. Re-check them in the viewer with **Y**.
+7. **Save** with `img.save(path, 'WEBP', quality=86, method=6)`. Per the repo
+   convention (quality 82–90, method 6), alpha stays lossless because
+   Pillow's default `alpha_quality=100`. Atlas or strip sheets should be at
+   most **2048×2048** (iPad decode memory).
+8. **Generate `sprites.json`** from the script, and add the asset to
+   `assets/sprites/index.json`.
+
+### 5.4 Resolution and budgets
+
+The canvas is 1920×1080 logical and the backing store tops out at 2× (4K TVs).
+
+| Member | `h` (px) | Suggested `bodyHeight` (~1.8×h) |
+| --- | --- | --- |
+| felicity | 178 | 320 |
+| fellowfox | 72 | 150 |
+| kpop-girl-center / left / right | 158 / 154 / 156 | 285 / 280 / 280 |
+| bronze | 176 | 320 |
+| cotton-candy | 172 | 310 |
+| fox | 142 | 260 |
+| hotdog | 124 | 230 |
+| marina, scale | 178 | 320 |
+| marshmallow-birthday-cake | 140 | 260 |
+| princess-amber | 184 | 330 |
+| snowstar | 172 | 310 |
+| unicorn | 186 | 335 |
+| troll | 270 | 440 |
+| glimmer (shown large on how-to) | ~110 | 360 |
+| shadow-imp | ~95 | 200 |
+| professor-hoot | ~200 | 360 |
+| garden-fairy | ~50 | 120 |
+
+Budgets: start with about 30–48 frames per roster member, expanding for the
+requested actions and cycles. Aim for **≤ 1.5 MB of WebP per member including
+portraits** and enforce **≤ 25 MiB decoded per member** (Round 3). Sets load
+on demand for characters that appear, rather than all at boot. The original
+25 MiB total download target is now a warning for the expanded roster.
+iPads have limited decode memory, so prefer trimmed frames over large empty
+canvases and inspect party-size memory usage when adding animation frames.
+
+### 5.5 Recommended engine improvements (yours to make or to report)
+
+Items 1–4 are **done** (the lead implemented them; documented here for
+reference). Item 5 is now done too; item 6 remains optional:
+
+1. **Fallback poses keep full expressiveness.** When `resolvePose` returns a
+   pose other than the one requested, use `motion` 1.0 (or `max(motion,
+   0.8)`). Decide `usingSprites` (which suppresses fallback emotes) per
+   resolved pose, not per set.
+2. **Twirl blend.** Done differently: the paper-style procedural twirl was
+   removed entirely (only dance's instant left/right mirror remains), so
+   spins come from drawn frames only.
+3. **More attachment points** for the Fashion Show: `eyes` (glasses), `neck`
+   (necklaces), and `back` (capes and wings, drawn `behind`), passed through
+   `info` with sensible defaults derived from `head` when a frame lacks them.
+   An optional `headAngle` lets hats tilt with the head.
+4. **Proposed poses** (§4.3 and §8) added to `POSES` with fallbacks, so the
+   viewer can show them and games can request them safely. The viewer cycles
+   `POSE_NAMES`, so custom names are invisible there until they're added.
+5. **Done:** per-pose `facing` override (for a front-facing celebrate in an
+   otherwise right-facing set).
+6. Optional lazy loading of sprite sets that only NPCs use, to cut boot time.
+
+If you change engine JS, bump `?v=` on `src/main.js` in `party/index.html`.
+Bump nothing else.
+
+Reusable intake and validation are in `tools/sprites/README.md`. The viewer
+also accepts `chars`, `debug=1`, `zoom` and frozen `time` query parameters.
+Press **P** to pause and **.** to advance 1/12 second for foot/loop inspection.
+Coverage labels distinguish authored poses, aliases and fallback art.
+
+---
+
+## 6. Test before committing
+
+Run everything from the repo root (`charlie/`). `tools/shot.mjs` serves the
+repo, loads `/party/<query>`, presses keys, saves screenshots and prints
+console errors. Keyboard player 1: **Space** = A, **KeyL** = X, **KeyI** = Y,
+**KeyZ** = LB, **KeyC** = RB. The arrow keys move between poses (left/right)
+and zoom (up/down) in the viewer.
+
+```bash
+# every character in one pose, with the debug overlay (foot cross, target height line, test crown, hand dot)
+node party/tools/shot.mjs "?scene=sprites&pose=celebrate" /tmp/celebrate.png --keys "KeyI"
+# the same pose in base-art mode for comparison
+node party/tools/shot.mjs "?scene=sprites&pose=celebrate&nosprites=1" /tmp/celebrate-base.png --keys "KeyI"
+# animation over time (4 shots, 250 ms apart)
+node party/tools/shot.mjs "?scene=sprites&pose=walk" /tmp/walk.png --keys "KeyL" --shots 4 --every 250
+# a real minigame with CPUs
+node party/tools/shot.mjs "?game=sprinkle-catch&auto=1&players=4&chars=felicity,kpop-girls,bronze,marina&skipintro=1" /tmp/g.png --wait 6000 --shots 3 --every 2000
+```
+
+### Sprite viewer checklist (`?scene=sprites`), for every pose of every new set
+
+- [ ] **Scale**: press A to toggle sprites ↔ base art. There is no size jump,
+      and the top of the idle figure touches the dashed target-height line
+      (Y overlay).
+- [ ] **Feet planted**: the ground contact stays on the pink foot cross in
+      every frame (watch idle, walk, pout, the stomp frame, and land). No
+      sliding or popping between frames.
+- [ ] **Facing**: press X to walk both ways. The character faces its
+      movement direction both ways, with no moonwalking. Followers
+      (Fellowfox, the trio) trail and turn properly.
+- [ ] **Head point**: press Y. The test crown sits on top of the head in
+      every frame of every pose (including celebrate peaks, pout head-turns
+      and bows) without floating or sinking into the hair.
+- [ ] **Hand point**: the blue dot is in the forward hand (or the mouth,
+      pipe tip or cake top, §3.6). In `carry` it is on top of the raised
+      hands.
+- [ ] **Reads at size**: at 1× zoom, every pose is identifiable from its
+      silhouette, the face reads, and celebrate and pout are funny.
+- [ ] **Loops** loop seamlessly. **One-shots** read within about 0.3 s and
+      end on a good held frame.
+- [ ] **No baked effects**, halos, fringe pixels or stray specks (check on
+      both the light viewer background and a dark game background).
+- [ ] **Portraits** (the row at the top cycles neutral/happy/sad): face
+      centered, nothing important clipped by the circle.
+- [ ] **Identity**: compare side by side with the canonical. Colors, details
+      and proportions match (§2.2).
+
+### In-game checks
+
+Test in real minigames with `?game=<id>&auto=1` (all CPUs; add
+`&players=8&chars=...` to force characters, `&speed=3` to run faster, and
+`&skipintro=1` to skip the how-to). Game ids: `sprinkle-catch`,
+`bumper-bounce`, `pass-the-present`, `balloon-pump`, `troll-trouble`,
+`spotlight-dance`, `wizard-quickdraw`, `cookie-crumble`, `paint-party`,
+`broomstick-dash`, `fairy-count`, `crown-keeper`, `fashion-show`,
+`art-studio`, `cake-bakery`, `pet-spa`, `pop-star-stage`, `fairy-garden`,
+`potion-class`, `memory-match`. **Some games may not exist yet** (they are
+being written in parallel). Test the ones that load, and rely on the viewer
+for the rest.
+
+- [ ] There are no `Missing image …` or `Sprite set failed …` warnings in the
+      console (shot.mjs prints them).
+- [ ] Results screen: the winner's celebrate and the loser's pout look great
+      together on the podium.
+- [ ] Download size is within budget (`du -sh party/assets/sprites`).
+
+### Commit
+
+Follow the repo's `CLAUDE.md`: commit on `main` and `git push origin main`
+when a batch passes. Commit the final WebP frames, `sprites.json`, the updated
+`assets/sprites/index.json`, your build script, any engine changes, and
+updates to this document. Don't commit generation masters or large PNGs.
+Commit in small batches (one character or one asset type at a time) so a bad
+batch is easy to revert.
+
+---
+
+## 7. Expression portraits (spec for every character)
+
+**What:** a square **head-and-shoulders bust** in five expressions for each
+of the **15 roster member assets** (all three KPop girls, Felicity and
+Fellowfox separately, and the rest). Make the Troll's in Phase E, and approved
+NPCs' as they're approved. The game currently shows the leader's portraits
+for group entries (`felicity`, `kpop-girl-center`), but generate all members
+so future screens can use them. Memory Match card faces use portraits too.
+
+**Format:** 384×384 WebP with a **transparent background**. The game paints
+the circle with the entry's color (or the player's color) behind the image,
+desaturates eliminated players, and reuses the same images on different
+backgrounds, so a baked background would fight all of that. Fill the frame:
+the bust's shoulders run off the bottom edge.
+
+**Framing:** the image's square maps onto the circle's bounding square and is
+clipped to the circle. Center the face horizontally, with the eyes at about
+45 % height. Keep the whole face, the ears and the main head ornament
+(crowns, daisy, bow, antenna jewel, horn base, candle) **inside the inscribed
+circle with about 6 % margin**. Long hair, tails and big ears may run out.
+Use a three-quarter view facing right, matching the sprites. For small or
+wide characters (Fellowfox, Hotdog, Cake, the quadrupeds), crop to the face
+and the top of the body.
+
+**Expressions:**
+
+| Key | Read |
+| --- | --- |
+| `neutral` | Friendly default, soft smile, eyes open (the Unicorn keeps her serene closed eye) |
+| `happy` | Huge open grin, eyes ^ ^ or sparkling, cheeks up |
+| `sad` | Brows up, wobbling pout lip, teary eyes (tears drawn on the face) |
+| `surprised` | Saucer eyes, small O mouth, ears or hair up |
+| `determined` | Focused brows, confident smirk, game face |
+
+Character notes: Bronze uses eye shapes only (no mouth). The Cake's candle
+flame is big for happy, a wisp for sad, and tall and flickering for
+surprised. The Unicorn opens her eye only for surprised and determined.
+
+**Files and manifest:** save them as
+`assets/sprites/<asset>/portrait-<expr>.webp` and add them to the set's
+`sprites.json`:
+
+```json
+"portraits": { "neutral": "portrait-neutral.webp", "happy": "portrait-happy.webp", "sad": "portrait-sad.webp",
+               "surprised": "portrait-surprised.webp", "determined": "portrait-determined.webp" }
+```
+
+You may add extra expressions (for example `pout`, `dizzy`, `laugh`, `talk`).
+They load automatically, and code can request them later.
+
+**Method:** edit the canonical: crop it to a bust, then make one edit per
+expression ("change only the facial expression to …"). Keep the hair and
+ornaments pixel-consistent.
+
+---
+
+## 8. New NPCs: canonical reference FIRST, then sprites
+
+**Rule:** every new NPC, bad guy or ambient creature gets **one canonical
+reference image first**. It defines the character's look and personality. The
+**user must approve** it before you generate any sprites, thumbnails or props
+that show it.
+
+**Workflow:**
+
+1. Generate the canonical with the prompt below. Input image 1 is
+   `reference/canonical/felicity.webp` as the style reference only.
+2. Save it to `reference/canonical/<id>.webp` (lossless WebP with alpha,
+   like the others).
+3. Record the prompt in `reference/canonical/npc-generation-manifest.json`
+   (same shape as `troll-generation-manifest.json`) with
+   `"status": "Awaiting approval"`.
+4. **Show the user the image and stop for that NPC.** Iterate on feedback.
+   When they approve, set `"status": "User-approved"`, add a section to
+   `reference/CHARACTERS.md` and a card to `reference/canonical/index.html`,
+   and commit.
+5. Make the base art: alpha-crop the canonical, resize so its **max dimension
+   is 520 px**, and save it to `assets/characters/<id>.webp`.
+6. Register the NPC in `src/data/characters.js` (a code change; coordinate
+   with the lead or do it yourself). Add an entry shaped like `TROLL` and
+   include it in `ALL_ENTRIES`, which preloads it and puts it in the sprite
+   viewer:
+
+```js
+export const GLIMMER = {
+  id: 'glimmer', name: 'Glimmer', color: '#7fe3d4', npc: true,
+  members: [{ asset: 'glimmer', h: 110, face: [cx, cy, r], top: 0.9, facing: 0, motion: 'glide' }],
+};
+```
+
+Member fields:
+
+- `h`: on-screen height at scale 1, in logical px.
+- `face`: `[cx, cy, r]`, the portrait crop of the base art as **fractions of
+  the base image height**. `cx` is measured from the left edge, also as a
+  fraction of the height.
+- `top`: the top of the head (where a hat sits) as a fraction of `h` above
+  the feet.
+- `facing`: the way the base art looks (1 right, −1 left, 0 front).
+- `motion`: `glide` for hoverers (Glimmer, imps, fairies), `hop` for the owl,
+  or one of `walk`, `trot`, `bounce`, `clunk`, `stomp`.
+
+7. Then make the NPC's sprite set exactly like a roster set (§3–§6), using
+   custom pose names where listed and adding them to `POSES` (§5.5).
+
+The individual NPC requests (§8.1–8.5: Glimmer, Shadow Imps, Professor Hoot, ambient creatures, Troll) were delivered and are archived in `image-requests-history.md`.
+
+---
+
+## 9. Game art: logo, backgrounds, thumbnails, props (conventions)
+
+Everything here is optional and has a procedural fallback, so it is pure
+upgrade. Code asks for art by key:
+
+```js
+const bg = art('bg/sprinkle-catch'); if (bg) g.drawImage(bg, 0, 0, W, H); else drawProcedural(g);
+drawArt(g, 'prop/present', x, y, w, h, { anchor: 'bottom' });   // 'center' | 'bottom' | 'topleft'; fit 'contain' | 'cover' | 'stretch'
+```
+
+**Index:** `assets/art/index.json` maps keys to files relative to
+`assets/art/`:
+
+```json
+{ "images": { "ui/logo": "ui/logo.webp", "bg/sprinkle-catch": "bg/sprinkle-catch.webp", "thumb/sprinkle-catch": "thumb/sprinkle-catch.webp", "prop/present": "prop/present.webp" } }
+```
+
+Key conventions: `bg/<gameId>`, `thumb/<gameId>`, `prop/<name>`,
+`icon/<name>`, `ui/logo`, `ui/<name>`. Every listed image is loaded at boot,
+so watch the file sizes. **No text in any image except the logo** (the game
+draws all text). Use the same house style as the characters (navy outlines,
+cel shading), slightly softer and less saturated for backgrounds so the
+characters pop.
+
+| Type | Size | Format / budget |
+| --- | --- | --- |
+| `bg/*` | 1920×1080, opaque | WebP quality 80–85, ≤ 350 KB |
+| `thumb/*` | 800×500 (16:10), opaque | WebP quality 85, ≤ 90 KB |
+| `prop/*` | Longest side 128–512 px (as listed), transparent, trimmed | WebP quality 86, alpha lossless, ≤ 60 KB |
+| `icon/*` | 128×128, transparent | ≤ 15 KB |
+| `ui/logo` | about 1600×700, transparent | ≤ 250 KB |
+
+The original lists (§9.1 logo and menu backdrops, §9.2 minigame backgrounds, §9.3 thumbnails, §9.4 props) were delivered and are archived in `image-requests-history.md`. New games add their own section under "Open requests" below.
+
+---
+
+## 10. Prompt templates (copy, then fill the `<…>`)
+
+Always attach the input images named in the template.
+
+### 10.1 Pose strip (2–4 frames)
+
+```
+Use case: sprite animation keyframes for a 2D children's party video game. Input image 1: approved canonical reference of <CHARACTER NAME>; reproduce this exact character with identical face, proportions, colors, outfit and outline weight. Input image 2: approved idle sprite frame of the same character; match its size, camera and rendering exactly.
+Create a horizontal strip of <N> frames showing <CHARACTER NAME> performing "<POSE>": frame 1 <description: anticipation>, frame 2 <description: main action / contact>, frame 3 <description: follow-through / hold>[, frame 4 <...>].
+Every frame: the same character at the same size, full body entirely visible, three-quarter view facing screen-right, <feet / hooves / tail curl / cake base> resting on the same invisible ground line near the bottom, equal-width cells with clear empty space between figures, no overlapping. Big, exaggerated, kid-readable silhouette and facial expression: <expression notes>. Must keep: <must-keep list from section 2.2>.
+Style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fully transparent background. No ground shadow, no motion lines, no dust, no sparkles, no effects, no text, no panel borders, no extra characters, no props<, except: PROP>.
+```
+
+### 10.2 Single key pose
+
+```
+Use case: single sprite key pose for a 2D children's party video game. Input image 1: approved canonical reference of <CHARACTER NAME> (reproduce exactly). Input image 2: approved idle frame (match size, camera and rendering).
+Show <CHARACTER NAME> in this pose: <precise body description: weight, arms, legs/tail, head angle, hair/tail/ear motion>. Facial expression: <expression>. Full body visible with generous margin, three-quarter view facing screen-right, <contact point> on an invisible ground line near the bottom <or: airborne, about N% of body height above the ground line>. Must keep: <must-keep list>.
+Style: bold smooth dark navy outlines, rounded shapes, bright original colors, simple clean cel shading, no 3D. Transparent background, no shadow, no effects, no text, no other characters.
+```
+
+For an edit-based variant, attach the idle frame only and write: "Edit this
+image: keep the character identical and change only <arms/face/...> to
+<...>; keep the same size, position, ground line and transparent background."
+
+### 10.3 Expression portrait
+
+```
+Use case: character expression portrait for a children's party video game HUD. Input image 1: approved canonical reference of <CHARACTER NAME> (reproduce exactly).
+Square head-and-shoulders bust of <CHARACTER NAME>, three-quarter view facing right, face centered horizontally with eyes at about 45% height, the whole face, ears and main head ornament (<ornament>) inside a centered circle with margin, shoulders running off the bottom edge. Expression: <neutral friendly smile | huge open grin with eyes squeezed into happy arcs | teary pout with wobbly lip and raised brows | wide saucer eyes with a small O mouth | focused determined brows with a confident smirk>. <Character note, e.g. "Bronze has one eye and no mouth; express it with the eye shape only.">
+Style: bold smooth dark navy outlines, rounded shapes, bright original colors, simple clean cel shading, no 3D. Transparent background, no text, no frame, no other characters.
+```
+
+### 10.4 NPC canonical
+
+```
+Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Input image 1: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright colors, simple clean cel shading, no photorealism, no 3D.
+Subject: <NAME>, <role in one line>. <Body, face, colors, outfit, accessories, in concrete visual terms>. Personality shown through the pose and expression: <...>. Pose: <readable neutral action pose>, three-quarter view facing right.
+One single full-body character, centered and entirely visible with generous margin. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters. Kid-friendly, never scary. Original design; no trademarked characters, logos or insignia.
+```
+
+### 10.5 Background
+
+```
+Use case: 2D video game background for a children's party game, 1920x1080, landscape. <side view | top-down view looking straight down | front view of a stage>.
+Scene: <brief from section 9.2>. Keep <area> open, plain and low-contrast for gameplay; keep the top 140 px calm for the score bar; <ground line at about y = 900 | tile seamlessly left-to-right | no pink anywhere>.
+Style: matches a cartoon character roster with bold smooth dark navy outlines and simple clean cel shading, but slightly softer and less saturated than the characters so they stand out; bright, cheerful, kid-friendly; no photorealism, no 3D. No characters, no people, no animals, no text, no letters, no logos, no watermark.
+```
+
+### 10.6 Prop
+
+```
+Use case: game prop sprite for a 2D children's party video game. A single <object> — <details: shape, colors, material, state>. <Front view | three-quarter view facing right | top-down view>, centered, entirely visible with margin, <anchor note, e.g. "flat bottom so it can sit on a head">.
+Style: bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading, no photorealism, no 3D. Transparent background, no shadow, no text, no other objects.
+```
+
+---
+
+## Requests added by minigames
+
+Minigame agents append prop, background or pose requests here when they find
+a need while building their game. The image agent processes them in order,
+or sooner if they are marked as blocking. Use this format:
+
+```
+### <game id> — <short title>   (requested by <agent/date>, priority: blocking | nice-to-have)
+- Key: `prop/<name>` (or bg/…, pose name for a sprite set, portrait expression)
+- What: <one-line visual description, size, anchor, states/variants>
+- Where it's used: <how the code draws or attaches it; fallback used today>
+```
+
+New game sections go under [Open requests](#open-requests); fielded ones
+move to `image-requests-history.md`.
+
+### Optional action extension (implemented in the sprite engine)
+
+`look-around`, `high-five`, `crouch`, `dash`, `catch`, and `wave-goodbye` are
+optional actions with procedural motion and fallback chains. See
+`reference/RECOMMENDED-ACTIONS.md` for use, timing and gameplay boundaries.
+Felicity is the first authored reference set; other members remain compatible
+through fallbacks until their own frames are generated.
+## Lessons from the Felicity pilot (Round 3)
+
+Written by the lead after running Felicity + Fellowfox through all 20
+minigames in the game itself (CPU rounds, per-frame pose logging, close-up
+crops around her). The pilot works: attachments track her art, aliases and
+fallbacks behave, and nothing broke. These are the considerations for the
+rest of the roster. (Its delivered list and request list are archived.)
+
+### R3.1 What worked — keep doing it
+
+- **Per-frame anchor points.** Wands, crowns, glasses, bunny ears and
+  necklaces landed exactly on her `hand`/`head`/`eyes`/`neck` points in every
+  game. Supply all five points on every frame of every character.
+- **One shared foot anchor + `bodyHeight`.** No foot sliding, no scale pops
+  between poses, and her size matched the base-art characters beside her.
+- **Trimmed frames with per-frame anchors** (her frames are ~250×325, not the
+  640×496 canvas). Keep trimming: it is what keeps memory sane.
+- **Single key frames at `motion` 0.85.** In play, the procedural squash,
+  hop and tilt carry one good key pose convincingly. Don't spend frames on
+  poses that hold still or last under ~0.4 s.
+- **Distinctive pose silhouettes.** `ride` (crouched, gripping) is the best
+  example: it reads as broom-flying instantly and the scarf/broom props sit
+  right. Aim for that clarity in every pose.
+
+### R3.2 Considerations for the next characters
+
+1. **Where extra frames pay off (measured screen time).** Logging which pose
+   Felicity was in, frame by frame, across the games gives this ranking of
+   on-screen time: `idle` ≫ `walk` > `run` > `ready` (Wizard Quick-Draw holds
+   it all game) > `carry` (Pass the Present) > `broom-glide`/`ride` > `dance`
+   (Spotlight, Pop Star) > `look-up`/`count` > `hurt` ≈ `dizzy` ≈ `cheer`; plus
+   `celebrate` and `pout` on the podium after **every** game. So for each
+   character, beyond the 4-frame walk:
+   - `idle`: add a **blink** frame (`dur` ≈ 0.12 s) — the cheapest life there is.
+   - `celebrate`: 3–4 frames (anticipation crouch → leap → peak → land) — it's
+     the emotional payoff of every game.
+   - `pout`: 2 frames (arms crossed ↔ foot stomp) — the "funny tantrum".
+   - `dance`: 4 frames timed so one cycle = 2 beats at 120 bpm (fps 4), so the
+     rhythm games look on-beat.
+   - `ride`: 2 frames (hair/ears flutter) for Broomstick Dash's 40 s race.
+   - `run`: its own 4 frames if the character's run differs from a faster
+     walk (quadrupeds: a gallop).
+   Everything else stays a single key frame.
+2. **Give `cheer` and `sad` their own key frames.** Felicity aliases them to
+   `celebrate`/`pout`; in play that makes a small "+1" moment look like a
+   victory and a tiny setback look like losing. A quick fist-pump (`cheer`)
+   and a droopy sigh (`sad`) are distinct and used constantly.
+3. **Memory budget — now enforced by loading on demand.** Sets now load only
+   for characters that appear (the party, hovered characters, the sprite
+   viewer), not all at boot. Still, aim for **≤ 1.5 MB on disk and ≤ 25 MB
+   decoded per character** (`validate.py` prints both; Felicity is 1.3 MB /
+   15.9 MB). With multi-frame poses, keep frames trimmed and `bodyHeight`
+   ≈ 300–320 (the largest in-game draw is ~1.5× of `h` ≈ 270 px).
+4. **Groups.** The KPop Girls are three sets drawn together: identical
+   `bodyHeight`, identical pose list and frame counts, and slightly
+   different idle timing (vary `dur`) so they don't move in lockstep. Give
+   each girl her own `celebrate`/`dance` personality (see §4.4).
+5. **Followers.** Fellowfox needs only movement + reaction poses as a
+   follower, **but** she is now also a standalone pet in Pet Spa
+   (`new Actor('fellowfox')`, scale ~110 px). Pets need: `idle`, `sad`
+   (muddy), `shake` (wet-dog), `eat`, `giggle` (squirm while scrubbed),
+   `catch-toy`, `celebrate`, `dance` (brushed). The same applies to **Fox,
+   Cotton Candy, The Last Unicorn and Hotdog**, who are Pet Spa's pets too.
+6. **Non-humanoid "hands".** Follow §3.6: Bronze grips with the pipe, ponies
+   and foxes with the mouth, Cake balances things on top. Games attach wands,
+   brooms, jars and watering cans at `hand` — check those three props in the
+   viewer's debug overlay for each animal.
+7. **Mermaids.** Marina and Scale glide (`motion: 'glide'`); their `walk` is
+   a tail-swish glide, `ride` is side-saddle, `jump` is a tail flip. Keep the
+   foot anchor at the bottom of the tail curl so the shadow sits right.
+8. **Portraits are seen tiny.** HUD chips draw them in a 30 px-radius circle.
+   Keep the face big and centered (eyes ~45% from the top), and check them at
+   60 px across before committing.
+9. **Test in real games, not just the viewer.** The quickest check:
+   `?game=crown-keeper&players=2&auto=1&skipintro=1&chars=<id>,fox` (crown on
+   head + dash + hurt), `wizard-quickdraw` (wand at hand, `ready` held long),
+   `broomstick-dash` (ride), `pass-the-present` (carry overhead),
+   `fashion-show` (glasses/necklace/wings), and a results podium. The lead's
+   per-frame pose logger pattern: hook `Actor.prototype.draw` and record
+   `this.pose` for your `charId`.
+
+---
+
+## Intake: optimize and test every delivery
+
+Every sprite set delivery must be **optimized and tested in game** before it's
+committed (full steps: `tools/sprites/README.md`, "Intake checklist"): run
+`tools/sprites/optimize.py <asset>`, validate, then play it in real games with
+both "Pictures: Optimized" (default) and `&quality=full`. Keep the originals —
+the game's Settings screen can switch to them. For `felicity`,
+`kpop-girl-center` and `princess-amber` also re-run
+`tools/sprites/make_masks.py <asset>` (colour-variant region masks).
+
+Colour variants (several players on one character) are recoloured in code
+(`src/data/variants.js`), so no extra art is needed. Optional, for future
+sets: a flat region-ID layer per frame (outfit, hair...) would replace the
+hand-tuned colour ranges and the mask classifier.
+
+## Open requests
+
+New requests go here: re-generation rows in the table below, and new
+games' sections (format under "Requests added by minigames") after it.
+
+### Re-generation requests (lead's in-game review)
+
+Each item below was integrated and looked at in the running game. The code
+works around every one today, so nothing is broken. A re-generation would
+make it read better. Newest first; fixed items move to
+`image-requests-history.md` ("Resolved re-generation requests").
+
+| Key | What's wrong in game | Ask |
+| --- | --- | --- |
+
+Engine-side notes from the same review: several keys are aliases of one
+file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
+`prop/gem` = `prop/gem-red`, `prop/cookie-tile` = `prop/cookie-1`). That's
+fine; the code uses one of each pair.
+
+All Play Studio, Molly, grown-up reaction and 2026-10-16 audit image requests are delivered and checked. Add new requests or regeneration feedback above; delivery details are in image-requests-history.md and reference/IMAGE-WORK-QUEUE.md.
+
+
+### nail-studio — a girl's hand for Sparkle Nails   (requested by the nail-studio agent, 2026-10-27, priority: nice-to-have)
+
+The owner asked for "a nice looking girl's hand instead of an animal hand". Every
+client now rests a girl's hand on the cushion; today it is drawn in code
+(`src/games/nail-studio/hand.js`, `drawHandBase`), and this art replaces it.
+
+- Keys: `prop/nail-hand-0` … `prop/nail-hand-4`, one per skin tone (the same
+  drawing recoloured is ideal, so the nails line up on all five):
+  0 fair `#ffe2d0` (shade `#f0bfa4`), 1 light `#f6c8a2` (`#dfa27a`),
+  2 tan `#dfa577` (`#c08055`), 3 brown `#b97c52` (`#985c37`),
+  4 deep brown `#8a5838` (`#6c4027`).
+- What: a child's (about 8 years old) **right hand seen from the back**, palm
+  down, flat on a table, fingers **gently spread** and pointing up, thumb out to
+  the left. Slim, soft, rounded cartoon fingers with a slight taper, smooth
+  knuckles (at most a tiny crease line), no veins, no wrinkles, no rings or
+  jewellery, no sleeve. House style: bold smooth dark navy (`#24163f`) outlines
+  of the same weight as the characters, simple clean cel shading (one soft
+  shade on the right side), transparent background, no shadow, no text.
+- **Nails: bare nail beds only.** Draw each nail as a plain pale-pink
+  (`#ffe4ec`) rounded nail shape with a navy outline and **no** shine, polish or
+  pattern: the game draws the painted nails, designs and gems over them, at the
+  spots below. The nails are slightly long and oval, ending about 14 px past the
+  fingertip.
+- Canvas: **1024 × 1024 px**, transparent. The game maps it 2 px per hand unit
+  with the middle of the back of the hand at the canvas centre (512, 512), so
+  keep the hand where it is listed here; don't trim it.
+  - Back of the hand: about x 304–706, y 470–844 (knuckle line at y ≈ 480).
+  - Wrist: straight down from the hand, x ≈ 392–632, running off the **bottom
+    edge** (y 1024). Leave it bare: the game draws the client's sleeve cuff and a
+    bead bracelet over it from y ≈ 860 down.
+  - Nail centres (px), size (width × length, px) and tilt (degrees, 0 = straight
+    up, + = leaning right):
+    | Finger | Centre | Size | Tilt |
+    | --- | --- | --- | --- |
+    | thumb | (172, 533) | 70 × 92 | −53 |
+    | index | (357, 216) | 67 × 108 | −7 |
+    | middle | (477, 166) | 68 × 112 | −1 |
+    | ring | (599, 199) | 65 × 108 | +5 |
+    | pinky | (704, 304) | 58 × 92 | +13 |
+  Exact positions matter less than a clean, appealing pose: on delivery the
+  `FINGERS` table in `hand.js` is re-measured to the art's nail beds (and the
+  table above updated), so the drawn nails sit exactly on the art.
+- Size: deliver at 1024 × 1024 (WebP, alpha lossless, quality 86, ≤ 90 KB each);
+  register the keys in `assets/art/index.json` under the nail-studio group.
+- Where it's used: `drawHandBase` draws it at every station (scaled to about
+  250–550 px on screen) and on the gallery pedestals (wrist cut off at y ≈ 860),
+  with the nails, designs and gems drawn on top. With the picture the fingers no
+  longer wiggle on the "all done" moment (they can't move).

@@ -1,0 +1,16 @@
+{
+  "note": "Original Rumi files stay at their original paths. Set GAME_CONFIG.legacyDollArt.rumi=true to restore original art, outfit statistics, jump scale, rider offsets and broom hand anchors.",
+  "sha256": {
+    "assets/doll_rumi_sprites.webp": "acdf60bfe4a076cc6b9ede1cd645b737e6402ef3dd7f767a9208b05d83f131bb",
+    "assets/masks/outfits.json": "6e71e7f0cf0a878fb8f9444d82027d25be8330f508e29240d4ca14d2100c992f",
+    "assets/portraits/rumi.webp": "0299a2d17ac68f1e9b52e6025af6f30497e7430efbd6dfad4f73c2af6f301f66",
+    "assets/portraits/rumi_cheer.webp": "b609bc2333e235d108a27528d9620d19d32e95cccd7c86e5772c53ef4fc97797",
+    "assets/portraits/rumi_wave.webp": "1ca01645b2fcb8ac4a0bc6815747fedfac562758e377c85e905fbc14504c07c2",
+    "assets/portraits/rumi_ride.webp": "4c7fbbb669fc90383a48492769a2a92c6bb2025e56c26e19ae52b48e7f3bed84",
+    "assets/masks/rumi_cheer_mask.webp": "651ef8a8abc644ec89fcab5ff40d3b0d13b11c161c258c1d9adb42169f46809a",
+    "assets/masks/rumi_portrait_mask.webp": "aaa5339987ff0921f4b33a4bf908b2888c86578ffa0a4a8a57c5cf5ab5ce7b0b",
+    "assets/masks/rumi_ride_mask.webp": "26feab52ef94f9b7b8baa303c52fcd5f056c81cc751dad34d27f45d87b4802a9",
+    "assets/masks/rumi_sheet_mask.webp": "411f9fcf622ea6855f8a62e66ed81fa58c93c1d515d411a054fd7a7a2eeea760",
+    "assets/masks/rumi_wave_mask.webp": "eac2a716f0d245efb2ec4f4e0610f7a20b791eb524fa5f16d35f7a8370fff198"
+  }
+}

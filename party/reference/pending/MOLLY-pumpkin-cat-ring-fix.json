@@ -1,0 +1,58 @@
+[
+  {
+    "key": "prop/pp-witch-cat",
+    "prompt": "Precise edit target: preserve this exact adorable grey tabby witch kitten, purple star wizard hat, teal eyes, happy open mouth, front-facing pose, navy outlines and cel shading. REMOVE the entire brown dirt ring/hole under and around the kitten. Draw just the complete kitten upper body with its two front paws resting along the bottom edge as if peeking out from a separately drawn hole. No dirt, no stones, no ground, no oval rim, no cast shadow. True transparent background. Keep head/hat/paws all fully visible, generous transparent margin, consistent front-view proportions. This is game prop pp-witch-cat, not a full-body standing cat.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-175011c8-098b-4057-803b-e274d6f2d59d.png",
+    "nativeOutputSize": [
+      1254,
+      1254
+    ],
+    "source": "party/reference/pending/molly-sources/pumpkin-peekaboo/pp-witch-cat-clean.webp",
+    "runtimeFile": "party/assets/art/prop/pp-witch-cat.webp",
+    "file": "party/assets/art/prop/pp-witch-cat.webp",
+    "width": 320,
+    "height": 320,
+    "size": [
+      320,
+      320
+    ],
+    "runtimeBytes": 27970,
+    "actualAlphaBBox": [
+      37,
+      6,
+      308,
+      309
+    ],
+    "tool": "built-in imagegen",
+    "intakeMethod": "same native square canvas resized to320; no painted edits",
+    "status": "native and runtime expression pair reviewed; actual game shows kitten paws seated in one separately drawn hole; no browser errors"
+  },
+  {
+    "key": "prop/pp-witch-cat-purr",
+    "prompt": "Precise expression-only edit of this clean ring-free kitten sprite. Keep exact canvas, kitten size/position, purple star wizard hat, grey tabby stripes, outlines, cream cheeks, chest and both paws unchanged. ONLY change expression to a pleased contented purr: both eyes gently CLOSED as relaxed upward curves, tiny peaceful closed-mouth smile. Transparent background, absolutely NO dirt, no hole rim, no ground or shadow. Paws resting at bottom edge. Preserve everything else for seamless expression switch.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-f413320c-3d42-451e-b108-9b227322f0be.png",
+    "nativeOutputSize": [
+      1254,
+      1254
+    ],
+    "source": "party/reference/pending/molly-sources/pumpkin-peekaboo/pp-witch-cat-purr-clean.webp",
+    "runtimeFile": "party/assets/art/prop/pp-witch-cat-purr.webp",
+    "file": "party/assets/art/prop/pp-witch-cat-purr.webp",
+    "width": 320,
+    "height": 320,
+    "size": [
+      320,
+      320
+    ],
+    "runtimeBytes": 26158,
+    "actualAlphaBBox": [
+      8,
+      6,
+      309,
+      309
+    ],
+    "tool": "built-in imagegen",
+    "intakeMethod": "same native square canvas resized to320; no painted edits",
+    "status": "native and runtime expression pair reviewed; actual game shows kitten paws seated in one separately drawn hole; no browser errors"
+  }
+]

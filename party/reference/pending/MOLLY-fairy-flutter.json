@@ -1,0 +1,392 @@
+{
+  "game": "fairy-flutter",
+  "status": "All11requestedFairyFlutterimages delivered; gameplay QA pending",
+  "assets": [
+    {
+      "key": "bg/fairy-flutter",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Opaque widescreen. Quiet top-centre rectangle x\u2248700\u20131220, y=0\u2013260 for Moon+jar consumer; fairies occupy y\u2248170\u2013980; code draws drifting clouds/rainbow streams above.",
+      "prompt": "Use case: style-transfer. Asset type: 16:9 full-screen 2D game background. Input images: Image 1 is the exact scene/composition target; Image 2 is an approved Felicity roster reference for the house's 2D illustration style only. Change only the rendering style of Image 1: make the clouds, leaves and large flowers use smooth, clearly visible dark navy #24163f outer outlines, simplified rounded shapes and clean soft cel-shading with distinct flat color areas. Keep the existing lavender-to-peach twilight sky gradient, flower placements, cloud banks, giant pink/gold tulips, bluebells, daisies, wide layout and calm open top-center. Maintain the current composition and proportions; do not crop or rearrange elements. Make it feel like a polished candy-colour 2D cartoon game scene, with no painterly/photographic detail, no blur on foreground objects, no 3D. No fairies, people, animals, creatures or character silhouettes anywhere. No text, frame or watermark. Opaque background.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-d8b2687a-75fe-4afb-9c8f-2a2c1da950f0.png",
+      "runtimeFile": "party/assets/art/bg/fairy-flutter.webp",
+      "status": "Root visually reviewed,decoded; ready for actual game QA",
+      "nativeOutputSize": [
+        1672,
+        941
+      ],
+      "runtimeBytes": 199444,
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "editHistory": [
+        {
+          "prompt": "Use case: illustration-story. Asset type: full-screen 2D game background. Input images: Image 1 is an approved Felicity roster reference for house-style guidance only; do not depict her or copy her anatomy. Primary request: a dreamy pastel twilight flower sky, lavender fading to peach and soft pink, a few big puffy pink-gold clouds, faint small stars high in the sky, and a soft band of giant glowing tulips, daisies and bluebells along the bottom 20 percent, taller than houses and softly blurred. Style: 2D candy-colour storybook game art, smooth navy #24163f outlines, soft clean cel shading, no 3D or photorealism. Layout: wide 16:9 panorama; reserve the top-centre area x=700\u20131220, y=0\u2013260 as calm open sky for a Moon and jar; keep fly-through area clear from y\u2248170 to y\u2248980 because code draws the fairies and drifts clouds/rainbow streams on top. No characters, no jar, no foreground objects, no text, border or watermark.",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-d37f794d-c362-4a59-acb5-b985d8625f96.png"
+        },
+        {
+          "prompt": "Use case: precise-object-edit. Asset type: full-screen illustrated game background. Input images: Image 1 is the exact background edit target. Remove only the two tiny fairy/character figures at the far bottom left and far bottom right edges. Replace those figure-shaped spots seamlessly with matching giant flowers, leaves and soft pastel twilight sky; leave no people, fairies, animals or character silhouettes anywhere. Preserve the existing 16:9 scene, exact lavender-to-peach sky, cloud forms, giant flower meadow, polished 2D candy-colour style, colors, composition and all other pixels as closely as possible. Keep the top centre clear for HUD. Do not add new objects or lettering; no border, watermark or characters. Opaque background.",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-8a39ec84-16bc-4f33-9835-6a50793800f6.png"
+        },
+        {
+          "prompt": "Use case: style-transfer. Asset type: 16:9 full-screen 2D game background. Input images: Image 1 is the exact scene/composition target; Image 2 is an approved Felicity roster reference for the house's 2D illustration style only. Change only the rendering style of Image 1: make the clouds, leaves and large flowers use smooth, clearly visible dark navy #24163f outer outlines, simplified rounded shapes and clean soft cel-shading with distinct flat color areas. Keep the existing lavender-to-peach twilight sky gradient, flower placements, cloud banks, giant pink/gold tulips, bluebells, daisies, wide layout and calm open top-center. Maintain the current composition and proportions; do not crop or rearrange elements. Make it feel like a polished candy-colour 2D cartoon game scene, with no painterly/photographic detail, no blur on foreground objects, no 3D. No fairies, people, animals, creatures or character silhouettes anywhere. No text, frame or watermark. Opaque background.",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-d8b2687a-75fe-4afb-9c8f-2a2c1da950f0.png"
+        }
+      ],
+      "editTargetPreviousNativePNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-d37f794d-c362-4a59-acb5-b985d8625f96.png",
+      "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "actualGeometry": "1920\u00d71080 output fitted at full-frame to 1920\u00d71080; style-transfer edit emphasized 2D navy outlines and flat cel-shaded forms; no characters.",
+      "editPrompt": "Use case: style-transfer. Asset type: 16:9 full-screen 2D game background. Input images: Image 1 is the exact scene/composition target; Image 2 is an approved Felicity roster reference for the house's 2D illustration style only. Change only the rendering style of Image 1: make the clouds, leaves and large flowers use smooth, clearly visible dark navy #24163f outer outlines, simplified rounded shapes and clean soft cel-shading with distinct flat color areas. Keep the existing lavender-to-peach twilight sky gradient, flower placements, cloud banks, giant pink/gold tulips, bluebells, daisies, wide layout and calm open top-center. Maintain the current composition and proportions; do not crop or rearrange elements. Make it feel like a polished candy-colour 2D cartoon game scene, with no painterly/photographic detail, no blur on foreground objects, no 3D. No fairies, people, animals, creatures or character silhouettes anywhere. No text, frame or watermark. Opaque background.",
+      "source": "party/reference/pending/molly-sources/fairy-flutter/bg-fairy-flutter.webp",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/bg-fairy-flutter.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
+    },
+    {
+      "key": "prop/ff-jar",
+      "size": [
+        320,
+        400
+      ],
+      "geometry": "Transparent glass mason jar with cork stopper and pink ribbon; inner area open/plain and mostly see-through (pale outline/highlights only) for code-drawn fill behind, upright front view.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game prop, front view. Input images: Image 1 is an approved Felicity roster reference for art style only; do not depict her. Primary request: one clear round glass mason jar with a cork stopper tied with a small pink ribbon bow. Style: polished 2D candy-cartoon, bold smooth navy #24163f outline, soft clean cel shading. Composition: upright centered jar in a 320\u00d7400 transparent canvas. Critical: glass interior must be mostly transparent and plain, with only a pale thin outline and a few white highlight streaks at the sides; do not draw liquid, sparkles, patterns or colored fill inside because code renders the fill behind the jar. Keep stopper, knot and jar rim fully visible. No glow, shadow, background, text or watermark.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-d9849073-151f-483a-9120-dc0cde090eec.png",
+      "runtimeFile": "party/assets/art/prop/ff-jar.webp",
+      "status": "Root visually reviewed,decoded; ready for actual game QA",
+      "nativeOutputSize": [
+        1122,
+        1402
+      ],
+      "runtimeBytes": 30224,
+      "actualAlphaBBox": [
+        7,
+        19,
+        300,
+        400
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-jar.webp",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-jar.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
+    },
+    {
+      "key": "prop/ff-sparkle",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Transparent centred pickup, compact, readable while spinning.",
+      "description": "A chunky golden four-point sparkle star with a clean white glint.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is an approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A chunky golden four-point sparkle star with a clean white glint. Style: polished 2D candy-colour game illustration, smooth bold dark navy #24163f outlines, clean soft cel-shading, rounded appealing shapes; no 3D or photorealism. Composition: Transparent centred pickup, compact, readable while spinning.. No broad glow halo or background; code adds effects. Genuine transparent alpha, no shadow, text or watermark.",
+      "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-b27e7d66-2b30-44c7-b3f8-96071fbcb4b9.png",
+      "runtimeFile": "party/assets/art/prop/ff-sparkle.webp",
+      "status": "Root visually reviewed,decoded; ready for actual game QA",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-sparkle.webp",
+      "actualAlphaBBox": [
+        5,
+        5,
+        116,
+        124
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "runtimeBytes": 4828,
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-sparkle.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
+    },
+    {
+      "key": "prop/ff-dewdrop",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Transparent centred water drop, compact, readable while bobbing.",
+      "description": "A single shiny pale-aqua water dewdrop with a subtle rainbow sheen and one crisp white highlight.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is an approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A single shiny pale-aqua water dewdrop with a subtle rainbow sheen and one crisp white highlight. Style: polished 2D candy-colour game illustration, smooth bold dark navy #24163f outlines, clean soft cel-shading, rounded appealing shapes; no 3D or photorealism. Composition: Transparent centred water drop, compact, readable while bobbing.. No bubble trail, background, glow halo, or other objects. Genuine transparent alpha, no shadow, text or watermark.",
+      "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-15711e96-f12c-4e66-a767-75957e68053d.png",
+      "runtimeFile": "party/assets/art/prop/ff-dewdrop.webp",
+      "status": "Root visually reviewed,decoded; ready for actual game QA",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-dewdrop.webp",
+      "actualAlphaBBox": [
+        26,
+        11,
+        113,
+        116
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "runtimeBytes": 3838,
+      "nativeOutputSize": [
+        1222,
+        1287
+      ],
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-dewdrop.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
+    },
+    {
+      "key": "prop/ff-petal",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Transparent centred petal, single piece, tumbling rotation remains legible.",
+      "description": "A single soft pink flower petal, slightly curled, with a deeper pink base.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is an approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A single soft pink flower petal, slightly curled, with a deeper pink base. Style: polished 2D candy-colour game illustration, smooth bold dark navy #24163f outlines, clean soft cel-shading, rounded appealing shapes; no 3D or photorealism. Composition: Transparent centred petal, single piece, tumbling rotation remains legible.. One petal only, no whole flower, leaves, scene, text, or shadow. Genuine transparent alpha, no shadow, text or watermark.",
+      "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-ae333863-8a88-46fb-a482-dbaa10c5c4fc.png",
+      "runtimeFile": "party/assets/art/prop/ff-petal.webp",
+      "status": "Root visually reviewed,decoded; ready for actual game QA",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-petal.webp",
+      "actualAlphaBBox": [
+        14,
+        20,
+        113,
+        104
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "runtimeBytes": 3726,
+      "nativeOutputSize": [
+        1222,
+        1287
+      ],
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-petal.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
+    },
+    {
+      "key": "prop/ff-star",
+      "size": [
+        192,
+        192
+      ],
+      "geometry": "Transparent centred rare pickup; plump five-point star and its short left-side trail fully inside canvas.",
+      "description": "A plump shiny golden five-point star with a happy little face and a short rainbow sparkle trail on the left.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is an approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A plump shiny golden five-point star with a happy little face and a short rainbow sparkle trail on the left. Style: polished 2D candy-colour game illustration, smooth bold dark navy #24163f outlines, clean soft cel-shading, rounded appealing shapes; no 3D or photorealism. Composition: Transparent centred rare pickup; plump five-point star and its short left-side trail fully inside canvas.. Keep it as a symbolic pickup prop rather than a separate character; no limbs or body, no broad glow halo. Genuine transparent alpha, no shadow, text or watermark.",
+      "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-28f05bac-7031-4f74-a6e2-49f3e85d2233.png",
+      "runtimeFile": "party/assets/art/prop/ff-star.webp",
+      "status": "Root visually reviewed,decoded; ready for actual game QA",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-star.webp",
+      "actualAlphaBBox": [
+        5,
+        27,
+        188,
+        154
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "runtimeBytes": 10972,
+      "nativeOutputSize": [
+        1361,
+        1156
+      ],
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-star.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
+    },
+    {
+      "key": "prop/ff-moon",
+      "size": [
+        512,
+        512
+      ],
+      "geometry": "Centered transparent sprite, approved canonical base.",
+      "prompt": "Approved crescent Moon canonical reused as the static smiling FF Moon base.",
+      "inputReferences": [
+        "party/reference/pending/molly-canonicals-2/crescent-moon.webp"
+      ],
+      "nativeCanonicalSource": "party/reference/pending/molly-canonicals-2/crescent-moon.webp",
+      "sourcePath": "party/reference/pending/molly-canonicals-2/crescent-moon.webp",
+      "runtimeFile": "party/assets/art/prop/ff-moon.webp",
+      "status": "Root visually reviewed,decoded; ready for actual game QA",
+      "nativeOutputSize": [
+        1222,
+        1287
+      ],
+      "runtimeBytes": 42606,
+      "actualAlphaBBox": [
+        30,
+        4,
+        494,
+        492
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-moon.webp"
+    },
+    {
+      "key": "prop/ff-bee",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Centered transparent sprite, approved canonical base.",
+      "prompt": "Approved bee-v2 canonical reused as the static Fairy Flutter bee base.",
+      "inputReferences": [
+        "party/reference/pending/molly-canonicals/bee-v2.webp"
+      ],
+      "nativeCanonicalSource": "party/reference/pending/molly-canonicals/bee-v2.webp",
+      "sourcePath": "party/reference/pending/molly-canonicals/bee-v2.webp",
+      "runtimeFile": "party/assets/art/prop/ff-bee.webp",
+      "status": "Root visually reviewed,decoded; ready for actual game QA",
+      "nativeOutputSize": [
+        1340,
+        1174
+      ],
+      "runtimeBytes": 16772,
+      "actualAlphaBBox": [
+        24,
+        27,
+        252,
+        230
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-bee.webp"
+    },
+    {
+      "key": "prop/ff-moon-happy",
+      "size": [
+        512,
+        512
+      ],
+      "geometry": "Same centred transparent framing as the approved canonical base; expression variant.",
+      "prompt": "Edit this approved crescent-Moon canonical into its Fairy Flutter happy finale expression. Preserve the exact crescent shape and orientation, pale golden face, outline, proportions, eyes/cheek identity, and clean 2D style. Change only the expression to eyes squeezed shut in a huge open-mouthed laugh; add a few small simple gold sparkles around the Moon. Centered on a 512\u00d7512 canvas with genuine transparent alpha. No nightcap, no text, no halo, background or watermark.",
+      "inputReferences": [
+        "party/reference/pending/molly-canonicals-2/crescent-moon.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-690df0cb-6eef-4842-a230-76bf3f868b33.png",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-moon-happy.webp",
+      "runtimeFile": "party/assets/art/prop/ff-moon-happy.webp",
+      "status": "Root visually reviewed,decoded; ready for actual game QA",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 39602,
+      "actualAlphaBBox": [
+        37,
+        8,
+        474,
+        499
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-moon-happy.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
+    },
+    {
+      "key": "prop/ff-bee-giggle",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Same centred transparent framing as the approved canonical base; expression variant.",
+      "prompt": "Edit this approved bee-v2 canonical into its Fairy Flutter giggle expression. Preserve the bee's exact identity, proportions, yellow-and-brown stripes, wings, legs, antennae, navy outlines, camera angle and body placement. Change only the eyes to squeezed shut and the mouth to an open happy giggle; add a few tiny simple pink hearts beside its head. Keep the same transparent centered 256\u00d7256 framing. Polished 2D candy-cartoon cel shading; no other changes, no glow halo, no scene, no text or watermark.",
+      "inputReferences": [
+        "party/reference/pending/molly-canonicals/bee-v2.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-97aa3e53-0972-466e-a6fb-f9e90ed82894.png",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-bee-giggle.webp",
+      "runtimeFile": "party/assets/art/prop/ff-bee-giggle.webp",
+      "status": "Root visually reviewed,decoded; ready for actual game QA",
+      "nativeOutputSize": [
+        1340,
+        1174
+      ],
+      "runtimeBytes": 18458,
+      "actualAlphaBBox": [
+        13,
+        21,
+        252,
+        235
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-bee-giggle.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
+    },
+    {
+      "key": "thumb/fairy-flutter",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Opaque centred 16:10 game-select thumbnail.",
+      "prompt": "Use case: illustration-story. Asset type: opaque game-select thumbnail illustration for Fairy Flutter. Input images: Image 1 is the approved pink Tulip Fairy canonical; preserve her pink flower cap, pink outfit, wings and face identity. Image 2 is the approved blue Bluebell Fairy canonical; preserve her blue flower cap, blue outfit, wings and face identity. Image 3 is the approved golden crescent Moon canonical; preserve its identity. Image 4 is the approved transparent sparkle jar prop; preserve the round clear jar and pink bow. Image 5 is the approved bee-v2 canonical; preserve its yellow-and-brown striped bee identity. Primary request: the pink Tulip Fairy and blue Bluebell Fairy with big sparkly wings zoom through a dreamy pastel flower sky; nearby the smiling crescent Moon holds the glowing clear sparkle jar; a rainbow ribbon swoops through the scene and the same chubby bumblebee giggles happily. These are garden fairy NPCs, not Charlie Party player characters. Style: polished 2D candy-colour storybook art with smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. Composition: exact 800\u00d7500 landscape, centred balanced subjects, vivid pastel flowers and twilight sky. No lettering, logos, watermark or border.",
+      "inputReferences": [
+        "party/reference/canonical/garden-fairy-pink.webp",
+        "party/reference/canonical/garden-fairy-blue.webp",
+        "party/reference/pending/molly-canonicals-2/crescent-moon.webp",
+        "party/assets/art/prop/ff-jar.webp",
+        "party/reference/pending/molly-canonicals/bee-v2.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e538a4bb-1c76-424d-88d1-f44b163a4c93.png",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/thumb-fairy-flutter.webp",
+      "runtimeFile": "party/assets/art/thumb/fairy-flutter.webp",
+      "status": "Root visually reviewed,decoded; ready for actual game QA",
+      "nativeOutputSize": [
+        1586,
+        992
+      ],
+      "runtimeBytes": 113532,
+      "actualAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "source": "party/reference/pending/molly-sources/fairy-flutter/thumb-fairy-flutter.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
+    }
+  ]
+}

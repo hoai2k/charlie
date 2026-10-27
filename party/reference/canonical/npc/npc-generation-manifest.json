@@ -1,0 +1,132 @@
+{
+  "tool": "built-in image_gen",
+  "styleReference": "../felicity.webp",
+  "approvalGate": "No sprites, thumbnails, props or game integration until explicit user approval of each design.",
+  "entries": [
+    {
+      "name": "glimmer",
+      "image": "glimmer-v3.webp",
+      "status": "User-approved",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Input image 1: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright colors, simple clean cel shading, no photorealism, no 3D. Subject: Glimmer, an original tiny fairy girl who hosts the party games like a cheerful game-show presenter. Warm light-brown skin, rosy cheeks, big sparkly violet eyes, huge friendly open smile. Bouncy chin-length mint-to-teal bob haircut with two small gold star hair clips. Pink and coral flower-petal dress shaped like an upside-down tulip with a gold star belt buckle, mint-and-white striped tights, tiny curly-toed gold slippers. Four translucent iridescent fairy wings, aqua fading to lilac, with clean navy outlines so they read on any background. In one hand she holds a star-topped wand that doubles as a microphone: a gold star with a mic grille in its center on a short pink handle. Pose: hovering in mid-air with feet pointed, free hand waving hello, leaning slightly toward the viewer, three-quarter view facing right. One single full-body character, centered and entirely visible with generous margin. Transparent background, no scenery, no sparkles or floating decorations, no text, no watermark, no other characters. Not blonde, no green leaf dress; an original design.",
+      "revisions": [
+        {
+          "image": "glimmer.webp",
+          "status": "Revision requested",
+          "feedback": "She looks good, just make her skin a lighter in color so she reads a bit brighter."
+        },
+        {
+          "image": "glimmer-v2.webp",
+          "status": "Revision requested",
+          "prompt": "Use case: precise-object-edit. Edit this exact Glimmer canonical image. User feedback: 'She looks good, just make her skin a lighter in color so she reads a bit brighter.' Change ONLY the skin tone on her face, neck, arms and hands to a noticeably lighter, brighter warm peach/light tan, retaining rosy cheeks and clean cel-shading. Preserve absolutely everything else: exact same face and expression, violet eyes, mint-teal bob with two gold star clips, pink coral petal dress and star belt, four iridescent wings, striped tights, gold slippers, star microphone wand, pose, silhouette, framing, dimensions and smooth navy outlines. No new details. Fully transparent background preserved. No ground shadow, no scenery, no text."
+        },
+        {
+          "image": "glimmer-v3.webp",
+          "status": "User-approved",
+          "prompt": "Edit this exact Glimmer image. Remove the two pink oval cheek blush marks ENTIRELY, replacing them with the same smooth light peach skin color as adjacent skin. Preserve absolutely everything else, including the newly lightened skin tone, facial features and smile, violet eyes, mint bob with gold clips, four wings, flower-petal dress, star belt, striped tights, curled gold shoes, star mic wand, pose, outline, composition, dimensions and transparent background. No pink blush remaining; no other changes."
+        }
+      ],
+      "dimensions": [
+        1222,
+        1287
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "format": "lossless WebP RGBA"
+    },
+    {
+      "name": "shadow-imp",
+      "image": "shadow-imp.webp",
+      "status": "User-approved",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Input image 1: Felicity canonical STYLE reference only; match its linework, cel shading and charm. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, simple clean cel shading, no photorealism, no 3D. Subject: a Shadow Imp, a small cute mischievous shadow creature for a kids' music game, as cuddly as a plush toy and not scary at all. Round soft velvety plum-purple body with a lighter lavender belly, a wispy curling smoke tail instead of legs so it floats, two small rounded cat-ear nubs, tiny stubby arms, little optional bat-wing flaps, huge round glowing lemon-yellow eyes with round shapes (no slit pupils), and a cheeky grin showing one tiny tooth. Pose: floating, giggling with one hand over its mouth, playful sideways lean, three-quarter view facing right. One single full-body character, centered with generous margin. Transparent background, no glow haze, no scenery, no text, no watermark, no other characters. No horns, no claws, no fangs, no menace.",
+      "variants": [
+        {
+          "name": "shadow-imp-blue",
+          "image": "shadow-imp-blue.webp",
+          "method": "Selective violet hue shift -0.11 turns; same geometry and alpha; yellow eyes preserved",
+          "status": "User-approved"
+        },
+        {
+          "name": "shadow-imp-pink",
+          "image": "shadow-imp-pink.webp",
+          "method": "Selective violet hue shift +0.10 turns; same geometry and alpha; yellow eyes preserved",
+          "status": "User-approved"
+        }
+      ],
+      "dimensions": [
+        1222,
+        1287
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "format": "lossless WebP RGBA"
+    },
+    {
+      "name": "professor-hoot",
+      "image": "professor-hoot.webp",
+      "status": "User-approved",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Input image 1: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Consistent style: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright colors, simple clean cel shading, no photorealism, no 3D. Subject: Professor Hoot, an original kindly owl teacher at a magical wizard school. Plump round tawny-brown owl with a cream heart-shaped face disc, big warm amber eyes behind round gold spectacles, small ear tufts peeking out, short orange beak, feathered wings used like hands, little orange talons. Wears a deep midnight-blue robe with silver star and crescent-moon trim and a tall floppy purple pointed wizard hat with a gold star band. Holds a short wooden wand in one wing; the other wing is raised as if starting a lesson. Friendly, slightly dramatic, absent-minded professor expression. Three-quarter view facing right, standing upright. No school crest, no house scarf, no lightning bolt, no logos. One single full-body character, centered and entirely visible with generous margin. Transparent background, no scenery, no floating decorations, no text, no watermark, no other characters.",
+      "dimensions": [
+        1222,
+        1287
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "format": "lossless WebP RGBA"
+    },
+    {
+      "name": "garden-fairies",
+      "image": "garden-fairies-v3.webp",
+      "status": "User-approved",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Input image 1: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright colors, simple clean cel shading, no photorealism, no 3D. Subject: Five color variants in a single spacious horizontal row of ONE identical tiny round-faced garden fairy design. Each fairy has dragonfly wings, a single-color outfit and simple cute face readable at 50px height. The five outfits and flower-cap hats must be: pink with tulip cap, blue with bluebell cap, yellow with daisy cap, green with leaf cap, purple with violet cap. Hats must have distinctly different flower silhouettes so color-blind children can count pink tulips. Use the same warm skin tone, face, short hair, body proportions and hovering pose for all five; wings gently spread, smiling. Full bodies visible and separate with plenty of spacing. This is a color-and-hat design comparison sheet, not animation. Transparent background, centered and entirely visible with generous margins. No scenery, no floating decorations, no glow haze, no ground shadow, no text, no watermark. Kid-friendly original design. CRITICAL: These are HUMAN fairy children, with smooth warm light-brown skin over the entire face, tiny HUMAN noses, HUMAN round ears, short dark brown bob hair. NO fox anatomy: no muzzle, no black animal nose, no orange fur, no cream muzzle patch, no tails, no pigtails. The Felicity image ONLY establishes linework and cel shading. Give all figures roomy empty margins, including the leftmost and rightmost wings.",
+      "dimensions": [
+        2178,
+        722
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "format": "lossless WebP RGBA",
+      "revisionPrompt": "Edit the exact five Garden Fairies in this horizontal reference row. User requests more diverse skin tones including lighter ones. Change ONLY each fairy's skin color on face, ears, arms/hands and legs. From LEFT to RIGHT use: pink tulip fairy pale warm peach; blue bluebell fairy deep rich brown; yellow daisy fairy light rosy beige; green leaf fairy medium warm tan; purple violet fairy medium-deep brown. Keep each whole fairy internally consistent skin color. Keep all other details EXACT: same flower hat shapes, outfit colors, dark brown short bob, eyes, poses, wings, shoes, linework and spacing. Preserve full row of five characters and transparent background; no text, new objects or scene. Skin diversity should be very clear. No change of flower cap or garment hues.",
+      "revisionPromptV3": "Edit this exact five-fairy reference row. User approved every detail EXCEPT the purple-flower fairy skin. Change ONLY RIGHTMOST purple violet fairy skin to LIGHT OLIVE skin: a light natural beige with subtle warm olive undertone, clearly lighter than her current brown. Match face, ears, arms, hands, legs consistently. Preserve all other four fairies PIXEL-IDENTICALLY, including pink pale peach, blue deep brown, yellow light rosy beige, green medium tan. Preserve purple fairy's violet flower cap, purple outfit, brown bob, expression, wings and pose exactly. Transparent background, same composition, no new details, no text.",
+      "approvedVersion": "garden-fairies-v3.webp"
+    },
+    {
+      "name": "grumpy-broccoli",
+      "image": "grumpy-broccoli.webp",
+      "status": "User-approved",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Input image 1: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright colors, simple clean cel shading, no photorealism, no 3D. Subject: One small grumpy broccoli floret character with rounded dark green florets and a pale green stalk body, comically frowning face, folded arms made of stalk, kid-friendly and not gross. Entire single character shown in a three-quarter view facing slightly right. Funny mildly disgruntled expression, never scary. Transparent background, centered and entirely visible with generous margins. No scenery, no floating decorations, no glow haze, no ground shadow, no text, no watermark. Kid-friendly original design.",
+      "dimensions": [
+        1222,
+        1287
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "format": "lossless WebP RGBA"
+    },
+    {
+      "name": "storm-cloud",
+      "image": "storm-cloud.webp",
+      "status": "User-approved",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a sprite sheet. Input image 1: Felicity canonical STYLE reference only; match its linework, cel shading and charm, do not borrow her anatomy or costume. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright colors, simple clean cel shading, no photorealism, no 3D. Subject: One puffy rounded gray-lavender thundercloud character with a sleepy grumpy face and a tiny cartoon yellow lightning squiggle underneath. Simple very readable silhouette, funny drowsy lowered eyelids, small frown; no arms, no legs. Entire single cloud and lightning visible. Transparent background, centered and entirely visible with generous margins. No scenery, no floating decorations, no glow haze, no ground shadow, no text, no watermark. Kid-friendly original design.",
+      "dimensions": [
+        1222,
+        1287
+      ],
+      "alphaRange": [
+        0,
+        255
+      ],
+      "format": "lossless WebP RGBA",
+      "productionNotes": "User requests lightning separate from cloud base for final sprites; use separate prop/code effect."
+    }
+  ]
+}

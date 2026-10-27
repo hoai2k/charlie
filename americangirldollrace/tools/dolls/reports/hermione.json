@@ -1,0 +1,287 @@
+{
+  "key": "hermione",
+  "standingHeight": 390,
+  "baseline": 409,
+  "frames": {
+    "idle-0": {
+      "bounds": [
+        94,
+        19,
+        312,
+        409
+      ],
+      "scale": 0.5539772727272727,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        443,
+        715
+      ]
+    },
+    "idle-1": {
+      "bounds": [
+        83,
+        18,
+        302,
+        409
+      ],
+      "scale": 0.5539772727272727,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        383,
+        715
+      ]
+    },
+    "idle-2": {
+      "bounds": [
+        76,
+        18,
+        291,
+        409
+      ],
+      "scale": 0.5539772727272727,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        333,
+        715
+      ]
+    },
+    "run-0": {
+      "bounds": [
+        25,
+        18,
+        356,
+        409
+      ],
+      "scale": 0.5539772727272727,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        410,
+        712
+      ]
+    },
+    "run-1": {
+      "bounds": [
+        59,
+        17,
+        339,
+        409
+      ],
+      "scale": 0.5539772727272727,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        365,
+        713
+      ]
+    },
+    "run-2": {
+      "bounds": [
+        33,
+        17,
+        377,
+        409
+      ],
+      "scale": 0.5539772727272727,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        365,
+        713
+      ]
+    },
+    "jump-0": {
+      "bounds": [
+        59,
+        45,
+        333,
+        409
+      ],
+      "scale": 0.5539772727272727,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        453,
+        697
+      ]
+    },
+    "jump-1": {
+      "bounds": [
+        20,
+        44,
+        336,
+        409
+      ],
+      "scale": 0.5539772727272727,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        424,
+        672
+      ]
+    },
+    "jump-2": {
+      "bounds": [
+        56,
+        63,
+        351,
+        409
+      ],
+      "scale": 0.5539772727272727,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        360,
+        704
+      ]
+    },
+    "ride": {
+      "bounds": [
+        49,
+        37,
+        340,
+        410
+      ],
+      "scale": 0.5539772727272727,
+      "anchor": [
+        209,
+        264
+      ],
+      "sourceAnchor": [
+        345,
+        418
+      ],
+      "seat": [
+        210.26,
+        288.81
+      ]
+    },
+    "push": {
+      "bounds": [
+        28,
+        52,
+        363,
+        409
+      ],
+      "scale": 0.31022727272727274,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        665,
+        1222
+      ]
+    },
+    "fall": {
+      "bounds": [
+        10,
+        114,
+        408,
+        409
+      ],
+      "scale": 0.3323863636363636,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        635,
+        1092
+      ]
+    },
+    "wave": {
+      "bounds": [
+        84,
+        21,
+        333,
+        409
+      ],
+      "scale": 0.5539772727272727,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        421,
+        711
+      ]
+    },
+    "cheer": {
+      "bounds": [
+        72,
+        18,
+        342,
+        409
+      ],
+      "scale": 0.5539772727272727,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        345,
+        711
+      ]
+    }
+  },
+  "runtime": {
+    "name": "Hermione",
+    "color": "#696582",
+    "spriteKey": "hermione",
+    "jumpScale": 1,
+    "riderXOffset": 7.398,
+    "riderYOffset": 104.797,
+    "outfitData": {
+      "stats": {
+        "h": 0,
+        "L": 0.37,
+        "C": 0.015,
+        "beta": 0.7,
+        "tintNeutral": true
+      },
+      "outfits": [
+        "red",
+        "mint",
+        "pink",
+        "blue",
+        "yellow",
+        "purple",
+        "orange"
+      ]
+    }
+  },
+  "sha256": {
+    "assets/doll_hermione_sprites.webp": "4a26f2bbc8596754df18c25fee38421b5997232b8e5f4886392f33c0cd7767d3",
+    "assets/masks/hermione_sheet_mask.webp": "236c3b7ec422561c458c5f198bea436afe0ac050e0d33537cfd4b5202efdaae7",
+    "assets/portraits/hermione.webp": "a58be0eb8b5ea25de4b24868cd88208f98c6d78053ca1274156f41e9ba18ef57",
+    "assets/masks/hermione_portrait_mask.webp": "892a339056c71593237a529d4ede48fd379b8dbdb153efa15bd57684a45d0c26",
+    "assets/portraits/hermione_wave.webp": "725d61cf0086b34177b068affeb2869b1b41703ff05fadc6ce226a05bec31f52",
+    "assets/masks/hermione_wave_mask.webp": "adb8c1a747445c989d6721b2c52e766f70f4c9291711a667ce08c1d537f8e2af",
+    "assets/portraits/hermione_cheer.webp": "177a303dc9d13152a0bf436d86cb64875044ea743351471fa5d4ff109967670b",
+    "assets/masks/hermione_cheer_mask.webp": "940e9d4b707407aff2ed3842e04a1326c4a878d7f855c0e31977a99f856dfc84",
+    "assets/portraits/hermione_ride.webp": "7943595ec52aa5d4fe23d035308116a5ccd9b8fdb83a98d9cf5aa077ee9dbeff",
+    "assets/masks/hermione_ride_mask.webp": "470d03ebcd4b2f7382d9495d1b495d7a7d4ce2e60f722fec5e08b4d22e6cee90"
+  }
+}

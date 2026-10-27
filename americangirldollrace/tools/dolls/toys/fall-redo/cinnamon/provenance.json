@@ -1,0 +1,13 @@
+{
+  "keys": [
+    "cinnamon",
+    "felicity",
+    "luna"
+  ],
+  "method": "Mechanical whole-figure extraction of the two generated fall cells, followed by normal-fall body alignment",
+  "sources": [
+    "sources/cinnamon-full.webp",
+    "sources/felicity-full.webp",
+    "sources/luna-full.webp"
+  ]
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "key": "skeleton_horse",
+    "refs": [
+      "assets/horse_sprites.webp"
+    ],
+    "prompt": "Use case: stylized-concept. Transparent sprite sheet for a painted doll racing game. Reference is the exact pose/layout/scale/seat guide: replace the normal brown horse in each of its NINE cells with a friendly spooky SKELETON HORSE. Bone-white ivory skeleton body with simple chunky ribs, softly glowing green eyes, wispy ghost-purple mane and tail, tattered dark saddle blanket. Kid friendly, no gore. Bulkier chest than the reference but same overall size and corresponding back/saddle coordinates. EXACT 3 columns x3 rows. Top row3 standing variations; middle row3 right-facing gallop poses, extended/collected/extended; bottom row3 jump poses, takeoff/airborne/landing. Match every corresponding reference horse placement, baseline and back height. Transparent blank margins between cells and on edges, keep every whole horse within its cell, no ground/shadows/text/labels/riders. Keep subtle painted detailed shading of the reference."
+  },
+  {
+    "key": "troll_riding",
+    "refs": [
+      "assets/monster_sprites.webp",
+      "assets/horse_sprites.webp"
+    ],
+    "prompt": "Use case: identity-preserve. Transparent game sprite sheet, 3 columns x2 rows, SIX separate troll rider poses ONLY, no horse. Image1 is exact troll identity: same olive mottled skin, bulky torso, long arms, ragged loincloth, face and painted shading. Image2 is horse pose/layout/seat guide; do NOT draw the horse. Each cell corresponds to the horse 418x418 frame, with rider's seated hips at (225,245), head around y100, feet hanging near y350. Right-facing in all6. Row0: three galloping riding poses matching horse row1; legs astride bent around horse, torso leaning forward, one hand holding invisible reins, subtle alternating bounce. Row1: same seat anchor matching standing horse first cell: reach far forward and slightly to side with both long arms; lift empty hands overhead in a doll-sized grip; throw both arms forward with empty hands. Keep hands empty; game draws doll. Whole figures inside each cell with generous transparent gaps. No horse, saddle, props, ground, shadows, text, labels, borders. Compact seated poses; no standing legs."
+  }
+]

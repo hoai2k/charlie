@@ -1,0 +1,287 @@
+{
+  "key": "barbie",
+  "standingHeight": 390,
+  "baseline": 409,
+  "frames": {
+    "idle-0": {
+      "bounds": [
+        130,
+        19,
+        290,
+        409
+      ],
+      "scale": 0.5508474576271186,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        470,
+        716
+      ]
+    },
+    "idle-1": {
+      "bounds": [
+        113,
+        22,
+        293,
+        409
+      ],
+      "scale": 0.5508474576271186,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        335,
+        712
+      ]
+    },
+    "idle-2": {
+      "bounds": [
+        69,
+        25,
+        254,
+        409
+      ],
+      "scale": 0.5508474576271186,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        392,
+        706
+      ]
+    },
+    "run-0": {
+      "bounds": [
+        60,
+        27,
+        355,
+        409
+      ],
+      "scale": 0.5508474576271186,
+      "anchor": [
+        209,
+        409
+      ],
+      "sourceAnchor": [
+        450,
+        703
+      ]
+    },
+    "run-1": {
+      "bounds": [
+        98,
+        21,
+        302,
+        409
+      ],
+      "scale": 0.5508474576271186,
+      "anchor": [
+        209,
+        409
+      ],
+      "sourceAnchor": [
+        316,
+        711
+      ]
+    },
+    "run-2": {
+      "bounds": [
+        49,
+        25,
+        344,
+        409
+      ],
+      "scale": 0.5508474576271186,
+      "anchor": [
+        209,
+        409
+      ],
+      "sourceAnchor": [
+        378,
+        704
+      ]
+    },
+    "jump-0": {
+      "bounds": [
+        117,
+        75,
+        275,
+        409
+      ],
+      "scale": 0.5233050847457626,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        435,
+        701
+      ]
+    },
+    "jump-1": {
+      "bounds": [
+        91,
+        69,
+        353,
+        409
+      ],
+      "scale": 0.5233050847457626,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        377,
+        663
+      ]
+    },
+    "jump-2": {
+      "bounds": [
+        148,
+        87,
+        329,
+        409
+      ],
+      "scale": 0.5233050847457626,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        273,
+        702
+      ]
+    },
+    "ride": {
+      "bounds": [
+        145,
+        17,
+        349,
+        348
+      ],
+      "scale": 0.4957627118644068,
+      "anchor": [
+        209,
+        264
+      ],
+      "sourceAnchor": [
+        330,
+        510
+      ],
+      "seat": [
+        284.26,
+        239.81
+      ]
+    },
+    "push": {
+      "bounds": [
+        79,
+        65,
+        335,
+        409
+      ],
+      "scale": 0.4957627118644068,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        358,
+        706
+      ]
+    },
+    "fall": {
+      "bounds": [
+        66,
+        103,
+        375,
+        409
+      ],
+      "scale": 0.4957627118644068,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        375,
+        656
+      ]
+    },
+    "wave": {
+      "bounds": [
+        109,
+        22,
+        292,
+        409
+      ],
+      "scale": 0.5508474576271186,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        450,
+        710
+      ]
+    },
+    "cheer": {
+      "bounds": [
+        98,
+        22,
+        307,
+        409
+      ],
+      "scale": 0.5508474576271186,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        348,
+        710
+      ]
+    }
+  },
+  "runtime": {
+    "name": "Barbie",
+    "color": "#e7569c",
+    "spriteKey": "barbie",
+    "jumpScale": 1,
+    "riderXOffset": -44.402,
+    "riderYOffset": 139.097,
+    "outfitData": {
+      "stats": {
+        "h": -0.59806,
+        "L": 0.22636,
+        "C": 0.00624,
+        "beta": 0.7,
+        "tintNeutral": true
+      },
+      "outfits": [
+        "red",
+        "orange",
+        "yellow",
+        "mint",
+        "blue",
+        "purple",
+        "pink"
+      ]
+    }
+  },
+  "sha256": {
+    "assets/doll_barbie_sprites.webp": "d1ec01855a91499873c281d307bab3eaa792aa69131c1cbabafa5650e3951032",
+    "assets/masks/barbie_sheet_mask.webp": "48ef41feb9736bb37442c26269d6f435c36cba0bf3bd7f2ee0479d94728e0c51",
+    "assets/portraits/barbie.webp": "3775c25acc33226867cbba01f4e6a88b75781d0ec6306895920021525832f513",
+    "assets/masks/barbie_portrait_mask.webp": "f255da12ff01adb1ce7f957acc2557493d58651ee6115e5862ec472ddcee25ff",
+    "assets/portraits/barbie_wave.webp": "c04a34f201fb30ac46305098ea1d74d630602a19ab5d089bda6cd1d3280020d7",
+    "assets/masks/barbie_wave_mask.webp": "3664205094f8ef9fa56f1fde10a775f486689efc1d8d64fe64ec04e9d6012308",
+    "assets/portraits/barbie_cheer.webp": "c38457c30762408b505bb6fac9fc63cad608a2213dd01f805c80c4edec132af0",
+    "assets/masks/barbie_cheer_mask.webp": "3a33051e42b073c4a8dda32b45661f7d30f2fb63ff7d1e28b3b17cbfba3e395e",
+    "assets/portraits/barbie_ride.webp": "96d04aae2d3f3e939dda3fd85e331fede050b74dfb2b5e8df07e6eee3d70aae3",
+    "assets/masks/barbie_ride_mask.webp": "18f8ac21f71c98a26c8c94f562de8eea2d0ecb9703cc3035e3be1e74540e2f1f"
+  }
+}

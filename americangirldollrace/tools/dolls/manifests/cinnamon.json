@@ -1,0 +1,197 @@
+{
+  "version": 1,
+  "key": "cinnamon",
+  "name": "Cinnamon",
+  "color": "#dc83aa",
+  "standingHeight": 390,
+  "portraitBox": [
+    300,
+    0,
+    600,
+    375
+  ],
+  "mask": {
+    "mode": "pink-fabric",
+    "note": "Recolour pink fabric below the face; preserve hair, skin, shoes and contrasting outfit details."
+  },
+  "outfitData": {
+    "stats": {
+      "h": 0.05577,
+      "L": 0.82194,
+      "C": 0.0975,
+      "beta": 0.7
+    },
+    "outfits": [
+      "red",
+      "orange",
+      "yellow",
+      "mint",
+      "blue",
+      "purple",
+      "navy"
+    ]
+  },
+  "poses": {
+    "idle-0": {
+      "source": "sources/cinnamon/idle.webp",
+      "cell": 0,
+      "separate": true,
+      "hipX": 455,
+      "chin": 245,
+      "garmentBottom": 724
+    },
+    "idle-1": {
+      "source": "sources/cinnamon/idle.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 350,
+      "chin": 245,
+      "garmentBottom": 724
+    },
+    "idle-2": {
+      "source": "sources/cinnamon/idle.webp",
+      "cell": 2,
+      "separate": true,
+      "hipX": 300,
+      "chin": 245,
+      "garmentBottom": 724
+    },
+    "run-0": {
+      "source": "sources/cinnamon/run.webp",
+      "cell": 0,
+      "separate": true,
+      "hipX": 445,
+      "chin": 250,
+      "garmentBottom": 724
+    },
+    "run-1": {
+      "source": "sources/cinnamon/run.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 390,
+      "chin": 250,
+      "garmentBottom": 724
+    },
+    "run-2": {
+      "source": "sources/cinnamon/run.webp",
+      "cell": 2,
+      "separate": true,
+      "hipX": 380,
+      "chin": 250,
+      "garmentBottom": 724
+    },
+    "jump-0": {
+      "source": "sources/cinnamon/jump.webp",
+      "cell": 0,
+      "separate": true,
+      "hipX": 430,
+      "chin": 320,
+      "garmentBottom": 724,
+      "scale": 0.94
+    },
+    "jump-1": {
+      "source": "sources/cinnamon/jump.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 360,
+      "chin": 235,
+      "garmentBottom": 724,
+      "scale": 0.94
+    },
+    "jump-2": {
+      "source": "sources/cinnamon/jump.webp",
+      "cell": 2,
+      "separate": true,
+      "hipX": 355,
+      "chin": 360,
+      "garmentBottom": 724,
+      "scale": 0.94
+    },
+    "ride": {
+      "source": "sources/cinnamon/actions.webp",
+      "cell": 0,
+      "separate": true,
+      "hipX": 300,
+      "chin": 265,
+      "garmentBottom": 724,
+      "scale": 0.94,
+      "anchor": [
+        300,
+        510
+      ],
+      "target": [
+        209,
+        264
+      ],
+      "seatFrame": [
+        269.26,
+        242.81
+      ]
+    },
+    "push": {
+      "source": "sources/cinnamon/actions.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 360,
+      "chin": 265,
+      "garmentBottom": 724,
+      "scale": 0.94
+    },
+    "fall": {
+      "source": "sources/cinnamon/actions.webp",
+      "cell": 2,
+      "separate": true,
+      "hipX": 330,
+      "chin": 280,
+      "garmentBottom": 724,
+      "scale": 0.94
+    },
+    "wave": {
+      "source": "sources/cinnamon/menu.webp",
+      "cell": 0,
+      "separate": true,
+      "hipX": 430,
+      "chin": 245,
+      "garmentBottom": 724
+    },
+    "cheer": {
+      "source": "sources/cinnamon/menu.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 355,
+      "chin": 245,
+      "garmentBottom": 724
+    }
+  },
+  "personality": "Sweet and curious with gentle determined movements.",
+  "broomHandsSource": [
+    [
+      [
+        600,
+        455
+      ],
+      [
+        506,
+        450
+      ],
+      [
+        452,
+        340
+      ]
+    ],
+    [
+      [
+        600,
+        315
+      ],
+      [
+        526,
+        350
+      ],
+      [
+        542,
+        325
+      ]
+    ]
+  ]
+}

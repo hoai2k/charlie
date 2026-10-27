@@ -1,0 +1,30 @@
+{
+  "asset": "marina",
+  "source": "../sources/marina-round2-actions-a.webp",
+  "input_image_1": "../../../reference/canonical/marina.webp",
+  "poses": [
+    "swim",
+    "balance",
+    "splat-throw",
+    "wand-up",
+    "broom-rise",
+    "broom-glide",
+    "broom-zapped",
+    "count"
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "prompt": "Use case: illustration-story. Asset type: transparent full-body action sprite sheet for Charlie Party. Input image 1 is the approved canonical marina reference; reproduce this exact character in every cell.\n\nCreate an actual-alpha transparent sheet with 4 columns and 2 rows, generous gutters, one complete full-body figure per occupied cell, row-major order exactly as listed. Keep crown, hair, hands, tail and fins fully within each cell. Each pose is distinct, with consistent head and torso scale. Pose-twirl cells, when present, are one continuous four-angle rotation.\n1) SWIM: paddling both hands gently while the single tail makes a soft S curve as if treading water.\n2) BALANCE: arms spread, torso tilting left and tail curling right to counterbalance, worried eyes.\n3) SPLAT-THROW: low underhand two-arm throwing follow-through, no projectile.\n4) WAND-UP: one empty hand raised high as if holding a wand, focused upward, other hand at chest.\n5) BROOM-RISE: flying on an invisible broom, leaning forward gripping an invisible handle, tail streaming back.\n6) BROOM-GLIDE: upright relaxed invisible-broom riding, both hands on invisible handle, tail flowing behind.\n7) BROOM-ZAPPED: startled sideways tip while riding, fluffy hair, wide eyes, gripping hands, no lightning.\n8) COUNT: one index finger raised, attentive counting expression.\n\nCharacter identity: marina has long red hair, teal eyes, gold crown with purple jewels, purple shell top, teal scaled tail with purple bands and large purple fins. Preserve the canonical face, palette, proportions, bold smooth dark navy outlines and clean cel shading. Exactly two arms and one continuous fish tail in every cell, absolutely no legs or feet. Adapt sitting, landing, stomping, running and balance with tail curls, fin gestures or gliding. Hands remain empty unless gripping an invisible prop is specified. Draw no props, water, floor, shadow, scenery, glow, motion lines, sparkles, text, labels, grid borders or watermark. Three-quarter view unless a pose lists a specific angle. Avoid clipping and checkerboard backgrounds.",
+  "pose_descriptions": [
+    "SWIM: paddling both hands gently while the single tail makes a soft S curve as if treading water.",
+    "BALANCE: arms spread, torso tilting left and tail curling right to counterbalance, worried eyes.",
+    "SPLAT-THROW: low underhand two-arm throwing follow-through, no projectile.",
+    "WAND-UP: one empty hand raised high as if holding a wand, focused upward, other hand at chest.",
+    "BROOM-RISE: flying on an invisible broom, leaning forward gripping an invisible handle, tail streaming back.",
+    "BROOM-GLIDE: upright relaxed invisible-broom riding, both hands on invisible handle, tail flowing behind.",
+    "BROOM-ZAPPED: startled sideways tip while riding, fluffy hair, wide eyes, gripping hands, no lightning.",
+    "COUNT: one index finger raised, attentive counting expression."
+  ]
+}
