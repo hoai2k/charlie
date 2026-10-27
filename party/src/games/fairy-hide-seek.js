@@ -20,7 +20,7 @@ import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
-import { easySteer, easyNearest, easyPrompt } from '../engine/easy.js';
+import { easySteer, easyNearest, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { bodyRadius, claimed } from '../engine/crowd.js';
 import { clamp, lerp, rand, pick, chance, shuffle, TAU, dist, placementsFromScores } from '../engine/util.js';
 import {
@@ -49,7 +49,7 @@ export { meta };
 export class Game {
   constructor(api) {
     this.api = api;
-    this.easy = !!api.easy;   // Molly Easy: humans walk spot to spot by themselves, A peeks
+    this.easy = !!api.easy;   // Molly Easy: A peeks; A again and again (no steering) walks you to the nearest spot
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -164,12 +164,13 @@ export class Game {
     e.cd = Math.max(0, e.cd - dt); e.glint = Math.max(0, e.glint - dt * 3);
     let ix = this.done ? 0 : ctrl.x, iy = this.done ? 0 : ctrl.y;
     if (e.ez) {
-      // Easy: the stick steers like Medium while pushed (the autopilot waits);
-      // let go and the autopilot carries on from the nearest spot
+      // Easy: the stick steers like Medium while pushed; nobody walks you otherwise,
+      // except an A pressed again and again (no steering) - see check()
       const st = easySteer(e, ctrl, dt);
       if (st.pushing) e.ez.goA = false;
       if (this.done) [ix, iy] = [0, 0];
-      else if (st.manual && !e.ez.goA) { [ix, iy] = [st.x, st.y]; e.ez.spot = null; e.ez.near = true; }
+      else if (st.manual && !e.ez.goA) { [ix, iy] = [st.x, st.y]; e.ez.spot = null; }
+      else if (!e.ez.goA) { [ix, iy] = [0, 0]; e.ez.spot = null; }
       else [ix, iy] = this.easyPilot(e, dt);
     }
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
@@ -197,8 +198,9 @@ export class Game {
   check(e) {
     e.cd = 0.3; e.glint = 1;
     const a = e.a, s = e.spot;
-    if (!s && e.ez) {   // Easy: A between spots walks you to the nearest one, then peeks (no cost)
+    if (!s && e.ez) {   // Easy: A between spots does nothing; A again (no steering) walks you to the nearest one, then peeks (no cost)
       e.cd = 0.15; e.glint = 0;
+      if (!easyAutoOk(e)) { e.a.emote('question', 0.5); return; }
       const z = e.ez, sp = this.nearestSpot(e, true);
       if (sp) { z.spot = sp; z.look = 0; z.dwell = 0; z.had = !!(sp.c && sp.c.kind === 'fairy'); z.goA = true; e._ezSteer = 0; }
       return;
@@ -442,9 +444,6 @@ export class Game {
     p.ctrl.move(Math.cos(ang) * k, Math.sin(ang) * k);
   }
 
-  /** Molly Easy: walk the lens to a hiding spot, stop and look for a moment,
-   *  then on to the next (a wiggly spot nearby first, else the next on the
-   *  tour). Returns stick x/y. */
   /** Easy: the hiding spot nearest this player's lens (one nobody else is walking to, if possible). */
   nearestSpot(e, any) {
     const taken = (s) => this.ents.some((o) => o !== e && o.ez && o.ez.spot === s);
@@ -453,6 +452,7 @@ export class Game {
     return easyNearest(e.lx, e.ly, list, (s) => ({ x: s.x, y: s.y - s.h / 2 }));
   }
 
+  /** Molly Easy, on an A-A errand (z.goA): walk the lens to the chosen spot and peek. Returns stick x/y. */
   easyPilot(e, dt) {
     const z = e.ez;
     const taken = (s) => this.ents.some((o) => o !== e && o.ez && o.ez.spot === s);

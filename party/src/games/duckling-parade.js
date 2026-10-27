@@ -470,12 +470,12 @@ export class Game {
     else a.moveAnim(e.vx, e.vy, sp, { run: moving > sp * 0.6 });
   }
 
-  /** Molly Easy: the stick for a human walking the loop round the pond. */
+  /** Molly Easy: the stick for a human (or an A-A errand walking her). */
   easyWalk(e, dt) {
     let near = 0;
     for (const d of this.ducks) if ((d.state === 'hide' || d.state === 'wander') && dist(d.x, d.y, e.x, e.y) < CALL_R + e.a.radius - 20) near++;
     e.ezNear = this.phase === 'play' ? near : 0;
-    // either stick still walks her anywhere (like Medium); the loop waits for her
+    // either stick still walks her anywhere (like Medium)
     const st = easySteer(e, e.p.ctrl, dt);
     // an A press with no duckling in range: walk to the nearest lost one, quack on arrival
     const go = easyErrandStep(e, dt, { x: e.x, y: e.y, steering: st.pushing });
@@ -539,7 +539,7 @@ export class Game {
       for (const B of this.ents) {
         if (B === A || !B.line.length) continue;
         if (A.p.isAI && !B.p.isAI) continue;     // CPUs never borrow from a kid's line
-        if (this.easy && !A.p.isAI && !B.p.isAI) continue;   // two Easy kids on the same loop never swap by accident
+        if (this.easy && !A.p.isAI && !B.p.isAI) continue;   // two Easy kids bumping into each other never swap by accident
         const k = B.line.findIndex((d) => dist(d.x, d.y, A.x, A.y) < 40);
         if (k < 0) continue;
         const d = B.line[k];

@@ -19,7 +19,7 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
-import { easySteer, easyNearest, easyPrompt } from '../engine/easy.js';
+import { easySteer, easyNearest, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { drawSparkleShape } from '../engine/emotes.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
@@ -66,7 +66,7 @@ const sizeFix = (a) => Math.max(1, 120 / (a.char.members[0].h || 120));
 export class Game {
   constructor(api) {
     this.api = api;
-    this.easy = !!api.easy;   // Molly Easy: humans walk by themselves; A tickles, X swaps costume
+    this.easy = !!api.easy;   // Molly Easy: A tickles (A again and again, no steering, runs you to a ghost), X swaps costume
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -397,10 +397,10 @@ export class Game {
     e.cd = 0.22;
     const a = e.a;
     const best = this.tickleTarget(e);
-    if (!best && e.auto && !e.auto.pushing) {
-      // Molly Easy: nothing in reach - run to the nearest white ghost / shy window (from here) and tickle it there
+    if (!best && e.auto && !e.auto.pushing && easyAutoOk(e)) {
+      // Molly Easy: nothing in reach and A again (no steering) - run to the nearest white ghost / shy window (from here) and tickle it there
       const go = this.easyNearest(e);
-      if (go) { e.auto.target = go; e.auto.go = go; e.auto.t = 3; e._ezSteer = 0; e.auto.manual = false; e.cd = 0; return; }
+      if (go) { e.auto.target = go; e.auto.go = go; e.auto.t = 3; e.auto.goT = 6; e._ezSteer = 0; e.auto.manual = false; e.cd = 0; return; }
     }
     a.playOnce('action', 0.28);
     if (!best) {
@@ -523,8 +523,8 @@ export class Game {
     return b && (b.kind === 'ghost' ? { kind: 'ghost', g0: b.g0 } : { kind: 'win', w: b.w });
   }
 
-  /** Easy (A only): walk to the nearest white ghost / shy window nobody else is after.
-   * The stick steers while it's pushed; A away from a ghost runs to the nearest one and tickles it. */
+  /** Easy: the stick steers while it's pushed. Nobody walks the kid otherwise, except A pressed
+   * again and again (no steering - easyAutoOk) away from a ghost: that runs to the nearest one and tickles it. */
   easyThink(e, dt) {
     const au = e.auto;
     const st = easySteer(e, e.p.ctrl, dt);
@@ -534,6 +534,9 @@ export class Game {
       if (st.pushing) { au.target = null; au.go = null; au.t = 0; au.home = { x: e.x, y: e.y }; }   // pick up from here after
       return;
     }
+    au.ix = 0; au.iy = 0;
+    if (au.go && (au.goT -= dt) <= 0) au.go = null;
+    if (!au.go) { au.target = null; return; }   // the owner's rule: standing still unless A, A
     au.t -= dt;
     const T = au.target;
     const ok = T && (T.kind === 'ghost' ? !T.g0.col && (this.tickleable(T.g0) || T.g0.state === 'enter') : T.w.shy);
