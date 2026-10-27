@@ -479,7 +479,7 @@ export class Game {
     U.dir = dir;
     if (c.pressed('a') && U.spinCd <= 0 && U.z <= 0) {
       U.spinCd = 0.45; U.vz = 820; U.spinT = 0.5;
-      a.playOnce('dance-star', 0.5, 'dance'); a.squash(0.35);
+      a.playOnce('pose-twirl', 0.5, 'dance');   // a real twirl pose (falls back to a strike), never a facing flicker a.squash(0.35);
       particles.burst(U.x, U.y - a.height * 0.5, { type: 'star', count: 10, colors: [U.p.color, '#ffd23f', '#ffffff'], speed: [150, 380] });
       particles.ring(U.x, U.y - 10, U.p.color, 120, 0.35);
       snd('sd-spin', 'whoosh', { vol: 0.45 });
@@ -585,7 +585,7 @@ export class Game {
   physics(U, dt) {
     const a = U.a;
     if (U.z > 0 || U.vz > 0) { U.vz -= 2800 * dt; U.z += U.vz * dt; if (U.z <= 0) { U.z = 0; U.vz = 0; a.squash(0.3); } }
-    if (U.spinT > 0) { U.spinT -= dt; a.facing = Math.sin(U.spinT * 40) > 0 ? 1 : -1; }
+    if (U.spinT > 0) U.spinT -= dt;
     U.x = clamp(U.x + U.vx * dt, BOUNDS.x0, BOUNDS.x1);
     U.y = clamp(U.y + U.vy * dt, BOUNDS.y0, BOUNDS.y1);
   }

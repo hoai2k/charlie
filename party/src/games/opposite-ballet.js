@@ -612,7 +612,7 @@ export class Game {
         const k = clamp(d.mt / MOVE_TIME, 0, 1), s = Math.sin(k * Math.PI);
         if (d.move === 'left' || d.move === 'right') ox = d.dir * 80 * s;
         if (d.move === 'up') z = 46 * s;
-        if (d.move === 'twirl') { const flip = Math.floor(d.mt / 0.075) % 2; a.facing = flip ? -1 : 1; z = 14 * s; }
+        if (d.move === 'twirl') z = 14 * s;   // the pose-twirl frames do the turning
         if (k >= 1) { d.move = null; a.facing = d.hx < W / 2 ? 1 : -1; }
         if (d.move && Math.random() < dt * 30) particles.trail(a.x + rand(-30, 30), a.y - rand(0, a.height), { type: 'sparkle', colors: [MOVE_COL[d.move], '#fff'], size: [6, 12], speed: [10, 60], life: [0.3, 0.6] });
       }

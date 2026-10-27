@@ -76,7 +76,7 @@ export function drawTeacher(g, x, y, h, t, move = null, k = 0, sideDir = 1, o = 
   if (move === 'plie') dy += amt * h * 0.12;
   if (move === 'up') dy -= amt * h * 0.08;
   if (move === 'side') { dx = sideDir * amt * h * 0.28; tilt = sideDir * amt * 0.12; }
-  if (move === 'twirl') sx = Math.cos(k * TAU * 2);
+  if (move === 'twirl') { dy -= amt * h * 0.06; tilt = Math.sin(k * TAU * 2) * 0.06 * amt; }   // the twirl art + a little rise (no paper squash)
   if (move === 'bow') tilt = amt * 0.35;
   if (move === 'silly') { tilt = Math.sin(t * 9) * 0.22; dy -= Math.abs(Math.sin(t * 6)) * h * 0.12; sx = Math.cos(t * 3) > -0.2 ? 1 : -1; }
   if (o.stamp > 0) { dy += Math.sin(clamp(o.stamp, 0, 1) * Math.PI) * -h * 0.05; tilt += Math.sin(o.stamp * Math.PI * 3) * 0.05; }
@@ -325,7 +325,7 @@ export function drawMovePicto(g, move, x, y, s, t) {
   let bodyDy = 0, spin = 1;
   if (move === 'down') bodyDy = 18 + 14 * k;
   if (move === 'up') bodyDy = -8 * k;
-  if (move === 'twirl') spin = Math.cos(t * 9);
+  if (move === 'twirl') spin = Math.sin(t * 4.5) >= 0 ? 1 : -1;   // turns by switching sides, never a paper squash
   // motion lines
   g.strokeStyle = '#b98bff'; g.lineWidth = 8;
   if (move === 'twirl') { for (let i = 0; i < 2; i++) { g.beginPath(); g.ellipse(0, 40 - i * 60, 82, 18, 0, 0.1 + i, Math.PI * 1.3 + i); g.stroke(); } }
@@ -338,7 +338,7 @@ export function drawMovePicto(g, move, x, y, s, t) {
     g.beginPath(); g.rect(-50, 96, 100, 22); g.fill(); g.stroke();
   }
   g.translate(side ? 20 + 14 * k : 0, bodyDy);
-  g.scale(Math.max(0.3, Math.abs(spin)), 1);
+  g.scale(spin, 1);
   const col = move === 'statue' ? '#a99cc2' : '#ff5aa8';
   g.strokeStyle = col; g.lineWidth = 18;
   // legs

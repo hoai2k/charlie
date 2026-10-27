@@ -18,16 +18,18 @@ export const NAVY = '#24163f';
 // character pose to play, best first: the requested dance-* art (see
 // image-requests.md, "dance-studio — real-time dance moves") and then poses
 // every character already has. beats: how long it lasts. The extras add motion
-// on top: hop (jump height, fraction of the height), spin (twirl round), roll
+// on top: hop (jump height, fraction of the height), roll
 // (a full cartwheel turn about the middle), travel (px it carries you in the
 // show; none in the setup), kick (can-can kicks), sway (hula hips), drop
 // (splits: down and wide), lean (radians), glide (moonwalk: slides back while
 // facing forward), mirror (every other press does it to the other side).
+// No "paper flips" (the owner's rule): a twirl is the pose-twirl art, never a
+// squash through scaleX 0; a change of side switches facing at once.
 export const DANCES = [
   { id: 'disco', btn: 'x', name: 'Disco!', poses: ['dance-disco', 'dance-side'], color: '#ff6fb1', beats: 1, lean: -0.16, mirror: true, sound: 'sparkle' },
   { id: 'star', btn: 'a', name: 'Star Jump', poses: ['dance-starfish', 'dance-star'], color: '#ffd23f', beats: 1, hop: 0.42, sound: 'boing' },
   { id: 'hula', btn: 'b', name: 'Hula', poses: ['dance-hula', 'float', 'balance'], color: '#5ddc6a', beats: 2, sway: 0.16, sound: 'whoosh' },
-  { id: 'twirl', btn: 'y', name: 'Twirl', poses: ['pose-twirl'], color: '#9b5cff', beats: 1, spin: true, sound: 'sparkle' },
+  { id: 'twirl', btn: 'y', name: 'Twirl', poses: ['pose-twirl', 'strike3', 'dance-up'], color: '#9b5cff', beats: 1, hop: 0.06, sound: 'sparkle' },
   { id: 'cartwheel', btn: 'lt', name: 'Cartwheel', poses: ['dance-cartwheel', 'dance-star'], color: '#ff9f1c', beats: 2, roll: true, travel: 220, mirror: true, sound: 'whoosh' },
   { id: 'cancan', btn: 'rt', name: 'Can-can', poses: ['dance-cancan', 'balance', 'dance-star'], color: '#ff4d6d', beats: 2, kick: true, mirror: true, sound: 'boing' },
   { id: 'splits', btn: 'lb', name: 'Splits', poses: ['dance-splits', 'dance-down'], color: '#3fa7ff', beats: 2, drop: true, show: true, sound: 'land' },

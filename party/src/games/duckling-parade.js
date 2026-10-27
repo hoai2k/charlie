@@ -927,10 +927,10 @@ export class Game {
       g.ellipse(0, -8 * ds, 30 * ds, 7 * ds, 0, 0, Math.PI); g.lineTo(-60 * ds, -8 * ds); g.closePath(); g.clip();
       g.translate(0, 12 * ds);
     }
-    let fx_ = d.facing;
-    if (d.twirl > 0) fx_ = Math.cos((0.7 - d.twirl) * 26) * d.facing;
     const wind = d.sneeze > 0 ? 0.22 : 0;
-    g.scale(ds * fx_, ds);
+    g.scale(ds * d.facing, ds);
+    // twirl: one in-plane spin about her middle while she hops (never a paper flip)
+    if (d.twirl > 0) { const u = clamp(1 - d.twirl / 0.7, 0, 1); g.translate(0, -36); g.rotate(u * u * (3 - 2 * u) * TAU); g.translate(0, 36); }
     g.rotate(-wind * 0.8 + (d.confused > 0 ? Math.sin(t * 18) * 0.12 : 0));
     const quack = d.quack > 0;
     const key = quack ? 'prop/duckling-quack' : 'prop/duckling';
