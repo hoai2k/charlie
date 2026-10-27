@@ -1,0 +1,310 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Asset type: game sprite sheet on true transparent RGBA background. Reference image1 approved canonical; image2 exact shipping idle. Preserve EXACT identity, anatomy, proportions, colors, outfit, face details and dark outlines. Exactly NINE full-body figures in THREE columns by THREE rows, equal spacious cells, left-to-right top-to-bottom. Keep consistent HEAD/TORSO scale through every pose (never normalize total silhouette height), camera three-quarter toward screen-right. Big joyful extreme silhouettes child can recognize. Generous gutters all tails/hands/ears/feet inside own cell; no effects, motion lines, shadows, floor, props, text or labels. Poses in order: R1C1 DISCO one limb shoots up-left 45 degrees other on hip, cocked hips, huge grin; R1C2 airborne STARFISH wide X, all limbs as wide as possible, joyful open mouth, hair/ears/tail up; R1C3 HULA arms/front appendages together stretched to one side, hips opposite, bent support, happy closed eyes. R2C1 CARTWHEEL PREP side lunge arms/front limbs overhead, excited grin; R2C2 CARTWHEEL INVERTED fully upside down front limbs support on floor, rear limbs wide high V above head, happy upside-down face; R2C3 CAN-CAN rear leg kicks straight up PAST head, other supports, lean backward, hands on hips if no skirt, open HOO smile. R3C1 full flat SPLITS on floor, front/back legs straight along floor, upright torso, front limbs up big V, proud surprised happy face; R3C2 MOONWALK 1 facing right leaning backward front foot flat rear foot on toe, one hand to forehead like tipping INVISIBLE hat; R3C3 MOONWALK 2 same with feet swapped. No actual hat. Adapt to reference anatomy as described next: HOTDOG is exactly the tiny squat rainbow-furred creature in references: gigantic ROUND gray-centered ears outlined dark blue, orange/yellow flame-shaped hair tuft, rainbow zebra-striped cheek/body/tail fur, cream belly, very short dark blue paws, large shiny brown eyes and small pink nose. Preserve compact chubby anatomy and FOUR short paws; no human fingers, shoes or clothes. Exaggerate front paws, hind paws and ear gestures to make dance poses clear while preserving big head and stubby torso. Disco front paw up-left, hula front paws side, cartwheel on front paws fully upside down hind paws high V, can-can rear paw above head, splits back paws spread along floor with proud face, moonwalk hind toes alternate front paw tips invisible hat.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-41caee7a-bd0e-43a6-8db3-2946f3e402f3.png",
+  "source": "party/tools/sprites/sources/hotdog-dance-moves.webp",
+  "status": "intaken; runtime landmark review pending",
+  "annotations": [
+    {
+      "pixelScale": 0.67,
+      "anchor": [
+        202,
+        406
+      ],
+      "head": [
+        195,
+        167
+      ],
+      "eyes": [
+        191,
+        209
+      ],
+      "neck": [
+        189,
+        271
+      ],
+      "hand": [
+        180,
+        242
+      ],
+      "back": [
+        218,
+        326
+      ]
+    },
+    {
+      "pixelScale": 0.67,
+      "anchor": [
+        642,
+        490
+      ],
+      "head": [
+        642,
+        156
+      ],
+      "eyes": [
+        646,
+        199
+      ],
+      "neck": [
+        652,
+        254
+      ],
+      "hand": [
+        644,
+        225
+      ],
+      "back": [
+        648,
+        305
+      ]
+    },
+    {
+      "pixelScale": 0.67,
+      "anchor": [
+        1153,
+        407
+      ],
+      "head": [
+        1139,
+        199
+      ],
+      "eyes": [
+        1146,
+        231
+      ],
+      "neck": [
+        1153,
+        279
+      ],
+      "hand": [
+        1178,
+        257
+      ],
+      "back": [
+        1148,
+        330
+      ]
+    },
+    {
+      "pixelScale": 0.67,
+      "anchor": [
+        218,
+        787
+      ],
+      "head": [
+        253,
+        576
+      ],
+      "eyes": [
+        250,
+        620
+      ],
+      "neck": [
+        247,
+        677
+      ],
+      "hand": [
+        244,
+        646
+      ],
+      "back": [
+        239,
+        722
+      ]
+    },
+    {
+      "pixelScale": 0.67,
+      "anchor": [
+        663,
+        795
+      ],
+      "head": [
+        663,
+        681
+      ],
+      "eyes": [
+        657,
+        652
+      ],
+      "neck": [
+        660,
+        606
+      ],
+      "hand": [
+        664,
+        631
+      ],
+      "back": [
+        663,
+        558
+      ],
+      "headAngle": 3.14159265
+    },
+    {
+      "pixelScale": 0.67,
+      "anchor": [
+        1170,
+        793
+      ],
+      "head": [
+        1159,
+        537
+      ],
+      "eyes": [
+        1167,
+        594
+      ],
+      "neck": [
+        1170,
+        639
+      ],
+      "hand": [
+        1184,
+        626
+      ],
+      "back": [
+        1188,
+        678
+      ]
+    },
+    {
+      "pixelScale": 0.67,
+      "anchor": [
+        243,
+        1141
+      ],
+      "head": [
+        247,
+        964
+      ],
+      "eyes": [
+        247,
+        994
+      ],
+      "neck": [
+        246,
+        1050
+      ],
+      "hand": [
+        244,
+        1026
+      ],
+      "back": [
+        247,
+        1101
+      ]
+    },
+    {
+      "pixelScale": 0.67,
+      "anchor": [
+        731,
+        1163
+      ],
+      "head": [
+        720,
+        924
+      ],
+      "eyes": [
+        717,
+        972
+      ],
+      "neck": [
+        710,
+        1028
+      ],
+      "hand": [
+        726,
+        1000
+      ],
+      "back": [
+        699,
+        1070
+      ]
+    },
+    {
+      "pixelScale": 0.67,
+      "anchor": [
+        1094,
+        1161
+      ],
+      "head": [
+        1099,
+        949
+      ],
+      "eyes": [
+        1099,
+        994
+      ],
+      "neck": [
+        1105,
+        1039
+      ],
+      "hand": [
+        1097,
+        1021
+      ],
+      "back": [
+        1132,
+        1081
+      ]
+    }
+  ],
+  "crops": [
+    [
+      38,
+      13,
+      412,
+      410
+    ],
+    [
+      471,
+      6,
+      883,
+      388
+    ],
+    [
+      928,
+      27,
+      1285,
+      409
+    ],
+    [
+      23,
+      423,
+      434,
+      786
+    ],
+    [
+      487,
+      397,
+      826,
+      796
+    ],
+    [
+      914,
+      411,
+      1292,
+      801
+    ],
+    [
+      33,
+      813,
+      437,
+      1153
+    ],
+    [
+      515,
+      813,
+      816,
+      1169
+    ],
+    [
+      973,
+      814,
+      1292,
+      1166
+    ]
+  ],
+  "oldShippingPosesPreserved": 86
+}

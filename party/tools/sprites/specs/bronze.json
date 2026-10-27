@@ -4444,6 +4444,378 @@
       "loop": true,
       "motion": 0.08,
       "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            923,
+            10,
+            351,
+            399
+          ],
+          "isolate": true,
+          "scale": 1.6927142857142858,
+          "anchor": [
+            149,
+            392
+          ],
+          "head": [
+            192,
+            98
+          ],
+          "eyes": [
+            168,
+            152
+          ],
+          "neck": [
+            143,
+            212
+          ],
+          "hand": [
+            330,
+            192
+          ],
+          "back": [
+            136,
+            248
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            461,
+            0,
+            388,
+            351
+          ],
+          "isolate": true,
+          "scale": 1.6927142857142858,
+          "anchor": [
+            189,
+            453
+          ],
+          "head": [
+            199,
+            88
+          ],
+          "eyes": [
+            195,
+            148
+          ],
+          "neck": [
+            188,
+            203
+          ],
+          "hand": [
+            299,
+            62
+          ],
+          "back": [
+            188,
+            251
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            115,
+            5,
+            287,
+            398
+          ],
+          "isolate": true,
+          "scale": 1.6927142857142858,
+          "anchor": [
+            154,
+            391
+          ],
+          "head": [
+            172,
+            92
+          ],
+          "eyes": [
+            152,
+            140
+          ],
+          "neck": [
+            142,
+            201
+          ],
+          "hand": [
+            37,
+            75
+          ],
+          "back": [
+            125,
+            252
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            58,
+            840,
+            436,
+            337
+          ],
+          "isolate": true,
+          "scale": 1.6927142857142858,
+          "anchor": [
+            207,
+            305
+          ],
+          "head": [
+            218,
+            91
+          ],
+          "eyes": [
+            215,
+            153
+          ],
+          "neck": [
+            210,
+            200
+          ],
+          "hand": [
+            326,
+            109
+          ],
+          "back": [
+            210,
+            254
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            55,
+            418,
+            375,
+            361
+          ],
+          "isolate": true,
+          "scale": 1.6927142857142858,
+          "anchor": [
+            184,
+            357
+          ],
+          "head": [
+            205,
+            83
+          ],
+          "eyes": [
+            189,
+            145
+          ],
+          "neck": [
+            178,
+            205
+          ],
+          "hand": [
+            265,
+            57
+          ],
+          "back": [
+            174,
+            242
+          ]
+        },
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            470,
+            403,
+            384,
+            375
+          ],
+          "isolate": true,
+          "scale": 1.6927142857142858,
+          "anchor": [
+            193,
+            369
+          ],
+          "head": [
+            190,
+            299
+          ],
+          "eyes": [
+            189,
+            263
+          ],
+          "neck": [
+            189,
+            216
+          ],
+          "hand": [
+            283,
+            354
+          ],
+          "back": [
+            190,
+            167
+          ],
+          "headAngle": 3.14159265
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            577,
+            778,
+            273,
+            398
+          ],
+          "isolate": true,
+          "scale": 1.6927142857142858,
+          "anchor": [
+            144,
+            390
+          ],
+          "head": [
+            122,
+            80
+          ],
+          "eyes": [
+            120,
+            145
+          ],
+          "neck": [
+            127,
+            204
+          ],
+          "hand": [
+            192,
+            99
+          ],
+          "back": [
+            130,
+            258
+          ]
+        },
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            982,
+            783,
+            273,
+            394
+          ],
+          "isolate": true,
+          "scale": 1.6927142857142858,
+          "anchor": [
+            168,
+            388
+          ],
+          "head": [
+            174,
+            76
+          ],
+          "eyes": [
+            170,
+            140
+          ],
+          "neck": [
+            160,
+            198
+          ],
+          "hand": [
+            231,
+            94
+          ],
+          "back": [
+            160,
+            256
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            942,
+            400,
+            278,
+            389
+          ],
+          "isolate": true,
+          "scale": 1.6927142857142858,
+          "anchor": [
+            219,
+            382
+          ],
+          "head": [
+            177,
+            94
+          ],
+          "eyes": [
+            177,
+            143
+          ],
+          "neck": [
+            166,
+            195
+          ],
+          "hand": [
+            262,
+            216
+          ],
+          "back": [
+            138,
+            233
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
     }
   },
   "portraits": {
