@@ -1110,4 +1110,4 @@ file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
 `prop/gem` = `prop/gem-red`, `prop/cookie-tile` = `prop/cookie-1`). That's
 fine; the code uses one of each pair.
 
-All Play Studio, Molly, grown-up reaction and 2026-10-16 audit image requests are delivered and checked. Add new requests or regeneration feedback above; delivery details are in image-requests-history.md and reference/IMAGE-WORK-QUEUE.md.
+All Play Studio, Molly, grown-up reaction, October16 audit, October27 Dance Studio, nail-hand and Charlie Sister action image requests are delivered and checked. Add new requests or regeneration feedback above; delivery details are in image-requests-history.md and reference/IMAGE-WORK-QUEUE.md.

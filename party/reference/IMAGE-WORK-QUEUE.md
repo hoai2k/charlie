@@ -5,6 +5,23 @@ the user revoked the former40% allowance pause for Sol. Reviewed batches
 are committed to main and pushed regularly. Do not regenerate
 approved artwork just because older checkpoints had incomplete coverage.
 
+## October27 requested artwork — complete (authoritative checkpoint)
+
+All317 requested runtime images are delivered:189 dance frames across21 playable sets (including Glimmer to satisfy the every-playable requirement),117 Sister actions across15 Charlie sets, five1024px nail hands and six dance pictograms. Every character has authored frames rather than aliases. All original body pixels and audited old pose metadata were preserved; modest portrait runtime reductions retain exact original archives. Full and optimized sets all stay below25MiB. Nail art group24.967MiB. Built-in imagegen prompts, native source paths and lossless RGBA sources are archived.
+
+Published reviewed batches: Felicity/Fellowfox82fe994e; first four creatures49df9a76; hands/iconsbae55b3f; five fairies94e8b89e; remaining actions4aef39bc; final gameplay merge3e1b706d. Merge preserves main255dd0ae's new gameplay while restoring delivered art/geometry that its older snapshot removed. All new Dance Studio controls now consume the delivered poses. No canonical approval, allowance pause, generation or intake remains pending.
+
+Checks: sprite validation0errors; all21 member full/optimized dimensions and decoded budgets audited;17 Node test files passed on the merged tree; all eight Sister consumers completed with Charlie characters; redesigned Dance Studio8 and nail-studio8 completed; real keyboard input invokes all setup/show dance actions at1 and8 players, with full-quality verification at1 player. Full/optimized Actor reviews and measured masks/overhead shoe maps passed. Expected legacy download-size warnings remain because sprite sets load on demand.
+
+Coverage and budgets: reference/pending/OCT27-FINAL-AUDIT.json and OCT27-COVERAGE-AUDIT.json. Exact prompts and sources: per-set OCT27-DANCE/OCT27-SISTER records under tools/sprites/pending or reference/pending; hand/icon records under reference/pending. Review pages: OCT27-DANCE-REVIEW.html, OCT27-SISTER-REVIEW.html, OCT27-NAIL-REVIEW.html. Intake lessons added to tools/sprites/AGENT-PLAYBOOK.md.
+
+Latest published image delivery revision: `3e1b706de4c476a90635d9c0041bb586a6a0aa81`.
+Latest completed delivery/check UTC: `2026-10-27T02:10:39.922497+00:00`.
+Last checked main revision: `3e1b706de4c476a90635d9c0041bb586a6a0aa81`.
+Last checked request blob: `b03bd10fbb49729a82679ce88fe9a1c836331833`.
+Last checked UTC: `2026-10-27T02:10:39.922497+00:00`.
+Immediate post-delivery main fetch/check was clear. Open image/regeneration requests: none. All agents finished. No timer was requested for this run; none has been created. Older checkpoints below are historical.
+
 ## October 13 Duchess extra reactions — complete (authoritative current checkpoint)
 
 The two new requested optional Duchess props from main `97f81570` are delivered: `prop/whoopee-duchess-shock` and `prop/whoopee-duchess-huff`. Shock received a targeted expression edit after comparison to the old gasp; huff preserves her prim pose with eyes closed and a reluctant smirk. Exact360x460 runtime canvases, true alpha and full-native lossless source RGBA identity verified. Original master and exact edit target are archived separately. Exact prompts, sources and checks: `reference/pending/OCT13-DUCHESS-EXTRA.json`; consumer review gallery: `OCT13-DUCHESS-EXTRA-REVIEW.html`.
