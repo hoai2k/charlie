@@ -80,7 +80,8 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   `timeUp.goal` instead: its own title, "Go!" first and the default, "stay" for more time),
   `api.finishTogether`, `showstopper()` in `engine/util.js`, `engine/easy.js`
   (Sister Party Easy: the stick is optional, A does everything, `easyPrompt` is
-  the one big-A cue) and `engine/crowd.js` (8-player spacing).
+  the one big-A cue; A only walks a child somewhere on a repeated press with no
+  recent stick use - `easyAutoOk` / `easyErrand`) and `engine/crowd.js` (8-player spacing).
 - Hidden games: `HIDDEN` in `party/src/games/index.js` takes a game off the
   shelves (and Random / Marathon); Settings -> "Show all games" (default off)
   puts them back at the end of their shelf. Page-2 games move up to fill the gaps;

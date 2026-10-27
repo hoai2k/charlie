@@ -1,7 +1,8 @@
 // Sister Party Easy mode: the stick is optional, never required.
 //
 // A child who only presses A is carried by each game's autopilot (it walks them to
-// the next thing, and A does the action - or takes them to the nearest target). A
+// the next thing, and A does the action - or takes them to the nearest target, but only
+// once they press A again without steering: easyAutoOk / easyErrand). A
 // child who can steer still steers: while either stick is pushed, the stick moves
 // them, and the autopilot waits until they have let go for a moment.
 //
@@ -13,11 +14,16 @@ import { W } from './canvas.js';
 
 const DEAD = 0.25;      // stick push that counts as steering
 const HOLD = 1.2;       // seconds after letting go before the autopilot takes over again
+// The owner's rule for "A walks you there": only when the child keeps pressing A without
+// steering - a second A within REPEAT s, and no stick for QUIET s. One A press, or a child who
+// has been steering, never gets moved for them.
+const REPEAT = 1.5, QUIET = 1.5;
+const now = () => performance.now() / 1000;
 
 /** Per frame, per Easy human. `e` is any per-player object (the helper keeps its timer on it). */
 export function easySteer(e, ctrl, dt, hold = HOLD) {
   const x = ctrl.x, y = ctrl.y, m = Math.hypot(x, y);
-  if (m > DEAD) e._ezSteer = hold;
+  if (m > DEAD) { e._ezSteer = hold; e._ezStickAt = now(); }
   else e._ezSteer = Math.max(0, (e._ezSteer || 0) - dt);
   return { manual: e._ezSteer > 0, pushing: m > DEAD, x: m > DEAD ? x : 0, y: m > DEAD ? y : 0 };
 }
@@ -45,9 +51,22 @@ export function easyNearest(x, y, items, pos = (it) => it, skip = null) {
 //   const step = easyErrandStep(e, dt, { x: e.x, y: e.y, pos: (t) => ({ x: t.x, y: t.y }), steering: st.pushing });
 //   if (step) { move toward step.x, step.y like the autopilot does }
 
-/** Start (or replace) an errand. reach: arrival distance; act(): run on arrival; give up after `timeout` s. */
+/**
+ * Call on an A press that would move the child for them: true only for a repeated A (the
+ * second within REPEAT s) with no stick used for QUIET s. Records the press either way.
+ */
+export function easyAutoOk(e) {
+  const t = now(), prev = e._ezAAt ?? -1e9;
+  e._ezAAt = t;
+  if (t - (e._ezStickAt ?? -1e9) < QUIET) return false;   // steering lately: they're driving
+  return t - prev <= REPEAT;                               // only a repeated A walks them there
+}
+
+/** Start (or replace) an errand - only when easyAutoOk says so (see above). Returns whether it started. */
 export function easyErrand(e, target, { reach = 80, act = null, timeout = 6, valid = null } = {}) {
+  if (!e._ezErrand && !easyAutoOk(e)) return false;
   e._ezErrand = { target, reach, act, t: timeout, valid };
+  return true;
 }
 
 /** Per frame: returns the point to head for, or null (no errand / arrived / cancelled). */
