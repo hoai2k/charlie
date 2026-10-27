@@ -1,0 +1,415 @@
+{
+  "asset": "garden-fairy-green",
+  "prompt": "Use case: illustration-story. Transparent game sprite sheet 3 columns x3 rows, EXACT NINE FULL BODY figures ordered row-major. Image1 approved character IDENTITY reference; image2 actual SHIPPING IDLE reference for proportions and outline weight. SAME green leaf fairy girl with warm golden skin, brown bob, green eyes, giant three-green-leaf hat, layered green LEAF dress with veins and white daisy belt, mint translucent four wings with leaf veins, green flower shoes. Keep exact skin/outfit/colors/head-to-torso size. Three-quarter camera faces screen-right, except inverted cartwheel; all huge expressive happy faces. Funny extreme readable dance silhouettes. Nine cells equal spacing, generous gutters, every wing/hat/hand/shoe within its own cell. NO shadows, scenery, props, text, numbers, effects or motion lines. Ordered poses: row1col1 DISCO right arm straight up-left45degrees index pointing, left hand hip elbow out, hips hardright, knee bent heelup, cocky grin. row1col2 STARFISH JUMP arms+legs stretched very wide X, body airborne30percent above virtual floor, WHEE openmouth. row1col3 HULA both arms stretched left shoulderheight wrists soft, hips hardright kneesbent, happy closedeyes. row2col1 CARTWHEEL START side-on lunge arms overhead excitedgrin. row2col2 CARTWHEEL INVERTED fully UPSIDE DOWN both hands flatfloor straightarms, legs wide V upward, hat/hair pointing down, upside-down gigglingface. row2col3 CANCAN one straightleg kicked UP PAST HEAD other standing straight, hands hold petaldress wide, leanback happy openmouth. row3col1 FULL SPLITS flat onfloor one leg forward oneback straight horizontal, uprighttorso, armsup bigV, proud surprised grin. row3col2 MOONWALK frame1 facingright leaningback, frontfootflat backfoottoes knee bent, handatforehead tipping invisiblehat(no addedhat), coolsmile. row3col3 MOONWALK frame2 samepose feet swapped. Do not replace any pose with neutral. Transparent RGBA background.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17ae0-0747-7731-bf9f-8bd792b434b5/exec-71f76ac1-7d75-471d-b609-71f41c00b855.png",
+  "source": "party/tools/sprites/sources/garden-fairy-green-dance-moves-oct27.webp",
+  "status": "intaken; root runtime QA pending",
+  "poses": {
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-green-dance-moves-oct27.webp",
+          "rect": [
+            532,
+            820,
+            324,
+            384
+          ],
+          "isolate": true,
+          "scale": 0.7572311086596801,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            202,
+            371
+          ],
+          "head": [
+            189,
+            10
+          ],
+          "eyes": [
+            189,
+            130
+          ],
+          "neck": [
+            189,
+            193
+          ],
+          "back": [
+            154,
+            219
+          ],
+          "hand": [
+            257,
+            110
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-green-dance-moves-oct27.webp",
+          "rect": [
+            935,
+            820,
+            345,
+            384
+          ],
+          "isolate": true,
+          "scale": 0.7572311086596801,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            173,
+            373
+          ],
+          "head": [
+            169,
+            6
+          ],
+          "eyes": [
+            156,
+            148
+          ],
+          "neck": [
+            166,
+            203
+          ],
+          "back": [
+            131,
+            233
+          ],
+          "hand": [
+            245,
+            133
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-green-dance-moves-oct27.webp",
+          "rect": [
+            468,
+            0,
+            403,
+            417
+          ],
+          "isolate": true,
+          "scale": 0.7311196911196911,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            208,
+            496
+          ],
+          "head": [
+            234,
+            10
+          ],
+          "eyes": [
+            197,
+            148
+          ],
+          "neck": [
+            195,
+            210
+          ],
+          "back": [
+            174,
+            237
+          ],
+          "hand": [
+            325,
+            132
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-green-dance-moves-oct27.webp",
+          "rect": [
+            43,
+            436,
+            374,
+            399
+          ],
+          "isolate": true,
+          "scale": 0.7572311086596801,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            192,
+            383
+          ],
+          "head": [
+            232,
+            4
+          ],
+          "eyes": [
+            255,
+            150
+          ],
+          "neck": [
+            251,
+            210
+          ],
+          "back": [
+            220,
+            242
+          ],
+          "hand": [
+            338,
+            73
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-green-dance-moves-oct27.webp",
+          "rect": [
+            468,
+            439,
+            432,
+            383
+          ],
+          "isolate": true,
+          "scale": 0.7067490347490347,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            215,
+            367
+          ],
+          "head": [
+            223,
+            351
+          ],
+          "eyes": [
+            215,
+            244
+          ],
+          "neck": [
+            215,
+            191
+          ],
+          "back": [
+            214,
+            147
+          ],
+          "hand": [
+            295,
+            364
+          ],
+          "headAngle": 3.141592653589793
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-green-dance-moves-oct27.webp",
+          "rect": [
+            914,
+            0,
+            353,
+            427
+          ],
+          "isolate": true,
+          "scale": 0.7413451413451414,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            172,
+            417
+          ],
+          "head": [
+            164,
+            10
+          ],
+          "eyes": [
+            158,
+            170
+          ],
+          "neck": [
+            169,
+            226
+          ],
+          "back": [
+            139,
+            256
+          ],
+          "hand": [
+            302,
+            224
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-green-dance-moves-oct27.webp",
+          "rect": [
+            72,
+            0,
+            317,
+            424
+          ],
+          "isolate": true,
+          "scale": 0.7413451413451414,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            226,
+            410
+          ],
+          "head": [
+            234,
+            13
+          ],
+          "eyes": [
+            203,
+            148
+          ],
+          "neck": [
+            199,
+            212
+          ],
+          "back": [
+            178,
+            237
+          ],
+          "hand": [
+            88,
+            109
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-green-dance-moves-oct27.webp",
+          "rect": [
+            22,
+            866,
+            532,
+            335
+          ],
+          "isolate": true,
+          "scale": 0.7311196911196911,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            266,
+            305
+          ],
+          "head": [
+            273,
+            7
+          ],
+          "eyes": [
+            266,
+            141
+          ],
+          "neck": [
+            267,
+            207
+          ],
+          "back": [
+            249,
+            245
+          ],
+          "hand": [
+            397,
+            98
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-green-dance-moves-oct27.webp",
+          "rect": [
+            928,
+            432,
+            353,
+            399
+          ],
+          "isolate": true,
+          "scale": 0.7311196911196911,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            214,
+            391
+          ],
+          "head": [
+            143,
+            7
+          ],
+          "eyes": [
+            170,
+            131
+          ],
+          "neck": [
+            183,
+            188
+          ],
+          "back": [
+            154,
+            221
+          ],
+          "hand": [
+            271,
+            135
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    }
+  },
+  "qaContact": "/private/tmp/garden-fairy-green-dance-build/qa-contact-sheet.jpg",
+  "sourcePixelExact": true,
+  "scaleMethod": "Measured hair/head width relative to shipping idle, reviewed in contact at240pixel on-screen body size; new physical bodyHeight180 with runtime proportional compensation",
+  "reviewedBodymapOverrides": {
+    "dance-cartwheel-01.webp": {
+      "artHash": "86fdc3791016da23c98def38932199f2661f423e8c569787fc2f3304b9eedafe",
+      "footFront": [
+        151,
+        18
+      ],
+      "footBack": [
+        19,
+        12
+      ]
+    }
+  }
+}

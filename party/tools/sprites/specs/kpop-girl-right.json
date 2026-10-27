@@ -4580,6 +4580,740 @@
       "loop": true,
       "motion": 0.08,
       "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-dance-moves-oct27.webp",
+          "rect": [
+            10,
+            555,
+            350,
+            465
+          ],
+          "isolate": true,
+          "scale": 0.6859090909090909,
+          "bodyHeight": 166.33064516129033,
+          "anchor": [
+            178,
+            452
+          ],
+          "head": [
+            247,
+            90
+          ],
+          "eyes": [
+            250,
+            150
+          ],
+          "neck": [
+            220,
+            209
+          ],
+          "back": [
+            201,
+            267
+          ],
+          "hand": [
+            181,
+            39
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-right-dance-moves-oct27.webp",
+          "rect": [
+            320,
+            510,
+            415,
+            500
+          ],
+          "isolate": true,
+          "scale": 0.6859090909090909,
+          "bodyHeight": 166.33064516129033,
+          "anchor": [
+            210,
+            486
+          ],
+          "head": [
+            200,
+            400
+          ],
+          "eyes": [
+            200,
+            342
+          ],
+          "neck": [
+            202,
+            279
+          ],
+          "back": [
+            201,
+            225
+          ],
+          "hand": [
+            298,
+            479
+          ],
+          "headAngle": 3.141592653589793
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-dance-moves-oct27.webp",
+          "rect": [
+            10,
+            1120,
+            500,
+            325
+          ],
+          "isolate": true,
+          "scale": 0.6859090909090909,
+          "bodyHeight": 166.33064516129033,
+          "anchor": [
+            253,
+            304
+          ],
+          "head": [
+            248,
+            45
+          ],
+          "eyes": [
+            247,
+            109
+          ],
+          "neck": [
+            242,
+            160
+          ],
+          "back": [
+            244,
+            224
+          ],
+          "hand": [
+            403,
+            56
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-dance-moves-oct27.webp",
+          "rect": [
+            695,
+            60,
+            329,
+            475
+          ],
+          "isolate": true,
+          "scale": 0.6859090909090909,
+          "bodyHeight": 166.33064516129033,
+          "anchor": [
+            179,
+            461
+          ],
+          "head": [
+            129,
+            34
+          ],
+          "eyes": [
+            144,
+            108
+          ],
+          "neck": [
+            149,
+            168
+          ],
+          "back": [
+            158,
+            219
+          ],
+          "hand": [
+            287,
+            174
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-dance-moves-oct27.webp",
+          "rect": [
+            35,
+            45,
+            320,
+            495
+          ],
+          "isolate": true,
+          "scale": 0.6859090909090909,
+          "bodyHeight": 166.33064516129033,
+          "anchor": [
+            133,
+            480
+          ],
+          "head": [
+            172,
+            37
+          ],
+          "eyes": [
+            151,
+            103
+          ],
+          "neck": [
+            142,
+            166
+          ],
+          "back": [
+            147,
+            224
+          ],
+          "hand": [
+            184,
+            241
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-dance-moves-oct27.webp",
+          "rect": [
+            315,
+            40,
+            420,
+            450
+          ],
+          "isolate": true,
+          "scale": 0.6859090909090909,
+          "bodyHeight": 166.33064516129033,
+          "anchor": [
+            212,
+            515
+          ],
+          "head": [
+            208,
+            32
+          ],
+          "eyes": [
+            205,
+            102
+          ],
+          "neck": [
+            200,
+            165
+          ],
+          "back": [
+            200,
+            224
+          ],
+          "hand": [
+            381,
+            83
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-dance-moves-oct27.webp",
+          "rect": [
+            460,
+            1015,
+            285,
+            480
+          ],
+          "isolate": true,
+          "scale": 0.6859090909090909,
+          "bodyHeight": 166.33064516129033,
+          "anchor": [
+            137,
+            456
+          ],
+          "head": [
+            121,
+            36
+          ],
+          "eyes": [
+            123,
+            100
+          ],
+          "neck": [
+            124,
+            152
+          ],
+          "back": [
+            117,
+            210
+          ],
+          "hand": [
+            70,
+            85
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-right-dance-moves-oct27.webp",
+          "rect": [
+            770,
+            1015,
+            254,
+            480
+          ],
+          "isolate": true,
+          "scale": 0.6859090909090909,
+          "bodyHeight": 166.33064516129033,
+          "anchor": [
+            124,
+            458
+          ],
+          "head": [
+            129,
+            43
+          ],
+          "eyes": [
+            124,
+            99
+          ],
+          "neck": [
+            139,
+            154
+          ],
+          "back": [
+            134,
+            211
+          ],
+          "hand": [
+            188,
+            89
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-dance-moves-oct27.webp",
+          "rect": [
+            700,
+            540,
+            324,
+            495
+          ],
+          "isolate": true,
+          "scale": 0.6859090909090909,
+          "bodyHeight": 166.33064516129033,
+          "anchor": [
+            146,
+            480
+          ],
+          "head": [
+            115,
+            60
+          ],
+          "eyes": [
+            119,
+            120
+          ],
+          "neck": [
+            132,
+            177
+          ],
+          "back": [
+            153,
+            242
+          ],
+          "hand": [
+            60,
+            217
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            21,
+            6,
+            335,
+            519
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            188,
+            512
+          ],
+          "head": [
+            197,
+            25
+          ],
+          "eyes": [
+            189,
+            106
+          ],
+          "neck": [
+            178,
+            180
+          ],
+          "back": [
+            168,
+            254
+          ],
+          "hand": [
+            117,
+            168
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            389,
+            6,
+            320,
+            523
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            161,
+            515
+          ],
+          "head": [
+            163,
+            23
+          ],
+          "eyes": [
+            160,
+            108
+          ],
+          "neck": [
+            161,
+            171
+          ],
+          "back": [
+            161,
+            257
+          ],
+          "hand": [
+            216,
+            192
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            730,
+            9,
+            441,
+            523
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            212,
+            518
+          ],
+          "head": [
+            205,
+            22
+          ],
+          "eyes": [
+            215,
+            114
+          ],
+          "neck": [
+            229,
+            177
+          ],
+          "back": [
+            220,
+            256
+          ],
+          "hand": [
+            386,
+            205
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            1181,
+            5,
+            303,
+            517
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            149,
+            512
+          ],
+          "head": [
+            191,
+            51
+          ],
+          "eyes": [
+            207,
+            134
+          ],
+          "neck": [
+            184,
+            202
+          ],
+          "back": [
+            154,
+            273
+          ],
+          "hand": [
+            264,
+            30
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            34,
+            523,
+            319,
+            499
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            178,
+            491
+          ],
+          "head": [
+            170,
+            25
+          ],
+          "eyes": [
+            183,
+            66
+          ],
+          "neck": [
+            178,
+            162
+          ],
+          "back": [
+            178,
+            242
+          ],
+          "hand": [
+            282,
+            271
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            380,
+            554,
+            348,
+            355
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            171,
+            194
+          ],
+          "head": [
+            190,
+            35
+          ],
+          "eyes": [
+            184,
+            102
+          ],
+          "neck": [
+            151,
+            148
+          ],
+          "back": [
+            108,
+            200
+          ],
+          "hand": [
+            218,
+            198
+          ],
+          "headAngle": 0.25
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            744,
+            529,
+            409,
+            487
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            206,
+            477
+          ],
+          "head": [
+            204,
+            31
+          ],
+          "eyes": [
+            210,
+            100
+          ],
+          "neck": [
+            206,
+            166
+          ],
+          "back": [
+            202,
+            244
+          ],
+          "hand": [
+            290,
+            256
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            1175,
+            526,
+            352,
+            496
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            162,
+            491
+          ],
+          "head": [
+            193,
+            33
+          ],
+          "eyes": [
+            173,
+            85
+          ],
+          "neck": [
+            176,
+            152
+          ],
+          "back": [
+            170,
+            223
+          ],
+          "hand": [
+            165,
+            252
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
     }
   },
   "portraits": {

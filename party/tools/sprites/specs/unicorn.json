@@ -4709,6 +4709,702 @@
       "loop": true,
       "motion": 0.08,
       "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-dance-moves.webp",
+          "rect": [
+            516,
+            863,
+            333,
+            393
+          ],
+          "isolate": true,
+          "scale": 0.6875021739130435,
+          "bodyHeight": 149.5,
+          "anchor": [
+            225,
+            390
+          ],
+          "head": [
+            187,
+            58
+          ],
+          "eyes": [
+            197,
+            102
+          ],
+          "neck": [
+            175,
+            160
+          ],
+          "hand": [
+            224,
+            133
+          ],
+          "back": [
+            183,
+            241
+          ]
+        },
+        {
+          "source": "../sources/unicorn-dance-moonwalk2.webp",
+          "rect": [
+            0,
+            0,
+            1222,
+            1287
+          ],
+          "isolate": true,
+          "scale": 0.20220652173913042,
+          "bodyHeight": 149.5,
+          "anchor": [
+            800,
+            1275
+          ],
+          "head": [
+            850,
+            190
+          ],
+          "eyes": [
+            875,
+            260
+          ],
+          "neck": [
+            840,
+            450
+          ],
+          "hand": [
+            1000,
+            340
+          ],
+          "back": [
+            800,
+            730
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-dance-moves.webp",
+          "rect": [
+            429,
+            11,
+            408,
+            394
+          ],
+          "isolate": true,
+          "scale": 0.6875021739130435,
+          "bodyHeight": 149.5,
+          "anchor": [
+            223,
+            521
+          ],
+          "head": [
+            255,
+            66
+          ],
+          "eyes": [
+            256,
+            103
+          ],
+          "neck": [
+            238,
+            188
+          ],
+          "hand": [
+            280,
+            123
+          ],
+          "back": [
+            223,
+            259
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-dance-moves.webp",
+          "rect": [
+            841,
+            447,
+            338,
+            413
+          ],
+          "isolate": true,
+          "scale": 0.6875021739130435,
+          "bodyHeight": 149.5,
+          "anchor": [
+            278,
+            406
+          ],
+          "head": [
+            240,
+            64
+          ],
+          "eyes": [
+            240,
+            107
+          ],
+          "neck": [
+            240,
+            172
+          ],
+          "hand": [
+            263,
+            133
+          ],
+          "back": [
+            262,
+            255
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-dance-moves.webp",
+          "rect": [
+            35,
+            11,
+            339,
+            447
+          ],
+          "isolate": true,
+          "scale": 0.6875021739130435,
+          "bodyHeight": 149.5,
+          "anchor": [
+            213,
+            441
+          ],
+          "head": [
+            236,
+            58
+          ],
+          "eyes": [
+            241,
+            89
+          ],
+          "neck": [
+            225,
+            172
+          ],
+          "hand": [
+            260,
+            104
+          ],
+          "back": [
+            205,
+            259
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-dance-moves.webp",
+          "rect": [
+            8,
+            872,
+            512,
+            371
+          ],
+          "isolate": true,
+          "scale": 0.6875021739130435,
+          "bodyHeight": 149.5,
+          "anchor": [
+            259,
+            362
+          ],
+          "head": [
+            263,
+            51
+          ],
+          "eyes": [
+            267,
+            102
+          ],
+          "neck": [
+            258,
+            164
+          ],
+          "hand": [
+            294,
+            131
+          ],
+          "back": [
+            264,
+            265
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-dance-moves.webp",
+          "rect": [
+            18,
+            453,
+            410,
+            405
+          ],
+          "isolate": true,
+          "scale": 0.6875021739130435,
+          "bodyHeight": 149.5,
+          "anchor": [
+            243,
+            399
+          ],
+          "head": [
+            284,
+            69
+          ],
+          "eyes": [
+            288,
+            121
+          ],
+          "neck": [
+            284,
+            185
+          ],
+          "hand": [
+            317,
+            153
+          ],
+          "back": [
+            260,
+            260
+          ]
+        },
+        {
+          "source": "../sources/unicorn-dance-moves.webp",
+          "rect": [
+            450,
+            444,
+            369,
+            413
+          ],
+          "isolate": true,
+          "scale": 0.6875021739130435,
+          "bodyHeight": 149.5,
+          "anchor": [
+            207,
+            409
+          ],
+          "head": [
+            206,
+            343
+          ],
+          "eyes": [
+            202,
+            308
+          ],
+          "neck": [
+            199,
+            247
+          ],
+          "hand": [
+            199,
+            274
+          ],
+          "back": [
+            191,
+            182
+          ],
+          "headAngle": 3.14159265
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-dance-moves.webp",
+          "rect": [
+            856,
+            16,
+            342,
+            428
+          ],
+          "isolate": true,
+          "scale": 0.6875021739130435,
+          "bodyHeight": 149.5,
+          "anchor": [
+            237,
+            423
+          ],
+          "head": [
+            199,
+            63
+          ],
+          "eyes": [
+            202,
+            92
+          ],
+          "neck": [
+            193,
+            170
+          ],
+          "hand": [
+            218,
+            115
+          ],
+          "back": [
+            198,
+            263
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-sister-poses-oct27.webp",
+          "rect": [
+            9,
+            121,
+            356,
+            547
+          ],
+          "isolate": true,
+          "scale": 0.46900887147419407,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            176,
+            531
+          ],
+          "head": [
+            233,
+            8
+          ],
+          "eyes": [
+            213,
+            126
+          ],
+          "neck": [
+            196,
+            206
+          ],
+          "back": [
+            157,
+            310
+          ],
+          "hand": [
+            259,
+            157
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-sister-poses-oct27.webp",
+          "rect": [
+            300,
+            103,
+            245,
+            564
+          ],
+          "isolate": true,
+          "scale": 0.46900887147419407,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            162,
+            552
+          ],
+          "head": [
+            172,
+            4
+          ],
+          "eyes": [
+            150,
+            127
+          ],
+          "neck": [
+            151,
+            220
+          ],
+          "back": [
+            138,
+            317
+          ],
+          "hand": [
+            209,
+            137
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-sister-poses-oct27.webp",
+          "rect": [
+            552,
+            104,
+            464,
+            551
+          ],
+          "isolate": true,
+          "scale": 0.44142011432865325,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            301,
+            541
+          ],
+          "head": [
+            304,
+            6
+          ],
+          "eyes": [
+            289,
+            144
+          ],
+          "neck": [
+            280,
+            233
+          ],
+          "back": [
+            191,
+            329
+          ],
+          "hand": [
+            335,
+            177
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-sister-poses-oct27.webp",
+          "rect": [
+            964,
+            114,
+            337,
+            554
+          ],
+          "isolate": true,
+          "scale": 0.41689677464372804,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            196,
+            541
+          ],
+          "head": [
+            254,
+            9
+          ],
+          "eyes": [
+            193,
+            111
+          ],
+          "neck": [
+            190,
+            207
+          ],
+          "back": [
+            156,
+            294
+          ],
+          "hand": [
+            252,
+            131
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-sister-poses-oct27.webp",
+          "rect": [
+            1245,
+            130,
+            372,
+            537
+          ],
+          "isolate": true,
+          "scale": 0.41689677464372804,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            213,
+            525
+          ],
+          "head": [
+            144,
+            7
+          ],
+          "eyes": [
+            251,
+            101
+          ],
+          "neck": [
+            235,
+            197
+          ],
+          "back": [
+            173,
+            295
+          ],
+          "hand": [
+            303,
+            78
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-sister-poses-oct27.webp",
+          "rect": [
+            1603,
+            178,
+            286,
+            418
+          ],
+          "isolate": true,
+          "scale": 0.44142011432865325,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            142,
+            225
+          ],
+          "head": [
+            253,
+            25
+          ],
+          "eyes": [
+            175,
+            148
+          ],
+          "neck": [
+            187,
+            215
+          ],
+          "back": [
+            104,
+            278
+          ],
+          "hand": [
+            212,
+            180
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-sister-poses-oct27.webp",
+          "rect": [
+            1880,
+            75,
+            286,
+            593
+          ],
+          "isolate": true,
+          "scale": 0.41689677464372804,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            155,
+            581
+          ],
+          "head": [
+            168,
+            9
+          ],
+          "eyes": [
+            154,
+            127
+          ],
+          "neck": [
+            168,
+            223
+          ],
+          "back": [
+            168,
+            344
+          ],
+          "hand": [
+            200,
+            153
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
     }
   },
   "portraits": {

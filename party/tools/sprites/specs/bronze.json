@@ -4444,6 +4444,740 @@
       "loop": true,
       "motion": 0.08,
       "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            923,
+            10,
+            351,
+            399
+          ],
+          "isolate": true,
+          "scale": 1.100264285714286,
+          "bodyHeight": 182.0,
+          "anchor": [
+            149,
+            392
+          ],
+          "head": [
+            192,
+            98
+          ],
+          "eyes": [
+            168,
+            152
+          ],
+          "neck": [
+            143,
+            212
+          ],
+          "hand": [
+            330,
+            192
+          ],
+          "back": [
+            136,
+            248
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            461,
+            0,
+            388,
+            351
+          ],
+          "isolate": true,
+          "scale": 1.100264285714286,
+          "bodyHeight": 182.0,
+          "anchor": [
+            189,
+            453
+          ],
+          "head": [
+            199,
+            88
+          ],
+          "eyes": [
+            195,
+            148
+          ],
+          "neck": [
+            188,
+            203
+          ],
+          "hand": [
+            299,
+            62
+          ],
+          "back": [
+            188,
+            251
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            115,
+            5,
+            287,
+            398
+          ],
+          "isolate": true,
+          "scale": 1.100264285714286,
+          "bodyHeight": 182.0,
+          "anchor": [
+            154,
+            391
+          ],
+          "head": [
+            172,
+            92
+          ],
+          "eyes": [
+            152,
+            140
+          ],
+          "neck": [
+            142,
+            201
+          ],
+          "hand": [
+            37,
+            75
+          ],
+          "back": [
+            125,
+            252
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            58,
+            840,
+            436,
+            337
+          ],
+          "isolate": true,
+          "scale": 1.100264285714286,
+          "bodyHeight": 182.0,
+          "anchor": [
+            207,
+            305
+          ],
+          "head": [
+            218,
+            91
+          ],
+          "eyes": [
+            215,
+            153
+          ],
+          "neck": [
+            210,
+            200
+          ],
+          "hand": [
+            326,
+            109
+          ],
+          "back": [
+            210,
+            254
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            55,
+            418,
+            375,
+            361
+          ],
+          "isolate": true,
+          "scale": 1.100264285714286,
+          "bodyHeight": 182.0,
+          "anchor": [
+            184,
+            357
+          ],
+          "head": [
+            205,
+            83
+          ],
+          "eyes": [
+            189,
+            145
+          ],
+          "neck": [
+            178,
+            205
+          ],
+          "hand": [
+            265,
+            57
+          ],
+          "back": [
+            174,
+            242
+          ]
+        },
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            470,
+            403,
+            384,
+            375
+          ],
+          "isolate": true,
+          "scale": 1.100264285714286,
+          "bodyHeight": 182.0,
+          "anchor": [
+            193,
+            369
+          ],
+          "head": [
+            190,
+            299
+          ],
+          "eyes": [
+            189,
+            263
+          ],
+          "neck": [
+            189,
+            216
+          ],
+          "hand": [
+            283,
+            354
+          ],
+          "back": [
+            190,
+            167
+          ],
+          "headAngle": 3.14159265
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            577,
+            778,
+            273,
+            398
+          ],
+          "isolate": true,
+          "scale": 1.100264285714286,
+          "bodyHeight": 182.0,
+          "anchor": [
+            144,
+            390
+          ],
+          "head": [
+            122,
+            80
+          ],
+          "eyes": [
+            120,
+            145
+          ],
+          "neck": [
+            127,
+            204
+          ],
+          "hand": [
+            192,
+            99
+          ],
+          "back": [
+            130,
+            258
+          ]
+        },
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            982,
+            783,
+            273,
+            394
+          ],
+          "isolate": true,
+          "scale": 1.100264285714286,
+          "bodyHeight": 182.0,
+          "anchor": [
+            168,
+            388
+          ],
+          "head": [
+            174,
+            76
+          ],
+          "eyes": [
+            170,
+            140
+          ],
+          "neck": [
+            160,
+            198
+          ],
+          "hand": [
+            231,
+            94
+          ],
+          "back": [
+            160,
+            256
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/bronze-dance-moves.webp",
+          "rect": [
+            942,
+            400,
+            278,
+            389
+          ],
+          "isolate": true,
+          "scale": 1.100264285714286,
+          "bodyHeight": 182.0,
+          "anchor": [
+            219,
+            382
+          ],
+          "head": [
+            177,
+            94
+          ],
+          "eyes": [
+            177,
+            143
+          ],
+          "neck": [
+            166,
+            195
+          ],
+          "hand": [
+            262,
+            216
+          ],
+          "back": [
+            138,
+            233
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/bronze-sister-poses.webp",
+          "rect": [
+            453,
+            11,
+            286,
+            497
+          ],
+          "isolate": true,
+          "scale": 0.7530089285714286,
+          "bodyHeight": 154.0,
+          "anchor": [
+            144,
+            484
+          ],
+          "head": [
+            144,
+            104
+          ],
+          "eyes": [
+            139,
+            162
+          ],
+          "neck": [
+            136,
+            228
+          ],
+          "hand": [
+            192,
+            223
+          ],
+          "back": [
+            126,
+            311
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/bronze-sister-poses.webp",
+          "rect": [
+            758,
+            3,
+            432,
+            512
+          ],
+          "isolate": true,
+          "scale": 0.7530089285714286,
+          "bodyHeight": 154.0,
+          "anchor": [
+            220,
+            490
+          ],
+          "head": [
+            248,
+            118
+          ],
+          "eyes": [
+            248,
+            175
+          ],
+          "neck": [
+            232,
+            244
+          ],
+          "hand": [
+            395,
+            168
+          ],
+          "back": [
+            212,
+            307
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/bronze-sister-poses.webp",
+          "rect": [
+            1240,
+            525,
+            287,
+            464
+          ],
+          "isolate": true,
+          "scale": 0.7530089285714286,
+          "bodyHeight": 154.0,
+          "anchor": [
+            139,
+            455
+          ],
+          "head": [
+            163,
+            80
+          ],
+          "eyes": [
+            150,
+            127
+          ],
+          "neck": [
+            138,
+            180
+          ],
+          "hand": [
+            204,
+            227
+          ],
+          "back": [
+            136,
+            308
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/bronze-sister-poses.webp",
+          "rect": [
+            19,
+            0,
+            400,
+            515
+          ],
+          "isolate": true,
+          "scale": 0.7530089285714286,
+          "bodyHeight": 154.0,
+          "anchor": [
+            201,
+            495
+          ],
+          "head": [
+            206,
+            118
+          ],
+          "eyes": [
+            219,
+            181
+          ],
+          "neck": [
+            206,
+            246
+          ],
+          "hand": [
+            367,
+            236
+          ],
+          "back": [
+            183,
+            325
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/bronze-sister-poses.webp",
+          "rect": [
+            801,
+            509,
+            399,
+            479
+          ],
+          "isolate": true,
+          "scale": 0.7530089285714286,
+          "bodyHeight": 154.0,
+          "anchor": [
+            198,
+            471
+          ],
+          "head": [
+            195,
+            131
+          ],
+          "eyes": [
+            203,
+            198
+          ],
+          "neck": [
+            190,
+            253
+          ],
+          "hand": [
+            271,
+            282
+          ],
+          "back": [
+            184,
+            327
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/bronze-sister-poses.webp",
+          "rect": [
+            1234,
+            15,
+            287,
+            492
+          ],
+          "isolate": true,
+          "scale": 0.7530089285714286,
+          "bodyHeight": 154.0,
+          "anchor": [
+            111,
+            477
+          ],
+          "head": [
+            152,
+            106
+          ],
+          "eyes": [
+            161,
+            166
+          ],
+          "neck": [
+            140,
+            237
+          ],
+          "hand": [
+            250,
+            101
+          ],
+          "back": [
+            98,
+            307
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/bronze-sister-poses.webp",
+          "rect": [
+            19,
+            524,
+            393,
+            473
+          ],
+          "isolate": true,
+          "scale": 0.7530089285714286,
+          "bodyHeight": 154.0,
+          "anchor": [
+            198,
+            456
+          ],
+          "head": [
+            178,
+            74
+          ],
+          "eyes": [
+            204,
+            116
+          ],
+          "neck": [
+            203,
+            183
+          ],
+          "hand": [
+            353,
+            94
+          ],
+          "back": [
+            194,
+            254
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/bronze-sister-poses.webp",
+          "rect": [
+            454,
+            606,
+            273,
+            308
+          ],
+          "isolate": true,
+          "scale": 0.7530089285714286,
+          "bodyHeight": 154.0,
+          "anchor": [
+            136,
+            181
+          ],
+          "head": [
+            143,
+            73
+          ],
+          "eyes": [
+            115,
+            113
+          ],
+          "neck": [
+            118,
+            160
+          ],
+          "hand": [
+            238,
+            173
+          ],
+          "back": [
+            128,
+            222
+          ],
+          "headAngle": 0.35
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
     }
   },
   "portraits": {

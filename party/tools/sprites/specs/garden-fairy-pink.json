@@ -3723,6 +3723,396 @@
           ]
         }
       ]
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-pink-dance-moves-oct27.webp",
+          "rect": [
+            28,
+            450,
+            401,
+            398
+          ],
+          "isolate": true,
+          "scale": 0.8000263296471827,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            204,
+            387
+          ],
+          "head": [
+            211,
+            14
+          ],
+          "eyes": [
+            272,
+            148
+          ],
+          "neck": [
+            262,
+            206
+          ],
+          "back": [
+            231,
+            234
+          ],
+          "hand": [
+            360,
+            93
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-pink-dance-moves-oct27.webp",
+          "rect": [
+            450,
+            450,
+            422,
+            391
+          ],
+          "isolate": true,
+          "scale": 0.7448521000163426,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            206,
+            371
+          ],
+          "head": [
+            201,
+            350
+          ],
+          "eyes": [
+            207,
+            243
+          ],
+          "neck": [
+            206,
+            189
+          ],
+          "back": [
+            208,
+            141
+          ],
+          "hand": [
+            293,
+            369
+          ],
+          "headAngle": 3.141592653589793
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-pink-dance-moves-oct27.webp",
+          "rect": [
+            886,
+            443,
+            373,
+            405
+          ],
+          "isolate": true,
+          "scale": 0.771453960731212,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            225,
+            395
+          ],
+          "head": [
+            141,
+            7
+          ],
+          "eyes": [
+            194,
+            135
+          ],
+          "neck": [
+            208,
+            190
+          ],
+          "back": [
+            180,
+            218
+          ],
+          "hand": [
+            121,
+            204
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-pink-dance-moves-oct27.webp",
+          "rect": [
+            21,
+            872,
+            520,
+            359
+          ],
+          "isolate": true,
+          "scale": 0.7200236966824645,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            262,
+            334
+          ],
+          "head": [
+            248,
+            11
+          ],
+          "eyes": [
+            258,
+            149
+          ],
+          "neck": [
+            263,
+            218
+          ],
+          "back": [
+            243,
+            246
+          ],
+          "hand": [
+            383,
+            118
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-pink-dance-moves-oct27.webp",
+          "rect": [
+            886,
+            0,
+            373,
+            443
+          ],
+          "isolate": true,
+          "scale": 0.7200236966824645,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            192,
+            433
+          ],
+          "head": [
+            114,
+            14
+          ],
+          "eyes": [
+            183,
+            162
+          ],
+          "neck": [
+            193,
+            217
+          ],
+          "back": [
+            161,
+            239
+          ],
+          "hand": [
+            331,
+            203
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-pink-dance-moves-oct27.webp",
+          "rect": [
+            450,
+            0,
+            422,
+            443
+          ],
+          "isolate": true,
+          "scale": 0.7200236966824645,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            211,
+            492
+          ],
+          "head": [
+            169,
+            10
+          ],
+          "eyes": [
+            198,
+            170
+          ],
+          "neck": [
+            198,
+            224
+          ],
+          "back": [
+            183,
+            246
+          ],
+          "hand": [
+            338,
+            132
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-pink-dance-moves-oct27.webp",
+          "rect": [
+            28,
+            0,
+            408,
+            443
+          ],
+          "isolate": true,
+          "scale": 0.771453960731212,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            190,
+            433
+          ],
+          "head": [
+            246,
+            21
+          ],
+          "eyes": [
+            206,
+            167
+          ],
+          "neck": [
+            207,
+            224
+          ],
+          "back": [
+            191,
+            236
+          ],
+          "hand": [
+            124,
+            98
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-pink-dance-moves-oct27.webp",
+          "rect": [
+            542,
+            837,
+            316,
+            394
+          ],
+          "isolate": true,
+          "scale": 0.7448521000163426,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            199,
+            378
+          ],
+          "head": [
+            160,
+            11
+          ],
+          "eyes": [
+            194,
+            143
+          ],
+          "neck": [
+            198,
+            201
+          ],
+          "back": [
+            163,
+            228
+          ],
+          "hand": [
+            257,
+            118
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-pink-dance-moves-oct27.webp",
+          "rect": [
+            907,
+            830,
+            331,
+            401
+          ],
+          "isolate": true,
+          "scale": 0.7448521000163426,
+          "bodyHeight": 180,
+          "dur": 0.25,
+          "anchor": [
+            186,
+            385
+          ],
+          "head": [
+            131,
+            11
+          ],
+          "eyes": [
+            180,
+            149
+          ],
+          "neck": [
+            186,
+            205
+          ],
+          "back": [
+            152,
+            238
+          ],
+          "hand": [
+            235,
+            122
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
     }
   },
   "portraits": {

@@ -4468,6 +4468,731 @@
       "loop": true,
       "motion": 0.08,
       "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/marina-dance-moves.webp",
+          "rect": [
+            582,
+            814,
+            269,
+            367
+          ],
+          "isolate": true,
+          "scale": 1.4960000000000002,
+          "anchor": [
+            173,
+            347
+          ],
+          "head": [
+            165,
+            49
+          ],
+          "eyes": [
+            169,
+            95
+          ],
+          "neck": [
+            178,
+            144
+          ],
+          "hand": [
+            222,
+            46
+          ],
+          "back": [
+            189,
+            216
+          ]
+        },
+        {
+          "source": "../sources/marina-dance-moves.webp",
+          "rect": [
+            950,
+            805,
+            349,
+            375
+          ],
+          "isolate": true,
+          "scale": 1.4960000000000002,
+          "anchor": [
+            194,
+            356
+          ],
+          "head": [
+            133,
+            55
+          ],
+          "eyes": [
+            145,
+            104
+          ],
+          "neck": [
+            155,
+            151
+          ],
+          "hand": [
+            182,
+            57
+          ],
+          "back": [
+            155,
+            229
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/marina-dance-moves.webp",
+          "rect": [
+            935,
+            6,
+            365,
+            403
+          ],
+          "isolate": true,
+          "scale": 1.4960000000000002,
+          "anchor": [
+            175,
+            399
+          ],
+          "head": [
+            199,
+            58
+          ],
+          "eyes": [
+            199,
+            127
+          ],
+          "neck": [
+            191,
+            176
+          ],
+          "hand": [
+            344,
+            201
+          ],
+          "back": [
+            185,
+            255
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/marina-dance-moves.webp",
+          "rect": [
+            58,
+            1,
+            412,
+            415
+          ],
+          "isolate": true,
+          "scale": 1.4960000000000002,
+          "anchor": [
+            239,
+            405
+          ],
+          "head": [
+            153,
+            45
+          ],
+          "eyes": [
+            148,
+            115
+          ],
+          "neck": [
+            138,
+            173
+          ],
+          "hand": [
+            15,
+            58
+          ],
+          "back": [
+            166,
+            242
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/marina-dance-moves.webp",
+          "rect": [
+            93,
+            844,
+            494,
+            338
+          ],
+          "isolate": true,
+          "scale": 1.4960000000000002,
+          "anchor": [
+            174,
+            323
+          ],
+          "head": [
+            157,
+            54
+          ],
+          "eyes": [
+            153,
+            120
+          ],
+          "neck": [
+            149,
+            182
+          ],
+          "hand": [
+            34,
+            61
+          ],
+          "back": [
+            178,
+            242
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/marina-dance-moves.webp",
+          "rect": [
+            21,
+            426,
+            410,
+            383
+          ],
+          "isolate": true,
+          "scale": 1.4960000000000002,
+          "anchor": [
+            229,
+            372
+          ],
+          "head": [
+            290,
+            79
+          ],
+          "eyes": [
+            284,
+            133
+          ],
+          "neck": [
+            299,
+            189
+          ],
+          "hand": [
+            351,
+            28
+          ],
+          "back": [
+            266,
+            255
+          ]
+        },
+        {
+          "source": "../sources/marina-dance-moves.webp",
+          "rect": [
+            528,
+            390,
+            310,
+            423
+          ],
+          "isolate": true,
+          "scale": 1.4960000000000002,
+          "anchor": [
+            156,
+            418
+          ],
+          "head": [
+            161,
+            352
+          ],
+          "eyes": [
+            160,
+            302
+          ],
+          "neck": [
+            164,
+            244
+          ],
+          "hand": [
+            64,
+            411
+          ],
+          "back": [
+            157,
+            180
+          ],
+          "headAngle": 3.14159265
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/marina-dance-moves.webp",
+          "rect": [
+            987,
+            419,
+            324,
+            393
+          ],
+          "isolate": true,
+          "scale": 1.4960000000000002,
+          "anchor": [
+            151,
+            381
+          ],
+          "head": [
+            177,
+            86
+          ],
+          "eyes": [
+            169,
+            136
+          ],
+          "neck": [
+            163,
+            186
+          ],
+          "hand": [
+            166,
+            252
+          ],
+          "back": [
+            148,
+            285
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/marina-dance-moves.webp",
+          "rect": [
+            466,
+            6,
+            423,
+            386
+          ],
+          "isolate": true,
+          "scale": 1.4960000000000002,
+          "anchor": [
+            213,
+            494
+          ],
+          "head": [
+            171,
+            48
+          ],
+          "eyes": [
+            160,
+            114
+          ],
+          "neck": [
+            155,
+            172
+          ],
+          "hand": [
+            356,
+            91
+          ],
+          "back": [
+            184,
+            229
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/marina-sister-poses.webp",
+          "rect": [
+            407,
+            7,
+            378,
+            491
+          ],
+          "isolate": true,
+          "scale": 0.5045333333333334,
+          "bodyHeight": 96.0,
+          "anchor": [
+            190,
+            486
+          ],
+          "head": [
+            148,
+            63
+          ],
+          "eyes": [
+            143,
+            137
+          ],
+          "neck": [
+            143,
+            200
+          ],
+          "hand": [
+            93,
+            223
+          ],
+          "back": [
+            169,
+            290
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/marina-sister-poses.webp",
+          "rect": [
+            23,
+            6,
+            382,
+            529
+          ],
+          "isolate": true,
+          "scale": 0.5045333333333334,
+          "bodyHeight": 96.0,
+          "anchor": [
+            194,
+            505
+          ],
+          "head": [
+            147,
+            59
+          ],
+          "eyes": [
+            144,
+            128
+          ],
+          "neck": [
+            152,
+            199
+          ],
+          "hand": [
+            29,
+            169
+          ],
+          "back": [
+            181,
+            290
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/marina-sister-poses.webp",
+          "rect": [
+            743,
+            6,
+            451,
+            418
+          ],
+          "isolate": true,
+          "scale": 0.5045333333333334,
+          "bodyHeight": 96.0,
+          "anchor": [
+            250,
+            519
+          ],
+          "head": [
+            167,
+            62
+          ],
+          "eyes": [
+            162,
+            138
+          ],
+          "neck": [
+            166,
+            198
+          ],
+          "hand": [
+            347,
+            190
+          ],
+          "back": [
+            216,
+            272
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/marina-sister-poses.webp",
+          "rect": [
+            778,
+            515,
+            419,
+            453
+          ],
+          "isolate": true,
+          "scale": 0.5045333333333334,
+          "bodyHeight": 96.0,
+          "anchor": [
+            200,
+            453
+          ],
+          "head": [
+            192,
+            69
+          ],
+          "eyes": [
+            197,
+            132
+          ],
+          "neck": [
+            202,
+            193
+          ],
+          "hand": [
+            300,
+            248
+          ],
+          "back": [
+            169,
+            300
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/marina-sister-poses.webp",
+          "rect": [
+            419,
+            559,
+            319,
+            385
+          ],
+          "isolate": true,
+          "scale": 0.5045333333333334,
+          "bodyHeight": 96.0,
+          "anchor": [
+            165,
+            230
+          ],
+          "head": [
+            187,
+            68
+          ],
+          "eyes": [
+            184,
+            136
+          ],
+          "neck": [
+            178,
+            190
+          ],
+          "hand": [
+            145,
+            238
+          ],
+          "back": [
+            87,
+            245
+          ],
+          "headAngle": 0
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/marina-sister-poses.webp",
+          "rect": [
+            20,
+            516,
+            379,
+            497
+          ],
+          "isolate": true,
+          "scale": 0.5045333333333334,
+          "bodyHeight": 96.0,
+          "anchor": [
+            192,
+            488
+          ],
+          "head": [
+            179,
+            43
+          ],
+          "eyes": [
+            174,
+            102
+          ],
+          "neck": [
+            189,
+            176
+          ],
+          "hand": [
+            261,
+            257
+          ],
+          "back": [
+            176,
+            278
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/marina-sister-poses.webp",
+          "rect": [
+            1190,
+            9,
+            337,
+            512
+          ],
+          "isolate": true,
+          "scale": 0.5045333333333334,
+          "bodyHeight": 96.0,
+          "anchor": [
+            158,
+            504
+          ],
+          "head": [
+            184,
+            61
+          ],
+          "eyes": [
+            188,
+            124
+          ],
+          "neck": [
+            192,
+            183
+          ],
+          "hand": [
+            306,
+            85
+          ],
+          "back": [
+            162,
+            282
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/marina-sister-poses.webp",
+          "rect": [
+            1207,
+            516,
+            327,
+            498
+          ],
+          "isolate": true,
+          "scale": 0.5045333333333334,
+          "bodyHeight": 96.0,
+          "anchor": [
+            141,
+            488
+          ],
+          "head": [
+            154,
+            61
+          ],
+          "eyes": [
+            150,
+            118
+          ],
+          "neck": [
+            143,
+            189
+          ],
+          "hand": [
+            104,
+            271
+          ],
+          "back": [
+            137,
+            301
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
     }
   },
   "portraits": {

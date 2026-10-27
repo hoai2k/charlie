@@ -404,3 +404,13 @@ Final Molly audit reminders:
 Use existing game props as the expression-edit targets to keep full-canvas scale and seated/feet anchors. Compare final native and runtime images against the exact reference, not only another new pose. Preserve the full native RGBA as lossless WebP; a lossless copy of an already resized runtime is not a source archive. Keep the final edit output path separate from its original input and retain exact edit prompts. Normalize only explicitly owned record files: a filename glob can also match another agent’s integration record.
 
 Reaction props can contain hands, gloves and dropped tools that procedural fallbacks also draw. Suppress an extra glove or hose only when the exact authored reaction is loaded; keep fallback extras otherwise. Audit complete game art groups after adding reaction families. Move unused legacy variants to a separate deferred group rather than dropping them from every group (which would load them at boot). Resolution-only background intake from the unchanged source can lower memory without changing geometry; keep requested prop canvases exact.
+
+
+### Dance and Sister action batches (October27)
+
+- Treat new full-body actions as separate scratch packets and append only their frames. Shipping manifests can contain newer body maps than intake specs; a wholesale old-spec rebuild loses audited points.
+- Count unique reachable frame and portrait rasters for full decoded memory before intake. Existing sets can already be24.9MiB. New-only physical scaling must scale bodyHeight equally; modest portrait runtime reduction is preferable to unreadably tiny new bodies. Preserve exact original portrait RGBA and record any resolution step.
+- Inverted cartwheels need hands/support at the actual floor, headAngle=pi and explicit shoe body-map overrides when automatic scanning assumes feet below the head. Do not add a procedural ready-hop to grounded cartwheel art. Tuck uses its centre of mass as anchor because games rotate the ball.
+- Nail hand recolours drift by fractions of a pixel: measure each tone's nail centres, dimensions and tilt, share that geometry between painting and hit tests, and clip polish to measured nail interiors. Keep the full1024canvas untrimmed and align the cuff to the actual wrist, not the canvas centre.
+- A regular source grid is only an initial crop. Audit connected-alpha extents and antialias margins after manual annotations, especially flying hair, skirts and curled bodies.
+- Quiet local HTTP servers avoid request-log congestion during many simultaneous browser checks. Wait for the actual review-ready marker or PlayScene before screenshots; a fixed5s timeout can capture idle fallbacks or the loading screen on the mounted volume.

@@ -1,0 +1,365 @@
+{
+  "asset": "princess-amber",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-bb55-7c21-80cd-5af33e6d6c6a/exec-283c4513-aea5-4439-9b5d-ec2f92d9d609.png",
+  "source": "party/tools/sprites/sources/princess-amber-sister-poses-oct27.webp",
+  "status": "intaken; native/source and runtime contact reviewed; integrator game review pending",
+  "losslessRGBA": true,
+  "exact": true,
+  "prompt": "Use case: identity-preserve. Transparent game sprite sheet of Princess Amber matching reference1 approvedcanonical and reference2 shippingidle exactly:longauburnhair,browneyes,fairskin,goldflowertiara,orangeprincessgownwithblack sleevesandwhiteflowersoutlinedblack,orangeshoes. Adapt dressfolds to poses,covered modestcostume throughout; use opaqueorangeleggingswhere necessary beneathgown. Bold navy outlines,clean cel shading. Exactly eight full-body figures in4columns x2rows, generous transparentgaps,no captions,no grid,no background/shadows/effects/props; SAME head/torso scale/proportions across all8 figures,3quarter facing screenright. Left-to-right top row:1 boop:one indexfinger pokes forward to boop imaginarynose,cheekygrin;2 cuddle:both arms wrapped around an empty space at chest as hugging,eyesclosed,bigsmile,EMPTY hands,noobject;3 silly-pose:goofy tada,one leg kicked behind,armsflungwide,tongueout;4 tiptoe:sneaking on tiptoes,hunched,both hands up overhead holding nothing,sidewayscheekygrin. Bottom row:5 tongue-out:head tippedback lookingup,tongueout tocatch snowflake,but no snowflake;6 tuck:side-on tightlycurledball,knees hugged to chest,eyes happilyclosed,feet tucked in,complete figure floating with no ground;7 ride-sit:sitting astride imaginarymount,legs either side,hands forward gripping nothing,happysmile,no mount;8 laugh:big bellylaugh,headback,eyesclosed,bothhands on tummy. Fullfigure everycell,everyhair/shoe/crown/hand retained. Keep exact originaloutfit,anatomy andidentity. No extra characters or heldobjects.",
+  "poses": {
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            58,
+            5,
+            355,
+            503
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            177,
+            496
+          ],
+          "head": [
+            177,
+            106
+          ],
+          "eyes": [
+            172,
+            140
+          ],
+          "neck": [
+            166,
+            186
+          ],
+          "back": [
+            167,
+            259
+          ],
+          "hand": [
+            74,
+            171
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            448,
+            5,
+            306,
+            493
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            151,
+            491
+          ],
+          "head": [
+            156,
+            112
+          ],
+          "eyes": [
+            154,
+            140
+          ],
+          "neck": [
+            145,
+            180
+          ],
+          "back": [
+            150,
+            252
+          ],
+          "hand": [
+            156,
+            210
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            776,
+            3,
+            405,
+            514
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            212,
+            504
+          ],
+          "head": [
+            222,
+            106
+          ],
+          "eyes": [
+            212,
+            146
+          ],
+          "neck": [
+            213,
+            194
+          ],
+          "back": [
+            212,
+            256
+          ],
+          "hand": [
+            339,
+            172
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            1185,
+            8,
+            337,
+            505
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            154,
+            495
+          ],
+          "head": [
+            218,
+            111
+          ],
+          "eyes": [
+            218,
+            145
+          ],
+          "neck": [
+            200,
+            197
+          ],
+          "back": [
+            166,
+            270
+          ],
+          "hand": [
+            315,
+            76
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            45,
+            510,
+            337,
+            504
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            178,
+            493
+          ],
+          "head": [
+            181,
+            75
+          ],
+          "eyes": [
+            174,
+            93
+          ],
+          "neck": [
+            165,
+            176
+          ],
+          "back": [
+            165,
+            259
+          ],
+          "hand": [
+            257,
+            274
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            412,
+            554,
+            321,
+            385
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            136,
+            200
+          ],
+          "head": [
+            147,
+            125
+          ],
+          "eyes": [
+            146,
+            147
+          ],
+          "neck": [
+            147,
+            179
+          ],
+          "back": [
+            100,
+            244
+          ],
+          "hand": [
+            106,
+            221
+          ],
+          "headAngle": 0.25
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            751,
+            514,
+            369,
+            476
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            185,
+            466
+          ],
+          "head": [
+            183,
+            100
+          ],
+          "eyes": [
+            185,
+            135
+          ],
+          "neck": [
+            176,
+            179
+          ],
+          "back": [
+            171,
+            252
+          ],
+          "hand": [
+            189,
+            271
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            1148,
+            508,
+            350,
+            505
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            170,
+            499
+          ],
+          "head": [
+            166,
+            97
+          ],
+          "eyes": [
+            149,
+            127
+          ],
+          "neck": [
+            147,
+            181
+          ],
+          "back": [
+            147,
+            243
+          ],
+          "hand": [
+            178,
+            263
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    }
+  },
+  "reviewContact": "/tmp/amber-sister-review.png"
+}

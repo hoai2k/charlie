@@ -4593,6 +4593,740 @@
       "loop": true,
       "motion": 0.08,
       "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-dance-moves.webp",
+          "rect": [
+            446,
+            6,
+            455,
+            397
+          ],
+          "isolate": true,
+          "scale": 0.7481770833333334,
+          "bodyHeight": 156.0,
+          "anchor": [
+            224,
+            501
+          ],
+          "head": [
+            221,
+            114
+          ],
+          "eyes": [
+            227,
+            222
+          ],
+          "neck": [
+            225,
+            306
+          ],
+          "hand": [
+            233,
+            89
+          ],
+          "back": [
+            224,
+            335
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-dance-moves.webp",
+          "rect": [
+            937,
+            454,
+            368,
+            376
+          ],
+          "isolate": true,
+          "scale": 0.7481770833333334,
+          "bodyHeight": 156.0,
+          "anchor": [
+            182,
+            368
+          ],
+          "head": [
+            189,
+            100
+          ],
+          "eyes": [
+            194,
+            163
+          ],
+          "neck": [
+            187,
+            243
+          ],
+          "hand": [
+            143,
+            54
+          ],
+          "back": [
+            183,
+            295
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-dance-moves.webp",
+          "rect": [
+            15,
+            888,
+            581,
+            276
+          ],
+          "isolate": true,
+          "scale": 0.7481770833333334,
+          "bodyHeight": 156.0,
+          "anchor": [
+            282,
+            264
+          ],
+          "head": [
+            283,
+            106
+          ],
+          "eyes": [
+            286,
+            169
+          ],
+          "neck": [
+            282,
+            224
+          ],
+          "hand": [
+            276,
+            83
+          ],
+          "back": [
+            281,
+            235
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-dance-moves.webp",
+          "rect": [
+            621,
+            812,
+            301,
+            359
+          ],
+          "isolate": true,
+          "scale": 0.7481770833333334,
+          "bodyHeight": 156.0,
+          "anchor": [
+            147,
+            347
+          ],
+          "head": [
+            157,
+            124
+          ],
+          "eyes": [
+            174,
+            192
+          ],
+          "neck": [
+            151,
+            269
+          ],
+          "hand": [
+            123,
+            84
+          ],
+          "back": [
+            151,
+            286
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-dance-moves.webp",
+          "rect": [
+            966,
+            828,
+            337,
+            351
+          ],
+          "isolate": true,
+          "scale": 0.7481770833333334,
+          "bodyHeight": 156.0,
+          "anchor": [
+            166,
+            332
+          ],
+          "head": [
+            128,
+            97
+          ],
+          "eyes": [
+            125,
+            184
+          ],
+          "neck": [
+            162,
+            255
+          ],
+          "hand": [
+            161,
+            66
+          ],
+          "back": [
+            160,
+            285
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-dance-moves.webp",
+          "rect": [
+            56,
+            416,
+            363,
+            416
+          ],
+          "isolate": true,
+          "scale": 0.7481770833333334,
+          "bodyHeight": 156.0,
+          "anchor": [
+            190,
+            406
+          ],
+          "head": [
+            183,
+            92
+          ],
+          "eyes": [
+            220,
+            207
+          ],
+          "neck": [
+            193,
+            290
+          ],
+          "hand": [
+            124,
+            70
+          ],
+          "back": [
+            195,
+            326
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-dance-moves.webp",
+          "rect": [
+            452,
+            441,
+            421,
+            371
+          ],
+          "isolate": true,
+          "scale": 0.7481770833333334,
+          "bodyHeight": 156.0,
+          "anchor": [
+            218,
+            360
+          ],
+          "head": [
+            216,
+            240
+          ],
+          "eyes": [
+            211,
+            186
+          ],
+          "neck": [
+            214,
+            99
+          ],
+          "hand": [
+            211,
+            290
+          ],
+          "back": [
+            214,
+            70
+          ],
+          "headAngle": 3.14159265
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-dance-moves.webp",
+          "rect": [
+            916,
+            32,
+            380,
+            392
+          ],
+          "isolate": true,
+          "scale": 0.7481770833333334,
+          "bodyHeight": 156.0,
+          "anchor": [
+            193,
+            373
+          ],
+          "head": [
+            205,
+            110
+          ],
+          "eyes": [
+            199,
+            232
+          ],
+          "neck": [
+            204,
+            290
+          ],
+          "hand": [
+            276,
+            78
+          ],
+          "back": [
+            197,
+            319
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-dance-moves.webp",
+          "rect": [
+            39,
+            13,
+            375,
+            408
+          ],
+          "isolate": true,
+          "scale": 0.7481770833333334,
+          "bodyHeight": 156.0,
+          "anchor": [
+            200,
+            390
+          ],
+          "head": [
+            172,
+            129
+          ],
+          "eyes": [
+            197,
+            205
+          ],
+          "neck": [
+            197,
+            287
+          ],
+          "hand": [
+            160,
+            84
+          ],
+          "back": [
+            219,
+            317
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-sister-poses.webp",
+          "rect": [
+            744,
+            544,
+            433,
+            429
+          ],
+          "isolate": true,
+          "scale": 0.61359375,
+          "bodyHeight": 132.0,
+          "anchor": [
+            220,
+            421
+          ],
+          "head": [
+            220,
+            148
+          ],
+          "eyes": [
+            234,
+            247
+          ],
+          "neck": [
+            224,
+            334
+          ],
+          "hand": [
+            207,
+            116
+          ],
+          "back": [
+            220,
+            370
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-sister-poses.webp",
+          "rect": [
+            450,
+            55,
+            344,
+            458
+          ],
+          "isolate": true,
+          "scale": 0.61359375,
+          "bodyHeight": 132.0,
+          "anchor": [
+            172,
+            435
+          ],
+          "head": [
+            166,
+            141
+          ],
+          "eyes": [
+            163,
+            275
+          ],
+          "neck": [
+            163,
+            349
+          ],
+          "hand": [
+            161,
+            189
+          ],
+          "back": [
+            163,
+            385
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-sister-poses.webp",
+          "rect": [
+            791,
+            64,
+            425,
+            450
+          ],
+          "isolate": true,
+          "scale": 0.61359375,
+          "bodyHeight": 132.0,
+          "anchor": [
+            216,
+            426
+          ],
+          "head": [
+            211,
+            145
+          ],
+          "eyes": [
+            232,
+            232
+          ],
+          "neck": [
+            213,
+            326
+          ],
+          "hand": [
+            173,
+            114
+          ],
+          "back": [
+            213,
+            356
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-sister-poses.webp",
+          "rect": [
+            402,
+            550,
+            355,
+            407
+          ],
+          "isolate": true,
+          "scale": 0.61359375,
+          "bodyHeight": 132.0,
+          "anchor": [
+            175,
+            218
+          ],
+          "head": [
+            182,
+            139
+          ],
+          "eyes": [
+            191,
+            223
+          ],
+          "neck": [
+            188,
+            273
+          ],
+          "hand": [
+            206,
+            118
+          ],
+          "back": [
+            175,
+            305
+          ],
+          "headAngle": 0.5
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-sister-poses.webp",
+          "rect": [
+            1162,
+            534,
+            364,
+            432
+          ],
+          "isolate": true,
+          "scale": 0.61359375,
+          "bodyHeight": 132.0,
+          "anchor": [
+            195,
+            431
+          ],
+          "head": [
+            195,
+            88
+          ],
+          "eyes": [
+            178,
+            174
+          ],
+          "neck": [
+            188,
+            274
+          ],
+          "hand": [
+            237,
+            64
+          ],
+          "back": [
+            193,
+            341
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-sister-poses.webp",
+          "rect": [
+            37,
+            564,
+            354,
+            403
+          ],
+          "isolate": true,
+          "scale": 0.61359375,
+          "bodyHeight": 132.0,
+          "anchor": [
+            176,
+            401
+          ],
+          "head": [
+            172,
+            57
+          ],
+          "eyes": [
+            175,
+            123
+          ],
+          "neck": [
+            170,
+            228
+          ],
+          "hand": [
+            66,
+            58
+          ],
+          "back": [
+            170,
+            295
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-sister-poses.webp",
+          "rect": [
+            1237,
+            24,
+            294,
+            486
+          ],
+          "isolate": true,
+          "scale": 0.61359375,
+          "bodyHeight": 132.0,
+          "anchor": [
+            124,
+            466
+          ],
+          "head": [
+            145,
+            107
+          ],
+          "eyes": [
+            178,
+            252
+          ],
+          "neck": [
+            149,
+            358
+          ],
+          "hand": [
+            158,
+            131
+          ],
+          "back": [
+            137,
+            393
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-sister-poses.webp",
+          "rect": [
+            10,
+            83,
+            448,
+            421
+          ],
+          "isolate": true,
+          "scale": 0.61359375,
+          "bodyHeight": 132.0,
+          "anchor": [
+            236,
+            407
+          ],
+          "head": [
+            231,
+            127
+          ],
+          "eyes": [
+            252,
+            242
+          ],
+          "neck": [
+            234,
+            324
+          ],
+          "hand": [
+            401,
+            292
+          ],
+          "back": [
+            220,
+            344
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
     }
   },
   "portraits": {

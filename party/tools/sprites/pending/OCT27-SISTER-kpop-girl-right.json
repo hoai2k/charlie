@@ -1,0 +1,365 @@
+{
+  "asset": "kpop-girl-right",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-bb55-7c21-80cd-5af33e6d6c6a/exec-873144ef-a3cb-4cb6-8b61-ce240043d229.png",
+  "source": "party/tools/sprites/sources/kpop-girl-right-sister-poses-oct27.webp",
+  "status": "intaken; native/source and runtime contact reviewed; integrator game review pending",
+  "losslessRGBA": true,
+  "exact": true,
+  "prompt": "Use case: identity-preserve. Transparent game sprite sheet of KPop right girl matching reference1 approvedcanonical and reference2 shippingidle exactly:verylongpinkhair,goldenbrowneyes,fairskin,navyshortsleevedtop withpinkwavydecoration,goldpleatedskirt,blue kneehighboots withpinkhearts. Bold navy outlines,clean cel shading. Exactly eight full-body figures in4columns x2rows, generous transparentgaps,no captions,no grid,no background/shadows/effects/props; SAME head/torso scale/proportions across all8 figures,3quarter facing screenright. Left-to-right top row:1 boop:one indexfinger pokes forward to boop imaginarynose,cheekygrin;2 cuddle:both arms wrapped around an empty space at chest as hugging,eyesclosed,bigsmile,EMPTY hands,noobject;3 silly-pose:goofy tada,one leg kicked behind,armsflungwide,tongueout;4 tiptoe:sneaking on tiptoes,hunched,both hands up overhead holding nothing,sidewayscheekygrin. Bottom row:5 tongue-out:head tippedback lookingup,tongueout tocatch snowflake,but no snowflake;6 tuck:side-on tightlycurledball,knees hugged to chest,eyes happilyclosed,feet tucked in,complete figure floating with no ground;7 ride-sit:sitting astride imaginarymount,legs either side,hands forward gripping nothing,happysmile,no mount;8 laugh:big bellylaugh,headback,eyesclosed,bothhands on tummy. Fullfigure everycell,everyhair/boot/hand retained. Keep exact originaloutfit,anatomy andidentity. No extra characters or heldobjects.",
+  "poses": {
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            21,
+            6,
+            335,
+            519
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            188,
+            512
+          ],
+          "head": [
+            197,
+            25
+          ],
+          "eyes": [
+            189,
+            106
+          ],
+          "neck": [
+            178,
+            180
+          ],
+          "back": [
+            168,
+            254
+          ],
+          "hand": [
+            117,
+            168
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            389,
+            6,
+            320,
+            523
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            161,
+            515
+          ],
+          "head": [
+            163,
+            23
+          ],
+          "eyes": [
+            160,
+            108
+          ],
+          "neck": [
+            161,
+            171
+          ],
+          "back": [
+            161,
+            257
+          ],
+          "hand": [
+            216,
+            192
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            730,
+            9,
+            441,
+            523
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            212,
+            518
+          ],
+          "head": [
+            205,
+            22
+          ],
+          "eyes": [
+            215,
+            114
+          ],
+          "neck": [
+            229,
+            177
+          ],
+          "back": [
+            220,
+            256
+          ],
+          "hand": [
+            386,
+            205
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            1181,
+            5,
+            303,
+            517
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            149,
+            512
+          ],
+          "head": [
+            191,
+            51
+          ],
+          "eyes": [
+            207,
+            134
+          ],
+          "neck": [
+            184,
+            202
+          ],
+          "back": [
+            154,
+            273
+          ],
+          "hand": [
+            264,
+            30
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            34,
+            523,
+            319,
+            499
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            178,
+            491
+          ],
+          "head": [
+            170,
+            25
+          ],
+          "eyes": [
+            183,
+            66
+          ],
+          "neck": [
+            178,
+            162
+          ],
+          "back": [
+            178,
+            242
+          ],
+          "hand": [
+            282,
+            271
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            380,
+            554,
+            348,
+            355
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            171,
+            194
+          ],
+          "head": [
+            190,
+            35
+          ],
+          "eyes": [
+            184,
+            102
+          ],
+          "neck": [
+            151,
+            148
+          ],
+          "back": [
+            108,
+            200
+          ],
+          "hand": [
+            218,
+            198
+          ],
+          "headAngle": 0.25
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            744,
+            529,
+            409,
+            487
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            206,
+            477
+          ],
+          "head": [
+            204,
+            31
+          ],
+          "eyes": [
+            210,
+            100
+          ],
+          "neck": [
+            206,
+            166
+          ],
+          "back": [
+            202,
+            244
+          ],
+          "hand": [
+            290,
+            256
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-sister-poses-oct27.webp",
+          "rect": [
+            1175,
+            526,
+            352,
+            496
+          ],
+          "isolate": true,
+          "scale": 0.5121454545454546,
+          "bodyHeight": 145.28301886792454,
+          "anchor": [
+            162,
+            491
+          ],
+          "head": [
+            193,
+            33
+          ],
+          "eyes": [
+            173,
+            85
+          ],
+          "neck": [
+            176,
+            152
+          ],
+          "back": [
+            170,
+            223
+          ],
+          "hand": [
+            165,
+            252
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    }
+  },
+  "reviewContact": "/tmp/right-sister-review.png"
+}

@@ -1,0 +1,365 @@
+{
+  "asset": "kpop-girl-left",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-bb55-7c21-80cd-5af33e6d6c6a/exec-9ecc01e3-0e93-4498-837e-e1ce329b36af.png",
+  "source": "party/tools/sprites/sources/kpop-girl-left-sister-poses-oct27.webp",
+  "status": "intaken; native/source and runtime contact reviewed; integrator game review pending",
+  "losslessRGBA": true,
+  "exact": true,
+  "prompt": "Use case: identity-preserve. Transparent game sprite sheet of KPop left girl matching reference1 approvedcanonical and reference2 shippingidle exactly:brown sidebun,browneyes,lightskin,sleeveless paleblue top,royalblue widelegtrousers,white balletflatshoes. Bold navy outlines,clean cel shading. Exactly eight full-body figures in4columns x2rows, generous transparentgaps,no captions,no grid,no background/shadows/effects/props; SAME head/torso scale/proportions across all8 figures,3quarter facing screenright. Left-to-right top row:1 boop:one indexfinger pokes forward to boop imaginarynose,cheekygrin;2 cuddle:both arms wrapped around an empty space at chest as hugging,eyesclosed,bigsmile,EMPTY hands,noobject;3 silly-pose:goofy tada,one leg kicked behind,armsflungwide,tongueout;4 tiptoe:sneaking on tiptoes,hunched,both hands up overhead holding nothing,sidewayscheekygrin. Bottom row:5 tongue-out:head tippedback lookingup,tongueout tocatch snowflake,but no snowflake;6 tuck:side-on tightlycurledball,knees hugged to chest,eyes happilyclosed,feet tucked in,complete figure floating with no ground;7 ride-sit:sitting astride imaginarymount,legs either side,hands forward gripping nothing,happysmile,no mount;8 laugh:big bellylaugh,headback,eyesclosed,bothhands on tummy. Fullfigure everycell,everyhair/boot/hand retained. Keep exact originaloutfit,anatomy andidentity. No extra characters or heldobjects.",
+  "poses": {
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-sister-poses-oct27.webp",
+          "rect": [
+            81,
+            5,
+            288,
+            514
+          ],
+          "isolate": true,
+          "scale": 0.5080727272727273,
+          "bodyHeight": 148.0769230769231,
+          "anchor": [
+            136,
+            505
+          ],
+          "head": [
+            166,
+            31
+          ],
+          "eyes": [
+            163,
+            119
+          ],
+          "neck": [
+            156,
+            189
+          ],
+          "back": [
+            140,
+            265
+          ],
+          "hand": [
+            122,
+            195
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-sister-poses-oct27.webp",
+          "rect": [
+            436,
+            7,
+            262,
+            512
+          ],
+          "isolate": true,
+          "scale": 0.5080727272727273,
+          "bodyHeight": 148.0769230769231,
+          "anchor": [
+            137,
+            505
+          ],
+          "head": [
+            138,
+            29
+          ],
+          "eyes": [
+            158,
+            118
+          ],
+          "neck": [
+            155,
+            178
+          ],
+          "back": [
+            147,
+            256
+          ],
+          "hand": [
+            151,
+            216
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-sister-poses-oct27.webp",
+          "rect": [
+            756,
+            2,
+            385,
+            512
+          ],
+          "isolate": true,
+          "scale": 0.5080727272727273,
+          "bodyHeight": 148.0769230769231,
+          "anchor": [
+            230,
+            508
+          ],
+          "head": [
+            219,
+            34
+          ],
+          "eyes": [
+            241,
+            118
+          ],
+          "neck": [
+            241,
+            200
+          ],
+          "back": [
+            218,
+            264
+          ],
+          "hand": [
+            53,
+            195
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-sister-poses-oct27.webp",
+          "rect": [
+            1211,
+            29,
+            309,
+            480
+          ],
+          "isolate": true,
+          "scale": 0.5080727272727273,
+          "bodyHeight": 148.0769230769231,
+          "anchor": [
+            160,
+            473
+          ],
+          "head": [
+            190,
+            10
+          ],
+          "eyes": [
+            203,
+            99
+          ],
+          "neck": [
+            171,
+            187
+          ],
+          "back": [
+            141,
+            249
+          ],
+          "hand": [
+            282,
+            35
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-sister-poses-oct27.webp",
+          "rect": [
+            75,
+            517,
+            285,
+            502
+          ],
+          "isolate": true,
+          "scale": 0.5080727272727273,
+          "bodyHeight": 148.0769230769231,
+          "anchor": [
+            163,
+            492
+          ],
+          "head": [
+            138,
+            37
+          ],
+          "eyes": [
+            148,
+            88
+          ],
+          "neck": [
+            151,
+            169
+          ],
+          "back": [
+            147,
+            264
+          ],
+          "hand": [
+            252,
+            312
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-sister-poses-oct27.webp",
+          "rect": [
+            416,
+            577,
+            291,
+            364
+          ],
+          "isolate": true,
+          "scale": 0.5080727272727273,
+          "bodyHeight": 148.0769230769231,
+          "anchor": [
+            164,
+            189
+          ],
+          "head": [
+            160,
+            44
+          ],
+          "eyes": [
+            173,
+            105
+          ],
+          "neck": [
+            147,
+            157
+          ],
+          "back": [
+            87,
+            206
+          ],
+          "hand": [
+            239,
+            222
+          ],
+          "headAngle": 0.25
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-sister-poses-oct27.webp",
+          "rect": [
+            789,
+            517,
+            415,
+            488
+          ],
+          "isolate": true,
+          "scale": 0.5080727272727273,
+          "bodyHeight": 148.0769230769231,
+          "anchor": [
+            206,
+            471
+          ],
+          "head": [
+            198,
+            34
+          ],
+          "eyes": [
+            190,
+            106
+          ],
+          "neck": [
+            190,
+            179
+          ],
+          "back": [
+            183,
+            264
+          ],
+          "hand": [
+            264,
+            278
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-sister-poses-oct27.webp",
+          "rect": [
+            1209,
+            515,
+            283,
+            504
+          ],
+          "isolate": true,
+          "scale": 0.5080727272727273,
+          "bodyHeight": 148.0769230769231,
+          "anchor": [
+            170,
+            493
+          ],
+          "head": [
+            154,
+            34
+          ],
+          "eyes": [
+            162,
+            89
+          ],
+          "neck": [
+            156,
+            169
+          ],
+          "back": [
+            170,
+            251
+          ],
+          "hand": [
+            210,
+            242
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    }
+  },
+  "reviewContact": "/tmp/left-sister-review.png"
+}

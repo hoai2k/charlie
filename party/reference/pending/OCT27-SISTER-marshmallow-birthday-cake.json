@@ -1,0 +1,286 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Asset type: transparent game sprite sheet of ONE exact reference character. Image1 approved canonical, image2 shipping idle. Preserve exact identity/anatomy/outfit/colors/proportions, camera three-quarter screen-right, same head and torso size across all figures, bold dark outline and clean cel shading. All figures full body with generous clear gutters, TRUE transparent RGBA; NO props, held objects, scenery, shadows, effects, text or labels. Empty hands/arms; game adds objects later. Exactly EIGHT figures in FOUR columns by TWO rows, left-to-right top-to-bottom: (1) BOOP one paw/hand/hoof poking forward horizontally to boop an invisible nose, cheeky grin. (2) CUDDLE both arms/front paws curled around EMPTY space at chest, eyes shut big smile, no object. (3) SILLY POSE goofy ta-da one rear leg kicked UP behind, front limbs flung WIDE, TONGUE OUT. (4) TIPTOE sneaking high on toes, hunched body, front limbs holding EMPTY space overhead, sideways cheeky grin, no cushion. (5) TONGUE OUT head tipped back looking UP, tongue extended UP toward sky to catch invisible snowflake, no snowflake. (6) TUCK tight spherical ball, knees/front paws hugged to chest, happy shut eyes, SIDE view for spinning, tail curled around body. (7) RIDE SIT sitting astride EMPTY space, legs to each side, arms/front paws forward grasping empty space, happy, no mount. (8) LAUGH BIG belly laugh head back eyes shut hands/paws on tummy. MARSHMALLOW BIRTHDAY CAKE is exact cute PINK two-tier frosted birthday cake with black eyelashed eyes, rainbow sprinkles, white marshmallow edging, ONE striped candle on top. Absolutely NO arms, hands, fingers, legs or feet in ANY figure. ADAPT pose via cake and frosting ONLY. BOOP leaned-forward cake with one frosting tip protruding forward; CUDDLE gentle self-hug shape frosting curled round top tier, happy shuteyes; SILLY wildly tilted cake tongueout and frosting ruffles wide; TIPTOE cake balanced on narrow base edge tall stretched with upper frosting raised; TONGUEOUT face angled up tongue extended up; TUCK entire cake compressed into tight ROUND BALL with tiers curled, happyshuteyes, SIDE-ON for spin; RIDE-SIT cake settled into low seated rounded base frosting spread to either side, no legs, empty; LAUGH headback as top tier leaned backward, huge open laugh eyesclosed, lower frosting tummy scrunched. NO extra limb-like appendages, props or new faces.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-f4776219-c38e-496c-8812-3a670d8371a9.png",
+  "source": "party/tools/sprites/sources/marshmallow-birthday-cake-sister-poses.webp",
+  "status": "runtime landmarks/compensated head-scale reviewed; optimized or final optimizer running; root game review pending",
+  "annotations": [
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        246,
+        490
+      ],
+      "head": [
+        241,
+        210
+      ],
+      "eyes": [
+        262,
+        325
+      ],
+      "neck": [
+        244,
+        407
+      ],
+      "hand": [
+        411,
+        375
+      ],
+      "back": [
+        230,
+        427
+      ],
+      "resolutionFactor": 0.55
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        622,
+        490
+      ],
+      "head": [
+        616,
+        196
+      ],
+      "eyes": [
+        613,
+        330
+      ],
+      "neck": [
+        613,
+        404
+      ],
+      "hand": [
+        611,
+        244
+      ],
+      "back": [
+        613,
+        440
+      ],
+      "resolutionFactor": 0.55
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        1007,
+        490
+      ],
+      "head": [
+        1002,
+        209
+      ],
+      "eyes": [
+        1023,
+        296
+      ],
+      "neck": [
+        1004,
+        390
+      ],
+      "hand": [
+        964,
+        178
+      ],
+      "back": [
+        1004,
+        420
+      ],
+      "resolutionFactor": 0.55
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        1361,
+        490
+      ],
+      "head": [
+        1382,
+        131
+      ],
+      "eyes": [
+        1415,
+        276
+      ],
+      "neck": [
+        1386,
+        382
+      ],
+      "hand": [
+        1395,
+        155
+      ],
+      "back": [
+        1374,
+        417
+      ],
+      "resolutionFactor": 0.55
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        213,
+        965
+      ],
+      "head": [
+        209,
+        621
+      ],
+      "eyes": [
+        212,
+        687
+      ],
+      "neck": [
+        207,
+        792
+      ],
+      "hand": [
+        103,
+        622
+      ],
+      "back": [
+        207,
+        859
+      ],
+      "resolutionFactor": 0.55
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        577,
+        768
+      ],
+      "head": [
+        584,
+        689
+      ],
+      "eyes": [
+        593,
+        773
+      ],
+      "neck": [
+        590,
+        823
+      ],
+      "hand": [
+        608,
+        668
+      ],
+      "back": [
+        577,
+        855
+      ],
+      "headAngle": 0,
+      "resolutionFactor": 0.55
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        964,
+        965
+      ],
+      "head": [
+        964,
+        692
+      ],
+      "eyes": [
+        978,
+        791
+      ],
+      "neck": [
+        968,
+        878
+      ],
+      "hand": [
+        951,
+        660
+      ],
+      "back": [
+        964,
+        914
+      ],
+      "resolutionFactor": 0.55
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        1357,
+        965
+      ],
+      "head": [
+        1357,
+        622
+      ],
+      "eyes": [
+        1340,
+        708
+      ],
+      "neck": [
+        1350,
+        808
+      ],
+      "hand": [
+        1399,
+        598
+      ],
+      "back": [
+        1355,
+        875
+      ],
+      "resolutionFactor": 0.55
+    }
+  ],
+  "crops": [
+    [
+      14,
+      87,
+      454,
+      500
+    ],
+    [
+      454,
+      59,
+      790,
+      509
+    ],
+    [
+      795,
+      68,
+      1212,
+      510
+    ],
+    [
+      1241,
+      28,
+      1527,
+      506
+    ],
+    [
+      41,
+      568,
+      387,
+      963
+    ],
+    [
+      406,
+      554,
+      753,
+      953
+    ],
+    [
+      748,
+      548,
+      1173,
+      969
+    ],
+    [
+      1166,
+      538,
+      1522,
+      962
+    ]
+  ],
+  "oldShippingPosesPreserved": 92,
+  "reviewContact": "/tmp/marshmallow-birthday-cake-sister-compensated.png"
+}

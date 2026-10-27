@@ -1,0 +1,470 @@
+{
+  "asset": "cotton-candy",
+  "prompt": "Use case: illustration-story. Asset: transparent game sprite sheet. Image1 approved canonical IDENTITY reference, Image2 actual shipping IDLE proportions/outline reference. Preserve exactly this character anatomy, palette, markings, face, proportions, outline weight. Three-quarter view facing screen-right. Full body every figure with generous clear gutters, no overlap, all ears/mane/tail/crown/hooves insidecell. No text, props, effects, motion lines, scenery or shadows. Expressive happy cheeky faces, distinct extreme poses readable small. SAME Cotton Candy white PONY (NO HORN) with blue eyes, golden crown with blue gems, long pink-blue-lavender mane/tail and yellow blue flower flankmark. Animal hooves only, never human hands; keep bodyadapted horse anatomy. EXACTLY SEVEN FIGURES in ONE horizontal row of seven equalcells, wide landscape sheet. Ordered LEFT TO RIGHT: 1 BOOP one forehoof/paw extended forward to poke a nose, cheeky grin. 2 CUDDLE forelegs wrapped round empty space against chest, eyes shut big smile (nothing held). 3 SILLY POSE goofy ta-da one backleg kicked behind forelegs wide tongueout. 4 TIPTOE sneaking on tips of toes/hooves hunched with forelegs raised overhead holding EMPTY space (no cushion). 5 TONGUE OUT head tipped back looking UP tongue extended to catch snowflake(no snowflake). 6 TUCK tight rounded ball knees/legs hugged to chest, side-on, eyes happilyshut (game spins it), allbodytucked. 7 LAUGH headback eyes shut huge bellylaugh forehooves/paws on tummy.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17ae0-0747-7731-bf9f-8bd792b434b5/exec-5cccf7a2-bcca-41a3-850b-4798f50a95c3.png",
+  "source": "party/tools/sprites/sources/cotton-candy-sister-poses-oct27.webp",
+  "status": "merged new poses only; old manifest fields/spec fields/raster files SHA256 unchanged; root runtime QA pending",
+  "poses": {
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-sister-poses-oct27.webp",
+          "rect": [
+            5,
+            137,
+            307,
+            504
+          ],
+          "isolate": true,
+          "scale": 0.5170073664825046,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            197,
+            484
+          ],
+          "head": [
+            128,
+            15
+          ],
+          "eyes": [
+            150,
+            150
+          ],
+          "neck": [
+            166,
+            235
+          ],
+          "back": [
+            149,
+            310
+          ],
+          "hand": [
+            150,
+            197
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-sister-poses-oct27.webp",
+          "rect": [
+            312,
+            128,
+            271,
+            510
+          ],
+          "isolate": true,
+          "scale": 0.47000669680227697,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            119,
+            493
+          ],
+          "head": [
+            138,
+            19
+          ],
+          "eyes": [
+            126,
+            173
+          ],
+          "neck": [
+            122,
+            244
+          ],
+          "back": [
+            121,
+            316
+          ],
+          "hand": [
+            98,
+            204
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-sister-poses-oct27.webp",
+          "rect": [
+            563,
+            140,
+            407,
+            486
+          ],
+          "isolate": true,
+          "scale": 0.4353746244063197,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            200,
+            477
+          ],
+          "head": [
+            213,
+            15
+          ],
+          "eyes": [
+            253,
+            150
+          ],
+          "neck": [
+            251,
+            235
+          ],
+          "back": [
+            180,
+            293
+          ],
+          "hand": [
+            292,
+            194
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-sister-poses-oct27.webp",
+          "rect": [
+            945,
+            124,
+            319,
+            515
+          ],
+          "isolate": true,
+          "scale": 0.44957162302826487,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            163,
+            498
+          ],
+          "head": [
+            141,
+            13
+          ],
+          "eyes": [
+            189,
+            124
+          ],
+          "neck": [
+            206,
+            211
+          ],
+          "back": [
+            160,
+            290
+          ],
+          "hand": [
+            234,
+            163
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-sister-poses-oct27.webp",
+          "rect": [
+            1220,
+            179,
+            353,
+            461
+          ],
+          "isolate": true,
+          "scale": 0.47540907262759047,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            179,
+            445
+          ],
+          "head": [
+            155,
+            15
+          ],
+          "eyes": [
+            204,
+            113
+          ],
+          "neck": [
+            209,
+            190
+          ],
+          "back": [
+            151,
+            268
+          ],
+          "hand": [
+            259,
+            141
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-sister-poses-oct27.webp",
+          "rect": [
+            1569,
+            196,
+            297,
+            436
+          ],
+          "isolate": true,
+          "scale": 0.45956210354000415,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            147,
+            291
+          ],
+          "head": [
+            107,
+            20
+          ],
+          "eyes": [
+            167,
+            141
+          ],
+          "neck": [
+            175,
+            214
+          ],
+          "back": [
+            203,
+            280
+          ],
+          "hand": [
+            128,
+            173
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-sister-poses-oct27.webp",
+          "rect": [
+            1811,
+            197,
+            353,
+            432
+          ],
+          "isolate": true,
+          "scale": 0.4353746244063197,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            206,
+            410
+          ],
+          "head": [
+            249,
+            19
+          ],
+          "eyes": [
+            237,
+            137
+          ],
+          "neck": [
+            246,
+            214
+          ],
+          "back": [
+            238,
+            290
+          ],
+          "hand": [
+            235,
+            180
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    }
+  },
+  "sourcePixelExact": true,
+  "qaContact": "/private/tmp/cotton-candy-sister-build/qa-contact-sheet.jpg",
+  "scratchPath": "/private/tmp/cotton-candy-sister-build",
+  "newPoseNames": [
+    "boop",
+    "cuddle",
+    "silly-pose",
+    "tiptoe",
+    "tongue-out",
+    "tuck",
+    "laugh"
+  ],
+  "originalFilesPreserved": {
+    "idle-00.webp": "7839cfd926fbd482bbb8d539ff833cbbdcb68037a9703329dc871d171baace19",
+    "wave-00.webp": "c3ac0c01888953be3ea92c0427dc1db874a9c10ad63fbed6db8513932994ca24",
+    "celebrate-00.webp": "f9b3c62e0f5fb9ba1c7ad9228d2e7ababeab0752e5ea86bad383bad1933fcc86",
+    "pout-00.webp": "b15a559d5e0afa37ee482ae7213ea860f80c7436aba053ca60d4d1ad8f059484",
+    "idle-01.webp": "ee89539b8d9caa837d24c8f7e7a4078f710426b86c991ea3081c6b6c3b8df9c1",
+    "walk-00.webp": "4b1c5b299f3f7727c0caa82b6919c8e3a6049b2b41f1c19f1918de1c8b203a76",
+    "walk-01.webp": "6e18a96f5e3024c4e1dd2834de5b6c2e28da9f5cc5e01c4c463b5efedc1e1f21",
+    "walk-02.webp": "9fad0e099b034db1062c245d33e04a94ebbb9985716fdbc4ea16c508f6ce7a14",
+    "walk-03.webp": "a3ffa5e8c67329260d98dcb6d7d43d1e3ea7e7833af0bd9f784fc14556aa87c3",
+    "celebrate-01.webp": "11b0e6afba4ab6facc51d34f028ad8cb8f61640dfad19a9027bab98314d8ee67",
+    "portrait-neutral.webp": "c1a6d7f711eec39ccc642b02017cec4c8da16cb83973a001ae0164002a86e512",
+    "portrait-happy.webp": "87e4f2379c4def12a95eae6174e0c67afa84fa93851e41b1695615109f5e9638",
+    "celebrate-02.webp": "8aadffc409878948b5baa5b2201051c5ed4f0be97c6979fc63a8eee43569ee14",
+    "portrait-sad.webp": "d155307678a8d10e8d6692b81f211201102dcb55d110aecf91abeb1161842be0",
+    "portrait-surprised.webp": "edd0597e13c63ca38cd3235eae5c58ec45deadbeab86cd7fba091684fac6d13e",
+    "celebrate-03.webp": "664adcb4ed12b35124c4e5db6c7f6a6dc7753546d236f362eeb4fb7a7303ef54",
+    "portrait-determined.webp": "2246a940f9fe56d988feac09d4e601c22c2cc03102ebde022f5807f91d93adc5",
+    "pout-01.webp": "14b048315c9b36f4ae9f7693c5c436b332e249e57083ce86186a683ec5df84aa",
+    "cheer-00.webp": "6e8a17154c7e9cb510d25620939fdc5950df7d18416f91d169cfa7590b349a9a",
+    "sad-00.webp": "ac02dfef0c7e41479f5e55da546a8778f10b0bbe5786e51250264d60dd2322e4",
+    "run-00.webp": "ee2ecb6e4887e6eea0300c11e2edc4bbbabea3f497e0ee40de97cdb679d17a75",
+    "hurt-00.webp": "69330e1394344a28f481b712157fc40b34d0e7b56b1468cdebcfa4ea9eb39769",
+    "dizzy-00.webp": "2c2bd9dc757aa6c1af90b9e28445618a89361316f98dea95bcba63563e226d74",
+    "surprised-00.webp": "7640d77b036ef5dff4121212c6ab2723fedf5d0b1fe6142e064f5244f93cbd5f",
+    "ready-00.webp": "e204c9b30c1c557834bacaa4788aab7bc3c8e5282fb2d67c820e4013d964904d",
+    "jump-00.webp": "a34391049243709dffa4689db3473c9772b1bdc304c58e0416c47414d2ebdff6",
+    "run-01.webp": "0ab944e0178eb16f3423a5204e195199a624cac2bddea47f34c4d84b639f5d49",
+    "fall-00.webp": "c28922a551d6438fbafa5a0d0beee02a796dc97d36c66404359b6037cadaa39c",
+    "land-00.webp": "f26846527afaa02a133f5255d389671e3484fa53713b9240c4818c4f68b134cb",
+    "run-02.webp": "0cf02ad0c03e780ca67a27a489849c8be640f9008eea0cfc7ae8303c7ff496e8",
+    "think-00.webp": "37c576c3a125a40d9282f7e04a5d9826befc68ddb40a1720feede26e86cfe995",
+    "action-00.webp": "453d50cb352c89a33f68eaccbcecb456978c0d6762a101b6da690052e63e4c0c",
+    "run-03.webp": "f8efd9bdcc5a646ee8d773cd9920e941360560569d4d78f95e525ea5f08851f1",
+    "throw-00.webp": "f76a079ac98cd7f31b098d28481057241221bf3dc43a3c8087c9f8cf76873b14",
+    "push-00.webp": "b88975745195c46358a68701c2777edb497e4bee254e0d81f821d903c10ec198",
+    "carry-00.webp": "7766055e974ae668d96a9c490b7d1c9c41b982ebe74cac6960b14158b932ca1b",
+    "dance-00.webp": "9374164e4140584c6c7b0b9757a5a5f5b3fea65f7cc7224ccd97b8f0df590f57",
+    "paint-00.webp": "70b797e13e426d62ef0ff93342872852b3befb6d954f644bbede05b8ae98499f",
+    "sleep-00.webp": "e2f52675e0756b42d0444afedd1f78e2ca6df922f6be63d1ba6399f2f70fa93b",
+    "cast-00.webp": "223719b1f1ec8a84ba3241782ceed9561bd65eea1b4a9da5223a5921d52ffc31",
+    "clap-00.webp": "9167cb930f59a93325cbb9774f7ce00d66c1e3a03f47252a55ebcf689186d67b",
+    "eat-00.webp": "c151d966b859a1ad0c4bcaa214ab5bb8698e3c2f1ef8a4af729a38c6ba143bd8",
+    "dance-01.webp": "b587ed4c471bb5e6d7fe083fb35e73d871ba035068c7501867bcccd08af04933",
+    "ride-00.webp": "162228116798c6916be0c1515ba84f8cde27716d363a2e4bd6165543d71ad471",
+    "bow-00.webp": "a5cadfb8e0f8e6eefbf0332126c8a9ffe2ec18f10131716b28794c948c7a20b1",
+    "dance-02.webp": "ed6e54f802f08211587cb3377f60f6cbba5393438b543b6112f6e814c4743f13",
+    "strike1-00.webp": "2514fd4d7637ba2299bc78449280b8ed46a33d20c14cbf33e995aa9eca02588a",
+    "strike2-00.webp": "3ccea37bc6a9dfe4275d597b6ff570fc740ecc197a5e304581bad3575a609d6d",
+    "strike3-00.webp": "5fddc7dcac7b264c46d3e2c3d669fc947366745d2523e773fc01cf2b87fbf0d2",
+    "shake-00.webp": "9ab96ddffdfd11df889d354d0edc9d6d7dd20c3b984a3245c3e745e857db4371",
+    "stir-00.webp": "7e873ddbc1cce26558150cdff3212ddaa7c0e87758fc161cc013254ded2d43f4",
+    "dance-up-00.webp": "983c66d8a4fb7f27e136a1e68a2ed5d08424be21320e2bc719f749692e697558",
+    "dance-down-00.webp": "cbf23fcc132883540c1caec94bf1e143d26f63b44e83e33fd7acf8437de4da17",
+    "dance-side-00.webp": "cc1d94aa10a30ef213d4afc3cf614de687447d26b80245ab58f5ade67098b577",
+    "look-around-00.webp": "a933959e6b7b9004a1e09d972fd217db4e90054d7d87459ccc190276ccb12204",
+    "high-five-00.webp": "8cb4d5b9d7f2ddf195589dece1f920e04a57487894000349a19fda8c7afc6da2",
+    "dance-03.webp": "5c38791c78e0d23f770bf673905863bbf69c7213ce6165534c759f0fb248c201",
+    "crouch-00.webp": "47e0d27e5fe4cd6be835f2e0ae117f5c7e9af0e2cf5806e14a6c53cf2c2f63ec",
+    "dash-00.webp": "6ee68013a202c035bc222602e7c6fb1c36d2c8554cbe63650105c39a99adea60",
+    "catch-00.webp": "974b783f1b0befe62e059b4f4bf55b642ad7a246ef0db8d5e2f63206ac3fdafe",
+    "wave-goodbye-00.webp": "5709c17a712447977a5ea3d5e0758e7bb93a813f7b0ceda6224d3e777dec9a28",
+    "dance-star-00.webp": "e52dc5e254363ac3f765f051051c510d66ac06cbe7cef66d3e57eeba2fcdb91f",
+    "ride-01.webp": "0d6218481479972b03a271f2ad5159c3e17a95844c3ca3f28f0d19c4678b69c7",
+    "dash-01.webp": "4c77b71e3adc5da37c72e7538e7a52e409cd0a5138c5bc4064f40175ab87108e",
+    "giggle-00.webp": "5843160007b38c75cddd61a501cd15c501ce25e22b5f7460d48031d2928a6378",
+    "catch-toy-00.webp": "d5ec29c4c154ba8a7266b94b1519587ab9df3898ae4b1bf47f95eff980098e88",
+    "swim-00.webp": "2e68cde3f6fb65e151068b36fd5a9c44aca2b73d9f8a083c1cebf267c4926270",
+    "balance-00.webp": "202b3d75a212859d5089b6fd6268acb036e5d63c02cd416bf7937285e380ec71",
+    "splat-throw-00.webp": "4a19d5eb60f92afaef8fe9d9d92976d0b23837919e5ca46f635880d7cf777715",
+    "wand-up-00.webp": "f406a5c150514b27836878abff681f3f677b5a84163cb6fb5eb792af20da464c",
+    "broom-rise-00.webp": "ca715a0a6a2f7ad6d73220c17a4cccebb355552f29c4a75780131ff2d329dd0b",
+    "broom-glide-00.webp": "b891b6f5ca7c537ef8a0a9bb07c1000599592df48b6a8102c3cc7a374a3cbfab",
+    "broom-zapped-00.webp": "065221214d3a64ff2da0dd74746a93c97bd601fc7f6726f37ee715342ec84770",
+    "count-00.webp": "eaad21f5a7fa1d3417bbbcb60e83a332450047b7f8cc4b96a391310fbc54f64f",
+    "look-up-00.webp": "ae2f2c0551f27948305eb24d177bbf09a43afe5ce9c38ed8682ff6ed1c05adeb",
+    "crowned-00.webp": "83aee65206b702a20c3617c052695c72d43a5dc8e25d514b2295ba6806e0e739",
+    "hip-bump-00.webp": "a5b544d9518105ca2636a825fa50cd3e47735b6267044fca6d73ebbca99a629a",
+    "hip-bump-01.webp": "eba7bab1deeddd87ea7a1ab4f11e76cd50169f2d76c1decfbb3d44b66a6590f5",
+    "knockback-00.webp": "7ac6cfa7a02b25ed9793c429fd55b4ab48f64f174aa40c97c0ac26b45b79a456",
+    "knockback-01.webp": "f0efa25fd915e936c3216ba9051a840992494a34b308c0f6d571ed7afc90ef86",
+    "sit-00.webp": "f927e5dc53ac368a0193bf172938f5c614afaf111e5c46c653f049381e5dccb7",
+    "tumble-00.webp": "e2fcee68e19a7631ba845828862f1e53088fe37088c49c1d2ec35d8a63d106c0",
+    "hold-present-00.webp": "ba2b8caa4841c6459eac6c40e9e459c06efa98f835de482df592b6fc025d4b8e",
+    "toss-00.webp": "64ff53bf590330feba3f91add14b4c8285bdd2a81219bb0b663e69f3d11e55b8",
+    "catch-present-00.webp": "b36f8b8beb60bc073cbc44cadd3663f7da58a5771ae1de5f49d660307bd91a7c",
+    "sooty-00.webp": "d2f453d3b82823e162a0af3baccef5c3eba4110d872257431bc2d230719fc7e9",
+    "drink-00.webp": "79a9c066cbc64e74d2bbf988b886f2bf4e6c233b211738032824896880f0e612",
+    "float-00.webp": "7c4dc0102f70f9167e8b905dd2be6222e05f6d84d4fe2ef0ef2451aec6845e65",
+    "hiccup-00.webp": "b443c850b37b76fa65ac3db6508f408d8266acf909d543054672e773b563849f",
+    "stomp-giant-00.webp": "660caa886e59c66924d66bc4217a4baa64efc5462d4bf87a35e44cfbc7d2ffb4",
+    "squeak-tiny-00.webp": "8c49b4dc928c51c498e9e10f80caf11c23dac9aca5e80720462c1c1ce4f090b4",
+    "flip-00.webp": "675dd6d1949f88afde5fb17f0be5f86fe97c054ff47080bb60a235c60435c36b",
+    "blow-00.webp": "5741ef0547c43d6886161df68844b48868a9137d494774adf64413ce06990439",
+    "shake-sprinkles-00.webp": "718b26ba9f65df486f0cd2becacca4f933c9314835e8d167c8e1c96f7de02684",
+    "photo-00.webp": "4740f6360c92bd3c9f1e9450bb0b082dc1fa23e44aa61c9a252ade536170f8ea",
+    "sing-00.webp": "17d82b44040fcd414dfd2ee5af39b5410e23279b8119f2de9c2f5cd0d1c09714",
+    "water-00.webp": "777111a67132cdb8b35b36efc1ab916cb7927394d152b080141c1a7821b6e46e",
+    "pose-twirl-00.webp": "1a6d3cb44efdb69ab7fef7a2bbf267c386f733126a25667626e9412c3291a281",
+    "pose-twirl-01.webp": "791ac37598a171972e5979f77bc39b11a845cf5a165bbc55579f852dc0468411",
+    "pose-twirl-02.webp": "ec867538f4ba19a8b8f9d539f8e707f7bb676d0680f7934185a9ae5310491ae7",
+    "pose-twirl-03.webp": "7f563abb0b43207defe1500bedb902f00d2f4153c17a5918373405f5b7a2e0ad",
+    "pump-00.webp": "7a66514a607dd926bf5d4d912c3bc19ed944e10da8ec33ea51f633df9f5a6877",
+    "pump-01.webp": "aed181afac287c7d541f57307a3c3ea5236996a31ecb1bde10fa46ebdedb98cf",
+    "pull-00.webp": "d6074aaa038ae1e2d4ded61cfdd999eff2f1b17e92563ec68267d04b0abbab43",
+    "pull-01.webp": "47de5c6f798e196b0d315a72a419276a7dea3b715b0fb48475170d100420a2f6",
+    "reel-00.webp": "cd65e9a42d6649884ce18f905d1acb5fb4332d061088eb226cb0def0d02b4e23",
+    "reel-01.webp": "a1f8ebe2dc8be1b728340474bbadff2fd7327eee5886c2136c0bfeca42e5f77d",
+    "swing-00.webp": "b341ec1f84907d9245ba0b8285db40fab55ee9f61d2adde415ac44f1a1c757de",
+    "swing-01.webp": "e2e71756325b62774c91d3ad447e3f5d921cb4db7893e4486327a1ffc23a9b9d",
+    "putt-00.webp": "cffc3cae6af40dc0c8da6273ca2c701e5a6cf8567ec02463b64958205113f771",
+    "putt-swing-00.webp": "c7d8e4759e3c169b2d345555087ff3def520d9893acdb1ef4aab3f450ed987b5",
+    "spring-jump-00.webp": "47f29a67e9feb5228c9f55232f4a4292beea85f1471eb7d0f1382c13429e5780",
+    "snow-scoop-00.webp": "1424fa3a7f439e0493297c37305964e90787c2c88340bebad17e92724ef37b76",
+    "dig-00.webp": "05757400a062427f84d027f7ace514c52bac0a61db26c3052b8d6e0d880a279d",
+    "roll-push-00.webp": "19091e431bfbdaa4e7ab86add7db1c3e4a0f39cec82077075e4706caa283ba6c",
+    "skip-hop-00.webp": "3e0099868e9c98d2802da0b7b7c788b889c6b65eacd1bd466352899aba65db67",
+    "roll-push-01.webp": "3b6da5db426fef60a62a2e70442b375abcefafe862c9fb614e6c340f43d84d88",
+    "dance-hula-00.webp": "744f90d57254dd2998067fbfda854401c59b596d9aca010596670204b783a188",
+    "dance-splits-00.webp": "a86f28b4a10cf749975a3a56a6cc55e43ede9bad6b0e58977afb848448aef34c",
+    "dance-moonwalk-00.webp": "cce06759d4ccff4eb01d6eba995502d361ac905704dfedcd8608032cfc40280b",
+    "dance-moonwalk-01.webp": "95244249e2fcf1dd613ad47bc834f70c3277d20f4406b9b8192c60311610a54f",
+    "dance-cancan-00.webp": "003081e61afc559c85e72390f73f069a90f42d6460502ebaea225935494b6065",
+    "dance-starfish-00.webp": "37d261d608ec4d29ea6d1339bb93bc8d36c66034d87bbb58fe382cd2adedae7b",
+    "dance-cartwheel-00.webp": "44671018941784ccf953d282178dfa045b74eef340b5b8788192235a5616f878",
+    "dance-cartwheel-01.webp": "217e1e54c29fa55febb547de6fc4c689c7f0f71a525e16768862a914750a1bf6",
+    "dance-disco-00.webp": "e1c8ba313198d46feb10afda6501bba12e0f4a090911c186bbdb34c3945cb3b1"
+  },
+  "scaleReproducibility": {
+    "scratchCommonScale": 0.4,
+    "shippingSpecCommonScale": 0.4051863857374392,
+    "newFrameScaleConversion": 0.9872000000000001,
+    "verified": "shippingSpecCommonScale*frame.scale equals scratchCommonScale*scratchFrame.scale, within1e-12; runtime raster unchanged"
+  }
+}

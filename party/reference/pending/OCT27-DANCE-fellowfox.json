@@ -1,0 +1,311 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Asset type: transparent game sprite pose sheet, ONE character Fellowfox. References: image 1 approved canonical, image 2 shipping idle; preserve EXACT identity, dark navy outlines, orange fur, cream muzzle/chest/tail-tip, black paws, huge brown eyes and black/yellow flower beside ear; match chibi head-to-torso proportions. Create exactly NINE separate full-body figures in a spacious uniform THREE columns by THREE rows grid, read left-to-right then top-to-bottom. Consistent head size and torso scale, three-quarter view facing screen-right except inverted pose. Funny extreme joyful readable dance silhouettes. Adapt using FOUR fox paws only, no human fingers or clothes. Row 1: (1) DISCO: rear up, one front paw points diagonally high toward screen-left, other on hip, cocked hip, bent rear knee, huge cool grin. (2) STARFISH JUMP: airborne big X with all four paws spread very wide, ears/tail up, open WHEE smile, whole body lifted. (3) HULA: both front paws sweep together to one side at shoulder height, hips strongly opposite, rear knees bent, closed-eye happy smile. Row 2: (4) CARTWHEEL PREP: side lunge on rear paws, front paws stretched overhead, delighted grin. (5) CARTWHEEL INVERTED: fully upside down standing on both front paws on same floor line, rear legs split wide in V high above head, upside-down happy face, ears/tail hanging down. (6) CAN-CAN: upright on one rear leg, other rear leg straight kicked up past head, front paws at hips, leaning back, delighted open mouth. Row 3: (7) SPLITS: rear legs straight spread flat forward/back along floor, upright torso, front paws up in V, proud surprised happy face. (8) MOONWALK 1: facing right leaning backward, frontmost hind foot flat and rear hind foot raised on toes, one front paw at forehead tipping invisible hat, cool closed eye grin. (9) MOONWALK 2: same glide pose but hind feet swapped. No hat. Every figure entire tail, ears and paws within its own cell, especially wide splits/cartwheel; generous transparent gutters. True transparent RGBA background, no floor, shadows, effects, motion lines, props, labels, borders or text.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-40680fcf-9ca1-4eb4-b649-6c7ed0b6890b.png",
+  "source": "party/tools/sprites/sources/fellowfox-dance-moves.webp",
+  "status": "runtime contact reviewed; optimized; root game review pending",
+  "annotations": [
+    {
+      "pixelScale": 0.46,
+      "anchor": [
+        210,
+        418
+      ],
+      "head": [
+        235,
+        90
+      ],
+      "eyes": [
+        233,
+        165
+      ],
+      "neck": [
+        207,
+        247
+      ],
+      "hand": [
+        203,
+        203
+      ],
+      "back": [
+        264,
+        269
+      ]
+    },
+    {
+      "pixelScale": 0.46,
+      "anchor": [
+        653,
+        465
+      ],
+      "head": [
+        675,
+        96
+      ],
+      "eyes": [
+        673,
+        170
+      ],
+      "neck": [
+        658,
+        241
+      ],
+      "hand": [
+        658,
+        210
+      ],
+      "back": [
+        671,
+        278
+      ]
+    },
+    {
+      "pixelScale": 0.46,
+      "anchor": [
+        1111,
+        418
+      ],
+      "head": [
+        1128,
+        88
+      ],
+      "eyes": [
+        1130,
+        163
+      ],
+      "neck": [
+        1119,
+        251
+      ],
+      "hand": [
+        1116,
+        198
+      ],
+      "back": [
+        1177,
+        276
+      ]
+    },
+    {
+      "pixelScale": 0.46,
+      "anchor": [
+        220,
+        809
+      ],
+      "head": [
+        225,
+        547
+      ],
+      "eyes": [
+        222,
+        614
+      ],
+      "neck": [
+        207,
+        683
+      ],
+      "hand": [
+        200,
+        655
+      ],
+      "back": [
+        270,
+        701
+      ]
+    },
+    {
+      "pixelScale": 0.46,
+      "anchor": [
+        691,
+        811
+      ],
+      "head": [
+        702,
+        753
+      ],
+      "eyes": [
+        700,
+        690
+      ],
+      "neck": [
+        684,
+        618
+      ],
+      "hand": [
+        702,
+        637
+      ],
+      "back": [
+        674,
+        566
+      ],
+      "headAngle": 3.14159
+    },
+    {
+      "pixelScale": 0.46,
+      "anchor": [
+        1154,
+        816
+      ],
+      "head": [
+        1110,
+        476
+      ],
+      "eyes": [
+        1123,
+        537
+      ],
+      "neck": [
+        1134,
+        603
+      ],
+      "hand": [
+        1157,
+        565
+      ],
+      "back": [
+        1123,
+        650
+      ]
+    },
+    {
+      "pixelScale": 0.46,
+      "anchor": [
+        244,
+        1166
+      ],
+      "head": [
+        250,
+        914
+      ],
+      "eyes": [
+        247,
+        979
+      ],
+      "neck": [
+        245,
+        1050
+      ],
+      "hand": [
+        236,
+        1018
+      ],
+      "back": [
+        265,
+        1102
+      ]
+    },
+    {
+      "pixelScale": 0.46,
+      "anchor": [
+        733,
+        1178
+      ],
+      "head": [
+        730,
+        883
+      ],
+      "eyes": [
+        739,
+        953
+      ],
+      "neck": [
+        731,
+        1017
+      ],
+      "hand": [
+        778,
+        971
+      ],
+      "back": [
+        690,
+        1043
+      ]
+    },
+    {
+      "pixelScale": 0.46,
+      "anchor": [
+        1146,
+        1177
+      ],
+      "head": [
+        1159,
+        916
+      ],
+      "eyes": [
+        1184,
+        978
+      ],
+      "neck": [
+        1160,
+        1035
+      ],
+      "hand": [
+        1235,
+        981
+      ],
+      "back": [
+        1111,
+        1062
+      ]
+    }
+  ],
+  "crops": [
+    [
+      52,
+      8,
+      400,
+      418
+    ],
+    [
+      485,
+      5,
+      833,
+      378
+    ],
+    [
+      958,
+      13,
+      1289,
+      418
+    ],
+    [
+      86,
+      454,
+      414,
+      809
+    ],
+    [
+      493,
+      464,
+      841,
+      811
+    ],
+    [
+      955,
+      456,
+      1268,
+      816
+    ],
+    [
+      39,
+      834,
+      483,
+      1169
+    ],
+    [
+      526,
+      833,
+      861,
+      1178
+    ],
+    [
+      963,
+      837,
+      1274,
+      1177
+    ]
+  ],
+  "oldShippingPosesPreserved": 86,
+  "reviewContact": "/tmp/fellowfox-dance-review.png"
+}

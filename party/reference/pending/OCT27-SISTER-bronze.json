@@ -1,0 +1,288 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Asset type: transparent game sprite sheet of ONE exact reference character. Image1 approved canonical, image2 shipping idle. Preserve exact identity/anatomy/outfit/colors/proportions, camera three-quarter screen-right, same head and torso size across all figures, bold dark outline and clean cel shading. All figures full body with generous clear gutters, TRUE transparent RGBA; NO props, held objects, scenery, shadows, effects, text or labels. Empty hands/arms; game adds objects later. Exactly EIGHT figures in FOUR columns by TWO rows, left-to-right top-to-bottom: (1) BOOP one paw/hand/hoof poking forward horizontally to boop an invisible nose, cheeky grin. (2) CUDDLE both arms/front paws curled around EMPTY space at chest, eyes shut big smile, no object. (3) SILLY POSE goofy ta-da one rear leg kicked UP behind, front limbs flung WIDE, TONGUE OUT. (4) TIPTOE sneaking high on toes, hunched body, front limbs holding EMPTY space overhead, sideways cheeky grin, no cushion. (5) TONGUE OUT head tipped back looking UP, tongue extended UP toward sky to catch invisible snowflake, no snowflake. (6) TUCK tight spherical ball, knees/front paws hugged to chest, happy shut eyes, SIDE view for spinning, tail curled around body. (7) RIDE SIT sitting astride EMPTY space, legs to each side, arms/front paws forward grasping empty space, happy, no mount. (8) LAUGH BIG belly laugh head back eyes shut hands/paws on tummy. BRONZE robot: ONE round eye, green dome, purple DIAMOND antenna, patterned cylindrical torso, TWO jointed legs purple/orange boots, EXACTLY ONE gray curved pipe from torso. No arms/hands/fingers. Adapt: boop pipe pokes forward; cuddle pipe curled against chest eyeshut; silly one boot kicked behind pipe wide tongue-like joyful eye reflection but no separate mouth; tiptoe both boots on toes pipe up; tongue-out look up by tilted dome with a cheerful tongue-like reflection inside the single eye (no added face/mouth); tuck dome/legs folded compact round ball pipe wraps torso; ride sit boots apart pipe forward empty; laugh dome tilted back pipe on cylinder tummy, delighted eye. Only ONE pipe per figure; never invent a second pipe to simulate arms.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-ffd67c15-94bf-4427-b445-f1a625256125.png",
+  "source": "party/tools/sprites/sources/bronze-sister-poses.webp",
+  "status": "runtime landmarks/compensated head-scale reviewed; optimized or final optimizer running; root game review pending",
+  "repairPrompt": "Use case: precise-object-edit. Edit target supplied eight-pose Bronze robot sheet. EXACTLY ONE gray pipe per robot. Change ONLY TOP ROW THIRD figure (silly pose): delete extra gray pipe sticking up-left behind the dome; KEEP single expressive gray pipe stretched toward screen-RIGHT. No other changes. Keep two boots, single eye, green dome, purple diamond antenna, colors/pose/layout/transparency and all other sevenfigures unchanged.",
+  "originalNativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-829d7095-456f-4028-8e4a-96dd00558074.png",
+  "annotations": [
+    {
+      "pixelScale": 0.55,
+      "anchor": [
+        220,
+        495
+      ],
+      "head": [
+        225,
+        118
+      ],
+      "eyes": [
+        238,
+        181
+      ],
+      "neck": [
+        225,
+        246
+      ],
+      "hand": [
+        386,
+        236
+      ],
+      "back": [
+        202,
+        325
+      ],
+      "resolutionFactor": 0.55
+    },
+    {
+      "pixelScale": 0.55,
+      "anchor": [
+        597,
+        495
+      ],
+      "head": [
+        597,
+        115
+      ],
+      "eyes": [
+        592,
+        173
+      ],
+      "neck": [
+        589,
+        239
+      ],
+      "hand": [
+        645,
+        234
+      ],
+      "back": [
+        579,
+        322
+      ],
+      "resolutionFactor": 0.55
+    },
+    {
+      "pixelScale": 0.55,
+      "anchor": [
+        978,
+        493
+      ],
+      "head": [
+        1006,
+        121
+      ],
+      "eyes": [
+        1006,
+        178
+      ],
+      "neck": [
+        990,
+        247
+      ],
+      "hand": [
+        1153,
+        171
+      ],
+      "back": [
+        970,
+        310
+      ],
+      "resolutionFactor": 0.55
+    },
+    {
+      "pixelScale": 0.55,
+      "anchor": [
+        1345,
+        492
+      ],
+      "head": [
+        1386,
+        121
+      ],
+      "eyes": [
+        1395,
+        181
+      ],
+      "neck": [
+        1374,
+        252
+      ],
+      "hand": [
+        1484,
+        116
+      ],
+      "back": [
+        1332,
+        322
+      ],
+      "resolutionFactor": 0.55
+    },
+    {
+      "pixelScale": 0.55,
+      "anchor": [
+        217,
+        980
+      ],
+      "head": [
+        197,
+        598
+      ],
+      "eyes": [
+        223,
+        640
+      ],
+      "neck": [
+        222,
+        707
+      ],
+      "hand": [
+        372,
+        618
+      ],
+      "back": [
+        213,
+        778
+      ],
+      "resolutionFactor": 0.55
+    },
+    {
+      "pixelScale": 0.55,
+      "anchor": [
+        590,
+        787
+      ],
+      "head": [
+        597,
+        679
+      ],
+      "eyes": [
+        569,
+        719
+      ],
+      "neck": [
+        572,
+        766
+      ],
+      "hand": [
+        692,
+        779
+      ],
+      "back": [
+        582,
+        828
+      ],
+      "headAngle": 0.35,
+      "resolutionFactor": 0.55
+    },
+    {
+      "pixelScale": 0.55,
+      "anchor": [
+        999,
+        980
+      ],
+      "head": [
+        996,
+        640
+      ],
+      "eyes": [
+        1004,
+        707
+      ],
+      "neck": [
+        991,
+        762
+      ],
+      "hand": [
+        1072,
+        791
+      ],
+      "back": [
+        985,
+        836
+      ],
+      "resolutionFactor": 0.55
+    },
+    {
+      "pixelScale": 0.55,
+      "anchor": [
+        1379,
+        980
+      ],
+      "head": [
+        1403,
+        605
+      ],
+      "eyes": [
+        1390,
+        652
+      ],
+      "neck": [
+        1378,
+        705
+      ],
+      "hand": [
+        1444,
+        752
+      ],
+      "back": [
+        1376,
+        833
+      ],
+      "resolutionFactor": 0.55
+    }
+  ],
+  "crops": [
+    [
+      23,
+      2,
+      415,
+      511
+    ],
+    [
+      457,
+      15,
+      735,
+      504
+    ],
+    [
+      762,
+      7,
+      1186,
+      511
+    ],
+    [
+      1238,
+      19,
+      1517,
+      503
+    ],
+    [
+      23,
+      528,
+      408,
+      993
+    ],
+    [
+      458,
+      610,
+      723,
+      910
+    ],
+    [
+      805,
+      513,
+      1196,
+      984
+    ],
+    [
+      1244,
+      529,
+      1523,
+      985
+    ]
+  ],
+  "oldShippingPosesPreserved": 100,
+  "reviewContact": "/tmp/bronze-sister-compensated.png"
+}

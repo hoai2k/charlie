@@ -4641,6 +4641,740 @@
       "loop": true,
       "motion": 0.08,
       "facing": 1
+    },
+    "dance-disco": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            5,
+            40,
+            320,
+            480
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            159,
+            462
+          ],
+          "head": [
+            216,
+            73
+          ],
+          "eyes": [
+            209,
+            118
+          ],
+          "neck": [
+            197,
+            170
+          ],
+          "back": [
+            181,
+            229
+          ],
+          "hand": [
+            194,
+            249
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-moonwalk": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            450,
+            1045,
+            275,
+            420
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            175,
+            397
+          ],
+          "head": [
+            121,
+            73
+          ],
+          "eyes": [
+            121,
+            106
+          ],
+          "neck": [
+            120,
+            146
+          ],
+          "back": [
+            127,
+            195
+          ],
+          "hand": [
+            187,
+            81
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            730,
+            1045,
+            294,
+            420
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            167,
+            398
+          ],
+          "head": [
+            151,
+            68
+          ],
+          "eyes": [
+            153,
+            105
+          ],
+          "neck": [
+            161,
+            145
+          ],
+          "back": [
+            151,
+            196
+          ],
+          "hand": [
+            225,
+            81
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cartwheel": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            0,
+            545,
+            370,
+            480
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            194,
+            466
+          ],
+          "head": [
+            231,
+            129
+          ],
+          "eyes": [
+            237,
+            165
+          ],
+          "neck": [
+            228,
+            213
+          ],
+          "back": [
+            220,
+            275
+          ],
+          "hand": [
+            287,
+            69
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            325,
+            535,
+            400,
+            490
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            200,
+            471
+          ],
+          "head": [
+            200,
+            354
+          ],
+          "eyes": [
+            198,
+            343
+          ],
+          "neck": [
+            197,
+            283
+          ],
+          "back": [
+            197,
+            238
+          ],
+          "hand": [
+            277,
+            462
+          ],
+          "headAngle": 3.141592653589793
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-splits": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            5,
+            1140,
+            480,
+            310
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            246,
+            287
+          ],
+          "head": [
+            231,
+            88
+          ],
+          "eyes": [
+            235,
+            112
+          ],
+          "neck": [
+            234,
+            159
+          ],
+          "back": [
+            234,
+            220
+          ],
+          "hand": [
+            365,
+            66
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-cancan": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            685,
+            540,
+            339,
+            490
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            191,
+            478
+          ],
+          "head": [
+            157,
+            96
+          ],
+          "eyes": [
+            154,
+            131
+          ],
+          "neck": [
+            163,
+            170
+          ],
+          "back": [
+            171,
+            252
+          ],
+          "hand": [
+            64,
+            209
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-hula": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            695,
+            50,
+            329,
+            480
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            177,
+            463
+          ],
+          "head": [
+            169,
+            69
+          ],
+          "eyes": [
+            168,
+            117
+          ],
+          "neck": [
+            169,
+            169
+          ],
+          "back": [
+            161,
+            229
+          ],
+          "hand": [
+            282,
+            187
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "dance-starfish": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-moves-oct27.webp",
+          "rect": [
+            305,
+            45,
+            410,
+            415
+          ],
+          "isolate": true,
+          "scale": 0.6334074074074075,
+          "bodyHeight": 143.43750000000003,
+          "anchor": [
+            205,
+            491
+          ],
+          "head": [
+            210,
+            69
+          ],
+          "eyes": [
+            209,
+            110
+          ],
+          "neck": [
+            208,
+            166
+          ],
+          "back": [
+            207,
+            221
+          ],
+          "hand": [
+            366,
+            108
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            58,
+            5,
+            355,
+            503
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            177,
+            496
+          ],
+          "head": [
+            177,
+            106
+          ],
+          "eyes": [
+            172,
+            140
+          ],
+          "neck": [
+            166,
+            186
+          ],
+          "back": [
+            167,
+            259
+          ],
+          "hand": [
+            74,
+            171
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            448,
+            5,
+            306,
+            493
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            151,
+            491
+          ],
+          "head": [
+            156,
+            112
+          ],
+          "eyes": [
+            154,
+            140
+          ],
+          "neck": [
+            145,
+            180
+          ],
+          "back": [
+            150,
+            252
+          ],
+          "hand": [
+            156,
+            210
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            776,
+            3,
+            405,
+            514
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            212,
+            504
+          ],
+          "head": [
+            222,
+            106
+          ],
+          "eyes": [
+            212,
+            146
+          ],
+          "neck": [
+            213,
+            194
+          ],
+          "back": [
+            212,
+            256
+          ],
+          "hand": [
+            339,
+            172
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            1185,
+            8,
+            337,
+            505
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            154,
+            495
+          ],
+          "head": [
+            218,
+            111
+          ],
+          "eyes": [
+            218,
+            145
+          ],
+          "neck": [
+            200,
+            197
+          ],
+          "back": [
+            166,
+            270
+          ],
+          "hand": [
+            315,
+            76
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            45,
+            510,
+            337,
+            504
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            178,
+            493
+          ],
+          "head": [
+            181,
+            75
+          ],
+          "eyes": [
+            174,
+            93
+          ],
+          "neck": [
+            165,
+            176
+          ],
+          "back": [
+            165,
+            259
+          ],
+          "hand": [
+            257,
+            274
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            412,
+            554,
+            321,
+            385
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            136,
+            200
+          ],
+          "head": [
+            147,
+            125
+          ],
+          "eyes": [
+            146,
+            147
+          ],
+          "neck": [
+            147,
+            179
+          ],
+          "back": [
+            100,
+            244
+          ],
+          "hand": [
+            106,
+            221
+          ],
+          "headAngle": 0.25
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            751,
+            514,
+            369,
+            476
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            185,
+            466
+          ],
+          "head": [
+            183,
+            100
+          ],
+          "eyes": [
+            185,
+            135
+          ],
+          "neck": [
+            176,
+            179
+          ],
+          "back": [
+            171,
+            252
+          ],
+          "hand": [
+            189,
+            271
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-sister-poses-oct27.webp",
+          "rect": [
+            1148,
+            508,
+            350,
+            505
+          ],
+          "isolate": true,
+          "scale": 0.5216296296296297,
+          "bodyHeight": 151.20000000000002,
+          "anchor": [
+            170,
+            499
+          ],
+          "head": [
+            166,
+            97
+          ],
+          "eyes": [
+            149,
+            127
+          ],
+          "neck": [
+            147,
+            181
+          ],
+          "back": [
+            147,
+            243
+          ],
+          "hand": [
+            178,
+            263
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
     }
   },
   "portraits": {

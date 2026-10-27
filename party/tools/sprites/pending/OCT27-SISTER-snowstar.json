@@ -1,0 +1,516 @@
+{
+  "asset": "snowstar",
+  "prompt": "Use case: illustration-story. Asset: transparent game sprite sheet. Image1 approved canonical IDENTITY reference, Image2 actual shipping IDLE proportions/outline reference. Preserve exactly this character anatomy, palette, markings, face, proportions, outline weight. Three-quarter view facing screen-right. Full body every figure with generous clear gutters, no overlap, all ears/mane/tail/crown/hooves insidecell. No text, props, effects, motion lines, scenery or shadows. Expressive happy cheeky faces, distinct extreme poses readable small. SAME Snowstar girl: huge pale roundhead, giant blue-green eyes with whiteflower pupils, abstract geometric rainbow patchwork shortbob hair with roundedsidebuns colorful flowers curl antennae and redbow. Green turtlenecksweater, bluejeans, greenboots. Preserve allspecific hairpatterns and head-body proportions, outfitunchanged. EXACTLY EIGHT fullbody figures on4columns x2rows ordered left-right top-bottom: 1 BOOP one paw/finger poking forward cheekygrin; 2 CUDDLE bothforearms/paws round EMPTY space atchest eyesclosedbigsmile, no object; 3 SILLY POSE oneleg kicked behind arms/paws flungwide tongueout; 4 TIPTOE hunched sneaking on toes hands/paws raised overhead gripping EMPTY space, no cushion; 5 TONGUE OUT headback lookingUP tongueextended tocatchsnowflake(none drawn); 6 TUCK tightball kneeslegs huggedtochest side-on eyeshappyclosed gamewillspin; 7 RIDE SIT seated astride legs oneeachside frontpaws/hands reachingforward grippingemptyspace happy, no mount; 8 LAUGH headback eyesclosed bigbellylaugh hands/paws ontummy.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17ae0-0747-7731-bf9f-8bd792b434b5/exec-60582615-7fa5-477b-88bf-57e4c3a35b49.png",
+  "source": "party/tools/sprites/sources/snowstar-sister-poses-oct27.webp",
+  "status": "merged new poses only; old manifest fields/spec fields/raster files SHA256 unchanged; root runtime QA pending",
+  "poses": {
+    "boop": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            23,
+            9,
+            373,
+            503
+          ],
+          "isolate": true,
+          "scale": 0.3937516989988091,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            181,
+            489
+          ],
+          "head": [
+            170,
+            18
+          ],
+          "eyes": [
+            193,
+            199
+          ],
+          "neck": [
+            193,
+            275
+          ],
+          "back": [
+            168,
+            322
+          ],
+          "hand": [
+            121,
+            277
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cuddle": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            392,
+            13,
+            375,
+            502
+          ],
+          "isolate": true,
+          "scale": 0.38684377445497037,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            188,
+            488
+          ],
+          "head": [
+            137,
+            13
+          ],
+          "eyes": [
+            179,
+            201
+          ],
+          "neck": [
+            193,
+            271
+          ],
+          "back": [
+            164,
+            317
+          ],
+          "hand": [
+            189,
+            274
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "silly-pose": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            793,
+            5,
+            378,
+            510
+          ],
+          "isolate": true,
+          "scale": 0.36750158573222186,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            171,
+            494
+          ],
+          "head": [
+            167,
+            14
+          ],
+          "eyes": [
+            230,
+            201
+          ],
+          "neck": [
+            221,
+            283
+          ],
+          "back": [
+            180,
+            332
+          ],
+          "hand": [
+            361,
+            267
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tiptoe": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            1190,
+            7,
+            332,
+            496
+          ],
+          "isolate": true,
+          "scale": 0.40833509525802425,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            167,
+            487
+          ],
+          "head": [
+            162,
+            13
+          ],
+          "eyes": [
+            200,
+            183
+          ],
+          "neck": [
+            197,
+            262
+          ],
+          "back": [
+            161,
+            317
+          ],
+          "hand": [
+            300,
+            136
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tongue-out": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            12,
+            525,
+            373,
+            484
+          ],
+          "isolate": true,
+          "scale": 0.40091082079878737,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            206,
+            475
+          ],
+          "head": [
+            173,
+            18
+          ],
+          "eyes": [
+            226,
+            117
+          ],
+          "neck": [
+            233,
+            248
+          ],
+          "back": [
+            197,
+            298
+          ],
+          "hand": [
+            332,
+            329
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tuck": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            387,
+            532,
+            380,
+            426
+          ],
+          "isolate": true,
+          "scale": 0.3937516989988091,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            210,
+            269
+          ],
+          "head": [
+            198,
+            16
+          ],
+          "eyes": [
+            215,
+            217
+          ],
+          "neck": [
+            234,
+            267
+          ],
+          "back": [
+            202,
+            316
+          ],
+          "hand": [
+            243,
+            308
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride-sit": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            773,
+            524,
+            395,
+            481
+          ],
+          "isolate": true,
+          "scale": 0.3937516989988091,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            216,
+            476
+          ],
+          "head": [
+            166,
+            13
+          ],
+          "eyes": [
+            204,
+            183
+          ],
+          "neck": [
+            216,
+            266
+          ],
+          "back": [
+            180,
+            327
+          ],
+          "hand": [
+            298,
+            317
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-sister-poses-oct27.webp",
+          "rect": [
+            1152,
+            503,
+            356,
+            507
+          ],
+          "isolate": true,
+          "scale": 0.38684377445497037,
+          "bodyHeight": 100,
+          "dur": 0.4,
+          "anchor": [
+            211,
+            497
+          ],
+          "head": [
+            189,
+            18
+          ],
+          "eyes": [
+            218,
+            179
+          ],
+          "neck": [
+            229,
+            268
+          ],
+          "back": [
+            194,
+            330
+          ],
+          "hand": [
+            257,
+            309
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    }
+  },
+  "sourcePixelExact": true,
+  "qaContact": "/private/tmp/snowstar-sister-build/qa-contact-sheet.jpg",
+  "scratchPath": "/private/tmp/snowstar-sister-build",
+  "newPoseNames": [
+    "boop",
+    "cuddle",
+    "silly-pose",
+    "tiptoe",
+    "tongue-out",
+    "tuck",
+    "ride-sit",
+    "laugh"
+  ],
+  "originalFilesPreserved": {
+    "idle-00.webp": "84bb0fbc32cb5f6137a3ddd8a5c28ac9cb7e32e76b789f15ee5e089ad07f3f11",
+    "idle-01.webp": "d7e1e1e9cccdf89e9dc837c00fad57e0856534dacba461e6638ea0e511486ab2",
+    "ready-00.webp": "f083a53901b1568a8243120bd4542a56a2c1e5956890eee09289458ec2f5f150",
+    "wave-00.webp": "d8fe73f8e6d515176f0734ea4c00c78bb14649ffd7e64193c26cd513ac3c6ee6",
+    "cheer-00.webp": "b9181f8bb7caeca31c9c54faf3b9b72aa21e5d916be3921cd5b6b2a11db7b604",
+    "sad-00.webp": "03147db0e8f9e81cbd53ddc121ec4f461faeb0b58655ccc014b3f78b3aacb473",
+    "pout-00.webp": "acbe9b3b2590b7f32eaf92790ec470f58a3a1b137420be155ef4b187545b43d2",
+    "pout-01.webp": "2083e80a28fd1766072394de1fe37a61ef2348e67b60a9a544f4cf46e7071daf",
+    "surprised-00.webp": "d837ad83ce57abe6115462da95f3de0f82b483857919b73f13146b213538d4ef",
+    "walk-00.webp": "1c318f6bd1a683167ce70361306f0e89279e1e1561a05e1ee023596189ffeda6",
+    "walk-01.webp": "5f4cdbe31979c28aa6476b25f94ccd9101c402177c7e424aac03d5eed2d6f510",
+    "walk-02.webp": "a70e7e68a38f21c64140988e8b34edb1840fc74a5831ef3fc6db1763a530de11",
+    "walk-03.webp": "201ccb1217d1251413ea9238c17e133997d576306bc164e7af98215cf8136d51",
+    "run-00.webp": "55f73219e13fc71f7d20cd95ee203f515610d4cbb370bc4c6414c4f8200b1ce1",
+    "run-01.webp": "bf3a8f99e04144b89d052c769e3f45cc38ed2c8dabaa335844a75c4114b89414",
+    "run-02.webp": "ed917696b9c9bca1e04be9723223f975f33988532b6c91279f1231d21876585f",
+    "run-03.webp": "7c7aa90f96a91fd28c8e90d06985265997171e4d4bb92425aaee46a010c9c56d",
+    "jump-00.webp": "e4fc1bb1af1bf094e2e59bb5d3085e2f7a308c2e6523457723dd97fa046177d0",
+    "fall-00.webp": "7f9594f7d106b26cdb021d382dc5913cfe2457e6a594b10566e80162ebd7b342",
+    "land-00.webp": "ff8d54ae3a10b82d48d3c4697c10887db1d739cd1794bac9dffb8f992866052b",
+    "hurt-00.webp": "538f38391d24894ce227bc23727958fdc9a1142546674bf08a9f9e7441d24d23",
+    "dizzy-00.webp": "130947f00478bed37a33e77853f8b359fa82314ebc0e478bf1688cfda4465497",
+    "think-00.webp": "3ff5e541225d2765f5a7bbdf16aabe43dc81f70cf06b3f1d9870770151f49305",
+    "action-00.webp": "72368d3dc23cded7b283a0e0f04c0d1fd4fc57eaba876c04cefe60b92c4582de",
+    "throw-00.webp": "54039bad80c01fa61e2921444b6ed81377a7b92d05fa120562a1dc7c32abe3fa",
+    "sleep-00.webp": "f224c254dd707b7a23991bbbd242094142068ee0fcf8b898b74ce9562ec7d2c3",
+    "celebrate-00.webp": "62d8c62a0fc15166a478c2864eec30e7e3fb75a2e5d336c3fa8f397d41ebb814",
+    "celebrate-01.webp": "1617b61465d82b9d96760872eef45cfb9cbca3258f2d3ab93d54ff59fcd48894",
+    "celebrate-02.webp": "86dbe401e70bbbe2cfcec8943533b3b90f2bf21f4265ca2f59e7499c18883950",
+    "celebrate-03.webp": "244e091a51f81cdb432272798c6b01c7c14b318ff5e3a62afe337d682f44f6fe",
+    "ride-00.webp": "1829e2c602362a30d59418be70be1cef0ce25470c8cff22ee457b5ea1b7fa424",
+    "ride-01.webp": "43f95ecd4dfccf532803841901d33af2db24b6ac12a4d0d6469e17cc22c252d9",
+    "portrait-neutral.webp": "c2257c003d489c4974f7469fa49de676ca0435d0b09aefbc8e899e27785da17c",
+    "portrait-happy.webp": "512595ff3be2dbf49ee6a2f4fe067dc06a36d8d2bd0b6e3accf23edcf001cd54",
+    "portrait-sad.webp": "79bb86decfb1a19d26d1b06d13e92adf4986d1951f9b224c01ace7d548d7c2fa",
+    "portrait-surprised.webp": "3716609632b8005395ba9d48a0f0ca34ef4592b545df7e00499c0526834bfc3d",
+    "portrait-determined.webp": "0fb2593ae5b995802cb456bf3cd3fc62010c1faf1ce4d7dee7e11e09e9191f8c",
+    "pose-twirl-01.webp": "bd19494b300fc92db566fc6c7961544bb98ad5d58f4c2ea9dc4a7da8e9a5536b",
+    "carry-00.webp": "24081444b8a05a050eb7f4c0237b715c115d86ebed4da7c0cc0bc46116294f3f",
+    "push-00.webp": "08e6040fb00689f7f50d24cb46ce3e0cb7988b1fcd27b2993e4646af79c23c28",
+    "paint-00.webp": "7db76d5fbbf385a89beb5339c8ac5ff494b380096bd76c5adde8d197425dbc35",
+    "cast-00.webp": "450e833568ba4a2f996ffff24d9076f25b1260febf589da709ae810a7480a314",
+    "clap-00.webp": "477294797b778e66a0775d72df5a0bc7db7bcf6727c83a885170487e443461b8",
+    "eat-00.webp": "70b059a9824141f703921d75ca6ab18fbf96f7a544b76297d2ba469b76854447",
+    "bow-00.webp": "1d70ca83afc4202d6fd339af377f9715be6c4a82cc13223cca1f43afdcf394c7",
+    "strike1-00.webp": "6e015fb74ab2fc1d9bb7549473349679991ea1a39012661000d1de64b3102fef",
+    "strike2-00.webp": "bbdebd3251c63ca870832f48f162306dd268ec18777c476b2ca5b150b3deed76",
+    "strike3-00.webp": "273a1264fe22e0d0c53d61c0042e4582ab6936778a2e5432a252801b7e8be2b0",
+    "dance-up-00.webp": "e5cf6b32c4b0d3de04d624579812a8df0064ede91d45f4134a2380c9defeb25a",
+    "dance-down-00.webp": "d5c71dcdd4249a714b7157df480d9459d5ad67666615fc85443c6e3079153950",
+    "dance-side-00.webp": "22752c33f3d2e1ede92ba84bfe46f14c77ca4c63575404526445c3c65c225e9b",
+    "dance-star-00.webp": "64c1b3d96244bd7d3b860540eadb31240b6c1e7c0fe2a502589a828c7fbb1112",
+    "shake-00.webp": "85e03264024a9df307fed1dab35b795f47d227689f1611b4c08d60f87343125e",
+    "stir-00.webp": "d26eaae790e94478782d5034b65060a691055dd165a8e0048b65c23a99df6c89",
+    "swim-00.webp": "ebf388f4fdd5814a1d9f6aabcf0a6a2fd58cacea57a335d29501be3192e9d2d2",
+    "balance-00.webp": "690618a2455d1977e6a56b621237f1deb672881ffb51d702363eac7a89c9a136",
+    "splat-throw-00.webp": "0ac071b831cd9fd64892cfcb2184ba008439b8df71ea23ec499b6b585c96df62",
+    "wand-up-00.webp": "aaba7901b1b26af075a5ee364fa1abf2600068b54ac09b15f17d4c029ec069f5",
+    "broom-rise-00.webp": "80a6bed982cb9ca82dec3d719eaec58e9b586cd00b38731d75abdc86afa5eba9",
+    "broom-glide-00.webp": "d23905de3c44a530b2f67b49cee2545c083bdf4120cc670b5caf7a20e5e65efb",
+    "broom-zapped-00.webp": "5881733ab370922e6fd4d4f64099ab9b610a32d535739e560c3a2b41a0a32040",
+    "count-00.webp": "bfc20bd9565acd4be7acc311ba1d4e49b162e7d6020cf721b0bf269f24178105",
+    "look-up-00.webp": "dc178bda332e49c54097bc45e4e2b8df4a5222d1200a7ac0fc54524a9a5fe72e",
+    "crowned-00.webp": "44ee4c3b20f700e52d89044eb51d7c03333e9d5db426358328a1dac12e50883c",
+    "catch-00.webp": "e6b8021e27db41b06caa3f1119e3032358509a72facdb297ad75bb0f8ce25332",
+    "sit-00.webp": "37be32b4c48777b81c19a9378bd9d899882a9429aff8926a654be8a347d8ae9c",
+    "tumble-00.webp": "aeeb640ab803385586592b12ae7bd3a8e2cdadc1ae5d1fd7403977e68f17fdb0",
+    "hold-present-00.webp": "608885b7fc6357955aadd2d1b6cc14d79f6a690a49544546ce6a0520d4cb2ef9",
+    "toss-00.webp": "25c2276770706ab041affa162d21f3ea0781ff6a704f0e60d770341da09a1ad2",
+    "catch-present-00.webp": "15a245009e859700c86c8c21865b0544ad69c830bdb460748cfb48c78c9f62cc",
+    "sooty-00.webp": "7d9ff8271df1a1a2a6afe7e3b69915128751e098e4507f3ece001c7900081b6d",
+    "drink-00.webp": "1def9247dc05601308e8e8170df1f0d852a0e159e1d89289e3101c89e5e757d5",
+    "float-00.webp": "fbc8f1da38094bcc36ced0ce5c61e3219cc10229cdeeddcab0912be1e0d538a1",
+    "hiccup-00.webp": "33225e3148c144e20e3160f005bec5850f22900597a3211cbac10521593b7ad4",
+    "giggle-00.webp": "13f6aa9e9f7fb5830d28b7ad6e050b5ddfd5420821f44a3a85778fad1fb2d799",
+    "stomp-giant-00.webp": "6afe4def95fa71089505f3d54783d8155f337b823b3e9540279ffa08751d34ea",
+    "squeak-tiny-00.webp": "509b5ed247b618328c1d1a5483390632672f0707e46b45285be963ac6b42c138",
+    "flip-00.webp": "ac45a6a01ceea2c031a3a6886d0f5057d9c28e2e8da6d5f4bbcb0340126de1d5",
+    "blow-00.webp": "5a2232281b9eb9e6c03b46f00d5e8120f0048c1b2a2d21f4e35a3a91daf7771a",
+    "shake-sprinkles-00.webp": "06f97725257d7f6f86f9a11eca43408396ad7ab54c06a3208602b9ddd9943253",
+    "pose-twirl-00.webp": "c083dd75c61c2540d4c9eae9fbc84dadcae21cb38b4167b3fd29e89699ccc7eb",
+    "photo-00.webp": "ae7f915aa5e512851b0d02fc519f8f313a3f1be44503cfe78e20a3e0343832f5",
+    "sing-00.webp": "678748440885bd51ecf8fb5673f304f29b2cb130365a5813612714884b419419",
+    "water-00.webp": "937bf561420689654f5a602f4607df1d357a4b576d423f62954251fd19ce9c62",
+    "catch-toy-00.webp": "388617cf906036869d739239ea835fee8236db57759d9ae6b529484211e41d98",
+    "look-around-00.webp": "ad42a13d5322a6b40c3bd006fb6aeac86401eabb510e4a169323e2430dc0fdce",
+    "high-five-00.webp": "75f75b3e9fa617d87084ad719b32a90fe8c1b67a3143dfe683b741a97edaad54",
+    "wave-goodbye-00.webp": "023fc939a19c778a8b4d9bf67fa129630944319706d1c00162378c7f10a6c4de",
+    "dash-00.webp": "c59b29600c997f4bc31db63df3f9347267148948e7ebb8bac078343854161d5c",
+    "dash-01.webp": "ca4e80ed32176d79313422b55a3b8354641aa6d5236393beaa412d27bac8c2a0",
+    "hip-bump-00.webp": "2299d9057cf9d3ba4498f8c4631af2a44ec33fc90ea9599af799a2afa309515b",
+    "hip-bump-01.webp": "729fb4ead155bbeb4fa17f4a54140ad136310f3325984c37ab435d879d7984ef",
+    "knockback-00.webp": "197116be417170f67f04b11d0c243f0ffda5ce7f92c9132c2d0fe666cdd8e892",
+    "knockback-01.webp": "f8ce44b4d79a68d2e83c268f032f79281dec5ba43e8c1c9508e4a47d4b1a7b01",
+    "dance-00.webp": "44adea11aaa3d8238f3a11c7cdf8b619cb8b8ce12c1c748fd22dabc61c4786c6",
+    "dance-01.webp": "364aff9a1647f6c813406b9d42760585b8cb957991707c3903331e477b0b6350",
+    "dance-02.webp": "240e74870d989174733c348690592c88f6fc673ee5632d50d201948a1fd65560",
+    "dance-03.webp": "444d26c360c2fdf0607bee8df5b2ea4fb28cb9c7e872249f379b92c5af5746d6",
+    "crouch-00.webp": "3e920d811864c14c2c6edfbb0edb144d6c461bf3faee6a9003109fd7b545e1bf",
+    "pose-twirl-02.webp": "317ebcb03db15d52185b6e8f099b02c08d519aa42490a9a1487711d9b2f28ee5",
+    "pose-twirl-03.webp": "559dc1e29d4dde32123fd281f50619e59499746ef822d75d44c2728ef5739d9d",
+    "pump-00.webp": "07e70e4c2dff6e857b41760e6021d3802c77dc66aa31494b1479226fae789fbd",
+    "pump-01.webp": "c7b3e285df81963a59830c836195bfbfd645cfabfb213273654ef9cf02ecc5f3",
+    "pull-00.webp": "4638dc115d1bda0e3062c53e1b54ceaf1b23a23de22bd97e40f64273681a3fc5",
+    "pull-01.webp": "a406968a3c5ccda9b7629de8802f6766c4b8ed4a3a3bd9f4c3567e62e2c405bb",
+    "reel-00.webp": "b14267422195703877e725656858e7fb126686b0bc361ea13ac7881aaf07694a",
+    "reel-01.webp": "d1ffd8d851e050f1c12372713de9dabe2415335b05605bd075fa5616db1a356d",
+    "swing-00.webp": "e858eb074767490f7e1735f0cbbbe3aba37e22995d737829224cb8fc7b205bef",
+    "swing-01.webp": "2708b2fe724fc60520817f12fa0978108f302406cfa59f937597fb30393e77ad",
+    "putt-00.webp": "6627b8aff4d9ad3259074d3f00923d937dd2424d33897d9cdbef8165a54bc150",
+    "putt-swing-00.webp": "4a287116cba1fad5579df0f9a77bf1925d37d14e4317345ae7448166d9a32a3e",
+    "spring-jump-00.webp": "476248e578946cb486f1203fa5bd38c8ccaf318b28491e910985c8a36391ddc4",
+    "snow-scoop-00.webp": "922cd2818a314503f68e748da5d5aa23e1546aba47bf190512bf7c2b251a901f",
+    "roll-push-00.webp": "b2e3f8d637e8513d402be3d9f66f0eab698c40f708efa9547488cca6c3d9ef8b",
+    "dig-00.webp": "b809c90a7e837d9ee50978d6a20591099188651ac948a9893547eebbb781831a",
+    "skip-hop-00.webp": "30d3830d7bb4c7c7875420eb3e1999c68c5cf5285f9fffcd55e98a800c283656",
+    "roll-push-01.webp": "3b5b0a549a9c24ce62189af62c97859b9de1a7c1fe7201362fe7e12ab0e3a727",
+    "dance-cartwheel-00.webp": "b56194c84e59eb78480d7ed1642638edd3fc5ffd59b2c17701b9635f96eef5f1",
+    "dance-cartwheel-01.webp": "e82f517fbb73cd018703cc302ea122614c5b0cc3462c4692c72e2cdae5491471",
+    "dance-cancan-00.webp": "e4e04221550c980432c7c5aed66b65809003b3ec91fd3721aba14e25ae89b07e",
+    "dance-moonwalk-00.webp": "8dc731e6794d87e0027a0461e90445f7d17470c31dc2a1afbd43bbb4e840728e",
+    "dance-moonwalk-01.webp": "3e1078076b893e90c57a4aae79bb8278b1f2a1276a3af9b8a1a30d271cd71734",
+    "dance-splits-00.webp": "6876376a20c27a943ce06b983ebfff76baec9cbfb33d6c04f59ef70077c6d54a",
+    "dance-starfish-00.webp": "c107112fa0f4c106788afea24ceb34d13ec5b8508dd9916b8beec822a859a4ea",
+    "dance-hula-00.webp": "a9c882d1169e7768d1d64feea3d0ce8ee71ec803c449faa0e3346242cb5d6372",
+    "dance-disco-00.webp": "1538ad1db4b431533aa3e756b3c301e711b27d0054583f186080fdc1a6905184"
+  },
+  "scaleReproducibility": {
+    "scratchCommonScale": 0.3861003861003861,
+    "shippingSpecCommonScale": 0.5153081510934393,
+    "newFrameScaleConversion": 0.7492611659278327,
+    "verified": "shippingSpecCommonScale*frame.scale equals scratchCommonScale*scratchFrame.scale, within1e-12; runtime raster unchanged"
+  }
+}

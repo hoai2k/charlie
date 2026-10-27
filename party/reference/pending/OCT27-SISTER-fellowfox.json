@@ -1,0 +1,278 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Asset type: transparent game sprite sheet of ONE exact reference character. Image1 approved canonical, image2 shipping idle. Preserve exact identity/anatomy/outfit/colors/proportions, camera three-quarter screen-right, same head and torso size across all figures, bold dark outline and clean cel shading. All figures full body with generous clear gutters, TRUE transparent RGBA; NO props, held objects, scenery, shadows, effects, text or labels. Empty hands/arms; game adds objects later. Exactly EIGHT figures in FOUR columns by TWO rows, left-to-right top-to-bottom: (1) BOOP one paw/hand/hoof poking forward horizontally to boop an invisible nose, cheeky grin. (2) CUDDLE both arms/front paws curled around EMPTY space at chest, eyes shut big smile, no object. (3) SILLY POSE goofy ta-da one rear leg kicked UP behind, front limbs flung WIDE, TONGUE OUT. (4) TIPTOE sneaking high on toes, hunched body, front limbs holding EMPTY space overhead, sideways cheeky grin, no cushion. (5) TONGUE OUT head tipped back looking UP, tongue extended UP toward sky to catch invisible snowflake, no snowflake. (6) TUCK tight spherical ball, knees/front paws hugged to chest, happy shut eyes, SIDE view for spinning, tail curled around body. (7) RIDE SIT sitting astride EMPTY space, legs to each side, arms/front paws forward grasping empty space, happy, no mount. (8) LAUGH BIG belly laugh head back eyes shut hands/paws on tummy. FELLOWFOX is the exact orange baby fox with cream muzzle/chest/tailtip, black paws, huge brown eyes, dark navy outline, black-and-yellow flower by ear. FOUR paws only, no human hands/fingers/clothes. Rear up to gesture; adapt ride sitting with back paws spread, front paws reaching, empty arms. Keep very simple recognizable cute happy poses.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-96b7456c-339d-4ad2-816e-bc9a75484ca5.png",
+  "source": "party/tools/sprites/sources/fellowfox-sister-poses.webp",
+  "status": "runtime landmarks/compensated head-scale reviewed; optimized or final optimizer running; root game review pending",
+  "annotations": [
+    {
+      "pixelScale": 0.42,
+      "anchor": [
+        212,
+        487
+      ],
+      "head": [
+        210,
+        133
+      ],
+      "eyes": [
+        207,
+        230
+      ],
+      "neck": [
+        204,
+        330
+      ],
+      "hand": [
+        71,
+        254
+      ],
+      "back": [
+        243,
+        393
+      ]
+    },
+    {
+      "pixelScale": 0.42,
+      "anchor": [
+        574,
+        487
+      ],
+      "head": [
+        582,
+        126
+      ],
+      "eyes": [
+        572,
+        212
+      ],
+      "neck": [
+        566,
+        297
+      ],
+      "hand": [
+        542,
+        314
+      ],
+      "back": [
+        598,
+        378
+      ]
+    },
+    {
+      "pixelScale": 0.42,
+      "anchor": [
+        954,
+        487
+      ],
+      "head": [
+        986,
+        154
+      ],
+      "eyes": [
+        991,
+        239
+      ],
+      "neck": [
+        991,
+        312
+      ],
+      "hand": [
+        1124,
+        286
+      ],
+      "back": [
+        954,
+        375
+      ]
+    },
+    {
+      "pixelScale": 0.42,
+      "anchor": [
+        1363,
+        485
+      ],
+      "head": [
+        1374,
+        162
+      ],
+      "eyes": [
+        1386,
+        226
+      ],
+      "neck": [
+        1368,
+        293
+      ],
+      "hand": [
+        1483,
+        231
+      ],
+      "back": [
+        1358,
+        354
+      ]
+    },
+    {
+      "pixelScale": 0.42,
+      "anchor": [
+        218,
+        956
+      ],
+      "head": [
+        257,
+        614
+      ],
+      "eyes": [
+        247,
+        674
+      ],
+      "neck": [
+        251,
+        773
+      ],
+      "hand": [
+        276,
+        744
+      ],
+      "back": [
+        231,
+        850
+      ]
+    },
+    {
+      "pixelScale": 0.42,
+      "anchor": [
+        603,
+        781
+      ],
+      "head": [
+        631,
+        647
+      ],
+      "eyes": [
+        632,
+        718
+      ],
+      "neck": [
+        622,
+        776
+      ],
+      "hand": [
+        587,
+        800
+      ],
+      "back": [
+        537,
+        826
+      ],
+      "headAngle": 0
+    },
+    {
+      "pixelScale": 0.42,
+      "anchor": [
+        983,
+        946
+      ],
+      "head": [
+        983,
+        618
+      ],
+      "eyes": [
+        970,
+        690
+      ],
+      "neck": [
+        972,
+        771
+      ],
+      "hand": [
+        960,
+        808
+      ],
+      "back": [
+        998,
+        865
+      ]
+    },
+    {
+      "pixelScale": 0.42,
+      "anchor": [
+        1353,
+        946
+      ],
+      "head": [
+        1360,
+        637
+      ],
+      "eyes": [
+        1352,
+        705
+      ],
+      "neck": [
+        1334,
+        766
+      ],
+      "hand": [
+        1314,
+        826
+      ],
+      "back": [
+        1371,
+        873
+      ]
+    }
+  ],
+  "crops": [
+    [
+      30,
+      42,
+      414,
+      494
+    ],
+    [
+      437,
+      44,
+      738,
+      488
+    ],
+    [
+      763,
+      68,
+      1165,
+      489
+    ],
+    [
+      1181,
+      60,
+      1520,
+      491
+    ],
+    [
+      40,
+      546,
+      375,
+      958
+    ],
+    [
+      421,
+      584,
+      783,
+      943
+    ],
+    [
+      798,
+      538,
+      1148,
+      944
+    ],
+    [
+      1169,
+      566,
+      1531,
+      955
+    ]
+  ],
+  "oldShippingPosesPreserved": 93,
+  "reviewContact": "/tmp/fellowfox-sister-review.png"
+}

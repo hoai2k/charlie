@@ -1,3 +1,191 @@
+## 2026-10-27: Dance Studio and Charlie Sister actions — delivered
+
+189 dance frames cover all21 playable sets (Glimmer added to complete the every-playable requirement), plus117 Sister frames for15 Charlie sets. Six move pictograms are delivered. New actions are authored, registered, optimized and body-mapped; all full/optimized sets stay below25MiB. Native RGBA sources, exact prompts, portrait-resolution archives and reproducible specs are preserved. Actual full/optimized Actor review, all eight consuming Sister games and Dance Studio smoke passed. Coverage/budgets: reference/pending/OCT27-FINAL-AUDIT.json; galleries: OCT27-DANCE-REVIEW.html and OCT27-SISTER-REVIEW.html.
+
+### Original requests
+
+### dance-studio — real-time dance moves for every character   (requested by the dance-studio agent, 2026-10-27, priority: nice-to-have)
+
+Dance Studio is now "set the scene, practise, then all dance together in real
+time": every dance button does a move (setup: X, A, B, Y, LT, RT; the show adds
+LB, RB), live, while the player walks round the stage. The moves play today on
+poses every character already has (fallback column below) plus code motion,
+but most don't read as the move yet. These seven poses (nine frames) make
+them real. The
+owner wants them **funny and extreme**: big, unmistakable dance silhouettes a
+5-year-old recognises across the room, with a huge happy face in each.
+
+- **Who:** every playable sprite set, garden fairies included: `felicity`,
+  `fellowfox`, `kpop-girl-center`, `kpop-girl-left`, `kpop-girl-right`,
+  `bronze`, `cotton-candy`, `fox`, `hotdog`, `marina`, `scale`,
+  `marshmallow-birthday-cake`, `princess-amber`, `snowstar`, `unicorn`,
+  `garden-fairy-pink`, `-blue`, `-green`, `-purple`, `-yellow`. Adapt each pose
+  to the body (§2.2, §4.4): ponies/unicorn rear and kick with hooves, Marina
+  and Scale do it with arms and tail (no legs to invent), Hotdog with ears and
+  paws, the cake with squash and frosting (no limbs), Bronze stiff and clunky.
+  Fellowfox: the simplest readable version (he follows Felicity).
+- **Sheet:** one 3 × 3 sheet per character (nine figures, like the 4 × 2
+  action sheets in §5.2), left to right, top to bottom: `dance-disco`,
+  `dance-starfish`, `dance-hula` / `dance-cartwheel` frame 1, frame 2,
+  `dance-cancan` / `dance-splits`, `dance-moonwalk` frame 1, frame 2. Prompt:
+  §10.1 / §10.2 with the canonical and the idle frame attached; same size,
+  camera and outline weight as the set's idle; three-quarter view facing
+  screen-right; full body in every cell with generous gutters; transparent
+  background; no effects, motion lines, shadows or props.
+- **Intake:** crop with `tools/sprites/add_sheet.py <asset> <sheet> dance-moves
+  <names> --rows 3` (check the order: the cartwheel and splits figures are much
+  wider and lower than the rest; AGENT-PLAYBOOK "Crop, scale and anchor"), give
+  the two-frame poses both frames (`fps` 4, `motion` 0.8 on the one-frame
+  ones), then the full checklist in `tools/sprites/README.md` (build, QA sheet,
+  `optimize.py`, `make_masks.py` for felicity / kpop-girl-center /
+  princess-amber, `validate.py`). **Anchors:** airborne poses (starfish,
+  cartwheel frame 2) put the anchor at the virtual ground under the body; the
+  splits put it at the crotch on the floor line; the cartwheel's hands are its
+  support. Don't normalise the splits or the cartwheel to the idle's bounding
+  box (README: scale by head/torso).
+- **Engine:** add each name to `POSES` in `src/engine/sprites.js` in the same
+  commit as the frames (desc, `loop: false`, the fallback chain below), so
+  followers and sets without the art fall back properly. The game already asks
+  for these names first (`DANCES` in `src/games/dance-studio/stage.js`) and
+  switches to the art the moment a set has it; no game change needed.
+- **Judge in game** (`?game=dance-studio&players=2&humans=1&skipintro=1`):
+  press each button in the setup and in the show, at 1 and 8 players.
+
+| Pose (button) | Frames | What it must look like | Code adds | Fallback today |
+| --- | --- | --- | --- | --- |
+| `dance-disco` (X, "Disco!") | 1 | The Saturday Night disco point: right arm shot straight **up and to the screen-left** at 45°, index finger pointing at the sky; left hand on the hip, elbow out; hips cocked hard to the screen-right; left knee bent in, heel up; chin up, huge cocky grin, eyes half-shut with cool. Every second press mirrors it (the code flips facing), so it must read both ways | lean, mirror on repeat | `dance-side` |
+| `dance-starfish` (A, "Star Jump") | 1 | Mid-air starfish: arms and legs flung out as wide as they go in a big X, fingers spread, hair/mane/tail/ears flying up, mouth wide open "WHEE!", body 25–35% of its height above the ground line | the hop | `dance-star` |
+| `dance-hula` (B, "Hula") | 1 | Hula: both arms stretched out to one side at shoulder height, wrists soft and fingers rippling like waves, hips swung hard the other way, knees bent, one heel up, dreamy happy smile with eyes closed. No grass skirt or lei (the outfit stays the character's own) | hip sway left/right | `float`, `balance` |
+| `dance-cartwheel` (LT, "Cartwheel") | 2 | Frame 1: side-on lunge, both arms swept up overhead, about to tip over, excited grin. Frame 2: **fully upside down** in the middle of the cartwheel: both hands flat on the floor, arms straight, legs split wide in a V in the air, hair/tail hanging down, giggling face upside down | travels sideways (the full-circle spin is only for the stand-in, so it stops once the art is in) | `dance-star` (spun round) |
+| `dance-cancan` (RT, "Can-can") | 1 | The can-can high kick: standing leg straight, the other leg kicked **straight up past the head**, toe pointed, both hands holding the skirt/dress hem out wide (or hands on hips if no skirt; ponies kick a foreleg high), body leaning back, mouth open "Hoo!". The code mirrors it halfway to kick the other leg | kick hops, mirror | `balance` |
+| `dance-splits` (LB, show only, "Splits") | 1 | Full splits flat on the floor: one leg straight forward, one straight back, both arms flung up in a big V "ta-da!", body upright, surprised-proud face (eyebrows up, big O-grin), a little wobble. Ponies: front legs splayed forward, back legs back, chin down; cake: squashed flat and wide | drop and stretch | `dance-down` |
+| `dance-moonwalk` (RB, show only, "Moonwalk") | 2 | The moonwalk glide, facing screen-right: frame 1: front foot flat, back foot up on its toes with the knee bent, body leaning back, one hand at the forehead as if tipping an invisible hat (no hat drawn), cool closed-eye smirk. Frame 2: the same with the feet swapped | glides backward while facing forward | `walk` |
+
+Move-card pictograms for the button panel (same set as the existing
+`prop/dance-move-*`, delivered 2026-10-12: 160×160, transparent, fitted into a
+square button tile ≈60–110 px with the button glyph over its top-left corner;
+the same white round-headed kid figure with candy swooshes, no text):
+`prop/dance-move-disco` (finger up-left, hand on hip, hip out),
+`prop/dance-move-hula` (arms out to one side, wavy, hips the other way),
+`prop/dance-move-cartwheel` (upside down on its hands, legs in a V, a curved
+arrow round it), `prop/dance-move-cancan` (one leg kicked up past the head,
+skirt held out), `prop/dance-move-splits` (flat splits, arms up in a V),
+`prop/dance-move-moonwalk` (leaning back, one foot on its toes, speed lines
+behind). `prop/dance-move-star` and `prop/dance-move-twirl` are reused (Star
+Jump and Twirl); Twirl (Y) already plays each set's `pose-twirl`.
+
+
+### molly-seats — Sister Party poses for the Charlie Party characters   (requested by the sister-character agent, 2026-10-27, priority: nice-to-have)
+
+The owner asked that a player can pick her own Charlie Party character on the
+Sister Party fairy picker (`src/scenes/molly-seats.js`, "Felicity (you)"). That
+works today with no new art: the Sister games were written for every
+character, and every pose they ask for resolves through the `POSES` fallback
+chain in `src/engine/sprites.js` (checked in game, 2026-10-27). But the six
+fairy sets have the Sister-only poses below and the Charlie sets don't, so the
+cheekiest moments read flatter as a Charlie character. These eight poses (one
+frame each) close the gap.
+
+- **Who:** `felicity`, `fellowfox`, `kpop-girl-center`, `kpop-girl-left`,
+  `kpop-girl-right`, `bronze`, `cotton-candy`, `fox`, `hotdog`, `marina`,
+  `scale`, `marshmallow-birthday-cake`, `princess-amber`, `snowstar`,
+  `unicorn`. Adapt each pose to the body (§2.2, §4.4): ponies/unicorn/fox with
+  hooves or paws and muzzle, Marina and Scale with arms and tail (no legs),
+  Hotdog with ears and paws, the cake with squash and frosting (no limbs),
+  Bronze stiff and clunky. Fellowfox: the simplest readable version.
+- **Sheet:** one 4 × 2 sheet per character (§5.2 action sheets), left to
+  right, top to bottom. Each pose's description is its `desc` in `POSES`;
+  today's stand-in is in brackets:
+  1. `boop` — one finger (paw, hoof) poking forward to boop a nose, cheeky grin
+     [`high-five`]. Pumpkin Peekaboo.
+  2. `cuddle` — both arms round something held to the chest, eyes shut, big
+     smile [`catch`]. Kitten Yarn.
+  3. `silly-pose` — goofy ta-da: one leg kicked up behind, arms flung wide,
+     tongue out [`strike3`]. Opposite Ballet.
+  4. `tiptoe` — sneaking on tiptoe, hunched, hands up holding something
+     overhead (the cushion is drawn by code), sideways cheeky grin [`carry`].
+     Whoopee Tea.
+  5. `tongue-out` — head tipped back looking up, tongue out to catch a
+     snowflake [`look-up`; the game draws a tongue over it]. Snowflake Catch.
+  6. `tuck` — knees hugged to the chest in a tight ball, eyes happily shut,
+     side-on (the game spins it) [`crouch`]. Bed Bounce, Fairy Flutter.
+  7. `ride-sit` — sitting astride, legs either side, hands forward holding a
+     mane, happy (the unicorn is drawn by the game) [`sit`]. Unicorn Jump.
+     **Bipeds only:** skip it for `fox`, `cotton-candy` and `unicorn` (the
+     game runs them as the unicorn themselves): their sheet is one row of the
+     other seven, in the same order.
+  8. `laugh` — big belly laugh, head back, eyes shut, hands on tummy
+     [`giggle`, hand over mouth]. Most Sister games, many party games.
+  Prompt: §10.1 / §10.2 with the canonical and the idle frame attached; same
+  size, camera and outline weight as the set's idle; three-quarter view facing
+  screen-right; full body in every cell with generous gutters; transparent
+  background; no props, effects, motion lines or shadows.
+- **Intake:** `tools/sprites/add_sheet.py <asset> <sheet> sister-poses
+  boop,cuddle,silly-pose,tiptoe,tongue-out,tuck,ride-sit,laugh --rows 2` (the
+  three quadrupeds: drop `ride-sit`, `--rows 1`), `motion` 0.85 like the fairy sets'
+  ones, `tuck` anchored at its centre of mass (it spins), then the full
+  checklist in `tools/sprites/README.md` (build, QA sheet, `optimize.py`,
+  `make_masks.py` for felicity / kpop-girl-center / princess-amber,
+  `validate.py`). Check each in its game played as that character (pick
+  "<name> (you)" on the how-to screen).
+
+
+## 2026-10-27: Sparkle Nails hand artwork — delivered
+
+Five 1024px skin-tone hands with measured nail/bracelet geometry, polygon polish clipping, native lossless archives and exact prompts. Whole decoded art group24.967MiB with resolution-only background siblings; full-size originals retained. Actual eight-player gameplay and all-CPU completion passed; 17 Node test files passed, including generated-hand geometry/hit-test coverage. Records: reference/pending/OCT27-NAIL-HANDS.json and OCT27-NAIL-INTAKE.json.
+
+### Original request
+
+### nail-studio — a girl's hand for Sparkle Nails   (requested by the nail-studio agent, 2026-10-27, priority: nice-to-have)
+
+The owner asked for "a nice looking girl's hand instead of an animal hand". Every
+client now rests a girl's hand on the cushion; today it is drawn in code
+(`src/games/nail-studio/hand.js`, `drawHandBase`), and this art replaces it.
+
+- Keys: `prop/nail-hand-0` … `prop/nail-hand-4`, one per skin tone (the same
+  drawing recoloured is ideal, so the nails line up on all five):
+  0 fair `#ffe2d0` (shade `#f0bfa4`), 1 light `#f6c8a2` (`#dfa27a`),
+  2 tan `#dfa577` (`#c08055`), 3 brown `#b97c52` (`#985c37`),
+  4 deep brown `#8a5838` (`#6c4027`).
+- What: a child's (about 8 years old) **right hand seen from the back**, palm
+  down, flat on a table, fingers **gently spread** and pointing up, thumb out to
+  the left. Slim, soft, rounded cartoon fingers with a slight taper, smooth
+  knuckles (at most a tiny crease line), no veins, no wrinkles, no rings or
+  jewellery, no sleeve. House style: bold smooth dark navy (`#24163f`) outlines
+  of the same weight as the characters, simple clean cel shading (one soft
+  shade on the right side), transparent background, no shadow, no text.
+- **Nails: bare nail beds only.** Draw each nail as a plain pale-pink
+  (`#ffe4ec`) rounded nail shape with a navy outline and **no** shine, polish or
+  pattern: the game draws the painted nails, designs and gems over them, at the
+  spots below. The nails are slightly long and oval, ending about 14 px past the
+  fingertip.
+- Canvas: **1024 × 1024 px**, transparent. The game maps it 2 px per hand unit
+  with the middle of the back of the hand at the canvas centre (512, 512), so
+  keep the hand where it is listed here; don't trim it.
+  - Back of the hand: about x 304–706, y 470–844 (knuckle line at y ≈ 480).
+  - Wrist: straight down from the hand, x ≈ 392–632, running off the **bottom
+    edge** (y 1024). Leave it bare: the game draws the client's sleeve cuff and a
+    bead bracelet over it from y ≈ 860 down.
+  - Nail centres (px), size (width × length, px) and tilt (degrees, 0 = straight
+    up, + = leaning right):
+    | Finger | Centre | Size | Tilt |
+    | --- | --- | --- | --- |
+    | thumb | (172, 533) | 70 × 92 | −53 |
+    | index | (357, 216) | 67 × 108 | −7 |
+    | middle | (477, 166) | 68 × 112 | −1 |
+    | ring | (599, 199) | 65 × 108 | +5 |
+    | pinky | (704, 304) | 58 × 92 | +13 |
+  Exact positions matter less than a clean, appealing pose: on delivery the
+  `FINGERS` table in `hand.js` is re-measured to the art's nail beds (and the
+  table above updated), so the drawn nails sit exactly on the art.
+- Size: deliver at 1024 × 1024 (WebP, alpha lossless, quality 86, ≤ 90 KB each);
+  register the keys in `assets/art/index.json` under the nail-studio group.
+- Where it's used: `drawHandBase` draws it at every station (scaled to about
+  250–550 px on screen) and on the gallery pedestals (wrist cut off at y ≈ 860),
+  with the nails, designs and gems drawn on top. With the picture the fingers no
+  longer wiggle on the "all done" moment (they can't move).
+
+
 ## 2026-10-17: Audit follow-ups (2026-10-16 minigame audit) — delivered
 
 Delivered in `fe57760` (prompts and sources: `tools/sprites/pending/OCT16-ROLL-*.json`, `reference/pending/OCT16-MOLLY-ACTIONS-*.json`, `reference/pending/OCT16-ENVIRONMENT/`), integrated and checked in game 2026-10-17:

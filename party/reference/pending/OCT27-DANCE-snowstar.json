@@ -1,0 +1,346 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Asset type: game sprite sheet on true transparent RGBA background. Reference image1 approved canonical; image2 exact shipping idle. Preserve EXACT identity, anatomy, proportions, colors, outfit, face details and dark outlines. Exactly NINE full-body figures in THREE columns by THREE rows, equal spacious cells, left-to-right top-to-bottom. Keep consistent HEAD/TORSO scale through every pose (never normalize total silhouette height), camera three-quarter toward screen-right. Big joyful extreme silhouettes child can recognize. Generous gutters all tails/hands/ears/feet inside own cell; no effects, motion lines, shadows, floor, props, text or labels. Poses in order: R1C1 DISCO one limb shoots up-left 45 degrees other on hip, cocked hips, huge grin; R1C2 airborne STARFISH wide X, all limbs as wide as possible, joyful open mouth, hair/ears/tail up; R1C3 HULA arms/front appendages together stretched to one side, hips opposite, bent support, happy closed eyes. R2C1 CARTWHEEL PREP side lunge arms/front limbs overhead, excited grin; R2C2 CARTWHEEL INVERTED fully upside down front limbs support on floor, rear limbs wide high V above head, happy upside-down face; R2C3 CAN-CAN rear leg kicks straight up PAST head, other supports, lean backward, hands on hips if no skirt, open HOO smile. R3C1 full flat SPLITS on floor, front/back legs straight along floor, upright torso, front limbs up big V, proud surprised happy face; R3C2 MOONWALK 1 facing right leaning backward front foot flat rear foot on toe, one hand to forehead like tipping INVISIBLE hat; R3C3 MOONWALK 2 same with feet swapped. No actual hat. Adapt to reference anatomy as described next: SNOWSTAR is exactly the short chibi child with HUGE round head, round shiny blue-green eyes with star glints, cheerful blush, wildly multicolored geometric patchwork HAIR/hat with curled teal wirelike tendrils, red bow and yellow flower, dark olive green turtleneck sweater, dark teal trousers, green chunky boots. Preserve exact intricate head design and outfit; TWO arms TWO legs. Every dance very expressive, huge joyful grin. Disco INDEX finger straight up-left, other hand on hip; star jump widest X; hula wrists soft arms same side; cartwheel prep lunge hands overhead then fully INVERTED handstand straight arms palms flat both legs wide V in air, hair tendrils hang. Cancan one leg straight up PAST head with hands on hips, other boot floor. Splits FULL flat floor front/back legs, arms V. Moonwalk lean back right-facing with hand on forehead, alternate feet flat/toe. No skirt/hat/props added.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a17adf-da90-78d0-b17d-26260035cb74/exec-4f91fc86-c508-41b8-902e-ffb9a544c98f.png",
+  "source": "party/tools/sprites/sources/snowstar-dance-moves.webp",
+  "status": "runtime landmarks/head-scale reviewed; optimized; root game review pending",
+  "annotations": [
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        204,
+        425
+      ],
+      "head": [
+        224,
+        115
+      ],
+      "eyes": [
+        235,
+        184
+      ],
+      "neck": [
+        232,
+        258
+      ],
+      "hand": [
+        93,
+        131
+      ],
+      "back": [
+        239,
+        305
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        617,
+        501
+      ],
+      "head": [
+        628,
+        111
+      ],
+      "eyes": [
+        619,
+        170
+      ],
+      "neck": [
+        610,
+        238
+      ],
+      "hand": [
+        748,
+        235
+      ],
+      "back": [
+        617,
+        282
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        1044,
+        425
+      ],
+      "head": [
+        1045,
+        85
+      ],
+      "eyes": [
+        1059,
+        158
+      ],
+      "neck": [
+        1062,
+        232
+      ],
+      "hand": [
+        1172,
+        276
+      ],
+      "back": [
+        1051,
+        281
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        209,
+        833
+      ],
+      "head": [
+        255,
+        562
+      ],
+      "eyes": [
+        263,
+        629
+      ],
+      "neck": [
+        262,
+        697
+      ],
+      "hand": [
+        157,
+        583
+      ],
+      "back": [
+        257,
+        743
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        633,
+        833
+      ],
+      "head": [
+        631,
+        764
+      ],
+      "eyes": [
+        632,
+        702
+      ],
+      "neck": [
+        633,
+        633
+      ],
+      "hand": [
+        562,
+        818
+      ],
+      "back": [
+        629,
+        601
+      ],
+      "headAngle": 3.14159265,
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        1095,
+        841
+      ],
+      "head": [
+        1047,
+        532
+      ],
+      "eyes": [
+        1047,
+        601
+      ],
+      "neck": [
+        1063,
+        662
+      ],
+      "hand": [
+        1043,
+        752
+      ],
+      "back": [
+        1079,
+        706
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        250,
+        1229
+      ],
+      "head": [
+        254,
+        1022
+      ],
+      "eyes": [
+        250,
+        1074
+      ],
+      "neck": [
+        254,
+        1134
+      ],
+      "hand": [
+        109,
+        1071
+      ],
+      "back": [
+        250,
+        1179
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        744,
+        1245
+      ],
+      "head": [
+        690,
+        940
+      ],
+      "eyes": [
+        697,
+        999
+      ],
+      "neck": [
+        700,
+        1055
+      ],
+      "hand": [
+        751,
+        960
+      ],
+      "back": [
+        713,
+        1110
+      ],
+      "resolutionFactor": 0.65
+    },
+    {
+      "pixelScale": 0.63,
+      "anchor": [
+        1064,
+        1245
+      ],
+      "head": [
+        1043,
+        941
+      ],
+      "eyes": [
+        1043,
+        1002
+      ],
+      "neck": [
+        1044,
+        1060
+      ],
+      "hand": [
+        1152,
+        968
+      ],
+      "back": [
+        1057,
+        1116
+      ],
+      "resolutionFactor": 0.65
+    }
+  ],
+  "crops": [
+    [
+      75,
+      0,
+      417,
+      432
+    ],
+    [
+      447,
+      3,
+      800,
+      387
+    ],
+    [
+      875,
+      2,
+      1206,
+      432
+    ],
+    [
+      45,
+      461,
+      417,
+      838
+    ],
+    [
+      444,
+      447,
+      794,
+      834
+    ],
+    [
+      888,
+      432,
+      1206,
+      845
+    ],
+    [
+      29,
+      907,
+      483,
+      1236
+    ],
+    [
+      540,
+      844,
+      841,
+      1250
+    ],
+    [
+      908,
+      854,
+      1186,
+      1256
+    ]
+  ],
+  "oldShippingPosesPreserved": 93,
+  "portraitBudget": {
+    "resolution": 288,
+    "nativeArchives": [
+      {
+        "file": "party/tools/sprites/sources/snowstar-portraits-native-oct27/portrait-neutral.webp",
+        "sha256": "d6f7022269bf7797a5ef5cfa3773fd510169a04312d8954fe6c7b6d802fa52c1"
+      },
+      {
+        "file": "party/tools/sprites/sources/snowstar-portraits-native-oct27/portrait-happy.webp",
+        "sha256": "b2ef90f966a708c51ac69f7244491a1a655a038808249981b4d7d0c696aa4393"
+      },
+      {
+        "file": "party/tools/sprites/sources/snowstar-portraits-native-oct27/portrait-sad.webp",
+        "sha256": "8a6d00e4a58a0c1cfd6a52ea6c585d8754ea9dc49f58035171eb26f998c7c018"
+      },
+      {
+        "file": "party/tools/sprites/sources/snowstar-portraits-native-oct27/portrait-surprised.webp",
+        "sha256": "49ef7eb97c0964ec7f660d992c38503d4d937ddc246169902ab9f85dce358598"
+      },
+      {
+        "file": "party/tools/sprites/sources/snowstar-portraits-native-oct27/portrait-determined.webp",
+        "sha256": "f2edcbcb3222daddbf57d8544039eaeb267777a3f819949fd54d0819f93054b0"
+      }
+    ],
+    "reason": "Preserve old bodyframes while fitting new dance and Sister poses below25MiB decoded."
+  },
+  "reviewContact": "/tmp/snowstar-dance-review.png"
+}
