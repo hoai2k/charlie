@@ -5,7 +5,7 @@ export const meta = {
   category: 'party',
   type: 'Hot & cold hunt',
   goal: 'Follow your shell detector to buried treasure and dig it up!',
-  controls: [['stick', 'Walk along the beach'], ['a', 'Dig!']],
+  controls: [['stick', 'Walk along the beach'], ['a', 'Dig!'], ['b', 'Dash']],
   tips: [
     'Your ring and shell go blue (cold), yellow (warm), RED (hot!). Dig when the red "!" pops up.',
     'Dig in the wrong spot and you might find a crab, a sock... or seaweed!',

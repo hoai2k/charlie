@@ -4,7 +4,7 @@ export const meta = {
   category: 'party',
   type: 'Survive & collect',
   goal: 'Grab the most gems - and dodge the grumpy Troll\'s ground-pound!',
-  controls: [['stick', 'Run around'], ['a', 'Dash (short cooldown)']],
+  controls: [['stick', 'Run around'], ['a', 'Dash (short cooldown)'], ['b', 'Dash (like A)']],
   tips: [
     'Brave bonus: stay inside the gold ring around the Troll for extra gems!',
     'The Troll grabs gems too - if he gets the most, the Troll wins!',

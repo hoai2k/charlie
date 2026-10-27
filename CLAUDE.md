@@ -83,7 +83,7 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   `api.finishTogether`, `showstopper()` in `engine/util.js`, `engine/easy.js`
   (Sister Party Easy: the stick is optional, A does everything, `easyPrompt` is
   the one big-A cue; A only walks a child somewhere on a repeated press with no
-  recent stick use - `easyAutoOk` / `easyErrand`) and `engine/crowd.js` (8-player spacing).
+  recent stick use - `easyAutoOk` / `easyErrand`; in a no-losers game other buttons may do their own things too, as long as mashing A alone is fun) and `engine/crowd.js` (8-player spacing).
 - Hidden games: `HIDDEN` in `party/src/games/index.js` takes a game off the
   shelves (and Random / Marathon); Settings -> "Show all games" (default off)
   puts them back at the end of their shelf. Page-2 games move up to fill the gaps;

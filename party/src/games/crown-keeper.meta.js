@@ -5,7 +5,7 @@ export const meta = {
   category: 'party',
   type: 'Keep-away',
   goal: 'Wear the crown for the most seconds - bump the holder to steal it!',
-  controls: [['stick', 'Run around the garden'], ['a', 'Dash: bump the crown loose (or get away with it)']],
+  controls: [['stick', 'Run around the garden'], ['a', 'Dash: bump the crown loose (or get away with it)'], ['b', 'Dash (like A)']],
   tips: ['The crown holder runs a little slower - and earns points.', 'Dash into the holder to knock the crown off!', 'Wearing the crown? Dash away from the chasers!', 'A bonk sends the crown flying the way you hit it.', 'The last 10 seconds count DOUBLE!'],
   music: 'gameon',
   duration: '45 sec',

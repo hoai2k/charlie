@@ -233,7 +233,7 @@ export class Game {
     } else {
       let ix = c.x, iy = c.y; const m = Math.hypot(ix, iy);
       if (m > 1) { ix /= m; iy /= m; }
-      if (c.pressed('a') && pl.dashCd <= 0) {
+      if ((c.pressed('a') || c.pressed('b')) && pl.dashCd <= 0) {   // A or B: dash
         const mm = Math.hypot(ix, iy);
         pl.dashDx = mm > 0.25 ? ix / mm : a.facing; pl.dashDy = mm > 0.25 ? iy / mm : 0;
         pl.dashT = DASH_TIME; pl.dashCd = DASH_CD;
@@ -804,11 +804,12 @@ export class Game {
     });
     if (this.hint > 0) {
       g.save(); g.globalAlpha = clamp(this.hint, 0, 1);
-      // Left-aligned message, then the A Dash hint in its own space at the right
+      // Left-aligned message, then the A / B Dash hint in its own space at the right
       // (the centred version ran into the button with 8 HUD chips).
       ui.panel(g, W / 2 - 560, 130, 1120, 66, { r: 33, fill: '#fff8ec' });
       ui.text(g, 'Grab gems!  Run from the growing shadow!', W / 2 - 530, 164, { size: 34, color: NAVY, stroke: false, weight: 700, align: 'left', maxWidth: 820 });
-      ui.glyph(g, 'a', W / 2 + 395, 164, 46, { pulse: true });
+      ui.glyph(g, 'a', W / 2 + 342, 164, 46, { pulse: true });
+      ui.glyph(g, 'b', W / 2 + 395, 164, 46, { pulse: true });
       ui.text(g, 'Dash', W / 2 + 430, 164, { size: 30, color: NAVY, stroke: false, align: 'left', weight: 700 });
       g.restore();
     }

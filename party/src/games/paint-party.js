@@ -12,6 +12,7 @@ import { art } from '../engine/art.js';
 import { aiProfile, steer } from '../engine/ai.js';
 import { bodyRadius } from '../engine/crowd.js';
 import { placementsFromScores, rand, randInt, pick, chance, clamp, lerp, damp, ease, TAU } from '../engine/util.js';
+import { Dash } from '../engine/dash.js';
 
 const CS = 40;                       // cell size
 const COLS = 48, ROWS = 22;
@@ -92,7 +93,7 @@ export class Game {
       }
       const a = new Actor(p, { scale: CHAR_SCALE, x: sx, y: sy, facing: sx < W / 2 ? 1 : -1 });
       a.snap(); a.setPose('idle');
-      const s = { a, x: sx, y: sy, vx: 0, vy: 0, kx: 0, ky: 0, dir: { x: sx < W / 2 ? 1 : -1, y: 0 }, cool: 0, roller: 0, drip: 0, bumpT: 0,
+      const s = { a, x: sx, y: sy, vx: 0, vy: 0, kx: 0, ky: 0, dir: { x: sx < W / 2 ? 1 : -1, y: 0 }, dash: new Dash({ yScale: 1 }), cool: 0, roller: 0, drip: 0, bumpT: 0,
         ai: { t: rand(0.1, 0.5), tx: sx, ty: sy, pause: 0, bombT: 0 } };
       a.attach((g, info) => this.drawTool(g, info, i));
       return s;
@@ -246,10 +247,12 @@ export class Game {
     s.vx += ((dead ? 0 : ix * sp) - s.vx) * Math.min(1, (dead ? 12 : 10) * dt);
     s.vy += ((dead ? 0 : iy * sp) - s.vy) * Math.min(1, (dead ? 12 : 10) * dt);
     if (!dead) { const mm = Math.hypot(ix, iy) || 1; s.dir.x = ix / mm; s.dir.y = iy / mm; }
-    s.x += (s.vx + s.kx) * dt; s.y += (s.vy + s.ky) * dt;
+    const dd = s.dash.update(dt, c, { x: s.x, y: s.y, actor: s.a, sx: dead ? s.dir.x : c.x, sy: dead ? s.dir.y : c.y, ok: !this.ended && !p.isAI });   // B: a short dash
+    s.x += (s.vx + s.kx) * dt + dd.x; s.y += (s.vy + s.ky) * dt + dd.y;
     const kd = Math.exp(-6 * dt); s.kx *= kd; s.ky *= kd;
     s.x = clamp(s.x, 36, W - 36); s.y = clamp(s.y, Y0 + 30, Y0 + PH - 6);
-    // paint
+    // paint (a dash paints its whole stripe, not dots)
+    if (s.dash.active) this.paintCircle(s.x - dd.x * 0.5, s.y - dd.y * 0.5, this.brushR(s), i);
     const changed = this.paintCircle(s.x, s.y, this.brushR(s), i);
     if (changed > 0 && !p.isAI && this.sound.brush <= 0 && Math.hypot(s.vx, s.vy) > 60) { sfx('brush'); this.sound.brush = 0.22; }
     if (changed > 0) {

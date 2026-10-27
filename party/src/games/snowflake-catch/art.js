@@ -1,6 +1,7 @@
 // Snowflake Giggles - procedural art kit (every piece first tries generated art).
 //   bg/snowflake-catch, prop/snowflake, prop/snowflake-big, prop/sf-snowball,
 //   prop/snowman-friend(+-throw), prop/penguin-sled, prop/bigsnowman-1..6
+// (the snow jar players hold up is always drawn here)
 import { W, H } from '../../engine/canvas.js';
 import * as ui from '../../engine/ui.js';
 import { art, drawArt } from '../../engine/art.js';
@@ -256,13 +257,61 @@ function snowBush(g, x, y) {
   g.restore();
 }
 
-/** Cartoon tongue sticking out (origin at the mouth). */
-export function drawTongue(g, s, wag) {
-  g.save(); g.scale(s, s); g.rotate(wag);
-  line(g, 3);
-  g.beginPath(); g.ellipse(0, -2, 15, 9, 0, 0, TAU); g.fillStyle = '#5b2346'; g.fill(); g.stroke();
-  g.beginPath(); g.moveTo(-9, 0); g.lineTo(-9, 14); g.arc(0, 14, 9, Math.PI, 0, true); g.lineTo(9, 0); g.closePath();
-  g.fillStyle = '#ff6f9c'; g.fill(); g.stroke();
-  g.strokeStyle = '#d94a7a'; g.lineWidth = 2; g.beginPath(); g.moveTo(0, 3); g.lineTo(0, 15); g.stroke();
+/** Size of the snow jar at s = 1 (origin at the bottom centre): body to the rim top. */
+export const JAR = { w: 64, h: 78, mouth: 72 };
+
+/**
+ * A little open snow jar held up overhead to catch flakes (origin at its bottom
+ * centre, s = scale). fill 0..1 is the snow inside, glow 0..1 a warm shine when
+ * it's full, bump 0..1 a squash after a catch.
+ */
+export function drawSnowJar(g, s, fill, glow, t, bump = 0) {
+  g.save(); g.scale(s, s);
+  const sq = 1 + bump * 0.14;
+  g.scale(sq, 1 / sq);
+  if (glow > 0) {
+    const k = glow * (0.85 + Math.sin(t * 12) * 0.15);
+    const gr = g.createRadialGradient(0, -40, 8, 0, -40, 78);
+    gr.addColorStop(0, `rgba(255,248,200,${0.85 * k})`); gr.addColorStop(1, 'rgba(255,220,250,0)');
+    g.fillStyle = gr; g.beginPath(); g.arc(0, -40, 78, 0, TAU); g.fill();
+  }
+  const body = () => {
+    g.beginPath();
+    g.moveTo(-23, -66); g.quadraticCurveTo(-23, -57, -31, -50);
+    g.lineTo(-31, -11); g.quadraticCurveTo(-31, 0, -20, 0);
+    g.lineTo(20, 0); g.quadraticCurveTo(31, 0, 31, -11);
+    g.lineTo(31, -50); g.quadraticCurveTo(23, -57, 23, -66); g.closePath();
+  };
+  // glass
+  body(); g.fillStyle = 'rgba(214,236,255,0.78)'; g.fill();
+  g.save(); body(); g.clip();
+  // the snow inside, piling up
+  if (fill > 0) {
+    const top = -3 - Math.min(1, fill) * 52;
+    g.beginPath(); g.moveTo(-34, 2);
+    for (let x = -34; x <= 34; x += 4) g.lineTo(x, top + Math.cos(x * 0.09) * 4 - (1 - Math.abs(x) / 34) * 5);
+    g.lineTo(34, 2); g.closePath();
+    g.fillStyle = '#ffffff'; g.fill();
+    g.fillStyle = 'rgba(150,180,240,0.45)'; g.fillRect(12, top - 6, 24, 70);   // cel shade on the snow
+    const cols = ['#ffc2f0', '#c9b0ff', '#a8f0ff', '#fff6a8'];
+    for (let i = 0; i < Math.round(fill * 6); i++) {
+      const x = -20 + ((i * 17) % 40), y = -6 - ((i * 23) % Math.max(6, -top - 8));
+      g.save(); g.translate(x, y); drawSparkleShape(g, 7, cols[i % 4]); g.restore();
+    }
+  }
+  // cel shading on the glass: a shadow band on the right, a bright streak on the left
+  g.fillStyle = 'rgba(110,140,220,0.28)'; g.fillRect(14, -70, 22, 74);
+  g.fillStyle = 'rgba(255,255,255,0.85)'; ui.roundRect(g, -24, -46, 7, 34, 3.5); g.fill();
+  g.beginPath(); g.arc(-20, -7, 3, 0, TAU); g.fill();
+  g.restore();
+  line(g, 4.5); body(); g.stroke();
+  // the open rim, a pink ribbon with a bow
+  g.fillStyle = '#ff9fd6'; ui.roundRect(g, -28, -78, 56, 14, 7); g.fill(); line(g, 4); g.stroke();
+  g.fillStyle = 'rgba(90,110,190,0.55)'; g.beginPath(); g.ellipse(0, -73, 20, 3.2, 0, 0, TAU); g.fill();
+  g.fillStyle = '#ff7ac6'; line(g, 3);
+  for (const sd of [-1, 1]) { g.beginPath(); g.moveTo(-21, -58); g.lineTo(-21 + sd * 11, -66); g.lineTo(-21 + sd * 11, -50); g.closePath(); g.fill(); g.stroke(); }
+  g.beginPath(); g.arc(-21, -58, 4, 0, TAU); g.fill(); g.stroke();
+  // a sparkle winks on the glass when it's full
+  if (glow > 0) { g.save(); g.translate(16, -54); g.globalAlpha = glow; drawSparkleShape(g, 14 * (0.8 + Math.sin(t * 10) * 0.25), '#fff6a8'); g.restore(); }
   g.restore();
 }

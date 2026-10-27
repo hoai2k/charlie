@@ -5,7 +5,7 @@ export const meta = {
   category: 'molly',
   type: 'Count together',
   goal: 'Catch bouncy dots and give the ladybug just the right number of spots!',
-  controls: [['stick', 'Run around'], ['a', 'Zoom dash']],
+  controls: [['stick', 'Run around'], ['a', 'Zoom dash'], ['b', 'Zoom dash (same as A)']],
   tips: [
     'Run into a dot to catch it, then run to the ladybug to give it to her.',
     'Empty circles on her back show how many she wants. Count them!',

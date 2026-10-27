@@ -17,6 +17,7 @@ import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
 import { charById } from '../data/characters.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU, dist, later } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape, drawHeartShape } from '../engine/emotes.js';
+import { Dash } from '../engine/dash.js';
 import { meta } from './fairy-garden.meta.js';
 
 const NAVY = '#24163f';
@@ -401,7 +402,7 @@ export class Game {
       const a = new Actor(p, { scale: sc, x: W / 2 + (i - (n - 1) / 2) * Math.min(170, (W - 300) / n), y: rows === 2 ? 730 : 620 });
       a.facing = i < n / 2 ? 1 : -1; a.snap();
       const m = {
-        p, i, a, seed: i % SEEDS.length, canT: 0, castT: 0, singCD: 0, dustCD: 0, jar: 0,
+        p, i, a, seed: i % SEEDS.length, canT: 0, castT: 0, singCD: 0, dustCD: 0, jar: 0, dash: new Dash(),
         planted: 0, watered: 0, sung: 0, chipPop: 0, seedPop: 0, target: null,
         brain: new Brain(p), ai: { task: null, t: rand(0.3, 1), seedWant: null, admire: 0 },
       };
@@ -481,8 +482,9 @@ export class Game {
     const pad = c.kind === 'pad';
     let vx = (pad ? c.sx : c.x) * sp, vy = (pad ? c.sy : c.y) * sp * 0.85;
     if (m.canT > 0.35) { vx *= 0.3; vy *= 0.3; }
-    a.x = clamp(a.x + vx * dt, 60, W - 60);
-    a.y = clamp(a.y + vy * dt, MOVE_TOP, MOVE_BOTTOM);
+    const dd = m.dash.update(dt, c, { x: a.x, y: a.y, actor: a, sx: pad ? c.sx : c.x, sy: pad ? c.sy : c.y, ok: m.canT <= 0.35 && !p.isAI });   // B: a short dash
+    a.x = clamp(a.x + vx * dt + dd.x, 60, W - 60);
+    a.y = clamp(a.y + vy * dt + dd.y, MOVE_TOP, MOVE_BOTTOM);
     a.moveAnim(vx, vy, sp);
     if (Math.hypot(vx, vy) > 60 && chance(dt * 4)) particles.burst(a.x, a.y, { type: 'dust', count: 1, size: [6, 12] });
 
