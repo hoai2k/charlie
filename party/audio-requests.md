@@ -332,6 +332,8 @@ Spa!", `pop-star-stage` "Pop Star Stage!", `fairy-garden` "Fairy Garden!",
 
 ## 6. Music
 
+> **New songs to generate:** [`music-requests.md`](music-requests.md) lists them, ranked, with full copy-paste prompts.
+
 ### 6.1 General requirements
 
 - **Kid-friendly, upbeat and non-annoying on repeat.** A song may loop 3–5
