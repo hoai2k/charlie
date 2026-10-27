@@ -44,7 +44,7 @@ const BOW_LEN = 3.6;
 const CALL_BEATS = 8;          // a call lasts two bars...
 const GRACE = 0.9;             // ...and still counts this long into the next one
 const MAX_FLOCK = 14;          // butterflies drawn per dancer (the score keeps counting)
-const TEACHER = { x: 960, y: 650, h: 360 };
+const TEACHER = { x: 960, y: 700, h: 370 };
 const CARD = { x: 1430, y: 330, s: 290 };
 const HINT = { x: 420, y: 330 };
 const FLOOR = { x0: 150, x1: W - 150, y0: 750, y1: 1000 };
@@ -149,6 +149,11 @@ export class Game {
         ai: p.isAI ? { wander: { t: rand(0.3, 1.2), x, y }, nextMove: rand(1.5, 3.5), plan: null } : null,
       };
     });
+    // little fairies next to tall Charlie characters: nobody under 72% of the tallest dancer
+    const tallest = Math.max(...this.dancers.map((d) => d.a.height));
+    for (const d of this.dancers) {
+      if (d.a.height < tallest * 0.72) { const k = (tallest * 0.72) / d.a.height; d.a.scale *= k; d.baseScale *= k; }
+    }
     this.byIndex = [...this.dancers];
   }
 
@@ -185,8 +190,8 @@ export class Game {
       if (b % 4 === 0) particles.burst(rand(300, W - 300), 160, { type: 'confetti', count: 14, speed: [160, 420] });
       if (b % 2 === 0) this.startDemo(pick(DANCES));
     }
-    // Madame repeats the called move every bar, so it's always there to copy
-    if (this.phase === 'class' && this.call && this.call.t > 0.5 && b % 4 === 0 && !this.reactT) this.startDemo(this.call.M);
+    // Madame keeps dancing the called move on the beat, so it's always there to copy
+    if (this.phase === 'class' && this.call && !this.demo && !this.reactT) this.startDemo(this.call.M);
   }
 
   // --- calls -------------------------------------------------------------------
@@ -239,7 +244,7 @@ export class Game {
 
   teacherSay(text, dur = 1.4) { this.say = { text, t: 0, dur }; }
 
-  startDemo(M) { this.demo = { M, t: 0, dur: Math.max(0.7, M.beats * this.beatLen * 1.2), side: this.demo?.M === M && M.mirror ? -this.demo.side : 1 }; }
+  startDemo(M) { this.demo = { M, t: 0, dur: Math.max(1.0, M.beats * this.beatLen * 1.6), side: this.lastDemo === M && M.mirror ? -this.demoSide : 1 }; this.lastDemo = M; this.demoSide = this.demo.side; }
 
   popTiara() {
     this.tiara = { x: TEACHER.x + 6, y: TEACHER.y - TEACHER.h * 0.92, vx: 260, vy: -900, rot: 0, orbit: -1 };
@@ -496,10 +501,10 @@ export class Game {
     for (let i = 0; i < 160; i++) this.petals.push(this.newPetal(rand(-900, -20)));
     // the curtain call: everyone steps into one line (clear of the stars bar at the bottom)
     const line = [...this.dancers].sort((a, b) => a.d.hx - b.d.hx);
-    const span = Math.min(1500, (this.n - 1) * 300);
+    const span = Math.min(1560, (this.n - 1) * 440);
     line.forEach((d, k) => {
       d.d.stop(); d.queued = null;
-      d.to = { x: W / 2 + (this.n > 1 ? (k / (this.n - 1) - 0.5) * span : 0), y: this.n > 4 && k % 2 ? 790 : 830 };
+      d.to = { x: W / 2 + (this.n > 1 ? (k / (this.n - 1) - 0.5) * span : 0), y: this.n > 4 && k % 2 ? 840 : 890 };
       if (d.p.isAI) d.p.ctrl.move(0, 0);
     });
     const kids = this.players.some((p) => !p.isAI);
@@ -720,7 +725,7 @@ export class Game {
       const s = this.say, sk = ease.outBack(clamp(s.t / 0.25, 0, 1)), a = clamp((s.dur - s.t) / 0.25, 0, 1);
       g.save(); g.font = `800 40px ${ui.FONT}`;
       const w = Math.max(160, g.measureText(s.text).width + 50);
-      const bx = TEACHER.x - 150 - w / 2, by = TEACHER.y - TEACHER.h + 40;
+      const bx = Math.max(HINT.x + 140 + w / 2, TEACHER.x - 90 - w / 2), by = TEACHER.y - TEACHER.h + 20;   // clear of the big button
       g.globalAlpha = a; g.translate(bx, by); g.scale(sk, sk);
       ui.panel(g, -w / 2, -38, w, 76, { r: 34, fill: '#fff', lineWidth: 5 });
       g.fillStyle = '#fff'; g.strokeStyle = NAVY; g.lineWidth = 5;
@@ -793,8 +798,8 @@ export class Game {
     ui.panel(g, -130, -130, 260, 260, { r: 130, fill: 'rgba(255,255,255,0.9)', stroke: col, lineWidth: 8 });
     const k = 1 + Math.abs(Math.sin(this.beat * Math.PI)) * 0.12;
     if (finale) {
-      const btns = ['a', 'b', 'x', 'y'];
-      g.save(); g.scale(k, k); ui.glyph(g, btns[Math.floor(this.beat) % 4], 0, 0, 120); g.restore();
+      const btns = this.easy ? ['a'] : ['a', 'b', 'x', 'y'];   // Easy: A is all you need (any button counts)
+      g.save(); g.scale(k, k); ui.glyph(g, btns[Math.floor(this.beat) % btns.length], 0, 0, 120, { pulse: this.easy }); g.restore();
     } else if (this.easy) {
       // Easy: A does the called move; its own button is there too (small) for those who like it
       g.save(); g.scale(k, k); ui.glyph(g, 'a', 0, c.M.btn === 'a' ? 0 : -18, 128, { pulse: true }); g.restore();
