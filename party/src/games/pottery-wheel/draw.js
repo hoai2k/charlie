@@ -568,7 +568,7 @@ export class PotteryDrawing {
     g.closePath(); g.fill(); g.stroke();
     g.restore();
     // option rows
-    const rows = [[st.p.ctrl.kind === 'pad' ? 'dpad' : 'rt', `Handles: ${st.pot.handles}`], ['y', 'Bake'], ['b', 'Smooth']];
+    const rows = [[st.p.ctrl.kind !== 'kb' ? 'dpad' : 'rt', `Handles: ${st.pot.handles}`], ['y', 'Bake'], ['b', 'Smooth']];
     const rh = clamp((lr.y + lr.h - (sy + sh + 16)) / 3.2, 26, 60);
     let y = sy + sh + 14 + rh / 2;
     const gs = rh * 0.7, lfs = clamp(rh * 0.42, 14, 26);
@@ -687,7 +687,7 @@ export class PotteryDrawing {
     ui.text(g, p.tag, x + tw / 2, y + 1, { size: sz * 0.55, strokeWidth: 4, shadow: false });
     x += tw + 12;
     if (wide) { drawPortrait(g, p, x + sz * 0.55, y, sz * 0.55, { ring: p.color, ringWidth: 3 }); x += sz * 1.4; }
-    const pad = p.ctrl.kind === 'pad';
+    const pad = p.ctrl.kind !== 'kb';   // CPUs drive like a gamepad
     let items;
     if (st.ready) items = st.p.isAI ? [] : [['b', 'Change']];
     else if (st.confirm) items = [['a', 'Yes!'], ['b', 'Not yet']];
