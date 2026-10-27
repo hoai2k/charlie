@@ -22,6 +22,7 @@ import { sfx, voice, hasSound } from '../engine/audio.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
 import { clamp, damp, rand, randInt, pick, chance, TAU, dist, lerp, later } from '../engine/util.js';
+import { Dash } from '../engine/dash.js';
 import {
   NAVY, POOL, PUDDLES, PORCH_Y, BREEDS, drawPuppy, drawMud, makeBlobs, drawBackyard, drawPuddle, drawPool, drawBed, drawNozzle,
 } from './puppy-splash/art.js';
@@ -86,7 +87,7 @@ export class Game {
       a.facing = x < W / 2 ? 1 : -1; a.snap();
       return {
         p, a, i, x, y, sizeK, vx: 0, vy: 0, aim: x < W / 2 ? -0.5 : -Math.PI + 0.5, spraying: false, sprayT: 0, hitD: RANGE,
-        cleaned: 0, wet: 0, mud: 0, bubble: 0, brain: new Brain(p), target: null, wander: 0, wx: x, wy: y, giggleCd: 0,
+        cleaned: 0, wet: 0, mud: 0, bubble: 0, dash: new Dash(), brain: new Brain(p), target: null, wander: 0, wx: x, wy: y, giggleCd: 0,
         poolCd: 0, holdT: 0, restT: 0, streamPh: rand(TAU),
       };
     });
@@ -356,7 +357,8 @@ export class Game {
     }
     const sp = MAX_SPEED * (p.isAI ? CPU_SPEED[clamp(p.aiLevel ?? 0, 0, 2)] / aiProfile(p).speed : 1) * (e.spraying ? SPRAY_SLOW : 1);
     e.vx = damp(e.vx, ix * sp, 10, dt); e.vy = damp(e.vy, iy * sp * 0.85, 10, dt);
-    e.x = clamp(e.x + e.vx * dt, BOUNDS.x0, BOUNDS.x1); e.y = clamp(e.y + e.vy * dt, BOUNDS.y0, BOUNDS.y1);
+    const dd = e.dash.update(dt, c, { x: e.x, y: e.y, actor: a, ok: !this.done && !p.isAI });   // B: a short dash
+    e.x = clamp(e.x + e.vx * dt + dd.x, BOUNDS.x0, BOUNDS.x1); e.y = clamp(e.y + e.vy * dt + dd.y, BOUNDS.y0, BOUNDS.y1);
     // bubble pool: wade in for a bubble hose
     if (inEllipse(e.x, e.y, POOL, 1.05)) {
       if (e.bubble < 6.5 && e.poolCd <= 0) {

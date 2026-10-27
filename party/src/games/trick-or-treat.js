@@ -26,6 +26,7 @@ import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
 import { easySteer, easyNearest, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, TAU, ease, later, placementsFromScores } from '../engine/util.js';
+import { Dash } from '../engine/dash.js';
 import {
   NAVY, GROUND_Y, WALK, HOUSE_X, DOOR, CANDY_COLS, VISITORS, streetBackground, drawHouse, drawDoor, drawLantern, paintedHouse, porchLight,
   drawCandy, drawBucket, drawVisitor, drawChicken, drawJack, drawCandyGhost, drawCandyPile,
@@ -77,7 +78,7 @@ export class Game {
       const y = 860 + (i % 2) * 70;
       const a = new Actor(p, { scale: this.scale, x, y, outfit: looks[i % looks.length] });
       a.facing = x < W / 2 ? 1 : -1; a.snap();
-      const U = { p, i, a, x, y, z: 0, vz: 0, vx: 0, vy: 0, count: 0, spinCd: 0, laughT: 0, dizzy: 0, brain: new Brain(p), ai: { door: null, knockAt: null, dawdle: 0 }, finale: null };
+      const U = { p, i, a, x, y, z: 0, vz: 0, vx: 0, vy: 0, count: 0, spinCd: 0, laughT: 0, dizzy: 0, dash: new Dash(), brain: new Brain(p), ai: { door: null, knockAt: null, dawdle: 0 }, finale: null };
       a.attach((g, info) => drawBucket(g, info.hand.x, info.hand.y, info.h, U.finale ? U.count - U.finale.poured : U.count, this.t));
       return U;
     });
@@ -173,8 +174,9 @@ export class Game {
     if (mag > 1) { mx /= mag; my /= mag; }
     const sp = SPEED * (U.dizzy > 0 ? 0.35 : 1);
     U.vx = damp(U.vx, mx * sp, 14, dt); U.vy = damp(U.vy, my * sp * 0.75, 14, dt);
-    U.x = clamp(U.x + U.vx * dt, WALK.x0, WALK.x1);
-    U.y = clamp(U.y + U.vy * dt, WALK.y0, WALK.y1);
+    const dd = U.dash.update(dt, p.ctrl, { x: U.x, y: U.y, actor: U.z > 1 ? null : a, facing: a.facing, ok: this.phase === 'play' && U.dizzy <= 0 && !p.isAI });   // B: a short dash
+    U.x = clamp(U.x + U.vx * dt + dd.x, WALK.x0, WALK.x1);
+    U.y = clamp(U.y + U.vy * dt + dd.y, WALK.y0, WALK.y1);
     // hop
     if (U.z > 0 || U.vz > 0) { U.vz -= 2600 * dt; U.z += U.vz * dt; if (U.z <= 0) { U.z = 0; U.vz = 0; a.squash(0.25); } }
     if (p.ctrl.pressed('a')) this.pressA(U);

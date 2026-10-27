@@ -44,6 +44,7 @@ import {
   drawPuddle, drawMegaPuddle, drawMegaBubbles, targetPath, drawTarget, makeSplat, drawSplat, drawGoose,
 } from './muddy-mayhem/art.js';
 import { nextKind, sayFor, drawShock, drawSteam, drawWag, drawShout } from '../engine/fluster.js';
+import { Dash } from '../engine/dash.js';
 import { meta } from './muddy-mayhem.meta.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
@@ -163,7 +164,7 @@ export class Game {
       a.facing = x < W / 2 ? 1 : -1; a.snap();
       const e = {
         p, a, i, x, y, vx: 0, vy: 0, sizeK, mud: 0, score: 0, cd: 0, cleanT: 0, immuneT: 0, hintT: 0, giggleCd: 0,
-        brain: new Brain(p), goal: null, gx: x, gy: y, aiShake: rand(0.5, 1), inMud: false, splatFlash: 0, blobs: makeBodyBlobs(),
+        dash: new Dash({ color: '#b08a5a' }), brain: new Brain(p), goal: null, gx: x, gy: y, aiShake: rand(0.5, 1), inMud: false, splatFlash: 0, blobs: makeBodyBlobs(),
       };
       a.attach((g, info) => this.drawBodyMud(g, info, e));
       return e;
@@ -607,7 +608,8 @@ export class Game {
     const pud = this.puddleAt(e.x, e.y);
     const sp = MAX_SPEED * (p.isAI ? CPU_SPEED[clamp(p.aiLevel ?? 0, 0, 2)] / aiProfile(p).speed : e.ez ? (manual ? 0.85 : 0.72) : 1) * (pud ? 0.78 : 1);
     e.vx = damp(e.vx, ix * sp, 10, dt); e.vy = damp(e.vy, iy * sp * 0.85, 10, dt);
-    e.x = clamp(e.x + e.vx * dt, BOUNDS.x0, BOUNDS.x1); e.y = clamp(e.y + e.vy * dt, BOUNDS.y0, BOUNDS.y1);
+    const dd = e.dash.update(dt, c, { x: e.x, y: e.y, actor: a, ok: this.phase === 'play' && !p.isAI });   // B: a short dash
+    e.x = clamp(e.x + e.vx * dt + dd.x, BOUNDS.x0, BOUNDS.x1); e.y = clamp(e.y + e.vy * dt + dd.y, BOUNDS.y0, BOUNDS.y1);
     const speed = Math.hypot(e.vx, e.vy);
     // mud!
     if (pud) {

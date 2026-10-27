@@ -22,6 +22,7 @@ import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, rand, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
 import { art } from '../engine/art.js';
+import { Dash } from '../engine/dash.js';
 import { PATTERNS, PAT_COLOR, drawSock, drawPuppy, drawBasket, drawLine, drawPin, drawYard, lineY, LINE } from './sock-match/draw.js';
 
 import { meta } from './sock-match.meta.js';
@@ -75,7 +76,7 @@ export class Game {
       const y = 640 + (i % 2) * 60;
       const a = new Actor(p, { scale: this.scale, x, y });
       a.facing = x < W / 2 ? 1 : -1; a.snap();
-      return { p, a, i, x, y, vx: 0, vy: 0, held: null, heldT: 0, score: 0, cool: 0, bumpT: 0, brain: new Brain(p), plan: null,
+      return { p, a, i, x, y, vx: 0, vy: 0, held: null, heldT: 0, score: 0, cool: 0, bumpT: 0, dash: new Dash(), brain: new Brain(p), plan: null,
         auto: this.easy && !p.isAI ? { ix: 0, iy: 0, sock: null, t: 0 } : null };
     });
     this.burst(this.pairsPerWave, true);
@@ -248,8 +249,9 @@ export class Game {
     const tx = ix * k * MAX_SPEED * cap, ty = iy * k * MAX_SPEED * 0.85 * cap;
     const step = ACCEL * dt;
     e.vx += clamp(tx - e.vx, -step, step); e.vy += clamp(ty - e.vy, -step, step);
-    e.x = clamp(e.x + e.vx * dt, FLOOR.x0, FLOOR.x1);
-    e.y = clamp(e.y + e.vy * dt, FLOOR.y0, FLOOR.y1);
+    const dd = e.dash.update(dt, c, { x: e.x, y: e.y, facing: a.facing, actor: e.held ? null : a, ok: !this.done && !p.isAI });   // B: a short dash
+    e.x = clamp(e.x + e.vx * dt + dd.x, FLOOR.x0, FLOOR.x1);
+    e.y = clamp(e.y + e.vy * dt + dd.y, FLOOR.y0, FLOOR.y1);
     if (!this.done && c.pressed('a') && e.cool <= 0) this.action(e);
     if (!a._once && !this.done) {
       const sp = Math.hypot(e.vx, e.vy);

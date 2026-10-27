@@ -359,6 +359,19 @@ export class Game {
   }
 
   // ----------------------------------------------------------------- swimmers
+  /** Zoom (A, or B as a plain dash) toward (dx, dy), or the way she faces. */
+  zoomOff(e, dx, dy) {
+    const a = e.a, p = e.p;
+    if (Math.hypot(dx, dy) < 0.2) { dx = a.facing; dy = 0; }
+    const dd = Math.hypot(dx, dy);
+    e.vx = dx / dd * ZOOM; e.vy = dy / dd * ZOOM;
+    e.zoom = ZOOM_T; e.zoomCd = ZOOM_CD;
+    snd('mp-zoom', 'whoosh', { vol: 0.5 });
+    particles.burst(e.x - dx / dd * 50, e.y - a.height * 0.4, { type: 'bubble', count: 8, colors: ['#ffffff', '#c8f4ff'], speed: [80, 220] });
+    a.squash(-0.25);
+    if (!p.isAI) p.ctrl.rumble(0.25, 60);
+  }
+
   swim(e, dt) {
     const a = e.a, p = e.p, s = this.scale;
     e.zoom = Math.max(0, e.zoom - dt); e.zoomCd = Math.max(0, e.zoomCd - dt);
@@ -385,16 +398,9 @@ export class Game {
         // Molly Easy: zoom straight at the target when it's in reach, or on an A pressed again and
         // again with no steering (easyThink / easyAutoOk); otherwise like Medium (stick / facing)
         if (e.auto && !e.auto.pushing && (e.auto.near || e.auto.goT > 0)) { dx = e.auto.dx; dy = e.auto.dy; }
-        if (Math.hypot(dx, dy) < 0.2) { dx = a.facing; dy = 0; }
-        const dd = Math.hypot(dx, dy);
-        e.vx = dx / dd * ZOOM; e.vy = dy / dd * ZOOM;
-        e.zoom = ZOOM_T; e.zoomCd = ZOOM_CD;
-        snd('mp-zoom', 'whoosh', { vol: 0.5 });
-        particles.burst(e.x - dx / dd * 50, e.y - a.height * 0.4, { type: 'bubble', count: 8, colors: ['#ffffff', '#c8f4ff'], speed: [80, 220] });
-        a.squash(-0.25);
-        if (!p.isAI) p.ctrl.rumble(0.25, 60);
+        this.zoomOff(e, dx, dy);
       }
-    }
+    } else if (live && !p.isAI && p.ctrl.pressed('b') && e.zoomCd <= 0) this.zoomOff(e, p.ctrl.x, p.ctrl.y);   // B: the same zoom (a dash), the way the stick points or you face - never aimed for you
     const max = SWIM * (this.storm ? 1.08 : 1) * (p.isAI ? [0.72, 0.8, 0.86][clamp(p.aiLevel ?? 0, 0, 2)] : e.auto ? (e.auto.manual ? 0.85 : 0.42) : 1);
     if (e.zoom <= 0) {
       const ax = ix * max, ay = iy * max;

@@ -216,7 +216,7 @@ export class Game {
       if (e.ez && e.ez.aim) this.startLoop(e, e.ez.aim.x - e.x, e.ez.aim.y - cy);   // Easy: zoom at the sparkle
       else if (far) { this.startLoop(e, far.x - e.x, far.y - cy); e.ez.lx = clamp(far.x, LEFT + 60, RIGHT - 60); }   // and her patch of sky moves there
       else this.startLoop(e, ix, iy);
-    }
+    } else if (play && !e.p.isAI && ctrl.pressed('b') && e.loopCd <= 0 && e.loopT <= 0) this.startLoop(e, ctrl.x, ctrl.y);   // B: the same zoom (a dash), the stick's way or her facing - never aimed for her
     if (e.loopT > 0) {
       e.loopT -= dt;
       if (Math.random() < dt * 40) particles.burst(e.x, e.y - a.height * 0.5, { type: 'sparkle', count: 1, colors: [e.p.color, '#fff', '#ffd23f'], speed: [20, 90], life: [0.4, 0.8], size: [10, 18] });

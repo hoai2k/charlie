@@ -20,6 +20,7 @@ import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, dist } from '../engine/util.js';
+import { Dash } from '../engine/dash.js';
 import { ARENA, BIG, FRIEND, NAVY, drawFlake, drawSnowball, drawPenguin, drawFriend, drawBigSnowman, drawMeadow, drawTongue, friendHand } from './snowflake-catch/art.js';
 
 import { meta } from './snowflake-catch.meta.js';
@@ -69,7 +70,7 @@ export class Game {
       const a = new Actor(p, { scale: this.base, x, y });
       a.facing = x < W / 2 ? 1 : -1; a.snap();
       const boost = a.leader.h < 80 ? 1.9 : 1;   // tiny fairy avatars
-      return { p, a, i, boost, x, y, vx: 0, vy: 0, score: 0, tongue: 0, spin: 0, spinDir: 1, glitter: 0, brain: new Brain(p), target: null, wander: 0, wx: x, wy: y, err: [0, 0], popN: 0, popT: 0, giggleT: 0 };
+      return { p, a, i, boost, x, y, vx: 0, vy: 0, score: 0, tongue: 0, spin: 0, spinDir: 1, glitter: 0, dash: new Dash(), brain: new Brain(p), target: null, wander: 0, wx: x, wy: y, err: [0, 0], popN: 0, popT: 0, giggleT: 0 };
     });
   }
 
@@ -187,7 +188,7 @@ export class Game {
     e.glitter = Math.max(0, e.glitter - dt);
     if (e.glitter <= 0 && a._tint) a.tint(null);
     if (e.spin > 0) {
-      e.spin -= dt;
+      e.spin -= dt; e.dash.cancel();
       a.facing = Math.sin(e.spin * 30) > 0 ? 1 : -1;
       e.vx *= Math.exp(-4 * dt); e.vy *= Math.exp(-4 * dt);
       e.x = clamp(e.x + e.vx * dt, ARENA.x0, ARENA.x1); e.y = clamp(e.y + e.vy * dt, ARENA.y0, ARENA.y1);
@@ -209,7 +210,8 @@ export class Game {
     // Easy: the auto-walk slows right down with the tongue out, so timing A beats holding it
     const sp = SPEED * (tongue ? (auto && !e.ezManual ? 0.4 : 0.85) : 1);
     e.vx = approach(e.vx, ix * sp, 4200 * dt); e.vy = approach(e.vy, iy * sp * 0.8, 4200 * dt);
-    e.x = clamp(e.x + e.vx * dt, ARENA.x0, ARENA.x1); e.y = clamp(e.y + e.vy * dt, ARENA.y0, ARENA.y1);
+    const dd = e.dash.update(dt, ctrl, { x: e.x, y: e.y, actor: tongue ? null : a, facing: a.facing, ok: !this.done && !e.p.isAI });   // B: a short dash
+    e.x = clamp(e.x + e.vx * dt + dd.x, ARENA.x0, ARENA.x1); e.y = clamp(e.y + e.vy * dt + dd.y, ARENA.y0, ARENA.y1);
     if (tongue && !a._once) {
       a.setPose(poseName('tongue-out'));
       if (Math.abs(e.vx) > 30) a.facing = e.vx > 0 ? 1 : -1;

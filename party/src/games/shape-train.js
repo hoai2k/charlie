@@ -27,6 +27,7 @@ import { art } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, makesMistake } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, shuffle, ease, dist, TAU, later } from '../engine/util.js';
+import { Dash } from '../engine/dash.js';
 import {
   NAVY, TRACK_Y, FAR_Y, TUNNEL, COW, RIVER, SHAPES, SHAPE_IDS, ANIMAL_IDS, ENGINE_W, ENGINE_H, CAR_W, CAR_H, GAP, ENGINE_COLORS,
   shapePath, drawShape, drawAnimal, drawPassenger, drawEngine, drawCar, drawWindowBack, drawWindowFrame, drawCow, drawTunnelPortal,
@@ -97,7 +98,7 @@ export class Game {
     const y = rows === 2 ? (row ? 990 : 900) : 940;
     const a = new Actor(p, { scale: this.scale, x, y });
     a.facing = x < W / 2 ? 1 : -1; a.snap();
-    return { p, i, a, x, y, vx: 0, vy: 0, carry: null, hop: 0, delivered: 0, busy: 0, ai: { target: null, actAt: -1, distract: 0, wrongCar: null, thinkT: rand(0.2, 0.8), wander: null } };
+    return { p, i, a, x, y, vx: 0, vy: 0, carry: null, hop: 0, delivered: 0, busy: 0, dash: new Dash(), ai: { target: null, actAt: -1, distract: 0, wrongCar: null, thinkT: rand(0.2, 0.8), wander: null } };
   }
 
   // --- trains -------------------------------------------------------------------------------
@@ -223,7 +224,8 @@ export class Game {
     if (mag > 1) { mx /= mag; my /= mag; }
     if (U.busy > 0) { mx *= 0.3; my *= 0.3; }
     U.vx = damp(U.vx, mx * WALK, 14, dt); U.vy = damp(U.vy, my * WALK, 14, dt);
-    U.x += U.vx * dt; U.y += U.vy * dt;
+    const dd = U.dash.update(dt, p.ctrl, { x: U.x, y: U.y, facing: a.facing, actor: U.carry ? null : a, ok: !this.over && U.busy <= 0 && !p.isAI });   // B: a short dash
+    U.x += U.vx * dt + dd.x; U.y += U.vy * dt + dd.y;
     if (p.ctrl.pressed('a') && !this.over) this.pressA(U);
     const sp = Math.hypot(U.vx, U.vy);
     if (sp > 200 && Math.random() < dt * 8) particles.burst(U.x, U.y, { type: 'dust', count: 1, colors: ['#e6d3c0', '#ffffff'] });
