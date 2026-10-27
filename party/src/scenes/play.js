@@ -59,8 +59,12 @@ export class PlayScene {
       // hidden): left() returns the seconds left, or null while it isn't running. Shown for the
       // last `showAt` seconds (Infinity = always), at (x, y) with an optional label under it.
       // timeUp: { more(), done(), moreLabel } turns the end into a "Time's up!" question instead of
-      // an ending (Play Studio): the game pauses and the kids choose Keep playing (the default, so
-      // someone still mashing A just gets more time) or All done. All-CPU games just call done().
+      // an ending. A game with a goal that's in the middle of a stage (design -> show) passes
+      // timeUp: { goal: true, title: 'Time to put on a play!', goLabel: 'Go!', moreLabel: 'Stay in
+      // the design studio', more(), done() }: then going on (done) is first and the default, and
+      // more() is the "take more time in this stage" choice. Without goal (a goal-less studio
+      // game): the game pauses and the kids choose Keep playing (the default, so someone still
+      // mashing A just gets more time) or All done. All-CPU games just call done().
       limit: (left, o = {}) => { host.limits.push({ left, showAt: o.showAt ?? 10, x: o.x ?? W / 2, y: o.y ?? 64, label: o.label || null, timeUp: o.timeUp || null, fired: false }); },
       // A whole-game clock for a Play Studio game that has no clock of its own: shown the whole time;
       // at 0 it asks "Time's up!"; Keep playing adds `more` seconds, All done ends the game
@@ -323,7 +327,11 @@ export class PlayScene {
     return false;
   }
 
-  timeUpItems() { return [[this.timeUp.L.timeUp.moreLabel || 'Keep playing!', 'more'], ['All done!', 'done']]; }
+  timeUpItems() {
+    const o = this.timeUp.L.timeUp;
+    if (o.goal) return [[o.goLabel || 'Go!', 'done'], [o.moreLabel || 'A little more time', 'more']];   // going on is the default
+    return [[o.moreLabel || 'Keep playing!', 'more'], ['All done!', 'done']];
+  }
 
   updateTimeUp(dt) {
     const T = this.timeUp;
@@ -358,7 +366,8 @@ export class PlayScene {
     const items = this.timeUpItems();
     const { h, top, item } = this.pauseLayout(items.length);
     ui.panel(g, W / 2 - 330, top, 660, h, { fill: '#fff8ec' });
-    ui.text(g, "Time's up!", W / 2, top + 64, { size: 70, color: '#ff6fb1' });
+    const o = this.timeUp.L.timeUp;
+    ui.text(g, o.title || "Time's up!", W / 2, top + 64, { size: o.title ? 56 : 70, color: '#ff6fb1', maxWidth: 620 });
     items.forEach(([label], i) => {
       const r = item(i), y = r.y + r.h / 2;
       const sel = i === this.timeUp.sel;
