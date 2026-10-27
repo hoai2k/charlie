@@ -113,5 +113,21 @@
       "fingerprint": "0a517092a0c4bef7"
     }
   },
-  "tests": "17 Node test files passed; nail-studio8 and eight consuming Sister games completed naturally; Dance Studio2 completed; full and optimized Actor contacts reviewed."
+  "tests": "17 Node test files passed; nail-studio8 and eight consuming Sister games completed naturally; Dance Studio2 completed; full and optimized Actor contacts reviewed.",
+  "mergedGameplayRevision": "255dd0ae",
+  "mergedChecks": {
+    "nodeTestFiles": 17,
+    "nodeFailures": 0,
+    "danceStudioEightPlayerSmoke": "passed",
+    "danceButtonInputPlayers": [
+      1,
+      8
+    ],
+    "danceButtonFullQualityPlayers": [
+      1
+    ],
+    "sisterConsumerGames": 8,
+    "sisterConsumerFailures": 0,
+    "preservedRemoteGameplayCode": true
+  }
 }

@@ -62,7 +62,11 @@ export function updateAir(air, inp, dt, actor, rising) {
     if (n1 > n0) ev.flip = n1;
   }
   if (inp.twist) air.twistQ = Math.min(3, air.twistQ + 1);
-  if (air.twistT < 0 && air.twistQ > 0) { air.twistQ--; air.twistT = 0; }
+  if (air.twistT < 0 && air.twistQ > 0) {
+    air.twistQ--; air.twistT = 0;
+    // the twist is her pose-twirl pose (a set without one falls back to a strike), not a paper squash
+    if (air.starT <= 0) actor.playOnce('pose-twirl', TWIST_T, rising ? 'jump' : 'fall');
+  }
   if (air.twistT >= 0) {
     air.twistT += dt / TWIST_T;
     if (air.twistT >= 1) { air.twistT = -1; air.twists++; ev.twist = true; }
@@ -77,11 +81,11 @@ export function updateAir(air, inp, dt, actor, rising) {
   return ev;
 }
 
-/** Horizontal squash for the twist (1 = facing normally, -1 = turned around). */
+/** Horizontal stretch during a twist: a slight squeeze only (the pose-twirl
+ *  frames show the turn); never squashed through zero like a sheet of paper. */
 export function twistScale(air) {
   if (!air || air.twistT < 0) return 1;
-  const c = Math.cos(air.twistT * TAU);
-  return Math.sign(c || 1) * Math.max(0.08, Math.abs(c));
+  return 1 - 0.1 * Math.sin(air.twistT * Math.PI);
 }
 
 /** Record one sample (positions relative to the launch point, in actor heights). */

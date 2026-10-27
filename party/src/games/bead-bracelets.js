@@ -12,7 +12,7 @@
 // two timed pattern rounds wins, with the FINISH banner and awards podium.
 import { playerName } from '../state.js';
 import { W, H } from '../engine/canvas.js';
-import { Actor, drawPortrait, getSpriteSet } from '../engine/sprites.js';
+import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { input } from '../engine/input.js';
 import { particles, RAINBOW } from '../engine/particles.js';
@@ -1289,16 +1289,8 @@ export class Game {
   }
 
   drawActorTwirl(g, a, twirlT, opts) {
-    // Characters with real twirl frames (pose-twirl) just play them; only a
-    // character without them gets the flipping-card fake spin.
-    if (twirlT >= 0 && twirlT < 1 && !getSpriteSet(a.leader.asset)?.poses['pose-twirl']) {
-      const ang = ease.inOutQuad(clamp(twirlT, 0, 1)) * TAU * 2, sx = Math.cos(ang);
-      const s = Math.abs(sx) < 0.08 ? (sx < 0 ? -0.08 : 0.08) : sx;
-      g.save(); g.translate(a.x, 0); g.scale(s, 1); g.translate(-a.x, 0);
-      a.draw(g, { ...opts, emotes: false });
-      g.restore();
-      return;
-    }
+    // The twirl is the pose-twirl pose (playOnce; sets without it fall back
+    // to a strike pose): never a paper-flip squash of the sprite.
     a.draw(g, opts);
   }
 

@@ -16,7 +16,7 @@ import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
-import { easySteer, easyPrompt } from '../engine/easy.js';
+import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { drawHeartShape } from '../engine/emotes.js';
 import { bodyRadius, claimed } from '../engine/crowd.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
@@ -57,7 +57,7 @@ export class Game {
   constructor(api) {
     this.api = api;
     this.players = api.players;
-    this.easy = !!api.easy;     // Molly Easy: humans auto-run to kittens, A cuddles
+    this.easy = !!api.easy;     // Molly Easy: A cuddles; A again and again (no steering) runs you to a kitten
     const n = this.n = this.players.length;
     this.t = 0; this.timeLeft = DURATION; this.done = false; this.party = false; this.partyT = 0;
     // the nap clock, shown the whole game
@@ -607,13 +607,17 @@ export class Game {
     if (d < 12) ctrl.move(0, 0);
   }
 
-  /** Molly Easy (humans): the basket runs itself to the best kitten; the player only presses A. */
+  /** Molly Easy (humans): the stick runs the basket; A cuddles (or hops). Only A pressed again
+   *  and again with no steering (easyAutoOk) runs the basket to the best kitten, for a moment
+   *  after each press; nobody runs it otherwise. */
   easyThink(e, dt) {
-    // the stick runs the basket while it's pushed; let go and the autopilot carries on from here
     const st = easySteer(e, e.p.ctrl, dt);
-    if (st.manual) {
-      e.autoX = st.x * 0.9;
-      if (st.pushing) { e.target = null; e.retarget = 0; e.homeX = e.x; }
+    if (st.pushing) e.ezGoT = 0;
+    if (!this.done && e.p.ctrl.pressed('a') && easyAutoOk(e)) e.ezGoT = 3;
+    e.ezGoT = Math.max(0, (e.ezGoT || 0) - dt);
+    if (st.manual || e.ezGoT <= 0) {
+      e.autoX = st.manual ? st.x * 0.9 : 0;
+      e.target = null; e.retarget = 0; e.homeX = e.x;
       return;
     }
     e.retarget = (e.retarget || 0) - dt;

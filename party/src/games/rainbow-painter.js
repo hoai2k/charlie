@@ -21,7 +21,7 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { drawSparkleShape, drawStarShape, drawHeartShape } from '../engine/emotes.js';
-import { easySteer, easyPrompt } from '../engine/easy.js';
+import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { clamp, approach, lerp, rand, pick, chance, ease, TAU, later } from '../engine/util.js';
 import { meta } from './rainbow-painter.meta.js';
 
@@ -97,7 +97,7 @@ const FLOWER_SHAPES = [{ c: [0, -120, 44] }, { r: [-14, -85, 28, 85] }];
 export class Game {
   constructor(api) {
     this.api = api;
-    this.easy = !!api.easy;   // Molly Easy: human clouds fly themselves, hold A to paint (and to catch the Paint Star)
+    this.easy = !!api.easy;   // Molly Easy: hold A to paint (and to catch the Paint Star); A again and again (no steering) flies you to grey
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -590,14 +590,18 @@ export class Game {
     ctrl.hold('a', !!(near && e.holdOff <= 0 && this.phase !== 'party'));
   }
 
-  /** Molly Easy: fly a human's cloud to the next grey spot (spread out from
-   *  the others), or to the Paint Star when it floats close. Returns stick x/y. */
+  /** Molly Easy: either stick flies the cloud (like Medium) and hold A paints where it is.
+   *  Nobody flies it otherwise, except A pressed again and again with no steering
+   *  (easyAutoOk): then it flies to the next grey spot (spread out from the others), or to
+   *  the Paint Star when it floats close, for as long as A stays held. Returns stick x/y. */
   easyPilot(e, dt) {
-    const z = e.ez, s = this.star;
-    // either stick still flies the cloud (like Medium); let go and the autopilot
-    // picks the nearest grey spot from wherever the cloud is now
-    const st = easySteer(z, e.p.ctrl, dt);
+    const z = e.ez, s = this.star, c = e.p.ctrl;
+    const st = easySteer(z, c, dt);
+    if (st.pushing) z.goT = 0;
+    if (c.pressed('a') && easyAutoOk(z)) z.goT = 3;
+    z.goT = Math.max(c.held('a') && z.goT > 0 ? 1 : 0, (z.goT || 0) - dt);
     if (st.manual) { z.cell = null; z.think = 0; return [st.x, st.y]; }
+    if (z.goT <= 0) { z.cell = null; z.think = 0; return [0, 0]; }
     z.think -= dt;
     // the nearest human to a reachable star goes for it
     const starFor = s && s.t > 0.4 && s.x > 120 && s.x < W - 120

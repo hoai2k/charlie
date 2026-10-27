@@ -117,7 +117,8 @@ export function integrate(f, dt, game) {
   }
   const sp = Math.hypot(f.vx, f.vy);
   if (Math.abs(f.vx) > 10 && !k.jelly) f.dir = f.vx > 0 ? 1 : -1;
-  f.face = approach(f.face, f.dir, dt * 5);
+  faceTo(f, f.dir, game);
+  if (!(f.play && f.play.kind === 'twirl')) f.spin = 0;
   f.wig += dt * (k.wig + sp * 0.06 + (f.state === 'held' ? 14 : 0));
   f.tilt = damp(f.tilt, k.upright || k.jelly ? f.vx * 0.0015 : clamp(Math.atan2(f.vy, Math.abs(f.vx) + 30) * 0.6, -0.5, 0.5), 6, dt);
   f.puffT -= dt;
@@ -131,12 +132,19 @@ export function integrate(f, dt, game) {
       const px = m.x;
       m.x = damp(m.x, tx, 5, dt); m.y = damp(m.y, ty, 5, dt);
       const mvx = (m.x - px) / Math.max(dt, 1e-3);
-      if (Math.abs(mvx) > 6) m.face = approach(m.face, mvx > 0 ? 1 : -1, dt * 6);
+      if (Math.abs(mvx) > 6) faceTo(m, mvx > 0 ? 1 : -1, game);
       m.wig += dt * (k.wig + Math.abs(mvx) * 0.06);
     }
   }
 }
-const approach = (v, t, s) => (v < t ? Math.min(t, v + s) : Math.max(t, v - s));
+/** Turning round: the fish just faces the other way (never a squashed, paper-thin flip),
+ *  with a tiny wiggle (drawFish) and now and then a bubble puff. */
+export function faceTo(f, dir, game) {
+  if (f.face === dir) return;
+  f.face = dir;
+  f.turnAt = game ? game.t : 0;
+  if (game && game.addBubble && f.kind && Math.random() < 0.3) game.addBubble(f.x - dir * f.kind.w * 0.3, f.y - 6, 3 + Math.random() * 3, f.fd);
+}
 
 export function emote(f, kind, dur = 1.4) { f.emote = { kind, t: 0, dur }; }
 
@@ -294,10 +302,12 @@ export function drawFish(g, f, env, o = {}) {
   const age = env.t - f.born, pop = age < 0.35 ? 0.3 + 0.7 * Math.sin(Math.min(1, age / 0.35) * Math.PI / 2) * 1.1 : 1;
   const bump = env.t - f.bump, bq = bump >= 0 && bump < 0.5 ? Math.sin(bump * 25) * Math.exp(-bump * 8) * 0.15 : 0;
   if (f.hidden > 0) return;
-  const one = (x, y, face, wig, sc) => {
+  const one = (x, y, face, wig, sc, turnAt) => {
     g.save(); g.translate(x, y);
-    g.rotate(f.tilt * (face >= 0 ? 1 : -1) * (k.upright || k.jelly ? -1 : 1));
-    const fx = k.jelly ? 1 : (Math.abs(face) < 0.12 ? 0.12 * Math.sign(face || 1) : face);
+    // facing is always a plain +-1 (no paper-style turn); a fresh turn gets a tiny wiggle instead
+    const tb = env.t - (turnAt ?? -9), tw = tb >= 0 && tb < 0.4 ? Math.sin(tb * 34) * Math.exp(-tb * 9) * 0.12 : 0;
+    g.rotate(f.tilt * (face >= 0 ? 1 : -1) * (k.upright || k.jelly ? -1 : 1) + tw + (f.spin || 0));
+    const fx = k.jelly ? 1 : face >= 0 ? 1 : -1;
     g.scale(sc * pop * fx * (1 + bq), sc * pop * (1 - bq));
     const key = `prop/aq-${k.id}-${col.n}` + (k.id === 'puffer' && f.puff > 0.5 ? '-puffed' : '');
     const img = art(key);
@@ -312,8 +322,8 @@ export function drawFish(g, f, env, o = {}) {
     } else if (!o.artOnly) body(g, f, col, env.t, wig);
     g.restore();
   };
-  if (f.mates) for (const m of f.mates) one(m.x, m.y, m.face, m.wig, s);
-  one(f.x, f.y, f.face, f.wig, s);
+  if (f.mates) for (const m of f.mates) one(m.x, m.y, m.face, m.wig, s, m.turnAt);
+  one(f.x, f.y, f.face, f.wig, s, f.turnAt);
   if (f.emote && !o.photo && !o.artOnly) drawEmote(g, f.emote.kind, f.x + 10 * s, f.y - (k.h * 0.5 + 34) * s, 30, f.emote.t);
 }
 
@@ -337,7 +347,7 @@ export function drawFishGlowBits(g, f, env) {
   }
   const s = fishScale(f.fd);
   const one = (x, y, face, wig) => {
-    g.save(); g.translate(x, y); g.scale(s * (k.jelly ? 1 : face), s);
+    g.save(); g.translate(x, y); g.scale(s * (k.jelly || face >= 0 ? 1 : -1), s);
     if (k.jelly) { g.globalAlpha *= 0.55; body(g, f, { ...col, c: shade(col.c, 0.5) }, env.t, wig, true); }
     else { g.fillStyle = col.rainbow ? RAINBOW[Math.floor(env.t * 6 + f.seed * 7) % RAINBOW.length] : shade(col.a, 0.4); g.fillRect(-20, -4, 38, 5); }
     g.restore();

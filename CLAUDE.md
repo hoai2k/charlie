@@ -80,7 +80,8 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   `timeUp.goal` instead: its own title, "Go!" first and the default, "stay" for more time),
   `api.finishTogether`, `showstopper()` in `engine/util.js`, `engine/easy.js`
   (Sister Party Easy: the stick is optional, A does everything, `easyPrompt` is
-  the one big-A cue) and `engine/crowd.js` (8-player spacing).
+  the one big-A cue; A only walks a child somewhere on a repeated press with no
+  recent stick use - `easyAutoOk` / `easyErrand`) and `engine/crowd.js` (8-player spacing).
 - Hidden games: `HIDDEN` in `party/src/games/index.js` takes a game off the
   shelves (and Random / Marathon); Settings -> "Show all games" (default off)
   puts them back at the end of their shelf. Page-2 games move up to fill the gaps;
@@ -110,6 +111,7 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   scene's 'gallery' state keeps the game's last screen up with everyone's stars
   and A/Y to go on, so end such a game on the art itself (Fashion Show posts its
   runway photos on a wall). Pass `gallery: false` only to keep the podium.
+- No paper flips: never squash flat art through scaleX 0 to turn or twirl; switch facing instantly; twirls use the pose-twirl pose (or an in-plane spin).
 - Audio in the race goes through the Web Audio engine in `audio.js`; don't set
   `HTMLAudioElement.volume` directly (iOS ignores it).
 

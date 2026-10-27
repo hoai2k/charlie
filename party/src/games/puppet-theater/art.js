@@ -642,13 +642,13 @@ const SOCK_HAIR = ['#ffd23f', '#ff6fb1', '#7fe0a8', '#c77dff', '#ff9f1c', '#7fd3
 /**
  * Draw a sock puppet. (x, y) = where its chin sits (like a stick puppet's
  * feet); h = head height. sock: { mouth 0..1, eyesX, eyesY (pupil offset
- * -1..1), blink 0..1, tilt, spin (-1..1 x-scale for twirls), mood }.
+ * -1..1), blink 0..1, tilt, spin (extra rock angle for twirls, radians), mood }.
  */
 export function drawSock(g, x, y, h, color, hair, facing, sock, t) {
   const w = h * 0.62, f = facing >= 0 ? 1 : -1;
   g.save(); g.translate(x, y);
-  g.scale((sock.spin ?? 1) * f, 1);
-  g.rotate(sock.tilt || 0);
+  g.scale(f, 1);
+  g.rotate((sock.tilt || 0) + (sock.spin || 0));
   const light = shade(color, 0.35);
   // arm/tube (goes down behind the playboard)
   g.fillStyle = color;

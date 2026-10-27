@@ -20,7 +20,7 @@ import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
-import { easySteer, easyPrompt } from '../engine/easy.js';
+import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, later } from '../engine/util.js';
 import { drawBubble, drawDuckling, drawStarFace, drawCupcake, drawFrog, drawRainbow, drawRubberDuck, drawMachine, drawGarden, drawSparkle } from './bubble-pop/art.js';
 
@@ -50,7 +50,7 @@ const pickSurprise = () => {
 export class Game {
   constructor(api) {
     this.api = api;
-    this.easy = !!api.easy;   // Molly Easy: humans run under a bubble by themselves, A jumps
+    this.easy = !!api.easy;   // Molly Easy: A jumps; A again and again (no steering) runs you under a bubble
     this.players = api.players;
     const n = this.n = this.players.length;
     this.t = 0; this.el = 0;
@@ -365,9 +365,14 @@ export class Game {
     e.popT = Math.max(0, e.popT - dt);
     let inX = this.done ? 0 : ctrl.x;
     if (this.easy && !p.isAI && !this.done) {
-      // Molly Easy: either stick still runs her about (a touch gentler than Medium);
-      // let go and the autopilot runs her under the nearest bubble from there
+      // Molly Easy: either stick still runs her about (a touch gentler than Medium).
+      // A jumps where she is; only A pressed again and again (no steering - easyAutoOk)
+      // runs her under the nearest bubble, for a moment after each press
+      if (e.ezSt && e.ezSt.pushing) e.ezGoT = 0;
+      if (ctrl.pressed('a') && easyAutoOk(e)) e.ezGoT = 2.5;
+      e.ezGoT = Math.max(0, (e.ezGoT || 0) - dt);
       if (e.ezSt && e.ezSt.manual) inX = e.ezSt.x * 0.85;
+      else if (e.ezGoT <= 0) inX = 0;
       else {
         const d = e.ezX - e.x;
         inX = Math.abs(d) > 12 ? Math.sign(d) * clamp(Math.abs(d) / 90, 0.25, 0.85) : 0;

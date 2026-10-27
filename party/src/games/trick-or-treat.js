@@ -23,7 +23,7 @@ import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
-import { easySteer, easyNearest, easyPrompt } from '../engine/easy.js';
+import { easySteer, easyNearest, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, TAU, ease, later, placementsFromScores } from '../engine/util.js';
 import {
@@ -63,7 +63,7 @@ export class Game {
   constructor(api) {
     this.api = api;
     this.players = api.players;
-    this.easy = !!api.easy;     // Molly Easy: humans auto-walk to lit doors, A knocks
+    this.easy = !!api.easy;     // Molly Easy: A knocks; A again and again (no steering) walks you to a lit door
     const n = this.players.length;
     this.n = n;
     this.t = 0; this.t0 = 0;
@@ -161,11 +161,12 @@ export class Game {
     U.spinCd = Math.max(0, U.spinCd - dt); U.laughT = Math.max(0, U.laughT - dt); U.dizzy = Math.max(0, U.dizzy - dt);
     let mx = p.ctrl.x, my = p.ctrl.y;
     if (this.easy && !p.isAI) {
-      // Easy: the stick steers like Medium while it's pushed; otherwise the autopilot walks
+      // Easy: the stick steers like Medium while it's pushed; otherwise she stands, unless
+      // A pressed again and again sent her to a door (pressA)
       const st = easySteer(U, p.ctrl, dt);
       if (st.manual) {
         mx = st.x; my = st.y;
-        if (st.pushing) { U.easyGo = null; U.easyDoor = null; U.easyRe = 0; }   // re-pick from here after
+        if (st.pushing) U.easyGo = null;
       } else [mx, my] = this.easyMove(U, dt);
     }
     const mag = Math.hypot(mx, my);
@@ -188,10 +189,11 @@ export class Game {
     const d = this.doorAt(U);
     if (d && d.state === 'ready') { this.knock(d, U); return; }
     if (d && d.state !== 'rest') return;                // waiting at a busy door
-    // Easy: A away from a lit door walks you to the nearest one (from where you are) and knocks
-    if (this.easy && !U.p.isAI && this.phase === 'play' && !(U._ezSteer > 0 && Math.hypot(U.p.ctrl.x, U.p.ctrl.y) > 0.25)) {
+    // Easy: A away from a lit door, pressed again with no steering (easyAutoOk), walks you to the
+    // nearest one (from where you are) and knocks; one A (or after steering) is just the jump-spin
+    if (this.easy && !U.p.isAI && this.phase === 'play' && easyAutoOk(U)) {
       const go = this.easyNearestDoor(U);
-      if (go && go !== d) { U.easyGo = go; U.easyDoor = go; U.easySlotY = clamp(U.y, WALK.y0 + 20, ZONE_Y - 30); U._ezSteer = 0; return; }
+      if (go && go !== d) { U.easyGo = go; U.easySlotY = clamp(U.y, WALK.y0 + 20, ZONE_Y - 30); U._ezSteer = 0; return; }
     }
     if (U.spinCd > 0 || U.z > 0) return;
     // a happy costume jump-spin
@@ -521,7 +523,7 @@ export class Game {
     });
   }
 
-  // --- Molly Easy (humans): walk by yourself, A knocks ----------------------------------
+  // --- Molly Easy (humans): A knocks; A again and again (no steering) walks you to a door ---
   easyNearestDoor(U) {
     // along the street: a lit door if there is one, else the nearest door
     const along = (d) => ({ x: d.x, y: 0 });
@@ -539,35 +541,8 @@ export class Game {
       }
       return this.easyToward(U, go.x + (U.i % 3 - 1) * 30, U.easySlotY, 0.95);
     }
-    // scoop candy lying close by first (the Candy Ghost's rain, fountain spills)
-    let best = null, bd = 300;
-    for (const c of this.spills) {
-      if (c.gone || c.toPile || !c.landed) continue;
-      const d = Math.hypot(c.tx - U.x, (c.ty - U.y) * 1.3);
-      if (d < bd) { bd = d; best = c; }
-    }
-    if (best) return this.easyToward(U, best.tx, best.ty, 0.8);
-    const cur = U.easyDoor;
-    // stay at a lit door until A; leave a door once it has finished giving
-    const stale = !cur || (cur.state === 'rest' && cur.st > 0.3) || (cur.state === 'ready' && cur !== this.doorAt(U) && this.units.some((o) => o !== U && o.easyDoor === cur && this.inZone(o, cur)));
-    U.easyRe = (U.easyRe || 0) - dt;
-    if (stale || (U.easyRe <= 0 && cur.state !== 'ready' && !this.inZone(U, cur))) {
-      U.easyRe = 0.5;
-      let bs = Infinity, pickD = null;
-      for (const d of this.doors) {
-        let s = Math.abs(d.x - U.x);
-        if (d.state === 'rest') s += 300 + Math.max(0, d.restT - d.st) * 350;
-        else if (d.state !== 'ready') s += 700;
-        if (d.gold) s -= 500;
-        s += this.units.filter((o) => o !== U && !o.p.isAI && o.easyDoor === d).length * 600;   // spread the kids out
-        if (s < bs) { bs = s; pickD = d; }
-      }
-      U.easyDoor = pickD; U.easySlotY = rand(WALK.y0 + 20, 860);
-    }
-    const d = U.easyDoor;
-    if (!d) return [0, 0];
-    if (this.inZone(U, d) && Math.abs(U.x - d.x) < 60) return [0, 0];
-    return this.easyToward(U, d.x + (U.i % 3 - 1) * 30, U.easySlotY, 0.85);
+    // the owner's rule: nobody walks her unless A is pressed again and again (pressA)
+    return [0, 0];
   }
 
   easyToward(U, tx, ty, sp) {

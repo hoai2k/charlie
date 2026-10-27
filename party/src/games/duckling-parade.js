@@ -62,9 +62,7 @@ const SPOTS = [
   { type: 'mushroom', x: 120, y: 420 }, { type: 'bush', x: 1820, y: 330 },
 ];
 const PARADE_RX = POND.rx + 125, PARADE_RY = POND.ry + 95;
-// Molly Easy: humans walk this loop round the pond by themselves (its top passes Mama's nest)
-const LOOP = { x: POND.x, y: 640, rx: 680, ry: 300 };
-const LOOP_SPEED = 0.75;
+const LOOP_SPEED = 0.75;   // Molly Easy: walking speed on an A-A errand (stick units)
 const MAMA_HOME = { x: NEST.x + 205, y: NEST.y + 22 };
 // prop/duck-nest: the front straw edge of the bowl, left to right (art px of the 400x220 image)
 const NEST_RIM = [[0, 100], [75, 100], [90, 115], [100, 122], [125, 132], [150, 140], [175, 146], [200, 149],
@@ -80,7 +78,7 @@ let duckSerial = 0;
 export class Game {
   constructor(api) {
     this.api = api;
-    this.easy = !!api.easy;   // Molly Easy: humans walk a loop round the pond, A quacks
+    this.easy = !!api.easy;   // Molly Easy: A quacks; A again and again (no steering) walks you to a duckling / home
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -115,11 +113,9 @@ export class Game {
         p, a, i, x, y, sizeK, vx: 0, vy: 0, line: [], trail: [{ x, y }], delivered: 0, delT: 0, batch: 0,
         callCd: 0, swapCd: 0, callFx: 0, brain: new Brain(p), target: null, goal: randInt(3, 6), wander: 0, wx: x, wy: y,
         cheerCd: 0, tx: x, ty: y,
-        ezAng: 0, ezNear: 0,
+        ezNear: 0,
       };
     });
-    // Molly Easy: humans spread out evenly round the loop (starting from the bottom)
-    this.ents.filter((e) => !e.p.isAI).forEach((e, k, hs) => { e.ezAng = Math.PI / 2 + (k * TAU) / hs.length; });
     // initial ducklings: fill a good share of the hiding spots
     const want = this.lostTarget();
     for (let k = 0; k < want; k++) this.spawnInSpot(true);
@@ -457,11 +453,14 @@ export class Game {
     if (inPond(e.x, e.y, 1.14) && Math.hypot(e.vx, e.vy) > 200 && chance(dt * 10)) particles.burst(e.x, e.y, { type: 'drop', count: 2, colors: ['#bfeaff', '#fff'], speed: [40, 120] });
     this.pushTrail(e, e.line.length);
     if (c.pressed('a') && e.callCd <= 0 && this.phase !== 'done') {
-      // Molly Easy: A with no duckling in range walks her to the nearest lost one and quacks there
+      // Molly Easy: A with no duckling in range quacks where she is; A again (no steering,
+      // easyErrand / easyAutoOk) walks her to the nearest lost one and quacks there - or,
+      // with 3+ in her line (or none left to find), takes them home to the nest
       if (this.easy && !p.isAI && this.phase === 'play' && !e.ezNear) {
-        const go = this.nearestLost(e);
+        const go = e.line.length >= 3 ? null : this.nearestLost(e);
         if (go) easyErrand(e, go, { reach: CALL_R * 0.6, timeout: 30, valid: (d) => this.phase === 'play' && (d.state === 'hide' || d.state === 'wander'),
-          act: () => { e.ezBack = true; if (e.callCd <= 0) this.quackCall(e); } });
+          act: () => { if (e.callCd <= 0) this.quackCall(e); } });
+        else if (e.line.length && dist(e.x, e.y, NEST.x, NEST.y + 20) > NEST_R * 0.8) easyErrand(e, { x: NEST.x, y: NEST.y + 20 }, { reach: NEST_R * 0.6, timeout: 30, valid: () => this.phase === 'play' && e.line.length > 0 });
       }
       this.quackCall(e);
     }
@@ -471,38 +470,24 @@ export class Game {
     else a.moveAnim(e.vx, e.vy, sp, { run: moving > sp * 0.6 });
   }
 
-  /** Molly Easy: the stick for a human walking the loop round the pond. */
+  /** Molly Easy: the stick for a human (or an A-A errand walking her). */
   easyWalk(e, dt) {
     let near = 0;
     for (const d of this.ducks) if ((d.state === 'hide' || d.state === 'wander') && dist(d.x, d.y, e.x, e.y) < CALL_R + e.a.radius - 20) near++;
     e.ezNear = this.phase === 'play' ? near : 0;
-    // either stick still walks her anywhere (like Medium); the loop waits for her
+    // either stick still walks her anywhere (like Medium)
     const st = easySteer(e, e.p.ctrl, dt);
     // an A press with no duckling in range: walk to the nearest lost one, quack on arrival
     const go = easyErrandStep(e, dt, { x: e.x, y: e.y, steering: st.pushing });
     if (this.phase !== 'play') return [0, 0];
-    if (st.manual && !go) { e.ezBack = true; return [st.x, st.y]; }
+    if (st.manual && !go) return [st.x, st.y];
     if (go) {
       const wp = this.aroundPond(e.x, e.y, go.x, go.y);   // round the pond, not into it
       const wx = wp.x - e.x, wy = wp.y - e.y, wd = Math.hypot(wx, wy) || 1, k = LOOP_SPEED * 1.15;
       return [wx / wd * k, wy / wd * k];
     }
-    if (e.ezBack) {
-      // back on the loop from wherever she is now (the closest point, no snapping back)
-      e.ezBack = false;
-      e.ezAng = Math.atan2((e.y - LOOP.y) / LOOP.ry, (e.x - LOOP.x) / LOOP.rx);
-    }
-    const tx = LOOP.x + Math.cos(e.ezAng) * LOOP.rx, ty = LOOP.y + Math.sin(e.ezAng) * LOOP.ry;
-    const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
-    // the target point runs ahead along the loop while we keep up with it
-    if (d < 140) {
-      const v = MAX_SPEED * LOOP_SPEED * 0.82;
-      const sp = Math.hypot(LOOP.rx * Math.sin(e.ezAng), LOOP.ry * Math.cos(e.ezAng)) || 1;
-      e.ezAng += (v * dt) / sp;
-    }
-    if (d < 4) return [0, 0];
-    const k = LOOP_SPEED * clamp(d / 60, 0.5, 1.15);
-    return [dx / d * k, dy / d * k];
+    // the owner's rule: nobody walks her unless she presses A again and again (the errand above)
+    return [0, 0];
   }
 
   /** Molly Easy: the closest lost duckling to this player (for an A press with none in range). */
@@ -554,7 +539,7 @@ export class Game {
       for (const B of this.ents) {
         if (B === A || !B.line.length) continue;
         if (A.p.isAI && !B.p.isAI) continue;     // CPUs never borrow from a kid's line
-        if (this.easy && !A.p.isAI && !B.p.isAI) continue;   // two Easy kids on the same loop never swap by accident
+        if (this.easy && !A.p.isAI && !B.p.isAI) continue;   // two Easy kids bumping into each other never swap by accident
         const k = B.line.findIndex((d) => dist(d.x, d.y, A.x, A.y) < 40);
         if (k < 0) continue;
         const d = B.line[k];
@@ -774,7 +759,7 @@ export class Game {
     for (const e of this.ents) {
       const a = e.a;
       if ((this.t < 6 || !e.p.isAI) && !this.api.ended?.()) ui.playerTag(g, e.p, e.x, e.y - a.height - 22 - (a.emotes.length ? 50 : 0));
-      if (this.phase === 'play' && e.line.length >= 3 && dist(e.x, e.y, NEST.x, NEST.y) > NEST_R + 60 && !(this.easy && !e.p.isAI)) this.drawHomeArrow(g, e);
+      if (this.phase === 'play' && e.line.length >= 3 && dist(e.x, e.y, NEST.x, NEST.y) > NEST_R + 60) this.drawHomeArrow(g, e);
     }
     if (this.easy && this.phase === 'play') {
       // Molly Easy: lost ducklings in quack range sparkle, and a big A says "quack now!"
@@ -927,10 +912,10 @@ export class Game {
       g.ellipse(0, -8 * ds, 30 * ds, 7 * ds, 0, 0, Math.PI); g.lineTo(-60 * ds, -8 * ds); g.closePath(); g.clip();
       g.translate(0, 12 * ds);
     }
-    let fx_ = d.facing;
-    if (d.twirl > 0) fx_ = Math.cos((0.7 - d.twirl) * 26) * d.facing;
     const wind = d.sneeze > 0 ? 0.22 : 0;
-    g.scale(ds * fx_, ds);
+    g.scale(ds * d.facing, ds);
+    // twirl: one in-plane spin about her middle while she hops (never a paper flip)
+    if (d.twirl > 0) { const u = clamp(1 - d.twirl / 0.7, 0, 1); g.translate(0, -36); g.rotate(u * u * (3 - 2 * u) * TAU); g.translate(0, 36); }
     g.rotate(-wind * 0.8 + (d.confused > 0 ? Math.sin(t * 18) * 0.12 : 0));
     const quack = d.quack > 0;
     const key = quack ? 'prop/duckling-quack' : 'prop/duckling';

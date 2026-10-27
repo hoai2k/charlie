@@ -235,15 +235,19 @@ export function swatch(g, col, x, y, r) {
 /** Little icons for the style options (drawn in the option strip). */
 export function drawStyleIcon(g, id, s, color = '#8a5a3c') {
   g.save();
+  if (id === 'loose') {
+    // "No style" (hair down): the None look the other studio games use, a dashed circle with a cross
+    g.setLineDash([s * 0.08, s * 0.07]);
+    g.beginPath(); g.arc(0, 0, s * 0.3, 0, TAU); g.lineWidth = Math.max(2, s * 0.045); g.strokeStyle = 'rgba(36,22,63,0.45)'; g.stroke();
+    g.setLineDash([]); g.lineCap = 'round';
+    g.beginPath(); g.moveTo(-s * 0.12, -s * 0.12); g.lineTo(s * 0.12, s * 0.12); g.moveTo(s * 0.12, -s * 0.12); g.lineTo(-s * 0.12, s * 0.12);
+    g.stroke(); g.restore(); return;
+  }
   g.lineWidth = Math.max(1.5, s * 0.06); g.strokeStyle = NAVY;
   g.fillStyle = '#ffdcc2'; g.beginPath(); g.arc(0, s * 0.06, s * 0.26, 0, TAU); g.fill(); g.stroke();
   g.fillStyle = color;
   const cap = () => { g.beginPath(); g.arc(0, s * 0.06, s * 0.27, Math.PI * 1.02, Math.PI * 1.98); g.closePath(); g.fill(); g.stroke(); };
   switch (id) {
-    case 'loose':
-      g.beginPath(); g.moveTo(-s * 0.3, s * 0.06); g.quadraticCurveTo(-s * 0.36, s * 0.4, -s * 0.28, s * 0.46); g.lineTo(-s * 0.2, s * 0.1); g.closePath(); g.fill(); g.stroke();
-      g.beginPath(); g.moveTo(s * 0.3, s * 0.06); g.quadraticCurveTo(s * 0.36, s * 0.4, s * 0.28, s * 0.46); g.lineTo(s * 0.2, s * 0.1); g.closePath(); g.fill(); g.stroke();
-      cap(); break;
     case 'ponytail':
       g.beginPath(); g.moveTo(s * 0.06, -s * 0.22); g.quadraticCurveTo(s * 0.5, -s * 0.36, s * 0.42, s * 0.3); g.quadraticCurveTo(s * 0.3, -s * 0.1, s * 0.06, -s * 0.12); g.closePath(); g.fill(); g.stroke();
       cap(); break;

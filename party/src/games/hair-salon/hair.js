@@ -38,7 +38,7 @@ export const HAIR_COLORS = [
 export const NATURAL = ['#8a5a3c', '#ffd36e', '#41335a', '#ff8a3d', '#b07a52', '#5e3d2b'];
 
 export const STYLES = [
-  { id: 'loose', name: 'Loose', pop: 'Hair down!' },
+  { id: 'loose', name: 'No style', none: true, pop: 'Hair down!' },   // first: styling off (a dashed "none" icon)
   { id: 'ponytail', name: 'Ponytail', pop: 'Ponytail!' },
   { id: 'pigtails', name: 'Pigtails', pop: 'Pigtails!' },
   { id: 'bun', name: 'Bun', pop: 'Top bun!' },
