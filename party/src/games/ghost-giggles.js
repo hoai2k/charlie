@@ -545,6 +545,7 @@ export class Game {
       if (!ok) au.go = null;   // someone else got it: back to normal
       else if (b && (T.kind === 'ghost' ? b.g0 === T.g0 : b.w === T.w) && this.dist(e, b.x, b.y) < TICKLE_NEAR && e.cd <= 0) { au.go = null; this.tryTickle(e); }
     }
+    if (!au.go) { au.target = null; return; }   // tickled (or it got away): stop here
     if (!au.go && (!ok || au.t <= 0)) {
       au.t = 0.6;
       let best = null, bu = 0;

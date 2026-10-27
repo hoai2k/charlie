@@ -604,6 +604,7 @@ export class Game {
   easyDance(U, dt, act) {
     // the stick, if they use it, moves them like Medium (never while he's looking)
     const st = easySteer(U, U.p.ctrl, dt);
+    U.edQuiet = st.pushing ? 0 : (U.edQuiet || 0) + dt;   // how long since the stick was used
     if (st.manual && !this.watching) {
       U.homeX = U.x; U.homeY = U.y; U.edT = 0;   // autopilot carries on from here, no drift back
       return [st.x, st.y];
@@ -612,8 +613,9 @@ export class Game {
     U.edT = (U.edT || 0) - dt;
     if (U.edT <= 0) {
       U.edT = 0.34;
-      // dropped stars of yours nearby? boogie over to them
-      const star = this.danceOn && this.pickups.find((s) => !s.got && (s.owner === U || s.t > 2) && dist(U.x, U.y, s.x, s.y) < 520);
+      // dropped stars of yours nearby? boogie over to them - but not for a child who has been
+      // steering lately (the owner's rule: nobody moves a child who is moving herself)
+      const star = this.danceOn && U.edQuiet > 1.5 && this.pickups.find((s) => !s.got && (s.owner === U || s.t > 2) && dist(U.x, U.y, s.x, s.y) < 520);
       if (star) { const a = Math.atan2(star.y - U.y, star.x - U.x); U.edDir = [Math.cos(a), Math.sin(a)]; }
       else {
         // a new dance move each beat: side, up, other side, down... drifting back home
