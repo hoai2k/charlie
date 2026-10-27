@@ -1231,3 +1231,57 @@ skirt held out), `prop/dance-move-splits` (flat splits, arms up in a V),
 `prop/dance-move-moonwalk` (leaning back, one foot on its toes, speed lines
 behind). `prop/dance-move-star` and `prop/dance-move-twirl` are reused (Star
 Jump and Twirl); Twirl (Y) already plays each set's `pose-twirl`.
+
+### molly-seats — Sister Party poses for the Charlie Party characters   (requested by the sister-character agent, 2026-10-27, priority: nice-to-have)
+
+The owner asked that a player can pick her own Charlie Party character on the
+Sister Party fairy picker (`src/scenes/molly-seats.js`, "Felicity (you)"). That
+works today with no new art: the Sister games were written for every
+character, and every pose they ask for resolves through the `POSES` fallback
+chain in `src/engine/sprites.js` (checked in game, 2026-10-27). But the six
+fairy sets have the Sister-only poses below and the Charlie sets don't, so the
+cheekiest moments read flatter as a Charlie character. These eight poses (one
+frame each) close the gap.
+
+- **Who:** `felicity`, `fellowfox`, `kpop-girl-center`, `kpop-girl-left`,
+  `kpop-girl-right`, `bronze`, `cotton-candy`, `fox`, `hotdog`, `marina`,
+  `scale`, `marshmallow-birthday-cake`, `princess-amber`, `snowstar`,
+  `unicorn`. Adapt each pose to the body (§2.2, §4.4): ponies/unicorn/fox with
+  hooves or paws and muzzle, Marina and Scale with arms and tail (no legs),
+  Hotdog with ears and paws, the cake with squash and frosting (no limbs),
+  Bronze stiff and clunky. Fellowfox: the simplest readable version.
+- **Sheet:** one 4 × 2 sheet per character (§5.2 action sheets), left to
+  right, top to bottom. Each pose's description is its `desc` in `POSES`;
+  today's stand-in is in brackets:
+  1. `boop` — one finger (paw, hoof) poking forward to boop a nose, cheeky grin
+     [`high-five`]. Pumpkin Peekaboo.
+  2. `cuddle` — both arms round something held to the chest, eyes shut, big
+     smile [`catch`]. Kitten Yarn.
+  3. `silly-pose` — goofy ta-da: one leg kicked up behind, arms flung wide,
+     tongue out [`strike3`]. Opposite Ballet.
+  4. `tiptoe` — sneaking on tiptoe, hunched, hands up holding something
+     overhead (the cushion is drawn by code), sideways cheeky grin [`carry`].
+     Whoopee Tea.
+  5. `tongue-out` — head tipped back looking up, tongue out to catch a
+     snowflake [`look-up`; the game draws a tongue over it]. Snowflake Catch.
+  6. `tuck` — knees hugged to the chest in a tight ball, eyes happily shut,
+     side-on (the game spins it) [`crouch`]. Bed Bounce, Fairy Flutter.
+  7. `ride-sit` — sitting astride, legs either side, hands forward holding a
+     mane, happy (the unicorn is drawn by the game) [`sit`]. Unicorn Jump.
+     **Bipeds only:** skip it for `fox`, `cotton-candy` and `unicorn` (the
+     game runs them as the unicorn themselves): their sheet is one row of the
+     other seven, in the same order.
+  8. `laugh` — big belly laugh, head back, eyes shut, hands on tummy
+     [`giggle`, hand over mouth]. Most Sister games, many party games.
+  Prompt: §10.1 / §10.2 with the canonical and the idle frame attached; same
+  size, camera and outline weight as the set's idle; three-quarter view facing
+  screen-right; full body in every cell with generous gutters; transparent
+  background; no props, effects, motion lines or shadows.
+- **Intake:** `tools/sprites/add_sheet.py <asset> <sheet> sister-poses
+  boop,cuddle,silly-pose,tiptoe,tongue-out,tuck,ride-sit,laugh --rows 2` (the
+  three quadrupeds: drop `ride-sit`, `--rows 1`), `motion` 0.85 like the fairy sets'
+  ones, `tuck` anchored at its centre of mass (it spins), then the full
+  checklist in `tools/sprites/README.md` (build, QA sheet, `optimize.py`,
+  `make_masks.py` for felicity / kpop-girl-center / princess-amber,
+  `validate.py`). Check each in its game played as that character (pick
+  "<name> (you)" on the how-to screen).
