@@ -1,3 +1,9 @@
+## October27 follow-up — all eight new images delivered
+
+Seven512×640 Madame Papillon dance props plus the revised160×160 Twirl icon are generated, reviewed and integrated. Exact built-in prompts and native RGBA archives are recorded in OCT27-DANCE-ALONG.json and OCT27-TWIRL-REVISION.json. Full decoded group22.806884765625MiB after reversible runtime derivatives; original teacher/backdrop files remain unchanged. Actual teacher-renderer review passes for all eight moves;17 Party Node test files and opposite-ballet4-player CPU smoke passed. The current main still uses the previous ballet call sequence; authored new move names are now supported by drawTeacher for the pending Dance Along redesign.
+
+Twirl batch:76a02caf, pushed to main. Follow-up delivery/check UTC: `2026-10-27T23:23:40.328676+00:00`. Last checked main revision: `76a02caffc6195cf1c1588a5262df447fde64fda`. Last checked request blob: `d37a7675c5f40e7ede371a5a605b5cb79b267328`. Open image/regeneration requests: none. One-time15-minute follow-up will be cancelled when this delivery is published; no future checks requested.
+
 # Image work queue
 
 The authoritative brief is `party/image-requests.md`. The previous Studio and all current Molly Party image requests are delivered; 

@@ -61,11 +61,17 @@ export function drawPetal(g, x, y, s, rot, c = '#ff9fcf') {
 }
 
 // --- the teacher ---------------------------------------------------------------
-const TEACHER_ART = { statue: 'prop/oballet-teacher-statue', silly: 'prop/oballet-teacher-silly' };
+const TEACHER_ART = {
+  statue: 'prop/oballet-teacher-statue', silly: 'prop/oballet-teacher-silly',
+  disco: 'prop/oballet-teacher-disco', starfish: 'prop/oballet-teacher-starfish',
+  hula: 'prop/oballet-teacher-hula', cartwheel: 'prop/oballet-teacher-cartwheel',
+  cancan: 'prop/oballet-teacher-cancan', splits: 'prop/oballet-teacher-splits',
+  moonwalk: 'prop/oballet-teacher-moonwalk',
+};
 
 /**
  * Madame Papillon, a VERY serious butterfly-fairy ballet teacher. (x, y) =
- * her feet, h = height. move: null|'up'|'twirl'|'plie'|'side'|'bow'|'statue'|'silly';
+ * her feet, h = height. move: legacy ballet names or Dance Studio move names;
  * k = 0..1 progress of the demo. o: { fluster 0..1, stamp 0..1 (foot stamp
  * progress), sproing 0..1 (tutu boing), wigOff, tiaraOff, laugh }.
  */
@@ -94,7 +100,8 @@ export function drawTeacher(g, x, y, h, t, move = null, k = 0, sideDir = 1, o = 
   }
   if (!key || !art(key)) key = 'prop/ballet-teacher';
   if (art(key)) {
-    if (move === 'side' && key === 'prop/ballet-teacher-side') sx *= sideDir;   // the art kicks to the right; mirror for a left step
+    if ((move === 'side' && key === 'prop/ballet-teacher-side') ||
+        (TEACHER_ART[move] === key && !['statue', 'silly'].includes(move))) sx *= sideDir;
     const sp = o.sproing > 0 ? 1 + Math.sin(o.sproing * 30) * 0.04 * o.sproing : 1;
     g.scale((Math.abs(sx) < 0.15 ? 0.15 * Math.sign(sx || 1) : sx) * sp, 1 / sp);
     drawArt(g, key, 0, 0, h * 0.8, h, { anchor: 'bottom' });
