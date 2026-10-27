@@ -96,7 +96,7 @@ export function hasHandArt(style) { return hasArt(handArtKey(style)); }
 // tapers from w at its base to TAPER * w at the rounded tip; its nail is a little longer
 // than the finger (NAIL_OVER past the fingertip), like grown, shaped nails.
 const FINGERS = [
-  { bx: -82, by: 80, a: -0.98, len: 98, w: 46, nh: 46 },   // thumb
+  { bx: -84, by: 76, a: -0.92, len: 104, w: 46, nh: 46 },   // thumb
   { bx: -58, by: 0, a: -0.13, len: 150, w: 44, nh: 54 },
   { bx: -14, by: -8, a: -0.02, len: 166, w: 45, nh: 56 },
   { bx: 30, by: -4, a: 0.09, len: 154, w: 43, nh: 54 },
@@ -249,21 +249,17 @@ export function drawHandBase(g, style, G, o = {}) {
   // pass 1: one bold navy silhouette
   g.strokeStyle = NAVY; g.lineWidth = 11;
   for (const s of shapes) { g.beginPath(); s(g); g.stroke(); }
-  // pass 2: skin
-  g.fillStyle = style.skin;
+  // pass 2: skin with a soft cel shade toward the right side; one hand-space gradient, filled
+  // opaque shape by shape, so overlapping shapes don't darken each other
+  const sh = g.createLinearGradient(-20, 0, 120, 0);
+  sh.addColorStop(0, style.skin); sh.addColorStop(1, mix(style.skin, style.shade, 0.7));
+  g.fillStyle = sh;
   for (const s of shapes) { g.beginPath(); s(g); g.fill(); }
-  // soft cel shade down the right side of everything, a warm glow on the back of the hand
-  // (each shape on its own: one combined path would leave holes where shapes overlap)
-  const sh = g.createLinearGradient(-30, 0, 130, 0);
-  sh.addColorStop(0, 'rgba(0,0,0,0)'); sh.addColorStop(1, style.shade);
-  g.globalAlpha = 0.55; g.fillStyle = sh;
-  for (const s of shapes) { g.beginPath(); s(g); g.fill(); }
-  g.globalAlpha = 1;
   const hl = g.createRadialGradient(-34, 50, 6, -34, 50, 96);
   hl.addColorStop(0, 'rgba(255,255,255,0.34)'); hl.addColorStop(1, 'rgba(255,255,255,0)');
   g.fillStyle = hl; g.beginPath(); palmPath(g); g.fill();
   // each finger: a light stripe down its left side, a little shade at the tip
-  for (const f of G.fingers) {
+  for (const f of G.fingers.slice(1)) {
     const dx = Math.sin(f.a), dy = -Math.cos(f.a), nx = -dy, ny = dx;
     g.save(); g.beginPath(); fingerPath(g, f); g.clip();
     g.strokeStyle = 'rgba(255,255,255,0.38)'; g.lineWidth = f.w * 0.2;
