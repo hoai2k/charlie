@@ -98,7 +98,7 @@ export class Game {
     // At sunset the play scene asks "Time's up!": Keep playing adds a minute, All done starts the finale.
     api.limit(() => (this.phase === 'build' ? Math.max(0, this.timeLeft) : null), {
       showAt: Infinity, x: W - 150, y: 54,
-      timeUp: { more: () => { this.timeLeft += 60; }, done: () => this.startFinale() },
+      timeUp: { goal: true, title: 'The sun is setting: time for the finale!', goLabel: 'Go!', moreLabel: 'Keep building', more: () => { this.timeLeft += 60; }, done: () => this.startFinale() },
     });
     this.crabs = [];
     this.crabT = rand(3, 6);

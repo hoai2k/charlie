@@ -1,13 +1,13 @@
-// Sparkle Nails: the client's hand (or paw), the nails and everything painted
+// Sparkle Nails: the client's hand, the nails and everything painted
 // on them, the stickers and gems, polish bottles, tool icons and the little
-// hand fan. All drawing is procedural; stickers and the fan look up generated
-// art first (prop/nail-sticker-*, prop/nail-fan).
+// hand fan. All drawing is procedural; the hand, stickers and the fan look up
+// generated art first (prop/nail-hand-<tone>, prop/nail-sticker-*, prop/nail-fan).
 //
 // Hand space: origin at the middle of the palm, fingers point up (-y), units
 // are "station units" (the station scales them). The nails are what the
 // player paints, so their geometry is exact and shared by drawing and the
 // cursor hit test.
-import { drawArt } from '../../engine/art.js';
+import { drawArt, hasArt } from '../../engine/art.js';
 import { RAINBOW } from '../../engine/particles.js';
 import { drawSparkleShape, drawStarShape, drawHeartShape, starPath } from '../../engine/emotes.js';
 import * as ui from '../../engine/ui.js';
@@ -60,71 +60,65 @@ function hex(c) { const v = parseInt(c.slice(1), 16); return [(v >> 16) & 255, (
 export function mix(a, b, t) { const A = hex(a), B = hex(b); return `rgb(${A.map((x, i) => Math.round(x + (B[i] - x) * t)).join(',')})`; }
 
 // --- clients ---------------------------------------------------------------------
-// Skin / fur per client. Animals get paws; Bronze a shiny robot hand; the cake
-// a frosting-soft hand with sprinkles.
+// Every client rests a girl's hand on the cushion (the owner asked for a girl's hand,
+// never an animal paw). Natural skin tones: SKINS[tone]; the cuff and bracelet take
+// the client's own colour. A generated hand picture per tone (prop/nail-hand-<tone>,
+// see image-requests.md "nail-studio") replaces the drawn hand when it exists.
+export const SKINS = [
+  { skin: '#ffe2d0', shade: '#f0bfa4' },   // 0 fair
+  { skin: '#f6c8a2', shade: '#dfa27a' },   // 1 light
+  { skin: '#dfa577', shade: '#c08055' },   // 2 tan
+  { skin: '#b97c52', shade: '#985c37' },   // 3 brown
+  { skin: '#8a5838', shade: '#6c4027' },   // 4 deep brown
+];
+// tone and cuff per client (the rest pick a tone from their id)
 const STYLE = {
-  fox: { kind: 'paw', skin: '#ff9a4d', shade: '#e0702a', cuff: '#fff4e6' },
-  fellowfox: { kind: 'paw', skin: '#ffa25e', shade: '#e27a35', cuff: '#fff4e6' },
-  hotdog: { kind: 'paw', skin: '#ffd85a', shade: '#f0b72e', cuff: '#ff9ed6' },
-  unicorn: { kind: 'paw', skin: '#efe6ff', shade: '#c5b3ee', cuff: '#ffc2e2' },
-  'cotton-candy': { kind: 'paw', skin: '#ffd0ea', shade: '#f5a8d4', cuff: '#b9e6ff' },
-  'professor-hoot': { kind: 'paw', skin: '#b9a6ec', shade: '#9480d4', cuff: '#ffe7a8' },
-  bronze: { kind: 'robot', skin: '#9fd8b4', shade: '#5fae80', cuff: '#ffd23f' },
-  'marshmallow-birthday-cake': { kind: 'mitt', skin: '#fff3f7', shade: '#ffc9dc', cuff: '#ff8fb6' },
-  glimmer: { kind: 'hand', skin: '#d6fff6', shade: '#9fe6d6', cuff: '#7fe3d4' },
-  marina: { kind: 'hand', skin: '#ffd9c4', shade: '#f2b49a', cuff: '#e8364a' },
-  scale: { kind: 'hand', skin: '#ffe2cc', shade: '#f2bea0', cuff: '#2a9d8f' },
-  'princess-amber': { kind: 'hand', skin: '#f6c7a0', shade: '#dfa077', cuff: '#ff9a1f' },
-  snowstar: { kind: 'hand', skin: '#ffe6d6', shade: '#f2c1a8', cuff: '#39c46a' },
-  felicity: { kind: 'hand', skin: '#f0c19a', shade: '#d89a70', cuff: '#ff8a2a' },
-  'kpop-girls': { kind: 'hand', skin: '#ffdcc2', shade: '#efb999', cuff: '#b04dff' },
+  glimmer: { tone: 0, cuff: '#7fe3d4' },
+  marina: { tone: 0, cuff: '#e8364a' },
+  scale: { tone: 0, cuff: '#2a9d8f' },
+  'princess-amber': { tone: 1, cuff: '#ff9a1f' },
+  snowstar: { tone: 0, cuff: '#39c46a' },
+  felicity: { tone: 1, cuff: '#ff8a2a' },
+  'kpop-girls': { tone: 1, cuff: '#b04dff' },
 };
-const SKINS = ['#ffd9c4', '#f6c7a0', '#d9a074', '#a8704a', '#ffe2cc'];
 export function handStyle(id, color = '#ff6fb1') {
-  const s = STYLE[id];
-  if (s) return { ...s };
   let h = 0; for (const ch of String(id)) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-  const skin = SKINS[h % SKINS.length];
-  return { kind: 'hand', skin, shade: mix(skin, '#a05a3a', 0.25), cuff: color };
+  const s = STYLE[id] || { tone: h % SKINS.length, cuff: color };
+  return { kind: 'hand', tone: s.tone, ...SKINS[s.tone], cuff: s.cuff };
 }
 
+/** The generated hand picture for this style's tone, if it has been delivered. */
+const handArtKey = (style) => `prop/nail-hand-${style.tone}`;
+export function hasHandArt(style) { return hasArt(handArtKey(style)); }
+
 // --- geometry ----------------------------------------------------------------------
-// Fingers for a hand seen from the back (a right hand: thumb on the left).
+// A right hand seen from the back (thumb on the left), fingers gently spread. Each finger
+// tapers from w at its base to TAPER * w at the rounded tip; its nail is a little longer
+// than the finger (NAIL_OVER past the fingertip), like grown, shaped nails.
 const FINGERS = [
-  { bx: -112, by: 74, a: -0.92, len: 118, w: 56, nh: 44 },   // thumb
-  { bx: -78, by: -4, a: -0.13, len: 150, w: 54, nh: 50 },
-  { bx: -22, by: -12, a: -0.03, len: 170, w: 56, nh: 54 },
-  { bx: 34, by: -8, a: 0.07, len: 158, w: 54, nh: 52 },
-  { bx: 86, by: 10, a: 0.2, len: 120, w: 48, nh: 42 },
+  { bx: -82, by: 80, a: -0.98, len: 98, w: 46, nh: 46 },   // thumb
+  { bx: -58, by: 0, a: -0.13, len: 150, w: 44, nh: 54 },
+  { bx: -14, by: -8, a: -0.02, len: 166, w: 45, nh: 56 },
+  { bx: 30, by: -4, a: 0.09, len: 154, w: 43, nh: 54 },
+  { bx: 70, by: 12, a: 0.22, len: 118, w: 38, nh: 46 },
 ];
-const TOES = [-1.08, -0.52, 0, 0.52, 1.08];
+const TAPER = 0.88, NAIL_OVER = 7;
 
 /**
- * Finger/toe and nail geometry. `wig` (0..1) wiggles the fingers (showcase
- * and happy moments); t is the clock for it.
+ * Finger and nail geometry. `wig` (0..1) wiggles the fingers (showcase and happy
+ * moments; not with the hand picture, whose fingers can't move); t is the clock for it.
  */
 export function geom(style, wig = 0, t = 0) {
   const fingers = [], nails = [];
-  if (style.kind === 'paw') {
-    TOES.forEach((a0, i) => {
-      const a = a0 + Math.sin(t * 11 + i * 1.3) * 0.07 * wig;
-      const r = 152 - Math.abs(a0) * 8;
-      const cx = Math.sin(a) * r, cy = 80 - Math.cos(a) * r;
-      fingers.push({ cx, cy, a, rx: 46, ry: 54 });
-      const d = 44;
-      nails.push({ x: cx + Math.sin(a) * d, y: cy - Math.cos(a) * d, w: 46, h: 46, rot: a, i });
-    });
-  } else {
-    const fat = style.kind === 'mitt' ? 1.12 : 1;
-    FINGERS.forEach((f, i) => {
-      const a = f.a + Math.sin(t * 12 + i * 1.7) * 0.08 * wig;
-      const dx = Math.sin(a), dy = -Math.cos(a);
-      const tx = f.bx + dx * f.len, ty = f.by + dy * f.len, w = f.w * fat;
-      fingers.push({ bx: f.bx, by: f.by, tx, ty, a, w, len: f.len });
-      const nh = f.nh, nw = w * 0.72, back = nh / 2 + w * 0.16;
-      nails.push({ x: tx - dx * back, y: ty - dy * back, w: nw, h: nh, rot: a, i });
-    });
-  }
+  if (wig && hasHandArt(style)) wig = 0;
+  FINGERS.forEach((f, i) => {
+    const a = f.a + Math.sin(t * 12 + i * 1.7) * 0.08 * wig;
+    const dx = Math.sin(a), dy = -Math.cos(a);
+    const tx = f.bx + dx * f.len, ty = f.by + dy * f.len, w = f.w, tr = (w * TAPER) / 2;
+    fingers.push({ bx: f.bx, by: f.by, tx, ty, a, w, tr, len: f.len });
+    const nh = f.nh, nw = w * TAPER * 0.86, d = tr + NAIL_OVER - nh / 2;
+    nails.push({ x: tx + dx * d, y: ty + dy * d, w: nw, h: nh, rot: a, i });
+  });
   return { fingers, nails };
 }
 
@@ -157,143 +151,146 @@ function segDist(px, py, ax, ay, bx, by) {
   return Math.hypot(px - (ax + u * vx), py - (ay + u * vy));
 }
 
-/** Is hand point (x, y) on the hand (palm, fingers or nails)? */
+/** Is hand point (x, y) on the hand (back of the hand, fingers or nails)? */
 export function onHand(style, G, x, y, slack = 6) {
   if (nailAt(G, x, y, slack) >= 0) return true;
-  if (style.kind === 'paw') {
-    if (((x / (126 + slack)) ** 2 + ((y - 102) / (104 + slack)) ** 2) <= 1) return true;
-    return G.fingers.some((f) => ((x - f.cx) / (f.rx + slack)) ** 2 + ((y - f.cy) / (f.ry + slack)) ** 2 <= 1);
-  }
-  if (x >= -122 - slack && x <= 120 + slack && y >= -24 - slack && y <= 178 + slack) return true;
+  if (x >= -100 - slack && x <= 96 + slack && y >= -18 - slack && y <= 166 + slack) return true;
   return G.fingers.some((f) => segDist(x, y, f.bx, f.by, f.tx, f.ty) <= f.w / 2 + slack);
 }
 
 // --- hand drawing --------------------------------------------------------------------
-function capsule(g, f) {
-  const dx = Math.sin(f.a), dy = -Math.cos(f.a), nx = -dy, ny = dx, r = f.w / 2;
-  g.moveTo(f.bx + nx * r, f.by + ny * r);
-  g.lineTo(f.tx + nx * r, f.ty + ny * r);
-  g.arc(f.tx, f.ty, r, f.a, f.a - Math.PI, true);
-  g.lineTo(f.bx - nx * r, f.by - ny * r);
+/** A finger: w wide at the base, tapering to a round tip of radius f.tr. */
+function fingerPath(g, f) {
+  const dx = Math.sin(f.a), dy = -Math.cos(f.a), nx = -dy, ny = dx, r0 = f.w / 2, r1 = f.tr;
+  const mx = f.bx + dx * f.len * 0.55, my = f.by + dy * f.len * 0.55, rm = (r0 + r1) / 2 + 1.5;   // a soft middle knuckle
+  g.moveTo(f.bx + nx * r0, f.by + ny * r0);
+  g.quadraticCurveTo(mx + nx * rm, my + ny * rm, f.tx + nx * r1, f.ty + ny * r1);
+  g.arc(f.tx, f.ty, r1, f.a, f.a - Math.PI, true);
+  g.quadraticCurveTo(mx - nx * rm, my - ny * rm, f.bx - nx * r0, f.by - ny * r0);
   g.closePath();
 }
 
-function palmPath(g, style) {
-  if (style.kind === 'paw') { g.ellipse(0, 102, 126, 104, 0, 0, TAU); return; }
-  const x0 = -122, x1 = 120, y0 = -26, y1 = 178;
-  g.moveTo(x0 + 40, y0);
-  g.lineTo(x1 - 40, y0);
-  g.quadraticCurveTo(x1, y0, x1, y0 + 46);
-  g.lineTo(x1 - 6, y1 - 56);
-  g.quadraticCurveTo(x1 - 14, y1, x1 - 70, y1);
-  g.lineTo(x0 + 66, y1);
-  g.quadraticCurveTo(x0 + 6, y1, x0, y1 - 70);
-  g.lineTo(x0, y0 + 40);
-  g.quadraticCurveTo(x0, y0, x0 + 40, y0);
+/** The back of the hand: knuckles along the top, the thumb's soft mound on the left. */
+function palmPath(g) {
+  g.moveTo(-60, -20);
+  g.quadraticCurveTo(14, -32, 78, -12);
+  g.quadraticCurveTo(100, -2, 97, 32);
+  g.bezierCurveTo(95, 92, 84, 136, 60, 166);
+  g.lineTo(-58, 166);
+  g.bezierCurveTo(-80, 140, -104, 118, -104, 70);
+  g.bezierCurveTo(-104, 18, -94, -14, -60, -20);
   g.closePath();
 }
 
-function wristPath(g, style) {
-  const w = style.kind === 'paw' ? 82 : 86;
-  g.moveTo(-w, 150); g.lineTo(-w + 4, 236); g.lineTo(w - 4, 236); g.lineTo(w, 150); g.closePath();
+function wristPath(g) {
+  g.moveTo(-62, 140); g.lineTo(-60, 240); g.lineTo(60, 240); g.lineTo(62, 140); g.closePath();
+}
+
+const CUFF_Y = 200;
+
+/** The client's sleeve cuff (with a lace edge) and a bead bracelet, over the wrist. */
+function drawCuff(g, style) {
+  g.save();
+  g.beginPath(); wristPath(g); g.clip();
+  // sleeve with a scalloped lace edge
+  g.fillStyle = '#ffffff';
+  g.beginPath(); g.moveTo(-80, 260); g.lineTo(-80, CUFF_Y + 6);
+  for (let x = -80; x < 80; x += 16) g.quadraticCurveTo(x + 8, CUFF_Y - 8, x + 16, CUFF_Y + 6);
+  g.lineTo(80, 260); g.closePath(); g.fill();
+  g.lineWidth = 3; g.strokeStyle = 'rgba(36,22,63,0.45)'; g.stroke();
+  g.fillStyle = style.cuff; g.fillRect(-80, CUFF_Y + 12, 160, 60);
+  g.fillStyle = 'rgba(255,255,255,0.35)'; g.fillRect(-80, CUFF_Y + 14, 160, 6);
+  g.restore();
+  // bead bracelet just above the cuff
+  const y = CUFF_Y - 20;
+  for (let i = 0; i < 7; i++) {
+    const x = -48 + i * 16, yy = y + Math.abs(i - 3) * 1.2;
+    g.beginPath(); g.arc(x, yy, 7.5, 0, TAU);
+    g.fillStyle = i % 2 ? '#ffffff' : style.cuff; g.fill();
+    g.lineWidth = 2.5; g.strokeStyle = NAVY; g.stroke();
+    g.beginPath(); g.arc(x - 2.4, yy - 2.6, 2.2, 0, TAU); g.fillStyle = 'rgba(255,255,255,0.85)'; g.fill();
+  }
+}
+
+/** A little gold ring with a pink gem on finger f. */
+function drawRing(g, f) {
+  const dx = Math.sin(f.a), dy = -Math.cos(f.a), k = 0.3;
+  const x = f.bx + dx * f.len * k, y = f.by + dy * f.len * k, r = f.w / 2 + 1;
+  g.save(); g.translate(x, y); g.rotate(f.a);
+  ui.roundRect(g, -r, -5, r * 2, 10, 5); g.fillStyle = '#ffd23f'; g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
+  g.fillStyle = 'rgba(255,255,255,0.6)'; g.fillRect(-r + 4, -3, r * 2 - 8, 2.5);
+  g.beginPath(); g.moveTo(0, -12); g.lineTo(8, -4); g.lineTo(0, 4); g.lineTo(-8, -4); g.closePath();
+  g.fillStyle = '#ff6fb1'; g.fill(); g.lineWidth = 2.5; g.stroke();
+  g.beginPath(); g.arc(-2, -6, 1.8, 0, TAU); g.fillStyle = '#ffffff'; g.fill();
+  g.restore();
 }
 
 /**
- * The whole hand (no nails): o.wrist (default true) draws the wrist and a cuff
- * in the client's colour; o.G is the geometry from geom().
+ * The whole hand (no nails): o.wrist (default true) draws the wrist with a cuff and
+ * bracelet in the client's colour; G is the geometry from geom().
  */
 export function drawHandBase(g, style, G, o = {}) {
   const wrist = o.wrist !== false;
-  const shapes = [];
-  if (wrist) shapes.push((q) => wristPath(q, style));
-  if (style.kind === 'paw') {
-    shapes.push((q) => palmPath(q, style));
-    for (const f of G.fingers) shapes.push((q) => q.ellipse(f.cx, f.cy, f.rx, f.ry, f.a, 0, TAU));
-  } else {
-    shapes.push((q) => palmPath(q, style));
-    for (const f of G.fingers) shapes.push((q) => capsule(q, f));
+  if (hasHandArt(style)) {
+    // the generated hand: a 1024 x 1024 picture, 2 px per hand unit, palm origin at its centre
+    g.save();
+    if (!wrist) { g.beginPath(); g.rect(-256, -256, 512, 256 + 176); g.clip(); }
+    drawArt(g, handArtKey(style), 0, 0, 512, 512);
+    g.restore();
+    if (wrist) { g.save(); drawCuff(g, style); g.restore(); }
+    return;
   }
+  const shapes = [];
+  if (wrist) shapes.push((q) => wristPath(q));
+  shapes.push((q) => palmPath(q));
+  for (const f of G.fingers) shapes.push((q) => fingerPath(q, f));
   g.save();
   g.lineJoin = 'round'; g.lineCap = 'round';
-  // pass 1: one thick navy silhouette
-  g.strokeStyle = NAVY; g.lineWidth = 12;
+  // pass 1: one bold navy silhouette
+  g.strokeStyle = NAVY; g.lineWidth = 11;
   for (const s of shapes) { g.beginPath(); s(g); g.stroke(); }
-  // pass 2: fill
-  let fill = style.skin;
-  if (style.kind === 'robot') {
-    const gr = g.createLinearGradient(-150, -200, 150, 200);
-    gr.addColorStop(0, mix(style.skin, '#ffffff', 0.45)); gr.addColorStop(0.5, style.skin); gr.addColorStop(1, style.shade);
-    fill = gr;
-  }
-  g.fillStyle = fill;
+  // pass 2: skin
+  g.fillStyle = style.skin;
   for (const s of shapes) { g.beginPath(); s(g); g.fill(); }
-  // soft shading on the right side
+  // soft cel shade down the right side of everything, a warm glow on the back of the hand
   // (each shape on its own: one combined path would leave holes where shapes overlap)
-  const sh = g.createLinearGradient(-40, 0, 150, 0);
-  sh.addColorStop(0, 'rgba(160,80,110,0)'); sh.addColorStop(1, 'rgba(160,80,110,0.16)');
-  const hl = g.createRadialGradient(-60, 50, 4, -60, 50, 90);
-  hl.addColorStop(0, 'rgba(255,255,255,0.32)'); hl.addColorStop(1, 'rgba(255,255,255,0)');
-  g.fillStyle = sh;
+  const sh = g.createLinearGradient(-30, 0, 130, 0);
+  sh.addColorStop(0, 'rgba(0,0,0,0)'); sh.addColorStop(1, style.shade);
+  g.globalAlpha = 0.55; g.fillStyle = sh;
   for (const s of shapes) { g.beginPath(); s(g); g.fill(); }
-  g.fillStyle = hl;
-  g.beginPath(); palmPath(g, style); g.fill();
-  // details
-  g.strokeStyle = style.shade; g.lineWidth = 4;
-  if (style.kind === 'paw') {
-    // fur tufts between the toes and at the sides
-    g.strokeStyle = style.shade; g.lineWidth = 5;
-    for (let i = 0; i < 4; i++) {
-      const a = (TOES[i] + TOES[i + 1]) / 2, x = Math.sin(a) * 104, y = 80 - Math.cos(a) * 104;
-      g.beginPath(); g.moveTo(x - Math.sin(a) * 8, y + Math.cos(a) * 8); g.lineTo(x + Math.sin(a) * 18, y - Math.cos(a) * 18); g.stroke();
-    }
-    for (const sx of [-1, 1]) { g.beginPath(); g.moveTo(sx * 116, 92); g.quadraticCurveTo(sx * 134, 108, sx * 122, 130); g.stroke(); }
-    // a little heart on the back of the paw
-    g.save(); g.translate(0, 112); g.globalAlpha = 0.5; drawHeartShape(g, 52, style.shade); g.restore();
-  } else {
-    for (const f of G.fingers) {
-      // knuckle wrinkles
-      const dx = Math.sin(f.a), dy = -Math.cos(f.a), nx = -dy, ny = dx;
-      for (const k of [0.42, 0.47]) {
-        const cx = f.bx + dx * f.len * k, cy = f.by + dy * f.len * k, r = f.w * 0.22;
-        g.beginPath(); g.moveTo(cx - nx * r, cy - ny * r); g.quadraticCurveTo(cx + dx * 4, cy + dy * 4, cx + nx * r, cy + ny * r); g.stroke();
-      }
-      if (style.kind === 'robot') {
-        g.save(); g.lineWidth = 3; g.strokeStyle = 'rgba(36,22,63,0.45)';
-        const cx = f.bx + dx * f.len * 0.62, cy = f.by + dy * f.len * 0.62, r = f.w / 2 - 2;
-        g.beginPath(); g.moveTo(cx - nx * r, cy - ny * r); g.lineTo(cx + nx * r, cy + ny * r); g.stroke();
-        g.restore();
-      }
-    }
-    if (style.kind === 'robot') {
-      g.fillStyle = 'rgba(36,22,63,0.4)';
-      for (const [x, y] of [[-90, 0], [88, 0], [-90, 150], [88, 150]]) { g.beginPath(); g.arc(x, y, 6, 0, TAU); g.fill(); }
-      g.beginPath(); g.arc(0, 80, 26, 0, TAU); g.fillStyle = '#ffd23f'; g.fill(); g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke();
-      g.beginPath(); g.arc(-7, 73, 7, 0, TAU); g.fillStyle = '#fff6c8'; g.fill();
-    } else if (style.kind === 'mitt') {
-      const cols = ['#ff6fb1', '#4fb8ff', '#ffd23f', '#4fd98a', '#a77bff'];
-      for (let i = 0; i < 14; i++) {
-        const x = -90 + ((i * 53) % 180), y = 10 + ((i * 37) % 150), a = i * 1.3;
-        g.save(); g.translate(x, y); g.rotate(a); g.fillStyle = cols[i % cols.length];
-        ui.roundRect(g, -9, -3.5, 18, 7, 3.5); g.fill(); g.restore();
-      }
-    }
-  }
-  // cuff
-  if (wrist) {
-    g.save();
-    g.beginPath(); wristPath(g, style); g.clip();
-    const cy = 196;
-    if (style.kind === 'paw') {
-      g.fillStyle = style.cuff;
-      g.beginPath(); g.moveTo(-100, 250);
-      for (let x = -100; x <= 100; x += 25) g.quadraticCurveTo(x + 12, cy - 18, x + 25, cy);
-      g.lineTo(100, 250); g.closePath(); g.fill();
-    } else {
-      g.fillStyle = style.cuff; g.fillRect(-100, cy, 200, 60);
-      g.fillStyle = 'rgba(255,255,255,0.75)'; g.fillRect(-100, cy, 200, 9);
-    }
+  g.globalAlpha = 1;
+  const hl = g.createRadialGradient(-34, 50, 6, -34, 50, 96);
+  hl.addColorStop(0, 'rgba(255,255,255,0.34)'); hl.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = hl; g.beginPath(); palmPath(g); g.fill();
+  // each finger: a light stripe down its left side, a little shade at the tip
+  for (const f of G.fingers) {
+    const dx = Math.sin(f.a), dy = -Math.cos(f.a), nx = -dy, ny = dx;
+    g.save(); g.beginPath(); fingerPath(g, f); g.clip();
+    g.strokeStyle = 'rgba(255,255,255,0.38)'; g.lineWidth = f.w * 0.2;
+    g.beginPath(); g.moveTo(f.bx - nx * f.w * 0.22 + dx * 10, f.by - ny * f.w * 0.22 + dy * 10); g.lineTo(f.tx - nx * f.tr * 0.45, f.ty - ny * f.tr * 0.45); g.stroke();
     g.restore();
   }
+  // where the fingers meet the hand, a short crease between neighbours
+  g.strokeStyle = style.shade; g.lineWidth = 4;
+  for (let i = 1; i < G.fingers.length - 1; i++) {
+    const a = G.fingers[i], b = G.fingers[i + 1];
+    const mx = (a.bx + b.bx) / 2, my = (a.by + b.by) / 2 - 22, ang = (a.a + b.a) / 2;
+    g.beginPath(); g.moveTo(mx + Math.sin(ang) * 6, my - Math.cos(ang) * 6); g.lineTo(mx - Math.sin(ang) * 12, my + Math.cos(ang) * 12); g.stroke();
+  }
+  // knuckle creases (the middle joint) and the knuckle dimples on the back of the hand
+  g.globalAlpha = 0.7;
+  for (const f of G.fingers) {
+    const dx = Math.sin(f.a), dy = -Math.cos(f.a), nx = -dy, ny = dx;
+    const cx = f.bx + dx * f.len * 0.55, cy = f.by + dy * f.len * 0.55, r = f.w * 0.16;
+    g.beginPath(); g.moveTo(cx - nx * r, cy - ny * r); g.quadraticCurveTo(cx + dx * 3, cy + dy * 3, cx + nx * r, cy + ny * r); g.stroke();
+    if (f !== G.fingers[0]) {
+      const kx = f.bx + dx * 4, ky = f.by + dy * 4;
+      g.beginPath(); g.moveTo(kx - nx * 7, ky - ny * 7 + 3); g.quadraticCurveTo(kx, ky - 3, kx + nx * 7, ky + ny * 7 + 3); g.stroke();
+    }
+  }
+  g.globalAlpha = 1;
+  drawRing(g, G.fingers[3]);
+  if (wrist) drawCuff(g, style);
   g.restore();
 }
 
