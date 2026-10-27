@@ -81,7 +81,7 @@ export class Game {
   /** The held-up jar: bottom centre (x, y), its scale s and the screen y of its open mouth. */
   jarPos(e) {
     const a = e.a, head = a.anchor('head'), hand = a.anchor('hand');
-    const s = clamp(a.height / 250, 0.45, 1.3);
+    const s = clamp(a.height / 165, 0.7, 1.6);
     // on top of the head, or between raised hands when they reach higher
     const top = Math.min(head.y, hand.y + a.height * 0.06);
     const y = top - 4 * s + (1 - e.lift) * 24 * s;
@@ -89,7 +89,7 @@ export class Game {
   }
   pop(e, str, color, size = 50) {
     e.popN = e.popT > 0 ? e.popN + 1 : 0; e.popT = 0.7;
-    const top = e.a.y - e.a.height - 30, lvl = e.popN % 3;
+    const top = Math.min(e.a.y - e.a.height, e.lift > 0.02 ? this.jarPos(e).mouth - 50 : Infinity) - 30, lvl = e.popN % 3;
     particles.popText(e.x + (lvl === 1 ? 40 : lvl === 2 ? -40 : 0), top - lvl * 46, str, color, size);
   }
   spawnFlake(o = {}) {
@@ -593,7 +593,9 @@ export class Game {
     }
     // tags
     for (const e of this.ents) {
-      const top = e.y - e.a.height - 26 - (e.a.emotes.length ? 48 : 0);
+      // (above the jar while it's held up)
+      const head = e.lift > 0.02 ? Math.min(e.y - e.a.height, this.jarPos(e).mouth - 6) : e.y - e.a.height;
+      const top = head - 26 - (e.a.emotes.length ? 48 : 0);
       if (!this.api.ended?.()) ui.playerTag(g, e.p, e.x, top);
       // Easy: a big bouncing A when your flake is right above your head (A = jar up)
       if (this.easy && !this.done && !e.p.isAI && this.easyNow(e)) {
