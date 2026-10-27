@@ -2,17 +2,18 @@
 // split-screen station:
 //   1. Shape: hold X to press the shaping stick into the spinning clay. The
 //      clay keeps its volume, so squeezing it in makes it grow taller, and
-//      grabbing the rim pulls it up (or squashes it down). B smooths, RT / LT add
-//      or take off handles, Y morphs into a surprise shape (shaped clay asks
-//      first). A (or RB): "Bake it?" (A yes; before any shaping A says "Hold X").
+//      grabbing the rim pulls it up (or squashes it down). B smooths, RT / LT (and
+//      the d-pad on a gamepad) add or take off handles. Y: "Bake it?" (A or Y
+//      yes); A asks too once the clay has been shaped (before that it says "Hold X").
 //      The pot names itself live.
 //   2. Fire: the kiln pops up around the pot; mash A (or X) to puff the bellows,
 //      then the doors burst open and the clay colour is revealed.
 //   3. Paint: the pot turns slowly. Glaze dips, stripes, a brush (hold X and
 //      the wheel paints a ring), dots and stickers, all wrapped on the 3D pot.
-//      X uses the tool, A goes on to the next tool, LB / RB pick the tool (the
-//      last one is Done: A there = ready), Y (d-pad left / right) the colour /
-//      sticker, B undoes.
+//      X uses the tool, A goes on to the next tool, d-pad up / down (or LT / RT,
+//      the keyboard's way: WASD is the hand there) pick the tool (the last one
+//      is Done: A there = ready), d-pad left / right or LB / RB the colour /
+//      sticker, Y: "All done painting?", B undoes.
 //   (A confirms / moves on, X is the action: the owner's button rule.)
 // Finale: every pot goes up on the gallery shelf, gets a ribbon, and
 // everyone poses for a photo.
@@ -27,13 +28,12 @@ import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU } fr
 import { playerName } from '../state.js';
 import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose } from '../engine/photo-poses.js';
 import {
-  KY, N, WET, CLAYS, PAINTS, GOLD, RAINBOW_I, STICKERS, PRESETS, PRESET_NAMES, HMAX,
+  KY, N, WET, CLAYS, PAINTS, GOLD, RAINBOW_I, STICKERS, PRESET_NAMES, HMAX,
   newPot, volumeOf, radiusAt, maxRadius, presetProfile, shapeClay, smooth, potName,
   ringPoint, surfaceAt, mix,
 } from './pottery-wheel/pot.js';
 
 import { PotteryDrawing, TOOLS, CHEESE_TIME } from './pottery-wheel/draw.js';
-import { askOpen, askUpdate } from '../engine/studio-ui.js';
 import { meta } from './pottery-wheel.meta.js';
 
 export { meta };
@@ -112,9 +112,9 @@ export class Game extends PotteryDrawing {
       p, i, r, L, actor: a, pot: newPot(),
       step: 'shape', stepT: 0, cursor: { x: 170, y: 90 }, phi: rand(TAU), spin: SHAPE_SPIN,
       tool: TOOL.glaze, color: 0, sticker: 0, history: [], held: null, hover: null, stroke: null, dotT: 0,
-      confirm: null, ask: null, ready: false, readyT: 0, fire: null,
+      confirm: null, ready: false, readyT: 0, fire: null,
       name: '', nameCand: '', nameCandT: 0, nameBump: 0, potBump: 0, listBump: 0, cheerCD: 0,
-      shapeT: 0, workT: 0, sndT: 0, morph: null, award: null, ai: null, helpT: 0,
+      shapeT: 0, workT: 0, sndT: 0, award: null, ai: null, helpT: 0,
     };
     st.name = 'Lump';
     if (p.isAI) this.planShape(st);
@@ -137,26 +137,17 @@ export class Game extends PotteryDrawing {
   updateShape(st, dt) {
     const c = st.p.ctrl, pot = st.pot, a = st.actor, cur = st.cursor;
     st.phi += dt * SHAPE_SPIN;
-    if (st.morph) {
-      const M = st.morph;
-      M.t += dt;
-      const e = ease.inOutQuad(clamp(M.t / 0.7, 0, 1));
-      for (let i = 0; i < N; i++) pot.r[i] = lerp(M.from[i], M.to.r[i], e);
-      pot.h = lerp(M.fromH, M.to.h, e);
-      if (M.t >= 0.7) { pot.vol = volumeOf(pot.r, pot.h); pot.handles = M.to.handles; st.morph = null; }
-      return;
-    }
     if (st.confirm) { this.updateConfirm(st, dt); return; }
-    if (st.ask) { this.updateAsk(st); return; }
     // on a gamepad the d-pad picks the handles, so only the stick moves the hand (CPUs drive like a
     // gamepad); on a keyboard WASD is both, so LT / RT pick them there
     const pad = c.kind !== 'kb', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     cur.x = clamp(cur.x + mx * CUR_SPEED * dt, -260, 260);
     cur.y = clamp(cur.y - my * CUR_SPEED * dt, -20, HMAX + 40);
-    if (c.pressed('rb')) { st.confirm = { t: 0 }; sfx('select'); a.setPose('idle'); return; }
+    // Y: bake it - "Bake it?" (A / Y yes, B not yet). LB / RB do nothing while shaping.
+    if (c.pressed('y')) { st.confirm = { t: 0 }; sfx('select'); a.setPose('idle'); return; }
     if (c.pressed('a')) {
-      // A: this shape's done - "Bake it?" (until the clay has been shaped: how to shape it)
-      if (st.shapeT < 0.6 && !st.lastPreset && !st.p.isAI) { st.hint = { text: 'Hold X to shape the clay!', t: 2.2 }; sfx('blip'); }
+      // A: this shape's done - "Bake it?" too (until the clay has been shaped: how to shape it)
+      if (st.shapeT < 0.6 && !st.p.isAI) { st.hint = { text: 'Hold X to shape the clay!', t: 2.2 }; sfx('blip'); }
       else { st.confirm = { t: 0 }; sfx('select'); a.setPose('idle'); }
       return;
     }
@@ -167,11 +158,6 @@ export class Game extends PotteryDrawing {
       const s = this.toScreen(st, maxRadius(pot) + 30, pot.h * 0.5);
       particles.burst(s.x, s.y, { type: 'sparkle', count: 8, colors: ['#fff', st.p.color] });
       st.potBump = 0.25; this.cheer(st);
-    }
-    if (c.pressed('y')) {
-      // Y: a surprise shape! (shaped clay asks first, Go back is the default)
-      if ((st.shapeT > 0.3 || st.lastPreset || pot.handles) && !st.p.isAI) { st.ask = askOpen(); sfx('select'); a.setPose('idle'); } else this.surpriseShape(st);
-      return;
     }
     const tx = Math.abs(cur.x), ty = cur.y;
     st.shaping = false; st.sponging = false;
@@ -204,7 +190,7 @@ export class Game extends PotteryDrawing {
   }
 
   checkName(st, dt) {
-    if (st.shapeT < 0.6 && !st.lastPreset) return;
+    if (st.shapeT < 0.6) return;
     const nm = potName(st.pot);
     if (nm === st.name) { st.nameCand = ''; return; }
     if (nm !== st.nameCand) { st.nameCand = nm; st.nameCandT = 0; return; }
@@ -218,35 +204,11 @@ export class Game extends PotteryDrawing {
     this.cheer(st);
   }
 
-  surpriseShape(st) {
-    const pot = st.pot;
-    let name = pick(PRESET_NAMES);
-    if (st.lastPreset === name) name = pick(PRESET_NAMES);
-    st.lastPreset = name;
-    const to = presetProfile(name, pot.vol, 0.04);
-    st.morph = { t: 0, from: pot.r.slice(), fromH: pot.h, to };
-    pot.grabTop = false;
-    sfx('magic'); snd('pottery-plop', 'splat', { vol: 0.5 });
-    const b = this.toScreen(st, 0, pot.h * 0.5);
-    particles.burst(b.x, b.y, { type: 'smoke', count: 10, speed: [60, 200] });
-    particles.burst(b.x, b.y, { type: 'star', count: 8 });
-    st.actor.playOnce('surprised', 0.5, 'idle');
-  }
-
-  /** Y on shaped clay: "Swap for a surprise?" - Go back (the default) or Surprise!. */
-  updateAsk(st) {
-    const q = st.ask, sel = q.sel, r = askUpdate(st.p.ctrl, q);
-    if (q.sel !== sel) sfx('move');
-    if (!r) return;
-    st.ask = null;
-    if (r === 'yes') this.surpriseShape(st); else sfx('back');
-  }
-
   updateConfirm(st, dt) {
     const c = st.p.ctrl;
     st.confirm.t += dt;
     if (st.confirm.t < 0.15) return;
-    if (c.pressed('a') || c.pressed('rb')) {
+    if (c.pressed('a') || c.pressed('y')) {
       st.confirm = null;
       if (st.step === 'shape') this.startFire(st);
       else if (st.step === 'paint') this.setReady(st, true);
@@ -256,7 +218,7 @@ export class Game extends PotteryDrawing {
   // --- step 2: the kiln --------------------------------------------------------------
   startFire(st) {
     st.step = 'fire'; st.stepT = 0; st.confirm = null;
-    st.pot.grabTop = false; st.morph = null;
+    st.pot.grabTop = false;
     st.fire = { stage: 'in', t: 0, heat: 0, kiln: 0, doors: 0, sink: 0, glow: 0, shake: 0, flare: 0, smokeT: 0 };
     st.actor.setPose('idle'); st.actor.playOnce('ready', 0.5, 'idle');
     sfx('whoosh');
@@ -385,18 +347,20 @@ export class Game extends PotteryDrawing {
     const target = st.held || st.hover || st.confirm ? 0 : fast ? FAST_SPIN : PAINT_SPIN;
     st.spin = damp(st.spin, target, 6, dt);
     st.phi += st.spin * dt;
+    if (st.confirm) { this.updateConfirm(st, dt); if (a.pose === 'paint') a.setPose('idle'); return; }
     const pad = c.kind !== 'kb', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     cur.x = clamp(cur.x + mx * CUR_SPEED * dt, -260, 260);
     cur.y = clamp(cur.y - my * CUR_SPEED * dt, -30, HMAX + 30);
-    // LB / RB: the tools, the last one is Done (A there: ready) · d-pad left / right or LT / RT (keyboard:
-    // LT / RT, WASD is the hand): the colour or sticker · X: use the tool and stay · A: commit: on a
-    // one-press tool (glaze, stripe, dots, sticker) it does it once if X hasn't on this visit, then on to
-    // the next tool · B: take off / undo
+    // d-pad up / down or LT / RT (keyboard: LT / RT, WASD is the hand): the tools, the last one is Done
+    // (A there: ready) · d-pad left / right or LB / RB (keyboard: LB / RB): the colour or sticker ·
+    // Y: "All done painting?" · X: use the tool and stay · A: commit: on a one-press tool (glaze, stripe,
+    // dots, sticker) it does it once if X hasn't on this visit, then on to the next tool · B: take off / undo
     const NT = TOOLS.length + 1;
     // A's one action: X is pressed for it the next frame, and the frame after that it moves on
     if (st.aNext === 'go') { st.aNext = null; if (!st.held && st.tool !== DONE) { this.nextPaintTool(st); return; } }
     else if (st.aNext === 'x') st.aNext = 'go';
-    const toolStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
+    if (c.pressed('y') && !st.held) { st.confirm = { t: 0 }; st.aNext = null; st.stroke = null; st.hover = null; sfx('select'); a.setPose('idle'); return; }
+    const toolStep = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0) : 0);
     if (toolStep && !st.held) { st.tool = (st.tool + toolStep + NT) % NT; st.usedOn = -1; st.aNext = null; st.listBump = 0.15; sfx('move'); st.stroke = null; return; }
     if (st.tool === DONE) {
       st.hover = null;
@@ -410,7 +374,7 @@ export class Game extends PotteryDrawing {
       this.nextPaintTool(st); return;
     }
     if (c.pressed('x')) { st.usedX = true; st.hint = null; }
-    const colStep = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
+    const colStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
     if (colStep && !st.held) {
       if (TOOLS[st.tool].id === 'sticker') { st.sticker = (st.sticker + colStep + STICKERS.length) % STICKERS.length; sfx('stamp', { vol: 0.5 }); }
       else { st.color = (st.color + colStep + PAINTS.length) % PAINTS.length; sfx('collect', { step: st.color }); }
@@ -538,7 +502,7 @@ export class Game extends PotteryDrawing {
     st.ai = {
       mode: 'shape', name, target: presetProfile(name, st.pot.vol, jitter),
       passes: randInt(2, 3), pass: 0, dir: 1, u: 0.02, engaged: false,
-      speed: rand(0.22, 0.3) * prof.speed, wait: rand(0.8, 1.8), surprise: chance(0.12), t: 0,
+      speed: rand(0.22, 0.3) * prof.speed, wait: rand(0.8, 1.8), t: 0,
     };
   }
 
@@ -558,8 +522,6 @@ export class Game extends PotteryDrawing {
 
   aiShape(st, dt) {
     const c = st.p.ctrl, ai = st.ai, pot = st.pot, cur = st.cursor;
-    if (st.morph) return;
-    if (ai.surprise && !ai.didSurprise) { ai.didSurprise = true; c.press('y'); ai.wait = 1.3 * this.pace(); ai.pass = ai.passes; return; }
     if (ai.pass < ai.passes) {
       const u = clamp(ai.u, 0, 1);
       const R = radiusAt({ r: ai.target.r }, u);
@@ -584,8 +546,8 @@ export class Game extends PotteryDrawing {
     }
     c.hold('x', false); c.move(0, 0);
     const want = ai.target.handles || (chance(0.002) ? 1 : 0);
-    if (pot.handles !== want && !ai.didSurprise) { c.press('rt'); ai.wait = rand(0.35, 0.7) * this.pace(); return; }
-    c.press('rb'); ai.wait = rand(0.5, 0.9) * this.pace();
+    if (pot.handles !== want) { c.press('rt'); ai.wait = rand(0.35, 0.7) * this.pace(); return; }
+    c.press('y'); ai.wait = rand(0.5, 0.9) * this.pace();
   }
 
   planPaint(st) {
@@ -607,13 +569,13 @@ export class Game extends PotteryDrawing {
   aiPaint(st, dt) {
     const c = st.p.ctrl, ai = st.ai, pot = st.pot, cur = st.cursor;
     const task = ai.tasks[ai.ti];
-    if (!task) { c.hold('x', false); c.move(0, 0); c.press(st.tool === DONE ? 'a' : 'rb'); ai.wait = 0.5; return; }   // RB to Done, then A
-    // pick the tool (RB / LB the short way round), then the colour / sticker (Y)
+    if (!task) { c.hold('x', false); c.move(0, 0); c.press('y'); ai.wait = 0.5; return; }   // Y: "All done painting?", then A
+    // pick the tool (d-pad down / up the short way round), then the colour / sticker (RB)
     if (TOOLS[st.tool]?.id !== task.tool) {
       const NT = TOOLS.length + 1, fwd = (TOOL[task.tool] - st.tool + NT) % NT;
-      c.press(fwd <= NT / 2 ? 'rb' : 'lb'); ai.wait = rand(0.15, 0.3) * this.pace(); return;
+      c.press(fwd <= NT / 2 ? 'down' : 'up'); ai.wait = rand(0.15, 0.3) * this.pace(); return;
     }
-    if (task.tool === 'sticker' ? st.sticker !== task.sticker : st.color !== task.color) { c.press('rt'); ai.wait = rand(0.1, 0.22) * this.pace(); return; }
+    if (task.tool === 'sticker' ? st.sticker !== task.sticker : st.color !== task.color) { c.press('rb'); ai.wait = rand(0.1, 0.22) * this.pace(); return; }
     let tx, ty;
     if (task.y !== undefined) { tx = task.x; ty = task.y; }
     else {
@@ -829,7 +791,7 @@ export class Game extends PotteryDrawing {
   onDone() {
     if (this.phase === 'make') {
       for (const st of this.stations) {
-        st.confirm = null; st.morph = null; st.ask = null;
+        st.confirm = null;
         if (!st.pot.fired) { st.pot.fired = true; st.pot.clay = pick(CLAYS); }
         if (!st.ready) { st.ready = true; st.step = 'ready'; }
       }
