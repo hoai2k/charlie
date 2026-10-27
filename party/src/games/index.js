@@ -182,7 +182,7 @@ export const gameById = (id) => GAMES.find((g) => g.id === id);
 // Hidden games: off the shelves (and out of Random / Marathon) unless Settings ->
 // "Show all games" is on; then they come back at the end of their shelf. Games from
 // a shelf's second page move up to fill the gaps. They stay playable by id (?game=).
-export const HIDDEN = new Set(['art-studio', 'fairy-count']);
+export const HIDDEN = new Set(['art-studio', 'fairy-count', 'acrobat-circus']);
 const visible = (list, showAll) => [...list.filter((g) => !HIDDEN.has(g.id)), ...(showAll ? list.filter((g) => HIDDEN.has(g.id)) : [])];
 const paged = (list) => (list.length <= 12 ? [list] : chunkPages(list, 11));
 const chunkPages = (list, n) => { const out = []; for (let i = 0; i < list.length; i += n) out.push(list.slice(i, i + n)); return out; };
