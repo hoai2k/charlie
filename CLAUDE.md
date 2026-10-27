@@ -95,7 +95,10 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   left/right (+ LB/RB when they're free); LB/RB otherwise step categories; never
   X / Y. When moving on also confirms the current choice (Pet Spa's steps, Fashion
   Show's spots), A does it too. If A can't finish a step yet, say what's left
-  and to press X (Pet Spa: hold X to scrub, A = this step's done).
+  and to press X (Pet Spa: hold X to scrub, A = this step's done). D-pad up/down
+  walks vertical lists; d-pad left/right (+ LB/RB, then LT/RT) walks horizontal
+  ones. B backs out of anything A just confirmed. A held item (gem, decoration)
+  is drawn exactly where it will land, at the tool's tip.
 - Play Studio controls (see `party/src/engine/studio-ui.js`; Fashion Show is the
   model): A confirms and moves on; LB/RB move between categories and the last
   category is "Done" (A there = ready); the left stick (and X) choose items or
