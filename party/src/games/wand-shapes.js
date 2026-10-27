@@ -271,8 +271,9 @@ export class Game {
   easyStick(e, dt) {
     const c = e.p.ctrl, s = this.shape;
     // Either stick still steers the sparkle (a touch gentler than Medium); the
-    // autopilot waits, then picks the nearest dot from wherever it was left.
-    const st = easySteer(e, c, dt);
+    // autopilot waits (1.5 s: a child who has just steered isn't flown about),
+    // then picks the nearest dot from wherever it was left.
+    const st = easySteer(e, c, dt, 1.5);
     if (st.manual) { e.idleT = 0; e.et = null; return [st.x * 0.85, st.y * 0.85]; }
     const held = c.held('a');
     e.idleT = held ? 0 : e.idleT + dt;

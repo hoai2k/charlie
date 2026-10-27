@@ -23,7 +23,7 @@ import { fx } from '../engine/fx.js';
 import { art, hasArt } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
-import { easySteer, easyPrompt } from '../engine/easy.js';
+import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, approach, rand, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
 import { drawSparkleShape } from '../engine/emotes.js';
@@ -62,7 +62,7 @@ const KIND_DECK = ['sunflower', 'carrot', 'strawberry', 'pumpkin', 'sneezy'];
 export class Game {
   constructor(api) {
     this.api = api;
-    this.easy = !!api.easy;   // Molly Easy: humans walk to the next patch by themselves, hold A
+    this.easy = !!api.easy;   // Molly Easy: hold A at a patch; A again and again (no steering) walks you to the next
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -558,19 +558,24 @@ export class Game {
     ctrl.hold('a', !!(near && e.holdOff <= 0 && this.wants(e.plot)));
   }
 
-  /** Molly Easy: walk a human to a patch that needs planting or watering (not
-   *  one another player is heading for) and stand beside it. Returns stick x/y. */
+  /** Molly Easy: A at a patch plants / waters it; with no patch in reach, A pressed
+   *  again (no steering - easyAutoOk) walks her to one that needs it (not one another
+   *  player is heading for) and stops beside it. Nobody walks her otherwise. Returns stick x/y. */
   easyPilot(e, dt) {
-    const z = e.ez;
-    // either stick still walks her anywhere (like Medium); the patch she's at is "hers".
-    // Just let go and holding A? the autopilot takes her to the nearest patch from here.
-    const st = easySteer(z, e.p.ctrl, dt);
-    if (st.manual && (st.pushing || !e.p.ctrl.held('a') || e.watering)) {
+    const z = e.ez, c = e.p.ctrl;
+    // either stick still walks her anywhere (like Medium); the patch she's at is "hers"
+    const st = easySteer(z, c, dt);
+    if (st.pushing) z.go = false;
+    if (c.pressed('a') && !z.go && !e.watering) {
+      const np = this.nearestPlot(e);
+      if (!this.wants(np) && easyAutoOk(z)) { z.go = true; z.goT = 8; z.plot = null; z.think = 0; }
+    }
+    if (z.go && (z.goT -= dt) <= 0) z.go = false;
+    if (!z.go) {
       const np = this.nearestPlot(e);
       z.plot = e.watering || (this.wants(np) ? np : null); z.think = 0;
-      return [st.x, st.y];
+      return st.manual ? [st.x, st.y] : [0, 0];
     }
-    if (st.manual && !this.wants(z.plot)) z.plot = null;
     z.think -= dt;
     if (e.watering && this.wants(e.watering)) z.plot = e.watering;
     if (!z.plot || !this.wants(z.plot) || (z.think <= 0 && !e.watering && !this.nearPlot(e, z.plot))) {
@@ -589,7 +594,7 @@ export class Game {
     const side = z.plot.x > e.x ? -1 : 1;
     const tx = z.plot.x + side * 75, ty = z.plot.y + 18;
     const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
-    if (d < 10 || (this.nearPlot(e, z.plot) && d < 40)) return [0, 0];
+    if (d < 10 || (this.nearPlot(e, z.plot) && d < 40)) { z.go = false; return [0, 0]; }   // there: hold A
     const k = clamp(d / 80, 0, 1) * 0.7;
     return [(dx / d) * k, (dy / d) * k];
   }

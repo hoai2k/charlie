@@ -303,7 +303,7 @@ export class Game {
     if (easy) {
       // the stick, if used, tiptoes them by hand (also while he stirs or looks, as in Medium:
       // freezing is just letting go of everything); the route then restarts from here
-      const st = easySteer(U, c, dt);
+      const st = easySteer(U, c, dt, 1.5);   // 1.5 s: holding A right after steering doesn't walk the route
       manual = st.manual && !finale;
       U.ez.push = st.pushing;
       if (manual) U.ez.mode = null;   // re-pick the nearest basket / troll spot from where they are

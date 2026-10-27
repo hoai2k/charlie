@@ -445,8 +445,9 @@ def({
     rr(g, -34, -42, 68, 42, 6, col);
     g.strokeStyle = '#ffd23f'; g.lineWidth = 4; g.beginPath(); g.moveTo(-30, -22); g.lineTo(30, -22); g.stroke();
     at(g, 0, -42, () => {
-      const sx = Math.cos(env.t * (it.playing > 0 ? 7 : 2));
-      g.scale(Math.abs(sx) < 0.25 ? 0.25 * Math.sign(sx || 1) : sx, 1);
+      // the dancer sways and bobs in the picture plane (no paper-flip spin)
+      const on = it.playing > 0, ph = env.t * (on ? 7 : 2);
+      g.translate(0, on ? -Math.abs(Math.sin(ph)) * 4 : 0); g.rotate(Math.sin(ph) * (on ? 0.22 : 0.08));
       g.lineWidth = 3; g.strokeStyle = NAVY; g.beginPath(); g.moveTo(0, 0); g.lineTo(0, -16); g.stroke();
       el(g, 0, -16, 14, 5, '#ffc4dc', 2.5);
       rr(g, -4, -32, 8, 16, 3, '#ffc4dc', 2.5);

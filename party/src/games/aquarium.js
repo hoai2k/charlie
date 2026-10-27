@@ -2,16 +2,17 @@
 // fish you name yourself, then put on a glowing night show.
 //
 // Everyone shares one big tank and has a hand cursor in their colour (left
-// stick; the right stick nudges it finely). LB / RB step through the categories:
-//   plants, castles, shells, bubblers, night lights, fish, sand colours, Tap
-//   (the glass) and, last, Done. The D-pad left/right (or LT / RT) picks the next thing,
-//   the D-pad up/down its colour (or recolours what you hold; keyboards: Y on the bar).
-//   X  put one in and stay (as many as you like); on Tap: tap the glass (gently! fish come
-//      to look; tap too hard and they hide)
-//   A  put one in (or tap) and go on to the next category, or just go on if X already did;
-//      pick up what you point at / put it down again; on Done: I'm ready (B: not yet)
+// stick; the right stick nudges it finely). The categories are a column (down the left of
+// the screen for one kid, a little one in each station's panel for more):
+//   Fish, plants, castles, shells, bubblers, night lights, sand colours, Feed, Tap (the
+//   glass) and, last, Done. D-pad up / down (or LB / RB) steps them; D-pad left / right
+//   (or LT / RT) picks the next thing in one. Keyboards' WASD is the hand, hence the shoulders.
+//   A  and X are the same (everything is optional, so neither moves on): put one in (again and
+//      again), pick up what you point at / put it down again; on Feed: sprinkle fish food; on
+//      Tap: tap the glass (gently! fish come to look; tap too hard and they hide); on Done: I'm
+//      ready (B: not yet)
 //   B  remove what you point at (fish wave and swim away)
-//   Y  sprinkle fish food
+//   Y  colour: recolour what you carry, else the picked thing's colour
 // A new fish gets a name card: left/right picks a name, A chooses it.
 // Fish swim with personality (see aquarium/fish.js) and play by themselves:
 // loop-de-loops, bubble rides, peekaboo through castle doors, chases, kisses.
@@ -41,7 +42,7 @@ import {
 } from './aquarium/tank.js';
 import { DECOR, drawDecor, drawDecorGlow, decorLights, decorBox, drawDecorIcon, decorDoor, decorOut } from './aquarium/decor.js';
 import {
-  KINDS, makeFish, nameChoices, fishRange, bandY, wanderTarget, steerTo, integrate, emote, drawFish, drawFishGlowBits, fishGlowColor, drawFishIcon,
+  KINDS, makeFish, faceTo, nameChoices, fishRange, bandY, wanderTarget, steerTo, integrate, emote, drawFish, drawFishGlowBits, fishGlowColor, drawFishIcon,
 } from './aquarium/fish.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
@@ -52,19 +53,21 @@ const GROUPS = {
   shells: { name: 'Shells', color: '#ff7aa8' }, bubblers: { name: 'Bubblers', color: '#3fa7ff' }, lights: { name: 'Lights', color: '#ffb020' },
   fish: { name: 'Fish', color: '#ff7a3c' },
 };
-const GROUP_ORDER = ['plants', 'castles', 'shells', 'bubblers', 'lights', 'fish', 'sand'];
+const GROUP_ORDER = ['fish', 'plants', 'castles', 'shells', 'bubblers', 'lights', 'sand'];
 const PALETTE = [
-  ...GROUP_ORDER.filter((g) => g !== 'sand' && g !== 'fish').flatMap((grp) => DECOR.filter((d) => d.group === grp).map((d) => ({ kind: 'decor', def: d, group: grp, name: d.name, key: d.id, ncol: d.colors.length }))),
   ...KINDS.map((k) => ({ kind: 'fish', def: k, group: 'fish', name: k.name, key: k.id, ncol: k.colors.length })),
+  ...GROUP_ORDER.filter((g) => g !== 'sand' && g !== 'fish').flatMap((grp) => DECOR.filter((d) => d.group === grp).map((d) => ({ kind: 'decor', def: d, group: grp, name: d.name, key: d.id, ncol: d.colors.length }))),
   ...SANDS.map((s, i) => ({ kind: 'sand', idx: i, group: 'sand', name: s.name, key: 'sand' + i, ncol: 1 })),
 ];
 const PAL_INDEX = Object.fromEntries(PALETTE.map((e, i) => [e.key, i]));
 const GROUP_START = GROUP_ORDER.map((grp) => PALETTE.findIndex((e) => e.group === grp));
 const GROUP_END = GROUP_ORDER.map((grp) => PALETTE.length - [...PALETTE].reverse().findIndex((e) => e.group === grp));
-// Categories (LB / RB): the groups, then "Tap" (A taps the glass) and last "Done".
-const TAP_TAB = GROUP_ORDER.length, DONE = TAP_TAB + 1, NTABS = DONE + 1;
+// Categories (D-pad up / down, or LB / RB): the groups (Fish first), then "Feed" (A sprinkles food),
+// "Tap" (A taps the glass) and last "Done". D-pad left / right (or LT / RT) step the things in one.
+const NG = GROUP_ORDER.length, FEED_TAB = NG, TAP_TAB = NG + 1, DONE = NG + 2, NTABS = DONE + 1;
 const groupOf = (idx) => GROUP_ORDER.indexOf(PALETTE[idx].group);
-const tabName = (tab) => (tab === DONE ? 'Done' : tab === TAP_TAB ? 'Tap' : GROUPS[GROUP_ORDER[tab]].name);
+const tabName = (tab) => (tab === DONE ? 'Done' : tab === TAP_TAB ? 'Tap' : tab === FEED_TAB ? 'Feed' : GROUPS[GROUP_ORDER[tab]].name);
+const tabColor = (tab) => (tab === DONE ? '#36d17a' : tab === TAP_TAB ? '#3fa7ff' : tab === FEED_TAB ? '#ff9f1c' : GROUPS[GROUP_ORDER[tab]].color);
 const MAX_DECOR = 50, MAX_FISH = 26;
 
 // --- screen layout --------------------------------------------------------------------
@@ -72,9 +75,13 @@ const BAR = { y: 950, h: 124 };
 // The build clock is the play scene's own timer (api.limit) at CLOCK; its "+1 min" button sits beside it.
 const CLOCK = { x: 1764, y: 162 };
 const CLOCK_PLUS = { x: 1852, y: 132, w: 56, h: 60 };
-const LEGEND = { x: 14, y: 14, w: 250 };
-// A commits (puts one thing in and goes on to the next category), X puts one in and stays.
-const LEGEND_ROWS = [[['stick'], 'Move'], [['lb', 'rb'], 'Category'], [['lt', 'rt'], 'Next thing'], [['dpad'], 'Colour'], [['x'], 'Put one'], [['a'], 'Place'], [['b'], 'Remove'], [['y'], 'Feed']];
+// With one kid playing, her categories are a big column down the left of the screen (the button
+// legend moves to the right); with more, each station's panel has its own little up / down column.
+const COLUMN = { x: 14, y: 14, w: 252, rh: 58 };
+const columnRect = () => ({ x: COLUMN.x, y: COLUMN.y, w: COLUMN.w, h: NTABS * COLUMN.rh + 16 });
+const LEGEND_W = 250;
+// A and X do the same thing (everything here is optional): put one in, pick up / put down, feed, tap.
+const LEGEND_ROWS = ['move', 'cat', 'item', 'act', 'b', 'y'];
 const inRect = (r, x, y) => x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h;
 const inTank = (x, y) => x >= WATER.x0 - 10 && x <= WATER.x1 + 10 && y >= LID.y1 && y <= WATER.y1 + 4;
 const BUILD_TIME = 180, CPU_TIME = 58;
@@ -104,6 +111,8 @@ export class Game {
     this.photos = []; this.bigPhoto = null; this.finished = false;
     this.playT = 4; this.bubbleSnd = 0; this.reactT = 0;
     this.stations = this.players.map((p, i) => this.makeStation(p, i));
+    // one kid playing: her categories are the big column down the left of the screen
+    this.solo = this.humans === 1 ? this.stations.find((s) => !s.p.isAI) : null;
     // At 0 the play scene asks the goal question: Go! (the default) starts the night show; the
     // stay choice adds a minute (as the "+1 min" button does). With no kids playing it just starts the show.
     api.limit(() => (this.phase === 'build' ? Math.max(0, this.timeLeft) : null), {
@@ -119,13 +128,13 @@ export class Game {
   makeStation(p, i) {
     const st = {
       p, i, cur: { x: 560 + (i % 4) * 260, y: 420 + Math.floor(i / 4) * 140 }, hold: 0,
-      sel: (GROUP_START[i % 6] + Math.floor(i / 6)) % PALETTE.length, scroll: 0, rep: { dir: 0, t: 0 }, colorOf: {},
-      tab: i % 6, selIn: [...GROUP_START], ready: false, tabPop: 0,
+      sel: 0, scroll: 0, rep: { dir: 0, t: 0 }, colorOf: {},
+      tab: p.isAI ? i % NG : 0, selIn: GROUP_START.map((a, g) => (p.isAI ? a + Math.floor(i / NG) % (GROUP_END[g] - a) : a)), ready: false, tabPop: 0,
       held: null, hover: null, naming: null, click: false, cool: 0, feedCool: 0, tapHeat: 0, selPop: 0, colPop: 0, reactT: 0,
       stats: { decor: 0, fish: 0, fed: 0, taps: 0 },
       ai: p.isAI ? { cmds: [], wait: 0, idle: rand(1, 2.4) + i * 0.35, decor: 0, fish: 0, extra: 0 } : null,
     };
-    st.selIn[st.tab] = st.sel;
+    st.sel = st.selIn[st.tab];
     st.scroll = st.sel - GROUP_START[st.tab];
     st.actor = new Actor(p, { facing: 1 });
     return st;
@@ -407,7 +416,7 @@ export class Game {
     f.state = 'look'; f.st = dur; f.tx = x - (f.x < x ? 70 : -70); f.ty = y; f.lookX = x; f.lookY = y; f.tfd = 0.97; f.play = null;
     if (em) emote(f, em, 1.2);
   }
-  endPlay(f) { f.play = null; f.state = 'swim'; f.hidden = 0; wanderTarget(f, this); }
+  endPlay(f) { f.play = null; f.spin = 0; f.state = 'swim'; f.hidden = 0; wanderTarget(f, this); }
 
   updateFishAll(dt) {
     const show = this.phase === 'show';
@@ -433,12 +442,12 @@ export class Game {
           f.x = damp(f.x, tx, 14, dt); f.y = damp(f.y, ty, 14, dt);
           f.vx = (f.x - px) / Math.max(dt, 1e-3) * 0.3; f.vy = 0; f.tfd = 1;
           if (Math.abs(f.x - px) > 0.5) f.dir = f.x > px ? 1 : -1;
-          integrate(f, 0, this); f.wig += dt * 10; f.face = damp(f.face, f.dir, 10, dt); f.fd = damp(f.fd, 1, 4, dt);
+          integrate(f, 0, this); f.wig += dt * 10; f.fd = damp(f.fd, 1, 4, dt);
           continue;
         }
         case 'leave': {
           steerTo(f, f.x + f.dir * 60, WATER.y0 - 60, k.speed * 2.2 + 80, dt, 40, 4);
-          f.x += f.vx * dt; f.y += f.vy * dt; f.wig += dt * 16; f.face = damp(f.face, f.dir, 6, dt);
+          f.x += f.vx * dt; f.y += f.vy * dt; f.wig += dt * 16; faceTo(f, f.dir, this);
           if (k.jelly) f.pulse += dt;
           if (f.mates) for (const m of f.mates) { m.x = damp(m.x, f.x + m.ox * f.face, 5, dt); m.y = damp(m.y, f.y + m.oy, 5, dt); }
           if (f.y < WATER.y0 + 4) { f.gone = true; particles.burst(f.x, WATER.y0, { type: 'drop', count: 12, colors: ['#bff6ff', '#ffffff'], speed: [120, 300], angle: -Math.PI / 2, spread: 0.8 }); snd('aq-splash', 'fish-plop', { vol: 0.6 }); }
@@ -618,7 +627,7 @@ export class Game {
         if (P.kind === 'loop') {
           const tx = P.cx + Math.cos(a) * R * (f.dir >= 0 ? 1 : -1), ty = P.cy + Math.sin(a) * R;
           f.vx = (tx - f.x) / Math.max(dt, 1e-3) * 0.5; f.vy = (ty - f.y) / Math.max(dt, 1e-3) * 0.5;
-        } else { f.vx = damp(f.vx, 0, 4, dt); f.vy = damp(f.vy, Math.sin(P.t * 6) * 30, 4, dt); f.dir = Math.sin(P.t * 7) > 0 ? 1 : -1; if (!P.sparkled) { P.sparkled = true; particles.burst(f.x, f.y, { type: 'sparkle', count: 8 }); sfx('sparkle', { vol: 0.3 }); } }
+        } else { f.vx = damp(f.vx, 0, 4, dt); f.vy = damp(f.vy, Math.sin(P.t * 6) * 30, 4, dt); f.spin = ease.inOutQuad(clamp(P.t / dur, 0, 1)) * TAU; if (!P.sparkled) { P.sparkled = true; particles.burst(f.x, f.y, { type: 'sparkle', count: 8 }); sfx('sparkle', { vol: 0.3 }); } }
         if (P.t > 0.3 && !P.popped) { P.popped = true; if (chance(0.35)) particles.popText(f.x, f.y - 50, P.kind === 'loop' ? 'Wheee!' : 'Ta-da!', '#ffffff', 34); this.cheerFor(f, 0.25); }
         if (P.t > dur) this.endPlay(f);
         break;
@@ -780,7 +789,7 @@ export class Game {
     }
     if (!this.humans) {
       if (this.cpuNight > 0 && this.phaseT > this.cpuNight) { this.cpuNight = -1; const s0 = this.stations[this.stations.length - 1]; s0.ai.cmds.unshift({ t: 'goto', x: SWITCH.x, y: SWITCH.y }, { t: 'a' }); }
-      // each CPU goes to Done (RB) and presses A when its part is finished (see updateAI)
+      // each CPU goes down to Done and presses A when its part is finished (see updateAI)
     }
     // Every kid ready on Done (CPUs alone: every CPU) starts the night show.
     const kids = this.stations.filter((s) => (this.humans ? !s.p.isAI : true));
@@ -798,7 +807,7 @@ export class Game {
   updateStation(st, dt) {
     const c = st.p.ctrl, isPad = c.kind === 'pad';
     if (st.naming) { this.updateNaming(st, dt); return; }
-    // --- hand (stick; on controllers the D-pad makes the item and colour choices)
+    // --- hand (stick; on controllers the D-pad picks the category and the thing)
     const mx = isPad ? c.sx : c.x, my = isPad ? c.sy : c.y;
     const mag = Math.hypot(mx, my);
     st.hold = mag > 0.15 ? st.hold + dt : 0;
@@ -807,7 +816,7 @@ export class Game {
     st.cur.y = clamp(st.cur.y + (my * sp + c.ry * 200) * dt, 4, H - 4);
     const { x, y } = st.cur;
     st.cool -= dt;
-    if (st.tab < TAP_TAB) { const a = GROUP_START[st.tab]; st.scroll = this.smoothScroll(st.scroll, st.sel - a, dt, GROUP_END[st.tab] - a); }
+    if (st.tab < NG) { const a = GROUP_START[st.tab]; st.scroll = this.smoothScroll(st.scroll, st.sel - a, dt, GROUP_END[st.tab] - a); }
     st.tabPop = Math.max(0, st.tabPop - dt * 4);
     // --- ready for the show (on Done): B = not yet after all
     if (st.ready) {
@@ -815,16 +824,14 @@ export class Game {
       if (c.pressed('b') || (st.click && inRect(st.panel, x, y))) this.setReady(st, false);
       return;
     }
-    // --- categories: LB / RB (the last one is Done)
-    const step = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
+    // --- categories: the D-pad up / down, or LB / RB (keyboards: their WASD is the hand); the last is Done
+    const ud = c.kind !== 'kb';
+    const step = (c.pressed('rb') || (ud && c.pressed('down')) ? 1 : 0) - (c.pressed('lb') || (ud && c.pressed('up')) ? 1 : 0);
     if (step) this.stepTab(st, step);
-    // --- things: the D-pad left/right (with hold-repeat) or LT / RT; colours: the D-pad up/down
-    // (keyboards: Y, see below - their WASD is the stick too)
-    const dir = (isPad && c.held('right')) || c.held('rt') ? 1 : (isPad && c.held('left')) || c.held('lt') ? -1 : 0;
+    // --- things in the category: the D-pad left / right (with hold-repeat), or LT / RT
+    const dir = (ud && c.held('right')) || c.held('rt') ? 1 : (ud && c.held('left')) || c.held('lt') ? -1 : 0;
     if (dir !== st.rep.dir) { st.rep.dir = dir; st.rep.t = 0; if (dir) this.browse(st, dir); }
     else if (dir) { st.rep.t += dt; if (st.rep.t > 0.42) { st.rep.t -= 0.13; this.browse(st, dir); } }
-    if (c.kind !== 'kb' && c.pressed('down')) this.cycleColor(st, 1);
-    if (c.kind !== 'kb' && c.pressed('up')) this.cycleColor(st, -1);
     // --- held things follow the hand
     if (st.held && st.held.type === 'decor') {
       const it = st.held.obj, pl = this.placement(it.def, x, y);
@@ -836,17 +843,10 @@ export class Game {
       if (f && !f.naming) st.hover = { type: 'fish', obj: f };
       else { const it = this.hitDecor(x, y); if (it) st.hover = { type: 'decor', obj: it }; }
     }
-    if (c.pressed('a') && st.tab === DONE && !st.held) this.setReady(st, true);
-    else if (c.pressed('a')) this.commitA(st);
-    else if (c.pressed('x')) this.pressX(st);
-    else if (st.click) this.pressA(st);
+    // A and X are the same (nothing here is a step to finish): act and stay
+    if (c.pressed('a') || c.pressed('x') || st.click) this.act(st);
     if (c.pressed('b')) this.pressB(st);
-    if (c.pressed('y')) {
-      // keyboards have no spare colour keys (the arrows layout's LT / RT sit on the numpad), so there
-      // Y recolours what the hand carries, or the bar's pick when the hand is down on the item bar
-      if (c.kind === 'kb' && (st.held || y >= BAR.y - 6)) this.cycleColor(st, 1);
-      else this.feed(st);
-    }
+    if (c.pressed('y')) this.cycleColor(st, 1);   // Y: colour (of what the hand carries, else of the pick)
   }
 
   updateNaming(st, dt) {
@@ -891,20 +891,20 @@ export class Game {
     return Math.abs(d) < 0.01 ? target : cur + d * (1 - Math.exp(-16 * dt));
   }
 
-  /** X / D-pad: the next (or previous) thing in this category. */
+  /** D-pad left / right (LT / RT): the next (or previous) thing in this category. */
   browse(st, dir) {
-    if (st.tab >= TAP_TAB) { if (!st.p.isAI && st.tab === TAP_TAB) sfx('blip'); return; }
+    if (st.tab >= NG) { if (!st.p.isAI && st.tab !== DONE) sfx('blip'); return; }
     const g = st.tab, a = GROUP_START[g], n = GROUP_END[g] - a;
     st.sel = a + ((st.sel - a + dir + n) % n);
     st.selIn[g] = st.sel; st.selPop = 1;
     if (!st.p.isAI) sfx('move', { vol: 0.7 });
   }
 
-  /** LB / RB: the next / previous category; the last one is "Done". */
+  /** D-pad up / down (LB / RB): the next / previous category; the last one is "Done". */
   stepTab(st, dir) { this.setTab(st, (st.tab + dir + NTABS) % NTABS); }
   setTab(st, tab) {
-    st.tab = tab; st.tabPop = 1; st.didTab = false;   // (A puts one in here unless X already has)
-    if (tab < TAP_TAB) { st.sel = st.selIn[tab]; st.selPop = 1; st.scroll = st.sel - GROUP_START[tab]; }
+    st.tab = tab; st.tabPop = 1;
+    if (tab < NG) { st.sel = st.selIn[tab]; st.selPop = 1; st.scroll = st.sel - GROUP_START[tab]; }
     if (!st.p.isAI) sfx('move');
   }
 
@@ -939,60 +939,49 @@ export class Game {
       return;
     }
     const e = PALETTE[st.sel];
-    if (e.ncol <= 1) { if (!st.p.isAI) sfx('blip'); return; }
+    if (st.tab >= NG || e.ncol <= 1) { if (!st.p.isAI) sfx('blip'); return; }
     st.colorOf[e.key] = (this.previewColor(st, e) + dir + e.ncol) % e.ncol;
     st.colPop = 1;
     if (!st.p.isAI) sfx('swap', { vol: 0.6 });
   }
 
-  /** A commits: carrying = put it down and go on; on a thing = pick it up; else put one in (if X hasn't
-   *  already, this category) and go on to the next category (Tap, then Done). */
-  commitA(st) {
-    const { x, y } = st.cur;
-    if (st.held) { this.drop(st); this.stepTab(st, 1); return; }   // (moving a thing counts: on you go)
-    if (st.tab === DONE || inRect(CLOCK_PLUS, x, y) || inRect(SWITCH_HIT, x, y) || y >= BAR.y - 6) { this.pressA(st); return; }
-    if (!st.p.isAI && x >= LEGEND.x && x <= LEGEND.x + LEGEND.w && y >= LEGEND.y && y <= LEGEND.y + LEGEND_ROWS.length * 50 + 24) { this.pressA(st); return; }
-    // (the thing X just put in, still under the hand, isn't picked up: A goes on)
-    const justPut = st.putAt && Math.hypot(x - st.putAt.x, y - st.putAt.y) < 60;
-    if (st.tab !== TAP_TAB && st.hover && !justPut && (!st.p.isAI || st.hover.obj.owner === st.i)) { this.grab(st, st.hover); return; }
-    if (!st.didTab) {
-      if (st.tab === TAP_TAB) this.tap(st);
-      else if (!this.placeSelected(st)) return;   // (it said why: outside the tank, or full)
-    }
-    this.stepTab(st, 1);
-  }
-
-  /** X acts and stays: put in another one (even over other things), tap the glass, or put down. */
-  pressX(st) {
-    const { x, y } = st.cur;
-    if (st.held || st.tab >= TAP_TAB || inRect(CLOCK_PLUS, x, y) || inRect(SWITCH_HIT, x, y) || y >= BAR.y - 6) { this.pressA(st); return; }
-    this.placeSelected(st);
-  }
-
-  pressA(st) {
-    const { x, y } = st.cur;
+  /** A (or X, or a click): do it and stay. Carrying = put it down; on the clock's "+1 min", the moon
+   *  switch, the item bar or a category = that; on Done: I'm ready; Feed / Tap: sprinkle food / tap the
+   *  glass; on a thing = pick it up (not the one just put in, still under the hand: that's another one);
+   *  else put one in. */
+  act(st) {
+    const { x, y } = st.cur, ai = st.p.isAI;
     if (st.held) { this.drop(st); return; }
-    if (inRect(CLOCK_PLUS, x, y) && !st.p.isAI) { this.addTime(60); return; }
+    if (inRect(CLOCK_PLUS, x, y) && !ai) { this.addTime(60); return; }
     if (inRect(SWITCH_HIT, x, y)) { this.toggleNight(st); return; }
     if (y >= BAR.y - 6) { this.panelClick(st, x, y); return; }
-    if (!st.p.isAI && x >= LEGEND.x && x <= LEGEND.x + LEGEND.w && y >= LEGEND.y && y <= LEGEND.y + LEGEND_ROWS.length * 50 + 24) {
-      const b = LEGEND_ROWS[clamp(Math.floor((y - LEGEND.y - 12) / 50), 0, LEGEND_ROWS.length - 1)][0][0];
-      if (b === 'lb') this.stepTab(st, 1); else if (b === 'lt') this.browse(st, 1); else if (b === 'dpad') this.cycleColor(st, 1); else sfx('blip');
-      return;
-    }
-    if (st.tab === TAP_TAB) { this.tap(st); st.didTab = true; return; }
-    if (st.tab === DONE) { sfx('blip'); return; }
-    if (st.hover && (!st.p.isAI || st.hover.obj.owner === st.i)) { this.grab(st, st.hover); return; }
+    if (st === this.solo && inRect(columnRect(), x, y)) { this.setTab(st, clamp(Math.floor((y - COLUMN.y - 8) / COLUMN.rh), 0, NTABS - 1)); return; }
+    if (!ai && inRect(this.legendRect(), x, y)) { this.legendClick(st, y); return; }
+    if (st.tab === DONE) { this.setReady(st, true); return; }
+    if (st.tab === TAP_TAB) { this.tap(st); return; }
+    if (st.tab === FEED_TAB) { this.feed(st); return; }
+    const justPut = st.putObj && st.hover && st.hover.obj === st.putObj && Math.hypot(x - st.putObj.px, y - st.putObj.py) < 60;
+    if (st.hover && !justPut && (!ai || st.hover.obj.owner === st.i)) { this.grab(st, st.hover); return; }
     this.placeSelected(st);
+  }
+
+  legendRect() {
+    const n = LEGEND_ROWS.length * 50 + 24;
+    return this.solo ? { x: W - LEGEND_W - 8, y: 236, w: LEGEND_W, h: n } : { x: 14, y: 14, w: LEGEND_W, h: n };
+  }
+  legendClick(st, y) {
+    const L = this.legendRect(), row = LEGEND_ROWS[clamp(Math.floor((y - L.y - 12) / 50), 0, LEGEND_ROWS.length - 1)];
+    if (row === 'cat') this.stepTab(st, 1); else if (row === 'item') this.browse(st, 1); else if (row === 'y') this.cycleColor(st, 1); else sfx('blip');
   }
 
   panelClick(st, x, y) {
     const P = st.panel;
     if (!inRect(P, x, y)) { sfx('blip'); return; }
     const L = this.panelLayout(st);
-    if (Math.hypot(x - L.catX, y - L.catY) < 40) { this.stepTab(st, 1); return; }   // the category button
+    if (L.col && x < L.c0 - 4 && x > L.catX - 40) { this.stepTab(st, y < L.catY ? -1 : 1); return; }   // the little category column
     if (st.tab === DONE) { this.setReady(st, true); return; }
     if (st.tab === TAP_TAB) { this.toast = { text: 'Point at the glass and press A!', t: 0 }; sfx('blip'); return; }
+    if (st.tab === FEED_TAB) { this.toast = { text: 'Point into the water and press A!', t: 0 }; sfx('blip'); return; }
     if (y > P.y + P.h - 30) { this.cycleColor(st, 1); return; }
     if (x < L.c0 + (L.c1 - L.c0) * 0.3) this.browse(st, -1); else if (x > L.c0 + (L.c1 - L.c0) * 0.7) this.browse(st, 1); else this.placeHint(st);
   }
@@ -1001,20 +990,21 @@ export class Game {
   placeSelected(st) {
     const e = PALETTE[st.sel], { x, y } = st.cur;
     if (!inTank(x, y)) { if (!st.p.isAI) this.placeHint(st); else sfx('blip'); return false; }
-    st.didTab = true; st.putAt = { x, y };
     if (e.kind === 'sand') {
       if (st.p.isAI && this.humans) { sfx('blip'); return false; }
       this.setSand(e.idx, st); return true;
     }
     if (e.kind === 'decor') {
-      if (this.decor.length >= MAX_DECOR) { st.didTab = false; this.toast = { text: 'The tank is full! Remove something with B.', t: 0 }; sfx('blip'); return false; }
+      if (this.decor.length >= MAX_DECOR) { this.toast = { text: 'The tank is full! Remove something with B.', t: 0 }; sfx('blip'); return false; }
       const d = e.def, pl = this.placement(d, x, y);
-      this.addDecor(d, pl, st, this.previewColor(st, e), y);
+      const it = this.addDecor(d, pl, st, this.previewColor(st, e), y);
+      st.putObj = it; it.px = x; it.py = y;   // (pressing again right here puts in another)
       st.cool = 0.12;
       return true;
     }
-    if (this.fish.filter((f) => f.state !== 'leave').length >= MAX_FISH) { st.didTab = false; this.toast = { text: 'So many fish! Say bye to one with B.', t: 0 }; sfx('blip'); return false; }
-    this.addFish(e.def, this.previewColor(st, e), x, y, st);
+    if (this.fish.filter((f) => f.state !== 'leave').length >= MAX_FISH) { this.toast = { text: 'So many fish! Say bye to one with B.', t: 0 }; sfx('blip'); return false; }
+    const f = this.addFish(e.def, this.previewColor(st, e), x, y, st);
+    st.putObj = f; f.px = x; f.py = y;
     return true;
   }
 
@@ -1113,7 +1103,7 @@ export class Game {
       A.idle -= dt;
       if (A.idle > 0) return;
       A.cmds = this.planFor(st);
-      // CPUs alone, their part finished: on to Done (RB) and A
+      // CPUs alone, their part finished: down to Done and A
       if (!A.cmds.length && !this.humans && A.decor >= this.cpuCap(st, 'decor') && A.fish >= this.cpuCap(st, 'fish') && this.phaseT > 12 && this.cpuNight < 0) A.cmds = [{ t: 'done' }];
       A.idle = this.humans ? rand(6, 11) / prof.speed : rand(0.3, 0.8);
       if (!A.cmds.length) A.idle = this.humans ? 5 : rand(1.5, 3);
@@ -1122,29 +1112,29 @@ export class Game {
     const cmd = A.cmds[0];
     const done = (w = 0.15) => { A.cmds.shift(); A.wait = w / prof.speed; };
     switch (cmd.t) {
-      case 'sel': {   // RB / LB to the thing's category, then X to the thing
+      case 'sel': {   // D-pad down / up to the thing's category, then right to the thing
         const gi = groupOf(cmd.v);
         if (st.sel === cmd.v && st.tab === gi) { done(0.2); break; }
-        if (st.tab !== gi) { const r = (gi - st.tab + NTABS) % NTABS; c.press(r <= NTABS / 2 ? 'rb' : 'lb'); }
-        else c.press('rt');
+        if (st.tab !== gi) { const r = (gi - st.tab + NTABS) % NTABS; c.press(r <= NTABS / 2 ? 'down' : 'up'); }
+        else c.press('right');
         A.wait = (this.humans ? rand(0.09, 0.15) : rand(0.05, 0.08)) / prof.speed;
         break;
       }
-      case 'tab': {   // RB / LB to a category (the Tap one, or Done)
+      case 'tab': {   // D-pad down / up to a category (Feed, Tap, or Done)
         if (st.tab === cmd.v) { done(0.1); break; }
-        const r = (cmd.v - st.tab + NTABS) % NTABS; c.press(r <= NTABS / 2 ? 'rb' : 'lb');
+        const r = (cmd.v - st.tab + NTABS) % NTABS; c.press(r <= NTABS / 2 ? 'down' : 'up');
         A.wait = rand(0.1, 0.18) / prof.speed;
         break;
       }
-      case 'done':   // RB to Done, then A
+      case 'done':   // down to Done, then A
         if (st.held) { c.press('a'); A.wait = 0.3; break; }
-        if (st.tab !== DONE) { c.press('rb'); A.wait = rand(0.12, 0.2) / prof.speed; break; }
+        if (st.tab !== DONE) { c.press((DONE - st.tab + NTABS) % NTABS <= NTABS / 2 ? 'down' : 'up'); A.wait = rand(0.12, 0.2) / prof.speed; break; }
         c.press('a'); done(0.3);
         break;
       case 'col': {
         const e = PALETTE[st.sel];
         if (e.ncol <= 1 || this.previewColor(st, e) === cmd.v) { done(0.15); break; }
-        c.press('down'); A.wait = rand(0.15, 0.25) / prof.speed;
+        c.press('y'); A.wait = rand(0.15, 0.25) / prof.speed;   // Y: colour
         break;
       }
       case 'goto': {
@@ -1167,8 +1157,8 @@ export class Game {
         if (cmd.count || cmd.raw) this.placeSelected(st); else c.press('a');
         done(0.5); break;
       }
-      case 'y': c.press('y'); done(0.5); break;
-      case 'tap': c.press('x'); done(0.9); break;   // on the Tap category
+      case 'feed': c.press('x'); done(0.5); break;   // on the Feed category (A and X are the same)
+      case 'tap': c.press('a'); done(0.9); break;    // on the Tap category
       default: done();
     }
   }
@@ -1187,8 +1177,8 @@ export class Game {
     if (fishList.length && r < (this.humans ? 0.25 : 0.14) && (A.extra < (this.humans ? 4 : 3))) {
       A.extra++;
       const f = pick(fishList);
-      cmds.push({ t: 'gotofish', f }, { t: 'y' });
-      if (chance(0.4)) cmds.push({ t: 'y' });
+      cmds.push({ t: 'tab', v: FEED_TAB }, { t: 'gotofish', f }, { t: 'feed' });
+      if (chance(0.4)) cmds.push({ t: 'feed' });
       return cmds;
     }
     if (fishList.length && r < (this.humans ? 0.32 : 0.2) && A.extra < 4) {
@@ -1579,6 +1569,7 @@ export class Game {
       this.drawHeld(g);
       this.drawNameTags(g);
       this.drawLegend(g);
+      if (this.solo) this.drawColumn(g, this.solo);
       this.drawTopRight(g);
       for (const st of this.stations) this.drawPanel(g, st);
       for (const st of this.stations) if (st.naming && !st.p.isAI) this.drawNameCard(g, st);
@@ -1607,7 +1598,7 @@ export class Game {
         this.drawOneDecor(g, it, env, 1, lift);
         continue;
       }
-      if (st.held || st.hover || st.p.isAI || st.naming || !inTank(st.cur.x, st.cur.y)) continue;
+      if (st.held || st.hover || st.p.isAI || st.naming || st.tab >= NG || !inTank(st.cur.x, st.cur.y)) continue;
       const e = PALETTE[st.sel];
       if (e.kind === 'decor') {
         const d = e.def, pl = this.placement(d, st.cur.x, st.cur.y);
@@ -1642,24 +1633,37 @@ export class Game {
     }
   }
 
+  /** What A (and X: they're the same) would do for this kid right now. */
+  actLabel(st) {
+    if (!st) return 'Put / pick up';
+    if (st.held) return 'Put down';
+    if (st.tab === DONE) return "I'm ready!";
+    if (st.tab === TAP_TAB) return 'Tap glass';
+    if (st.tab === FEED_TAB) return 'Feed fish';
+    const P = st.putObj, justPut = P && st.hover && st.hover.obj === P && Math.hypot(st.cur.x - P.px, st.cur.y - P.py) < 60;
+    if (st.hover && !justPut) return 'Pick up';
+    return PALETTE[st.sel].kind === 'sand' ? 'Pour sand' : 'Put one';
+  }
+
   drawLegend(g) {
-    const solo = this.humans === 1 ? this.stations.find((s) => !s.p.isAI) : null;
-    let aLabel = 'Place', xLabel = 'Put one';
-    if (solo) {
-      const sand = solo.tab < TAP_TAB && PALETTE[solo.sel].kind === 'sand';
-      aLabel = solo.held ? 'Put, go on' : solo.tab === DONE ? "I'm ready!" : solo.hover && solo.tab !== TAP_TAB && !(solo.putAt && Math.hypot(solo.cur.x - solo.putAt.x, solo.cur.y - solo.putAt.y) < 60) ? 'Pick up' : solo.didTab ? 'Go on' : solo.tab === TAP_TAB ? 'Tap, go on' : sand ? 'Pour, go on' : 'Put, go on';
-      xLabel = solo.held ? 'Put down' : solo.tab === DONE ? '-' : solo.tab === TAP_TAB ? 'Tap glass' : sand ? 'Pour sand' : 'Put one';
-    }
-    const kb = solo && solo.p.ctrl.kind === 'kb';
-    const rows = LEGEND_ROWS.map(([b, label]) => (label === 'Colour' && kb ? [['y'], 'Colour (held)'] : [b, label === 'Place' ? aLabel : label === 'Put one' ? xLabel : label]));
-    const rh = 50, h = rows.length * rh + 24;
-    ui.panel(g, LEGEND.x, LEGEND.y, LEGEND.w, h, { r: 24, fill: 'rgba(255,248,236,0.94)', lineWidth: 5 });
+    const solo = this.solo, kids = this.stations.filter((s) => !s.p.isAI);
+    const kb = solo ? solo.p.ctrl.kind === 'kb' : kids.length > 0 && kids.every((s) => s.p.ctrl.kind === 'kb');
+    const rows = LEGEND_ROWS.map((r) => ({
+      move: [['stick'], 'Move'],
+      cat: kb ? [['lb', 'rb'], 'Category'] : [['dpad'], 'Up/down: kind'],
+      item: kb ? [['lt', 'rt'], 'Next thing'] : [['dpad'], 'Left/right: next'],
+      act: [['a', 'x'], this.actLabel(solo)],
+      b: [['b'], 'Remove'],
+      y: [['y'], 'Colour'],
+    }[r]));
+    const L = this.legendRect(), rh = 50;
+    ui.panel(g, L.x, L.y, L.w, L.h, { r: 24, fill: 'rgba(255,248,236,0.94)', lineWidth: 5 });
     rows.forEach(([btns, label], i) => {
-      const y = LEGEND.y + 12 + rh / 2 + i * rh;
-      let x = LEGEND.x + 32;
-      for (const b of btns) { ui.glyph(g, b, x, y, 34); x += b.length === 2 ? 48 : 44; }
-      const lx = Math.max(x, LEGEND.x + 82);
-      ui.text(g, label, lx, y + 1, { size: 27, color: NAVY, stroke: false, align: 'left', weight: 700, maxWidth: LEGEND.x + LEGEND.w - lx - 10 });
+      const y = L.y + 12 + rh / 2 + i * rh;
+      let x = L.x + 32;
+      for (const b of btns) { ui.glyph(g, b, x, y, 34); x += b.length === 2 ? 48 : 40; }
+      const lx = Math.max(x, L.x + 82);
+      ui.text(g, label, lx, y + 1, { size: 27, color: NAVY, stroke: false, align: 'left', weight: 700, maxWidth: L.x + L.w - lx - 10 });
     });
   }
 
@@ -1683,12 +1687,12 @@ export class Game {
   }
 
   panelLayout(st) {
-    const P = st.panel, wide = P.w >= 380;
+    const P = st.panel, wide = P.w >= 380, col = st !== this.solo;   // (the solo kid's column is on the screen)
     const x0 = wide ? P.x + 84 : P.x + 12;
-    const catX = x0 + 34, catY = P.y + P.h / 2 + 2;
+    const catX = x0 + 30, catY = P.y + P.h / 2;
     const glyphW = P.w >= 300 ? 30 : 0;
-    const c0 = x0 + 76, c1 = P.x + P.w - 12 - glyphW;
-    return { wide, catX, catY, c0, c1, mid: (c0 + c1) / 2, glyphW };
+    const c0 = col ? x0 + 68 : x0 + 4, c1 = P.x + P.w - 12 - glyphW;
+    return { wide, col, catX, catY, c0, c1, mid: (c0 + c1) / 2, glyphW };
   }
 
   drawPanel(g, st) {
@@ -1698,23 +1702,26 @@ export class Game {
       drawPortrait(g, p, P.x + 44, P.y + 50, 30, { ring: p.color, ringWidth: 4, expr: 'happy' });
       ui.text(g, p.tag, P.x + 44, P.y + P.h - 20, { size: 22, color: p.color, strokeWidth: 4 });
     }
-    // category button (LB / RB; the last category is Done)
     const tab = st.tab;
-    if (tab === DONE) drawDoneTab(g, L.catX - 32, L.catY - 32, 64, 64, { sel: true, bump: st.tabPop * 0.15, label: false });
-    else {
-      const k = 1 + st.tabPop * 0.2, grp = tab < TAP_TAB ? GROUPS[GROUP_ORDER[tab]] : null;
+    if (L.col) {
+      // a little category column (D-pad up / down, LB / RB): the one before, this one, the one after
+      for (const k of [-1, 1]) {
+        const t2 = (tab + k + NTABS) % NTABS, y = L.catY + k * 40;
+        g.save(); g.globalAlpha = 0.55;
+        g.beginPath(); g.arc(L.catX, y, 15, 0, TAU); g.fillStyle = '#ffffff'; g.fill(); g.lineWidth = 2.5; g.strokeStyle = tabColor(t2); g.stroke();
+        this.drawTabIcon(g, t2, L.catX, y, 22, st);
+        g.restore();
+      }
+      const k = 1 + st.tabPop * 0.2;
       g.save(); g.translate(L.catX, L.catY); g.scale(k, k);
-      g.beginPath(); g.arc(0, 0, 32, 0, TAU); g.fillStyle = grp ? '#ffffff' : '#bfefff'; g.fill(); g.lineWidth = 5; g.strokeStyle = grp ? grp.color : NAVY; g.stroke();
-      if (grp) this.drawEntryIcon(g, PALETTE[GROUP_START[tab]], 0, 0, 42, st);
-      else this.drawTapIcon(g, 0, 0, 40, p.color);
+      if (tab === DONE) drawDoneTab(g, -24, -24, 48, 48, { sel: true, label: false });
+      else {
+        g.beginPath(); g.arc(0, 0, 25, 0, TAU); g.fillStyle = '#fff3b0'; g.fill(); g.lineWidth = 4.5; g.strokeStyle = NAVY; g.stroke();
+        this.drawTabIcon(g, tab, 0, 0, 36, st);
+      }
       g.restore();
+      for (const s2 of [-1, 1]) { const ax = L.catX + 34, ay = L.catY + s2 * 14; g.beginPath(); g.moveTo(ax, ay + s2 * 7); g.lineTo(ax - 6, ay - s2 * 2); g.lineTo(ax + 6, ay - s2 * 2); g.closePath(); g.fillStyle = NAVY; g.fill(); }
     }
-    for (let k = 0; k < NTABS; k++) {
-      g.beginPath(); g.arc(L.catX + (k - (NTABS - 1) / 2) * 7, P.y + P.h - 9, k === tab ? 3.6 : 2.2, 0, TAU);
-      g.fillStyle = k === DONE ? '#36d17a' : k === tab ? NAVY : 'rgba(36,22,63,0.3)'; g.fill();
-    }
-    if (glyphW) { ui.glyph(g, 'lb', L.catX - 30, L.catY + 30, 20); ui.glyph(g, 'rb', L.catX + 30, L.catY + 30, 20); }
-    ui.text(g, tabName(tab), L.catX, P.y + 14, { size: 19, color: NAVY, stroke: false, weight: 800, maxWidth: 110 });
     const cw = c1 - c0 + glyphW;
     if (st.ready) {
       ui.panel(g, c0, P.y + 10, cw, P.h - 20, { r: 18, fill: '#d6f7e3', lineWidth: 3, shadow: false });
@@ -1728,14 +1735,15 @@ export class Game {
       ui.hints(g, [['a', cw > 160 ? "I'm ready!" : '']], c0 + cw / 2, P.y + 80, { size: clamp(cw * 0.1, 22, 32) });
       return;
     }
-    if (tab === TAP_TAB) {
-      ui.text(g, 'Tap the glass', c0 + cw / 2, P.y + 34, { size: 24, color: NAVY, stroke: false, weight: 800, maxWidth: cw - 8 });
-      ui.hints(g, [['x', cw > 200 ? 'Tap (gently!)' : ''], ['a', cw > 200 ? (st.didTab ? 'Go on' : 'Tap, go on') : '']], c0 + cw / 2, P.y + 80, { size: 28 });
+    if (tab === TAP_TAB || tab === FEED_TAB) {
+      const tap = tab === TAP_TAB;
+      ui.text(g, tap ? 'Tap the glass' : 'Feed the fish', c0 + cw / 2, P.y + 34, { size: 24, color: NAVY, stroke: false, weight: 800, maxWidth: cw - 8 });
+      ui.hints(g, [['a', cw > 200 ? (tap ? 'Tap (gently!)' : 'Sprinkle food') : cw > 120 ? (tap ? 'Tap' : 'Feed') : '']], c0 + cw / 2, P.y + 80, { size: 28 });
       return;
     }
     // carousel: the things in this category (D-pad left/right or LT / RT: next)
     const ss = 64, gap = 10, slotY = P.y + 60;
-    if (glyphW) ui.glyph(g, p.ctrl.kind === 'pad' ? 'dpad' : 'rt', c1 + 16, slotY, 24);
+    if (glyphW) ui.glyph(g, p.ctrl.kind === 'kb' ? 'rt' : 'dpad', c1 + 16, slotY, 24);
     const ga = GROUP_START[tab], N = GROUP_END[tab] - ga;
     g.save(); g.beginPath(); g.rect(c0, P.y + 4, c1 - c0, P.h - 8); g.clip();
     const base = Math.round(st.scroll), frac = st.scroll - base, step = ss + gap;
@@ -1754,18 +1762,60 @@ export class Game {
     }
     g.restore();
     const e = PALETTE[st.sel];
-    ui.text(g, e.name, mid, P.y + 17, { size: 21, color: NAVY, stroke: false, weight: 800, maxWidth: c1 - c0 + glyphW * 2 });
+    ui.text(g, L.col && c1 - c0 > 220 ? `${tabName(tab)} · ${e.name}` : e.name, mid, P.y + 17, { size: 21, color: NAVY, stroke: false, weight: 800, maxWidth: c1 - c0 + glyphW * 2 });
     // colour dots under the selected slot
     if (e.ncol > 1) {
       const cols = e.kind === 'decor' ? e.def.colors : e.def.colors, cur = this.previewColor(st, e);
       const dw = 22, tot = cols.length * dw;
       const dy = P.y + P.h - 14;
-      if (glyphW) { ui.glyph(g, 'lt', mid - tot / 2 - 26, dy, 20); ui.glyph(g, 'rt', mid + tot / 2 + 26, dy, 20); }
+      if (glyphW) ui.glyph(g, 'y', mid + tot / 2 + 20, dy, 20);   // Y: colour
       cols.forEach((cc, i) => {
         const x = mid - tot / 2 + dw / 2 + i * dw, r = i === cur ? 9 + st.colPop * 3 : 6;
         g.beginPath(); g.arc(x, dy, r, 0, TAU); g.fillStyle = cc.c; g.fill(); g.lineWidth = i === cur ? 3 : 2; g.strokeStyle = NAVY; g.stroke();
       });
     }
+  }
+
+  /** The Feed category (and the hand while feeding): a food shaker. */
+  drawShaker(g, x, y, s = 1, rot = 0) {
+    g.save(); g.translate(x, y); g.scale(s, s); g.rotate(rot);
+    ui.roundRect(g, -14, -34, 28, 44, 8); g.fillStyle = '#ffd23f'; g.fill(); g.lineWidth = 3.5; g.strokeStyle = NAVY; g.stroke();
+    ui.roundRect(g, -16, 6, 32, 12, 4); g.fillStyle = '#ff6fb1'; g.fill(); g.stroke();
+    g.fillStyle = NAVY; for (const dx of [-6, 0, 6]) { g.beginPath(); g.arc(dx, 15, 1.8, 0, TAU); g.fill(); }
+    g.restore();
+  }
+
+  /** A category's icon, centred at (x, y), about `size` across. */
+  drawTabIcon(g, tab, x, y, size, st) {
+    if (tab < NG) this.drawEntryIcon(g, PALETTE[GROUP_START[tab]], x, y, size, st);
+    else if (tab === TAP_TAB) this.drawTapIcon(g, x, y, size * 0.95, st.p.color);
+    else if (tab === FEED_TAB) this.drawShaker(g, x, y + size * 0.14, size / 56, 0.35);
+    else drawDoneTab(g, x - size / 2, y - size / 2, size, size, { sel: false, label: false });
+  }
+
+  /** One kid playing: her categories down the left of the screen (D-pad up / down, LB / RB). */
+  drawColumn(g, st) {
+    const R = columnRect(), rh = COLUMN.rh, kb = st.p.ctrl.kind === 'kb';
+    ui.panel(g, R.x, R.y, R.w, R.h, { r: 24, fill: 'rgba(255,248,236,0.94)', stroke: st.p.color, lineWidth: 5 });
+    for (let k = 0; k < NTABS; k++) {
+      const y = R.y + 8 + k * rh, cy = y + rh / 2, sel = k === st.tab, col = tabColor(k);
+      if (sel) {
+        const pz = st.tabPop * 6;
+        ui.panel(g, R.x + 6 - pz / 2, y + 2 - pz / 2, R.w - 12 + pz, rh - 4 + pz, { r: 18, fill: st.ready && k === DONE ? '#d6f7e3' : '#fff3b0', stroke: NAVY, lineWidth: 4, shadow: false });
+      }
+      g.save(); g.globalAlpha = sel ? 1 : 0.8;
+      g.beginPath(); g.arc(R.x + 36, cy, sel ? 24 : 20, 0, TAU); g.fillStyle = '#ffffff'; g.fill(); g.lineWidth = sel ? 4 : 3; g.strokeStyle = col; g.stroke();
+      this.drawTabIcon(g, k, R.x + 36, cy, sel ? 36 : 30, st);
+      ui.text(g, tabName(k), R.x + 70, cy + 1, { size: sel ? 29 : 25, color: sel ? NAVY : 'rgba(36,22,63,0.75)', stroke: false, weight: 800, align: 'left', maxWidth: R.w - 112 });
+      g.restore();
+      if (sel) {
+        // up / down: the other categories
+        const ax = R.x + R.w - 26;
+        for (const s2 of [-1, 1]) { g.beginPath(); g.moveTo(ax, cy + s2 * 19); g.lineTo(ax - 9, cy + s2 * 7); g.lineTo(ax + 9, cy + s2 * 7); g.closePath(); g.fillStyle = col; g.fill(); g.lineWidth = 2.5; g.strokeStyle = NAVY; g.stroke(); }
+      }
+    }
+    if (!kb) ui.glyph(g, 'dpad', R.x + R.w - 22, R.y + R.h + 22, 30);
+    else { ui.glyph(g, 'lb', R.x + R.w - 74, R.y + R.h + 22, 24); ui.glyph(g, 'rb', R.x + R.w - 30, R.y + R.h + 22, 24); }
   }
 
   /** The Tap category: a knocking knuckle with little ripples. */
@@ -1830,16 +1880,11 @@ export class Game {
     }
     if (st.naming && !st.p.isAI) return;
     if (st.shake > 0) {
-      // the food shaker
-      g.save(); g.translate(x + 6, y - 10); g.rotate(-0.6 + Math.sin(st.shake * 40) * 0.3);
-      ui.roundRect(g, -14, -34, 28, 44, 8); g.fillStyle = '#ffd23f'; g.fill(); g.lineWidth = 3.5; g.strokeStyle = NAVY; g.stroke();
-      ui.roundRect(g, -16, 6, 32, 12, 4); g.fillStyle = '#ff6fb1'; g.fill(); g.stroke();
-      g.fillStyle = NAVY; for (const dx of [-6, 0, 6]) { g.beginPath(); g.arc(dx, 15, 1.8, 0, TAU); g.fill(); }
-      g.restore();
+      this.drawShaker(g, x + 6, y - 10, 1, -0.6 + Math.sin(st.shake * 40) * 0.3);   // the food shaker
     } else {
       const kind = st.held ? 'grab' : hv ? 'open' : 'point';
       this.drawGlove(g, x, y, p.color, kind, 1);
-      if (!st.held && !hv && inTank(x, y)) {
+      if (!st.held && !hv && st.tab < NG && inTank(x, y)) {
         g.save(); g.translate(x - 22, y + 8); g.beginPath(); g.arc(0, 0, 11, 0, TAU); g.fillStyle = '#36d17a'; g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
         g.strokeStyle = '#fff'; g.beginPath(); g.moveTo(-5, 0); g.lineTo(5, 0); g.moveTo(0, -5); g.lineTo(0, 5); g.stroke(); g.restore();
       }

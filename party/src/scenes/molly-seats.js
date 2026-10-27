@@ -7,6 +7,9 @@
 // Molly games by default. The game is played by temporary fairy players whose
 // stars go to their seat in the party (the controller's party player). The
 // next Molly intro starts with the same seats (until the party changes).
+// A party player can also play as her own Charlie Party character: it is one
+// more choice after the fairies, on her seat only ("Felicity (you)"), with her
+// colour scheme and dress-up look.
 import { W } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
 import { sfx } from '../engine/audio.js';
@@ -14,13 +17,19 @@ import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
 import { rand } from '../engine/util.js';
-import { charById, MOLLY_FAIRIES } from '../data/characters.js';
+import { charById, CHARACTERS, MOLLY_FAIRIES } from '../data/characters.js';
 import { session, makePlayer, newAIController, MAX_PLAYERS } from '../state.js';
 
 export const FAIRIES = MOLLY_FAIRIES.map((c) => c.id);   // molly-glimmer, molly-garden-fairy-pink...
 const lastFairy = new Map();   // controller -> fairy picked last time (the default next time)
 let memo = null;               // { roster, seats } of the last Molly intro: the next one starts with the same players
 const fairyName = (id) => (charById(id)?.name || id).replace(/ Fairy$/, '');
+/** The seat's own Charlie Party character (its party player's), or null (CPUs, newcomers). */
+const ownChar = (s) => (s.home?.charId && CHARACTERS.some((c) => c.id === s.home.charId) ? s.home.charId : null);
+/** What a seat can play as: the fairies, then her own character. */
+const choices = (s) => { const own = ownChar(s); return own ? [...FAIRIES, own] : FAIRIES; };
+const shortName = (c) => (c.name.length > 16 && c.subtitle ? c.subtitle : c.name);   // Marshmallow Birthday Cake -> Marshmallow
+const choiceName = (s) => (s.fairy === ownChar(s) ? `${shortName(charById(s.fairy))} (you)` : fairyName(s.fairy));
 
 export class MollySeats {
   constructor(meta) {
@@ -44,15 +53,16 @@ export class MollySeats {
   /** Seat a controller: humans before CPUs, on a fairy nobody has if possible. */
   seat(ctrl, isAI, home = null, want = null) {
     const s = { ctrl, isAI, home, ready: false, readyAt: isAI ? rand(0.8, 2.2) : Infinity, bump: 0 };
-    s.fairy = this.freeFairy(want || (isAI ? null : lastFairy.get(ctrl)));
+    s.fairy = this.freeFairy(want || (isAI ? null : lastFairy.get(ctrl)), s);
     if (isAI) this.seats.push(s);
     else this.seats.splice(this.humans.length, 0, s);
     this.layout();
     return s;
   }
 
-  freeFairy(want) {
-    const used = new Set(this.seats.map((s) => s.fairy));
+  freeFairy(want, s) {
+    const used = new Set(this.seats.map((o) => o.fairy));
+    if (want && !choices(s).includes(want)) want = null;   // her character from another party
     if (want && !used.has(want)) return want;
     return FAIRIES.find((f) => !used.has(f)) || want || FAIRIES[this.seats.length % FAIRIES.length];
   }
@@ -68,21 +78,25 @@ export class MollySeats {
       const x = W / 2 + (i - (n - 1) / 2) * spacing;
       if (!s.actor || s.actor.charId !== s.fairy) {
         const h = charById(s.fairy)?.members?.[0]?.h || 100;
-        s.actor = new Actor(s.fairy, { scale: (n > 4 ? 100 : 118) / h, x, y: 1028 });
+        const who = s.fairy === ownChar(s) ? s.home : s.fairy;   // her own character keeps her colours and look
+        s.actor = new Actor(who, { scale: (n > 4 ? 100 : 118) / h, x, y: 1028 });
         s.actor.snap();
       }
       s.actor.x = x;
     });
+    this.spacing = spacing;
   }
 
   step(s, dir) {
-    let k = FAIRIES.indexOf(s.fairy);
+    const list = choices(s);
+    let k = list.indexOf(s.fairy);
     const taken = new Set(this.seats.filter((o) => o !== s).map((o) => o.fairy));
-    for (let n = 0; n < FAIRIES.length; n++) {   // skip fairies other seats have (unless all are taken)
-      k = (k + dir + FAIRIES.length) % FAIRIES.length;
-      if (!taken.has(FAIRIES[k]) || taken.size >= FAIRIES.length) break;
+    const allTaken = FAIRIES.every((f) => taken.has(f));
+    for (let n = 0; n < list.length; n++) {   // skip fairies other seats have (unless all are taken)
+      k = (k + dir + list.length) % list.length;
+      if (!taken.has(list[k]) || allTaken) break;
     }
-    s.fairy = FAIRIES[k];
+    s.fairy = list[k];
     if (!s.isAI) lastFairy.set(s.ctrl, s.fairy);
     s.bump = 1;
     this.layout();
@@ -169,7 +183,8 @@ export class MollySeats {
   /** Fairy players for the game. Their stars are their seat's stars in the party. */
   players() {
     const list = this.seats.map((s, i) => {
-      const p = makePlayer(i, s.fairy, s.ctrl, s.isAI);
+      const own = s.fairy === ownChar(s);   // her own character: her colour scheme and dress-up look too
+      const p = makePlayer(i, s.fairy, s.ctrl, s.isAI, own ? s.home.variant || 0 : 0, own ? s.home.outfit || null : null);
       if (s.home) Object.defineProperty(p, 'stars', { get: () => s.home.stars, set: (v) => { s.home.stars = v; }, enumerable: true });
       return p;
     });
@@ -184,7 +199,7 @@ export class MollySeats {
       const a = s.actor, p = players[i];
       a.draw(g, { ring: p.color });
       const ty = a.y - a.height - 22;
-      ui.text(g, fairyName(s.fairy), a.x, a.y + 26, { size: 24, color: '#fff', strokeWidth: 5 });
+      ui.text(g, choiceName(s), a.x, a.y + 26, { size: 24, color: '#fff', strokeWidth: 5, maxWidth: (this.spacing || 220) - 14 });
       if (s.ready || going) {
         ui.panel(g, a.x - 70, ty - 40, 140, 52, { r: 26, fill: '#36d17a', lineWidth: 4, shadow: false });
         ui.text(g, 'Ready!', a.x, ty - 13, { size: 30, strokeWidth: 5 });

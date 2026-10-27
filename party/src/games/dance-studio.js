@@ -1,59 +1,75 @@
-// Dance Studio (Play Studio). Every player makes up a dance at their own
-// rehearsal station: drop move cards (Arms Up, Twirl, Star Jump, Hip Bump...)
-// onto an 8-count timeline (one card = one beat; a mini stage plays it back
-// on the beat), then pick the music, the stage lights and a backdrop.
-// The show: the curtains open on a big stage with a mirror ball and a shiny
-// mirror floor, and for every player in turn the WHOLE group performs that
-// player's dance together to that player's music, lights and backdrop
-// ("5, 6, 7, 8!"). Ends with a free dance (stick moves, A jumps, every other
-// button is a photo pose) and a "Freeze!" photo. No losers.
+// Dance Studio (Play Studio). Set the scene, practise the moves, then all
+// dance together in real time.
+//
+// Setup: every player has a rehearsal station. LB / RB step through Stage,
+// Music, Lights (one of them "None") and Done; the stick (or d-pad) picks a
+// card. Each dance button does its move right there on the mini stage (no
+// walking here; it is for trying moves out): X Disco, A Star Jump, B Hula,
+// Y Twirl, LT Cartwheel, RT Can-can, shown in the panel at the bottom. A also
+// does its move, except on Done, where it is "I'm ready!" (B undoes ready).
+// LB / RB are the categories here, so their two moves (Splits, Moonwalk) are
+// show-only.
+//
+// The show: the curtains open on a big stage with a mirror ball and a mirror
+// floor, and everyone dances at once: the stick walks about the stage and
+// every dance button (now LB / RB too) does its move live. Each player's
+// stage, music and lights take a turn; moves on the beat sparkle and get the
+// crowd cheering (no scores). It ends with a 3-2-1 "Freeze!" photo, which
+// stays up as the gallery screen. No losers.
 import { W, H } from '../engine/canvas.js';
-import { Actor, drawPortrait } from '../engine/sprites.js';
+import { Actor, drawPortrait, getSpriteSet, POSES } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import { sfx, music, audioRunning, hasSound } from '../engine/audio.js';
 import { aiProfile } from '../engine/ai.js';
 import { playerName } from '../state.js';
-import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
-import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPoseHints } from '../engine/photo-poses.js';
+import { clamp, lerp, damp, rand, randInt, pick, chance, ease, TAU } from '../engine/util.js';
+import { photoMove } from '../engine/photo-poses.js';
 import {
-  NAVY, MOVES, MOVE, MUSIC, LIGHTS, STAGES, rgba, mix,
-  drawBackdrop, drawFloor, drawLights, drawCurtains, drawMirrorBall, drawMovePicto, drawStudio, } from './dance-studio/stage.js';
+  NAVY, DANCES, MUSIC, LIGHTS, STAGES, rgba, mix,
+  drawBackdrop, drawFloor, drawLights, drawCurtains, drawMirrorBall, drawMovePicto, drawStudio, drawNoneIcon,
+} from './dance-studio/stage.js';
 
-import { askOpen, askUpdate, drawAsk, drawDoneTab } from '../engine/studio-ui.js';
+import { drawDoneTab } from '../engine/studio-ui.js';
 import { meta } from './dance-studio.meta.js';
 
 export { meta };
 
 const TABS = [
-  { id: 'moves', name: 'Moves' },
+  { id: 'stage', name: 'Stage' },
   { id: 'music', name: 'Music' },
   { id: 'lights', name: 'Lights' },
-  { id: 'stage', name: 'Stage' },
   { id: 'done', name: 'Done' },
 ];
-const TAB = Object.fromEntries(TABS.map((t, i) => [t.id, i]));
-const OPT_COLS = 2;             // music / lights / stage: 2 x 3 cards
+const OPT_COLS = 2;             // stage / music / lights: 2 columns of cards
 const SETUP_TIME = 150;         // gentle clock for the making part (seconds)
 const FLOOR_Y = 760;            // show: stage floor top
-const SWITCH_T = 1.7;           // show: seconds to change over to the next dancer's routine
-const BOW_T = 1.9;              // show: bows + applause after a routine
-const FREE_T = 9;               // show: free dance (ends with 3-2-1 Freeze!)
-const PHOTO_T = 3.2;            // show: the photo on screen before the results
-const FINALE_WORDS = ['Wow!', 'Yay!', 'Encore!', 'Bravo!', 'Woo-hoo!', 'So cool!'];
+const STAGE_Y0 = 800, STAGE_Y1 = 930, STAGE_X0 = 250, STAGE_X1 = W - 250;   // show: where dancers can walk
+const FREEZE_COUNT = 3;         // show: the 3-2-1 before the Freeze! photo (seconds)
+const PHOTO_T = 3.2;            // show: the photo on screen before the gallery
+const SETUP_DANCES = DANCES.map((d, i) => i).filter((i) => !DANCES[i].show);   // LB / RB are the categories in the setup
+const SHOW_DANCES = DANCES.map((d, i) => i);
+const CHEERS = ['On the beat!', 'Woo!', 'Yeah!', 'So cool!', 'Groovy!'];
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 const mod = (a, n) => ((a % n) + n) % n;
 
-// Move sounds (new real sounds fall back to synth names).
 function moveSound(m, vol = 0.45) {
   switch (m.sound) {
-    case 'clap': snd('ds-clap', 'pop', { vol }); break;
     case 'boing': snd('boing', 'bounce', { vol }); break;
     case 'sparkle': snd('ds-twirl', 'sparkle', { vol }); break;
     case 'whoosh': snd('ds-slide', 'whoosh', { vol }); break;
     default: sfx(m.sound, { vol });
   }
+}
+
+/** The best pose this character has for a move: the first in the list its sprite set has
+ *  (so new dance-* art is picked up the moment it lands), else the first the engine knows. */
+function pickPose(actor, list) {
+  const set = getSpriteSet(actor.leader.asset);
+  if (set) { for (const p of list) if (set.poses[p]) return p; }
+  for (const p of list) if (POSES[p]) return p;
+  return list[list.length - 1];
 }
 
 function stationRects(n) {
@@ -73,83 +89,103 @@ function layoutStation(r) {
   const pad = Math.round(clamp(r.w * 0.022, 8, 16));
   const tabH = Math.round(clamp(r.h * 0.085, 38, 62));
   const hintH = Math.round(clamp(r.h * 0.07, 30, 50));
-  const tlH = Math.round(clamp(r.h * 0.19, 78, 150));
-  const midY = r.y + tabH + pad * 1.5, midH = r.h - tabH - tlH - hintH - pad * 3.5;
+  const padH = Math.round(clamp(r.h * 0.22, 92, 190));
+  const midY = r.y + tabH + pad * 1.5, midH = r.h - tabH - padH - hintH - pad * 3.5;
   const pvW = Math.round((r.w - pad * 3) * 0.47);
   return {
-    pad, tabH, hintH, tlH,
+    pad, tabH, hintH, padH,
     preview: { x: r.x + pad, y: midY, w: pvW, h: midH },
     palette: { x: r.x + pad * 2 + pvW, y: midY, w: r.w - pad * 3 - pvW, h: midH },
-    timeline: { x: r.x + pad, y: midY + midH + pad, w: r.w - pad * 2, h: tlH },
+    dancePad: { x: r.x + pad, y: midY + midH + pad, w: r.w - pad * 2, h: padH },
     hintY: r.y + r.h - hintH / 2 - pad * 0.3,
   };
 }
 
-/** A believable 8-count for CPUs and "Surprise me!". */
-function makeChoreo() {
-  const pool = shuffle(MOVES.map((_, i) => i));
-  const [a, b, c, d] = pool;
-  const finish = pick([MOVE.tada, MOVE.star, MOVE.bow, MOVE.twirl, MOVE.peace]);
-  const pats = [
-    [a, b, a, b, c, d, c, finish],
-    [a, a, b, b, c, c, d, finish],
-    [a, b, c, d, a, b, c, finish],
-    [a, b, c, a, b, c, d, finish],
-    [a, c, b, c, a, c, d, finish],
-  ];
-  return pick(pats).slice();
-}
-
 // =============================================================================
-// A dancing character: an Actor plus the motion each move adds on its beat
-// (hops, twirls, slides, hip bumps, wobbles) and a mirrored reflection.
+// A dancing character: an Actor plus the motion each move adds (hops, twirls,
+// cartwheels, kicks, hula sways, splits, moonwalks) and a mirrored reflection.
+// canTravel: in the show a cartwheel / moonwalk really carries you along
+// (within minX..maxX); in the setup it is done on the spot.
 class Dancer {
   constructor(actor) {
     this.a = actor;
     this.hx = actor.x; this.hy = actor.y;   // home (feet) position
-    this.mv = null; this.u = 0; this.dur = 0.5;
-    this.rot = 0; this.dx = 0;
-    this.baseFacing = 1; this.slideDir = 1; this.slideAmp = 80;
+    this.mv = null; this.u = 0; this.dur = 0.5; this.dir = 1;
+    this.rot = 0; this.dx = 0; this.z = 0; this.ksx = 1; this.ksy = 1; this.pivot = 0;
+    this.baseFacing = 1; this.side = 1; this.lastId = null;
+    this.canTravel = false; this.minX = 0; this.maxX = W;
   }
-  /** Do move index m (null = groove) for one beat of `dur` seconds. */
-  perform(m, dur) {
-    const a = this.a;
-    this.dur = Math.max(0.2, dur); this.u = 0;
-    if (m === null || m === undefined) { this.mv = 'groove'; if (!a._once || a.pose === 'dance') a.playOnce('dance', this.dur * 0.95, 'idle'); return; }
-    const M = MOVES[m];
-    this.mv = M;
-    a.facing = this.baseFacing;
-    a.playOnce(M.pose, this.dur * (M.id === 'bow' ? 1.2 : 0.95), 'idle');
-    a.squash(M.squash || -0.1);
-    if (M.slide) this.slideDir = -this.slideDir;
+  get busy() { return !!this.mv; }
+  /** Do dance i for its beats at `beatDur` seconds a beat. */
+  perform(i, beatDur) {
+    const a = this.a, M = DANCES[i];
+    this.side = M.mirror && this.lastId === M.id ? -this.side : 1;
+    this.lastId = M.id;
+    this.mv = M; this.u = 0;
+    this.dur = Math.max(0.45, M.beats * beatDur);
+    this.dir = this.baseFacing * this.side;
+    a.facing = this.dir;
+    this.pose = pickPose(a, M.poses);
+    a.playOnce(this.pose, this.dur * 0.97, 'idle');
+    a.squash(M.drop ? 0.3 : -0.15);
   }
-  update(dt) {
+  update(dt, beat = 0) {
     const a = this.a;
-    let z = 0; this.rot = 0; this.dx = 0;
-    if (this.mv) {
+    let z = 0; this.rot = 0; this.dx = 0; this.ksx = 1; this.ksy = 1; this.pivot = 0;
+    const M = this.mv;
+    if (M) {
       this.u += dt / this.dur;
-      const k = Math.min(1, this.u), s = Math.sin(k * Math.PI), M = this.mv;
-      if (M === 'groove') z = Math.abs(Math.sin(k * TAU)) * a.height * 0.03;
-      else {
-        if (M.hop) z = s * a.height * M.hop;
-        if (M.float) z = s * a.height * 0.16;
-        if (M.slide) this.dx = s * this.slideAmp * this.slideDir * this.baseFacing;
-        if (M.shift) { this.dx = s * this.slideAmp * 0.18 * this.baseFacing; this.rot = -s * 0.14 * this.baseFacing; }
-        if (M.lean) this.rot += s * M.lean * this.baseFacing;
-        if (M.wobble) this.rot += Math.sin(k * TAU * 2) * M.wobble;
-        if (M.spin) a.facing = k > 0.15 && k < 0.65 ? -this.baseFacing : this.baseFacing;
+      const k = Math.min(1, this.u), s = Math.sin(k * Math.PI), h = a.height, d = this.dir;
+      if (M.hop) z = s * h * M.hop;
+      if (M.lean) this.rot += s * M.lean * d;
+      if (M.roll && this.pose !== M.poses[0]) {
+        // stand-in cartwheel: a whole turn about the middle, upside down halfway
+        // (the dance-cartwheel art is upside down itself, so it isn't turned)
+        this.rot = ease.inOutQuad(k) * TAU * d; this.pivot = 0.5; z = s * h * 0.12;
+      }
+      if (M.travel) {
+        if (this.canTravel) this.hx = clamp(this.hx + (d * M.travel * dt) / this.dur, this.minX, this.maxX);
+        else this.dx = s * Math.min(40, h * 0.25) * d;
+      }
+      if (M.glide) {
+        // moonwalk: facing forward, sliding backward
+        if (this.canTravel) this.hx = clamp(this.hx - (d * M.glide * dt) / this.dur, this.minX, this.maxX);
+        else this.dx = -s * Math.min(36, h * 0.22) * d;
+        this.rot -= s * 0.1 * d;
+      }
+      if (M.kick) {
+        // two kicks: one leg then the other (the art mirrors halfway)
+        a.facing = k < 0.5 ? d : -d;
+        const kk = Math.abs(Math.sin(k * TAU));
+        z = kk * h * 0.07; this.rot += Math.sin(k * TAU) * 0.08;
+      }
+      if (M.sway) { const w = Math.sin(k * TAU * 2); this.rot += w * M.sway; this.dx += w * h * 0.06; }
+      if (M.drop) {
+        const e = k < 0.15 ? ease.outBack(k / 0.15) : k > 0.85 ? (1 - k) / 0.15 : 1;
+        this.ksx = 1 + 0.22 * e; this.ksy = 1 - 0.2 * e;
       }
       if (this.u >= 1) { this.mv = null; a.facing = this.baseFacing; }
+    } else {
+      // a little groove on the beat between moves
+      z = Math.abs(Math.sin(beat * Math.PI)) * a.height * 0.025;
     }
+    this.z = z;
     a.x = this.hx + this.dx; a.y = this.hy; a.z = z + (this.extraZ || 0);
     a.update(dt);
   }
-  draw(g, opts) {
+  /** The move's rotation / stretch, about the feet or (cartwheel) the middle. */
+  transform(g) {
     const a = this.a;
-    if (!this.rot) { a.draw(g, opts); return; }
-    g.save(); g.translate(a.x, a.y); g.rotate(this.rot); g.translate(-a.x, -a.y);
-    a.draw(g, opts);
-    g.restore();
+    if (!this.rot && this.ksx === 1 && this.ksy === 1) return;
+    const py = a.y - a.z - a.height * this.pivot;
+    g.translate(a.x, py); g.rotate(this.rot); g.scale(this.ksx, this.ksy); g.translate(-a.x, -py);
+  }
+  draw(g, opts = {}) {
+    const a = this.a;
+    if (!this.rot && this.ksx === 1 && this.ksy === 1) { a.draw(g, opts); return; }
+    // the ring stays flat on the floor while the body turns
+    if (opts.ring) a._drawRing(g, opts.ring, a.scale, opts.alpha ?? 1);
+    g.save(); this.transform(g); a.draw(g, { ...opts, ring: null, shadow: false }); g.restore();
   }
   /** Mirror-floor reflection, clipped to the floor below floorY. */
   drawReflection(g, floorY, clipRect, alpha = 0.26) {
@@ -157,7 +193,7 @@ class Dancer {
     g.save();
     g.beginPath(); g.rect(clipRect.x, floorY, clipRect.w, clipRect.y + clipRect.h - floorY); g.clip();
     g.translate(0, 2 * a.y); g.scale(1, -1);
-    g.translate(a.x, a.y); g.rotate(-this.rot); g.translate(-a.x, -a.y);
+    this.transform(g);
     a.draw(g, { shadow: false, emotes: false, alpha });
     g.restore();
   }
@@ -190,18 +226,13 @@ export class Game {
     const a = new Actor(p, { facing: 1 });
     const d = new Dancer(a);
     const st = {
-      p, i, r, L, actor: a, dancer: d,
-      slots: Array(8).fill(null), cur: 0, sel: randInt(0, MOVES.length - 1), tab: 0,
-      music: randInt(0, MUSIC.length - 1), light: randInt(0, LIGHTS.length - 1), stage: randInt(0, STAGES.length - 1),
-      held: null, ready: false, readyT: 0, autoNext: false, autoNextT: -1,
-      pvBeat: 0, pvOff: 0, pvLast: -1, pvPulse: 0,
-      slotBump: Array(8).fill(0), palBump: 0, tabBump: 0, cheerCD: 0, nudge: 0, hintT: 0,
-      stick: { dir: 0, t: 0 }, ai: null, aiStick: 0, wooCD: 0, woos: 0,
+      p, i, r, L, actor: a, dancer: d, tab: 0,
+      // lights start on a colour (None is there to pick)
+      stage: randInt(0, STAGES.length - 1), music: randInt(0, MUSIC.length - 1), light: randInt(1, LIGHTS.length - 1),
+      ready: false, readyT: 0, palBump: 0, tabBump: 0, hintT: 0, hintMsg: '', cheerCD: 0,
+      tileBump: {}, pvBeat: 0, pvPulse: 0, pvLast: -1, ai: null, aiStick: 0,
+      counts: {}, onBeats: 0, wooCD: 0,
     };
-    // move palette: 4 x 4 cards, or 8 x 2 when the space is wide and short
-    const R = L.palette, lab = clamp(R.h * 0.13, 22, 54);
-    const cell = (cols) => Math.min(R.w / cols, (R.h - lab) / (MOVES.length / cols));
-    st.cols = cell(8) > cell(4) * 1.05 ? 8 : 4;
     this.placeStationActor(st);
     if (p.isAI) this.planAI(st);
     return st;
@@ -211,81 +242,23 @@ export class Game {
     const pv = st.L.preview, a = st.actor, d = st.dancer;
     a.scale = 1;
     const w1 = Math.max(1, a.width);
-    a.scale = Math.min((pv.h * 0.56) / a.leader.h, (pv.w * 0.55) / w1);
+    a.scale = Math.min((pv.h * 0.5) / a.leader.h, (pv.w * 0.5) / w1);
     d.hx = pv.x + pv.w / 2; d.hy = pv.y + pv.h * 0.86;
-    d.slideAmp = Math.min(pv.w * 0.18, 90);
     a.x = d.hx; a.y = d.hy; a.snap();
   }
 
-  // --- making the dance ---------------------------------------------------------
-  filled(st) { return st.slots.filter((s) => s !== null).length; }
-
-  /** Put the chosen move on this beat (replacing what's there) and step on to the next beat.
-   *  auto: the 8th beat filled takes you on to the music (A's way; X stays). */
-  placeMove(st, auto = true) {
-    const m = st.sel, j = st.cur;
-    st.slots[j] = m; st.slotBump[j] = 0.35;
-    const M = MOVES[m];
-    moveSound(M, 0.5);
-    sfx('stamp', { vol: 0.35 });
-    const c = this.slotCenter(st, j);
-    particles.burst(c.x, c.y, { type: 'sparkle', count: 8, colors: [M.color, '#ffffff'] });
-    this.previewNow(st, j);
-    if (st.cur < 7) st.cur++;
-    if (this.filled(st) === 8) {
-      if (auto && !st.autoNext) { st.autoNext = true; st.autoNextT = 0.9; }
-      st.actor.say('My dance!', 1.2, st.p.isAI ? null : 'yay');
-      particles.burst(st.L.timeline.x + st.L.timeline.w / 2, st.L.timeline.y + st.L.timeline.h / 2, { type: 'confetti', count: 22, speed: [160, 420] });
-      sfx('sparkle');
-    }
-  }
-
-  pickUp(st) {
-    const j = st.cur;
-    st.held = { m: st.slots[j], from: j };
-    st.slots[j] = null;
-    sfx('pop', { vol: 0.5 }); st.slotBump[j] = 0.2;
-  }
-
-  dropHeld(st) {
-    const h = st.held; if (!h) return;
-    const j = st.cur, other = st.slots[j];
-    st.slots[j] = h.m;
-    if (other !== null && h.from !== j) st.slots[h.from] = other;   // swap places
-    st.held = null; st.slotBump[j] = 0.35;
-    if (other !== null && h.from !== j) st.slotBump[h.from] = 0.35;
-    sfx('whoosh', { vol: 0.4 }); sfx('stamp', { vol: 0.3 });
-    this.previewNow(st, j);
-  }
-
-  removeAt(st, j) {
-    const m = st.held ? st.held.m : st.slots[j];
-    if (st.held) st.held = null; else st.slots[j] = null;
-    const c = this.slotCenter(st, j);
-    sfx('back');
-    particles.burst(c.x, c.y, { type: 'smoke', count: 7, speed: [40, 130] });
-    if (m !== null) particles.burst(c.x, c.y, { type: 'sparkle', count: 4, colors: [MOVES[m].color] });
-  }
-
-  /** The preview dancer does slot j right now, and the loop carries on from there. */
-  previewNow(st, j) {
-    const bpm = MUSIC[st.music].bpm, delta = j - mod(Math.floor(st.pvBeat), 8);
-    st.pvOff += delta; st.pvBeat += delta;
-    st.pvLast = Math.floor(st.pvBeat);
-    st.dancer.perform(st.slots[j], 60 / bpm);
-    st.pvPulse = 1;
-  }
+  // --- setup ----------------------------------------------------------------------
+  listFor(tab) { return tab === 'music' ? MUSIC : tab === 'lights' ? LIGHTS : STAGES; }
+  keyFor(tab) { return tab === 'music' ? 'music' : tab === 'lights' ? 'light' : 'stage'; }
 
   setTab(st, i) {
     i = clamp(i, 0, TABS.length - 1);
     if (i === st.tab) return;
-    if (st.held) { this.dropHeld(st); }
     st.tab = i; st.tabBump = 0.2; sfx('move');
   }
 
   changeOption(st, dx, dy) {
-    const tab = TABS[st.tab].id, list = tab === 'music' ? MUSIC : tab === 'lights' ? LIGHTS : STAGES;
-    const key = tab === 'music' ? 'music' : tab === 'lights' ? 'light' : 'stage';
+    const tab = TABS[st.tab].id, list = this.listFor(tab), key = this.keyFor(tab);
     const cur = st[key], rows = Math.ceil(list.length / OPT_COLS);
     let col = cur % OPT_COLS, row = Math.floor(cur / OPT_COLS);
     if (dx) col = mod(col + dx, OPT_COLS);
@@ -298,51 +271,16 @@ export class Game {
   setOption(st, key, list, ni) {
     st[key] = ni; st.palBump = 0.18;
     sfx('swap', { vol: 0.6 });
-    const pv = st.L.preview;
-    particles.burst(pv.x + pv.w / 2, pv.y + pv.h * 0.3, { type: 'sparkle', count: 8, colors: [list[ni].color || list[ni].colors?.[0] || '#fff', '#ffffff'] });
-    if (st.cheerCD <= 0) { st.actor.playOnce('cheer', 0.4, 'idle'); st.cheerCD = 0.8; }
+    const pv = st.L.preview, o = list[ni];
+    particles.burst(pv.x + pv.w / 2, pv.y + pv.h * 0.3, { type: o.none ? 'smoke' : 'sparkle', count: 8, colors: [o.color || o.colors?.[0] || '#fff', '#ffffff'] });
+    if (st.cheerCD <= 0 && !st.dancer.busy) { st.actor.playOnce('cheer', 0.4, 'idle'); st.cheerCD = 0.8; }
     // let humans hear the song they just picked
     if (key === 'music' && !st.p.isAI) music.play(MUSIC[ni].id, { fadeIn: 0.4 });
-  }
-
-  /** LT / RT on music / lights / stage: the next (previous) card along (wrapping). */
-  nextOption(st, dir = 1) {
-    const tab = TABS[st.tab].id, list = tab === 'music' ? MUSIC : tab === 'lights' ? LIGHTS : STAGES;
-    const key = tab === 'music' ? 'music' : tab === 'lights' ? 'light' : 'stage';
-    this.setOption(st, key, list, mod(st[key] + dir, list.length));
-  }
-
-  /** Y on a dance with moves in it: "Swap for a surprise?" - Go back (the default) or Surprise!. */
-  updateSurpriseAsk(st) {
-    const q = st.surpriseAsk, sel = q.sel, r = askUpdate(st.p.ctrl, q);
-    if (q.sel !== sel) sfx('move');
-    if (!r) return;
-    st.surpriseAsk = null;
-    if (r !== 'yes') { sfx('back'); return; }
-    this.surprise(st);
-  }
-
-  stepPalette(st, step) {
-    st.sel = mod(st.sel + step, MOVES.length); st.palBump = 0.12; sfx('move', { vol: 0.5 });
-  }
-
-  surprise(st) {
-    st.slots = makeChoreo(); st.held = null;
-    st.music = randInt(0, MUSIC.length - 1); st.light = randInt(0, LIGHTS.length - 1); st.stage = randInt(0, STAGES.length - 1);
-    st.slotBump = st.slotBump.map(() => 0.4); st.autoNext = true;
-    sfx('magic'); sfx('bigpop', { vol: 0.6 });
-    const pv = st.L.preview;
-    particles.burst(pv.x + pv.w / 2, pv.y + pv.h / 2, { type: 'star', count: 12 });
-    particles.burst(pv.x + pv.w / 2, pv.y + pv.h / 2, { type: 'confetti', count: 20 });
-    st.actor.playOnce('ready', 0.6, 'idle'); st.actor.say('Ta-da!', 1, st.p.isAI ? null : 'woo');
-    if (!st.p.isAI) music.play(MUSIC[st.music].id, { fadeIn: 0.4 });
   }
 
   setReady(st, on) {
     st.ready = on; st.readyT = 0;
     if (on) {
-      // empty beats are fine (they groove), but a dance needs at least one move
-      if (this.filled(st) === 0) st.slots = makeChoreo();
       sfx('ready'); st.actor.playOnce('ready', 0.6, 'idle'); st.actor.squash(-0.25);
       const pv = st.L.preview;
       particles.burst(pv.x + pv.w / 2, pv.y + pv.h * 0.5, { type: 'confetti', count: 26, speed: [200, 500] });
@@ -350,105 +288,49 @@ export class Game {
     } else sfx('back');
   }
 
-  /** Pads: the stick alone steps along the timeline (with repeat). */
-  stickStep(st, dt) {
-    const c = st.p.ctrl, v = c.sx, dir = v > 0.5 ? 1 : v < -0.5 ? -1 : 0, s = st.stick;
-    if (dir !== s.dir) { s.dir = dir; s.t = 0; return dir; }
-    if (!dir) return 0;
-    s.t += dt;
-    if (s.t > 0.36) { s.t -= 0.13; return dir; }
-    return 0;
+  /** A dance button in the setup: the move right there on the mini stage. */
+  practise(st, i) {
+    const M = DANCES[i];
+    st.dancer.perform(i, 60 / MUSIC[st.music].bpm);
+    moveSound(M, st.p.isAI ? 0.25 : 0.45);
+    st.tileBump[M.btn] = 0.3;
+    const a = st.actor;
+    particles.burst(a.x, a.y - a.height * 0.6, { type: 'sparkle', count: 6, colors: [M.color, '#ffffff'], speed: [80, 220] });
+    st.counts[M.id] = (st.counts[M.id] || 0) + 1;
   }
 
-  /** The chosen move tried out on the mini stage. */
-  tryMove(st) { st.dancer.perform(st.sel, 60 / MUSIC[st.music].bpm); moveSound(MOVES[st.sel], 0.4); }
-
-  /** A on the moves: put one in on an empty beat; with all 8 beats danced, on to the music,
-   *  else a line saying how many beats are left (X fills them; RB skips on: empty beats groove). */
-  commitMove(st) {
-    if (st.held) { this.dropHeld(st); return; }
-    if (st.slots[st.cur] === null) this.placeMove(st);
-    const left = 8 - this.filled(st);
-    if (!left) { if (!st.autoNextT || st.autoNextT <= 0) { this.setTab(st, TAB.music); sfx('select'); } return; }
-    const k = st.slots.indexOf(null, st.cur), j = k >= 0 ? k : st.slots.indexOf(null);
-    if (j >= 0) st.cur = j;
-    st.hintMsg = left === 1 ? '1 more beat! X puts a move in' : `${left} more beats! X puts moves in`;
-    st.hintT = 1.6;
-    if (!st.p.isAI) sfx('blip', { vol: 0.4 });
-  }
-
-  updateStationInput(st, dt) {
-    const c = st.p.ctrl;
-    if (st.ready) { if (c.pressed('b')) this.setReady(st, false); return; }
+  updateStationInput(st) {
+    const c = st.p.ctrl, tab = TABS[st.tab].id;
+    if (st.ready) {
+      if (c.pressed('b')) { this.setReady(st, false); return; }
+      // waiting friends can keep practising
+      for (const i of SETUP_DANCES) if (DANCES[i].btn !== 'b' && c.pressed(DANCES[i].btn)) { this.practise(st, i); break; }
+      return;
+    }
     const tabStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
     if (tabStep) { this.setTab(st, st.tab + tabStep); return; }
-    if (st.surpriseAsk) { this.updateSurpriseAsk(st); return; }
-    // Y: surprise me! (a dance with moves in it asks first, as the surprise replaces it)
-    if (c.pressed('y')) {
-      if ((this.filled(st) || st.held) && !st.p.isAI) { if (st.held) this.dropHeld(st); st.surpriseAsk = askOpen(); sfx('select'); } else this.surprise(st);
-      return;
-    }
-    const tab = TABS[st.tab].id, pad = c.kind === 'pad';
-    if (tab === 'moves') {
-      // where on the 8-count: the stick (pads) or left/right (keyboard, CPU)
-      const step = pad ? this.stickStep(st, dt) : c.nav.x;
-      if (step) { st.cur = clamp(st.cur + step, 0, 7); sfx('blip', { vol: 0.5 }); }
-      // which move: the d-pad grid (pads) or up/down through the cards; LT / RT step through them too
-      const tr = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
-      if (tr) { this.stepPalette(st, tr); this.tryMove(st); }
-      if (pad) {
-        const dx = (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0);
-        const dy = (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0);
-        if (dx || dy) {
-          const C = st.cols, col = mod((st.sel % C) + dx, C), row = mod(Math.floor(st.sel / C) + dy, MOVES.length / C);
-          st.sel = row * C + col; st.palBump = 0.12; sfx('move', { vol: 0.5 });
-        }
-      } else if (c.nav.y) this.stepPalette(st, c.nav.y);
-      if (c.pressed('a')) this.commitMove(st);
-      else if (c.pressed('b')) {
-        if (st.held || st.slots[st.cur] !== null) this.removeAt(st, st.cur);
-        else { sfx('blip'); st.hintMsg = 'Pick a beat with a card on it!'; st.hintT = 1.2; }
-      } else if (c.pressed('x')) {
-        // X: put the move in on this beat (it replaces what's there) and stay on the moves
-        if (st.held) this.dropHeld(st); else this.placeMove(st, false);
-      }
-      return;
-    }
-    if (tab === 'done') {
-      if (c.pressed('a')) this.setReady(st, true);
-      else if (c.pressed('b')) this.setTab(st, st.tab - 1);
-      return;
-    }
-    if (c.nav.x || c.nav.y) this.changeOption(st, c.nav.x, c.nav.y);
-    if (c.pressed('rt')) this.nextOption(st, 1);
-    if (c.pressed('lt')) this.nextOption(st, -1);
-    if (c.pressed('x')) sfx('blip', { vol: 0.5 });   // (choosing a card is all there is here: A, next step)
-    if (c.pressed('a')) { this.setTab(st, st.tab + 1); sfx('select'); }
-    else if (c.pressed('b')) this.setTab(st, st.tab - 1);
+    // A on Done: I'm ready! Everywhere else A (and X, B, Y, LT, RT) is a dance move.
+    if (tab === 'done' && c.pressed('a')) { this.setReady(st, true); return; }
+    for (const i of SETUP_DANCES) if (c.pressed(DANCES[i].btn)) { this.practise(st, i); break; }
+    if (tab !== 'done' && (c.nav.x || c.nav.y)) this.changeOption(st, c.nav.x, c.nav.y);
   }
 
   updatePreview(st, dt) {
     const bpm = MUSIC[st.music].bpm;
     // in step with the song when it's this station's song that is playing
-    if (audioRunning() && music.name === MUSIC[st.music].id && music.song) st.pvBase = music.beat();
-    else st.pvBase = (st.pvBase || 0) + (dt * bpm) / 60;
-    st.pvBeat = st.pvBase + st.pvOff;
+    if (audioRunning() && music.name === MUSIC[st.music].id && music.song) st.pvBeat = music.beat();
+    else st.pvBeat += (dt * bpm) / 60;
     const b = Math.floor(st.pvBeat);
-    if (b !== st.pvLast) {
-      st.pvLast = b;
-      const j = mod(b, 8);
-      if (!st.dancer.mv || st.dancer.u > 0.9) st.dancer.perform(st.slots[j], 60 / bpm);
-      st.pvPulse = 1;
-    }
+    if (b !== st.pvLast) { st.pvLast = b; st.pvPulse = 1; }
     st.pvPulse = Math.max(0, st.pvPulse - dt * 3);
-    st.dancer.update(dt);
   }
 
-  // --- CPU choreographers ---------------------------------------------------------
+  // --- CPU set dressers -----------------------------------------------------------
   planAI(st) {
     st.ai = {
-      plan: makeChoreo(), music: randInt(0, MUSIC.length - 1), light: randInt(0, LIGHTS.length - 1), stage: randInt(0, STAGES.length - 1),
-      t: rand(1.0, 2.2), surprise: chance(0.12), changedMind: false,
+      stage: randInt(0, STAGES.length - 1), music: randInt(0, MUSIC.length - 1),
+      light: chance(0.1) ? 0 : randInt(1, LIGHTS.length - 1),
+      t: rand(0.8, 1.8), tries: randInt(2, 5),
     };
   }
 
@@ -459,40 +341,19 @@ export class Game {
     ai.t -= dt;
     if (ai.t > 0) return;
     const hurry = !this.cpuOnly && this.stations.every((s) => s.ready || s.p.isAI);
-    ai.t = rand(0.2, 0.42) / aiProfile(st.p).speed * (hurry ? 0.5 : 1);
+    ai.t = rand(0.25, 0.5) / aiProfile(st.p).speed * (hurry ? 0.5 : 1);
     const tap = (x, y) => { c.move(x, y); st.aiStick = 0.05; };
-    if (ai.surprise && !ai.didSurprise) { ai.didSurprise = true; c.press('y'); ai.t = 1.6; ai.plan = null; return; }
     const tab = TABS[st.tab].id;
-    switch (tab) {
-      case 'moves': {
-        if (!ai.plan) { c.press('rb'); break; }
-        const j = ai.plan.findIndex((m, k) => st.slots[k] !== m);
-        if (j < 0) { c.press('rb'); ai.t += rand(0.4, 0.9); break; }
-        if (st.cur !== j) { tap(Math.sign(j - st.cur), 0); break; }
-        if (st.slots[j] !== null) { c.press('b'); break; }
-        const want = ai.plan[j];
-        if (st.sel !== want) {
-          const fwd = mod(want - st.sel, MOVES.length);
-          tap(0, fwd <= MOVES.length / 2 ? 1 : -1); ai.t *= 0.6;
-          break;
-        }
-        c.press('a');
-        // now and then a CPU tries a move on the mini stage first, or thinks
-        if (chance(0.12)) { ai.t += rand(0.5, 1.0); st.actor.emote('question', 0.8); }
-        break;
-      }
-      case 'music': case 'lights': case 'stage': {
-        const key = tab === 'music' ? 'music' : tab === 'lights' ? 'light' : 'stage';
-        const want = ai.plan === null ? st[key] : ai[key], cur = st[key];
-        if (cur === want) { c.press('a'); ai.t += rand(0.3, 0.8); break; }
-        const dr = Math.floor(want / OPT_COLS) - Math.floor(cur / OPT_COLS), dc = (want % OPT_COLS) - (cur % OPT_COLS);
-        if (dr) tap(0, Math.sign(dr)); else tap(Math.sign(dc), 0);
-        ai.t += rand(0.1, 0.35);
-        break;
-      }
-      case 'done': c.press('a'); break;
-      default: break;
+    // now and then a CPU tries a move out on its mini stage
+    if (tab !== 'done' && ai.tries > 0 && !st.dancer.busy && chance(0.3)) {
+      ai.tries--; c.press(DANCES[pick(SETUP_DANCES)].btn); ai.t += rand(0.4, 0.9); return;
     }
+    if (tab === 'done') { c.press('a'); return; }
+    const key = this.keyFor(tab), want = ai[key], cur = st[key];
+    if (cur === want) { c.press('rb'); ai.t += rand(0.3, 0.7); return; }
+    const dr = Math.floor(want / OPT_COLS) - Math.floor(cur / OPT_COLS), dc = (want % OPT_COLS) - (cur % OPT_COLS);
+    if (dr) tap(0, Math.sign(dr)); else tap(Math.sign(dc), 0);
+    ai.t += rand(0.1, 0.3);
   }
 
   // --- main update ----------------------------------------------------------------
@@ -504,8 +365,7 @@ export class Game {
 
   postUpdate(dt) {
     this.t += dt;
-    if (this.phase === 'make') for (const st of this.stations) st.dancer.update(dt);
-    else for (const st of this.stations) st.dancer.update(dt);
+    for (const st of this.stations) st.dancer.update(dt, 0);
   }
 
   updateMake(dt) {
@@ -516,101 +376,79 @@ export class Game {
       if (st.p.isAI) this.updateAI(st, dt);
       st.palBump = Math.max(0, st.palBump - dt); st.tabBump = Math.max(0, st.tabBump - dt);
       st.hintT = Math.max(0, st.hintT - dt); st.cheerCD -= dt; st.readyT += dt;
-      for (let j = 0; j < 8; j++) st.slotBump[j] = Math.max(0, st.slotBump[j] - dt);
-      this.updateStationInput(st, dt);
-      if (st.autoNextT > 0) {
-        st.autoNextT -= dt;
-        if (st.autoNextT <= 0 && st.tab === TAB.moves && !st.held) { this.setTab(st, TAB.music); sfx('select'); }
-      }
+      for (const k in st.tileBump) st.tileBump[k] = Math.max(0, st.tileBump[k] - dt);
+      this.updateStationInput(st);
       this.updatePreview(st, dt);
+      // the setup is for trying moves: the dancer stays on her spot
+      st.dancer.update(dt, st.pvBeat);
     }
     const allReady = this.stations.every((s) => s.ready && s.readyT > 0.7);
     if (allReady) this.startShow();
   }
 
   // =================================================================================
-  // The show
+  // The show: everyone dances at once, each player's stage / music / lights in turn.
   startShow() {
     if (this.phase !== 'make') return;
     this.phase = 'show'; this.phaseT = 0;
-    for (const st of this.stations) {
-      st.held = null; st.surpriseAsk = null;
-      if (this.filled(st) === 0) st.slots = makeChoreo();
-      st.ready = true;
-      if (st.p.isAI) st.p.ctrl.reset?.();
-    }
-    // routine order: player order (P1 first)
+    const n = this.n;
     this.order = this.stations.slice();
-    this.reps = this.n <= 3 ? 2 : 1;
+    this.segBeats = n === 1 ? 80 : n === 2 ? 48 : n <= 4 ? 32 : 16;
     this.seg = -1;
-    this.stage = { sub: 'intro', t: 0, curtain: 0, ballY: -120, pulse: 0, beat: 0, power: 0.4 };
+    this.stage = { sub: 'intro', t: 0, curtain: 0, ballY: -120, pulse: 0, beat: 0, power: 0.4, hype: 0 };
     this.backdrop = { cur: this.order[0].stage, prev: null, fade: 1 };
     this.lightIdx = this.order[0].light;
-    this.clock = { key: null, bpm: 120, own: 0, origin: 0, last: -99 };
-    // everyone onto the stage
-    for (const st of this.stations) {
+    this.clock = { key: null, bpm: 120, own: 0, last: -99 };
+    // everyone in a row across the stage
+    const sp = Math.min(330, (STAGE_X1 - STAGE_X0) / Math.max(1, n));
+    this.stations.forEach((st, k) => {
       const a = st.actor, d = st.dancer;
       a.say(null); a.clearEmotes();
-      d.mv = null; d.rot = 0; d.dx = 0;
+      d.mv = null; d.rot = 0; d.dx = 0; d.extraZ = 0;
       a.setPose('idle');
-    }
-    this.layoutShow(this.order[0], true);
+      const s0 = a.scale; a.scale = 1; const w1 = Math.max(1, a.width); a.scale = s0;
+      st.baseScale = Math.min((n <= 3 ? 330 : n <= 5 ? 280 : 240) / a.leader.h, (sp * 1.1) / w1);
+      d.hx = W / 2 + (k - (n - 1) / 2) * sp; d.hy = 870 + (k % 2) * (n > 4 ? 50 : 0);
+      d.baseFacing = d.hx < W / 2 ? 1 : -1; a.facing = d.baseFacing;
+      d.canTravel = true; d.minX = STAGE_X0; d.maxX = STAGE_X1;
+      a.scale = this.depthScale(st, d.hy); a.x = d.hx; a.y = d.hy; a.snap();
+      st.ready = true; st.tileBump = {}; st.wooCD = 0;
+      st.wander = { x: d.hx, y: d.hy, t: rand(0.5, 2) };
+      if (st.p.isAI) { st.p.ctrl.reset?.(); st.p.ctrl.move?.(0, 0); }
+    });
     music.stop(0.6);
     sfx('drumroll');
     snd('crowd-ooh', null, { vol: 0.5 });
   }
 
-  /** Positions for a routine: its choreographer front and centre, everyone else in a mirrored back row. */
-  layoutShow(lead, snap = false) {
-    const n = this.n, back = this.order.filter((s) => s !== lead);
-    const frontH = n === 1 ? 430 : n <= 3 ? 360 : 320;
-    const set = (st, x, y, th, maxW, facing) => {
-      const a = st.actor, d = st.dancer;
-      const s0 = a.scale; a.scale = 1; const w1 = Math.max(1, a.width); a.scale = s0;
-      st.showTo = { x, y, scale: Math.min(th / a.leader.h, maxW / w1) };
-      d.baseFacing = facing;
-      if (snap) { d.hx = x; d.hy = y; a.scale = st.showTo.scale; a.facing = facing; a.x = x; a.y = y; a.snap(); }
-      d.slideAmp = Math.min(110, maxW * 0.35);
-    };
-    set(lead, W / 2, 905, frontH, 520, 1);
-    const k = back.length;
-    if (!k) return;
-    const left = Math.ceil(k / 2);
-    // keep the back row clear of a wide choreographer (the trio, Felicity + Fellowfox)
-    const la = lead.actor, s0 = la.scale; la.scale = lead.showTo.scale; const leadHalf = la.width / 2; la.scale = s0;
-    const gap = Math.max(n <= 3 ? 330 : 250, leadHalf + (n <= 3 ? 150 : 90));
-    const sp = Math.min(300, (W / 2 - 300 - gap) / Math.max(1, left - 0.5));
-    const th = n <= 3 ? 300 : n <= 5 ? 260 : 230;
-    back.forEach((st, j) => {
-      const onLeft = j < left, idx = onLeft ? left - 1 - j : j - left;
-      const x = onLeft ? W / 2 - gap - idx * sp : W / 2 + gap + idx * sp;
-      // mirrored formation: the left side faces in, the right side faces in
-      set(st, x, 796 + (idx % 2) * (k > 4 ? 62 : 36), th, sp * (k > 4 ? 1.7 : 1.35) + (k === 1 ? 200 : 0), onLeft ? 1 : -1);
-    });
-  }
+  /** Further back on the stage = a little smaller. */
+  depthScale(st, y) { return st.baseScale * lerp(0.86, 1.08, clamp((y - STAGE_Y0) / (STAGE_Y1 - STAGE_Y0), 0, 1)); }
 
-  get lead() { return this.order[Math.max(0, this.seg)]; }
+  get owner() { return this.order[Math.max(0, this.seg)]; }
 
   beginSegment(i) {
     this.seg = i;
     const st = this.order[i], S = this.stage;
-    S.sub = 'switch'; S.t = 0; S.power = 0.25;
-    this.backdrop = { cur: st.stage, prev: this.backdrop.cur, fade: 0 };
+    S.sub = 'dance'; S.segT = 0; S.power = Math.max(S.power, 0.5);
+    if (i > 0 || this.backdrop.cur !== st.stage) this.backdrop = { cur: st.stage, prev: this.backdrop.cur, fade: 0 };
     this.lightIdx = st.light;
-    this.layoutShow(st);
     const key = MUSIC[st.music].id, bpm = MUSIC[st.music].bpm;
     music.play(key, { fadeIn: 0.5 });
-    this.clock = { key, bpm, own: 0, origin: 0, last: -99 };
-    sfx('whoosh'); sfx('magic', { vol: 0.6 });
+    this.clock = { key, bpm, own: 0, last: -1 };
+    this.segLen = (this.segBeats * 60) / bpm;
+    sfx('whoosh'); if (i > 0) sfx('magic', { vol: 0.5 });
     this.bannerT = 0;
+    const a = st.actor;
+    a.say(pick(['My stage!', 'My song!', "Let's dance!", 'Here we go!']), 1.2, st.p.isAI ? null : 'ready');
+    particles.burst(a.x, a.y - a.height * 0.6, { type: 'star', count: 10, speed: [150, 360] });
   }
 
-  /** Beats since the routine's "1" (negative during the count-in). */
-  segBeat(dt) {
+  /** Beats into this song. */
+  beatNow(dt) {
     const c = this.clock;
     c.own += (dt * c.bpm) / 60;
     if (audioRunning() && music.name === c.key && music.song) c.own = music.beat();
-    return c.own - c.origin;
+    return c.own;
   }
 
   updateShow(dt) {
@@ -619,20 +457,8 @@ export class Game {
     S.pulse = Math.max(0, S.pulse - dt * 2.5);
     this.backdrop.fade = Math.min(1, this.backdrop.fade + dt * 1.6);
     if (this.bannerT !== undefined) this.bannerT += dt;
-    const beat = this.segBeat(dt);
+    const beat = this.beatNow(dt);
     S.beat = beat;
-    // dancers walk to their spots
-    for (const st of this.stations) {
-      const d = st.dancer, a = st.actor, to = st.showTo;
-      if (!to) continue;
-      const dist = Math.hypot(to.x - d.hx, to.y - d.hy);
-      d.hx = damp(d.hx, to.x, 4.5, dt); d.hy = damp(d.hy, to.y, 4.5, dt);
-      a.scale = damp(a.scale, to.scale, 4.5, dt);
-      const walking = S.sub !== 'free' || st.freeX === null;
-      if (dist > 14 && !a._once && walking) { a.setPose('walk'); a.facing = to.x > d.hx ? 1 : -1; }
-      else if (a.pose === 'walk' && walking) { a.setPose('idle'); a.facing = d.baseFacing; }
-      st.wooCD = Math.max(0, st.wooCD - dt);
-    }
     switch (S.sub) {
       case 'intro': {
         S.curtain = clamp((S.t - 0.6) / 1.6, 0, 1);
@@ -640,201 +466,110 @@ export class Game {
         S.power = lerp(0.3, 1, S.curtain);
         if (S.t > 0.6 && S.t - dt <= 0.6) { snd('ds-curtain', 'whoosh'); snd('applause', 'cheer', { vol: 0.6 }); }
         if (S.t >= 2.6) this.beginSegment(0);
-        break;
-      }
-      case 'switch': {
-        S.power = Math.min(1, S.power + dt * 0.9);
-        if (S.t >= SWITCH_T) {
-          // the count-in starts on the next whole beat
-          const c = this.clock;
-          c.origin = Math.ceil(c.own + 0.05) + 4; c.last = -99;
-          S.sub = 'count'; S.t = 0;
-          const lead = this.lead;
-          lead.actor.say(pick(['My dance!', 'Watch this!', 'Ready?', 'Here we go!']), 1.2, lead.p.isAI ? null : 'ready');
-          for (const st of this.stations) { st.actor.setPose('idle'); st.actor.facing = st.dancer.baseFacing; }
-        }
-        break;
-      }
-      case 'count': {
-        const b = Math.floor(beat);
-        if (b !== this.clock.last && b >= -4 && b < 0) {
-          this.clock.last = b;
-          sfx(b === -1 ? 'tock' : 'tick', { vol: 0.7 });
-          S.pulse = 0.6;
-          for (const st of this.stations) { st.actor.squash(0.12); if (b === -1) st.actor.playOnce('ready', 0.45, 'idle'); }
-        }
-        if (beat >= 0) { S.sub = 'dance'; S.t = 0; this.clock.last = -1; }
-        this.updateWoo(dt);
+        for (const st of this.stations) { this.updateStageDancer(st, dt, false); st.dancer.update(dt, beat); }
         break;
       }
       case 'dance': {
-        const total = 8 * this.reps, b = Math.floor(beat);
-        if (b !== this.clock.last && b >= 0 && b < total) {
-          this.clock.last = b;
-          this.onBeat(b);
+        S.power = Math.min(1, S.power + dt * 0.9);
+        S.segT += dt;
+        const b = Math.floor(beat);
+        if (b !== this.clock.last) { this.clock.last = b; S.pulse = 0.7; this.onShowBeat(b); }
+        for (const st of this.stations) { this.updateStageDancer(st, dt, true); st.dancer.update(dt, beat); }
+        const last = this.seg + 1 >= this.order.length;
+        if (last) {
+          const left = this.segLen - S.segT;
+          for (let d = FREEZE_COUNT; d >= 1; d--) if (left <= d && left + dt > d) sfx(d === 1 ? 'tock' : 'tick');
         }
-        if (beat >= total) this.endRoutine();
-        this.updateWoo(dt);
+        if (S.segT >= this.segLen) { if (last) this.freeze(); else this.beginSegment(this.seg + 1); }
         break;
       }
-      case 'bow': {
-        if (S.t >= BOW_T) {
-          if (this.seg + 1 < this.order.length) this.beginSegment(this.seg + 1);
-          else this.startFree();
-        }
-        this.updateWoo(dt);
-        break;
-      }
-      case 'free': this.updateFree(dt); break;
       case 'photo': {
         this.photoT += dt;
+        for (const st of this.stations) st.dancer.update(dt, 0);
         if (this.photoT >= PHOTO_T && !this.finished) this.finishGame();
         break;
       }
       default: break;
     }
-    for (const st of this.stations) st.dancer.update(dt);
     if (cam && !cam.punchState) cam.follow(W / 2, H / 2, 1, 3);
   }
 
-  onBeat(b) {
-    const lead = this.lead, j = b % 8, m = lead.slots[j], bpm = this.clock.bpm, dur = 60 / bpm;
-    const S = this.stage;
-    S.pulse = 1;
-    for (const st of this.stations) st.dancer.perform(m, dur);
-    const a = lead.actor, cam = this.api.camera;
-    if (m !== null) {
-      const M = MOVES[m];
-      moveSound(M, 0.5);
-      particles.burst(a.x, a.y - a.height * 0.6, { type: 'sparkle', count: 10, colors: [M.color, '#ffffff'], speed: [120, 320] });
-      if (M.hop || M.spin) particles.burst(a.x, a.y, { type: 'star', count: 6, speed: [150, 360] });
-      if (M.id === 'clap') for (const st of this.stations) { const h = st.actor.anchor('hand'); particles.burst(h.x, h.y, { type: 'spark', count: 3, colors: ['#fff6a8'] }); }
-    } else sfx('tick', { vol: 0.25 });
-    if (b === 0 && cam) cam.punch(a.x, a.y - a.height * 0.55, 1.14, 0.5);
-    if (j === 7) {
-      particles.burst(W / 2, 200, { type: 'confetti', count: 30, speed: [200, 520] });
-      sfx('sparkle');
-    }
-    lead.beatsShown = (lead.beatsShown || 0) + 1;
-  }
-
-  endRoutine() {
-    const S = this.stage, lead = this.lead, cam = this.api.camera;
-    S.sub = 'bow'; S.t = 0;
-    particles.confettiRain(W, 90);
-    snd('applause', 'cheer', { vol: 0.8 }); sfx('fanfare', { vol: 0.6 });
-    fx.flash('#ffffff', 0.12);
+  /** CPUs dance on the beat (now and then), and the stage pulses. */
+  onShowBeat(b) {
     for (const st of this.stations) {
-      if (st === lead) { st.actor.playOnce('bow', 1.0, 'celebrate'); }
-      else st.actor.playOnce('clap', 1.4, 'idle');
+      if (!st.p.isAI || st.dancer.busy) continue;
+      const keen = 0.32 * clamp(aiProfile(st.p).speed, 0.6, 1.4);
+      if (chance(keen)) this.danceMove(st, pick(SHOW_DANCES), true);
     }
-    lead.actor.say(pick(['Thank you!', 'Ta-da!', 'Yay!', 'I did it!']), 1.5, lead.p.isAI ? null : 'yay');
-    const a = lead.actor;
-    particles.burst(a.x, a.y - a.height * 0.6, { type: 'heart', count: 12, speed: [150, 380] });
-    if (cam) cam.punch(a.x, a.y - a.height * 0.5, 1.12, 0.9);
+    if (b % 8 === 0 && b > 0) particles.burst(W / 2, 200, { type: 'confetti', count: 16, speed: [160, 420] });
   }
 
-  /** During the show any button cheers your dancer on: sparkles + a little woo. */
-  updateWoo(dt) {
-    for (const st of this.stations) {
-      const c = st.p.ctrl;
-      let go = !st.p.isAI && (c.pressed('a') || c.pressed('x') || c.pressed('b') || c.pressed('y'));
-      if (st.p.isAI && chance(dt * 0.25)) go = true;
-      if (!go || st.wooCD > 0) continue;
-      st.wooCD = 0.45; st.woos++;
-      const a = st.actor;
-      const top = a.anchor('head');
-      particles.burst(top.x, top.y, { type: pick(['heart', 'sparkle', 'star', 'note']), count: 6, colors: [st.p.color, '#ffffff', '#fff6a8'], speed: [100, 260] });
-      if (!st.p.isAI) { particles.popText(top.x, top.y - 30, pick(['Woo!', 'Yay!', '♪']), st.p.color, 40); sfx('pop', { vol: 0.35 }); }
-    }
-  }
-
-  // --- free dance + Freeze! photo ---------------------------------------------------
-  startFree() {
-    const S = this.stage;
-    S.sub = 'free'; S.t = 0; S.power = 1;
-    // the most picked song
-    const votes = new Map();
-    for (const st of this.stations) votes.set(st.music, (votes.get(st.music) || 0) + 1);
-    const best = [...votes.entries()].sort((a, b) => b[1] - a[1])[0][0];
-    const key = MUSIC[best].id;
-    music.play(key, { fadeIn: 0.3 });
-    this.clock = { key, bpm: MUSIC[best].bpm, own: this.clock.own, origin: 0, last: -99 };
-    this.lightIdx = LIGHTS.findIndex((l) => l.id === 'rainbow');
-    this.freeLight = true;
-    // one big row across the stage
-    const n = this.n, sp = Math.min(330, 1300 / n);
-    this.order.forEach((st, k) => {
-      const x = W / 2 + (k - (n - 1) / 2) * sp;
-      const a = st.actor, s0 = a.scale; a.scale = 1; const w1 = Math.max(1, a.width); a.scale = s0;
-      st.showTo = { x, y: 880, scale: Math.min((n <= 3 ? 340 : n <= 5 ? 290 : 250) / a.leader.h, (sp * 0.95) / w1) };
-      st.hop = { h: 0, v: 0 }; st.poseCD = 0; st.aiT = rand(0.2, 0.8); st.freeX = null;
-      st.dancer.baseFacing = x < W / 2 ? 1 : -1;
-      st.actor.setPose('dance');
-    });
-    sfx('fanfare', { vol: 0.5 }); sfx('magic');
-    particles.confettiRain(W, 70);
-    this.bannerT = 0;
-  }
-
-  updateFree(dt) {
-    const S = this.stage;
-    for (const st of this.stations) this.freeMove(st, dt);
-    for (const d of [3, 2, 1]) if (S.t >= FREE_T - d && S.t - dt < FREE_T - d) sfx(d === 1 ? 'tock' : 'tick');
-    if (Math.floor(S.beat) !== this.clock.last) { this.clock.last = Math.floor(S.beat); S.pulse = 0.8; }
-    if (S.t >= FREE_T) this.freeze();
-  }
-
-  /** Free dance: the stick moves, A jumps, every other button strikes a pose. */
-  freeMove(st, dt) {
-    const a = st.actor, c = st.p.ctrl, hop = st.hop, d = st.dancer, to = st.showTo;
-    st.poseCD = Math.max(0, st.poseCD - dt);
-    if (st.freeX === null) { if (Math.abs(d.hx - to.x) < 20) st.freeX = to.x; else return; }
-    let mx = photoMove(c).x, jump = c.pressed('a'), pose = photoPosePressed(c);
-    if (st.p.isAI) {
-      st.aiT -= dt;
-      if (st.aiT <= 0) { st.aiT = rand(0.45, 1.1); st.aiMx = chance(0.35) ? rand(-0.7, 0.7) : 0; if (chance(0.35)) jump = true; else if (chance(0.7)) pose = randomPhotoPose(); }
-      mx = st.aiMx || 0;
-      if (Math.abs(st.freeX - to.x) > 160) mx = Math.sign(to.x - st.freeX) * 0.6;
-    }
-    st.freeX = clamp(st.freeX + mx * 560 * dt, 260, W - 260);
-    to.x = st.freeX; d.hx = st.freeX;
-    if (Math.abs(mx) > 0.2) { d.baseFacing = mx > 0 ? 1 : -1; a.facing = d.baseFacing; }
-    if (jump && hop.h <= 0) { hop.v = 980; snd('boing', 'jump', { vol: 0.35 }); a.squash(-0.25); }
-    hop.v -= 2800 * dt; hop.h = Math.max(0, hop.h + hop.v * dt);
-    if (hop.h <= 0 && hop.v < 0) { if (hop.v < -200) a.squash(0.2); hop.v = 0; }
-    d.mv = null;
-    if (pose && st.poseCD <= 0) {
-      st.poseCD = 0.35;
-      strikePhotoPose(a, pose, { onBump: (who) => this.bumpNeighbours(st, who) });
-    }
-    if (!a._once) a.setPose(hop.h > 0 ? 'jump' : Math.abs(mx) > 0.2 ? 'walk' : 'dance');
-    d.extraZ = hop.h * (a.scale / (to.scale || 1));
-  }
-
-  bumpNeighbours(st, a) {
-    for (const o of this.stations) {
-      if (o === st || !o.hop) continue;
-      const b = o.actor, dx = b.x - a.x;
-      if (Math.abs(dx) < (a.width + b.width) * 0.45) {
-        o.freeX = clamp((o.freeX ?? b.x) + Math.sign(dx || 1) * 70, 260, W - 260);
-        b.playOnce('surprised', 0.8, 'dance'); b.squash(0.2); o.hop.v = Math.max(o.hop.v, 300);
+  /** The stick walks a dancer about the stage (CPUs wander); dance buttons do moves. */
+  updateStageDancer(st, dt, live) {
+    const a = st.actor, d = st.dancer, c = st.p.ctrl;
+    st.wooCD = Math.max(0, st.wooCD - dt);
+    for (const k in st.tileBump) st.tileBump[k] = Math.max(0, st.tileBump[k] - dt);
+    let mx = 0, my = 0;
+    if (live) {
+      if (st.p.isAI) {
+        const w = st.wander;
+        w.t -= dt;
+        if (w.t <= 0) {
+          w.t = rand(1.2, 3.2);
+          if (chance(0.6)) { w.x = clamp(d.hx + rand(-380, 380), STAGE_X0 + 40, STAGE_X1 - 40); w.y = rand(STAGE_Y0 + 10, STAGE_Y1 - 10); }
+        }
+        const ex = w.x - d.hx, ey = w.y - d.hy, dist = Math.hypot(ex, ey);
+        if (dist > 24) { mx = (ex / dist) * 0.6; my = (ey / dist) * 0.6; }
+      } else {
+        const m = photoMove(c);
+        mx = Math.abs(m.x) > 0.2 ? m.x : 0; my = Math.abs(m.y) > 0.2 ? m.y : 0;
+        for (const i of SHOW_DANCES) if (c.pressed(DANCES[i].btn)) { this.danceMove(st, i, false); break; }
       }
     }
-    snd('boing', 'bounce', { vol: 0.4 });
+    const slow = d.busy ? 0.45 : 1;
+    d.hx = clamp(d.hx + mx * 540 * slow * dt, STAGE_X0, STAGE_X1);
+    d.hy = clamp(d.hy + my * 300 * slow * dt, STAGE_Y0, STAGE_Y1);
+    a.scale = damp(a.scale, this.depthScale(st, d.hy), 10, dt);
+    const moving = Math.hypot(mx, my) > 0.15;
+    if (moving && Math.abs(mx) > 0.15 && !d.busy) { d.baseFacing = mx > 0 ? 1 : -1; a.facing = d.baseFacing; }
+    if (!d.busy && !a._once) a.setPose(moving ? 'walk' : 'idle');
+    st.moving = moving;
   }
 
+  /** A move in the show: sparkles, and on the beat a bigger burst and the crowd cheering. */
+  danceMove(st, i, cpu) {
+    const M = DANCES[i], d = st.dancer, a = st.actor, S = this.stage;
+    d.perform(i, 60 / this.clock.bpm);
+    moveSound(M, cpu ? 0.22 : 0.45);
+    st.tileBump[M.btn] = 0.3;
+    st.counts[M.id] = (st.counts[M.id] || 0) + 1;
+    const off = Math.abs(S.beat - Math.round(S.beat));
+    const top = { x: a.x, y: a.y - a.height * 0.7 };
+    if (off < 0.2 || cpu) {
+      st.onBeats++;
+      S.hype += cpu ? 0.5 : 1;
+      particles.burst(top.x, top.y, { type: pick(['star', 'sparkle', 'note']), count: 10, colors: [M.color, st.p.color, '#ffffff'], speed: [140, 360] });
+      if (!cpu && st.wooCD <= 0) { particles.popText(top.x, top.y - 50, pick(CHEERS), M.color, 40); st.wooCD = 1.2; }
+      if (S.hype >= 8) {
+        S.hype = 0; S.pulse = 1;
+        snd('applause', 'cheer', { vol: 0.45 });
+        particles.burst(W / 2, 180, { type: 'confetti', count: 24, speed: [200, 480] });
+      }
+    } else particles.burst(top.x, top.y, { type: 'sparkle', count: 5, colors: [M.color, '#ffffff'], speed: [80, 200] });
+  }
+
+  // --- Freeze! photo ----------------------------------------------------------------
   freeze() {
     const S = this.stage;
+    if (S.sub === 'photo') return;
     S.sub = 'photo'; S.t = 0; this.photoT = 0;
     music.stop(0.15);
-    for (const st of this.stations) { if (st.hop) st.hop.h = 0; st.dancer.extraZ = 0; }
+    for (const st of this.stations) { st.dancer.extraZ = 0; }
     this.photo = this.snapshot();
     fx.flash('#ffffff', 0.45);
     if (hasSound('camera-flash')) sfx('camera-flash', { vol: 0.7 }); else sfx('shutter');
     sfx('fanfare'); snd('applause', 'cheer');
     particles.confettiRain(W, 140);
-    this.stations.forEach((st, i) => { st.actor.playOnce(i % 2 ? 'photo' : 'strike3', 1.2, 'celebrate'); });
   }
 
   /** Render the stage (no HUD) into a small canvas: the photo. */
@@ -851,21 +586,18 @@ export class Game {
     if (this.finished) return;
     this.finished = true;
     const stats = this.stations.map((st) => {
-      const counts = new Map();
-      for (const m of st.slots) if (m !== null) counts.set(m, (counts.get(m) || 0) + 1);
-      const top = [...counts.entries()].sort((a, b) => b[1] - a[1])[0];
-      if (!top) return STAGES[st.stage].name;
-      if (counts.size >= 6) return `${counts.size} different moves!`;
-      return `${MOVES[top[0]].name} ×${top[1]} · ${STAGES[st.stage].name}`;
+      const top = Object.entries(st.counts).sort((a, b) => b[1] - a[1])[0];
+      const where = STAGES[st.stage].name;
+      if (!top) return where;
+      const M = DANCES.find((m) => m.id === top[0]);
+      return `${M.name} ×${top[1]} · ${where}`;
     });
     this.api.finishTogether({ stats, title: 'What a show!', focus: { x: W / 2, y: 700 } });
   }
 
   onDone() {
     if (this.phase === 'make') { this.startShow(); return; }
-    const S = this.stage;
-    if (S.sub === 'free' || S.sub === 'photo') { if (S.sub === 'free') this.freeze(); else this.finishGame(); return; }
-    this.startFree();
+    if (this.stage.sub === 'photo') this.finishGame(); else this.freeze();
   }
 
   destroy() {}
@@ -882,7 +614,7 @@ export class Game {
     else this.drawShowHUD(g);
   }
 
-  // --- making -------------------------------------------------------------------------
+  // --- setup ------------------------------------------------------------------------
   drawMake(g) {
     drawStudio(g, W, H, this.t);
     for (const st of this.stations) this.drawStation(g, st);
@@ -902,14 +634,11 @@ export class Game {
       g.beginPath(); g.moveTo(11, -26); g.quadraticCurveTo(30, -16, 24, -2); g.lineWidth = 6; g.strokeStyle = g.fillStyle; g.stroke();
       g.restore();
     }
-    if (this.n <= 2) {
-      ui.hints(g, [['lb', ''], ['rb', 'Steps']], 230, 56, { size: 34 });
-      ui.hints(g, [['y', 'Surprise!']], W - 210, 56, { size: 34 });
-    }
+    if (this.n <= 2) ui.hints(g, [['lb', ''], ['rb', 'Steps']], 230, 56, { size: 34 });
   }
 
   drawStation(g, st) {
-    const { r, L, p } = st;
+    const { r, p } = st;
     g.save();
     ui.roundRect(g, r.x, r.y, r.w, r.h, 26);
     g.fillStyle = mix(p.color, '#ffffff', 0.84); g.fill();
@@ -923,12 +652,10 @@ export class Game {
     this.drawTabs(g, st);
     this.drawPreview(g, st);
     const tab = TABS[st.tab].id;
-    if (tab === 'moves') this.drawMovePalette(g, st);
-    else if (tab === 'done') this.drawDonePanel(g, st);
+    if (tab === 'done') this.drawDonePanel(g, st);
     else this.drawOptions(g, st, tab);
-    this.drawTimeline(g, st);
+    this.drawDancePad(g, st.L.dancePad, st, SETUP_DANCES, { done: tab === 'done' && !st.ready });
     this.drawStationHints(g, st);
-    if (st.surpriseAsk) drawAsk(g, st.L.palette, st.surpriseAsk, { title: 'Swap for a surprise?', yes: 'Surprise!', color: st.p.color });
     if (st.ready) this.drawReady(g, st);
   }
 
@@ -940,7 +667,7 @@ export class Game {
     ui.glyph(g, 'lb', r.x + 10 + gs * 0.7, r.y + 10 + L.tabH / 2, gs * 0.85);
     ui.glyph(g, 'rb', r.x + r.w - 10 - gs * 0.7, r.y + 10 + L.tabH / 2, gs * 0.85);
     TABS.forEach((tab, ti) => {
-      const sel = ti === st.tab, done = ti < st.tab || (ti === 0 && this.filled(st) === 8);
+      const sel = ti === st.tab, done = ti < st.tab;
       const bx = x0 + ti * tw + 3, bw = tw - 6, by = r.y + 10 + (sel ? 0 : 5), bh = L.tabH - (sel ? 0 : 6);
       if (tab.id === 'done') { drawDoneTab(g, bx, by, bw, bh, { sel, bump: st.tabBump }); return; }
       const kk = sel ? 1 + st.tabBump * 0.8 : 1;
@@ -968,9 +695,9 @@ export class Game {
     const cs = clamp(pv.h * 0.12, 24, 40);
     drawPortrait(g, st.p, pv.x + cs * 0.75 + 4, pv.y + cs * 0.75 + 4, cs * 0.7, { ring: st.p.color });
     if (this.t < 4 || this.n <= 2) ui.text(g, st.p.tag, pv.x + cs * 1.6 + 6, pv.y + cs * 0.75 + 4, { size: cs * 0.62, align: 'left', color: st.p.color, strokeWidth: 5 });
-    // beat light: which count is playing
-    const j = mod(Math.floor(st.pvBeat), 8);
-    ui.text(g, String(j + 1), pv.x + pv.w - cs * 0.9, pv.y + cs * 0.8, { size: cs * (0.9 + st.pvPulse * 0.25), color: '#fff6a8' });
+    // the move's name while it plays
+    const M = st.dancer.mv;
+    if (M) ui.text(g, M.name, pv.x + pv.w / 2, pv.y + pv.h * 0.2, { size: cs * (0.95 + Math.max(0, 0.3 - st.dancer.u) * 0.8), color: M.color, maxWidth: pv.w - 20 });
     g.restore();
     g.save(); ui.roundRect(g, pv.x, pv.y, pv.w, pv.h, 18); g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke(); g.restore();
     if (this.t < 3.5 && !st.p.isAI) ui.playerTag(g, st.p, st.actor.x, st.actor.y - st.actor.height - 12);
@@ -983,30 +710,9 @@ export class Game {
     return { cw, ch, rows, cell: (i) => ({ x: R.x + (i % cols) * cw, y: R.y + labelH + Math.floor(i / cols) * ch, w: cw, h: ch }) };
   }
 
-  drawMovePalette(g, st) {
-    const R = st.L.palette, labelH = clamp(R.h * 0.13, 22, 54);
-    const G = this.grid(R, MOVES.length, st.cols, labelH);
-    const sel = MOVES[st.sel];
-    ui.text(g, sel.name, R.x + R.w / 2, R.y + labelH * 0.45, { size: labelH * 0.72 * (1 + st.palBump), color: sel.color, maxWidth: R.w - 10 });
-    MOVES.forEach((M, i) => {
-      const c = G.cell(i), s = Math.min(c.w, c.h) - 6, on = i === st.sel;
-      const cx = c.x + c.w / 2, cy = c.y + c.h / 2;
-      g.save(); g.translate(cx, cy);
-      const k = on ? 1.08 + st.palBump * 0.6 : 1;
-      g.scale(k, k);
-      g.fillStyle = on ? '#ffffff' : '#fff8ec'; g.strokeStyle = on ? st.p.color : NAVY; g.lineWidth = on ? 5 : 2.5;
-      ui.roundRect(g, -s / 2, -s / 2, s, s, s * 0.18); g.fill(); g.stroke();
-      if (on) { g.lineWidth = 2; g.strokeStyle = NAVY; ui.roundRect(g, -s / 2 - 3, -s / 2 - 3, s + 6, s + 6, s * 0.2); g.stroke(); }
-      g.fillStyle = rgba(M.color, 0.3); ui.roundRect(g, -s / 2 + s * 0.07, -s / 2 + s * 0.07, s * 0.86, s * 0.86, s * 0.13); g.fill();
-      drawMovePicto(g, M, 0, 0, s * 0.92, this.t, on);
-      g.restore();
-    });
-  }
-
   drawOptions(g, st, tab) {
-    const R = st.L.palette, labelH = clamp(R.h * 0.13, 22, 54);
-    const list = tab === 'music' ? MUSIC : tab === 'lights' ? LIGHTS : STAGES;
-    const cur = tab === 'music' ? st.music : tab === 'lights' ? st.light : st.stage;
+    const R = st.L.palette, labelH = clamp(R.h * 0.12, 22, 50);
+    const list = this.listFor(tab), cur = st[this.keyFor(tab)];
     const title = tab === 'music' ? 'Pick the music' : tab === 'lights' ? 'Pick the lights' : 'Pick a stage';
     ui.text(g, title, R.x + R.w / 2, R.y + labelH * 0.45, { size: labelH * 0.62, color: '#ffffff', maxWidth: R.w - 10 });
     const G = this.grid(R, list.length, OPT_COLS, labelH);
@@ -1016,10 +722,13 @@ export class Game {
       g.save(); g.translate(c.x + c.w / 2, c.y + c.h / 2);
       const k = on ? 1.05 + st.palBump * 0.5 : 1; g.scale(k, k);
       g.save(); ui.roundRect(g, -w / 2, -h / 2, w, h, 14); g.clip();
-      const ih = h - Math.max(16, h * 0.28);
+      const ih = h - Math.max(16, h * 0.3);
       if (tab === 'stage') drawBackdrop(g, o.id, -w / 2, -h / 2, w, ih, this.t);
-      else if (tab === 'lights') { g.fillStyle = '#2a1840'; g.fillRect(-w / 2, -h / 2, w, ih); drawLights(g, o, -w / 2, -h / 2, w, ih, this.t, this.t * 2, 0, 1.4); }
-      else this.drawMusicIcon(g, o, -w / 2, -h / 2, w, ih, on);
+      else if (tab === 'lights') {
+        g.fillStyle = '#2a1840'; g.fillRect(-w / 2, -h / 2, w, ih);
+        if (o.none) drawNoneIcon(g, 0, -h / 2 + ih / 2, Math.min(w, ih) * 1.1);
+        else drawLights(g, o, -w / 2, -h / 2, w, ih, this.t, this.t * 2, 0, 1.4);
+      } else this.drawMusicIcon(g, o, -w / 2, -h / 2, w, ih, on);
       g.fillStyle = on ? st.p.color : '#fff8ec'; g.fillRect(-w / 2, -h / 2 + ih, w, h - ih);
       g.restore();
       ui.text(g, o.name, 0, -h / 2 + ih + (h - ih) / 2, { size: clamp((h - ih) * 0.62, 12, 26), color: on ? '#ffffff' : NAVY, stroke: on ? NAVY : false, strokeWidth: 4, weight: 800, maxWidth: w - 8 });
@@ -1047,10 +756,11 @@ export class Game {
 
   drawDonePanel(g, st) {
     const R = st.L.palette;
+    const light = LIGHTS[st.light];
     const lines = [
-      ['Music', MUSIC[st.music].name, MUSIC[st.music].color],
-      ['Lights', LIGHTS[st.light].name, LIGHTS[st.light].colors[0]],
       ['Stage', STAGES[st.stage].name, STAGES[st.stage].color],
+      ['Music', MUSIC[st.music].name, MUSIC[st.music].color],
+      ['Lights', light.name, light.none ? '#9a8fb8' : light.colors[0]],
     ];
     const size = clamp(R.h * 0.075, 14, 32);
     ui.text(g, 'All set?', R.x + R.w / 2, R.y + size * 1.1, { size: size * 1.4, color: '#ffd23f' });
@@ -1068,83 +778,48 @@ export class Game {
     g.restore();
   }
 
-  slotRect(st, j) {
-    const T = st.L.timeline, gap = Math.max(4, T.w * 0.012);
-    const sw = (T.w - gap * 7) / 8, numH = clamp(T.h * 0.22, 14, 30);
-    const s = Math.min(sw, T.h - numH - 6);
-    const x = T.x + j * (sw + gap) + (sw - s) / 2;
-    return { x, y: T.y + numH, w: s, h: s, numY: T.y + numH * 0.5, cx: x + s / 2, cy: T.y + numH + s / 2 };
-  }
-  slotCenter(st, j) { const r = this.slotRect(st, j); return { x: r.cx, y: r.cy }; }
-
-  drawTimeline(g, st) {
-    const T = st.L.timeline;
+  /** The dance buttons: one tile per button with its move's picture and name; lit while it plays.
+   *  done: on the Done tab the A tile says "Ready!" instead. */
+  drawDancePad(g, R, st, list, { done = false, glass = false } = {}) {
+    const n = list.length, gap = Math.max(4, R.w * 0.012);
     g.save();
-    ui.roundRect(g, T.x - 4, T.y - 4, T.w + 8, T.h + 8, 16); g.fillStyle = 'rgba(36,22,63,0.82)'; g.fill();
+    ui.roundRect(g, R.x - 4, R.y - 4, R.w + 8, R.h + 8, 16); g.fillStyle = glass ? 'rgba(36,22,63,0.7)' : 'rgba(36,22,63,0.82)'; g.fill();
+    if (glass) { g.lineWidth = 4; g.strokeStyle = st.p.color; g.stroke(); }
     g.restore();
-    const playing = mod(Math.floor(st.pvBeat), 8);
-    const editing = TABS[st.tab].id === 'moves' && !st.ready;
-    for (let j = 0; j < 8; j++) {
-      const R = this.slotRect(st, j), m = st.slots[j], b = st.slotBump[j];
-      const k = 1 + b * 0.6 + (j === playing ? st.pvPulse * 0.08 : 0);
-      ui.text(g, String(j + 1), R.cx, R.numY, { size: R.y - T.y - 2, color: j === playing ? '#fff6a8' : '#cdbff0', stroke: false, weight: 800 });
-      g.save(); g.translate(R.cx, R.cy); g.scale(k, k);
-      if (m === null) {
-        g.setLineDash([6, 5]); g.strokeStyle = 'rgba(255,255,255,0.5)'; g.lineWidth = 3;
-        ui.roundRect(g, -R.w / 2 + 2, -R.h / 2 + 2, R.w - 4, R.h - 4, R.w * 0.16); g.stroke(); g.setLineDash([]);
-        g.fillStyle = 'rgba(255,255,255,0.35)';
-        g.beginPath(); g.arc(0, 0, R.w * 0.08, 0, TAU); g.fill();
+    const tw = Math.min((R.w - gap * (n + 1)) / n, R.h * 1.05), x0 = R.x + (R.w - (tw * n + gap * (n - 1))) / 2;
+    const nameH = clamp(tw * 0.2, 12, 24), th = Math.min(R.h - 8, tw + nameH);
+    const playing = st.dancer.mv;
+    list.forEach((i, k) => {
+      const M = DANCES[i], x = x0 + k * (tw + gap), y = R.y + (R.h - th) / 2;
+      const on = playing === M, bump = st.tileBump[M.btn] || 0, ready = done && M.btn === 'a';
+      const s = Math.min(tw, th - nameH);
+      g.save(); g.translate(x + tw / 2, y + s / 2);
+      const kk = 1 + bump * 0.5; g.scale(kk, kk);
+      g.fillStyle = on ? '#ffffff' : '#fff8ec'; g.strokeStyle = on ? st.p.color : NAVY; g.lineWidth = on ? 5 : 2.5;
+      ui.roundRect(g, -s / 2, -s / 2, s, s, s * 0.16); g.fill(); g.stroke();
+      if (ready) {
+        g.fillStyle = '#36d17a'; ui.roundRect(g, -s / 2 + 4, -s / 2 + 4, s - 8, s - 8, s * 0.13); g.fill();
+        ui.text(g, 'Ready!', 0, s * 0.08, { size: s * 0.22, maxWidth: s - 10 });
       } else {
-        const M = MOVES[m];
-        g.fillStyle = '#fff8ec'; g.strokeStyle = NAVY; g.lineWidth = 2.5;
-        ui.roundRect(g, -R.w / 2, -R.h / 2, R.w, R.h, R.w * 0.16); g.fill(); g.stroke();
-        g.fillStyle = rgba(M.color, 0.4); ui.roundRect(g, -R.w / 2 + 3, -R.h / 2 + 3, R.w - 6, R.h - 6, R.w * 0.13); g.fill();
-        drawMovePicto(g, M, 0, 0, R.w * 0.92, this.t, j === playing);
-      }
-      if (j === playing) { g.strokeStyle = '#fff6a8'; g.lineWidth = 3; ui.roundRect(g, -R.w / 2 - 3, -R.h / 2 - 3, R.w + 6, R.h + 6, R.w * 0.18); g.stroke(); }
-      g.restore();
-    }
-    if (editing) {
-      const R = this.slotRect(st, st.cur);
-      const bob = Math.sin(this.t * 8) * 3;
-      g.save();
-      g.strokeStyle = NAVY; g.lineWidth = 9; ui.roundRect(g, R.x - 6, R.y - 6, R.w + 12, R.h + 12, R.w * 0.2); g.stroke();
-      g.strokeStyle = st.p.color; g.lineWidth = 5; g.stroke();
-      // the carried card floats above the cursor
-      if (st.held) {
-        const M = MOVES[st.held.m], s = R.w * 0.95;
-        g.translate(R.cx, R.y - s * 0.32 + bob); g.rotate(Math.sin(this.t * 6) * 0.08);
-        g.fillStyle = '#ffffff'; g.strokeStyle = st.p.color; g.lineWidth = 4;
-        ui.roundRect(g, -s / 2, -s / 2, s, s, s * 0.16); g.fill(); g.stroke();
-        drawMovePicto(g, M, 0, 0, s * 0.9, this.t, true);
-      } else {
-        // a little pointer
-        g.fillStyle = st.p.color; g.strokeStyle = NAVY; g.lineWidth = 3;
-        g.beginPath(); g.moveTo(R.cx - 10, R.y + R.h + 14 + bob); g.lineTo(R.cx + 10, R.y + R.h + 14 + bob); g.lineTo(R.cx, R.y + R.h + 4 + bob); g.closePath(); g.fill(); g.stroke();
+        g.fillStyle = rgba(M.color, on ? 0.5 : 0.3); ui.roundRect(g, -s / 2 + 4, -s / 2 + 4, s - 8, s - 8, s * 0.13); g.fill();
+        drawMovePicto(g, M, 0, s * 0.06, s * 0.82, this.t, on);
       }
       g.restore();
-    }
+      ui.glyph(g, M.btn, x + s * 0.17 + (tw - s) / 2, y + s * 0.17, clamp(s * 0.3, 18, 40));
+      ui.text(g, ready ? "I'm ready" : M.name, x + tw / 2, y + s + nameH * 0.55, { size: nameH, color: on ? '#fff6a8' : '#ffffff', strokeWidth: 4, maxWidth: tw + gap - 2 });
+    });
   }
 
   drawStationHints(g, st) {
     const { r, L } = st, n = this.n;
     if (st.ready) return;
     const tab = TABS[st.tab].id, small = n > 4, mid = n > 2;
-    if (st.surpriseAsk) { ui.hints(g, [['stick', small ? '' : 'Choose'], ['a', 'OK']], r.x + r.w / 2, L.hintY, { size: small ? 26 : mid ? 30 : 36, gap: small ? 16 : 26 }); return; }
     let list;
-    if (tab === 'moves') {
-      const nav = st.p.ctrl.kind === 'pad' ? 'dpad' : 'rt';
-      if (st.held) list = [['a', 'Put here'], ['b', 'Take out']];
-      else if (this.filled(st) === 8) list = small ? [['x', 'Swap'], ['a', 'Next']] : [[nav, 'Move'], ['x', 'Swap in'], ['a', 'Next step'], ['b', 'Take out'], ['y', 'Surprise!']];
-      else {
-        const here = st.slots[st.cur] !== null, xl = here ? 'Swap' : 'Put in', al = here ? 'Next beat' : this.filled(st) === 7 ? 'Put in, next' : 'Put in';
-        list = small ? [['x', xl], ['a', al]] : [['stick', 'Beat'], [nav, 'Move'], ['x', xl], ['a', al]].concat(mid ? [] : [['b', 'Out']]);
-      }
-    } else if (tab === 'done') list = [['a', "I'm ready!"], ['lb', 'Back']];
-    else list = small ? [['stick', ''], ['a', 'OK']] : [['stick', 'Pick'], ['a', 'OK, next'], ['b', 'Back']];
+    if (tab === 'done') list = [['a', "I'm ready!"], ['lb', 'Back']];
+    else list = small ? [['stick', 'Pick'], ['rb', 'Next']] : [['stick', 'Pick'], ['rb', 'Next'], ['x', 'Buttons: dance!']];
     const size = small ? 26 : mid ? 30 : 36;
     ui.hints(g, list, r.x + r.w / 2, L.hintY, { size, gap: small ? 16 : 26 });
-    if (st.hintT > 0) ui.text(g, st.hintMsg || 'Pick a beat with a card on it!', r.x + r.w / 2, L.timeline.y - 16, { size: small ? 18 : 24, color: '#ffd23f', maxWidth: r.w - 20 });
+    if (st.hintT > 0) ui.text(g, st.hintMsg, r.x + r.w / 2, L.dancePad.y - 16, { size: small ? 18 : 24, color: '#ffd23f', maxWidth: r.w - 20 });
   }
 
   drawReady(g, st) {
@@ -1168,39 +843,21 @@ export class Game {
     const S = this.stage, t = this.t;
     const light = LIGHTS[this.lightIdx] || LIGHTS[0];
     const B = this.backdrop;
-    const stageH = FLOOR_Y;
-    if (B.prev !== null && B.fade < 1) drawBackdrop(g, STAGES[B.prev].id, 0, 0, W, stageH, t);
+    if (B.prev !== null && B.fade < 1) drawBackdrop(g, STAGES[B.prev].id, 0, 0, W, FLOOR_Y, t);
     g.save(); g.globalAlpha = B.prev === null ? 1 : B.fade;
-    drawBackdrop(g, STAGES[B.cur].id, 0, 0, W, stageH, t);
+    drawBackdrop(g, STAGES[B.cur].id, 0, 0, W, FLOOR_Y, t);
     g.restore();
     // dim the stage while the lights are low
     const power = S.power;
     if (power < 1) { g.fillStyle = `rgba(20,10,40,${(1 - power) * 0.55})`; g.fillRect(0, 0, W, H); }
     drawLights(g, light, 0, 0, W, H * 0.95, t, S.beat, S.pulse, power);
-    if (S.sub === 'free') {
-      const disco = LIGHTS.find((l) => l.id === 'disco');
-      drawLights(g, disco, 200, 0, W - 400, H * 0.9, t, S.beat + 1, S.pulse * 0.5, 0.7);
-    }
     drawFloor(g, 0, FLOOR_Y, W, H - FLOOR_Y, light, t);
     const all = { x: 0, y: 0, w: W, h: H };
     const sorted = this.stations.slice().sort((a, b) => a.actor.y - b.actor.y);
-    for (const st of sorted) st.dancer.drawReflection(g, FLOOR_Y, all, 0.24);
-    // spotlight pool on the routine's choreographer
-    if (this.seg >= 0 && S.sub !== 'free' && S.sub !== 'photo') {
-      const a = this.lead.actor;
-      g.save(); g.globalCompositeOperation = 'lighter';
-      const gr = g.createRadialGradient(a.x, a.y, 10, a.x, a.y, 260);
-      gr.addColorStop(0, 'rgba(255,246,200,0.38)'); gr.addColorStop(1, 'rgba(255,246,200,0)');
-      g.fillStyle = gr; g.beginPath(); g.ellipse(a.x, a.y, 260, 70, 0, 0, TAU); g.fill();
-      const cone = g.createLinearGradient(0, 0, 0, a.y);
-      cone.addColorStop(0, 'rgba(255,246,200,0.02)'); cone.addColorStop(1, 'rgba(255,246,200,0.16)');
-      g.fillStyle = cone; g.beginPath(); g.moveTo(a.x - 40, 0); g.lineTo(a.x + 40, 0); g.lineTo(a.x + 220, a.y); g.lineTo(a.x - 220, a.y); g.closePath(); g.fill();
-      g.restore();
-    }
+    for (const st of sorted) st.dancer.drawReflection(g, FLOOR_Y, all, 0.22);
     for (const st of sorted) {
-      const isLead = this.seg >= 0 && st === this.lead && S.sub !== 'free' && S.sub !== 'photo';
       st.dancer.draw(g, { ring: st.p.color, emotes: !forPhoto });
-      if (isLead && !forPhoto) this.drawCrownSparkle(g, st);
+      if (!forPhoto && this.seg >= 0 && st === this.owner && S.sub === 'dance' && this.n > 1) this.drawCrownSparkle(g, st);
     }
     drawMirrorBall(g, W / 2, S.ballY, 66, t, S.pulse);
     drawCurtains(g, 0, 0, W, H, S.curtain ?? 1, t);
@@ -1216,46 +873,34 @@ export class Game {
   }
 
   drawShowHUD(g) {
-    const S = this.stage, t = this.t;
+    const S = this.stage;
     if (S.sub === 'intro') {
       if (S.t > 0.8) ui.banner(g, 'Showtime!', S.t - 0.8, { y: 330, size: 150, color: '#ffd23f' });
       if (S.t > 1.4) this.drawTags(g, 40);
       return;
     }
-    if (S.sub === 'switch' || S.sub === 'count' || S.sub === 'dance' || S.sub === 'bow') {
-      this.drawRoutineCard(g);
-      this.drawStrip(g);
-    }
-    if (S.sub === 'count') {
-      const b = Math.floor(S.beat);
-      if (b >= -4 && b < 0) {
-        const f = S.beat - b, label = ['5', '6', '7', '8!'][b + 4];
-        g.save(); g.translate(W / 2, 430); g.scale(1.25 - f * 0.25, 1.25 - f * 0.25); g.globalAlpha = 1 - f * 0.5;
-        ui.text(g, label, 0, 0, { size: 170, color: b === -1 ? '#ff6fb1' : '#ffffff', strokeWidth: 14 });
-        g.restore();
-      }
-    }
-    if (S.sub === 'bow' && S.t < 1.6) ui.banner(g, pick2(FINALE_WORDS, this.seg), S.t, { y: 360, size: 130, color: '#ffd23f' });
-    // show-time hints for humans
-    if (S.sub === 'count' || S.sub === 'dance' || S.sub === 'bow') {
-      if (this.stations.some((s) => !s.p.isAI)) ui.hints(g, [['a', 'Woo!']], W - 170, H - 40, { size: 34 });
-    }
-    if (S.sub === 'free') {
-      if (S.t < 2.2) ui.banner(g, 'Free dance!', S.t, { y: 300, size: 140, color: '#ff6fb1' });
-      if (S.t > FREE_T - 3) {
-        const n = Math.ceil(FREE_T - S.t), f = 1 - (FREE_T - S.t - (n - 1));
-        g.save(); g.translate(W / 2, 330); g.scale(1 + f * 0.4, 1 + f * 0.4); g.globalAlpha = 1 - f * 0.6;
-        ui.text(g, String(n), 0, 0, { size: 200, color: '#ffd23f', strokeWidth: 12 }); g.restore();
-      }
-      if (S.t < 3) this.drawTags(g, 40);
+    if (S.sub === 'dance') {
+      this.drawStageCard(g);
+      this.drawProgress(g);
+      if (S.segT < 3 && this.seg === 0) this.drawTags(g, 40);
+      if (this.seg === 0 && S.segT > 0.6 && S.segT < 2.6) ui.banner(g, "Let's dance!", S.segT - 0.6, { y: 420, size: 120, color: '#ff6fb1' });
+      // every human's dance buttons along the bottom
       const humans = this.stations.filter((s) => !s.p.isAI);
       if (humans.length) {
-        const [r1, r2] = photoPoseHints(humans.some((s) => s.p.ctrl.kind === 'pad'));
-        ui.hints(g, r1, W / 2, H - 104, { size: 36 }); ui.hints(g, r2, W / 2, H - 50, { size: 36 });
+        const st = humans[0], w = Math.min(1100, W - 120), h = 104;
+        const R = { x: W / 2 - w / 2, y: H - h - 18, w, h };
+        this.drawDancePad(g, R, st, SHOW_DANCES, { glass: true });
+        ui.hints(g, [['stick', 'Move']], R.x - 4, R.y - 28, { size: 30, align: 'left' });
+      }
+      const last = this.seg + 1 >= this.order.length, left = this.segLen - S.segT;
+      if (last && left <= FREEZE_COUNT) {
+        const nn = Math.max(1, Math.ceil(left)), f = 1 - (left - (nn - 1));
+        g.save(); g.translate(W / 2, 360); g.scale(1 + f * 0.4, 1 + f * 0.4); g.globalAlpha = 1 - f * 0.6;
+        ui.text(g, String(nn), 0, 0, { size: 200, color: '#ffd23f', strokeWidth: 12 }); g.restore();
+        ui.text(g, 'Get ready to freeze!', W / 2, 500, { size: 54, color: '#ff6fb1' });
       }
     }
     if (S.sub === 'photo') this.drawPhoto(g);
-    void t;
   }
 
   /** P1/P2 tags over the human players' dancers (screen space). */
@@ -1269,57 +914,37 @@ export class Game {
     }
   }
 
-  /** "<Name>'s dance" card at the top. */
-  drawRoutineCard(g) {
-    const S = this.stage, st = this.lead, bt = this.bannerT || 0;
+  /** "<Name>'s stage!": big when it changes over, then small in the corner. */
+  drawStageCard(g) {
+    const st = this.owner, bt = this.bannerT || 0;
     const k = bt < 0.4 ? ease.outBack(bt / 0.4) : 1;
-    const big = S.sub === 'switch';
-    g.save(); g.translate(big ? W / 2 : 470, big ? 310 : 152); g.scale(k * (big ? 1 : 0.68), k * (big ? 1 : 0.68));
+    const big = bt < 2.2;
+    g.save(); g.translate(big ? W / 2 : 400, big ? 300 : 150); g.scale(k * (big ? 1 : 0.6), k * (big ? 1 : 0.6));
     const w = 760, h = 120;
     ui.panel(g, -w / 2, -h / 2, w, h, { r: 60, fill: st.p.color, lineWidth: 7 });
     drawPortrait(g, st.p, -w / 2 + 62, 0, 50, { ring: '#ffffff' });
-    ui.fitText(g, `${playerName(st.p)}'s dance!`, 34, -4, { size: 54, maxWidth: w - 170, color: '#ffffff' });
+    ui.fitText(g, this.n === 1 ? 'Your show!' : `${playerName(st.p)}'s stage!`, 34, -4, { size: 54, maxWidth: w - 170, color: '#ffffff' });
     g.restore();
     if (big) {
-      const info = `${MUSIC[st.music].name}  ·  ${LIGHTS[st.light].name}  ·  ${STAGES[st.stage].name}`;
-      ui.text(g, info, W / 2, 402, { size: 36, color: '#fff6a8', maxWidth: 1100 });
+      const L = LIGHTS[st.light];
+      const info = `${STAGES[st.stage].name}  ·  ${MUSIC[st.music].name}  ·  ${L.none ? 'No lights' : L.name}`;
+      ui.text(g, info, W / 2, 392, { size: 36, color: '#fff6a8', maxWidth: 1100 });
     }
   }
 
-  /** The routine's 8 cards along the bottom, the current beat lit up. */
-  drawStrip(g) {
-    const S = this.stage, st = this.lead;
-    const s = 96, gap = 14, total = 8 * s + 7 * gap, x0 = W / 2 - total / 2, y = H - 66;
-    const cur = S.sub === 'dance' ? mod(Math.floor(S.beat), 8) : -1;
-    const frac = S.sub === 'dance' ? S.beat - Math.floor(S.beat) : 0;
+  /** How far through the show we are: one bead per player's song. */
+  drawProgress(g) {
+    const S = this.stage, n = this.order.length, w = Math.min(560, 140 * n), x0 = W - 140 - w, y = 150;
     g.save();
-    ui.roundRect(g, x0 - 16, y - s / 2 - 14, total + 32, s + 28, 26); g.fillStyle = 'rgba(36,22,63,0.78)'; g.fill();
-    g.lineWidth = 4; g.strokeStyle = st.p.color; g.stroke();
+    ui.roundRect(g, x0 - 14, y - 22, w + 28, 44, 22); g.fillStyle = 'rgba(36,22,63,0.7)'; g.fill();
+    const sw = w / n;
+    this.order.forEach((st, i) => {
+      const f = i < this.seg ? 1 : i > this.seg ? 0 : clamp(S.segT / this.segLen, 0, 1);
+      ui.roundRect(g, x0 + i * sw + 3, y - 9, sw - 6, 18, 9); g.fillStyle = 'rgba(255,255,255,0.25)'; g.fill();
+      if (f > 0) { ui.roundRect(g, x0 + i * sw + 3, y - 9, Math.max(18, (sw - 6) * f), 18, 9); g.fillStyle = st.p.color; g.fill(); }
+    });
     g.restore();
-    for (let j = 0; j < 8; j++) {
-      const m = st.slots[j], cx = x0 + j * (s + gap) + s / 2;
-      const on = j === cur, k = on ? 1.18 - frac * 0.12 : 1;
-      g.save(); g.translate(cx, y - (on ? 12 : 0)); g.scale(k, k);
-      g.fillStyle = on ? '#ffffff' : '#fff8ec'; g.strokeStyle = on ? st.p.color : NAVY; g.lineWidth = on ? 6 : 3;
-      ui.roundRect(g, -s / 2, -s / 2, s, s, 18); g.fill(); g.stroke();
-      if (m !== null) {
-        const M = MOVES[m];
-        g.fillStyle = rgba(M.color, on ? 0.5 : 0.3); ui.roundRect(g, -s / 2 + 5, -s / 2 + 5, s - 10, s - 10, 14); g.fill();
-        drawMovePicto(g, M, 0, 0, s * 0.9, this.t, on);
-      } else {
-        g.fillStyle = rgba('#9b5cff', 0.15); ui.roundRect(g, -s / 2 + 5, -s / 2 + 5, s - 10, s - 10, 14); g.fill();
-        ui.text(g, '♪', 0, 0, { size: 48, color: '#c49bff', stroke: false });
-      }
-      ui.text(g, String(j + 1), -s / 2 + 14, -s / 2 + 14, { size: 22, color: on ? st.p.color : '#9a8fb8', strokeWidth: 4 });
-      g.restore();
-    }
-    if (cur >= 0) {
-      const m = st.slots[cur];
-      const name = m === null ? 'Groove!' : MOVES[m].name;
-      g.save(); g.translate(470, 228); const k = 1 + (1 - Math.min(1, frac * 3)) * 0.15; g.scale(k, k);
-      ui.text(g, name, 0, 0, { size: 50, color: m === null ? '#c49bff' : MOVES[m].color });
-      g.restore();
-    }
+    ui.text(g, '♪', x0 - 40, y, { size: 40, color: '#fff6a8' });
   }
 
   drawPhoto(g) {
@@ -1337,6 +962,3 @@ export class Game {
     g.restore();
   }
 }
-
-function pick2(arr, i) { return arr[mod(i * 7 + 3, arr.length)]; }
-

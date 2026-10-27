@@ -18,7 +18,7 @@ import { sfx, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { outfitItem } from '../engine/outfits.js';
-import { easySteer, easyNearest, easyPrompt } from '../engine/easy.js';
+import { easySteer, easyNearest, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, lerp, rand, randInt, pick, chance, TAU, dist } from '../engine/util.js';
 import {
@@ -211,7 +211,8 @@ export class Game {
     // A: loop-de-loop zoom
     if (play && ctrl.pressed('a') && e.loopCd <= 0 && e.loopT <= 0) {
       const cy = e.y - a.height * 0.5;
-      const far = e.ez && !e.ez.aim && !e.ez.manual ? this.nearestPickup(e) : null;   // Easy, none in reach: zoom toward the nearest one
+      // Easy, none in reach: A again (no steering - easyAutoOk) zooms toward the nearest one
+      const far = e.ez && !e.ez.aim && !e.ez.manual && easyAutoOk(e.ez) ? this.nearestPickup(e) : null;
       if (e.ez && e.ez.aim) this.startLoop(e, e.ez.aim.x - e.x, e.ez.aim.y - cy);   // Easy: zoom at the sparkle
       else if (far) { this.startLoop(e, far.x - e.x, far.y - cy); e.ez.lx = clamp(far.x, LEFT + 60, RIGHT - 60); }   // and her patch of sky moves there
       else this.startLoop(e, ix, iy);

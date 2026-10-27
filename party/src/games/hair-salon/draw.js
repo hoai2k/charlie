@@ -152,14 +152,14 @@ export class SalonDrawing {
     g.restore();
     this.drawHeader(g, s);
     this.drawToolbar(g, s);
-    if (this.phase === 'style' && !s.picking && TOOLS[s.tool] && OPTIONS[TOOLS[s.tool].id]) this.drawOptions(g, s);
+    if (this.phase === 'style' && !s.picking) this.drawOptions(g, s);
     if (this.phase === 'style' && !s.picking && !TOOLS[s.tool] && !s.ready) this.drawDone(g, s);
   }
 
   /** The Done slot (the last tool): a card over the bottom of the scene, "A: I'm ready!". */
   drawDone(g, s) {
     const sc = s.scene, w = Math.min(sc.w - 30, 440), h = Math.min(sc.h * 0.36, 230);
-    drawDoneCard(g, { x: sc.x + (sc.w - w) / 2, y: sc.y + sc.h - h - 12, w, h }, s.p.color, { back: s.narrow ? 'LB: back to the tools' : 'LB to change something' });
+    drawDoneCard(g, { x: sc.x + (sc.w - w) / 2, y: sc.y + sc.h - h - 12, w, h }, s.p.color, { back: s.narrow ? 'LB: back to the tools' : 'LB to change something (B: not yet)' });
   }
 
   /** Portrait grid: who will you style? (the chair behind shows the highlighted girl) */
@@ -246,7 +246,7 @@ export class SalonDrawing {
     const out = this.phaseT > REVEAL_T + this.n * 0.15 - 0.5 ? 1 - (REVEAL_T + this.n * 0.15 - this.phaseT) / 0.5 : 0;
     const sc = s.scene;
     const mw = 250 * k, mh = 390 * k;
-    const mx = Math.min(s.hx + 270 * k, sc.x + sc.w - mw * 0.45), my = lerp(sc.y + sc.h + mh, s.hy + 220 * k, rise) + out * 600 * k;
+    const st = s.stage, mx = Math.min(s.hx + 270 * k, st.x + st.w - mw * 0.45), my = lerp(sc.y + sc.h + mh, s.hy + 220 * k, rise) + out * 600 * k;
     g.save(); g.translate(mx, my); g.rotate(-0.12 + Math.sin(this.t * 2) * 0.03);
     drawMirrorFrame(g, mw, mh, (rx, ry, cx, cy) => {
       g.save();
@@ -318,42 +318,83 @@ export class SalonDrawing {
       const sel = s.tool === TOOLS.length, cx = x0 + TOOLS.length * slot, sz = slot * (sel ? 0.94 : 0.8);
       drawDoneTab(g, cx - sz / 2, y0 + th / 2 - sz * 0.47 - (sel ? 4 + s.toolPop * 6 : 0), sz, sz * 0.94, { sel, label: false });
     }
+    // LB / RB at the ends when there's room (the d-pad left / right steps the tools too)
+    const gs = Math.min(th * 0.5, 40);
+    if (r.w - n * slot > gs * 4 + 40) {
+      ui.glyph(g, 'lb', r.x + 18 + gs * 0.7, y0 + th / 2, gs);
+      ui.glyph(g, 'rb', r.x + r.w - 18 - gs * 0.7, y0 + th / 2, gs);
+    }
     // tool name pops up when switching
     if (s.toolPop > 0 && this.phase === 'style' && TOOLS[s.tool]) {
       const cx = x0 + s.tool * slot;
       g.save(); g.globalAlpha = clamp(s.toolPop * 2, 0, 1);
-      ui.text(g, TOOLS[s.tool].name, clamp(cx, r.x + 70, r.x + r.w - 70), y0 - 20 - (OPTIONS[TOOLS[s.tool].id] ? (s.compact ? 50 : 64) : 0), { size: s.compact ? 26 : 34, color: '#ffffff' });
+      ui.text(g, TOOLS[s.tool].name, clamp(cx, r.x + 70, s.stage.x + s.stage.w - 60), y0 - 20, { size: s.compact ? 26 : 34, color: '#ffffff' });
       g.restore();
     }
     g.restore();
   }
 
+  /** The column beside the client: the tool's options as a vertical list (d-pad up / down, or LT / RT
+   *  on a keyboard, whose WASD is the hand), or for a tool with no options, what A / X does with it. */
   drawOptions(g, s) {
-    const id = TOOLS[s.tool].id, O = OPTIONS[id], list = O.list, r = s.r;
-    const oh = s.compact ? 46 : 58, y = r.y + r.h - s.toolH - oh - 6;
-    const maxW = r.w - 30;
-    const cell = Math.min(oh - 6, maxW / list.length);
-    const w = cell * list.length + 16;
-    const x = r.x + r.w / 2 - w / 2;
+    const lr = s.list, tl = TOOLS[s.tool], O = tl && OPTIONS[tl.id];
+    if (!tl) return;   // Done: its card covers the bottom of the scene
+    const named = lr.w >= 170, pad = s.p.ctrl.kind !== 'kb';
     g.save();
-    ui.panel(g, x, y, w, oh, { r: oh / 2, fill: 'rgba(255,255,255,0.94)', lineWidth: 4, shadow: false });
-    const cur = s.opt[id];
-    list.forEach((o, i) => {
-      const cx = x + 8 + cell * (i + 0.5), cy = y + oh / 2;
-      const sel = i === cur;
-      g.save(); g.translate(cx, cy);
-      if (sel) { const k = 1 + s.optPop * 0.25; g.scale(k, k); g.fillStyle = s.p.color; g.beginPath(); g.arc(0, 0, cell * 0.5, 0, TAU); g.fill(); g.strokeStyle = NAVY; g.lineWidth = 3; g.stroke(); }
-      if (id === 'colour') swatch(g, o, 0, 0, cell * (sel ? 0.36 : 0.3));
-      else if (id === 'style') drawStyleIcon(g, o.id, cell * 0.85, s.client.hair.strands[0].segs[0]);
-      else drawBling(g, o, cell * 0.72, this.t);
+    ui.panel(g, lr.x, lr.y, lr.w, lr.h, { r: named ? 22 : 18, fill: 'rgba(255,255,255,0.9)', lineWidth: 4, shadow: false });
+    const headH = clamp(lr.h * 0.09, 28, 50);
+    ui.text(g, O ? O.label : tl.name, lr.x + lr.w / 2, lr.y + headH * 0.6, { size: headH * 0.62, color: s.p.color, strokeWidth: 5, maxWidth: lr.w - 12 });
+    if (!O) {
+      // no list on this tool: the tool, big, and "A / X: hold"
+      const cy = lr.y + headH + (lr.h - headH) * 0.4, isz = Math.min(lr.w * 0.9, (lr.h - headH) * 0.42, 150);
+      drawTool(g, tl.id, lr.x + lr.w / 2, cy, isz, this.t, { color: HAIR_COLORS[s.opt.colour] });
+      const fs = clamp(lr.w * 0.2, 22, 36), fy = Math.min(lr.y + lr.h - fs * 0.9, cy + isz * 0.62 + fs);
+      if (!s.p.isAI) {
+        if (named) ui.hints(g, [['a', 'or'], ['x', 'Hold']], lr.x + lr.w / 2, fy, { size: fs, gap: 12 });
+        else { ui.glyph(g, 'a', lr.x + lr.w / 2 - fs * 0.6, fy, fs); ui.glyph(g, 'x', lr.x + lr.w / 2 + fs * 0.6, fy, fs); }
+      }
       g.restore();
-    });
-    // the name of the current option
-    if (s.optPop > 0) {
-      g.save(); g.globalAlpha = clamp(s.optPop * 2, 0, 1);
-      const cx = clamp(x + 8 + cell * (cur + 0.5), r.x + 60, r.x + r.w - 60);
-      ui.text(g, list[cur].name, cx, y - 18, { size: s.compact ? 22 : 28, color: '#ffffff', strokeWidth: 5 });
+      return;
+    }
+    const list = O.list, sel = s.opt[tl.id], n = list.length;
+    const footH = s.p.isAI ? 0 : clamp(lr.h * 0.08, 28, 46);
+    const areaY = lr.y + headH + 12, areaH = lr.h - headH - 16 - footH;
+    const minSlot = named ? 64 : s.compact ? 50 : 58;
+    const vis = Math.min(n, Math.max(3, Math.floor(areaH / minSlot)));
+    const slotH = Math.min(areaH / vis, named ? 84 : 76);
+    const first = clamp(sel - Math.floor(vis / 2), 0, n - vis);
+    const hairCol = s.client.hair.strands[0].segs[0];
+    for (let k = 0; k < vis; k++) {
+      const ii = first + k, o = list[ii], on = ii === sel;
+      const bump = on ? s.listBump * 0.6 + s.optPop * 0.04 : 0;
+      g.save(); g.translate(lr.x + lr.w / 2, areaY + k * slotH + slotH / 2); g.scale(1 + bump, 1 + bump);
+      const bw = lr.w - 14, bh = slotH - 6;
+      ui.panel(g, -bw / 2, -bh / 2, bw, bh, { r: 14, fill: on ? '#ffd23f' : '#ffffff', lineWidth: on ? 4 : 2, stroke: on ? NAVY : 'rgba(36,22,63,0.25)', shadow: false });
+      const isz = Math.min(bh * 0.92, named ? bw * 0.34 : bw * 0.86);
+      const ix = named ? -bw / 2 + isz / 2 + 4 : 0;
+      if (tl.id === 'colour') swatch(g, o, ix, 0, isz * 0.34);
+      else if (tl.id === 'style') { g.save(); g.translate(ix, 0); drawStyleIcon(g, o.id, isz * 1.05, hairCol); g.restore(); }
+      else { g.save(); g.translate(ix, 0); drawBling(g, o, isz * (o.wide ? 0.62 : 0.8), this.t); g.restore(); }
+      if (named) ui.text(g, o.name, ix + isz / 2 + 6, 2, { size: clamp(bh * 0.3, 16, 28), color: NAVY, stroke: false, align: 'left', weight: 700, maxWidth: bw - isz - 16 });
       g.restore();
+    }
+    // more above / below
+    g.fillStyle = NAVY;
+    const ax = lr.x + lr.w / 2;
+    if (first > 0) { g.beginPath(); g.moveTo(ax - 11, areaY + 1); g.lineTo(ax + 11, areaY + 1); g.lineTo(ax, areaY - 9); g.fill(); }
+    if (first + vis < n) { const yb = areaY + vis * slotH - 2; g.beginPath(); g.moveTo(ax - 11, yb); g.lineTo(ax + 11, yb); g.lineTo(ax, yb + 10); g.fill(); }
+    // how to step the list: the d-pad on a controller, LT / RT on a keyboard
+    if (footH) {
+      const fy = lr.y + lr.h - footH / 2 - 6, fs = footH * 0.7;
+      if (pad) ui.hints(g, [['dpad', named ? 'Up / Down' : '']], ax, fy, { size: fs, gap: 0 });
+      else if (named) ui.hints(g, [['lt', ''], ['rt', 'Pick']], ax, fy, { size: fs, gap: 4 });
+      else { ui.glyph(g, 'lt', ax - fs * 0.72, fy, fs * 0.9); ui.glyph(g, 'rt', ax + fs * 0.72, fy, fs * 0.9); }
+    }
+    // the name of the chosen one beside an icon-only list
+    if (!named && s.optPop > 0) {
+      const sy = areaY + (sel - first + 0.5) * slotH;
+      g.globalAlpha = clamp(s.optPop * 2, 0, 1);
+      ui.text(g, list[sel].name, lr.x - 8, sy, { size: s.compact ? 24 : 28, align: 'right', color: '#ffffff', strokeWidth: 6 });
     }
     g.restore();
   }
@@ -389,8 +430,11 @@ export class SalonDrawing {
     if (this.phase === 'style') {
       const humans = this.stations.filter((s) => !s.p.isAI);
       if (humans.length) {
-        ui.hints(g, [['stick', 'Move'], ['x', 'Use tool'], ['a', 'Next']], W / 2 - 130, 52, { size: 32, align: 'right' });
-        ui.hints(g, [[humans.some((h) => h.p.ctrl.kind === 'pad') ? 'dpad' : 'rt', 'Colour/Style'], ['rb', 'Done']], W / 2 + 130, 52, { size: 32, align: 'left' });
+        // A and X both use the tool; tools: LB / RB (and the d-pad on a controller), the list: the
+        // d-pad up / down on a controller, LT / RT on a keyboard (each station's list shows its own)
+        ui.hints(g, [['stick', 'Move'], ['a', 'or X: use']], W / 2 - 130, 52, { size: 32, align: 'right' });
+        const pads = humans.every((h) => h.p.ctrl.kind !== 'kb');
+        ui.hints(g, pads ? [['dpad', 'Tools · Pick']] : [['rb', 'Tools'], ['rt', 'Pick']], W / 2 + 130, 52, { size: 32, align: 'left' });
       }
     }
     if (this.phase === 'show') {

@@ -17,7 +17,7 @@ import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
-import { easySteer, easyPrompt } from '../engine/easy.js';
+import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, dist } from '../engine/util.js';
 import { ARENA, BIG, FRIEND, NAVY, drawFlake, drawSnowball, drawPenguin, drawFriend, drawBigSnowman, drawMeadow, drawTongue, friendHand } from './snowflake-catch/art.js';
@@ -48,7 +48,7 @@ export class Game {
   constructor(api) {
     this.api = api;
     this.players = api.players;
-    this.easy = !!api.easy;     // Molly Easy: humans auto-walk under flakes, A = tongue
+    this.easy = !!api.easy;     // Molly Easy: A = tongue; A again and again (no steering) walks you under a flake
     const n = this.n = this.players.length;
     this.t = 0; this.timeLeft = DURATION; this.done = false; this.storm = false; this.stormT = 0;
     // the snow clock, shown the whole game
@@ -204,7 +204,6 @@ export class Game {
       snd('sfc-tongue', 'pop', { vol: 0.35, rate: 1.5 });
       a.squash(-0.15);
       if (auto) e.tongueHold = 0.55;   // a quick tap still catches
-      if (auto && !e.ezPush) e._ezSteer = 0;   // Easy: A (stick let go) hands back to the auto-walk at once
     }
     e.tongue = tongue ? Math.min(1, e.tongue + dt * 10) : Math.max(0, e.tongue - dt * 8);
     // Easy: the auto-walk slows right down with the tongue out, so timing A beats holding it
@@ -417,13 +416,17 @@ export class Game {
     if (d < 14) ctrl.move(0, 0);
   }
 
-  /** Molly Easy (humans): walk by yourself under the best flake; the player only times A. */
+  /** Molly Easy (humans): the stick walks you, A is the tongue. Nobody walks you otherwise,
+   *  except for a moment after each A pressed again and again with no steering (easyAutoOk):
+   *  then you walk under the best flake by yourself. */
   easyThink(e, dt) {
     e.autoX = 0; e.autoY = 0;
     // the stick steers while it's pushed (target = the best flake from where you are, for the A cue)
     const st = easySteer(e, e.p.ctrl, dt);
     e.ezManual = st.manual; e.ezPush = st.pushing;
-    if (st.pushing) { e.target = null; e.retarget = 0; }
+    if (st.pushing) { e.target = null; e.retarget = 0; e.ezGoT = 0; }
+    if (e.p.ctrl.pressed('a') && easyAutoOk(e)) e.ezGoT = 3;
+    e.ezGoT = Math.max(0, (e.ezGoT || 0) - dt);
     if (e.spin > 0) return;
     const h = e.a.height;
     const ok = (f) => f && f.state === 'fall' && f.z > h * 0.2;
@@ -445,7 +448,7 @@ export class Game {
     }
     if (st.manual) { e.autoX = st.x * 0.9; e.autoY = st.y * 0.9; return; }
     const f = e.target;
-    if (!f) return;
+    if (!f || e.ezGoT <= 0) return;
     const dx = f.x - e.x, dy = f.y - e.y, d = Math.hypot(dx, dy);
     if (d < 14) return;
     const k = clamp(d / 60, 0, 1) * 0.75;

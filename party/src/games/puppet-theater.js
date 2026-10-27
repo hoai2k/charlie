@@ -126,12 +126,12 @@ export class Game {
     const sock = p.isAI ? chance(0.3) : false;
     return {
       p, i, a, kind: sock ? 'sock' : 'stick',
-      x, baseY: a.y, liftV: 0, z: 0, vz: 0, vx: 0, tilt: 0, spinT: 0, spin: 1,
+      x, baseY: a.y, liftV: 0, z: 0, vz: 0, vx: 0, tilt: 0, spinT: 0, spin: 0,
       cur: { x: WIN.x0 + 160 + ((WIN.x1 - WIN.x0 - 320) * (i + 0.5)) / this.n, y: 430 }, held: null, hover: null,
       ready: false, tab: 0, propSel: i % PROPS.length, tabPop: 0, silly: randInt(0, SILLY.length - 1),
       laughs: 0, peeks: 0, pics: 0, tricks: 0, chats: 0, props: 0,
       bubble: null, lastPic: 'heart', wheel: null, hiddenT: 0, recent: {}, landProp: false,
-      sock: { mouth: 0, eyesX: 0, eyesY: 0, ex: 0, ey: 0, blink: 0, blinkT: rand(1, 4), tilt: 0, spin: 1, mood: null, moodT: 0, talkT: 0 },
+      sock: { mouth: 0, eyesX: 0, eyesY: 0, ex: 0, ey: 0, blink: 0, blinkT: rand(1, 4), tilt: 0, spin: 0, mood: null, moodT: 0, talkT: 0 },
       hair: sockHair(i + randInt(0, 3)),
       ai: p.isAI ? { t: rand(0.4, 1.4), plan: [], step: null, targetX: x, hideT: 0, wait: 0 } : null,
       poof: 0,
@@ -713,7 +713,7 @@ export class Game {
     pp.spinT = 0.6; pp.tricks++;
     snd('pt-twirl', 'whoosh', { vol: 0.6 });
     sfx('sparkle', { vol: 0.4 });
-    pp.a.playOnce('dance-star', 0.7, 'idle');
+    pp.a.playOnce('pose-twirl', 0.7, 'idle');
     particles.burst(pp.x, pp.baseY - pp.z - this.puppetH * 0.5, { type: 'sparkle', count: 10, speed: [80, 260] });
     this.recEvent('sound', { k: 'pt-twirl', fb: 'whoosh' });
     this.addFun(pp, 'twirl', 0.8, 'clap');
@@ -950,7 +950,9 @@ export class Game {
       }
     }
     pp.spinT = Math.max(0, pp.spinT - dt);
-    if (this.phase !== 'replay') pp.spin = pp.spinT > 0 ? Math.cos((1 - pp.spinT / 0.6) * TAU) : 1;
+    // twirl: stick puppets play pose-twirl; a sock puppet rocks side to side in the picture plane
+    // (pp.spin = that rock angle; never an x-squash through zero)
+    if (this.phase !== 'replay') { const u = 1 - pp.spinT / 0.6; pp.spin = pp.spinT > 0 ? Math.sin(u * TAU * 2) * 0.32 * Math.sin(u * Math.PI) : 0; }
     if (this.phase !== 'replay') pp.x = this.clampX(pp, pp.x);
     a.x = pp.x; a.y = pp.baseY; a.z = pp.z;
     if (this.phase !== 'replay') {
@@ -1104,7 +1106,7 @@ export class Game {
     } else {
       // sticks behind the puppet, one per member
       for (const m of a.members) drawStick(g, m.x, m.y - a.z - 2, pp.tilt);
-      g.translate(pp.x, feetY); g.rotate(pp.tilt); g.scale(pp.spin, 1); g.translate(-pp.x, -feetY);
+      g.translate(pp.x, feetY); g.rotate(pp.tilt); g.translate(-pp.x, -feetY);
       a.draw(g, { shadow: false, emotes: true });
     }
     g.restore();

@@ -575,7 +575,7 @@ export class Game {
       if (r.phase === 'fly') {
         const u = clamp(r.t / 0.6, 0, 1);
         r.x = lerp(r.x0, hx, u); r.y = lerp(r.y0, hy, u) - Math.sin(u * Math.PI) * 230;
-        r.spin = u * TAU * 1.5;
+        r.spin = ease.inOutQuad(u) * TAU * (hx >= r.x0 ? 1 : -1);   // one whole tumble toward her, landing upright for the show
         r.scale = lerp(pondDepth(r.y0), 1, u);
         if (chance(dt * 30)) particles.burst(r.x, r.y, { type: 'drop', count: 1, colors: ['#bfefff', '#ffffff'], speed: [10, 60], size: [5, 9] });
         if (u >= 1) this.revealLand(r);
@@ -956,8 +956,9 @@ export class Game {
       gr.addColorStop(0, r.kind === 'golden' ? 'rgba(255,230,120,0.8)' : 'rgba(255,255,255,0.55)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
       g.fillStyle = gr; g.fillRect(-rr, -rr, rr * 2, rr * 2); g.restore();
     }
-    g.scale(r.scale * Math.cos(r.spin) || 0.05, r.scale);
-    if (r.phase === 'fly' && !r.K.junk) g.rotate(-0.4);
+    // the catch tumbles in the picture plane (a cartwheel), never a paper flip
+    g.scale(r.scale, r.scale);
+    g.rotate(r.spin);
     drawCatch(g, r.kind, L, this.clock * 2, { fast: true, open: r.phase === 'fly' });
     g.restore();
   }

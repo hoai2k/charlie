@@ -1,5 +1,0 @@
-<!doctype html><meta charset="utf-8"><base href="../../"><title>Sparkle Nails hand review</title><style>body{font:18px sans-serif;background:#fff3e7;color:#24163f}canvas{width:100%}</style><h1>Sparkle Nails: measured hand and polish placement</h1><p>Five delivered skin tones. Bare nails above; painted patterns and gems below. Actual hand, polish and bracelet game rendering.</p><canvas width="2000" height="1600"></canvas><script type="module">
-import {loadArt,ensureGameArt} from './src/engine/art.js';import {handStyle,geom,drawHandBase,drawNail,drawSticker} from './src/games/nail-studio/hand.js';
-await loadArt(()=>{},()=>false);await ensureGameArt('nail-studio');const g=document.querySelector('canvas').getContext('2d');g.fillStyle='#fff3e7';g.fillRect(0,0,2000,1600);
-for(let tone=0;tone<5;tone++){const s={...handStyle('felicity'),tone},G=geom(s);for(let row=0;row<2;row++){g.save();g.translate(200+tone*400,400+row*780);g.scale(.7,.7);drawHandBase(g,s,G);if(row){for(const n of G.nails){drawNail(g,n,{color:n.i,cover:1,art:{tool:n.i%2?'hearts':'stripes',color:'#ffffff',seed:1,t:1}},1);}}g.restore();}}document.body.dataset.ready='true';
-</script>

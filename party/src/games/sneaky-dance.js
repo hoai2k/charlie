@@ -479,7 +479,7 @@ export class Game {
     U.dir = dir;
     if (c.pressed('a') && U.spinCd <= 0 && U.z <= 0) {
       U.spinCd = 0.45; U.vz = 820; U.spinT = 0.5;
-      a.playOnce('dance-star', 0.5, 'dance'); a.squash(0.35);
+      a.playOnce('pose-twirl', 0.5, 'dance');   // a real twirl pose (falls back to a strike), never a facing flicker a.squash(0.35);
       particles.burst(U.x, U.y - a.height * 0.5, { type: 'star', count: 10, colors: [U.p.color, '#ffd23f', '#ffffff'], speed: [150, 380] });
       particles.ring(U.x, U.y - 10, U.p.color, 120, 0.35);
       snd('sd-spin', 'whoosh', { vol: 0.45 });
@@ -585,7 +585,7 @@ export class Game {
   physics(U, dt) {
     const a = U.a;
     if (U.z > 0 || U.vz > 0) { U.vz -= 2800 * dt; U.z += U.vz * dt; if (U.z <= 0) { U.z = 0; U.vz = 0; a.squash(0.3); } }
-    if (U.spinT > 0) { U.spinT -= dt; a.facing = Math.sin(U.spinT * 40) > 0 ? 1 : -1; }
+    if (U.spinT > 0) U.spinT -= dt;
     U.x = clamp(U.x + U.vx * dt, BOUNDS.x0, BOUNDS.x1);
     U.y = clamp(U.y + U.vy * dt, BOUNDS.y0, BOUNDS.y1);
   }
@@ -604,6 +604,7 @@ export class Game {
   easyDance(U, dt, act) {
     // the stick, if they use it, moves them like Medium (never while he's looking)
     const st = easySteer(U, U.p.ctrl, dt);
+    U.edQuiet = st.pushing ? 0 : (U.edQuiet || 0) + dt;   // how long since the stick was used
     if (st.manual && !this.watching) {
       U.homeX = U.x; U.homeY = U.y; U.edT = 0;   // autopilot carries on from here, no drift back
       return [st.x, st.y];
@@ -612,8 +613,9 @@ export class Game {
     U.edT = (U.edT || 0) - dt;
     if (U.edT <= 0) {
       U.edT = 0.34;
-      // dropped stars of yours nearby? boogie over to them
-      const star = this.danceOn && this.pickups.find((s) => !s.got && (s.owner === U || s.t > 2) && dist(U.x, U.y, s.x, s.y) < 520);
+      // dropped stars of yours nearby? boogie over to them - but not for a child who has been
+      // steering lately (the owner's rule: nobody moves a child who is moving herself)
+      const star = this.danceOn && U.edQuiet > 1.5 && this.pickups.find((s) => !s.got && (s.owner === U || s.t > 2) && dist(U.x, U.y, s.x, s.y) < 520);
       if (star) { const a = Math.atan2(star.y - U.y, star.x - U.x); U.edDir = [Math.cos(a), Math.sin(a)]; }
       else {
         // a new dance move each beat: side, up, other side, down... drifting back home

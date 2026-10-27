@@ -20,7 +20,7 @@ import { sfx, hasSound, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, Brain, steer } from '../engine/ai.js';
-import { easySteer, easyPrompt } from '../engine/easy.js';
+import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { drawSparkleShape, drawHeartShape } from '../engine/emotes.js';
 import { charById } from '../data/characters.js';
@@ -54,7 +54,7 @@ const FISH_COLS = [['#ffd23f', '#3fa7ff'], ['#ff8fc7', '#ffc2e6'], ['#ff9f1c', '
 export class Game {
   constructor(api) {
     this.api = api;
-    this.easy = !!api.easy;   // Molly Easy: humans swim by themselves; A zooms at the target
+    this.easy = !!api.easy;   // Molly Easy: A zooms at the target in reach; A again and again (no steering) swims you there
     this.players = api.players;
     const n = this.n = this.players.length;
     this.t = 0; this.el = 0;
@@ -382,7 +382,9 @@ export class Game {
       if (byOcto && o.awake <= 0) { /* tickling the sleepy octopus: don't zoom away from it */ }
       else if (e.zoomCd <= 0) {
         let dx = ix, dy = iy;
-        if (e.auto && !e.auto.pushing) { dx = e.auto.dx; dy = e.auto.dy; }   // Molly Easy: zoom straight at the target (steering: where the stick points)
+        // Molly Easy: zoom straight at the target when it's in reach, or on an A pressed again and
+        // again with no steering (easyThink / easyAutoOk); otherwise like Medium (stick / facing)
+        if (e.auto && !e.auto.pushing && (e.auto.near || e.auto.goT > 0)) { dx = e.auto.dx; dy = e.auto.dy; }
         if (Math.hypot(dx, dy) < 0.2) { dx = a.facing; dy = 0; }
         const dd = Math.hypot(dx, dy);
         e.vx = dx / dd * ZOOM; e.vy = dy / dd * ZOOM;
@@ -492,8 +494,9 @@ export class Game {
   }
 
   // ------------------------------------------------------------- Molly Easy
-  /** Easy (A only): drift slowly toward the best pearl / open clam / the octopus;
-   * A zooms straight at it. `near` = a zoom would grab it now (the big A shows). */
+  /** Easy: pick the best pearl / open clam / the octopus; A zooms straight at it when in reach
+   * (`near`: the big A shows). Nobody swims her otherwise, except for a moment after each A
+   * pressed again and again with no steering (easyAutoOk): then she drifts toward it too. */
   easyThink(e, dt) {
     const au = e.auto;
     const ey = e.y - e.a.height * 0.4;
@@ -501,7 +504,9 @@ export class Game {
     // following the nearest thing from here, so letting go carries on from where you are
     const st = easySteer(e, e.p.ctrl, dt);
     au.manual = st.manual; au.pushing = st.pushing;
-    if (st.pushing) au.t = Math.min(au.t, 0.25);
+    if (st.pushing) { au.t = Math.min(au.t, 0.25); au.goT = 0; }
+    if (e.p.ctrl.pressed('a') && easyAutoOk(e)) au.goT = 3;
+    au.goT = Math.max(0, (au.goT || 0) - dt);
     au.t -= dt;
     const tg = au.target;
     const gone = !tg || (tg.kind === 'pearl' && (tg.ref.got || tg.ref.life <= 0)) || (tg.kind === 'clam' && !tg.ref.pearl)
@@ -531,7 +536,7 @@ export class Game {
     if (t.kind === 'pearl') { t.x = t.ref.x; t.y = t.ref.y; }
     const dx = t.x - e.x, dy = t.y - ey, d = Math.hypot(dx, dy) || 1;
     au.dx = dx / d; au.dy = dy / d;
-    if (d > 30) { const k = clamp(d / 120, 0, 1); au.ix = au.dx * k; au.iy = au.dy * k; }
+    if (d > 30 && au.goT > 0) { const k = clamp(d / 120, 0, 1); au.ix = au.dx * k; au.iy = au.dy * k; }
     const o = this.octo;
     if (t.kind === 'octo') au.near = dist(e.x, e.y, o.x, o.y - 90) < 260 && e.tickleCd <= 0;
     else if (t.kind === 'clam') au.near = (t.ref.state === 'open' || t.ref.state === 'opening') && d < 330 && e.zoomCd <= 0;   // a zoom travels ~370 px

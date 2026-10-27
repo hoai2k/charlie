@@ -604,9 +604,9 @@
     "prop/pottery-sticker-sun": "prop/pottery-sticker-sun.webp",
     "prop/pottery-sticker-strawberry": "prop/pottery-sticker-strawberry.webp",
     "prop/pottery-rosette": "prop/pottery-rosette.webp",
-    "bg/nail-studio": "bg/nail-studio-hands.webp",
-    "bg/nail-studio-station": "bg/nail-studio-station-hands.webp",
-    "bg/nail-studio-show": "bg/nail-studio-show-hands.webp",
+    "bg/nail-studio": "bg/nail-studio.webp",
+    "bg/nail-studio-station": "bg/nail-studio-station.webp",
+    "bg/nail-studio-show": "bg/nail-studio-show.webp",
     "thumb/nail-studio": "thumb/nail-studio.webp",
     "prop/nail-cushion": "prop/nail-cushion.webp",
     "prop/nail-pedestal": "prop/nail-pedestal.webp",
@@ -1291,18 +1291,7 @@
     "prop/bed-duvet-edge": "prop/bed-duvet-edge.webp",
     "prop/fairy-count-flower-pink": "prop/fairy-count-flower-pink.webp",
     "prop/fairy-count-flower-yellow": "prop/fairy-count-flower-yellow.webp",
-    "prop/fairy-count-flower-blue": "prop/fairy-count-flower-blue.webp",
-    "prop/nail-hand-0": "prop/nail-hand-0.webp",
-    "prop/nail-hand-1": "prop/nail-hand-1.webp",
-    "prop/nail-hand-2": "prop/nail-hand-2.webp",
-    "prop/nail-hand-3": "prop/nail-hand-3.webp",
-    "prop/nail-hand-4": "prop/nail-hand-4.webp",
-    "prop/dance-move-disco": "prop/dance-move-disco.webp",
-    "prop/dance-move-hula": "prop/dance-move-hula.webp",
-    "prop/dance-move-cartwheel": "prop/dance-move-cartwheel.webp",
-    "prop/dance-move-cancan": "prop/dance-move-cancan.webp",
-    "prop/dance-move-splits": "prop/dance-move-splits.webp",
-    "prop/dance-move-moonwalk": "prop/dance-move-moonwalk.webp"
+    "prop/fairy-count-flower-blue": "prop/fairy-count-flower-blue.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1353,12 +1342,7 @@
       "prop/nail-sticker-flower",
       "prop/nail-sticker-butterfly",
       "prop/nail-sticker-bow",
-      "prop/nail-sticker-crown",
-      "prop/nail-hand-0",
-      "prop/nail-hand-1",
-      "prop/nail-hand-2",
-      "prop/nail-hand-3",
-      "prop/nail-hand-4"
+      "prop/nail-sticker-crown"
     ],
     "dance-studio": [
       "bg/dance-studio",
@@ -1387,13 +1371,7 @@
       "prop/dance-move-bow",
       "prop/dance-move-hop",
       "prop/dance-move-float",
-      "thumb/dance-studio",
-      "prop/dance-move-disco",
-      "prop/dance-move-hula",
-      "prop/dance-move-cartwheel",
-      "prop/dance-move-cancan",
-      "prop/dance-move-splits",
-      "prop/dance-move-moonwalk"
+      "thumb/dance-studio"
     ],
     "acrobat-circus": [
       "bg/acrobat-circus",
