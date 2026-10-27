@@ -1104,6 +1104,7 @@ make it read better. Newest first; fixed items move to
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
+| `prop/dance-move-twirl` (Dance Studio Y "Twirl"; also Dance Party's move palette) | Checked 2026-10-27 next to the new move pictograms on the Dance Studio button panel: its pink-and-orange swirl ring sits flat round the kid's waist, so at 60–110 px it reads as **hula-hooping**, and it now stands right next to the new `prop/dance-move-hula` (B, "Hula"). Kids can't tell the two buttons apart by picture | Same 160×160 transparent card, same white round-headed kid with navy outline and rosy cheeks, same candy swooshes and sparkles as the other `prop/dance-move-*`. A ballerina **pirouette**: up on the toes of one foot, the other foot tucked to the knee, arms in a rounded circle overhead, eyes happily shut, and two or three curved spin arrows/arcs **around the whole body at shoulder and ankle height, open at the back** (motion arcs, not a closed ring at the waist). Nothing that looks like a hoop. No text |
 
 Engine-side notes from the same review: several keys are aliases of one
 file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
