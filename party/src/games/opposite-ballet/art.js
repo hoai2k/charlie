@@ -1,5 +1,5 @@
-// Opposite Ballet: procedural art (Madame Papillon and her moods, the card-
-// flipping imp, butterflies, move pictograms, tutu, background). Adapted from
+// Dance Along (id opposite-ballet): procedural art (Madame Papillon and her moods, the
+// imp, butterflies, move pictograms, tutu, background). Adapted from
 // Butterfly Ballet; every piece first tries its generated art key
 // (image-requests.md, "New Molly Party game: opposite-ballet", plus the reused
 // ballet-butterflies keys listed there).
@@ -85,8 +85,9 @@ export function drawTeacher(g, x, y, h, t, move = null, k = 0, sideDir = 1, o = 
   g.beginPath(); g.ellipse(x + dx, y + 14, h * 0.2 * (1 - dy / 200), h * 0.045, 0, 0, TAU); g.fill(); g.restore();
   g.save(); g.translate(x + dx, y - 20 + dy); g.rotate(tilt);
   // generated art: new keys first, then the reused Butterfly Ballet ones
-  let key = TEACHER_ART[move] || (move ? 'prop/ballet-teacher-' + move : null);
-  if (!move && f > 0.35 && art('prop/oballet-teacher-flustered')) key = 'prop/oballet-teacher-flustered';
+  // o.artKey: a dance move's own art (prop/oballet-teacher-<move>, image-requests.md) when it has landed
+  let key = o.artKey && art(o.artKey) ? o.artKey : TEACHER_ART[move] || (move ? 'prop/ballet-teacher-' + move : null);
+  if (!move && !o.artKey && f > 0.35 && art('prop/oballet-teacher-flustered')) key = 'prop/oballet-teacher-flustered';
   // reaction poses (huff / shock art when it exists, else the flustered art)
   if (o.react) {
     const rk = o.react === 'huff' ? 'prop/oballet-teacher-huff' : o.react === 'shock' ? 'prop/oballet-teacher-shock' : null;
@@ -94,7 +95,7 @@ export function drawTeacher(g, x, y, h, t, move = null, k = 0, sideDir = 1, o = 
   }
   if (!key || !art(key)) key = 'prop/ballet-teacher';
   if (art(key)) {
-    if (move === 'side' && key === 'prop/ballet-teacher-side') sx *= sideDir;   // the art kicks to the right; mirror for a left step
+    if ((move === 'side' && key === 'prop/ballet-teacher-side') || key === o.artKey) sx *= sideDir;   // the art faces right; mirror for the other side   // the art kicks to the right; mirror for a left step
     const sp = o.sproing > 0 ? 1 + Math.sin(o.sproing * 30) * 0.04 * o.sproing : 1;
     g.scale((Math.abs(sx) < 0.15 ? 0.15 * Math.sign(sx || 1) : sx) * sp, 1 / sp);
     drawArt(g, key, 0, 0, h * 0.8, h, { anchor: 'bottom' });

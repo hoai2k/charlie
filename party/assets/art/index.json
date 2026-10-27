@@ -1744,7 +1744,14 @@
       "prop/ballet-butterfly-purple",
       "prop/ballet-petal",
       "prop/oballet-teacher-huff",
-      "prop/oballet-teacher-shock"
+      "prop/oballet-teacher-shock",
+      "prop/dance-move-disco",
+      "prop/dance-move-star",
+      "prop/dance-move-hula",
+      "prop/dance-move-cartwheel",
+      "prop/dance-move-cancan",
+      "prop/dance-move-splits",
+      "prop/dance-move-moonwalk"
     ],
     "wand-shapes": [
       "bg/wand-shapes",

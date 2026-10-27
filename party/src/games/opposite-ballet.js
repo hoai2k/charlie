@@ -1,78 +1,89 @@
-// Opposite Ballet (Molly Party) - the cheeky flip of Butterfly Ballet.
-// Madame Papillon, a VERY serious butterfly-fairy ballet teacher, shows a move
-// on a big picture card... and a cheeky imp flips the card round to the
-// OPPOSITE move, which is what everybody does: arms up <-> plié down, step
-// left <-> step right, twirl (A) <-> stand still like a statue. Every correct
-// opposite is a silly flamboyant pose with butterflies and giggles, and Madame
-// gets more and more flustered (antennae droop, her tiara pops off, she stamps
-// her foot, her tutu sproings). Each time the class gets her, she stops for a
-// proper hoity-toity reaction - arms folded with her nose in the air, or a
-// wagging finger - while the dancers laugh. Every few moves a golden "copy me for real!"
-// card shoos the imp away: copy her properly. Halfway, all the butterflies
-// make her sneeze her wig off (scandalised: "Mon dieu!"). At the end she gives up, laughs and does the
-// silliest dance of all with everyone. Nobody loses: wrong moves are just a
-// wobble, and quick, cheeky players (who know the opposite before the flip)
-// get double butterflies.
+// Dance Along (Sister Party; id opposite-ballet, which used to be Opposite Ballet).
+// Madame Papillon, the prim butterfly-fairy ballet teacher, leads a dance class on
+// the flower stage. Everyone dances about the floor however they like (the stick
+// walks them; every button is a dance move, the same eight moves as Dance Studio:
+// A star jump, B hula, X disco, Y twirl, LT cartwheel, RT can-can, LB splits, RB
+// moonwalk). Every few bars Madame calls a move - a big picture card, the button
+// to press and her own demo of it: doing that move while it's called earns
+// butterflies (more on the beat, more on a golden call). Any other move is just
+// as welcome: cheers, sparkles, a "New move!" butterfly the first time, and
+// Madame enjoying it - never a "wrong" sound.
+// Sister Easy: A does whatever move Madame is calling (so mashing A follows her
+// every time and scores); the other buttons still do their own moves; the stick
+// is optional. Halfway she sneezes her wig off in a butterfly storm (gift
+// butterflies for everyone); the last stretch is a free-dance finale where any
+// move counts; then a bow. No losers: it ends on the stage (gallery ending) with
+// everyone's stars, the top scorer crowned Star Dancer.
 import { W, H } from '../engine/canvas.js';
-import { Actor, POSES } from '../engine/sprites.js';
+import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
-import { sfx, voice, hasSound } from '../engine/audio.js';
+import { sfx, voice, hasSound, music, audioRunning } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { drawArt } from '../engine/art.js';
 import { outfitItem } from '../engine/outfits.js';
-import { clamp, lerp, rand, pick, chance, TAU, ease, placementsFromScores, later } from '../engine/util.js';
+import { aiProfile } from '../engine/ai.js';
+import { easyPrompt } from '../engine/easy.js';
+import { Dancer } from '../engine/dance.js';
+import { playerName } from '../state.js';
+import { clamp, lerp, damp, rand, pick, chance, TAU, ease, later, showstopper } from '../engine/util.js';
+import { DANCES, drawMovePicto } from './dance-studio/stage.js';
 import {
-  NAVY, BFLY, drawButterfly, drawPetal, drawTeacher, drawTiara, drawImp, drawFlipArrow, drawMovePicto, drawTutu, wantsTutu, drawStageBg,
+  NAVY, BFLY, drawButterfly, drawPetal, drawTeacher, drawTiara, drawImp, drawTutu, wantsTutu, drawStageBg,
 } from './opposite-ballet/art.js';
-import { nextKind, drawShock, drawSteam, drawWag } from '../engine/fluster.js';
+import { drawShock } from '../engine/fluster.js';
 import { meta } from './opposite-ballet.meta.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
-const PLAY_TIME = 57;          // seconds of dancing, then the bow
-const STORM_AT = 28;           // Madame sneezes her wig off in a butterfly storm
-const GIVEUP_AT = 48;          // she gives up: silly freestyle for everyone
-const SILLY_CAP = 3;           // butterflies a dancer can earn in the silly freestyle
-const BOW_LEN = 3.4;
-const MOVES = ['up', 'down', 'left', 'right', 'twirl', 'statue'];
-const OPP = { up: 'down', down: 'up', left: 'right', right: 'left', twirl: 'statue', statue: 'twirl' };
-const TEACH = { up: 'up', down: 'plie', left: 'side', right: 'side', twirl: 'twirl', statue: 'statue' };
-const MOVE_POSE = { up: 'dance-up', down: 'dance-down', left: 'dance-side', right: 'dance-side', twirl: 'pose-twirl', statue: 'balance' };
-const MOVE_NOTE = { up: [76, 79, 84], down: [72, 67, 60], left: [72, 76, 72], right: [72, 76, 72], twirl: [72, 76, 79, 84], statue: [72, 72] };
-const MOVE_COL = { up: '#6fd0ff', down: '#ffd23f', left: '#6fe3b4', right: '#6fe3b4', twirl: '#ff7ac6', statue: '#b8a6e0' };
-const MOVE_TIME = 0.6;         // how long a dancer's move animation lasts
-const MAX_FLOCK = 14;          // butterflies drawn per dancer (score keeps counting)
-const TEACHER = { x: 960, y: 478, h: 330 };
-const CARD = { x: 1480, y: 300, s: 300 };
-const HINT = { x: 440, y: 300 };
-// the requested `silly-pose` once it exists, else the existing ta-da
-const SILLY = POSES['silly-pose'] ? 'silly-pose' : 'strike3';
-const HUFFS = ['Non non non!', 'Mon dieu!', 'Hmph!', 'Oh là là!', 'Zut!', 'Sacrebleu!'];
+const PLAY_TIME = 72;          // seconds of dancing, then the bow
+const STORM_AT = 34;           // Madame sneezes her wig off in a butterfly storm
+const FINALE_AT = 60;          // free-dance finale: any move counts
+const FINALE_CAP = 4;          // butterflies a dancer can earn in the finale
+const BOW_LEN = 3.6;
+const CALL_BEATS = 8;          // a call lasts two bars...
+const GRACE = 0.9;             // ...and still counts this long into the next one
+const MAX_FLOCK = 14;          // butterflies drawn per dancer (the score keeps counting)
+const TEACHER = { x: 960, y: 650, h: 360 };
+const CARD = { x: 1430, y: 330, s: 290 };
+const HINT = { x: 420, y: 330 };
+const FLOOR = { x0: 150, x1: W - 150, y0: 750, y1: 1000 };
+const MOVE = Object.fromEntries(DANCES.map((m) => [m.id, m]));
+const FACE = ['star', 'hula', 'disco', 'twirl'];              // A B X Y: the calls from the start
+const EXTRA = ['cartwheel', 'cancan', 'splits', 'moonwalk'];  // triggers / bumpers: later, now and then (Medium)
+// Madame's demo of each move with the art she has (her own dance art, requested as
+// prop/oballet-teacher-<id>, is used the moment it lands), plus the motion that sells it.
+const TEACH = {
+  disco: { pose: 'side', lean: -0.12 },
+  star: { pose: 'up', hop: 0.16 },
+  hula: { pose: 'silly', sway: 0.12 },
+  twirl: { pose: 'twirl', hop: 0.04 },
+  cartwheel: { pose: 'up', spin: true },
+  cancan: { pose: 'side', kick: true },
+  splits: { pose: 'plie', drop: 0.05 },
+  moonwalk: { pose: 'side', glide: true },
+};
+const MOVE_NOTE = { disco: [72, 76, 79, 76], star: [72, 79, 84], hula: [67, 72, 67, 72], twirl: [72, 76, 79, 84], cartwheel: [60, 67, 72, 79], cancan: [79, 76, 79, 84], splits: [84, 79, 72, 60], moonwalk: [72, 70, 67, 65] };
+const PRAISE = ['Très bien!', 'Magnifique!', 'Bravo!', 'Wonderful!', 'Oh là là, lovely!'];
+const LIKE = ['Ooh, très chic!', 'How fancy!', 'Oh, I like that!', 'Lovely moves!', 'So graceful!'];
+const CHEERS = ['Woo!', 'Pretty!', 'Wow!', 'Fancy!', 'So cool!', 'Yay!', 'Ooh!'];
 
-/** Beat length (seconds) at time t: generous at first, brisker later. */
-const beatLen = (t) => (t < STORM_AT ? lerp(3.5, 2.7, t / STORM_AT) : lerp(2.7, 2.2, clamp((t - STORM_AT) / (GIVEUP_AT - STORM_AT), 0, 1)));
+const callName = (M) => (M.name.endsWith('!') ? M.name : M.name + '!');
 
-/** Stick / A hint for the answer move, drawn in a circle. */
-function drawAnswerHint(g, move, x, y, size, t) {
-  if (move === 'twirl') { ui.glyph(g, 'a', x, y, size, { pulse: true }); return; }
-  if (move === 'statue') {
-    // hands off! a stick with a big friendly "stop" ring
-    ui.glyph(g, 'stick', x, y, size * 0.9);
-    g.save(); g.translate(x, y); g.strokeStyle = '#ff5a7a'; g.lineWidth = size * 0.1; g.lineCap = 'round';
-    g.beginPath(); g.arc(0, 0, size * 0.66, 0, TAU); g.stroke();
-    g.beginPath(); g.moveTo(-size * 0.46, -size * 0.46); g.lineTo(size * 0.46, size * 0.46); g.stroke();
-    g.restore();
-    return;
+function moveSound(M, vol = 0.45) {
+  switch (M.sound) {
+    case 'boing': snd('boing', 'bounce', { vol }); break;
+    case 'sparkle': snd('ds-twirl', 'sparkle', { vol }); break;
+    case 'whoosh': snd('ds-slide', 'whoosh', { vol }); break;
+    default: sfx(M.sound, { vol });
   }
-  ui.glyph(g, 'stick', x, y, size);
-  const push = (Math.sin(t * 8) * 0.5 + 0.5) * size * 0.18;
-  const [dx, dy] = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[move];
-  g.save(); g.translate(x, y); g.rotate(Math.atan2(dy, dx)); g.translate(size * 0.62 + push, 0);
-  g.fillStyle = '#ffd23f'; g.strokeStyle = NAVY; g.lineWidth = size * 0.06; g.lineJoin = 'round';
-  const a = size * 0.36;
-  g.beginPath(); g.moveTo(a, 0); g.lineTo(0, -a * 0.8); g.lineTo(0, -a * 0.35); g.lineTo(-a * 0.8, -a * 0.35); g.lineTo(-a * 0.8, a * 0.35); g.lineTo(0, a * 0.35); g.lineTo(0, a * 0.8); g.closePath();
-  g.fill(); g.stroke(); g.restore();
+}
+
+/** A move's card picture: the ballet pirouette for the twirl (it reads better in a ballet
+ *  class than the hoop-like dance-move-twirl), Dance Studio's move pictograms for the rest. */
+function drawCallPicto(g, M, x, y, s, t) {
+  if (M.id === 'twirl' && drawArt(g, 'prop/ballet-move-twirl', x, y, s, s)) return;
+  drawMovePicto(g, M, x, y, s, t, true);
 }
 
 export { meta };
@@ -81,61 +92,67 @@ export class Game {
   constructor(api) {
     this.api = api;
     this.players = api.players;
-    this.easy = !!api.easy;     // Molly Easy: A dances the flipped card's move (timing: wait for the flip)
+    this.easy = !!api.easy;     // Sister Easy: A dances the called move; the other buttons are their own moves
     const n = this.players.length;
     this.n = n;
     this.t = 0;          // animation clock
     this.time = 0;       // seconds since GO
     this.done = false;
-    this.phase = 'dance';  // dance | silly | bow
-    // the dance clock, shown all game (then the bow)
-    api.limit(() => (this.phase === 'bow' || this.done ? null : Math.max(0, PLAY_TIME - this.time)), { showAt: Infinity, x: W / 2, y: 58 });
+    this.phase = 'class';  // class | finale | bow | end
+    api.limit(() => (this.phase === 'bow' || this.phase === 'end' ? null : Math.max(0, PLAY_TIME - this.time)), { showAt: Infinity, x: W / 2, y: 58 });
     this.scores = this.players.map(() => 0);
-    this.cheeky = this.players.map(() => 0);
+    this.copied = this.players.map(() => 0);
     this.petals = [];
     this.swarm = [];
     this.stormT = -1;
-    this.banner = null;  // { text, t, color, y }
-    // Madame's mood
-    this.fluster = 0; this.flusterShow = 0;
-    this.stampT = 0; this.sproingT = 0; this.laughT = 0;
-    this.react = null; this.reactT = 0; this.lastReact = 'scold';   // 'huff' | 'scold' | 'shock' pose
-    this.gap = 0;        // a short pause after a huff so it reads before the next card
+    this.banner = null;  // { text, t, color, y, size }
+    this.clock = { own: 0, last: -1 };
+    this.beat = 0; this.pulse = 0;
+    this.call = null;    // { M, golden, t, len, n }
+    this.prev = null;    // the call before, still counting for GRACE s
+    this.callN = 0;
+    this.lastId = null;
+    this.demo = null;    // Madame's demo: { M, t, dur, side }
+    this.sproingT = 0;
+    this.react = null; this.reactT = 0;
     this.say = null;     // { text, t, dur }
+    this.likeCD = 0;
     this.tiara = null;   // { x, y, vx, vy, rot, orbit }
     this.wig = null;     // { x, y, vx, vy, rot, back }
-    this.wigOff = false; this.wigAskew = false;
-    this.imp = { show: 0, pose: 'peek', y: 0, t: 0 };
-    this.sinceGolden = 0;
-    // layout: one row up to 4, two staggered rows for more
-    const two = n > 4, sc = n <= 2 ? 1.35 : n <= 4 ? 1.2 : 1.0;
+    this.wigOff = false;
+    this.classStreak = 0;
+    this.imp = { show: 0 };
+    this.star = null;    // the Star Dancer at the end (index), or null
+    // start in a loose line across the floor (two staggered rows for more than 4)
+    const two = n > 4, base = n <= 2 ? 1.25 : n <= 4 ? 1.1 : 0.94;
     const backN = two ? Math.ceil(n / 2) : n;
     this.dancers = this.players.map((p, i) => {
       const back = two && i < backN, row = two && !back ? i - backN : i, rowN = back || !two ? backN : n - backN;
-      const span = two ? 1300 : Math.min(1300, (n - 1) * 520);
-      const sp = rowN > 1 ? span / (rowN - 1 + (two ? 0.5 : 0)) : 0;
-      const x = W / 2 + (row - (rowN - 1) / 2) * sp + (two ? (back ? -sp / 4 : sp / 4) : 0);
-      const y = two ? (back ? 840 : 1010) : 990;
-      const a = new Actor(p, { scale: sc * (two && back ? 0.92 : 1), x, y, outfit: this.balletLook(p, i) });
-      const minH = 125 * a.scale;
+      const span = Math.min(1300, Math.max(0, rowN - 1) * 430);
+      const x = W / 2 + (rowN > 1 ? (row / (rowN - 1) - 0.5) * span : 0) + (two ? (back ? -90 : 90) : 0);
+      const y = two ? (back ? 820 : 950) : 900;
+      const a = new Actor(p, { scale: base, x, y, outfit: this.balletLook(p, i) });
+      const minH = 130 * base;
       if (a.height < minH) a.scale *= minH / a.height;   // tiny avatars (fairies) stay readable
-      a.snap();
-      a.facing = x < W / 2 ? 1 : -1;
+      const d = new Dancer(a);
+      d.canTravel = true; d.minX = FLOOR.x0; d.maxX = FLOOR.x1;
+      d.hx = x; d.hy = y;
+      d.baseFacing = x < W / 2 ? 1 : -1; a.facing = d.baseFacing;
+      a.x = x; a.y = y; a.snap();
       if (wantsTutu(p.charId)) {
         const col = BFLY[i % 4];
         a.char.members.forEach((def, mi) => a.attach((g, info) => drawTutu(g, def, info, col, this.t + i), { member: mi }));
       }
       return {
-        p, i, a, hx: x, hy: y, move: null, mt: 0, dir: 1, cool: 0, prevDir: null,
-        got: false, moved: false, fail: false, flock: [], streak: 0, ai: null, glowT: 0, sillyT: 0, stoneK: 0,
+        p, i, a, d, baseScale: a.scale / this.depthK(y), flock: [], streak: 0, glowT: 0, popCD: 0,
+        gotN: -1, tried: new Set(), queued: null, finalePts: 0,
+        ai: p.isAI ? { wander: { t: rand(0.3, 1.2), x, y }, nextMove: rand(1.5, 3.5), plan: null } : null,
       };
     });
-    this.dancers.sort((a, b) => a.hy - b.hy);
-    this.byIndex = [...this.dancers].sort((a, b) => a.i - b.i);
-    this.beat = null;
-    this.lastMove = null;
-    this.beatN = 0;
+    this.byIndex = [...this.dancers];
   }
+
+  depthK(y) { return lerp(0.86, 1.08, clamp((y - FLOOR.y0) / (FLOOR.y1 - FLOOR.y0), 0, 1)); }
 
   /** The player's own look plus ballet wings and a crown on any free slot. */
   balletLook(p, i) {
@@ -148,277 +165,237 @@ export class Game {
     return look;
   }
 
-  // --- beats -------------------------------------------------------------------
-  nextBeat() {
-    const intro = ['up', 'right', 'statue'];
-    const isIntro = this.beatN < intro.length;
-    let move, golden = false;
-    if (isIntro) move = intro[this.beatN];
+  // --- the music clock ----------------------------------------------------------
+  get bpm() { return audioRunning() && music.song ? music.bpm : 120; }
+  get beatLen() { return 60 / this.bpm; }
+  tickBeat(dt) {
+    const c = this.clock;
+    c.own += (dt * this.bpm) / 60;
+    if (audioRunning() && music.song) c.own = music.beat();
+    this.beat = c.own;
+    const b = Math.floor(c.own);
+    if (b !== c.last) { c.last = b; this.pulse = 1; this.onBeat(b); }
+    this.pulse = Math.max(0, this.pulse - dt * 3);
+  }
+  /** How far off the beat a move is (0 = right on it, 0.5 = between). */
+  offBeat() { return Math.abs(this.beat - Math.round(this.beat)); }
+
+  onBeat(b) {
+    if (this.phase === 'finale') {
+      if (b % 4 === 0) particles.burst(rand(300, W - 300), 160, { type: 'confetti', count: 14, speed: [160, 420] });
+      if (b % 2 === 0) this.startDemo(pick(DANCES));
+    }
+    // Madame repeats the called move every bar, so it's always there to copy
+    if (this.phase === 'class' && this.call && this.call.t > 0.5 && b % 4 === 0 && !this.reactT) this.startDemo(this.call.M);
+  }
+
+  // --- calls -------------------------------------------------------------------
+  nextCall() {
+    const k = this.callN;
+    let M;
+    const intro = ['star', 'twirl', 'hula'];
+    if (k < intro.length) M = MOVE[intro[k]];
     else {
-      golden = this.beatN >= 6 && (this.sinceGolden >= 4 && chance(0.55) || this.sinceGolden >= 6);
-      const pool = golden ? ['up', 'down', 'left', 'right', 'twirl'] : MOVES;
-      do { move = pick(pool); } while (move === this.lastMove || (move === 'statue' && chance(0.4)));
+      const pool = this.easy || this.time > 25 && chance(0.3) ? (this.easy ? [...FACE, ...EXTRA] : EXTRA) : FACE;
+      do { M = MOVE[pick(pool)]; } while (M.id === this.lastId);
     }
-    this.sinceGolden = golden ? 0 : this.sinceGolden + 1;
-    this.lastMove = move;
-    this.beatN++;
-    const len = isIntro ? 4.6 : beatLen(this.time) + (golden ? 0.2 : 0);
-    const flipAt = isIntro ? 1.35 : clamp(len * 0.36, 0.8, 1.1);
-    const ans = golden ? move : OPP[move];
-    this.beat = { move, ans, golden, intro: isIntro, t: 0, len, flipAt, flipped: false, early: false };
-    for (const d of this.dancers) {
-      d.got = false; d.moved = false; d.fail = false; d.stoneK = 0;
-      d.ai = d.p.isAI ? this.planAI(d, this.beat) : null;
-    }
-    MOVE_NOTE[move].forEach((m, k) => later(() => sfx('note', { midi: m, vol: 0.32 }), k * 70));
+    const golden = k >= 4 && k % 5 === 4;
+    this.lastId = M.id;
+    this.prev = this.call;
+    if (this.prev) this.prev.endAt = this.time;
+    this.callN++;
+    this.call = { M, golden, t: 0, len: (k === 0 ? CALL_BEATS + 2 : CALL_BEATS) * this.beatLen, n: k };
+    (MOVE_NOTE[M.id] || [72, 76, 79]).forEach((m, i) => later(() => sfx('note', { midi: m, vol: 0.32 }), i * 80));
     snd('bb-cue', 'magic', { vol: 0.4 });
-    particles.burst(CARD.x, CARD.y, { type: 'sparkle', count: 10, colors: [MOVE_COL[move], '#fff'], speed: [80, 260] });
+    particles.burst(CARD.x, CARD.y, { type: 'sparkle', count: 12, colors: [M.color, '#fff'], speed: [80, 260] });
+    this.teacherSay(callName(M), 1.3);
+    this.startDemo(M);
     if (golden) {
       snd('ob-golden', 'golden-chime', { vol: 0.6 });
       particles.burst(CARD.x, CARD.y, { type: 'star', count: 22, colors: ['#ffd23f', '#fff3b0', '#fff'], speed: [150, 420] });
       fx.flash('#fff3b0', 0.12);
-      this.banner = { text: 'Copy me!', t: 0, color: '#ffd23f', y: 640, size: 110 };
-      this.imp = { show: 0, pose: 'shoo', t: 0 };
-      this.teacherSay(pick(['For real!', 'Like this!', 'Watch me!']), 1.3);
-    } else {
-      this.imp = { show: 0, pose: 'peek', t: 0 };
-      if (isIntro && this.beatN === 1) this.teacherSay('Like this!', 1.2);
-    }
+      this.banner = { text: 'Golden move!', t: 0, color: '#ffd23f', y: 560, size: 100 };
+    } else if (k === 0) this.banner = { text: 'Dance with me!', t: 0, color: '#ff7ac6', y: 560, size: 110 };
+    for (const d of this.dancers) if (d.ai) d.ai.plan = this.planAI(d, this.call);
   }
 
-  planAI(d, b) {
+  /** CPUs follow some calls (keener on harder settings), after a little look. */
+  planAI(d, call) {
     const lvl = clamp(d.p.aiLevel ?? 0, 0, 2);
-    const [ok, lo, hi, oops, early] = [[0.72, 0.45, 1.3, 0.22, 0.05], [0.82, 0.35, 0.95, 0.13, 0.15], [0.9, 0.25, 0.7, 0.07, 0.3]][lvl];
-    const plan = [];
-    if (b.golden) {
-      if (chance(oops)) plan.push({ at: rand(0.4, 0.9), move: OPP[b.move] });
-      if (chance(ok)) plan.push({ at: rand(0.6, 1.0) + rand(lo, hi) * 0.8, move: b.move });
-    } else if (b.ans === 'statue') {
-      if (chance(oops * 1.3)) plan.push({ at: rand(0.3, b.flipAt + 0.6), move: b.move });
-    } else {
-      if (chance(oops)) plan.push({ at: rand(0.35, b.flipAt - 0.05), move: b.move });
-      if (!plan.length && chance(early)) plan.push({ at: rand(0.45, b.flipAt - 0.05), move: b.ans });
-      else if (chance(ok)) plan.push({ at: b.flipAt + rand(lo, hi), move: b.ans });
-    }
-    plan.sort((x, y) => x.at - y.at);
-    return { plan };
+    if (!chance([0.55, 0.7, 0.85][lvl])) return null;
+    return { at: rand(...[[1.0, 3.0], [0.7, 2.2], [0.45, 1.5]][lvl]), M: call.M };
+  }
+
+  endCall(c) {
+    const followed = this.dancers.filter((d) => d.gotN === c.n).length;
+    for (const d of this.dancers) if (d.gotN !== c.n) d.streak = 0;
+    if (followed && followed >= this.n / 2) {
+      this.classStreak++;
+      if (!this.reactT) this.teacherSay(pick(PRAISE), 1.1);
+      this.sproingT = 1;
+      if (this.classStreak === 3 && !this.tiara) this.popTiara();
+    } else this.classStreak = 0;
   }
 
   teacherSay(text, dur = 1.4) { this.say = { text, t: 0, dur }; }
 
-  flipCard() {
-    const b = this.beat;
-    b.flipped = true;
-    snd('ob-flip', 'card-flip', { vol: 0.6 });
-    snd('ob-imp-giggle', 'giggle', { vol: 0.55 });
-    particles.burst(CARD.x, CARD.y, { type: 'star', count: 14, colors: RAINBOW, speed: [120, 380] });
-    if (b.intro) {
-      this.banner = { text: 'Opposite!', t: 0, color: '#ff7ac6', y: 640, size: 140 };
-      fx.shake(6, 0.2);
-    }
-  }
-
-  // --- moves -------------------------------------------------------------------
-  readInput(d) {
-    const c = d.p.ctrl;
-    if (this.easy && !d.p.isAI) {
-      // A (or X) does the move on the card: before the flip that's Madame's move (a funny oops),
-      // after the flip it's the opposite. Statue? Hands off!
-      // The stick still dances a move of your own choosing, just like Medium.
-      if (!c.pressed('a') && !c.pressed('x')) { this.stickMove(d, c); return; }
-      d.prevDir = this.stickDir(c);
-      const b = this.beat;
-      if (this.phase === 'silly' || !b) this.doMove(d, pick(['up', 'down', 'left', 'right', 'twirl']));
-      else if (b.golden) this.doMove(d, b.move);
-      else if (!b.flipped) this.doMove(d, b.move);   // too soon: you copied Madame (oops!)
-      else this.doMove(d, b.ans === 'statue' ? 'twirl' : b.ans);
-      return;
-    }
-    if (c.pressed('a')) { this.doMove(d, 'twirl'); d.prevDir = this.stickDir(c); }
-    else this.stickMove(d, c);
-  }
-
-  stickDir(c) {
-    const m = Math.hypot(c.x, c.y);
-    if (m <= 0.55) return null;
-    return Math.abs(c.y) >= Math.abs(c.x) ? (c.y < 0 ? 'up' : 'down') : (c.x < 0 ? 'left' : 'right');
-  }
-
-  /** A fresh stick push dances that direction's move. */
-  stickMove(d, c) {
-    const dir = this.stickDir(c);
-    if (dir && dir !== d.prevDir) this.doMove(d, dir);
-    d.prevDir = dir;
-  }
-
-  doMove(d, move) {
-    if (d.cool > 0 || this.phase === 'bow') return;
-    const a = d.a;
-    d.move = move; d.mt = 0; d.dir = move === 'left' ? -1 : 1; d.cool = 0.3;
-    a.playOnce(MOVE_POSE[move], MOVE_TIME, 'idle');
-    if (move === 'left' || move === 'right') { a.facing = d.dir; snd('ds-slide', 'whoosh', { vol: 0.3 }); }
-    if (move === 'twirl') snd('ds-twirl', 'whoosh', { vol: 0.35 });
-    if (move === 'down') a.squash(0.35);
-    if (move === 'up') a.squash(-0.3);
-    if (this.phase === 'silly') {
-      // freestyle is for fun: only the first few moves earn a butterfly, so mashing can't outscore the dance
-      if ((d.sillyPts ?? 0) < SILLY_CAP) { d.sillyPts = (d.sillyPts ?? 0) + 1; this.award(d, 1, false, move, null); }
-      else particles.burst(a.x, a.y - a.z - a.height * 0.6, { type: 'sparkle', count: 6, colors: [MOVE_COL[move], '#fff', d.p.color], speed: [80, 260] });
-      return;
-    }
-    const b = this.beat;
-    if (!b || d.got || d.fail || b.t < 0.2) return;
-    d.moved = true;
-    if (b.ans === 'statue') {
-      // she twirled: you were meant to stand still like a statue!
-      d.fail = true;
-      this.wobble(d, true);
-      return;
-    }
-    if (move === b.ans) {
-      d.got = true;
-      const quick = !b.golden && (!b.flipped || b.t - b.flipAt < 0.55);
-      const pts = b.golden || quick ? 2 : 1;
-      this.award(d, pts, quick, move, b.golden ? 'Golden! +2' : quick ? 'Cheeky! +2' : '+1');
-      if (!b.golden) d.sillyT = MOVE_TIME * 0.9;
-      d.streak++;
-      if (d.streak > 0 && d.streak % 5 === 0) {
-        particles.ring(a.x, a.y - a.height * 0.5, '#ffd23f', 220, 0.5);
-        particles.popText(a.x, a.y - a.height - 110, 'Super!', '#ffd23f', 56);
-        a.emote('hearts', 1.2);
-        snd('bb-wow', 'star', { vol: 0.5 });
-      }
-    } else {
-      this.wobble(d, !b.golden && move === b.move);
-      d.cool = 0.45;
-    }
-  }
-
-  /** A funny wobble, no penalty. copied = did what Madame did (she looks smug). */
-  wobble(d, copied) {
-    const a = d.a;
-    d.wobbleT = 0.28;
-    a.emote('question', 0.9);
-    snd('ob-oops', 'boing', { vol: 0.4 });
-    particles.burst(a.x, a.y - a.height * 0.3, { type: 'star', count: 4, colors: ['#ffd23f', '#fff'], speed: [80, 180] });
-    if (copied && this.imp.show > 0.3 && chance(0.6)) snd('ob-imp-giggle', 'giggle', { vol: 0.35 });
-  }
-
-  award(d, n, quick, move, label) {
-    const a = d.a, top = a.y - a.z - a.height;
-    this.scores[d.i] += n;
-    if (quick) this.cheeky[d.i]++;
-    for (let k = 0; k < n; k++) this.addButterfly(d, k);
-    d.glowT = 0.5;
-    particles.burst(a.x, top + a.height * 0.4, { type: 'sparkle', count: n > 1 ? 14 : 8, colors: [MOVE_COL[move], '#fff', d.p.color], speed: [80, 300] });
-    particles.popText(a.x, top - 40, label || '+' + n, n > 1 ? '#ff7ac6' : d.p.color, n > 1 ? 50 : 44);
-    snd('bb-flutter', 'sparkle', { vol: 0.4 });
-    sfx('collect', { step: Math.min(12, d.streak), vol: 0.32 });
-    if (quick && chance(0.35)) a.emote('heart', 0.8);
-  }
-
-  addButterfly(d, k = 0, from = null) {
-    if (d.flock.length >= MAX_FLOCK) { d.flock[(this.scores[d.i] + k) % MAX_FLOCK].col = pick(BFLY); return; }
-    const src = from || { x: TEACHER.x + rand(-60, 60), y: TEACHER.y - 200 };
-    d.flock.push({
-      col: pick(BFLY), ang: rand(TAU), spd: rand(1.4, 2.4) * (chance(0.5) ? 1 : -1), r: rand(0.5, 0.8), yo: rand(0.2, 0.95),
-      ph: rand(TAU), sx: src.x, sy: src.y, arrive: 0, delay: k * 0.12, s: rand(48, 66),
-    });
-  }
-
-  /** End of a beat: score the statues, then Madame reacts. */
-  endBeat(b) {
-    let right = 0;
-    for (const d of this.dancers) {
-      if (b.ans === 'statue' && !d.moved) {
-        d.got = true;
-        this.award(d, 2, false, 'statue', 'Statue! +2');
-        d.a.playOnce('balance', 0.7, 'idle'); d.a.flash('#ffffff', 0.2);
-        snd('ob-statue', 'stamp', { vol: 0.4 });
-      }
-      if (d.got) right++; else d.streak = 0;
-      d.a.tint(null); d.stoneK = 0;
-    }
-    const frac = right / this.n;
-    if (b.golden) {
-      if (frac >= 0.5) { this.teacherSay(pick(['Très bien!', 'Merci!', 'Parfait!']), 1.1); this.fluster = Math.max(0, this.fluster - 0.04); }
-      else this.huff();
-    } else if (frac >= 0.5) this.huff();
-    else { this.teacherSay(pick(['Hmm!', 'Très bien...?']), 1.0); }
-  }
-
-  /** Madame gets more flustered: stamp, sproing, huff. */
-  huff() {
-    this.fluster = Math.min(1, this.fluster + 0.075);
-    // a proper reaction pose (and a pause to show it), while the class laughs
-    this.react = nextKind(this.lastReact, ['huff', 'scold']); this.lastReact = this.react; this.reactT = 0.75;
-    this.gap = 0.6;
-    let v = 0;
-    for (const d of this.dancers) {
-      if (!d.got) continue;
-      later(() => { if (this.phase === 'dance' && !d.a._once) d.a.playOnce('laugh', 0.6, 'idle'); if (v++ < 2) voice(d.p.charId, 'laugh'); }, 260 + rand(0, 200));
-    }
-    this.stampT = 0.01; this.sproingT = 1;
-    this.teacherSay(pick(HUFFS), 1.2);
-    later(() => { snd('ob-stamp', 'stomp', { vol: 0.5 }); fx.shake(5, 0.15); particles.burst(TEACHER.x + 20, TEACHER.y - 10, { type: 'dust', count: 10, colors: ['#ffe3f1', '#fff'], speed: [80, 220] }); }, 180);
-    snd('ob-sproing', 'boing', { vol: 0.45 });
-    snd('ob-huff', 'squeak', { vol: 0.35 });
-    if (this.fluster > 0.25 && Math.random() < 0.6) particles.burst(TEACHER.x, TEACHER.y - TEACHER.h * 0.95, { type: 'smoke', count: 5, colors: ['#ffffff', '#ffd6ec'], speed: [60, 160] });
-    if (this.fluster >= 0.42 && !this.tiara) this.popTiara();
-  }
+  startDemo(M) { this.demo = { M, t: 0, dur: Math.max(0.7, M.beats * this.beatLen * 1.2), side: this.demo?.M === M && M.mirror ? -this.demo.side : 1 }; }
 
   popTiara() {
     this.tiara = { x: TEACHER.x + 6, y: TEACHER.y - TEACHER.h * 0.92, vx: 260, vy: -900, rot: 0, orbit: -1 };
     snd('ob-tiara', 'pop', { vol: 0.5 });
     particles.burst(this.tiara.x, this.tiara.y, { type: 'sparkle', count: 14, colors: ['#ffd23f', '#fff'], speed: [100, 300] });
-    this.banner = { text: 'Oh no, her tiara!', t: 0, color: '#ffd23f', y: 640, size: 90 };
+    this.teacherSay('Oh! Such dancing!', 1.4);
+    this.banner = { text: 'Her tiara popped off!', t: 0, color: '#ffd23f', y: 560, size: 86 };
+  }
+
+  // --- moves -------------------------------------------------------------------
+  /** Buttons are moves; the stick (either stick, optional in Easy) dances you about the floor. */
+  readInput(d) {
+    const c = d.p.ctrl;
+    let M = null;
+    for (const m of DANCES) if (c.pressed(m.btn)) { M = m; break; }
+    if (M && this.easy && M.btn === 'a') {
+      // Easy: A dances whatever Madame is calling (or, between calls / in the finale, a star jump or a surprise)
+      M = this.call && this.phase === 'class' ? this.call.M : this.phase === 'finale' ? pick(DANCES) : MOVE.star;
+    }
+    if (M) this.tryMove(d, M);
+    let x = c.x, y = c.y;
+    if (Math.hypot(x, y) < 0.25 && c.kind === 'pad') { x = c.sx || 0; y = c.sy || 0; }
+    return { x: Math.abs(x) > 0.2 ? x : 0, y: Math.abs(y) > 0.2 ? y : 0 };
+  }
+
+  /** A press mid-move is kept for when the move is far enough along (mashing stays smooth). */
+  tryMove(d, M) {
+    if (this.phase === 'bow' || this.phase === 'end') return;
+    if (d.d.busy && d.d.u < 0.55) { d.queued = M; return; }
+    d.queued = null;
+    this.danceMove(d, M);
+  }
+
+  danceMove(d, M) {
+    const a = d.a, cpu = d.p.isAI;
+    d.d.perform(M, this.beatLen);
+    moveSound(M, cpu ? 0.22 : 0.45);
+    const top = { x: a.x, y: a.y - a.height * 0.75 };
+    const onBeat = this.offBeat() < 0.2;
+    if (this.phase === 'finale') {
+      if (d.finalePts < FINALE_CAP) { d.finalePts++; this.award(d, 1, M, onBeat ? 'On the beat! +1' : '+1'); }
+      else this.cheer(d, M, onBeat);
+      return;
+    }
+    if (this.phase !== 'class') return;
+    // the called move (or the one just before, a moment into the next call)
+    const c = this.call, p = this.prev;
+    let hit = null;
+    if (c && c.M === M && d.gotN !== c.n) hit = c;
+    else if (p && p.M === M && d.gotN !== p.n && this.time - (p.endAt ?? 0) < GRACE && d.gotN < p.n) hit = p;
+    if (hit) {
+      d.gotN = hit.n;
+      this.copied[d.i]++;
+      d.tried.add(M.id);
+      const pts = (hit.golden ? 3 : 2) + (onBeat ? 1 : 0);
+      this.award(d, pts, M, hit.golden ? `Golden! +${pts}` : onBeat ? `On the beat! +${pts}` : `Yes! +${pts}`);
+      d.streak++;
+      if (d.streak % 3 === 0) this.streakParty(d);
+      return;
+    }
+    if (!d.tried.has(M.id)) {
+      // trying a new move is lovely too
+      d.tried.add(M.id);
+      this.award(d, 1, M, 'New move! +1');
+      if (!cpu) this.like(M);
+      return;
+    }
+    this.cheer(d, M, onBeat);
+    if (!cpu && chance(0.3)) this.like(M);
+  }
+
+  /** Any move at all: sparkles and a happy word (never a "wrong"). */
+  cheer(d, M, onBeat) {
+    const a = d.a, top = { x: a.x, y: a.y - a.height * 0.75 };
+    particles.burst(top.x, top.y, { type: pick(['star', 'sparkle', 'note']), count: onBeat ? 10 : 6, colors: [M.color, d.p.color, '#ffffff'], speed: [100, 300] });
+    if (d.popCD <= 0) { particles.popText(top.x, top.y - 60, pick(CHEERS), M.color, 40); d.popCD = 1.1; }
+  }
+
+  /** Madame enjoys a move of your own (now and then). */
+  like(M) {
+    if (this.likeCD > 0 || this.reactT) return;
+    this.likeCD = 4;
+    this.teacherSay(M.id === 'cartwheel' ? 'A cartwheel! Ooh!' : M.id === 'moonwalk' ? 'Ooh, so smooth!' : pick(LIKE), 1.3);
+    this.sproingT = 0.6;
+  }
+
+  streakParty(d) {
+    const a = d.a;
+    particles.burst(a.x, a.y - a.height * 0.6, { type: 'confetti', count: 30, speed: [200, 520] });
+    particles.ring(a.x, a.y - a.height * 0.5, '#ffd23f', 220, 0.5);
+    particles.popText(a.x, a.y - a.height - 120, 'Super streak!', '#ffd23f', 52);
+    a.emote('hearts', 1.2);
+    snd('bb-wow', 'star', { vol: 0.5 });
+    if (!d.p.isAI) voice(d.p.charId, 'yay');
+  }
+
+  award(d, n, M, label) {
+    const a = d.a, top = a.y - a.z - a.height;
+    this.scores[d.i] += n;
+    for (let k = 0; k < n; k++) this.addButterfly(d, k);
+    d.glowT = 0.5;
+    particles.burst(a.x, top + a.height * 0.4, { type: 'sparkle', count: n > 1 ? 16 : 8, colors: [M.color, '#fff', d.p.color], speed: [80, 300] });
+    particles.popText(a.x, top - 40, label, n > 1 ? '#ff7ac6' : d.p.color, n > 1 ? 48 : 42);
+    d.popCD = 0.8;
+    snd('bb-flutter', 'sparkle', { vol: 0.4 });
+    sfx('collect', { step: Math.min(12, d.streak + n), vol: 0.32 });
+  }
+
+  addButterfly(d, k = 0, from = null) {
+    if (d.flock.length >= MAX_FLOCK) { d.flock[(this.scores[d.i] + k) % MAX_FLOCK].col = pick(BFLY); return; }
+    const src = from || { x: TEACHER.x + rand(-60, 60), y: TEACHER.y - 220 };
+    d.flock.push({
+      col: pick(BFLY), ang: rand(TAU), spd: rand(1.4, 2.4) * (chance(0.5) ? 1 : -1), r: rand(0.5, 0.8), yo: rand(0.2, 0.95),
+      ph: rand(TAU), sx: src.x, sy: src.y, arrive: 0, delay: k * 0.12, s: rand(46, 62),
+    });
   }
 
   // --- update ------------------------------------------------------------------
   preUpdate(dt) {
     this.t += dt;
-    for (const d of this.dancers) d.a.update(dt);
+    for (const d of this.dancers) d.d.update(dt, 0);
   }
 
   update(dt) {
     this.t += dt;
     this.time += dt;
+    this.tickBeat(dt);
     if (this.banner) { this.banner.t += dt; if (this.banner.t > 1.8) this.banner = null; }
     if (this.say) { this.say.t += dt; if (this.say.t > this.say.dur) this.say = null; }
+    this.likeCD = Math.max(0, this.likeCD - dt);
     this.updateMadame(dt);
-    if (this.phase === 'dance') this.updateDance(dt);
-    else if (this.phase === 'silly') this.updateSilly(dt);
+    if (this.phase === 'class') this.updateClass(dt);
+    else if (this.phase === 'finale') this.updateFinale(dt);
     else this.updateBow(dt);
-    this.updateDancers(dt);
+    this.updateDancers(dt, this.phase === 'class' || this.phase === 'finale');
     this.updateSwarm(dt);
     this.updatePetals(dt);
   }
 
   postUpdate(dt) {
     this.t += dt;
+    this.beat += dt * 2;
     this.updateMadame(dt);
-    this.updateDancers(dt);
+    this.updateDancers(dt, false);
     this.updatePetals(dt);
     this.updateSwarm(dt);
+    if (this.phase === 'end' && Math.random() < dt * 1.5) particles.burst(rand(200, W - 200), rand(150, 400), { type: 'star', count: 6, colors: RAINBOW, speed: [80, 200] });
   }
 
   updateMadame(dt) {
-    this.flusterShow = lerp(this.flusterShow, this.fluster, 1 - Math.exp(-4 * dt));
-    if (this.stampT > 0) { this.stampT += dt / 0.55; if (this.stampT >= 1) this.stampT = 0; }
     this.sproingT = Math.max(0, this.sproingT - dt * 1.4);
-    this.laughT = Math.max(0, this.laughT - dt);
     this.reactT = Math.max(0, this.reactT - dt);
     if (this.reactT <= 0) this.react = null;
-    // imp
-    const im = this.imp, b = this.beat;
-    im.t += dt;
-    let want = 0;
-    if (b && this.phase === 'dance') {
-      if (b.golden) want = b.t < 1.1 ? 1 : 0;
-      else want = b.t > b.flipAt - 0.55 && b.t < b.flipAt + 0.75 ? 1 : 0;
-    }
-    if (this.phase === 'silly' || (this.phase === 'bow' && this.bowT < 2)) want = 1;
-    im.show = clamp(im.show + (want ? dt * 5 : -dt * 4), 0, 1);
+    if (this.demo) { this.demo.t += dt; if (this.demo.t >= this.demo.dur) this.demo = null; }
+    const want = this.phase === 'finale' || (this.phase === 'bow' && this.bowT < 2) ? 1 : 0;
+    this.imp.show = clamp(this.imp.show + (want ? dt * 5 : -dt * 4), 0, 1);
     // flying tiara: up, then it orbits round her head
     const ti = this.tiara;
     if (ti) {
@@ -432,7 +409,7 @@ export class Game {
         if (Math.random() < dt * 6) particles.trail(ti.x, ti.y, { type: 'sparkle', colors: ['#ffd23f', '#fff'], size: [6, 10], speed: [10, 40], life: [0.3, 0.5] });
       }
     }
-    // flying wig
+    // flying wig (the sneeze)
     const wg = this.wig;
     if (wg) {
       wg.t += dt;
@@ -445,84 +422,45 @@ export class Game {
         const k = ease.inOutQuad(clamp(wg.bt, 0, 1));
         wg.x = lerp(wg.fx, TEACHER.x, k); wg.y = lerp(wg.fy, TEACHER.y - TEACHER.h * 0.85, k) - Math.sin(k * Math.PI) * 200; wg.rot *= 0.9;
         if (wg.bt >= 1) {
-          this.wig = null; this.wigOff = false; this.wigAskew = true;
-          snd('ob-wig', 'pop', { vol: 0.5 }); this.sproingT = 1; this.teacherSay('Hmph!', 1);
+          this.wig = null; this.wigOff = false;
+          snd('ob-wig', 'pop', { vol: 0.5 }); this.sproingT = 1; this.teacherSay('Hmph! Where were we?', 1.2);
           particles.burst(TEACHER.x, TEACHER.y - TEACHER.h * 0.85, { type: 'star', count: 8, colors: ['#b98bff', '#fff'] });
         }
       }
     }
   }
 
-  updateDance(dt) {
-    this.gap = Math.max(0, this.gap - dt);
-    if (!this.beat && this.gap <= 0 && this.time + 1.2 < GIVEUP_AT) this.nextBeat();
-    const b = this.beat;
-    if (b) this.updateBeat(b, dt);
-    if (this.stormT < 0 && this.time >= STORM_AT && !this.beat?.golden) this.startStorm();
-    // CPU players
-    for (const d of this.dancers) {
-      if (!d.p.isAI) continue;
-      const c = d.p.ctrl;
-      if (d.ai && this.beat) {
-        const nx = d.ai.plan[0];
-        if (nx && this.beat.t >= nx.at) {
-          d.ai.plan.shift();
-          this.aiDo(d, nx.move);
-        }
+  updateClass(dt) {
+    const c = this.call;
+    if (!c) { if (this.time > 1.2) this.nextCall(); }
+    else {
+      c.t += dt;
+      if (c.t >= c.len) {
+        this.endCall(c);
+        if (this.time + 3 < FINALE_AT) this.nextCall();
+        else { this.prev = c; c.endAt = this.time; this.call = null; }
       }
-      if (d.aiRelease > 0) { d.aiRelease -= dt; if (d.aiRelease <= 0) c.move(0, 0); }
     }
-    for (const d of this.dancers) this.readInput(d);
-    if (!this.beat && this.time >= GIVEUP_AT - 1.2) this.startSilly();
+    if (this.stormT < 0 && this.time >= STORM_AT) this.startStorm();
+    if (this.time >= FINALE_AT && !this.call) this.startFinale();
   }
 
-  updateBeat(b, dt) {
-    b.t += dt;
-    if (!b.golden && !b.flipped && b.t >= b.flipAt) this.flipCard();
-    if (b.golden && !b.shooed && b.t > 0.55) {
-      b.shooed = true;
-      snd('ob-shoo', 'whoosh', { vol: 0.45 });
-      particles.burst(CARD.x - 160, CARD.y + 150, { type: 'star', count: 8, colors: ['#ffd23f', '#fff'] });
-    }
-    // statue beats: still dancers slowly turn to stone (a nice clear "yes, keep still!")
-    if (b.ans === 'statue' && b.flipped) {
-      for (const d of this.dancers) if (!d.moved) { d.stoneK = Math.min(0.55, d.stoneK + dt * 0.5); d.a.tint('#cfc6dd', d.stoneK); }
-    }
-    // everyone got it: move on fast (momentum!)
-    if (!b.early && b.ans !== 'statue' && b.flipped && b.t > b.flipAt + 0.3 && this.dancers.every((d) => d.got)) { b.early = true; b.len = Math.min(b.len, b.t + 0.45); }
-    if (b.t >= b.len) {
-      this.endBeat(b);
-      this.beat = null;
-      if (this.gap <= 0 && this.time + 1.2 < GIVEUP_AT) this.nextBeat();
-    }
-  }
-
-  aiDo(d, move) {
-    const c = d.p.ctrl;
-    if (move === 'twirl') c.press('a');
-    else if (move !== 'statue') {
-      c.move(move === 'left' ? -1 : move === 'right' ? 1 : 0, move === 'up' ? -1 : move === 'down' ? 1 : 0);
-      d.aiRelease = 0.14;
-    }
-  }
-
+  /** Halfway: Madame sneezes her wig off in a butterfly storm; gift butterflies for everyone. */
   startStorm() {
     this.stormT = 0;
-    this.banner = { text: 'Ah... CHOO!', t: 0, color: '#6fd0ff', y: 640, size: 130 };
+    this.banner = { text: 'Ah... CHOO!', t: 0, color: '#6fd0ff', y: 560, size: 130 };
     snd('ob-sneeze', 'pt-honk', { vol: 0.6 });
     snd('bb-swarm', 'magic', { vol: 0.55 });
-    fx.shake(12, 0.35); fx.flash('#ffffff', 0.15);
-    this.api.camera && this.api.camera.punch(TEACHER.x, TEACHER.y - 160, 1.12, 0.5);
+    fx.shake(10, 0.3); fx.flash('#ffffff', 0.15);
     this.teacherSay('Ah... CHOO!', 1.2);
-    later(() => { if (this.phase !== 'dance') return; this.react = 'shock'; this.reactT = 1.1; this.teacherSay('Mon dieu! My wig!', 1.3); snd('ob-gasp', 'crowd-gasp', { vol: 0.45 }); }, 550);
+    later(() => { if (this.phase !== 'class') return; this.react = 'shock'; this.reactT = 1.1; this.teacherSay('Mon dieu! My wig!', 1.3); snd('ob-gasp', 'crowd-gasp', { vol: 0.45 }); }, 550);
     this.wigOff = true;
-    this.wig = { x: TEACHER.x, y: TEACHER.y - TEACHER.h * 0.85, vx: rand(-1, 1) > 0 ? 520 : -520, vy: -1100, rot: 0, t: 0, back: false };
+    this.wig = { x: TEACHER.x, y: TEACHER.y - TEACHER.h * 0.85, vx: chance(0.5) ? 520 : -520, vy: -1100, rot: 0, t: 0, back: false };
     snd('ob-wig', 'whoosh', { vol: 0.5 });
     for (let i = 0; i < 70; i++) {
       this.swarm.push({ x: -100 - rand(900), y: rand(180, 900), vy: rand(-40, 40), vx: rand(650, 950), col: pick(BFLY), s: rand(34, 60), ph: rand(TAU) });
     }
-    // two gift butterflies for everyone, dropping out of the swarm, and a giggle
-    for (const d of this.dancers) { d.giftT = 0.4 + (d.hx / W) * 0.9; d.a.playOnce('laugh', 1.0, 'idle'); }
+    for (const d of this.dancers) { d.giftT = 0.4 + (d.d.hx / W) * 0.9; if (!d.d.busy) d.a.playOnce('laugh', 1.0, 'idle'); }
   }
 
   giveGift(d) {
@@ -533,47 +471,40 @@ export class Game {
     sfx('collect', { step: 6, vol: 0.3 });
   }
 
-  startSilly() {
-    this.phase = 'silly'; this.sillyT = 0; this.beat = null;
-    this.fluster = 1;
-    this.teacherSay('Oh là là... I give up!', 1.8);
-    this.laughT = 99;
-    this.banner = { text: 'Silly dance!', t: 0, color: '#ff7ac6', y: 640, size: 140 };
-    snd('ob-giveup', 'pt-slide-whistle', { vol: 0.6 });
+  startFinale() {
+    this.phase = 'finale'; this.call = null; this.prev = null;
+    this.teacherSay('Everybody, any move you like!', 1.8);
+    this.banner = { text: 'Free dance!', t: 0, color: '#ff7ac6', y: 560, size: 140 };
     snd('bb-freestyle', 'fanfare', { vol: 0.5 });
-    fx.flash('#fff0fa', 0.2); fx.shake(8, 0.3);
+    fx.flash('#fff0fa', 0.2);
     particles.confettiRain(W, 70);
-    if (!this.tiara) this.popTiara();
-    for (const d of this.dancers) { d.a.tint(null); d.a.playOnce('laugh', 0.8, 'idle'); d.sillyPts = 0; }
+    for (const d of this.dancers) d.finalePts = 0;
   }
 
-  updateSilly(dt) {
-    this.sillyT += dt;
-    if (Math.random() < dt * 4) particles.burst(TEACHER.x + rand(-140, 140), TEACHER.y - rand(60, 300), { type: 'note', count: 1, colors: RAINBOW, speed: [60, 160] });
-    for (const d of this.dancers) {
-      if (!d.p.isAI) continue;
-      const c = d.p.ctrl;
-      d.freeT = (d.freeT ?? rand(0.2, 0.5)) - dt;
-      if (d.freeT <= 0) {
-        const lvl = clamp(d.p.aiLevel ?? 0, 0, 2);
-        d.freeT = rand(...[[0.6, 1.0], [0.5, 0.8], [0.42, 0.65]][lvl]);
-        this.aiDo(d, pick(['up', 'down', 'left', 'right', 'twirl']));
-      }
-      if (d.aiRelease > 0) { d.aiRelease -= dt; if (d.aiRelease <= 0) c.move(0, 0); }
-    }
-    for (const d of this.dancers) this.readInput(d);
+  updateFinale() {
+    if (Math.random() < 0.06) particles.burst(TEACHER.x + rand(-140, 140), TEACHER.y - rand(60, 300), { type: 'note', count: 1, colors: RAINBOW, speed: [60, 160] });
     if (this.time >= PLAY_TIME) this.startBow();
   }
 
   startBow() {
-    this.phase = 'bow'; this.bowT = 0; this.beat = null;
-    this.banner = { text: 'Bravo!', t: 0, color: '#ffd23f', y: 640, size: 140 };
-    for (const d of this.dancers) { d.a.setPose('bow'); d.move = null; d.p.isAI && d.p.ctrl.move(0, 0); }
+    this.phase = 'bow'; this.bowT = 0; this.demo = null;
+    this.banner = { text: 'Bravo!', t: 0, color: '#ffd23f', y: 560, size: 140 };
     snd('applause', 'cheer', { vol: 0.6 });
     sfx('fanfare', { vol: 0.5 });
     fx.flash('#fff', 0.25);
-    this.teacherSay('Bravo!', 1.4);
+    this.teacherSay('Bravo, my darlings!', 1.6);
     for (let i = 0; i < 160; i++) this.petals.push(this.newPetal(rand(-900, -20)));
+    // the curtain call: everyone steps into one line (clear of the stars bar at the bottom)
+    const line = [...this.dancers].sort((a, b) => a.d.hx - b.d.hx);
+    const span = Math.min(1500, (this.n - 1) * 300);
+    line.forEach((d, k) => {
+      d.d.stop(); d.queued = null;
+      d.to = { x: W / 2 + (this.n > 1 ? (k / (this.n - 1) - 0.5) * span : 0), y: this.n > 4 && k % 2 ? 790 : 830 };
+      if (d.p.isAI) d.p.ctrl.move(0, 0);
+    });
+    const kids = this.players.some((p) => !p.isAI);
+    this.star = this.n > 1 ? showstopper(this.players, this.scores) : null;
+    if (!kids) this.star = null;
   }
 
   newPetal(y) {
@@ -581,49 +512,75 @@ export class Game {
   }
 
   updateBow(dt) {
+    if (this.phase !== 'bow') return;
     this.bowT += dt;
-    if (this.bowT > 1.1 && !this.bowed2) {
+    if (this.bowT > 0.9 && !this.bowed) {
+      this.bowed = true;
+      for (const d of this.dancers) d.a.setPose('bow');
+    }
+    if (this.bowT > 2.2 && !this.bowed2) {
       this.bowed2 = true;
-      for (const d of this.dancers) d.a.setPose(chance(0.5) ? 'celebrate' : 'laugh');
+      for (const d of this.dancers) d.a.setPose(d.i === this.star ? 'celebrate' : chance(0.5) ? 'celebrate' : 'laugh');
       particles.confettiRain(W, 80);
-      fx.slowmo(0.6, 0.5);
+      if (this.star != null) {
+        const s = this.byIndex[this.star];
+        particles.burst(s.a.x, s.a.y - s.a.height * 0.6, { type: 'star', count: 26, colors: ['#ffd23f', '#fff3b0', '#fff'], speed: [150, 420] });
+      }
     }
     if (this.bowT > BOW_LEN && !this.done) this.finish();
   }
 
-  updateDancers(dt) {
+  updateDancers(dt, live) {
     for (const d of this.dancers) {
-      const a = d.a;
-      d.cool = Math.max(0, d.cool - dt);
-      if (d.giftT > 0) { d.giftT -= dt; if (d.giftT <= 0) this.giveGift(d); }
-      if (d.wobbleT > 0) { d.wobbleT -= dt; if (d.wobbleT <= 0) a.playOnce('balance', 0.5, 'idle'); }
-      if (d.sillyT > 0) {
-        d.sillyT -= dt;
-        if (d.sillyT <= 0 && this.phase !== 'bow') {
-          a.playOnce(SILLY, 0.55, 'idle'); a.squash(0.25);
-          snd('ob-silly', 'boing', { vol: 0.25 });
-          if (chance(0.3)) a.emote('happy', 0.8);
-        }
-      }
+      const a = d.a, D = d.d;
+      d.popCD = Math.max(0, d.popCD - dt);
       d.glowT = Math.max(0, d.glowT - dt);
-      let ox = 0, z = 0;
-      if (d.move) {
-        d.mt += dt;
-        const k = clamp(d.mt / MOVE_TIME, 0, 1), s = Math.sin(k * Math.PI);
-        if (d.move === 'left' || d.move === 'right') ox = d.dir * 80 * s;
-        if (d.move === 'up') z = 46 * s;
-        if (d.move === 'twirl') z = 14 * s;   // the pose-twirl frames do the turning
-        if (k >= 1) { d.move = null; a.facing = d.hx < W / 2 ? 1 : -1; }
-        if (d.move && Math.random() < dt * 30) particles.trail(a.x + rand(-30, 30), a.y - rand(0, a.height), { type: 'sparkle', colors: [MOVE_COL[d.move], '#fff'], size: [6, 12], speed: [10, 60], life: [0.3, 0.6] });
+      if (d.giftT > 0) { d.giftT -= dt; if (d.giftT <= 0) this.giveGift(d); }
+      let mx = 0, my = 0;
+      if (live) {
+        if (d.ai) ({ x: mx, y: my } = this.updateAI(d, dt));
+        else ({ x: mx, y: my } = this.readInput(d));
+        if (d.queued && (!D.busy || D.u >= 0.55)) { const M = d.queued; d.queued = null; this.danceMove(d, M); }
+      } else if (d.to) {
+        // walking into the curtain-call line
+        const ex = d.to.x - D.hx, ey = d.to.y - D.hy, dist = Math.hypot(ex, ey);
+        if (dist > 12 && this.bowT < 0.9) { mx = ex / dist; my = ey / dist * 1.6; } else if (this.bowT >= 0.9) { D.hx = damp(D.hx, d.to.x, 12, dt); D.hy = damp(D.hy, d.to.y, 12, dt); }
       }
-      a.x = d.hx + ox; a.y = d.hy; a.z = z;
-      a.update(dt);
+      const slow = D.busy ? 0.45 : 1;
+      D.hx = clamp(D.hx + mx * 520 * slow * dt, FLOOR.x0, FLOOR.x1);
+      D.hy = clamp(D.hy + my * 300 * slow * dt, FLOOR.y0, FLOOR.y1);
+      a.scale = damp(a.scale, d.baseScale * this.depthK(D.hy), 10, dt);
+      const moving = Math.hypot(mx, my) > 0.15;
+      if (moving && Math.abs(mx) > 0.15 && !D.busy) { D.baseFacing = mx > 0 ? 1 : -1; a.facing = D.baseFacing; }
+      if (!D.busy && !a._once && (live || (d.to && this.bowT < 0.9))) a.setPose(moving ? 'walk' : 'idle');
+      D.update(dt, this.beat);
+      if (D.busy && Math.random() < dt * 20) particles.trail(a.x + rand(-30, 30), a.y - a.z - rand(0, a.height), { type: 'sparkle', colors: [D.mv.color, '#fff'], size: [6, 12], speed: [10, 60], life: [0.3, 0.6] });
       for (const b of d.flock) {
         if (b.delay > 0) { b.delay -= dt; continue; }
         b.arrive = Math.min(1, b.arrive + dt * 1.6);
-        b.ang += b.spd * dt * (this.phase === 'bow' ? 1.8 : 1);
+        b.ang += b.spd * dt * (this.phase === 'bow' || this.phase === 'end' ? 1.8 : 1);
       }
     }
+  }
+
+  /** CPUs wander about the floor, follow some calls, and throw in moves of their own. */
+  updateAI(d, dt) {
+    const ai = d.ai, D = d.d, w = ai.wander;
+    w.t -= dt;
+    if (w.t <= 0) {
+      w.t = rand(1.2, 3.4);
+      if (chance(0.6)) { w.x = clamp(D.hx + rand(-380, 380), FLOOR.x0 + 40, FLOOR.x1 - 40); w.y = rand(FLOOR.y0 + 10, FLOOR.y1 - 10); }
+    }
+    let mx = 0, my = 0;
+    const ex = w.x - D.hx, ey = w.y - D.hy, dist = Math.hypot(ex, ey);
+    if (dist > 24) { mx = (ex / dist) * 0.6; my = (ey / dist) * 0.6; }
+    if (ai.plan && this.call && this.call.M === ai.plan.M && this.call.t >= ai.plan.at) { ai.plan = null; this.tryMove(d, this.call.M); }
+    ai.nextMove -= dt;
+    if (ai.nextMove <= 0) {
+      ai.nextMove = rand(1.6, 3.6) / clamp(aiProfile(d.p).speed, 0.6, 1.4);
+      if (chance(this.phase === 'finale' ? 0.9 : 0.45)) this.tryMove(d, pick(DANCES));
+    }
+    return { x: mx, y: my };
   }
 
   updateSwarm(dt) {
@@ -641,71 +598,114 @@ export class Game {
 
   finish() {
     this.done = true;
-    const top = Math.max(...this.scores);
-    // gentle: dancers within a few butterflies of each other share a place
-    const placements = placementsFromScores(this.scores.map((v) => Math.floor((v + 4 - (top % 5)) / 5)));
-    const best = this.byIndex[this.scores.indexOf(top)];
+    this.phase = 'end';
+    const star = this.star;
+    // no losers: everyone gets a star; the Star Dancer (top scorer) gets a second one
     this.api.finish({
-      placements,
-      stats: this.scores.map((s, i) => `${s} butterflies${this.cheeky[i] ? ` · ${this.cheeky[i]} cheeky` : ''}`),
-      focus: { x: best.a.x, y: best.a.y - best.a.height * 0.5 },
+      showcase: true, highlight: star,
+      title: star != null ? `${playerName(this.players[star])} is the Star Dancer!` : 'Bravo, everyone!',
+      stats: this.scores.map((s, i) => `${s} butterflies · ${this.copied[i]} moves copied`),
+      focus: { x: W / 2, y: 700, zoom: 1.05 },
     });
   }
 
+  destroy() {}
+
   // --- draw --------------------------------------------------------------------
   draw(g) {
-    drawStageBg(g, this.t, this.phase === 'dance' ? 0 : 1);
+    drawStageBg(g, this.t, this.phase === 'class' ? 0 : 1);
+    // a soft beat glow on the floor
+    if (this.phase !== 'end') {
+      g.save(); g.globalAlpha = 0.12 * this.pulse; g.fillStyle = '#fff3fb';
+      g.beginPath(); g.ellipse(W / 2, 880, 900, 190, 0, 0, TAU); g.fill(); g.restore();
+    }
+    if (this.star != null && this.phase !== 'class') this.drawSpotlight(g, this.byIndex[this.star]);
     this.drawMadame(g);
     this.drawCard(g);
-    // dancers (back row first) with their flocks
-    for (const d of this.dancers) this.drawFlock(g, d, false);
-    for (const d of this.dancers) {
+    const order = [...this.dancers].sort((a, b) => a.d.hy - b.d.hy);
+    for (const d of order) this.drawFlock(g, d, false);
+    for (const d of order) {
       if (d.glowT > 0) {
         g.save(); g.globalAlpha = d.glowT * 1.2; g.fillStyle = d.p.color;
         g.beginPath(); g.ellipse(d.a.x, d.a.y, 90 * d.a.scale, 24 * d.a.scale, 0, 0, TAU); g.fill(); g.restore();
       }
-      d.a.draw(g, { ring: d.p.color });
+      d.d.draw(g, { ring: d.p.color });
       this.drawFlock(g, d, true);
     }
-    for (const d of this.dancers) {
+    for (const d of order) {
       const a = d.a, top = a.y - a.z - a.height - 26 - (a.emotes.length ? 50 : 0);
-      if (this.time < 5 || this.n > 1) ui.playerTag(g, d.p, a.x, top);
-      if (d.got && this.beat) this.drawCheck(g, a.x + 50, top - 20, d.p.color);
+      if (this.phase !== 'end' && (this.time < 6 || this.n > 1)) ui.playerTag(g, d.p, a.x, top);
+      if (this.call && d.gotN === this.call.n) this.drawCheck(g, a.x + 56, top - 20, d.p.color);
+      else if (this.easy && !d.p.isAI && this.phase === 'class' && this.call && this.call.t > 0.4) easyPrompt(g, d.p, { child: { x: a.x, y: a.y - a.z - a.height } });
+      if (this.star === d.i && this.phase !== 'class' && this.phase !== 'finale' && (this.bowT > 2.2 || this.phase === 'end')) this.drawStarBadge(g, a.x, a.y - a.height - 30);
     }
     for (const s of this.swarm) drawButterfly(g, s.x, s.y, s.s, s.col, Math.sin(this.t * 16 + s.ph), 0.9 + Math.sin(this.t * 4 + s.ph) * 0.2);
     for (const p of this.petals) drawPetal(g, p.x, p.y, p.s, p.rot, p.c);
   }
 
+  drawSpotlight(g, d) {
+    const k = this.phase === 'end' ? 1 : clamp((this.bowT - 2.2) / 0.5, 0, 1);
+    if (k <= 0) return;
+    const x = d.a.x, y = d.a.y;
+    g.save(); g.globalAlpha = 0.35 * k;
+    const gr = g.createLinearGradient(x, 0, x, y);
+    gr.addColorStop(0, 'rgba(255,248,200,0)'); gr.addColorStop(1, 'rgba(255,248,200,0.95)');
+    g.fillStyle = gr;
+    g.beginPath(); g.moveTo(x - 60, 0); g.lineTo(x + 60, 0); g.lineTo(x + 190, y); g.lineTo(x - 190, y); g.closePath(); g.fill();
+    g.globalAlpha = 0.5 * k; g.fillStyle = '#fff8c8';
+    g.beginPath(); g.ellipse(x, y, 190, 44, 0, 0, TAU); g.fill();
+    g.restore();
+  }
+
+  /** The Star Dancer's badge: a big gold star with a little crown. */
+  drawStarBadge(g, x, y) {
+    const bob = Math.sin(this.t * 4) * 8, s = 64;
+    g.save(); g.translate(x, y - 40 + bob); g.rotate(Math.sin(this.t * 2) * 0.08);
+    g.fillStyle = '#ffd23f'; g.strokeStyle = NAVY; g.lineWidth = 5; g.lineJoin = 'round';
+    g.beginPath();
+    for (let i = 0; i < 10; i++) { const r = i % 2 ? s * 0.45 : s, a = -Math.PI / 2 + (i * Math.PI) / 5; g.lineTo(Math.cos(a) * r, Math.sin(a) * r); }
+    g.closePath(); g.fill(); g.stroke();
+    g.restore();
+    drawTiara(g, x, y - 40 + bob - s * 0.95, 56, Math.sin(this.t * 2) * 0.1);
+    ui.text(g, 'Star Dancer!', x, y + 34 + bob, { size: 40, color: '#ffd23f' });
+  }
+
+  /** Madame: the called move as her example (her art and some motion), else a little groove. */
   drawMadame(g) {
-    const b = this.beat;
-    let tm = null, tk = 0, side = 1;
-    if (this.phase === 'bow') { tm = 'bow'; tk = clamp(this.bowT / 1.1, 0, 1) * 0.5 + 0.25; }
-    else if (this.phase === 'silly') { tm = 'silly'; tk = 0.5; }
-    else if (b) { tm = TEACH[b.move]; tk = tm === 'statue' ? 0.5 : clamp(b.t / 0.95, 0, 1); side = b.move === 'left' ? -1 : 1; }
-    const R = this.phase === 'dance' ? this.react : null;
-    if (R) tm = null;   // she stops to react
-    drawTeacher(g, TEACHER.x, TEACHER.y, TEACHER.h, this.t, tm, tk, side, {
-      react: R,
-      fluster: this.phase === 'dance' ? this.flusterShow : 0.3, stamp: this.stampT, sproing: this.sproingT,
-      wigOff: this.wigOff, tiaraOff: !!this.tiara, laugh: this.phase !== 'dance' || (this.stormT >= 0 && this.stormT < 1),
+    let pose = null, k = 0, side = 1, dx = 0, z = 0, rot = 0, artKey = null, sy = 1;
+    const dm = this.demo;
+    if (this.phase === 'bow' || this.phase === 'end') { pose = 'bow'; k = this.phase === 'end' ? 0.5 : clamp(this.bowT / 1.1, 0, 1) * 0.5 + 0.25; }
+    else if (dm) {
+      const T = TEACH[dm.M.id], u = clamp(dm.t / dm.dur, 0, 1), s = Math.sin(u * Math.PI), h = TEACHER.h;
+      pose = T.pose; k = T.pose === 'side' || T.pose === 'plie' || T.pose === 'up' ? clamp(u * 1.6, 0, 0.5) : u; side = dm.side;
+      artKey = 'prop/oballet-teacher-' + dm.M.id;
+      if (T.hop) z = s * h * T.hop;
+      if (T.lean) rot = s * T.lean * side;
+      if (T.spin) { rot = ease.inOutQuad(u) * TAU * side; z = s * h * 0.1; }
+      if (T.kick) side = u < 0.5 ? side : -side;
+      if (T.sway) { const w = Math.sin(u * TAU * 2); rot += w * T.sway; dx += w * h * 0.06; }
+      if (T.glide) dx = -s * h * 0.25 * side;   // moonwalk: sliding back while facing forward
+      if (T.drop) { z = -s * h * T.drop; sy = 1 - s * 0.06; }
+    } else if (this.phase !== 'bow') z = Math.abs(Math.sin(this.beat * Math.PI)) * 8;   // a little groove on the beat
+    const R = this.react;
+    if (R) { pose = null; artKey = null; rot = 0; }
+    const x = TEACHER.x + dx, y = TEACHER.y - z, h = TEACHER.h;
+    g.save();
+    if (rot || sy !== 1) { const py = y - h * (TEACH[dm?.M.id]?.spin ? 0.5 : 0); g.translate(x, py); g.rotate(rot); g.scale(1, sy); g.translate(-x, -py); }
+    drawTeacher(g, x, y, h, this.t, pose, k, side, {
+      react: R, artKey, fluster: 0, sproing: this.sproingT,
+      wigOff: this.wigOff, tiaraOff: !!this.tiara, laugh: this.phase === 'finale' || this.phase === 'bow' || this.phase === 'end' || (this.stormT >= 0 && this.stormT < 1),
     });
-    // the askew wig after the sneeze: a little crooked tilt line
-    if (this.wigAskew && !this.wigOff && this.phase === 'dance') {
-      g.save(); g.globalAlpha = 0.9; g.fillStyle = '#b98bff'; g.strokeStyle = NAVY; g.lineWidth = 3;
-      g.translate(TEACHER.x + 26, TEACHER.y - TEACHER.h * 0.95 + Math.sin(this.t * 2.4) * 10); g.rotate(0.5);
-      g.beginPath(); g.ellipse(0, 0, 12, 7, 0, 0, TAU); g.fill(); g.stroke(); g.restore();
+    g.restore();
+    const c = this.call;
+    if (c && c.t < 0.9) {
+      const q = c.t / 0.9;
+      g.save(); g.globalAlpha = 1 - q; g.strokeStyle = c.golden ? '#ffd23f' : c.M.color; g.lineWidth = 10;
+      g.beginPath(); g.arc(TEACHER.x, TEACHER.y - TEACHER.h * 0.55, 120 + q * 160, 0, TAU); g.stroke(); g.restore();
     }
-    if (b && b.t < 0.9) {
-      const k = b.t / 0.9;
-      g.save(); g.globalAlpha = 1 - k; g.strokeStyle = b.golden ? '#ffd23f' : MOVE_COL[b.move]; g.lineWidth = 10;
-      g.beginPath(); g.arc(TEACHER.x, TEACHER.y - TEACHER.h * 0.55, 120 + k * 160, 0, TAU); g.stroke(); g.restore();
-    }
-    if (R) {
-      // code-drawn extras (they stand in for the reaction art until it lands)
-      const hx = TEACHER.x, hy = TEACHER.y - TEACHER.h * 0.84, k = clamp((R === 'shock' ? 1.1 : 0.75) - this.reactT, 0, 0.15) / 0.15;
-      if (R === 'shock') drawShock(g, hx, hy, TEACHER.h * 0.2, this.t, k);
-      else if (R === 'huff') drawSteam(g, hx, hy - 10, TEACHER.h * 0.17, this.t);
-      else drawWag(g, hx - TEACHER.h * 0.26, hy + TEACHER.h * 0.12, TEACHER.h / 300, this.t, -1);
+    if (R === 'shock') {
+      const hx = TEACHER.x, hy = TEACHER.y - TEACHER.h * 0.84, q = clamp(1.1 - this.reactT, 0, 0.15) / 0.15;
+      drawShock(g, hx, hy, TEACHER.h * 0.2, this.t, q);
     }
     if (this.tiara) drawTiara(g, this.tiara.x, this.tiara.y, 50, this.tiara.rot);
     if (this.wig) {
@@ -717,11 +717,11 @@ export class Game {
     }
     // speech bubble
     if (this.say) {
-      const s = this.say, k = ease.outBack(clamp(s.t / 0.25, 0, 1)), a = clamp((s.dur - s.t) / 0.25, 0, 1);
-      const bx = TEACHER.x - 250, by = TEACHER.y - TEACHER.h + 40;
-      g.save(); g.globalAlpha = a; g.translate(bx, by); g.scale(k, k);
-      g.font = `800 40px ${ui.FONT}`;
+      const s = this.say, sk = ease.outBack(clamp(s.t / 0.25, 0, 1)), a = clamp((s.dur - s.t) / 0.25, 0, 1);
+      g.save(); g.font = `800 40px ${ui.FONT}`;
       const w = Math.max(160, g.measureText(s.text).width + 50);
+      const bx = TEACHER.x - 150 - w / 2, by = TEACHER.y - TEACHER.h + 40;
+      g.globalAlpha = a; g.translate(bx, by); g.scale(sk, sk);
       ui.panel(g, -w / 2, -38, w, 76, { r: 34, fill: '#fff', lineWidth: 5 });
       g.fillStyle = '#fff'; g.strokeStyle = NAVY; g.lineWidth = 5;
       g.beginPath(); g.moveTo(w * 0.5 - 4, -16); g.lineTo(w * 0.5 + 44, -4); g.lineTo(w * 0.5 - 4, 14); g.fill(); g.stroke();
@@ -740,7 +740,7 @@ export class Game {
       const rx = a.height * b.r + 30, px = cx + Math.cos(b.ang) * rx, py = cy - a.height * b.yo + depth * 26 + Math.sin(this.t * 3 + b.ph) * 12;
       const k = ease.outCubic(b.arrive);
       const x = lerp(b.sx, px, k), y = lerp(b.sy, py, k) - Math.sin(k * Math.PI) * 120;
-      drawButterfly(g, x, y, b.s * (0.85 + depth * 0.15) * a.scale, b.col, Math.sin(this.t * 15 + b.ph), Math.cos(b.ang) * 0.4 * Math.sign(b.spd));
+      drawButterfly(g, x, y, b.s * (0.85 + depth * 0.15) * Math.min(1.2, a.scale), b.col, Math.sin(this.t * 15 + b.ph), Math.cos(b.ang) * 0.4 * Math.sign(b.spd));
     }
   }
 
@@ -753,122 +753,77 @@ export class Game {
     g.restore();
   }
 
+  /** The call card (the move's picture and name) and the big button to press. */
   drawCard(g) {
-    const b = this.beat;
-    const silly = this.phase === 'silly';
+    const c = this.call, finale = this.phase === 'finale';
+    if (!c && !finale) return;
     const s = CARD.s;
-    if (b || silly) {
-      const pop = b ? ease.outBack(clamp(b.t / 0.3, 0, 1)) : 1;
-      // flip: squash x through zero, swapping faces at the middle
-      let fk = 1, back = false;
-      if (b && !b.golden) {
-        const u = clamp((b.t - b.flipAt) / 0.4, 0, 1);
-        fk = Math.abs(Math.cos(u * Math.PI)); back = u >= 0.5;
-        if (b.t < b.flipAt) fk = 1;
-      }
-      const wob = Math.sin(this.t * 5) * 0.03;
-      g.save(); g.translate(CARD.x, CARD.y); g.scale(pop * Math.max(0.04, fk), pop); g.rotate(wob);
-      if (silly) {
-        ui.panel(g, -s / 2, -s / 2, s, s, { r: 40, fill: '#fff', stroke: '#ff7ac6', lineWidth: 10 });
-        ['up', 'down', 'left', 'twirl'].forEach((m, k) => drawMovePicto(g, m, (k % 2 - 0.5) * s * 0.46, (Math.floor(k / 2) - 0.5) * s * 0.46, s * 0.4, this.t + k));
-      } else if (b.golden) {
-        // the golden "copy me for real" card
-        if (!drawArt(g, 'prop/oballet-card-gold', 0, 0, s, s)) {
+    const pop = c ? ease.outBack(clamp(c.t / 0.3, 0, 1)) : 1;
+    const wob = Math.sin(this.t * 5) * 0.03, beatK = 1 + this.pulse * 0.03;
+    g.save(); g.translate(CARD.x, CARD.y); g.scale(pop * beatK, pop * beatK); g.rotate(wob);
+    if (finale) {
+      ui.panel(g, -s / 2, -s / 2, s, s + 50, { r: 40, fill: '#fff', stroke: '#ff7ac6', lineWidth: 10 });
+      ['disco', 'star', 'hula', 'twirl'].forEach((id, k) => drawCallPicto(g, MOVE[id], (k % 2 - 0.5) * s * 0.46, (Math.floor(k / 2) - 0.5) * s * 0.46 - 6, s * 0.4, this.t + k));
+      ui.text(g, 'Any move!', 0, s / 2 + 8, { size: 38, color: '#ff7ac6', stroke: false });
+    } else {
+      const M = c.M;
+      if (c.golden) {
+        if (!drawArt(g, 'prop/oballet-card-gold', 0, 18, s + 40, s + 90, { fit: 'stretch' })) {
           const gg = g.createLinearGradient(-s / 2, -s / 2, s / 2, s / 2);
           gg.addColorStop(0, '#fff3b0'); gg.addColorStop(0.5, '#ffd23f'); gg.addColorStop(1, '#ff9f1c');
-          ui.panel(g, -s / 2, -s / 2, s, s, { r: 40, fill: gg, lineWidth: 8 });
-          ui.panel(g, -s / 2 + 22, -s / 2 + 22, s - 44, s - 44, { r: 28, fill: '#fffaf0', shadow: false, lineWidth: 4 });
+          ui.panel(g, -s / 2, -s / 2, s, s + 50, { r: 40, fill: gg, lineWidth: 8 });
+          ui.panel(g, -s / 2 + 22, -s / 2 + 22, s - 44, s + 6, { r: 28, fill: '#fffaf0', shadow: false, lineWidth: 4 });
         }
-        drawMovePicto(g, b.move, 0, 0, s * 0.72, this.t);
         if (Math.random() < 0.35) particles.trail(CARD.x + rand(-s / 2, s / 2), CARD.y + rand(-s / 2, s / 2), { type: 'sparkle', colors: ['#ffd23f', '#fff'], size: [8, 16], speed: [10, 50], life: [0.4, 0.8] });
-      } else if (!back) {
-        ui.panel(g, -s / 2, -s / 2, s, s, { r: 40, fill: '#fff', stroke: MOVE_COL[b.move], lineWidth: 10 });
-        drawMovePicto(g, b.move, 0, 0, s * 0.72, this.t);
-      } else {
-        // the cheeky flipped side: rainbow frame, the opposite move, flip badge
-        const rg = g.createLinearGradient(-s / 2, 0, s / 2, 0);
-        RAINBOW.forEach((c, i) => rg.addColorStop(i / (RAINBOW.length - 1), c));
-        ui.panel(g, -s / 2, -s / 2, s, s, { r: 40, fill: rg, lineWidth: 8 });
-        ui.panel(g, -s / 2 + 18, -s / 2 + 18, s - 36, s - 36, { r: 28, fill: '#fff', shadow: false, lineWidth: 4 });
-        drawMovePicto(g, b.ans, 0, 0, s * 0.72, this.t);
-        // little picture of what Madame did, top-left, with the swirl arrow
-        g.save(); g.translate(-s * 0.5, -s * 0.5);
-        ui.panel(g, -46, -46, 92, 92, { r: 20, fill: '#fff', stroke: MOVE_COL[b.move], lineWidth: 5, shadow: false });
-        drawMovePicto(g, b.move, 0, 0, 72, this.t);
-        g.restore();
-        drawFlipArrow(g, s * 0.5, -s * 0.5, 96, Math.sin(this.t * 4) * 0.4);
-      }
-      if (b && !silly) {
-        // time ring
-        const left = 1 - clamp(b.t / b.len, 0, 1);
-        g.strokeStyle = NAVY; g.lineWidth = 12; g.lineCap = 'round'; g.globalAlpha = 0.25;
-        g.beginPath(); g.arc(s * 0.5 - 6, s * 0.5 - 6, 30, 0, TAU); g.stroke(); g.globalAlpha = 1;
-        g.strokeStyle = left < 0.3 ? '#ff4d6d' : b.golden ? '#ff9f1c' : MOVE_COL[b.ans];
-        g.beginPath(); g.arc(s * 0.5 - 6, s * 0.5 - 6, 30, -Math.PI / 2, -Math.PI / 2 + TAU * left); g.stroke();
-      }
-      g.restore();
-      // the imp
-      this.drawImpAt(g, b);
-      // big control hint on the left
-      g.save(); g.translate(HINT.x, HINT.y); g.scale(pop, pop);
-      const showAns = silly || b.golden || b.flipped;
-      const col = silly ? '#ff7ac6' : b.golden ? '#ffd23f' : showAns ? MOVE_COL[b.ans] : '#d9cfe9';
-      ui.panel(g, -130, -130, 260, 260, { r: 130, fill: 'rgba(255,255,255,0.88)', stroke: col, lineWidth: 8 });
-      if (this.easy && (silly || showAns)) this.drawEasyHint(g, silly ? 'twirl' : b.ans, 110);
-      else if (silly) drawAnswerHint(g, ['up', 'left', 'down', 'right', 'twirl'][Math.floor(this.t * 2) % 5], 0, 0, 110, this.t);
-      else if (showAns) drawAnswerHint(g, b.ans, 0, 0, 110, this.t);
-      else {
-        // before the flip: a spinning swirl arrow and a big "?" (think: what's the opposite?)
-        drawFlipArrow(g, 0, 0, 170, this.t * 3);
-        ui.text(g, '?', 0, 6, { size: 110, color: '#b98bff' });
-      }
-      g.restore();
+      } else ui.panel(g, -s / 2, -s / 2, s, s + 50, { r: 40, fill: '#fff', stroke: M.color, lineWidth: 10 });
+      drawCallPicto(g, M, 0, -14, s * 0.72, this.t);
+      ui.text(g, callName(M), 0, s / 2 + 6, { size: 42, color: M.color, stroke: NAVY, maxWidth: s - 30 });
+      // time ring: how long Madame keeps calling it
+      const left = 1 - clamp(c.t / c.len, 0, 1);
+      g.lineCap = 'round'; g.lineWidth = 12; g.strokeStyle = NAVY; g.globalAlpha = 0.25;
+      g.beginPath(); g.arc(s * 0.5 - 6, -s * 0.5 + 6, 30, 0, TAU); g.stroke(); g.globalAlpha = 1;
+      g.strokeStyle = c.golden ? '#ff9f1c' : M.color;
+      g.beginPath(); g.arc(s * 0.5 - 6, -s * 0.5 + 6, 30, -Math.PI / 2, -Math.PI / 2 + TAU * left); g.stroke();
     }
+    g.restore();
+    this.drawImpAt(g);
+    // the big button to press, on the other side of Madame
+    g.save(); g.translate(HINT.x, HINT.y); g.scale(pop, pop);
+    const col = finale ? '#ff7ac6' : c.golden ? '#ffd23f' : c.M.color;
+    ui.panel(g, -130, -130, 260, 260, { r: 130, fill: 'rgba(255,255,255,0.9)', stroke: col, lineWidth: 8 });
+    const k = 1 + Math.abs(Math.sin(this.beat * Math.PI)) * 0.12;
+    if (finale) {
+      const btns = ['a', 'b', 'x', 'y'];
+      g.save(); g.scale(k, k); ui.glyph(g, btns[Math.floor(this.beat) % 4], 0, 0, 120); g.restore();
+    } else if (this.easy) {
+      // Easy: A does the called move; its own button is there too (small) for those who like it
+      g.save(); g.scale(k, k); ui.glyph(g, 'a', 0, c.M.btn === 'a' ? 0 : -18, 128, { pulse: true }); g.restore();
+      if (c.M.btn !== 'a') { ui.text(g, 'or', -34, 86, { size: 28, color: NAVY, stroke: false }); ui.glyph(g, c.M.btn, 30, 86, 46); }
+    } else {
+      g.save(); g.scale(k, k); ui.glyph(g, c.M.btn, 0, 0, 132, { pulse: true }); g.restore();
+    }
+    g.restore();
   }
 
-  /** Easy hint: a big bouncing A ("now!"), or a crossed-out A on statue beats ("hands off"). */
-  drawEasyHint(g, ans, size) {
-    if (ans === 'statue') {
-      ui.glyph(g, 'a', 0, 0, size * 0.9);
-      g.save(); g.strokeStyle = '#ff5a7a'; g.lineWidth = size * 0.1; g.lineCap = 'round';
-      g.beginPath(); g.arc(0, 0, size * 0.66, 0, TAU); g.stroke();
-      g.beginPath(); g.moveTo(-size * 0.46, -size * 0.46); g.lineTo(size * 0.46, size * 0.46); g.stroke();
-      g.restore();
-      return;
-    }
-    const k = 1 + Math.abs(Math.sin(this.t * 9)) * 0.18;
-    g.save(); g.scale(k, k); ui.glyph(g, 'a', 0, 0, size * 1.1, { pulse: true }); g.restore();
-  }
-
-  drawImpAt(g, b) {
+  /** In the finale and the bow the cheeky imp pops up beside the card and dances too. */
+  drawImpAt(g) {
     const im = this.imp;
     if (im.show <= 0.01) return;
     const s = CARD.s, k = ease.outBack(im.show);
-    let x = CARD.x - s * 0.5 - 30, y = CARD.y + s * 0.5 + 40 - k * 80, pose = 'peek', flip = 1, scale = 150;
-    if (this.phase === 'silly' || this.phase === 'bow') {
-      // the imp dances too
-      x = CARD.x - s * 0.62; y = CARD.y + s * 0.42 - Math.abs(Math.sin(this.t * 7)) * 50; flip = Math.sin(this.t * 3) > 0 ? 1 : -1;
-    } else if (b && b.golden) {
-      // shooed away: tumbles off the card
-      pose = 'shoo';
-      const u = clamp((b.t - 0.55) / 0.6, 0, 1);
-      x += u * -220; y += -Math.sin(u * Math.PI) * 160 + u * 200;
-    } else if (b) {
-      const u = clamp((b.t - b.flipAt + 0.15) / 0.45, 0, 1);
-      if (u > 0) { pose = 'flip'; x += Math.sin(u * Math.PI) * 120; y -= Math.sin(u * Math.PI) * 180; }
-      if (b.intro) scale = 190;
-    }
+    const x = CARD.x - s * 0.62, y = CARD.y + s * 0.5 + 30 - Math.abs(Math.sin(this.beat * Math.PI)) * 50;
+    const flip = Math.floor(this.beat / 2) % 2 ? 1 : -1;
     g.save(); g.globalAlpha = clamp(im.show * 1.5, 0, 1);
-    drawImp(g, x, y, scale * (0.6 + 0.4 * k), this.t, pose, flip);
+    drawImp(g, x, y, 150 * (0.6 + 0.4 * k), this.t, 'peek', flip);
     g.restore();
   }
 
   drawHUD(g) {
+    if (this.api.ended?.()) return;
     ui.scoreboard(g, this.players, this.scores, { y: 18, avoidCenter: true, format: (v) => String(v) });
     if (this.banner) {
       const k = this.banner.t;
       g.save(); g.globalAlpha = clamp((1.8 - k) / 0.4, 0, 1);
-      ui.banner(g, this.banner.text, k, { y: this.banner.y || 600, size: this.banner.size || 130, color: this.banner.color });
+      ui.banner(g, this.banner.text, k, { y: this.banner.y || 560, size: this.banner.size || 130, color: this.banner.color });
       g.restore();
     }
   }

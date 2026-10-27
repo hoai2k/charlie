@@ -283,7 +283,7 @@ export function drawSnowJar(g, s, fill, glow, t, bump = 0) {
     g.lineTo(31, -50); g.quadraticCurveTo(23, -57, 23, -66); g.closePath();
   };
   // glass
-  body(); g.fillStyle = 'rgba(214,236,255,0.78)'; g.fill();
+  body(); g.fillStyle = 'rgba(176,226,255,0.82)'; g.fill();
   g.save(); body(); g.clip();
   // the snow inside, piling up
   if (fill > 0) {

@@ -82,8 +82,9 @@ export class Game {
   jarPos(e) {
     const a = e.a, head = a.anchor('head'), hand = a.anchor('hand');
     const s = clamp(a.height / 165, 0.7, 1.6);
-    // on top of the head, or between raised hands when they reach higher
-    const top = Math.min(head.y, hand.y + a.height * 0.06);
+    // on top of the head (whichever is higher: the art's head point or the body's top,
+    // so it never covers a face), or between raised hands when they reach higher
+    const top = Math.min(head.y, e.y - a.height, hand.y + a.height * 0.06);
     const y = top - 4 * s + (1 - e.lift) * 24 * s;
     return { x: head.x, y, s, mouth: y - JAR.mouth * s };
   }
@@ -290,7 +291,6 @@ export class Game {
       fx.flash('#f2e6ff', 0.12); fx.shake(6, 0.18);
       this.api.camera && this.api.camera.punch(e.x, a.y - a.height * 0.6, 1.12, 0.3);
       this.pop(e, '+3', '#b36bff', 66);
-      a.emote('sparkle', 1);
       if (!e.p.isAI) e.p.ctrl.rumble(0.5, 140);
     } else {
       if (this.t - this.catchAt > 0.04) snd('sfc-catch', 'collect', { step: (e.score % 12), vol: 0.7 });
@@ -298,7 +298,7 @@ export class Game {
       particles.burst(m.x, m.y - 20 * j.s, { type: 'sparkle', count: 6, colors: ['#ffffff', '#bfe6ff', '#ffe1f5'], speed: [80, 200], size: [10, 18] });
       this.pop(e, '+1', '#3fa7ff', 46);
       // the flake giggles as it lands (a sound, not a voice; held back so it never chatters)
-      if (e.giggleT <= 0) { e.giggleT = 1.1; sfx('giggle', { vol: 0.35, rate: rand(1.3, 1.6) }); if (chance(0.3)) a.emote('happy', 0.7); }
+      if (e.giggleT <= 0) { e.giggleT = 1.1; sfx('giggle', { vol: 0.35, rate: rand(1.3, 1.6) }); }
     }
     // a little sparkle flies to the big snowman
     for (let i = 0; i < pts; i++) this.motes.push({ x: m.x, y: m.y, sx: m.x, sy: m.y, t: -i * 0.08, d: rand(0.55, 0.75), color: f.big ? pick(['#ffc2f0', '#c9b0ff', '#a8f0ff']) : '#ffffff' });
