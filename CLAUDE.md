@@ -111,6 +111,8 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   scene's 'gallery' state keeps the game's last screen up with everyone's stars
   and A/Y to go on, so end such a game on the art itself (Fashion Show posts its
   runway photos on a wall). Pass `gallery: false` only to keep the podium.
+- A Play Studio contest (`competitive: true` in its meta: Sparkle Bead Shop, Memory
+  Match) ends on the podium and has no pause-menu "All done!".
 - No paper flips: never squash flat art through scaleX 0 to turn or twirl; switch facing instantly; twirls use the pose-twirl pose (or an in-plane spin).
 - Audio in the race goes through the Web Audio engine in `audio.js`; don't set
   `HTMLAudioElement.volume` directly (iOS ignores it).

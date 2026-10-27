@@ -428,7 +428,7 @@ export class PlayScene {
 
   pauseItems() {
     const items = [['Keep playing', 'resume'], ['How to play', 'howto'], ['Start over', 'restart']];
-    if (this.meta.category === 'studio') items.push(['All done!', 'done']);
+    if (this.meta.category === 'studio' && !this.meta.competitive) items.push(['All done!', 'done']);   // contests (meta.competitive) play to the end
     items.push(['Pick another game', 'quit']);
     return items;
   }
