@@ -12,7 +12,7 @@
 // Sounds with synth fallbacks: sock-pickup, sock-match, sock-rocket,
 // sock-pin, sock-basket-burst, sock-puppy-yip, sock-puppy-grab, sock-flyoff.
 import { W, H } from '../engine/canvas.js';
-import { easySteer, easyPrompt } from '../engine/easy.js';
+import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
@@ -51,7 +51,7 @@ let sockSerial = 0;
 export class Game {
   constructor(api) {
     this.api = api;
-    this.easy = !!api.easy;   // Molly Easy: humans walk by themselves, A grabs
+    this.easy = !!api.easy;   // Molly Easy: A grabs; A again and again (no steering) walks you to a sock / its twin
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -288,11 +288,13 @@ export class Game {
       if (act === 'puppy') return this.catchPuppy(e);
       if (act === 'grab') return this.grab(e, this.nearestSock(e));
       e.cool = 0.15;
-      // A with nothing in reach: walk to the nearest sock (from here) and grab it; carrying, walk to its twin
-      if (!e.auto.pushing) {
-        e._ezSteer = 0; e.auto.manual = false;
+      // A with nothing in reach, pressed again with no steering (easyAutoOk): walk to the nearest
+      // sock (from here) and grab it; carrying, walk to its twin. One A (or after steering): a look round
+      if (!e.auto.pushing && easyAutoOk(e)) {
+        e._ezSteer = 0; e.auto.manual = false; e.auto.goWith = e.held; e.auto.goT = 8;
         if (!e.held) { e.auto.sock = this.easyPick(e, false); e.auto.t = 3; e.auto.go = !!e.auto.sock; }
-        if (e.auto.sock || e.held) return;
+        else e.auto.go = true;
+        if (e.auto.go) return;
       }
       e.a.playOnce('look-around', 0.35);
       return;
@@ -443,15 +445,21 @@ export class Game {
   }
 
   // ------------------------------------------------------------- Molly Easy
-  /** Easy (A only): walk this human to a sock (or, carrying one, to its twin). */
+  /** Easy: the stick walks this human. Nobody walks her otherwise, except an A pressed again and
+   *  again with no steering (action / easyAutoOk): to a sock (or, carrying one, to its twin). */
   easyThink(e, dt) {
     const au = e.auto;
     au.ix = 0; au.iy = 0;
     if (this.done) return;
-    // the stick steers while it's pushed (and a moment after); then the autopilot picks up from here
+    // the stick steers while it's pushed (and a moment after)
     const st = easySteer(e, e.p.ctrl, dt);
     au.manual = st.manual; au.pushing = st.pushing;
     if (st.manual) { au.ix = st.x; au.iy = st.y; if (st.pushing) { au.sock = null; au.go = false; } return; }
+    if (au.go && ((au.goT -= dt) <= 0 || au.goWith !== e.held)) au.go = false;   // timed out, or grabbed / matched
+    if (!au.go) {
+      if (!e.held && (!au.sock || au.sock.state !== 'ground')) au.sock = this.easyPick(e, true);   // for the hint arrow
+      return;
+    }
     let tx = null, ty = null, arrive = 8;
     if (e.held) {
       const pat = e.held.pat;
@@ -474,9 +482,9 @@ export class Game {
         if (au.go && this.nearestSock(e) === au.sock && e.cool <= 0) { au.go = false; this.grab(e, au.sock); return; }
       }
     }
-    if (tx === null) return;
+    if (tx === null) { au.go = false; return; }
     const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
-    if (d < arrive) return;
+    if (d < arrive) { if (e.held) au.go = false; return; }
     const k = clamp(d / 90, 0, 1);
     au.ix = (dx / d) * k; au.iy = (dy / d) * k;
   }

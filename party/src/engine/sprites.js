@@ -102,7 +102,7 @@ export const POSES = {
   talk:      { loop: true,  fallback: ['idle'], proc: 'talk', desc: 'NPC talking to camera.' },
   present:   { loop: true,  fallback: ['wave'], proc: 'wave', desc: 'NPC "ta-da!" presenting to the side.' },
   point:     { loop: false, fallback: ['present', 'action'], proc: 'action', desc: 'NPC points forward.' },
-  laugh:     { loop: true,  fallback: ['cheer'], proc: 'clap', autoFallback: 'happy', desc: 'Giggle / belly laugh.' },
+  laugh:     { loop: true,  fallback: ['giggle', 'cheer'], proc: 'clap', autoFallback: 'happy', desc: 'Giggle / belly laugh.' },
   poof:      { loop: false, fallback: ['surprised'], proc: 'surprised', desc: 'Shadow Imp banished in a puff.' },
   hoot:      { loop: false, fallback: ['surprised'], proc: 'surprised', desc: 'Professor Hoot hoots.' },
   lantern:   { loop: false, fallback: ['action'], proc: 'action', desc: 'Professor Hoot raises the lantern.' },

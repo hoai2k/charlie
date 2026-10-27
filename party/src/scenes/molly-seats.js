@@ -28,7 +28,8 @@ const fairyName = (id) => (charById(id)?.name || id).replace(/ Fairy$/, '');
 const ownChar = (s) => (s.home?.charId && CHARACTERS.some((c) => c.id === s.home.charId) ? s.home.charId : null);
 /** What a seat can play as: the fairies, then her own character. */
 const choices = (s) => { const own = ownChar(s); return own ? [...FAIRIES, own] : FAIRIES; };
-const choiceName = (s) => (s.fairy === ownChar(s) ? `${charById(s.fairy).name} (you)` : fairyName(s.fairy));
+const shortName = (c) => (c.name.length > 16 && c.subtitle ? c.subtitle : c.name);   // Marshmallow Birthday Cake -> Marshmallow
+const choiceName = (s) => (s.fairy === ownChar(s) ? `${shortName(charById(s.fairy))} (you)` : fairyName(s.fairy));
 
 export class MollySeats {
   constructor(meta) {

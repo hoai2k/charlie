@@ -167,8 +167,8 @@ Done and pushed this session (all tested headless in Playwright):
   `molly-brief.md`, category 'molly'); image requests copied to main early
   (`copy_reqs.py` handles "## New Molly Party game:" too once updated).
   Lead: game select molly view (done), MOLLY list, fairy-count hidden.
-  User 2026-10-13: Glimmer is the 6th Molly fairy player. No Charlie *player* characters inside Molly games (NPCs
-  OK). All six Molly fairy sprite sets are delivered: 59 required poses each,
+  User 2026-10-13: Glimmer is the 6th Molly fairy player. (Changed 2026-10-27: each Sister player may also pick her own
+  Charlie Party character on the fairy picker, `scenes/molly-seats.js`; NPCs OK.) All six Molly fairy sprite sets are delivered: 59 required poses each,
   83 body frames each and 31 total portraits, with five landmarks and optimized
   copies. Use the `molly-*` character aliases for playable sizes; original IDs
   retain NPC sizes. Game artwork and known regeneration requests are complete.
