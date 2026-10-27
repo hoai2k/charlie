@@ -77,7 +77,9 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   limit is drawn by the play scene, so none is hidden; in Play Studio a limit
   never ends the game by itself: `timeUp` / `api.studioClock` ask "Time's up!"
   with Keep playing as the default; a game with a goal ending a stage passes
-  `timeUp.goal` instead: its own title, "Go!" first and the default, "stay" for more time),
+  `timeUp.goal` instead: its own title, "Go!" first and the default, "stay" for more time;
+  only creative activities offer "stay" - a game with rounds just says "Time's up!"
+  and moves on, like Hide & Seek Picnic),
   `api.finishTogether`, `showstopper()` in `engine/util.js`, `engine/easy.js`
   (Sister Party Easy: the stick is optional, A does everything, `easyPrompt` is
   the one big-A cue; A only walks a child somewhere on a repeated press with no
