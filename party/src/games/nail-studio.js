@@ -1,7 +1,6 @@
 // Sparkle Nails (Play Studio). Everyone runs a nail-salon table (split
 // stations). A client (any roster character or friendly NPC) peeks over the
-// table and rests a big cartoon hand, or a paw for animal clients, on a
-// cushion. Four steps, each at the player's own pace (LB / RB move between
+// table and rests a girl's hand (hand.js) on a cushion. Four steps, each at the player's own pace (LB / RB move between
 // them, A goes on to the next once a step is done - or says what's left - and a
 // gentle clock moves you on; after them comes "Done", where A says the hand is
 // finished). X does the work: 1 Polish (hold X on a nail to paint it, X off the
@@ -707,7 +706,6 @@ export class Game {
         for (let tries = 0; tries < 12 && !spot; tries++) {
           let x, y;
           if (chance(0.78)) { const n = pick(G.nails), q = fromNail(n, rand(-0.15, 0.15) * n.w, rand(0, 0.25) * n.h); x = q.x; y = q.y; }
-          else if (st.style.kind === 'paw') { x = rand(-70, 70); y = rand(40, 140); }
           else { x = rand(-80, 80); y = rand(10, 140); }
           const near = st.gems.some((gm) => { const q = this.gemPos(st, gm, G); return Math.hypot(q.x - x, q.y - y) < 36; })
             || T.some((tk) => tk.k === 'gem' && Math.hypot(tk.x - x, tk.y - y) < 36);
