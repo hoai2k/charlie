@@ -55,12 +55,12 @@ export class Game extends SalonDrawing {
     this.stations = this.players.map((p, i) => this.makeStation(p, i, { ...CLIENTS[i % CLIENTS.length], cape: capes[i % 6] }));
     this.banner = null;   // each station shows "Who will you style?" over its portrait grid
     // The Play Studio clock: 4 minutes of styling (drawn by the play scene the whole time). At 0 it
-    // asks "Time's up!": Keep playing adds a minute, All done goes to the mirror reveal (as the
-    // pause menu's "All done!"). Like api.studioClock, but it stops when the reveal starts.
+    // asks the goal question: Go! (the default) goes to the mirror reveal (as the pause menu's
+    // "All done!"), the stay choice adds a minute. Like api.studioClock, but it stops when the reveal starts.
     this.styleLeft = STYLE_TIME;
     api.limit(() => (this.phase === 'style' ? this.styleLeft : null), {
       showAt: Infinity, x: W / 2, y: 54,
-      timeUp: { more: () => { this.styleLeft += 60; }, done: () => this.onDone() },
+      timeUp: { goal: true, title: 'Mirror time!', goLabel: 'Show me!', moreLabel: 'Keep styling', more: () => { this.styleLeft += 60; }, done: () => this.onDone() },
     });
     sfx('magic');
   }

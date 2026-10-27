@@ -85,17 +85,17 @@ export class Game {
     this.phaseT = 0;
     // A group with a human in it plays on the runway for HUMAN_POSE s (Done ends it early):
     // counted down all turn, beside the "Strike a pose" line. (CPU-only turns just auto-advance.)
-    // At 0 it waits for the "Time's up!" question: Keep playing = +POSE_MORE s, All done = walk off.
+    // At 0 it waits for the goal question: Go! (the default) = walk off, the stay choice = +POSE_MORE s.
     api.limit(() => (this.phase === 'runway' && this.humanGroup && !this.turnEnd && this.group && this.group[0].rw.state === 'pose'
       ? Math.max(0, WALK + this.poseDur - this.groupT) : null), {
       showAt: Infinity, x: W / 2 + 170, y: 176,
-      timeUp: { more: () => { this.poseDur += POSE_MORE; }, done: () => { this.turnEnd = true; } },
+      timeUp: { goal: true, title: 'Take a bow!', goLabel: 'Walk off', moreLabel: 'Keep posing', more: () => { this.poseDur += POSE_MORE; }, done: () => { this.turnEnd = true; } },
     });
-    // The dressing room's clock (shown for the last 30 s): All done = everyone's ready, on to the show.
+    // The dressing room's clock (shown for the last 30 s): Go! = everyone's ready, on to the show.
     this.dressLeft = DRESS_TIME;
     api.limit(() => (this.phase === 'dress' ? this.dressLeft : null), {
       showAt: 30,
-      timeUp: { more: () => { this.dressLeft += DRESS_MORE; }, done: () => this.dressDone() },
+      timeUp: { goal: true, title: 'Time for the fashion show!', goLabel: 'Go!', moreLabel: 'Stay in the dressing room', more: () => { this.dressLeft += DRESS_MORE; }, done: () => this.dressDone() },
     });
     this.flashes = [];
     this.curtain = 0;

@@ -118,7 +118,7 @@ export class Game extends SpaView {
     this.spaLeft = SPA_TIME;
     api.limit(() => (this.phase === 'spa' ? this.spaLeft : null), {
       showAt: Infinity, x: W / 2 + 480, y: 54,
-      timeUp: { more: () => { this.spaLeft += SPA_MORE; }, done: () => this.startParade() },
+      timeUp: { goal: true, title: 'Time for the pet parade!', goLabel: 'Go!', moreLabel: 'Stay in the spa', more: () => { this.spaLeft += SPA_MORE; }, done: () => this.startParade() },
     });
     this.finished = false;
     this.bubbles = Array.from({ length: 24 }, () => ({ x: rand(W), y: rand(H), r: rand(6, 22), sp: rand(20, 60), ph: rand(TAU) }));

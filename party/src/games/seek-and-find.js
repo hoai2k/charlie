@@ -81,12 +81,13 @@ export class Game {
     this.finished = false;
     this.flyers = [];
     // The Play Studio clock: 5 minutes of seeking for all three scenes (drawn by the play scene;
-    // it runs while seeking). At 0 it asks "Time's up!": Keep playing adds a minute, All done ends
-    // the game (as the pause menu's "All done!"). Like api.studioClock, but paused between scenes.
+    // it runs while seeking). At 0 it asks the goal question: Go! (the default) ends the hunt (as
+    // the pause menu's "All done!"), the stay choice adds a minute. Like api.studioClock, but
+    // paused between scenes.
     this.seekLeft = SEEK_TIME;
     api.limit(() => (this.phase === 'seek' && !this.finished ? this.seekLeft : null), {
       showAt: Infinity, x: W - 120, y: 56,
-      timeUp: { more: () => { this.seekLeft += 60; }, done: () => this.onDone() },
+      timeUp: { goal: true, title: 'Time to pack up the picnic!', goLabel: 'See what we found!', moreLabel: 'Keep looking', more: () => { this.seekLeft += 60; }, done: () => this.onDone() },
     });
     this.startRound(0);
   }

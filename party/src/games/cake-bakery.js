@@ -62,8 +62,8 @@ const SONG = [
   [77, 0.75], [77, 0.25], [76, 1], [72, 1], [74, 1], [72, 2.5],
 ];
 const BEAT = 0.3;
-// The baking clock (Play Studio, shown all along): at 0 it asks "Time's up!"
-// (Keep baking = +1 min, All done = everyone's cake is ready: on to the candles).
+// The baking clock (Play Studio, shown all along): at 0 it asks "Time for the birthday party!"
+// (Let's party! = the default, everyone's cake is ready: on to the candles; Keep baking = +1 min).
 const BAKE_TIME = 180, BAKE_MORE = 60;
 const JINGLE_BEAT = 60 / 112;   // jingle/happy-birthday is the same tune at 112 BPM (13.9 s)
 const BASS = { 0: 48, 6: 43, 12: 48, 19: 53, 22: 48 };
@@ -115,7 +115,7 @@ export class Game {
     this.bakeLeft = BAKE_TIME;
     api.limit(() => (this.phase === 'bake' ? this.bakeLeft : null), {
       showAt: Infinity, x: W / 2 + 530, y: 56,
-      timeUp: { more: () => { this.bakeLeft += BAKE_MORE; }, done: () => this.startFinale(), moreLabel: 'Keep baking!' },
+      timeUp: { goal: true, title: 'Time for the birthday party!', goLabel: "Let's party!", moreLabel: 'Keep baking', more: () => { this.bakeLeft += BAKE_MORE; }, done: () => this.startFinale() },
     });
     // the feast's clock: Time's up asks Keep eating! / All done (all-CPU: just done)
     api.limit(() => (this.finale?.stage === 'feast' && !this.finished ? this.finale.feastLeft : null), {

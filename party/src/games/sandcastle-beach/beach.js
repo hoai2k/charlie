@@ -3,7 +3,7 @@
 // into offscreen canvases; generated art (bg/sandcastle-beach[-sunset]) replaces them.
 import { W, H } from '../../engine/canvas.js';
 import { art } from '../../engine/art.js';
-import { TAU, clamp, lerp } from '../../engine/util.js';
+import { TAU, clamp, lerp, ease } from '../../engine/util.js';
 import { NAVY, SAND, SAND_L, SAND_D } from './pieces.js';
 
 export const HORIZON = 150, SHORE = 330, WET = 372;
@@ -195,6 +195,54 @@ export function drawWave(g, y, t, alpha = 1) {
     const x = hash(i + 90) * W, yy = SHORE + (y - SHORE) * (0.2 + hash(i + 91) * 0.7);
     g.beginPath(); g.moveTo(x, yy); g.quadraticCurveTo(x + 25, yy - 6, x + 50, yy); g.stroke();
   }
+  g.restore();
+}
+
+/**
+ * The wave band: wet, darker sand from the water's edge down to y1 (where the waves reach),
+ * finished with a wavy tide line of darker sand and foam dots, so it reads as "the sea comes here".
+ */
+export function drawWetBand(g, y1, t, k = 0) {
+  g.save();
+  const y0 = SHORE - 6;
+  const c = k > 0.5 ? '150,90,80' : '140,92,42';
+  const gr = g.createLinearGradient(0, y0, 0, y1 + 16);
+  gr.addColorStop(0, `rgba(${c},0.42)`); gr.addColorStop(0.7, `rgba(${c},0.32)`); gr.addColorStop(0.92, `rgba(${c},0.22)`); gr.addColorStop(1, `rgba(${c},0)`);
+  g.fillStyle = gr; g.fillRect(0, y0, W, y1 + 16 - y0);
+  // little glints on the wet sand
+  for (let i = 0; i < 26; i++) {
+    const ph = (t * 0.5 + hash(i + 600) * 4) % 2.4;
+    if (ph > 0.8) continue;
+    const a = Math.sin((ph / 0.8) * Math.PI);
+    g.fillStyle = `rgba(255,255,255,${a * 0.55})`;
+    g.beginPath(); g.ellipse(hash(i + 610) * W, y0 + 18 + hash(i + 620) * (y1 - y0 - 30), 6 * a + 1, 1.6, 0, 0, TAU); g.fill();
+  }
+  // the tide line
+  const tide = (x) => y1 + Math.sin(x * 0.018) * 6 + Math.sin(x * 0.047 + 1) * 3;
+  g.beginPath();
+  for (let x = 0; x <= W; x += 24) { if (x) g.lineTo(x, tide(x)); else g.moveTo(x, tide(x)); }
+  g.lineWidth = 5; g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = `rgba(${c},0.32)`; g.stroke();
+  g.fillStyle = 'rgba(255,255,255,0.6)';
+  for (let i = 0; i < 60; i++) { const x = hash(i + 700) * W; g.beginPath(); g.arc(x, tide(x) - 4 - hash(i + 710) * 5, 1.5 + hash(i + 720) * 2, 0, TAU); g.fill(); }
+  g.restore();
+}
+
+/** The telegraph: a swell rolling in across the sea toward the beach (u 0..1). */
+export function drawSwell(g, u, t) {
+  if (u <= 0) return;
+  const p = ease.inOutQuad(clamp(u, 0, 1));
+  const y = lerp(HORIZON + 26, SHORE - 16, p), th = lerp(6, 24, p);
+  const top = (x) => y - th + Math.sin(x * 0.011 + t * 2) * 5 * p;
+  g.save();
+  g.globalAlpha = clamp(u * 4, 0, 1);
+  g.beginPath(); g.moveTo(0, y + th * 0.5);
+  for (let x = 0; x <= W; x += 30) g.lineTo(x, top(x));
+  for (let x = W; x >= 0; x -= 30) g.lineTo(x, y + th * 0.5 + Math.sin(x * 0.013) * 3);
+  g.closePath();
+  g.fillStyle = 'rgba(30,140,185,0.5)'; g.fill();
+  // white crest (bigger as it nears)
+  g.fillStyle = 'rgba(255,255,255,0.9)';
+  for (let x = 0; x <= W; x += 38) { g.beginPath(); g.arc(x + Math.sin(t * 3 + x) * 3, top(x), lerp(4, 12, p), Math.PI, TAU); g.fill(); }
   g.restore();
 }
 

@@ -59,10 +59,11 @@ export class Game {
     this.night = this.cpuOnly ? NIGHT_CPU : NIGHT;
     this.timeLeft = this.night;
     // The night is the one time limit (the Moon moving across the sky is its decoration).
-    // At 0 the play scene asks "Time's up!": Keep playing gives the night another minute, All done starts the show.
+    // At 0 the play scene asks the goal question: Go! (the default) starts the show, the stay
+    // choice gives the night another minute.
     api.limit(() => (this.phase === 'play' ? Math.max(0, this.timeLeft) : null), {
       showAt: Infinity, x: W / 2, y: 54,
-      timeUp: { more: () => { this.timeLeft += 60; this.night += 60; }, done: () => this.startShow() },
+      timeUp: { goal: true, title: 'The stars are fading, time for the show!', goLabel: 'Go!', moreLabel: 'A little more night', more: () => { this.timeLeft += 60; this.night += 60; }, done: () => this.startShow() },
     });
     this.stars = []; this.cons = []; this.creatures = []; this.shooting = []; this.beams = [];
     this.starCap = clamp(Math.floor(150 / this.n), 18, 48);

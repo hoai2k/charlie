@@ -1,8 +1,9 @@
 // Puppet Theater (Play Studio): a little puppet booth for everyone.
-//   1. Set the stage: everyone moves a hand (left stick) and steps through
-//      the categories with LB / RB: Backdrop, Props, Puppet and, last, Done.
-//      The d-pad (or LT / RT) picks the next item there (backdrop, prop,
-//      stick / sock puppet); A keeps it and moves on. Props: X puts the prop
+//   1. Set the stage: everyone moves a hand (left stick). LB / RB step one by
+//      one through everything on the shelf, wrapping: every backdrop (top row),
+//      every prop (bottom row), the stick and sock puppet, then Done. The d-pad
+//      (or LT / RT) steps within the current list only (backdrops, props,
+//      stick / sock); A keeps it and jumps on to the next category. Props: X puts the prop
 //      where the hand is and stays, A puts one there (unless X already has)
 //      and moves on; A / X on a prop picks it up / puts it down.
 //      On Done, A: I'm ready (B: not yet).
@@ -33,9 +34,12 @@ import {
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
 const SETUP_TIME = [45, 32];
-// Setup categories (LB / RB); the last one is "Done".
+// Setup categories (A / B jump between them); the last one is "Done". LB / RB step one item at
+// a time through all of them in one sequence (seqIndex / stepSeq): every backdrop, every prop,
+// stick and sock puppet, Done, and round again.
 const TABS = ['Backdrop', 'Props', 'Puppet'];
 const T_BACKDROP = 0, T_PROPS = 1, T_PUPPET = 2, DONE = TABS.length;
+const PUPPET_KINDS = ['stick', 'sock'];
 const ACT_TIME = 35;
 const REPLAY_LEN = 10;
 const CALL_TIME = 10;
@@ -90,15 +94,25 @@ export class Game {
     this.puppetH = h;
     this.pp = this.players.map((p, i) => this.makePuppet(p, i));
     // Setting the stage and each act run on a clock (the play scene draws it).
-    // At 0 the play scene asks "Time's up!": Keep playing adds 30 s to that stage or act, All done moves on.
+    // At 0 the play scene asks the goal question: Go! (the default) moves on to the play / the
+    // next scene / the replay; the stay choice adds 30 s to that stage or act.
     this.actTime = ACT_TIME;
+    const game = this;
     api.limit(() => (this.phase === 'setup' && !this.trans ? Math.max(0, this.setupTime - this.phaseT) : null), {
       showAt: Infinity, x: W / 2, y: 62,
-      timeUp: { more: () => { this.setupTime = Math.max(this.setupTime, this.phaseT) + 30; }, done: () => this.toAct() },
+      timeUp: {
+        goal: true, get title() { return game.sceneIdx ? 'Time for Act 2!' : 'Time to put on a play!'; },
+        goLabel: 'Go!', moreLabel: 'Keep setting the stage',
+        more: () => { this.setupTime = Math.max(this.setupTime, this.phaseT) + 30; }, done: () => this.toAct(),
+      },
     });
     api.limit(() => (this.phase === 'act' && !this.trans ? Math.max(0, this.actTime - this.phaseT + 0.8) : null), {
       showAt: Infinity, x: W / 2, y: 62,
-      timeUp: { more: () => { this.actTime = Math.max(this.actTime, this.phaseT - 0.8) + 30; }, done: () => this.endAct() },
+      timeUp: {
+        goal: true, get title() { return game.sceneIdx ? "That's the show!" : 'Time for Scene 2!'; },
+        get goLabel() { return game.sceneIdx ? 'Take a bow!' : 'Change the stage!'; }, moreLabel: 'Keep the show going',
+        more: () => { this.actTime = Math.max(this.actTime, this.phaseT - 0.8) + 30; }, done: () => this.endAct(),
+      },
     });
     this.startTransition('Puppet Theater', 'Set the stage!', () => this.startSetup(0), { first: true });
   }
@@ -380,9 +394,10 @@ export class Game {
     pp.tabPop = Math.max(0, pp.tabPop - dt * 4);
     // ready (Done + A): B = not yet after all
     if (pp.ready) { if (c.pressed('b')) this.toggleReady(pp); return; }
-    // LB / RB: categories (the last one is Done) · the d-pad (or LT / RT): the next item in it
-    const tabStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
-    if (tabStep) this.stepTab(pp, tabStep);
+    // LB / RB: the next / previous thing on the shelf (backdrops, props, puppets, Done, round
+    // again) · the d-pad (or LT / RT): the next item in the current list
+    const seqStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
+    if (seqStep) this.stepSeq(pp, seqStep);
     const step = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('right') || c.pressed('down') ? 1 : 0) - (c.pressed('left') || c.pressed('up') ? 1 : 0) : 0);
     if (step) this.nextItem(pp, step);
     // X: the Props' action, staying put (put another prop here / take one off the shelf / put it down)
@@ -441,12 +456,36 @@ export class Game {
     }
   }
 
-  /** LB / RB: the next / previous setup category; the last one is "Done". */
+  /** A / B: the next / previous setup category (landing on what's already chosen there). */
   stepTab(pp, dir) { this.setTab(pp, (pp.tab + dir + DONE + 1) % (DONE + 1)); }
-  setTab(pp, tab) {
+  setTab(pp, tab, quiet = false) {
     if (pp.held && tab === DONE) { pp.held = null; }
     pp.tab = tab; pp.tabPop = 1; pp.didTab = false;
-    if (!pp.p.isAI) sfx('move', { vol: 0.6 });
+    if (!pp.p.isAI && !quiet) sfx('move', { vol: 0.6 });
+  }
+  /** Where this hand is in the LB / RB sequence: backdrops, props, puppets, Done. */
+  seqIndex(pp) {
+    const B = BACKDROPS.length, P = PROPS.length;
+    if (pp.tab === T_BACKDROP) return Math.max(0, BACKDROPS.findIndex((b) => b.id === this.scene.backdrop));
+    if (pp.tab === T_PROPS) return B + pp.propSel;
+    if (pp.tab === T_PUPPET) return B + P + Math.max(0, PUPPET_KINDS.indexOf(pp.kind));
+    return B + P + PUPPET_KINDS.length;
+  }
+  /** LB / RB: one step along the sequence (wrapping), choosing what it lands on. */
+  stepSeq(pp, dir) {
+    const B = BACKDROPS.length, P = PROPS.length, N = B + P + PUPPET_KINDS.length + 1;
+    const i = (this.seqIndex(pp) + dir + N) % N;
+    if (i < B) {
+      if (pp.tab !== T_BACKDROP) this.setTab(pp, T_BACKDROP, true); else pp.tabPop = 1;
+      this.setBackdrop(BACKDROPS[i].id, pp);
+    } else if (i < B + P) {
+      if (pp.tab !== T_PROPS) this.setTab(pp, T_PROPS, true); else pp.tabPop = 1;
+      pp.propSel = i - B;
+      if (!pp.p.isAI) sfx('move', { vol: 0.6 });
+    } else if (i < B + P + PUPPET_KINDS.length) {
+      if (pp.tab !== T_PUPPET) this.setTab(pp, T_PUPPET, true); else pp.tabPop = 1;
+      if (pp.kind !== PUPPET_KINDS[i - B - P]) this.swapPuppet(pp); else if (!pp.p.isAI) sfx('move', { vol: 0.6 });
+    } else this.setTab(pp, DONE);
   }
   /** The d-pad / LT / RT: the next backdrop, prop or puppet (whichever category is picked). */
   nextItem(pp, dir) {
@@ -536,12 +575,12 @@ export class Game {
         if (!pp.held) { A.step = null; return; }   // limit reached
         if (go(S.spot.x, S.spot.y)) { c.press('x'); A.step = null; A.wait = rand(0.5, 1.4); }
       }
-    } else if (S.kind === 'swap') {   // RB / LB to the Puppet category, then X
-      if (pp.tab !== T_PUPPET) { c.press(pp.tab < T_PUPPET ? 'rb' : 'lb'); A.wait = rand(0.15, 0.3); return; }
+    } else if (S.kind === 'swap') {   // on to the Puppet category, then the next puppet
+      if (pp.tab !== T_PUPPET) { this.setTab(pp, T_PUPPET); A.wait = rand(0.15, 0.3); return; }
       c.press('rt'); A.step = null; A.wait = rand(0.4, 0.9);
-    } else if (S.kind === 'ready') {   // RB on to Done, then A
+    } else if (S.kind === 'ready') {   // on to Done, then A
       if (pp.ready) { A.step = null; A.wait = 999; return; }
-      if (pp.tab !== DONE) { c.press('rb'); A.wait = rand(0.15, 0.3); return; }
+      if (pp.tab !== DONE) { this.setTab(pp, DONE); A.wait = rand(0.15, 0.3); return; }
       c.press('a'); A.wait = 0.4;
     }
   }
@@ -1141,7 +1180,7 @@ export class Game {
     if (!this.trans && this.humans.length) {
       const anyPad = this.humans.some((p) => p.ctrl.kind === 'pad');
       if (this.phase === 'setup') {
-        this.hintBar(g, [['stick', 'Move hand'], ['lb', '/ RB: Backdrop, Props, Puppet, Done'], [anyPad ? 'dpad' : 'rt', 'Next'], ['x', 'Place prop'], ['a', 'OK, go on'], ['b', 'Remove']], BOARD_Y + 50);
+        this.hintBar(g, [['stick', 'Move hand'], ['lb', '/ RB: Step through it all'], [anyPad ? 'dpad' : 'rt', 'Next'], ['x', 'Place prop'], ['a', 'OK, go on'], ['b', 'Remove']], BOARD_Y + 50);
       } else if (this.phase === 'act') {
         this.hintBar(g, [['stick', 'Move · down hides'], ['a', 'Jump'], ['b', 'Hold: pictures'], ['x', 'Twirl'], ['y', 'Silly sound']].concat(anyPad ? [['dpad', 'Quick pictures']] : []), H - 40);
       } else if (this.phase === 'call') {

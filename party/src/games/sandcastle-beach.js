@@ -1,12 +1,19 @@
-// Sandcastle Beach (Play Studio). Everyone gets a patch of a sunny beach and
-// builds a sandcastle: flip bucket molds (round towers, pointy towers, walls,
-// domes; stack them up to three high), dig moats with the spade that slowly
-// fill with sea water, and decorate with shells, starfish and flags. Friendly
-// crabs scuttle by, stop to admire a castle and sometimes leave a shell as a
-// present (tickle them with X!). When everyone is done (Done + A), or the gentle
-// clock runs out, a gentle wave rolls up the beach: it fills every moat to
-// the brim and leaves a present, and never knocks anything down. Then the sun
-// sets and the camera tours each castle before a sunset group photo.
+// Sandcastle Beach (Play Studio). Everyone shares one big sunny beach and builds
+// sandcastles anywhere on the sand: flip bucket molds (round towers, pointy
+// towers, walls, domes; stack them up to three high, on anyone's castle), dig
+// moats with the spade, and decorate with shells, starfish and flags. Each piece
+// remembers who built it (her castle on the sunset tour, her stars in the gallery).
+// The sea along the top stays sea. The darker wet sand next to it is where the
+// waves reach: every 20-35 s (never in the first ~15 s) a swell rolls in across the
+// sea with a whoosh, and a wave washes over that band, gently melting away whatever
+// stands in it (and sometimes leaving a shell). A dug trench stays dry sand until
+// it touches the water's edge or a wave reaches any part of it: then water flows
+// along it from there and stays; trench dug onto a wet one fills as well.
+// Friendly crabs scuttle by, stop to admire a castle and sometimes leave a shell
+// as a present (tickle them with X!). When everyone is done (Done + A), or the
+// gentle clock runs out, a gentle wave rolls up the whole beach: it fills every
+// moat to the brim and leaves a present, and never knocks anything down. Then
+// the sun sets and the camera tours each builder's castle before a sunset group photo.
 //
 // Controls (the Play Studio pattern): stick moves your hand (right stick:
 // tiny nudges), LB/RB pick a tool (the last one is Done), d-pad left/right or
@@ -24,7 +31,6 @@ import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import { sfx, hasSound } from '../engine/audio.js';
-import { art } from '../engine/art.js';
 import { aiProfile, steer } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 import { drawHeartShape } from '../engine/emotes.js';
@@ -32,7 +38,7 @@ import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPos
 import {
   NAVY, SAND, SAND_L, SAND_D, SAND_DD, DEFS,
   foot, silhouette, topHeight, canStack, drawPiece, drawPieceShadow, drawCrab, drawToolIcon, } from './sandcastle-beach/pieces.js';
-import { drawBackdrop, drawSun, drawShore, drawWave, HORIZON, SHORE, WET } from './sandcastle-beach/beach.js';
+import { drawBackdrop, drawSun, drawShore, drawWave, drawWetBand, drawSwell, SHORE } from './sandcastle-beach/beach.js';
 
 import { drawDoneTab } from '../engine/studio-ui.js';
 import { meta } from './sandcastle-beach.meta.js';
@@ -49,28 +55,35 @@ const TOOLS = [
 ];
 const DONE = TOOLS.length - 1;
 const TOOL = Object.fromEntries(TOOLS.map((t, i) => [t.id, i]));
-const TOP = 352, BOTTOM = 1066, GAP = 14;
-const GD_MIN = 250, GD_MAX = 370, HEAD = 170, MIN_GW = 520, MAX_GW = 940;
+const GROUND_TOP = SHORE + 22, GAP = 14, HEAD = 170;
 const CELL = 18;
-const MAX_PIECES = 70, MAX_STACK = 300;
+const MAX_PIECES = 70, MAX_STACK = 300, MAX_SEA_SHELLS = 8;
 const BUILD_TIME = 170, CPU_TIME = 75;
+// waves: the first never before ~15 s, then every 20-35 s
+const WAVE_FIRST = [16, 26], WAVE_EVERY = [20, 35];
+const SWELL = 2.6, ROLL = 1.2, HOLD = 0.5, BACK = 1.7, WASH = 1.1;
 const NAMES = ['Seashell Palace', 'Starfish Fort', 'Crabby Castle', 'Sunny Keep', 'Coral Towers', 'Sparkle Sands', 'Pearl Palace', 'Wavy Towers', 'Sandy Sky Fort', 'Mermaid Manor', 'Bucket Castle', 'Tide Pool Towers'];
 const CHEERS = ['Ta-da!', 'Ooh!', 'Sandy!', 'Yay!', 'Pretty!'];
 
 // --- layout --------------------------------------------------------------------------------
-function plotRects(n) {
-  const rows = n <= 4 ? 1 : 2, cols = rows === 1 ? n : 4;
-  const h = (BOTTOM - TOP - GAP * (rows - 1)) / rows;
-  if (n === 1) return [{ x: 260, y: TOP, w: W - 520, h }];
-  const w = (W - 28 - GAP * (cols - 1)) / cols;
-  return Array.from({ length: n }, (_, i) => {
-    const row = Math.floor(i / cols), col = i % cols;
-    const inRow = Math.min(cols, n - row * cols);
-    const ox = ((cols - inRow) * (w + GAP)) / 2;
-    return { x: 14 + ox + col * (w + GAP), y: TOP + row * (h + GAP), w, h };
-  });
+/** One shared beach above a row (or two) of tool strips, one strip per player. */
+function layout(n) {
+  const sh = n <= 4 ? 78 : 58, rows = n <= 4 ? 1 : 2, cols = rows === 1 ? n : 4;
+  const bottomTop = H - 8 - sh;
+  const rowTop = (row) => bottomTop - (rows - 1 - row) * (sh + 44);   // room for the tool-name bubble
+  let strips;
+  if (n === 1) strips = [{ x: W / 2 - 520, y: rowTop(0), w: 1040, h: sh }];
+  else {
+    const w = (W - 28 - GAP * (cols - 1)) / cols;
+    strips = Array.from({ length: n }, (_, i) => {
+      const row = Math.floor(i / cols), col = i % cols;
+      const inRow = Math.min(cols, n - row * cols);
+      const ox = ((cols - inRow) * (w + GAP)) / 2;
+      return { x: 14 + ox + col * (w + GAP), y: rowTop(row), w, h: sh };
+    });
+  }
+  return { sh, rows, strips, groundBottom: rowTop(0) - 46, k: n <= 2 ? 1 : n <= 4 ? 0.85 : 0.7, band: n <= 4 ? 122 : 100 };
 }
-const stripHeight = (n) => (n <= 4 ? 78 : 58);
 
 export class Game {
   constructor(api) {
@@ -94,32 +107,49 @@ export class Game {
     this.sunsetK = 0;
     this.waveY = SHORE;
     this.flash = 0;
-    const rects = plotRects(this.n);
-    const sh = stripHeight(this.n);
-    this.k = Math.min(...rects.map((r) => Math.min(1.25, (r.h - sh - 8) / (GD_MIN + HEAD), (r.w - 24) / MIN_GW)));
-    // plots get deeper when there's room (fewer, taller plots)
-    this.GD = clamp(Math.min(...rects.map((r) => (r.h - sh - 12) / this.k - HEAD)), GD_MIN, GD_MAX);
+    // the beach: one frame for everyone (local units, k screen px each)
+    const L = this.L = layout(this.n);
+    this.k = L.k;
+    this.ox = W / 2; this.oy = (GROUND_TOP + L.groundBottom) / 2;
+    this.gx1 = (W / 2 - 22) / this.k; this.gx0 = -this.gx1;
+    this.gy0 = (GROUND_TOP - this.oy) / this.k; this.gy1 = (L.groundBottom - this.oy) / this.k;
+    this.bandY = this.gy0 + L.band / this.k;   // the wet band the waves wash over ends here
+    this.seaY = this.gy0 + CELL * 1.6;         // trench cells this close to the water join the sea
+    this.pieces = [];                          // everyone's pieces (pc.owner: who built it; -1: the sea's)
+    this.moat = new Map();                     // trench cells (c.owner: who dug it; c.water: has water)
+    this.waterT = 0;
+    this.wave = null; this.waveIn = rand(...WAVE_FIRST); this.waves = 0;
+    const homes = this.homes();
     const names = shuffle(NAMES.slice());
-    this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i], sh, names[i % names.length]));
+    this.stations = this.players.map((p, i) => this.makeStation(p, i, L.strips[i], L.sh, names[i % names.length], homes[i]));
     sfx('magic');
   }
 
-  makeStation(p, i, r, sh, name) {
+  /** Where each player starts (and a CPU builds): spread across the dry sand. */
+  homes() {
+    const n = this.n, rows = this.L.rows, dry0 = this.bandY, dry = this.gy1 - dry0;
+    const hd = rows === 1 ? Math.min(185, dry / 2 - 12) : Math.min(185, dry / 4 - 6);
+    return Array.from({ length: n }, (_, i) => {
+      const row = rows === 1 ? 0 : Math.floor(i / 4), j = rows === 1 ? i : i % 4;
+      const inRow = rows === 1 ? n : Math.min(4, n - row * 4);
+      const per = (this.gx1 - this.gx0) / inRow;
+      return { x: this.gx0 + per * (j + 0.5), y: dry0 + dry * (rows === 1 ? 0.5 : row === 0 ? 0.27 : 0.75), hd, half: Math.min(per / 2 - 40, 280), row };
+    });
+  }
+
+  makeStation(p, i, r, sh, name, home) {
     const k = this.k;
-    const GW = Math.min(MAX_GW, (r.w - 24) / k);
-    const ox = r.x + r.w / 2;
-    const GD = this.GD;
-    const oy = r.y + r.h - sh - 10 - (GD / 2) * k;
     const st = {
-      p, i, r, sh, k, ox, oy, GW, gx0: -GW / 2, gx1: GW / 2, gy0: -GD / 2, gy1: GD / 2, GD, dk: GD / GD_MIN, name,
-      cur: { x: 0, y: 10 }, hold: 0, tool: TOOL.tower, toolPop: 0, stylePop: 0,
+      p, i, r, sh, k, name, home,
+      cur: { x: home.x, y: home.y + 10 }, hold: 0, tool: TOOL.tower, toolPop: 0, stylePop: 0,
       styles: { hand: 0, tower: 0, pointy: 0, wall: 0, dome: 0, moat: 0, shell: 0, star: 0, flag: i % 4 },
-      pieces: [], held: null, hover: null, hoverCrab: null, aim: null,
-      moat: new Map(), digT: 0, digging: false, waterT: 0,
-      ready: false, readyT: 0, wet: 0, gifts: 0, built: 0, cheerCD: 2, waveCD: 0,
+      held: null, hover: null, hoverCrab: null, aim: null,
+      digT: 0, digging: false,
+      ready: false, readyT: 0, gifts: 0, built: 0, cheerCD: 2, waveCD: 0,
       side: i % 2 ? 1 : -1, ai: null, aiStick: 0, jz: 0, jvz: 0, poseCD: 0,
     };
-    const a = new Actor(p, { x: ox + st.side * 90 * k, y: oy + 20 * k, facing: -st.side });
+    const s = this.sc(home.x + st.side * 90, home.y + 20);
+    const a = new Actor(p, { x: s.x, y: s.y, facing: -st.side });
     a.scale = k * 0.78;
     a.snap();
     st.actor = a;
@@ -128,21 +158,24 @@ export class Game {
   }
 
   // --- coordinates --------------------------------------------------------------------------
-  toScreen(st, x, y) { return { x: st.ox + x * st.k, y: st.oy + y * st.k }; }
-  toLocal(st, sx, sy) { return { x: (sx - st.ox) / st.k, y: (sy - st.oy) / st.k }; }
+  sc(x, y) { return { x: this.ox + x * this.k, y: this.oy + y * this.k }; }
+  loc(sx, sy) { return { x: (sx - this.ox) / this.k, y: (sy - this.oy) / this.k }; }
 
   // --- pieces ------------------------------------------------------------------------------------
-  pieceAt(st, x, y) {
+  pieceAt(x, y) {
     let best = null;
-    for (const pc of st.pieces) {
+    for (const pc of this.pieces) {
+      if (pc.washT != null) continue;
       const [x0, x1, y0, y1] = silhouette({ ...pc, z: pc.z + (pc.dz || 0) });
       if (x < x0 || x > x1 || y < y0 || y > y1) continue;
       if (!best || pc.sy > best.sy) best = pc;
     }
     return best;
   }
+  root(pc) { let p = pc; while (p.on) p = p.on; return p; }
+  ownedBy(i) { return this.pieces.filter((pc) => pc.owner === i); }
   stackOK(on, type) {
-    if (!on || !canStack(on)) return false;
+    if (!on || !canStack(on) || on.washT != null) return false;
     return on.z + topHeight(on) + DEFS[type].vh <= MAX_STACK;
   }
   /** Where a piece of `type` would go from the hand: on top of the hovered piece, or on the sand. */
@@ -158,20 +191,24 @@ export class Game {
     const f = foot({ type, style, x: 0, y: 0, z: 0 });
     return {
       on: null,
-      x: clamp(cur.x, st.gx0 + f.hw + 4, st.gx1 - f.hw - 4),
-      y: clamp(cur.y, st.gy0 + f.hd + 4, st.gy1 - f.hd - 4),
+      x: clamp(cur.x, this.gx0 + f.hw + 4, this.gx1 - f.hw - 4),
+      y: clamp(cur.y, this.gy0 + f.hd + 4, this.gy1 - f.hd - 4),
       z: 0,
     };
   }
   sortKey(pc) { return pc.on ? pc.on.sy + 0.02 + (pc.y - pc.on.y) * 0.0005 : pc.y; }
 
-  build(st, type, style, aim, { quiet = false } = {}) {
-    if (st.pieces.length >= MAX_PIECES) { sfx('error'); st.actor.say('Full!', 1, null); return null; }
-    const pc = { type, style, x: aim.x, y: aim.y, z: aim.z, dz: 70, vz: 0, on: aim.on, seed: rand(100), bump: 0, owner: st.i };
+  addPiece(type, style, aim, owner) {
+    const pc = { type, style, x: aim.x, y: aim.y, z: aim.z, dz: 70, vz: 0, on: aim.on, seed: rand(100), bump: 0, owner, wet: 0, washT: null };
     pc.sy = this.sortKey(pc);
-    st.pieces.push(pc);
+    this.pieces.push(pc);
+    if (!aim.on && DEFS[type].kind === 'mold') this.fillUnder(pc);
+    return pc;
+  }
+  build(st, type, style, aim, { quiet = false } = {}) {
+    if (this.ownedBy(st.i).length >= MAX_PIECES) { sfx('error'); st.actor.say('Full!', 1, null); return null; }
+    const pc = this.addPiece(type, style, aim, st.i);
     st.built++;
-    if (!aim.on && DEFS[type].kind === 'mold') this.fillUnder(st, pc);
     if (st.ai && st.ai.pending != null) { st.ai.pieceOf[st.ai.pending] = pc; st.ai.pending = null; }
     if (quiet) return pc;
     // the character does the work
@@ -182,17 +219,19 @@ export class Game {
     else snd('sc-shell', 'pop', { vol: 0.6 });
     return pc;
   }
-  onLand(st, pc) {
+  onLand(pc) {
     pc.bump = 0.32;
-    const s = this.toScreen(st, pc.x, pc.y - pc.z);
+    const k = this.k, s = this.sc(pc.x, pc.y - pc.z);
     const mold = DEFS[pc.type].kind === 'mold';
     if (mold) {
       particles.burst(s.x, s.y, { type: 'dust', count: 7, colors: [SAND, SAND_L, SAND_D], speed: [60, 160] });
       sfx('land', { vol: 0.35 });
-    } else particles.burst(s.x, s.y - 10 * st.k, { type: 'sparkle', count: 5, colors: ['#fff', '#fff6a8'] });
+    } else particles.burst(s.x, s.y - 10 * k, { type: 'sparkle', count: 5, colors: ['#fff', '#fff6a8'] });
+    const st = this.stations[pc.owner];
+    if (!st) return;
     const level = this.level(pc);
     if (level >= 2 && mold) {
-      particles.popText(s.x, s.y - (DEFS[pc.type].vh + 20) * st.k, level >= 3 ? 'So tall!' : 'Taller!', st.p.color, 40);
+      particles.popText(s.x, s.y - (DEFS[pc.type].vh + 20) * k, level >= 3 ? 'So tall!' : 'Taller!', st.p.color, 40);
       sfx('grow', { vol: 0.5 });
     }
     if (st.cheerCD <= 0 && (level >= 2 || st.built % 5 === 0)) {
@@ -204,25 +243,26 @@ export class Game {
   level(pc) { let n = 1, p = pc; while (p.on) { n++; p = p.on; } return n; }
 
   /** Re-seat every piece on what's under it (after something was taken away). */
-  relayer(st) {
-    for (const pc of st.pieces) {
-      if (pc.on && !st.pieces.includes(pc.on)) pc.on = pc.on.on && st.pieces.includes(pc.on.on) ? pc.on.on : null;
+  relayer() {
+    const has = new Set(this.pieces);
+    for (const pc of this.pieces) {
+      if (pc.on && !has.has(pc.on)) pc.on = pc.on.on && has.has(pc.on.on) ? pc.on.on : null;
       const z = pc.on ? pc.on.z + topHeight(pc.on) : 0;
       if (Math.abs(z - pc.z) > 0.5) { pc.dz = (pc.dz || 0) + pc.z - z; pc.vz = 0; pc.z = z; }
       if (!pc.on && pc.type !== 'flag') {
-        // a piece dropped to the sand stays inside the plot
+        // a piece dropped to the sand stays on the beach
         const f = foot(pc);
-        pc.y = clamp(pc.y, st.gy0 + f.hd + 4, st.gy1 - f.hd - 4);
+        pc.y = clamp(pc.y, this.gy0 + f.hd + 4, this.gy1 - f.hd - 4);
       }
       pc.sy = this.sortKey(pc);
     }
   }
   takeAway(st, pc, { silent = false } = {}) {
-    for (const o of st.pieces) if (o.on === pc) o.on = pc.on;
-    st.pieces = st.pieces.filter((o) => o !== pc);
-    this.relayer(st);
+    for (const o of this.pieces) if (o.on === pc) o.on = pc.on;
+    this.pieces = this.pieces.filter((o) => o !== pc);
+    this.relayer();
     if (!silent) {
-      const s = this.toScreen(st, pc.x, pc.y - pc.z - DEFS[pc.type].vh * 0.4);
+      const s = this.sc(pc.x, pc.y - pc.z - DEFS[pc.type].vh * 0.4);
       snd('sc-remove', 'crumble', { vol: 0.6 });
       particles.burst(s.x, s.y, { type: 'dust', count: 10, colors: [SAND, SAND_L, SAND_D], speed: [80, 220] });
       particles.burst(s.x, s.y, { type: 'sparkle', count: 4, colors: ['#fff'] });
@@ -235,7 +275,7 @@ export class Game {
     st.held = pc;
     sfx('pop', { vol: 0.5 });
     st.actor.playOnce('action', 0.3, 'idle'); st.actor.squash(0.1);
-    const s = this.toScreen(st, pc.x, pc.y - pc.z - 20);
+    const s = this.sc(pc.x, pc.y - pc.z - 20);
     particles.burst(s.x, s.y, { type: 'sparkle', count: 6, colors: ['#fff', st.p.color] });
   }
   drop(st) {
@@ -244,15 +284,17 @@ export class Game {
     const aim = this.aimFor(st, pc.type, pc.style);
     pc.x = aim.x; pc.y = aim.y; pc.dz = (pc.z + 24) - aim.z; pc.z = aim.z; pc.on = aim.on; pc.vz = 0;
     pc.sy = this.sortKey(pc);
-    st.pieces.push(pc);
-    if (!aim.on && DEFS[pc.type].kind === 'mold') this.fillUnder(st, pc);
+    this.pieces.push(pc);
+    if (!aim.on && DEFS[pc.type].kind === 'mold') this.fillUnder(pc);
     sfx('whoosh', { vol: 0.5 });
   }
 
   // --- moat -------------------------------------------------------------------------------------------
-  underMold(st, x, y) {
-    for (const pc of st.pieces) {
-      if (pc.on || DEFS[pc.type].kind !== 'mold') continue;
+  // Trench cells stay dry sand until water reaches them: from the sea (a cell at the water's edge), from a
+  // wave, or from a wet cell next door. Water then flows cell by cell from where it came in (flowT) and stays.
+  underMold(x, y) {
+    for (const pc of this.pieces) {
+      if (pc.on || DEFS[pc.type].kind !== 'mold' || pc.washT != null) continue;
       const f = foot(pc);
       if (pc.type === 'wall') { if (Math.abs(x - pc.x) < f.hw + 6 && Math.abs(y - pc.y) < f.hd + 6) return true; }
       else if (((x - pc.x) / (f.hw + 6)) ** 2 + ((y - pc.y) / (f.hd + 6)) ** 2 < 1) return true;
@@ -260,33 +302,147 @@ export class Game {
     return false;
   }
   dig(st, x, y) {
-    let dug = 0;
+    const added = [];
     const ix0 = Math.round(x / CELL), iy0 = Math.round(y / CELL);
     for (let ix = ix0 - 1; ix <= ix0 + 1; ix++) for (let iy = iy0 - 1; iy <= iy0 + 1; iy++) {
       const cx = ix * CELL, cy = iy * CELL;
       if (Math.hypot(cx - x, (cy - y) * 1.3) > CELL * 1.2) continue;
-      if (cx < st.gx0 + 12 || cx > st.gx1 - 12 || cy < st.gy0 + 10 || cy > st.gy1 - 8) continue;
+      if (cx < this.gx0 + 12 || cx > this.gx1 - 12 || cy < this.gy0 - 6 || cy > this.gy1 - 8) continue;
       const key = ix + ',' + iy;
-      if (st.moat.has(key) || this.underMold(st, cx, cy)) continue;
-      st.moat.set(key, { x: cx, y: cy, age: 0, fill: 0, wob: rand(TAU) });
-      dug++;
+      if (this.moat.has(key) || this.underMold(cx, cy)) continue;
+      const c = { ix, iy, x: cx, y: cy, owner: st.i, fill: 0, water: false, flowT: 0, wob: rand(TAU) };
+      this.moat.set(key, c);
+      added.push(c);
     }
-    return dug;
+    if (added.length) this.connect(added);
+    return added.length;
   }
-  fillMoat(st, x, y, r = 22) {
+  neighbours(c) {
+    const out = [];
+    for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) {
+      if (!dx && !dy) continue;
+      const o = this.moat.get((c.ix + dx) + ',' + (c.iy + dy));
+      if (o) out.push(o);
+    }
+    return out;
+  }
+  /** Newly dug cells: water comes in if they reach the sea or a trench that already has water. */
+  connect(cells) {
+    const seeds = [];
+    let t0 = this.t;
+    for (const c of cells) {
+      if (c.water) continue;
+      if (c.y <= this.seaY) { seeds.push(c); continue; }
+      const wet = this.neighbours(c).filter((o) => o.water);
+      if (wet.length) { seeds.push(c); t0 = Math.max(t0, Math.min(...wet.map((o) => o.flowT)) + 0.06); }
+    }
+    if (seeds.length) this.flood(seeds, t0);
+  }
+  /** Water flows from the seed cells through every dry cell joined to them (~1-2 s end to end). */
+  flood(seeds, t0 = this.t) {
+    const q = [];
+    for (const c of seeds) if (!c.water) { c.water = true; c.depth = 0; q.push(c); }
+    for (let qi = 0; qi < q.length; qi++) {
+      const c = q[qi];
+      for (const o of this.neighbours(c)) if (!o.water) { o.water = true; o.depth = c.depth + 1; q.push(o); }
+    }
+    if (!q.length) return 0;
+    const step = clamp(1.6 / Math.max(1, q[q.length - 1].depth), 0.035, 0.09);
+    for (const c of q) c.flowT = t0 + c.depth * step;
+    if (this.waterT <= 0) { this.waterT = 0.7; snd('sc-water', 'water', { vol: 0.45 }); }
+    return q.length;
+  }
+  fillMoat(x, y, r = 22) {
     let n = 0;
-    for (const [key, c] of st.moat) if (Math.hypot(c.x - x, (c.y - y) * 1.3) < r) { st.moat.delete(key); n++; }
+    for (const [key, c] of this.moat) if (Math.hypot(c.x - x, (c.y - y) * 1.3) < r) { this.moat.delete(key); n++; }
     return n;
   }
-  fillUnder(st, pc) {
+  fillUnder(pc) {
     const f = foot(pc);
     let n = 0;
-    for (const [key, c] of st.moat) {
+    for (const [key, c] of this.moat) {
       const inside = pc.type === 'wall' ? Math.abs(c.x - pc.x) < f.hw + 8 && Math.abs(c.y - pc.y) < f.hd + 8
         : ((c.x - pc.x) / (f.hw + 8)) ** 2 + ((c.y - pc.y) / (f.hd + 8)) ** 2 < 1;
-      if (inside) { st.moat.delete(key); n++; }
+      if (inside) { this.moat.delete(key); n++; }
     }
     return n;
+  }
+
+  // --- waves ---------------------------------------------------------------------------------------
+  updateWave(dt) {
+    if (!this.wave) {
+      this.waveIn -= dt;
+      if (this.waveIn <= 0) { if (this.timeLeft > 8) this.startWave(); else this.waveIn = 6; }
+      return;
+    }
+    const w = this.wave;
+    w.t += dt;
+    if (w.stage === 'swell') {
+      if (w.t >= SWELL) { w.stage = 'roll'; w.t = 0; sfx('splash', { vol: 0.4 }); }
+    } else if (w.stage === 'roll') {
+      w.y = lerp(SHORE, w.maxY, ease.outCubic(clamp(w.t / ROLL, 0, 1)));
+      this.waveTouch(w.y, w);
+      if (w.t >= ROLL + HOLD) { w.stage = 'back'; w.t = 0; }
+    } else {
+      w.y = lerp(w.maxY, SHORE, ease.inOutQuad(clamp(w.t / BACK, 0, 1)));
+      if (w.t >= BACK) { this.wave = null; this.waveIn = rand(...WAVE_EVERY); }
+    }
+  }
+  startWave() {
+    this.wave = { stage: 'swell', t: 0, y: SHORE, maxY: GROUND_TOP + this.L.band - 10, hit: new Set(), feet: new Set(), said: false };
+    this.waves++;
+    snd('sc-wave', 'td-wave', { vol: 0.4 });
+  }
+  /** Starts a wave now (testing; the play scene never calls it). */
+  forceWave() { if (this.phase === 'build' && !this.wave) this.startWave(); }
+  /**
+   * The water's front is at screen y: trench cells it reaches fill (and the water flows on along
+   * their trench); with a build-time wave (w), what stands there washes away, gently.
+   */
+  waveTouch(y, w = null) {
+    const ly = this.loc(0, y + 10).y;
+    const seeds = [];
+    for (const c of this.moat.values()) if (c.y < ly) { if (!c.water) seeds.push(c); if (!w) c.brim = 1; }
+    if (seeds.length) this.flood(seeds);
+    for (const pc of this.pieces) {
+      if (pc.washT != null || this.root(pc).y > ly) continue;
+      pc.wet = 1;
+      if (!w) continue;
+      pc.washT = 0;
+      const s = this.sc(pc.x, pc.y - pc.z - DEFS[pc.type].vh * 0.3);
+      particles.burst(s.x, s.y, { type: 'bubble', count: 5, speed: [40, 120] });
+      particles.burst(s.x, s.y, { type: 'sparkle', count: 3, colors: ['#fff', '#7fe3e0'] });
+      if (!w.said) { w.said = true; particles.popText(s.x, s.y - 40 * this.k, 'Splish splash!', '#3fc6e0', this.n > 4 ? 30 : 38); }
+      const st = this.stations[pc.owner];
+      if (st && !w.hit.has(st.i)) {
+        w.hit.add(st.i);
+        st.actor.playOnce('surprised', 0.6, 'idle');
+        if (!st.p.isAI || chance(0.4)) st.actor.say(pick(['Whoosh!', 'Oh! The wave!', 'Splash!']), 1.2, null);
+      }
+    }
+    if (!w) return;
+    // feet in the water: a giggle
+    for (const st of this.stations) {
+      const a = st.actor;
+      if (w.feet.has(st.i) || a.y > y) continue;
+      w.feet.add(st.i);
+      a.playOnce('giggle', 1, 'idle'); a.squash(0.15);
+      particles.burst(a.x, a.y, { type: 'drop', count: 8, colors: ['#7fe3e0', '#ffffff'], speed: [120, 260], angle: -Math.PI / 2, spread: 1.1 });
+    }
+  }
+  /** Washed-away pieces leave the beach; now and then a mold leaves a shell behind. */
+  washedAway(gone) {
+    const set = new Set(gone);
+    this.pieces = this.pieces.filter((pc) => !set.has(pc));
+    let shells = this.pieces.filter((pc) => pc.owner === -1).length;
+    for (const pc of gone) {
+      if (pc.on || DEFS[pc.type].kind !== 'mold' || shells >= MAX_SEA_SHELLS || !chance(0.4)) continue;
+      const s = this.addPiece(chance(0.7) ? 'shell' : 'star', randInt(0, 2), { on: null, x: pc.x + rand(-12, 12), y: pc.y + rand(-4, 6), z: 0 }, -1);
+      s.dz = 0; s.bump = 0.3; shells++;
+      const p = this.sc(s.x, s.y);
+      particles.burst(p.x, p.y - 10, { type: 'sparkle', count: 6, colors: ['#fff', '#ffd23f'] });
+    }
+    this.relayer();
   }
 
   // --- tools ----------------------------------------------------------------------------------------
@@ -344,10 +500,10 @@ export class Game {
   pressB(st) {
     if (st.held) { const pc = st.held; st.held = null; this.takeAway(st, { ...pc, on: null }, { silent: false }); return; }
     if (st.hover) { this.takeAway(st, st.hover); return; }
-    const n = this.fillMoat(st, st.cur.x, st.cur.y);
+    const n = this.fillMoat(st.cur.x, st.cur.y);
     if (n) {
       snd('sc-fill', 'snow-pack', { vol: 0.6 });
-      const s = this.toScreen(st, st.cur.x, st.cur.y);
+      const s = this.sc(st.cur.x, st.cur.y);
       particles.burst(s.x, s.y, { type: 'dust', count: 8, colors: [SAND, SAND_L], speed: [60, 160] });
       st.actor.playOnce('action', 0.3, 'idle');
     } else if (!st.p.isAI) sfx('blip');
@@ -361,32 +517,23 @@ export class Game {
     if (on) {
       sfx('ready'); a.playOnce('celebrate', 1.0, 'idle'); a.squash(-0.2);
       a.say('Done!', 1.2, st.p.isAI ? null : 'ready');
-      const s = this.toScreen(st, 0, -40);
-      particles.burst(s.x, s.y, { type: 'confetti', count: 22, speed: [180, 420] });
+      particles.burst(a.x, a.y - 80 * this.k, { type: 'confetti', count: 22, speed: [180, 420] });
     } else { sfx('back'); }
   }
 
   // --- crabs ---------------------------------------------------------------------------------------------
   spawnCrab(opts = {}) {
-    const st = opts.st || pick(this.stations);
     const dir = opts.dir ?? (chance(0.5) ? 1 : -1);
     const k = this.k;
     const crab = {
       x: opts.x ?? (dir > 0 ? -50 : W + 50),
-      y: opts.y ?? st.oy + rand(st.gy0 + 30, st.gy1 - 6) * k,
+      y: opts.y ?? rand(GROUND_TOP + this.L.band + 20, this.L.groundBottom - 6),
       dir, speed: rand(55, 80) * k, walk: rand(TAU), state: 'walk', stateT: 0,
       visited: new Set(), happy: 0, look: 0, swim: false, hop: 0, bornT: this.t,
     };
     this.crabs.push(crab);
     if (!opts.quiet) snd('sc-crab', 'td-crab', { vol: 0.35 });
     return crab;
-  }
-  stationAt(x, y) {
-    for (const st of this.stations) {
-      const l = this.toLocal(st, x, y);
-      if (l.x >= st.gx0 - 10 && l.x <= st.gx1 + 10 && l.y >= st.gy0 - 10 && l.y <= st.gy1 + 10) return st;
-    }
-    return null;
   }
   tickle(crab, st) {
     crab.state = 'happy'; crab.stateT = 0; crab.happy = 1;
@@ -397,6 +544,7 @@ export class Game {
   }
   updateCrabs(dt) {
     const k = this.k;
+    const centres = this.phase === 'build' ? this.stations.map((st) => this.castleCenter(st)) : [];
     for (const c of this.crabs) {
       c.stateT += dt;
       c.happy = Math.max(0, c.happy - dt * 0.6);
@@ -404,10 +552,11 @@ export class Game {
         c.x += c.dir * c.speed * dt;
         c.walk += dt * 9;
         // stop to admire a castle
-        const st = this.stationAt(c.x, c.y);
-        if (st && !c.visited.has(st.i) && st.pieces.length >= 3 && this.phase === 'build') {
-          const cx = st.ox + this.castleCenter(st) * k;
-          if (Math.abs(c.x - cx) < 30) { c.visited.add(st.i); c.state = 'look'; c.stateT = 0; c.st = st; }
+        for (const st of this.stations) {
+          const cc = centres[st.i];
+          if (!cc || cc.n < 3 || c.visited.has(st.i)) continue;
+          const s = this.sc(cc.x, cc.y);
+          if (Math.abs(c.x - s.x) < 30 && Math.abs(c.y - s.y) < 130 * k) { c.visited.add(st.i); c.state = 'look'; c.stateT = 0; c.st = st; break; }
         }
       } else if (c.state === 'look') {
         c.look = Math.sin(c.stateT * 3);
@@ -421,13 +570,10 @@ export class Game {
         if (c.stateT > 1.4) { c.state = 'walk'; c.stateT = 0; if (chance(0.4)) c.dir *= -1; }
       }
       // paddling through a moat
-      const st = this.stationAt(c.x, c.y);
-      c.swim = false;
-      if (st) {
-        const l = this.toLocal(st, c.x, c.y);
-        const cell = st.moat.get(Math.round(l.x / CELL) + ',' + Math.round(l.y / CELL));
-        if (cell && cell.fill > 0.5) { c.swim = true; if (chance(dt * 3)) particles.burst(c.x, c.y - 4, { type: 'bubble', count: 1, speed: [20, 50] }); }
-      }
+      const l = this.loc(c.x, c.y);
+      const cell = this.moat.get(Math.round(l.x / CELL) + ',' + Math.round(l.y / CELL));
+      c.swim = !!(cell && cell.fill > 0.5);
+      if (c.swim && chance(dt * 3)) particles.burst(c.x, c.y - 4, { type: 'bubble', count: 1, speed: [20, 50] });
       // characters wave at crabs walking by
       for (const s2 of this.stations) {
         const a = s2.actor;
@@ -439,9 +585,9 @@ export class Game {
     this.crabs = this.crabs.filter((c) => c.x > -90 && c.x < W + 90);
   }
   crabGift(c, st) {
-    const l = this.toLocal(st, c.x, c.y);
+    const l = this.loc(c.x, c.y);
     const type = chance(0.6) ? 'shell' : 'star';
-    const aim = { on: null, x: clamp(l.x + c.dir * 24, st.gx0 + 24, st.gx1 - 24), y: clamp(l.y + 8, st.gy0 + 14, st.gy1 - 12), z: 0 };
+    const aim = { on: null, x: clamp(l.x + c.dir * 24, this.gx0 + 24, this.gx1 - 24), y: clamp(l.y + 8, this.gy0 + 14, this.gy1 - 12), z: 0 };
     const pc = this.build(st, type, randInt(0, 2), aim, { quiet: true });
     if (!pc) return;
     st.gifts++;
@@ -450,20 +596,40 @@ export class Game {
     particles.popText(c.x, c.y - 70 * this.k, 'A present!', '#ff8fb8', 34);
     sfx('sparkle', { vol: 0.6 });
   }
+  /** The middle of a player's castle (her pieces on the sand), or her starting spot. */
   castleCenter(st) {
-    let sx = 0, n = 0;
-    for (const pc of st.pieces) if (!pc.on) { sx += pc.x; n++; }
-    return n ? sx / n : 0;
+    let sx = 0, sy = 0, n = 0;
+    for (const pc of this.pieces) if (pc.owner === st.i && !pc.on && pc.washT == null) { sx += pc.x; sy += pc.y; n++; }
+    return n ? { x: sx / n, y: sy / n, n } : { x: st.home.x, y: st.home.y, n: 0 };
+  }
+  /** Screen box around a player's pieces (null: none). */
+  castleBox(st) {
+    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    for (const pc of this.pieces) {
+      if (pc.owner !== st.i) continue;
+      const [a, b, c, d] = silhouette(pc);
+      x0 = Math.min(x0, a); x1 = Math.max(x1, b); y0 = Math.min(y0, c); y1 = Math.max(y1, d);
+    }
+    for (const c of this.moat.values()) if (c.owner === st.i) { x0 = Math.min(x0, c.x - 15); x1 = Math.max(x1, c.x + 15); y0 = Math.min(y0, c.y - 12); y1 = Math.max(y1, c.y + 12); }
+    if (x0 === Infinity) return null;
+    const p0 = this.sc(x0 - 60, y0 - 50), p1 = this.sc(x1 + 60, y1 + 40);
+    return { x: (p0.x + p1.x) / 2, y: (p0.y + p1.y) / 2, w: p1.x - p0.x, h: p1.y - p0.y };
   }
 
   // --- CPU builders ---------------------------------------------------------------------------------------------
   planAI(st) {
-    const half = Math.min(st.GW / 2 - 56, 280);
+    const h = st.home, half = h.half, hd = h.hd;
+    // most builders keep to the dry sand; now and then one likes it right by the water (and the waves)
+    const risky = h.row === 0 && chance(0.3);
+    const ax = h.x, ay = risky ? this.gy0 + 0.3 * hd + 26 : h.y;
+    st.risky = risky;
+    if (risky) st.cur.y = ay;
     const steps = [];
     const add = (s) => { steps.push(s); return steps.length - 1; };
+    const P = (x, y) => ({ x: ax + x, y: ay + y });
     const keepStyle = randInt(0, 2);
-    const hd = st.GD / 2, backY = rand(-0.3, -0.12) * hd;
-    const keep = add({ tool: 'tower', style: keepStyle, x: 0, y: backY - 10 });
+    const backY = rand(-0.3, -0.12) * hd;
+    const keep = add({ tool: 'tower', style: keepStyle, ...P(0, backY - 10) });
     let top = keep;
     if (chance(0.6)) top = add({ tool: 'tower', style: 0, on: keep });
     if (chance(0.55)) add({ tool: 'pointy', style: 0, on: top }); else add({ tool: 'flag', style: randInt(0, 3), on: top });
@@ -472,28 +638,38 @@ export class Game {
     const order = chance(0.5) ? [-1, 1] : [1, -1];
     const flagStyle = randInt(0, 3), endKind = chance(0.6) ? 'tower' : 'pointy', starStyle = randInt(0, 2);
     const wallIdx = {};
-    for (const s of order) wallIdx[s] = add({ tool: 'wall', style: 0, x: s * wallX, y: backY });
+    for (const s of order) wallIdx[s] = add({ tool: 'wall', style: 0, ...P(s * wallX, backY) });
     if (ends) {
       for (const s of order) {
-        const e = add({ tool: endKind, style: endKind === 'tower' ? randInt(0, 2) : 0, x: s * ends, y: backY + 6 });
+        const e = add({ tool: endKind, style: endKind === 'tower' ? randInt(0, 2) : 0, ...P(s * ends, backY + 6) });
         if (endKind === 'tower') add({ tool: 'flag', style: flagStyle, on: e });
       }
     }
     if (chance(0.6)) for (const s of order) add({ tool: 'star', style: starStyle, on: wallIdx[s], dx: s * 20 });
-    if (chance(0.55)) { const dx = rand(90, Math.min(150, half - 50)); for (const s of order) add({ tool: 'dome', style: 0, x: s * dx, y: backY + rand(0.35, 0.5) * hd }); }
-    // a moat across the front
+    if (chance(0.55)) { const dx = rand(90, Math.max(91, Math.min(150, half - 50))); for (const s of order) add({ tool: 'dome', style: 0, ...P(s * dx, backY + rand(0.35, 0.5) * hd) }); }
+    // a moat across the front, and sometimes a channel from it up to the sea (the water flows in)
     if (chance(0.8)) {
       const y = rand(0.62, 0.75) * hd, pts = [];
-      for (let i = 0; i <= 6; i++) { const u = i / 6; pts.push([lerp(-half + 10, half - 10, u), y + Math.sin(u * Math.PI) * 0.12 * hd]); }
+      for (let i = 0; i <= 6; i++) { const u = i / 6; pts.push([ax + lerp(-half + 10, half - 10, u), ay + y + Math.sin(u * Math.PI) * 0.12 * hd]); }
       if (chance(0.5)) pts.reverse();
       add({ tool: 'moat', path: pts });
+      if (risky || chance(0.35)) {
+        const [ex, ey] = pts[pts.length - 1], ch = [];
+        for (let yy = ey; yy > this.gy0 + 60; yy -= 70) ch.push([ex, yy]);
+        ch.push([ex, this.gy0 + 6]);
+        add({ tool: 'moat', path: ch });
+      }
     }
     const shellStyle = randInt(0, 2), ns = randInt(2, 4);
-    for (let j = 0; j < ns; j++) add({ tool: 'shell', style: chance(0.7) ? shellStyle : randInt(0, 2), x: rand(-half + 30, half - 30), y: rand(0.3, 0.55) * hd });
-    if (chance(0.4)) add({ tool: 'star', style: randInt(0, 2), x: rand(-half + 30, half - 30), y: rand(0.35, 0.55) * hd });
+    for (let j = 0; j < ns; j++) add({ tool: 'shell', style: chance(0.7) ? shellStyle : randInt(0, 2), ...P(rand(-half + 30, half - 30), rand(0.3, 0.55) * hd) });
+    if (chance(0.4)) add({ tool: 'star', style: randInt(0, 2), ...P(rand(-half + 30, half - 30), rand(0.35, 0.55) * hd) });
     st.ai = { steps, i: 0, t: rand(0.8, 1.6), pieceOf: [], pending: null, mode: 'next', wp: 0, wantStack: false };
   }
 
+  aiOn(st, step) {
+    const pc = st.ai.pieceOf[step.on];
+    return pc && pc.washT == null && this.pieces.includes(pc) ? pc : null;
+  }
   updateAI(st, dt) {
     const c = st.p.ctrl, ai = st.ai;
     if (st.aiStick > 0) { st.aiStick -= dt; if (st.aiStick <= 0) c.move(0, 0); }
@@ -514,6 +690,7 @@ export class Game {
     }
     if (ai.mode === 'move') {
       const step = ai.steps[ai.i];
+      if (step.on !== undefined && !this.aiOn(st, step)) { c.move(0, 0); ai.mode = 'next'; ai.i++; return; }   // washed away / taken
       const tgt = this.aiTarget(st, step);
       const d = steer(st.p, st.cur.x, st.cur.y, tgt.x, tgt.y, { arrive: 70 });
       if (d < 12) {
@@ -542,19 +719,13 @@ export class Game {
     }
     if (step.tool !== 'moat' && DEFS[step.tool].styles.length > 1 && st.styles[step.tool] !== step.style) { c.press('rt'); return; }
     if (step.tool === 'moat') { ai.mode = 'dig'; ai.wp = 0; return; }
-    if (step.on !== undefined && !(ai.pieceOf[step.on] && st.pieces.includes(ai.pieceOf[step.on]))) {
-      // the piece to build on is gone: skip
-      ai.i++; return;
-    }
+    if (step.on !== undefined && !this.aiOn(st, step)) { ai.i++; return; }   // the piece to build on is gone: skip
     ai.mode = 'move';
   }
   aiTarget(st, step) {
     if (step.on !== undefined) {
-      const pc = ai_on(st, step);
-      if (pc) {
-        const top = topHeight(pc);
-        return { on: pc, x: pc.x + (step.dx || 0), y: pc.y - pc.z - top * 0.82 + (pc.type === 'wall' ? 0 : 0) };
-      }
+      const pc = this.aiOn(st, step);
+      if (pc) return { on: pc, x: pc.x + (step.dx || 0), y: pc.y - pc.z - topHeight(pc) * 0.82 };
     }
     return { on: null, x: step.x, y: step.y };
   }
@@ -575,30 +746,29 @@ export class Game {
   }
 
   updatePieces(dt) {
-    for (const st of this.stations) {
-      for (const pc of st.pieces) {
-        if (pc.dz > 0 || pc.vz) {
-          pc.vz += 2200 * dt; pc.dz -= pc.vz * dt;
-          if (pc.dz <= 0) { pc.dz = 0; const v = pc.vz; pc.vz = 0; if (v > 200) this.onLand(st, pc); }
-        } else if (pc.dz < 0) pc.dz = Math.min(0, pc.dz + 400 * dt);
-        if (pc.bump > 0) pc.bump = Math.max(0, pc.bump - dt);
-      }
-      // moat water seeps in
-      let newWater = false;
-      for (const c of st.moat.values()) {
-        c.age += dt;
-        const f = clamp((c.age - 0.5) / 1.2, 0, 1);
-        if (f > 0 && c.fill === 0) newWater = true;
-        c.fill = Math.max(c.fill, f);
-      }
-      st.waterT -= dt;
-      if (newWater && st.waterT <= 0) { st.waterT = 0.9; snd('sc-water', 'water', { vol: 0.35 }); }
-      st.wet = Math.max(0, st.wet - dt * 0.08);
+    let gone = null;
+    for (const pc of this.pieces) {
+      if (pc.dz > 0 || pc.vz) {
+        pc.vz += 2200 * dt; pc.dz -= pc.vz * dt;
+        if (pc.dz <= 0) { pc.dz = 0; const v = pc.vz; pc.vz = 0; if (v > 200) this.onLand(pc); }
+      } else if (pc.dz < 0) pc.dz = Math.min(0, pc.dz + 400 * dt);
+      if (pc.bump > 0) pc.bump = Math.max(0, pc.bump - dt);
+      if (pc.wet > 0) pc.wet = Math.max(0, pc.wet - dt * 0.08);
+      if (pc.washT != null && (pc.washT += dt) >= WASH) (gone ||= []).push(pc);
     }
+    if (gone) this.washedAway(gone);
+    // water flows along a trench cell by cell, then stays
+    for (const c of this.moat.values()) {
+      if (!c.water || this.t < c.flowT || c.fill >= 1) continue;
+      if (c.fill === 0 && chance(0.12)) { const s = this.sc(c.x, c.y); particles.burst(s.x, s.y, { type: 'bubble', count: 1, speed: [20, 60] }); }
+      c.fill = Math.min(1, c.fill + dt / 0.3);
+    }
+    this.waterT -= dt;
   }
 
   updateBuild(dt) {
     this.timeLeft = Math.max(0, this.timeLeft - dt);   // waits at 0 for the "Time's up!" question
+    this.updateWave(dt);
     this.crabT -= dt;
     const maxCrabs = this.n <= 2 ? 2 : 3;
     if (this.crabT <= 0) { this.crabT = rand(7, 12); if (this.crabs.length < maxCrabs) this.spawnCrab(); }
@@ -620,19 +790,19 @@ export class Game {
       const pad = c.kind !== 'kb', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
       const mag = Math.hypot(mx, my);
       st.hold = mag > 0.15 ? st.hold + dt : 0;
-      const sp = (st.p.isAI ? 560 : 640) * (0.4 + 0.6 * clamp(st.hold / 0.5, 0, 1)) / Math.max(0.8, st.k);
-      st.cur.x = clamp(st.cur.x + (mx * sp + c.rx * 150) * dt, st.gx0 - 10, st.gx1 + 10);
-      st.cur.y = clamp(st.cur.y + (my * sp + c.ry * 150) * dt, st.gy0 - HEAD + 30, st.gy1 + 4);
+      const sp = (st.p.isAI ? 600 : 720) * (0.4 + 0.6 * clamp(st.hold / 0.5, 0, 1)) / Math.max(0.8, this.k);
+      st.cur.x = clamp(st.cur.x + (mx * sp + c.rx * 150) * dt, this.gx0 - 10, this.gx1 + 10);
+      st.cur.y = clamp(st.cur.y + (my * sp + c.ry * 150) * dt, this.gy0 - HEAD + 30, this.gy1 + 4);
       // LB / RB: tools (the last one is Done) · d-pad left / right or LT / RT: the style
       const ts = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
       if (ts) this.stepStyle(st, ts);
       if (c.pressed('rb')) this.stepTool(st, 1);
       if (c.pressed('lb')) this.stepTool(st, -1);
       // hover
-      st.hover = st.held ? null : this.pieceAt(st, st.cur.x, st.cur.y);
+      st.hover = st.held ? null : this.pieceAt(st.cur.x, st.cur.y);
       st.hoverCrab = null;
-      const cs = this.toScreen(st, st.cur.x, st.cur.y);
-      for (const cr of this.crabs) if (Math.hypot(cr.x - cs.x, cr.y - 18 * st.k - cs.y) < 34 * st.k) st.hoverCrab = cr;
+      const cs = this.sc(st.cur.x, st.cur.y);
+      for (const cr of this.crabs) if (Math.hypot(cr.x - cs.x, cr.y - 18 * this.k - cs.y) < 34 * this.k) st.hoverCrab = cr;
       const tool = TOOLS[st.tool].id;
       if (c.pressed('x')) this.pressX(st);
       else if (c.pressed('a')) this.pressA(st);
@@ -642,7 +812,7 @@ export class Game {
       if (tool === 'moat' && c.held('x') && !st.held && st.tool === TOOL.moat) {
         st.digging = true; st.dug = true; st.usedOn = st.tool;
         st.digT -= dt;
-        const n = this.dig(st, clamp(st.cur.x, st.gx0 + 14, st.gx1 - 14), clamp(st.cur.y, st.gy0 + 12, st.gy1 - 10));
+        const n = this.dig(st, clamp(st.cur.x, this.gx0 + 14, this.gx1 - 14), clamp(st.cur.y, this.gy0 + 6, this.gy1 - 10));
         if (n && st.digT <= 0) {
           st.digT = 0.2;
           snd('sc-dig', 'td-dig', { vol: this.n > 4 ? 0.3 : 0.45 });
@@ -665,38 +835,39 @@ export class Game {
 
   /** The character walks over to stand beside the hand. */
   followActor(st, dt, idle) {
-    const a = st.actor, k = st.k;
+    const a = st.actor, k = this.k;
     let tx, ty;
-    if (idle) { tx = this.castleCenter(st) + st.side * 150; ty = 60; }
+    if (idle) { const c = this.castleCenter(st); tx = c.x + st.side * 150; ty = c.y + 40; }
     else {
-      const gy = st.held ? st.held.y : st.hover ? st.hover.y : clamp(st.cur.y, st.gy0 + 10, st.gy1 - 4);
+      const gy = st.held ? st.held.y : st.hover ? this.root(st.hover).y : clamp(st.cur.y, this.gy0 + 10, this.gy1 - 4);
       const gx = st.cur.x;
       const off = 62 + (st.hover ? foot(st.hover).hw * 0.6 : 0);
-      if (gx + st.side * off > st.gx1 + 30 || gx + st.side * off < st.gx0 - 30) st.side *= -1;
+      if (gx + st.side * off > this.gx1 - 10 || gx + st.side * off < this.gx0 + 10) st.side *= -1;
       tx = gx + st.side * off; ty = gy + 8;
     }
-    tx = clamp(tx, st.gx0 - 30, st.gx1 + 30); ty = clamp(ty, st.gy0 + 6, st.gy1 + 6);
-    const T = this.toScreen(st, tx, ty);
+    tx = clamp(tx, this.gx0 + 10, this.gx1 - 10); ty = clamp(ty, this.gy0 + 6, this.gy1 + 6);
+    const T = this.sc(tx, ty);
     const dx = T.x - a.x, dy = T.y - a.y, d = Math.hypot(dx, dy);
-    const max = 420 * k;
+    const max = 480 * k;
     const v = d > 6 ? Math.min(max, d * 5) : 0;
     const vx = d > 0 ? (dx / d) * v : 0, vy = d > 0 ? (dy / d) * v : 0;
     a.x += vx * dt; a.y += vy * dt;
     if (st.digging || a._once) { a.speed = 0; } else a.moveAnim(vx, vy, max);
-    if (v < 20 && !idle) { const cs = this.toScreen(st, st.cur.x, 0); a.facing = cs.x > a.x ? 1 : -1; }
+    if (v < 20 && !idle) { const cs = this.sc(st.cur.x, 0); a.facing = cs.x > a.x ? 1 : -1; }
   }
 
   // --- finale -----------------------------------------------------------------------------------------------
   startFinale() {
     if (this.finale) return;
     this.phase = 'finale';
+    this.wave = null;   // (a build-time wave gives way to the big gentle one)
     this.finale = { stage: 'wave', t: 0, tour: -1, cheese: 0, shot: false };
     for (const st of this.stations) {
       if (st.held) this.drop(st);
       st.ready = true; st.hover = null; st.aim = null; st.digging = false;
       if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('x', false); }
       st.actor.setPose('idle');
-      st.splashed = false; st.gifted = false;
+      st.gifted = false;
     }
     this.banner = { text: 'Here comes a gentle wave!', t: 0 };
     sfx('whoosh');
@@ -715,17 +886,13 @@ export class Game {
       else if (t < 6.2) this.waveY = lerp(H + 60, SHORE, ease.inOutQuad((t - 3.6) / 2.6));
       else this.waveY = SHORE;
       const rising = t < 3.6;
+      // the big gentle wave fills every moat it reaches (to the brim) and wets the castles; nothing falls
+      if (rising && t > 1) this.waveTouch(this.waveY);
       for (const st of this.stations) {
         const a = st.actor;
-        if (rising && !st.splashed && this.waveY > st.oy + st.gy0 * st.k) {
-          st.splashed = true; st.wet = 1;
-          for (const c of st.moat.values()) { c.fill = 1; c.brim = 1; }
-          const s = this.toScreen(st, 0, 0);
-          particles.burst(s.x, s.y, { type: 'drop', count: 10, colors: ['#7fe3e0', '#ffffff', '#3fc6e0'], speed: [120, 300] });
-        }
         if (rising && !st.feetWet && this.waveY > a.y) {
           st.feetWet = true;
-          a.playOnce('surprised', 0.5, 'idle'); st.jvz = 520 * st.k;
+          a.playOnce('surprised', 0.5, 'idle'); st.jvz = 520 * this.k;
           sfx('splash', { vol: 0.4 });
           particles.burst(a.x, a.y, { type: 'drop', count: 12, colors: ['#7fe3e0', '#ffffff'], speed: [150, 320], angle: -Math.PI / 2, spread: 1.1 });
           st.giggleAt = t + 0.6;
@@ -733,7 +900,7 @@ export class Game {
         if (st.giggleAt && t >= st.giggleAt) { st.giggleAt = 0; a.playOnce('giggle', 1.2, 'idle'); if (!st.p.isAI) a.say('Splash!', 1, 'laugh'); }
         if (!rising && !st.gifted && t > 4.9) { st.gifted = true; this.seaGift(st); }
       }
-      if (t > 3.8 && !F.crabs) { F.crabs = true; for (let i = 0; i < Math.min(3, 1 + Math.floor(this.n / 3)); i++) this.spawnCrab({ x: rand(200, W - 200), y: rand(WET + 60, H - 80), quiet: i > 0 }); }
+      if (t > 3.8 && !F.crabs) { F.crabs = true; for (let i = 0; i < Math.min(3, 1 + Math.floor(this.n / 3)); i++) this.spawnCrab({ x: rand(200, W - 200), y: rand(GROUND_TOP + this.L.band, this.L.groundBottom), quiet: i > 0 }); }
       if (t > 6.6) { F.stage = 'sunset'; F.t = 0; this.banner = { text: 'Sunset castle tour!', t: 0 }; snd('sc-sunset', 'magic', { vol: 0.7 }); }
     } else if (F.stage === 'sunset') {
       this.sunsetK = ease.inOutQuad(clamp(F.t / 3.5, 0, 1));
@@ -744,8 +911,10 @@ export class Game {
       if (idx !== F.tour && idx < this.n && idx >= 0) {
         F.tour = idx; F.tourT = 0;
         const st = this.stations[idx];
-        const zoom = Math.min(cam.maxZoom || 2, 0.8 * W / (st.GW * st.k), 0.6 * H / ((st.GD + HEAD) * st.k), 1.7);
-        if (zoom > 1.04) cam.follow(st.ox, st.oy - (HEAD / 2) * st.k + 40, zoom, 3.2);
+        // each builder's own castle (her pieces, wherever on the beach she built them)
+        const b = this.castleBox(st), a = st.actor;
+        const zoom = b ? Math.min(cam.maxZoom || 2, 0.8 * W / b.w, 0.6 * H / b.h, 1.7) : 1.4;
+        if (zoom > 1.04) cam.follow(b ? b.x : a.x, b ? b.y : a.y - 80 * this.k, zoom, 3.2);
         else cam.follow(W / 2, H / 2, 1, 3);
         this.tourShine(st);
       } else if (idx >= this.n && F.tour !== 'group') {
@@ -762,34 +931,36 @@ export class Game {
       }
       if (F.shot && F.t > 6.4 && !this.finished) this.finishGame();
     }
-    // characters: free to wander their patch and pose
+    // characters: free to wander the beach and pose
     for (const st of this.stations) this.finaleMove(st, dt);
   }
   tourShine(st) {
-    const s = this.toScreen(st, this.castleCenter(st), -60);
+    const c = this.castleCenter(st);
+    const s = c.n ? this.sc(c.x, c.y - 60) : { x: st.actor.x, y: st.actor.y - 100 * this.k };
     particles.burst(s.x, s.y, { type: 'sparkle', count: 18, colors: ['#fff', '#ffd23f', '#ff9ec4'], speed: [100, 300] });
     particles.burst(s.x, s.y - 40, { type: 'star', count: 8 });
     sfx('sparkle'); sfx('yay', { vol: 0.5 });
     const a = st.actor;
     a.playOnce(pick(['strike3', 'cheer', 'pose-twirl']), 1.2, 'idle');
     a.emote('hearts', 2);
-    for (const pc of st.pieces) if (pc.type === 'flag') pc.bump = 0.3;
+    for (const pc of this.pieces) if (pc.type === 'flag' && pc.owner === st.i) pc.bump = 0.3;
   }
   seaGift(st) {
+    const c = this.castleCenter(st);
     for (let tries = 0; tries < 12; tries++) {
-      const x = rand(st.gx0 + 30, st.gx1 - 30), y = rand(st.gy0 + 60, st.gy1 - 16);
-      if (this.pieceAt(st, x, y) || this.underMold(st, x, y)) continue;
+      const x = clamp(c.x + rand(-200, 200), this.gx0 + 30, this.gx1 - 30), y = clamp(c.y + rand(-60, 120), this.gy0 + 30, this.gy1 - 16);
+      if (this.pieceAt(x, y) || this.underMold(x, y)) continue;
       const pc = this.build(st, chance(0.5) ? 'star' : 'shell', randInt(0, 2), { on: null, x, y, z: 0 }, { quiet: true });
       if (!pc) return;
       pc.dz = 30;
-      const s = this.toScreen(st, x, y);
+      const s = this.sc(x, y);
       particles.burst(s.x, s.y - 20, { type: 'sparkle', count: 12, colors: ['#fff', '#7fe3e0', '#ffd23f'] });
-      particles.popText(s.x, s.y - 50 * st.k, 'Sea gift!', '#3fc6e0', this.n > 4 ? 30 : 40);
+      particles.popText(s.x, s.y - 50 * this.k, 'Sea gift!', '#3fc6e0', this.n > 4 ? 30 : 40);
       return;
     }
   }
   finaleMove(st, dt) {
-    const c = st.p.ctrl, a = st.actor, k = st.k;
+    const c = st.p.ctrl, a = st.actor, k = this.k;
     st.poseCD -= dt;
     let { x: mx, y: my } = photoMove(c);
     let jump = c.pressed('a'), pose = photoPosePressed(c);
@@ -805,8 +976,8 @@ export class Game {
     }
     if (F.stage === 'wave' && F.t < 6) { mx = 0; my = 0; jump = false; pose = null; }
     const sp = 300 * k;
-    const l = this.toLocal(st, a.x + mx * sp * dt, a.y + my * sp * dt);
-    const p2 = this.toScreen(st, clamp(l.x, st.gx0 - 20, st.gx1 + 20), clamp(l.y, st.gy0 + 6, st.gy1 + 6));
+    const l = this.loc(a.x + mx * sp * dt, a.y + my * sp * dt);
+    const p2 = this.sc(clamp(l.x, this.gx0 + 10, this.gx1 - 10), clamp(l.y, this.gy0 + 6, this.gy1 + 6));
     const vx = (p2.x - a.x) / Math.max(dt, 1e-3), vy = (p2.y - a.y) / Math.max(dt, 1e-3);
     a.x = p2.x; a.y = p2.y;
     if (!a._once) a.moveAnim(vx, vy, sp);
@@ -821,15 +992,17 @@ export class Game {
   }
 
   stats(st) {
-    let molds = 0, decos = 0, tallest = 0, flags = 0;
-    for (const pc of st.pieces) {
+    let molds = 0, decos = 0, tallest = 0, flags = 0, moat = 0;
+    for (const pc of this.pieces) {
+      if (pc.owner !== st.i) continue;
       if (DEFS[pc.type].kind === 'mold') molds++; else decos++;
       if (pc.type === 'flag') flags++;
       tallest = Math.max(tallest, this.level(pc));
     }
+    for (const c of this.moat.values()) if (c.owner === st.i) moat++;
     const parts = [];
     if (molds) parts.push(`${molds} castle piece${molds === 1 ? '' : 's'}`);
-    if (st.moat.size >= 6) parts.push('a moat');
+    if (moat >= 6) parts.push('a moat');
     if (decos) parts.push(`${decos} treasure${decos === 1 ? '' : 's'}`);
     if (tallest >= 3 && parts.length < 3) parts.push(`${tallest} high`);
     if (!parts.length) parts.push('A sandy start!');
@@ -853,13 +1026,17 @@ export class Game {
     drawBackdrop(g, this.sunsetK);
     drawSun(g, this.t, this.sunsetK);
     drawShore(g, this.t, this.sunsetK);
-    for (const st of this.stations) this.drawGround(g, st);
+    const w = this.wave;
+    if (w && w.stage === 'swell') drawSwell(g, w.t / SWELL, this.t);
+    drawWetBand(g, GROUND_TOP + this.L.band, this.t, this.sunsetK);
+    this.drawGround(g);
     if (this.finale) drawWave(g, this.waveY, this.t, 0.9);
+    else if (w && w.stage !== 'swell') drawWave(g, w.y, this.t, 0.85);
     // everything that stands on the sand, back to front
-    const list = [];
+    const k = this.k, list = [];
+    for (const pc of this.pieces) list.push({ y: this.oy + pc.sy * k, pc });
     for (const st of this.stations) {
-      for (const pc of st.pieces) list.push({ y: st.oy + pc.sy * st.k, st, pc });
-      if (st.held) list.push({ y: st.oy + (st.held.y + 0.3) * st.k + 0.01, st, pc: st.held, held: true });
+      if (st.held) list.push({ y: this.oy + (st.held.y + 0.3) * k + 0.01, st, pc: st.held, held: true });
       list.push({ y: st.actor.y, st, actor: true });
     }
     for (const c of this.crabs) list.push({ y: c.y, crab: c });
@@ -867,7 +1044,7 @@ export class Game {
     for (const e of list) {
       if (e.crab) this.drawCrab(g, e.crab);
       else if (e.actor) e.st.actor.draw(g, { ring: e.st.p.color });
-      else this.drawPlaced(g, e.st, e.pc, e.held);
+      else this.drawPlaced(g, e.pc, e.held);
     }
     for (const st of this.stations) if (this.phase === 'build' && !st.ready) this.drawCursor(g, st);
     if (this.sunsetK > 0.01) {
@@ -875,40 +1052,36 @@ export class Game {
     }
   }
 
-  drawGround(g, st) {
-    const k = st.k;
+  drawGround(g) {
     g.save();
-    g.translate(st.ox, st.oy); g.scale(k, k);
-    const x0 = st.gx0, y0 = st.gy0, w = st.GW, h = st.GD;
-    // smoothed patch of sand with a dashed rope border in the player's colour
-    ui.roundRect(g, x0, y0, w, h, 28);
-    g.fillStyle = this.sunsetK > 0.5 ? 'rgba(255,214,170,0.35)' : 'rgba(255,240,205,0.5)'; g.fill();
-    if (st.wet > 0) { g.fillStyle = `rgba(150,105,55,${st.wet * 0.3})`; g.fill(); }
-    g.setLineDash([16, 12]); g.lineWidth = 5; g.strokeStyle = st.p.color; g.globalAlpha = 0.8; g.stroke(); g.setLineDash([]); g.globalAlpha = 1;
-    // corner stakes
-    for (const [sx, sy] of [[x0 + 10, y0 + 10], [x0 + w - 10, y0 + 10], [x0 + 10, y0 + h - 10], [x0 + w - 10, y0 + h - 10]]) {
-      g.fillStyle = '#c98a4b'; g.beginPath(); g.rect(sx - 3, sy - 16, 6, 18); g.fill(); g.lineWidth = 2; g.strokeStyle = NAVY; g.stroke();
-      g.fillStyle = st.p.color; g.beginPath(); g.arc(sx, sy - 18, 5, 0, TAU); g.fill(); g.stroke();
-    }
-    // moat
-    this.drawMoat(g, st);
-    for (const pc of st.pieces) drawPieceShadow(g, pc);
+    g.translate(this.ox, this.oy); g.scale(this.k, this.k);
+    this.drawMoat(g);
+    for (const pc of this.pieces) drawPieceShadow(g, pc);
     g.restore();
   }
 
-  drawMoat(g, st) {
-    if (!st.moat.size) return;
-    const cells = [...st.moat.values()];
+  drawMoat(g) {
+    if (!this.moat.size) return;
+    const cells = [...this.moat.values()];
+    const sea = cells.filter((c) => c.y <= this.seaY), seaTop = this.loc(0, SHORE + 2).y;
+    // dug sand (a cell at the water's edge is a little channel into the sea)
     g.fillStyle = '#c99a55';
     g.beginPath(); for (const c of cells) { g.moveTo(c.x + 15, c.y); g.ellipse(c.x, c.y, 15, 12, 0, 0, TAU); } g.fill();
+    for (const c of sea) { ui.roundRect(g, c.x - 12, seaTop, 24, c.y - seaTop, 10); g.fill(); }
     g.fillStyle = '#a77a42';
     g.beginPath(); for (const c of cells) { g.moveTo(c.x + 12, c.y); g.ellipse(c.x, c.y + 1, 12, 9, 0, 0, TAU); } g.fill();
-    // water: grows in each cell as it fills
+    // water: flows in cell by cell and stays
     const sunset = this.sunsetK;
     g.fillStyle = sunset > 0.5 ? '#ff9f9a' : '#5fcff0';
+    for (const c of sea) if (c.fill > 0) { ui.roundRect(g, c.x - 9, seaTop, 18, c.y - seaTop, 8); g.fill(); }
     g.beginPath();
     for (const c of cells) { if (c.fill <= 0) continue; const r = 11 * c.fill + (c.brim ? 1.5 : 0); g.moveTo(c.x + r, c.y + 1); g.ellipse(c.x, c.y + 1, r, r * 0.78, 0, 0, TAU); }
     g.fill();
+    // the flowing front: a ring of foam
+    g.strokeStyle = 'rgba(255,255,255,0.85)'; g.lineWidth = 2.5;
+    g.beginPath();
+    for (const c of cells) { if (c.fill <= 0 || c.fill >= 1) continue; const r = 11 * c.fill + 1; g.moveTo(c.x + r, c.y + 1); g.ellipse(c.x, c.y + 1, r, r * 0.78, 0, 0, TAU); }
+    g.stroke();
     g.fillStyle = 'rgba(255,255,255,0.75)';
     for (const c of cells) {
       if (c.fill < 0.8) continue;
@@ -917,10 +1090,10 @@ export class Game {
     }
   }
 
-  drawPlaced(g, st, pc, held) {
-    const k = st.k;
+  drawPlaced(g, pc, held) {
+    const k = this.k;
     g.save();
-    g.translate(st.ox, st.oy); g.scale(k, k);
+    g.translate(this.ox, this.oy); g.scale(k, k);
     if (held) {
       // carried: lifted and bobbing, with a ground shadow at the landing spot
       const f = foot(pc);
@@ -928,13 +1101,23 @@ export class Game {
       const lift = 26 + Math.sin(this.t * 6) * 5;
       drawPiece(g, { ...pc, z: pc.z + lift }, this.t, { alpha: 0.92 });
     } else {
-      drawPiece(g, { ...pc, z: pc.z + (pc.dz || 0) }, this.t, { wet: st.wet });
-      if (st.hover === pc && this.phase === 'build') {
-        const [x0, x1, y0, y1] = silhouette({ ...pc, z: pc.z + (pc.dz || 0) });
-        g.save(); g.globalAlpha = 0.6 + 0.3 * Math.sin(this.t * 8);
-        g.setLineDash([10, 8]); g.lineWidth = 4; g.strokeStyle = st.p.color;
-        ui.roundRect(g, x0 - 4, y0 - 4, x1 - x0 + 8, y1 - y0 + 8, 14); g.stroke();
-        g.restore();
+      let alpha;
+      if (pc.washT != null) {
+        // washing away: slumps into a soft wet heap, drifts toward the sea and melts into the water
+        const u = clamp(pc.washT / WASH, 0, 1), r = this.root(pc);
+        g.translate(r.x, r.y - u * 16); g.scale(1 + u * 0.3, 1 - u * 0.7); g.translate(-r.x, -r.y);
+        alpha = 1 - u * u;
+      }
+      drawPiece(g, { ...pc, z: pc.z + (pc.dz || 0) }, this.t, { wet: pc.washT != null ? 1 : pc.wet, alpha });
+      if (this.phase === 'build' && pc.washT == null) {
+        for (const st of this.stations) {
+          if (st.hover !== pc || st.ready) continue;
+          const [x0, x1, y0, y1] = silhouette({ ...pc, z: pc.z + (pc.dz || 0) });
+          g.save(); g.globalAlpha = 0.6 + 0.3 * Math.sin(this.t * 8);
+          g.setLineDash([10, 8]); g.lineWidth = 4; g.strokeStyle = st.p.color;
+          ui.roundRect(g, x0 - 4, y0 - 4, x1 - x0 + 8, y1 - y0 + 8, 14); g.stroke();
+          g.restore();
+        }
       }
     }
     g.restore();
@@ -960,12 +1143,12 @@ export class Game {
   }
 
   drawCursor(g, st) {
-    const k = st.k, tool = TOOLS[st.tool].id;
-    const cs = this.toScreen(st, st.cur.x, st.cur.y);
+    const k = this.k, tool = TOOLS[st.tool].id;
+    const cs = this.sc(st.cur.x, st.cur.y);
     // ghost of what A would build, with a dashed drop line
     if (st.aim) {
       const aim = st.aim, style = st.styles[tool];
-      g.save(); g.translate(st.ox, st.oy); g.scale(k, k);
+      g.save(); g.translate(this.ox, this.oy); g.scale(k, k);
       const ghost = { type: tool, style, x: aim.x, y: aim.y, z: aim.z, seed: 7 };
       const f = foot(ghost);
       g.fillStyle = st.p.color; g.globalAlpha = 0.28;
@@ -992,7 +1175,7 @@ export class Game {
       else if (!st.held) drawToolIcon(g, tool, cs.x, cs.y, sz * 0.82, this.t, st.styles[tool]);
       g.restore();
     }
-    if (this.humans > 1 || st.p.isAI) ui.text(g, st.p.tag, cs.x, cs.y - sz * 0.5 - 14, { size: 20, color: st.p.color, strokeWidth: 4 });
+    if (this.n > 1) ui.text(g, st.p.tag, cs.x, cs.y - sz * 0.5 - 14, { size: 20, color: st.p.color, strokeWidth: 4 });
     // what X / A / B would do right here
     if (!st.p.isAI) {
       let tip = null;
@@ -1005,8 +1188,8 @@ export class Game {
         const fs = clamp(26 * k + 4, 18, 28), gs = fs * 1.15;
         let w = 14;
         for (const [, l] of tip) w += gs + 6 + ui.measure(g, l, fs, 800) + 12;
-        const bx = clamp(cs.x - w / 2, st.r.x + 6, st.r.x + st.r.w - w - 6);
-        const by = Math.max(st.r.y + 4, cs.y - sz * 0.5 - 40 - gs * 1.6);
+        const bx = clamp(cs.x - w / 2, 6, W - w - 6);
+        const by = Math.max(150, cs.y - sz * 0.5 - 40 - gs * 1.6);
         ui.panel(g, bx, by, w, gs * 1.6, { r: gs * 0.8, fill: 'rgba(255,255,255,0.94)', lineWidth: 3, shadow: false });
         let tx = bx + 10;
         for (const [b, l] of tip) {
@@ -1030,6 +1213,7 @@ export class Game {
     g.restore();
     if (this.phase === 'build') {
       this.drawClock(g);
+      this.drawWaveWarning(g);
       const pad = this.players.some((p) => !p.isAI && p.ctrl.kind === 'pad');
       ui.hints(g, [['stick', 'Hand'], ['lb', '/ RB Tools'], [pad ? 'dpad' : 'rt', 'Style'], ['x', 'Build'], ['a', 'Next'], ['b', 'Take away']], W / 2, 122, { size: 30, gap: 26 });
       for (const st of this.stations) this.drawStrip(g, st);
@@ -1037,6 +1221,19 @@ export class Game {
       this.drawFinaleHUD(g);
     }
     if (this.flash > 0) { g.save(); g.globalAlpha = this.flash; g.fillStyle = '#fff'; g.fillRect(0, 0, W, H); g.restore(); }
+  }
+
+  /** "Here comes a wave!" while the swell rolls in across the sea. */
+  drawWaveWarning(g) {
+    const w = this.wave;
+    if (!w || (w.stage !== 'swell' && !(w.stage === 'roll' && w.t < 0.5))) return;
+    const p = ease.outBack(clamp(w.t / 0.35, 0, 1)), a = w.stage === 'roll' ? clamp(1 - w.t / 0.5, 0, 1) : 1;
+    const text = w.stage === 'swell' ? 'Here comes a wave!' : 'Splash!';
+    g.save(); g.globalAlpha = a; g.translate(W / 2, 214 + Math.sin(this.t * 5) * 4); g.scale(p, p);
+    const bw = ui.measure(g, text, 40, 800) + 70;
+    ui.panel(g, -bw / 2, -32, bw, 64, { r: 32, fill: '#3fb6e8' });
+    ui.text(g, text, 0, 2, { size: 40, weight: 800 });
+    g.restore();
   }
 
   /** The sunset clock itself is the play scene's (api.limit); this is just its warning. */
@@ -1143,9 +1340,4 @@ export class Game {
       g.restore();
     }
   }
-}
-
-function ai_on(st, step) {
-  const pc = st.ai.pieceOf[step.on];
-  return pc && st.pieces.includes(pc) ? pc : null;
 }

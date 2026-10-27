@@ -82,23 +82,27 @@ export class Game {
     const rects = stationRects(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
     // Soft limits (the play scene draws them): rolling, then each yard's decorating.
-    // A kid's clock reaching 0 is the play scene's "Time's up!" question: Keep playing adds 30 s
-    // (rolling) or 45 s (that yard's decorating); All done lets the snow fairy finish (rolling) or
-    // calls that yard ready (decorating). CPU yards still finish on their own clocks.
+    // A kid's clock reaching 0 is the play scene's goal question: Go! (the default) lets the snow
+    // fairy finish (rolling) or calls that yard ready (decorating); the stay choice adds 30 s
+    // (rolling) or 45 s (that yard's decorating). CPU yards still finish on their own clocks.
     this.rollTime = ROLL_TIME;
     const kidRolling = (s) => s.mode === 'roll' && (!s.p.isAI || this.cpuOnly);
     api.limit(() => (this.phase === 'build' && this.stations.some(kidRolling) ? Math.max(0, this.rollTime - this.t) : null), {
       showAt: 25, x: W - 120, y: 56,
       timeUp: {
+        goal: true, title: 'Time to decorate!', goLabel: 'Go!', moreLabel: 'Keep rolling',
         more: () => { this.rollTime = Math.max(this.rollTime, this.t) + 30; },
         done: () => { for (const st of this.stations) this.autoBuild(st); },
       },
     });
+    const kids = this.players.filter((p) => !p.isAI).length;
     for (const st of this.stations) {
       const kid = !st.p.isAI || this.cpuOnly;
       api.limit(() => (this.phase === 'build' && st.mode === 'deco' && !st.ready ? Math.max(0, st.decoTime - (this.t - st.decoStart)) : null), {
         showAt: 20, x: st.r.x + (st.r.w - this.listW(st)) / 2, y: st.r.y + 62, label: 'Showtime!',
         timeUp: kid ? {
+          goal: true, goLabel: "I'm ready!", moreLabel: 'Keep decorating',
+          get title() { return kids > 1 ? `${st.p.tag}: snowman show time!` : 'Snowman show time!'; },
           more: () => { st.decoTime = Math.max(st.decoTime, this.t - st.decoStart) + 45; },
           done: () => { if (st.mode === 'deco' && !st.ready) this.setReady(st, true); },
         } : null,

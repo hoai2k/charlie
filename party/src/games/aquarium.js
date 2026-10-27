@@ -104,11 +104,11 @@ export class Game {
     this.photos = []; this.bigPhoto = null; this.finished = false;
     this.playT = 4; this.bubbleSnd = 0; this.reactT = 0;
     this.stations = this.players.map((p, i) => this.makeStation(p, i));
-    // At 0 the play scene asks "Time's up!": Keep playing adds a minute (as the "+1 min" button
-    // does), All done starts the night show. With no kids playing it just starts the show.
+    // At 0 the play scene asks the goal question: Go! (the default) starts the night show; the
+    // stay choice adds a minute (as the "+1 min" button does). With no kids playing it just starts the show.
     api.limit(() => (this.phase === 'build' ? Math.max(0, this.timeLeft) : null), {
       showAt: Infinity, x: CLOCK.x, y: CLOCK.y,
-      timeUp: { more: () => this.addTime(60), done: () => this.startShow() },
+      timeUp: { goal: true, title: 'Time for the night show!', goLabel: 'Go!', moreLabel: 'Keep building', more: () => this.addTime(60), done: () => this.startShow() },
     });
     this.layoutPanels();
     this.layoutActors();

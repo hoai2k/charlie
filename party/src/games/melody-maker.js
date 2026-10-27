@@ -112,8 +112,8 @@ const LEGEND = { x: 1650, y: GY - 14, w: 248, h: PANEL.h };
 const SINGER_X = 120;
 const STAGE_Y = 812, FEET_Y = 1064;
 const TBY = 16, TBH = 84;
-// The composing clock (Play Studio, shown all along under the legend): at 0 it asks "Time's up!"
-// (Keep playing = +2 min, All done = the concert, like the Concert! button).
+// The composing clock (Play Studio, shown all along under the legend): at 0 it asks "Time for the concert!"
+// (Play it! = the default, the concert like the Concert! button; Keep composing = +2 min).
 const EDIT_TIME = 300, EDIT_MORE = 120;
 const TB = [
   { id: 'songs', x: 22, w: 236 },
@@ -476,7 +476,7 @@ export class Game {
     this.editLeft = EDIT_TIME;
     api.limit(() => (this.phase === 'edit' && !this.picker ? this.editLeft : null), {
       showAt: Infinity, x: LEGEND.x + LEGEND.w / 2, y: 862,
-      timeUp: { more: () => { this.editLeft += EDIT_MORE; }, done: () => this.startConcert() },
+      timeUp: { goal: true, title: 'Time for the concert!', goLabel: 'Play it!', moreLabel: 'Keep composing', more: () => { this.editLeft += EDIT_MORE; }, done: () => this.startConcert() },
     });
     this.pages = Array.from({ length: NPAGES }, emptyPage);
     this.page = 0;

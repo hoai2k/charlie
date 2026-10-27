@@ -93,12 +93,12 @@ export class Game extends PotteryDrawing {
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
     this.hum = null;
     // The Play Studio clock: 4 minutes of making (drawn by the play scene the whole time). At 0 it
-    // asks "Time's up!": Keep playing adds a minute, All done goes to the gallery (as the pause
-    // menu's "All done!"). Like api.studioClock, but it stops when the show starts.
+    // asks the goal question: Go! (the default) goes to the gallery (as the pause menu's
+    // "All done!"), the stay choice adds a minute. Like api.studioClock, but it stops when the show starts.
     this.makeLeft = MAKE_TIME;
     api.limit(() => (this.phase === 'make' ? this.makeLeft : null), {
       showAt: Infinity, x: W - 130, y: 56,
-      timeUp: { more: () => { this.makeLeft += 60; }, done: () => this.onDone() },
+      timeUp: { goal: true, title: 'Time for the pottery show!', goLabel: 'Go!', moreLabel: 'Keep making', more: () => { this.makeLeft += 60; }, done: () => this.onDone() },
     });
     snd('pottery-plop', 'splat', { vol: 0.6 });
   }

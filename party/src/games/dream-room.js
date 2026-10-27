@@ -117,11 +117,11 @@ export class Game {
     this.doorK = 0; this.doorHold = 0;
     this.timeLeft = this.humans ? BUILD_TIME : CPU_TIME;
     // The build clock: registered, but drawn by the game's own m:ss chip (it carries the +1 min
-    // button) the whole build. At 0 the play scene asks "Time's up!": Keep playing = +1 min,
-    // All done = the room tour (CPUs alone: straight to the tour).
+    // button) the whole build. At 0 the play scene asks the goal question: Go! (the default) =
+    // the room tour, the stay choice = +1 min (CPUs alone: straight to the tour).
     api.limit(() => (this.phase === 'build' ? Math.max(0, this.timeLeft) : null), {
       showAt: 0,
-      timeUp: { more: () => this.addTime(60), done: () => this.startTour() },
+      timeUp: { goal: true, title: 'Time for the room tour!', goLabel: 'Go!', moreLabel: 'Keep decorating', more: () => this.addTime(60), done: () => this.startTour() },
     });
     this.toast = null; this.banner = null; this.poof = null;
     this.photos = []; this.bigPhoto = null;

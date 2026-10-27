@@ -365,15 +365,22 @@ export class Game {
     // Time limits, left of the status chip (the corner controls sit below it): the day ends at
     // DAY_MAX even if the garden isn't full (shown for its last 20 s), and the night's
     // firefly hunt is counted down all night.
-    // At 0 each asks "Time's up!": Keep playing adds DAY_MORE / NIGHT_MORE s, All done = sunset / the fairy dance.
+    // At 0 each asks the goal question: Go! (the default) = sunset / the fairy dance, the stay
+    // choice adds DAY_MORE / NIGHT_MORE s.
     this.dayLen = DAY_MAX; this.nightLen = NIGHT_LEN;
     api.limit(() => (this.phase === 'day' ? Math.max(0, this.dayLen - this.phaseT) : null), {
       showAt: 20, x: W - 639, y: 134, label: 'Sunset',
-      timeUp: { more: () => { this.dayLen += DAY_MORE; }, done: () => { if (this.phase === 'day') this.startSunset(false); } },
+      timeUp: {
+        goal: true, title: 'The sun is setting!', goLabel: 'Good night, garden!', moreLabel: 'A little more sunshine',
+        more: () => { this.dayLen += DAY_MORE; }, done: () => { if (this.phase === 'day') this.startSunset(false); },
+      },
     });
     api.limit(() => (this.phase === 'night' ? Math.max(0, this.nightLen - this.phaseT) : null), {
       showAt: Infinity, x: W - 639, y: 134,
-      timeUp: { more: () => { this.nightLen += NIGHT_MORE; }, done: () => { if (this.phase === 'night') this.startFinale(); } },
+      timeUp: {
+        goal: true, title: 'Time for the fairy dance!', goLabel: "Let's dance!", moreLabel: 'Keep catching fireflies',
+        more: () => { this.nightLen += NIGHT_MORE; }, done: () => { if (this.phase === 'night') this.startFinale(); },
+      },
     });
     // Plots
     const cols = n <= 2 ? 6 : n <= 5 ? 8 : 10, rows = n <= 2 ? 2 : 3;

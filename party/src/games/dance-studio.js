@@ -176,11 +176,11 @@ export class Game {
     this.cpuOnly = this.players.every((p) => p.isAI);
     const rects = stationRects(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
-    // The gentle making clock (the play scene draws its last 40 s). At 0 it asks "Time's up!":
-    // Keep playing adds a minute, All done starts the show.
+    // The gentle making clock (the play scene draws its last 40 s). At 0 it asks the goal question:
+    // Go! (the default) starts the show, the stay choice adds a minute.
     api.limit(() => (this.phase === 'make' && !this.cpuOnly ? Math.max(0, this.setupLeft) : null), {
       showAt: 40, x: this.n <= 2 ? W / 2 + 520 : W / 2 + 470, y: 56,
-      timeUp: { more: () => { this.setupLeft = Math.max(0, this.setupLeft) + 60; }, done: () => this.startShow() },
+      timeUp: { goal: true, title: 'Showtime!', goLabel: 'Go!', moreLabel: 'A little more practice', more: () => { this.setupLeft = Math.max(0, this.setupLeft) + 60; }, done: () => this.startShow() },
     });
     sfx('magic'); snd('jingle/round', null, { vol: 0.7 });
   }

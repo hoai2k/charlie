@@ -86,12 +86,17 @@ export class Game {
     const rects = stationRects(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
     // Each act runs on a clock (the play scene draws it, the whole act).
-    // At 0 the play scene asks "Time's up!": Keep playing adds 30 s to this act, All done ends it
-    // (applause, then the next act or the pyramid).
+    // At 0 the play scene asks the goal question: Go! (the default) ends it (applause, then the
+    // next act or the pyramid); the stay choice adds 30 s to this act.
     this.actTime = ACT_TIME;
+    const game = this;
     api.limit(() => (this.phase === 'acts' && this.outroT < 0 ? Math.max(0, this.actTime - this.actT) : null), {
       showAt: Infinity, x: W - 190, y: 56,
-      timeUp: { more: () => { this.actTime = Math.max(this.actTime, this.actT) + 30; }, done: () => this.endAct() },
+      timeUp: {
+        goal: true, title: 'Take a bow!',
+        get goLabel() { return game.actI + 1 < ACTS.length ? 'Next act!' : 'On to the pyramid!'; }, moreLabel: 'Keep performing',
+        more: () => { this.actTime = Math.max(this.actTime, this.actT) + 30; }, done: () => this.endAct(),
+      },
     });
     this.glimmer = new Actor('glimmer', { scale: 1.1, x: 300, y: 420 });
     this.glimmer.setPose('float');

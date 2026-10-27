@@ -42,8 +42,8 @@ const SIZES = [{ name: 'Small', r: 6, stamp: 50 }, { name: 'Medium', r: 14, stam
 const SHAPE_STAMPS = ['star', 'heart', 'flower', 'butterfly', 'rainbow', 'crown', 'horn', 'cupcake'];
 const MAX_LIVE = 48;      // strokes kept for undo; older ones are baked
 const GRID = 50, GX = CW / GRID, GY = CH / GRID;
-// The painting clock (Play Studio): shown all along; at 0 it asks "Time's up!" (Keep painting = +2 min,
-// All done = hang it in the museum, like the Done! button).
+// The painting clock (Play Studio): shown all along; at 0 it asks "Time for the gallery!" (Hang it up! =
+// the default, into the museum like the Done! button; Keep painting = +2 min).
 const PAINT_TIME = 300, PAINT_MORE = 120;
 const BTN = { page: { x: 250, y: 24, w: 290, h: 68, label: 'New page' } };
 const snd = (key, fallback) => (hasSound(key) ? sfx(key) : fallback && sfx(fallback));
@@ -172,7 +172,7 @@ export class Game {
     this.paintLeft = PAINT_TIME;
     api.limit(() => (this.phase === 'paint' && !this.picker ? this.paintLeft : null), {
       showAt: Infinity, x: 1290, y: 58,
-      timeUp: { more: () => { this.paintLeft += PAINT_MORE; }, done: () => this.startGallery(), moreLabel: 'Keep painting!' },
+      timeUp: { goal: true, title: 'Time for the gallery!', goLabel: 'Hang it up!', moreLabel: 'Keep painting', more: () => { this.paintLeft += PAINT_MORE; }, done: () => this.startGallery() },
     });
     this.toast = null;
     sfx('magic');

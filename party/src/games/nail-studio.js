@@ -101,13 +101,17 @@ export class Game {
     });
     // Each step has a gentle clock (the ring on the step list shows how much is left);
     // its last seconds are counted down by the play scene, over the station's step list.
-    // A kid's step clock reaching 0 is the play scene's "Time's up!" question: Keep playing adds
-    // 30 s to that step, All done moves on as the clock used to. CPU tables move on by themselves.
+    // A kid's step clock reaching 0 is the play scene's goal question: Go! (the default) moves on
+    // as the clock used to, the stay choice adds 30 s to that step. CPU tables move on by themselves.
+    const this_ = this;
     for (const st of this.stations) {
       const kid = !st.p.isAI || this.stations.every((s) => s.p.isAI);
       api.limit(() => (this.phase === 'play' && st.mode === 'work' && st.step < DONE ? Math.max(0, this.stepTime(st) - st.stepT) : null), {
         x: st.ox + (PANEL.x + PANEL.w / 2) * st.k, y: st.oy + Math.max(44, 70 * st.k),
         timeUp: kid ? {
+          goal: true,
+          get title() { return this_.stepTitle(st); }, goLabel: 'Go!',
+          get moreLabel() { return `More time for ${STEPS[st.step] ? STEPS[st.step].n.toLowerCase() : 'this step'}`; },
           more: () => { st.stepExtra = Math.max(st.stepExtra, st.stepT - STEPS[st.step].time) + 30; },
           done: () => this.nextStep(st, true),
         } : null,
@@ -622,6 +626,12 @@ export class Game {
   stepTime(st) { return STEPS[st.step].time + st.stepExtra; }
 
   /** A step's clock ran out (a kid chose All done, or a CPU's gentle clock): on to the next step; Dry finishes by magic. */
+  /** The step clock's question: what comes next (and whose table, with more than one kid). */
+  stepTitle(st) {
+    const next = STEPS[st.step + 1], nx = st.step >= DONE - 1 ? 'All dry! Time to show off!' : `Time for ${next.n.toLowerCase()}!`;
+    return this.players.filter((p) => !p.isAI).length > 1 ? `${playerName(st.p)}: ${nx}` : nx;
+  }
+
   nextStep(st, auto) {
     if (st.mode !== 'work' || st.step >= DONE) return;
     if (SID(st) === 'dry') { this.magicDry(st); return; }

@@ -100,8 +100,12 @@ export class Game {
     this.layout();
     // The recipe's soft cap (auto-POOF), counted down for its last 20 s.
     // (With side stations the top-right corner is a station; use the gap above the board.)
-    // At 0 it asks "Time's up!": Keep playing = +ROUND_MORE s, All done = every unfinished potion POOFs.
-    const timeUp = { more: () => { this.roundLen += ROUND_MORE; }, done: () => { this.timeOut = true; } };
+    // At 0 it asks the goal question: Go! (the default) = every unfinished potion POOFs (then the
+    // next recipe), the stay choice = +ROUND_MORE s.
+    const timeUp = {
+      goal: true, title: 'Ready or not, POOF!', goLabel: 'POOF!', moreLabel: 'Keep brewing',
+      more: () => { this.roundLen += ROUND_MORE; }, done: () => { this.timeOut = true; },
+    };
     api.limit(() => (this.phase === 'brew' && !this.timeOut ? Math.max(0, this.roundLen - this.brewT) : null),
       { ...(this.perch ? { showAt: 20, x: 1400 - 30, y: 140 } : { showAt: 20, x: W - 120, y: 70 }), timeUp });
     this.stations = this.players.map((p, i) => this.makeStation(p, i));
