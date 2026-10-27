@@ -95,13 +95,16 @@ export const POSES = {
   'dance-down': { loop: false, fallback: ['dance'], proc: 'dance-down', desc: 'Dance move: crouch, hands on knees.' },
   'dance-side': { loop: false, fallback: ['dance'], proc: 'dance-side', desc: 'Dance move: point and lean forward-side.' },
   'dance-star': { loop: false, fallback: ['celebrate'], proc: 'ready', desc: 'Dance move: jump into a star shape.' },
+  // The dance-* art carries the move itself (Dance Studio adds its own motion), so the
+  // engine adds no lift or squash of its own: the starfish art is already airborne, and
+  // the hula, splits and moonwalk keep their feet (or seat) on the floor.
   'dance-disco': { loop: false, fallback: ['dance-side'], proc: 'dance-side', desc: 'Exaggerated disco point up-left, hand on hip and hips cocked.' },
-  'dance-starfish': { loop: false, fallback: ['dance-star'], proc: 'ready', desc: 'Joyful airborne starfish with limbs spread wide.' },
-  'dance-hula': { loop: false, fallback: ['float', 'balance'], proc: 'float', desc: 'Arms waving to one side, hips to the other, happy hula.' },
+  'dance-starfish': { loop: false, fallback: ['dance-star'], desc: 'Joyful airborne starfish with limbs spread wide.' },
+  'dance-hula': { loop: false, fallback: ['float', 'balance'], desc: 'Arms waving to one side, hips to the other, happy hula.' },
   'dance-cartwheel': { loop: false, fallback: ['dance-star'], desc: 'Overhead lunge then upside-down cartwheel supported on the hands.' },
   'dance-cancan': { loop: false, fallback: ['balance'], proc: 'balance', desc: 'Delighted high kick past the head, skirt held out or hands on hips.' },
-  'dance-splits': { loop: false, fallback: ['dance-down'], proc: 'dance-down', desc: 'Full floor splits with arms up in a proud ta-da.' },
-  'dance-moonwalk': { loop: false, fallback: ['walk'], proc: 'walk', desc: 'Two backward-gliding strides with a cool imaginary hat tip.' },
+  'dance-splits': { loop: false, fallback: ['dance-down'], desc: 'Full floor splits with arms up in a proud ta-da.' },
+  'dance-moonwalk': { loop: false, fallback: ['walk'], desc: 'Two backward-gliding strides with a cool imaginary hat tip.' },
   shake:     { loop: false, fallback: ['dizzy'], proc: 'shake', desc: 'Wet-dog shake (pets after a bath).' },
   stir:      { loop: true,  fallback: ['paint'], proc: 'paint', desc: 'Stirring a cauldron with a big spoon.' },
   mold:      { loop: true,  fallback: ['stir', 'paint'], proc: 'paint', desc: 'Leaning in, both hands (or paws/hooves) cupped forward at waist height around something round, shaping clay.' },

@@ -36,7 +36,7 @@ import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '..
 import { drawHeartShape } from '../engine/emotes.js';
 import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 import {
-  NAVY, SAND, SAND_L, SAND_D, SAND_DD, DEFS,
+  NAVY, SAND, SAND_L, SAND_D, SAND_DD, DEFS, SIDE_WALL,
   foot, silhouette, topHeight, canStack, drawPiece, drawPieceShadow, drawCrab, drawToolIcon, } from './sandcastle-beach/pieces.js';
 import { drawBackdrop, drawSun, drawShore, drawWave, drawWetBand, drawSwell, SHORE } from './sandcastle-beach/beach.js';
 
@@ -61,9 +61,66 @@ const MAX_PIECES = 70, MAX_STACK = 300, MAX_SEA_SHELLS = 8;
 const BUILD_TIME = 170, CPU_TIME = 75;
 // waves: the first never before ~15 s, then every 20-35 s
 const WAVE_FIRST = [16, 26], WAVE_EVERY = [20, 35];
-const SWELL = 2.6, ROLL = 1.2, HOLD = 0.5, BACK = 1.7, WASH = 1.1;
+const SWELL = 2.6, ROLL = 1.2, HOLD = 0.5, BACK = 1.7, WASH = 1.5;
 const NAMES = ['Seashell Palace', 'Starfish Fort', 'Crabby Castle', 'Sunny Keep', 'Coral Towers', 'Sparkle Sands', 'Pearl Palace', 'Wavy Towers', 'Sandy Sky Fort', 'Mermaid Manor', 'Bucket Castle', 'Tide Pool Towers'];
 const CHEERS = ['Ta-da!', 'Ooh!', 'Sandy!', 'Yay!', 'Pretty!'];
+
+// --- sand effects ----------------------------------------------------------------------------
+// Taken away (B, anyone, CPUs too): the piece crumbles from the top and sinks while sand grains and
+// clumps tumble off it, bounce and settle in a little pile that fades. Washed away by a wave: the
+// piece melts (snapshots of it, dry and soaked, drawn in bands that sag down and spread from the
+// base while the dark wet colour climbs up) into a low wet mound, which the retreating water
+// smooths flat, leaving a dark wet patch for a few seconds.
+const CRUMBLE = 0.42, MELT_FLAT = 0.9, WET_PATCH = 4, PILE_TIME = 2.4;
+const MAX_GRAINS = 240, MAX_SPOTS = 90, MAX_CRUMBS = 24;
+const GRAIN_COLORS = [SAND, SAND_D, SAND_DD, '#e0aa5a', '#c8904c'];
+const WET_SAND = '#d6a868', WET_SAND_D = '#b0804a';
+const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+const snapPool = [];
+/** Two pictures of a piece (as it stands, and soaked dark) for its melt, s px per beach unit. */
+function snapPiece(pc, s, t) {
+  const d = DEFS[pc.type], f = foot(pc), side = pc.type === 'wall' && pc.style === 1;
+  const bw = Math.max(side ? SIDE_WALL.box[0] : d.box[0], f.hw * 2) + 70;
+  const bh = Math.max(side ? SIDE_WALL.box[1] : d.box[1], d.vh + f.hd * 2) + 40;
+  const cw = Math.max(8, Math.ceil(bw * s)), ch = Math.max(8, Math.ceil(bh * s));
+  const out = { cw, ch, s, w: cw / s, h: ch / s, pics: [] };
+  for (const dark of [false, true]) {
+    const c = snapPool.pop() || document.createElement('canvas');
+    c.width = cw; c.height = ch;
+    const x = c.getContext('2d');
+    x.setTransform(s, 0, 0, s, cw / 2, ch - (12 + f.hd) * s);   // the piece's ground line sits 12 units above the bottom
+    drawPiece(x, { ...pc, x: 0, y: 0, z: 0, dz: 0, bump: 0, held: false }, t, { wet: dark ? 0 : pc.wet });
+    if (dark) {
+      x.setTransform(1, 0, 0, 1, 0, 0);
+      x.globalCompositeOperation = 'source-atop';
+      x.fillStyle = d.kind === 'mold' ? 'rgba(110,68,30,0.5)' : 'rgba(70,50,40,0.22)';
+      x.fillRect(0, 0, cw, ch);
+      x.globalCompositeOperation = 'source-over';
+    }
+    out.pics.push(c);
+  }
+  return out;
+}
+function freeSnap(m) {
+  if (!m || !m.snap) return;
+  for (const c of m.snap.pics) if (snapPool.length < 60) { c.width = c.height = 1; snapPool.push(c); }
+  m.snap = null;
+}
+/** A low sand mound at (x, y): footprint rx × ry, mh tall. */
+function mound(g, x, y, rx, ry, mh, top, bot) {
+  if (mh < 0.5) return;
+  const gr = g.createLinearGradient(0, y - ry - mh, 0, y + ry);
+  gr.addColorStop(0, top); gr.addColorStop(1, bot);
+  g.beginPath();
+  g.ellipse(x, y, rx, ry + mh, 0, Math.PI, TAU);
+  g.ellipse(x, y, rx, ry, 0, 0, Math.PI);
+  g.closePath();
+  g.fillStyle = gr; g.fill();
+  g.lineWidth = 2; g.strokeStyle = 'rgba(110,70,30,0.45)'; g.stroke();
+  // a soft shine on top
+  g.fillStyle = 'rgba(255,255,255,0.18)';
+  g.beginPath(); g.ellipse(x - rx * 0.2, y - mh * 0.75, rx * 0.4, Math.max(1, mh * 0.22), 0, 0, TAU); g.fill();
+}
 
 // --- layout --------------------------------------------------------------------------------
 /** One shared beach above a row (or two) of tool strips, one strip per player. */
@@ -116,6 +173,10 @@ export class Game {
     this.bandY = this.gy0 + L.band / this.k;   // the wet band the waves wash over ends here
     this.seaY = this.gy0 + CELL * 1.6;         // trench cells this close to the water join the sea
     this.pieces = [];                          // everyone's pieces (pc.owner: who built it; -1: the sea's)
+    this.crumbs = [];                          // pieces crumbling away after B
+    this.grains = [];                          // sand grains and clumps tumbling off them
+    this.spots = [];                           // sand piles and wet patches (and mounds being smoothed) on the beach
+    this.melting = 0;                          // how many pieces are melting (fewer bands each when it's a lot)
     this.moat = new Map();                     // trench cells (c.owner: who dug it; c.water: has water)
     this.waterT = 0;
     this.wave = null; this.waveIn = rand(...WAVE_FIRST); this.waves = 0;
@@ -262,11 +323,31 @@ export class Game {
     this.pieces = this.pieces.filter((o) => o !== pc);
     this.relayer();
     if (!silent) {
-      const s = this.sc(pc.x, pc.y - pc.z - DEFS[pc.type].vh * 0.4);
-      snd('sc-remove', 'crumble', { vol: 0.6 });
-      particles.burst(s.x, s.y, { type: 'dust', count: 10, colors: [SAND, SAND_L, SAND_D], speed: [80, 220] });
-      particles.burst(s.x, s.y, { type: 'sparkle', count: 4, colors: ['#fff'] });
+      this.crumble(pc);
+      snd('sc-remove', 'crumble', { vol: this.n > 4 ? 0.4 : 0.55 });
       st.actor.playOnce('action', 0.3, 'idle');
+    }
+  }
+  /** A taken-away piece crumbles where it stood (what was on it drops down, as relayer() decides). */
+  crumble(pc) {
+    if (this.crumbs.length >= MAX_CRUMBS) this.crumbs.shift();
+    const c = { pc: { ...pc, on: null, dz: 0, vz: 0, bump: 0, held: false, z: pc.z + (pc.held ? 26 : pc.dz > 0 ? pc.dz : 0) }, t: 0, jag: [] };
+    for (let i = 0; i < 24; i++) c.jag.push(rand(-4, 5));
+    this.crumbs.push(c);
+    const p = c.pc, mold = DEFS[p.type].kind === 'mold', [x0, x1, y0] = silhouette(p), by = p.y - p.z;
+    const n = Math.round((mold ? 22 : 8) * (this.n > 4 ? 0.65 : 1));
+    this.grainBurst(n, x0 + 6, x1 - 6, y0 + 8, by, p);
+  }
+  /** n grains thrown off between x0..x1 at heights y0..y1 (beach units), to settle round piece p's foot. */
+  grainBurst(n, x0, x1, y0, y1, p, { up = [60, 250], side = 150 } = {}) {
+    const f = foot(p), lift = p.z > 0;
+    for (let i = 0; i < n && this.grains.length < MAX_GRAINS; i++) {
+      const x = rand(x0, x1), clump = chance(0.22);
+      this.grains.push({
+        x, y: rand(y0, y1), vx: (x - p.x) * 2.2 + rand(-side, side), vy: -rand(...up),
+        fl: p.y - p.z + rand(-f.hd, f.hd) * 0.9 + rand(0, 6), b: chance(0.45) ? randInt(1, 2) : 0,
+        r: clump ? rand(5, 8) : rand(2.6, 4.2), c: randInt(0, GRAIN_COLORS.length - 1), set: false, life: rand(1.1, 2.2), age: 0, top: lift,
+      });
     }
   }
   grab(st, pc) {
@@ -404,11 +485,13 @@ export class Game {
     const seeds = [];
     for (const c of this.moat.values()) if (c.y < ly) { if (!c.water) seeds.push(c); if (!w) c.brim = 1; }
     if (seeds.length) this.flood(seeds);
+    let melted = null;
     for (const pc of this.pieces) {
       if (pc.washT != null || this.root(pc).y > ly) continue;
       pc.wet = 1;
       if (!w) continue;
-      pc.washT = 0;
+      pc.washT = 0; pc.melt = { snap: null, mh: 0, seed: rand(TAU) };
+      if (!pc.on && DEFS[pc.type].kind === 'mold') (melted ||= []).push(pc);
       const s = this.sc(pc.x, pc.y - pc.z - DEFS[pc.type].vh * 0.3);
       particles.burst(s.x, s.y, { type: 'bubble', count: 5, speed: [40, 120] });
       particles.burst(s.x, s.y, { type: 'sparkle', count: 3, colors: ['#fff', '#7fe3e0'] });
@@ -419,6 +502,12 @@ export class Game {
         st.actor.playOnce('surprised', 0.6, 'idle');
         if (!st.p.isAI || chance(0.4)) st.actor.say(pick(['Whoosh!', 'Oh! The wave!', 'Splash!']), 1.2, null);
       }
+    }
+    // a castle melts into a mound as big as what stood on it
+    if (melted) for (const r of melted) {
+      let top = DEFS[r.type].vh;
+      for (const pc of this.pieces) if (pc !== r && this.root(pc) === r) top = Math.max(top, pc.z + DEFS[pc.type].vh);
+      r.melt.mh = clamp(6 + top * 0.09, 9, 24);
     }
     if (!w) return;
     // feet in the water: a giggle
@@ -434,6 +523,12 @@ export class Game {
   washedAway(gone) {
     const set = new Set(gone);
     this.pieces = this.pieces.filter((pc) => !set.has(pc));
+    for (const pc of gone) {
+      const m = pc.melt;
+      freeSnap(m);
+      // the mound stays while the water smooths it flat, then a wet patch dries
+      if (m && m.mh && !pc.on) this.addSpot({ wet: true, x: pc.x, y: pc.y, rx: foot(pc).hw * 1.35 + 6, ry: foot(pc).hd + 10, mh: m.mh });
+    }
     let shells = this.pieces.filter((pc) => pc.owner === -1).length;
     for (const pc of gone) {
       if (pc.on || DEFS[pc.type].kind !== 'mold' || shells >= MAX_SEA_SHELLS || !chance(0.4)) continue;
@@ -757,6 +852,7 @@ export class Game {
       if (pc.washT != null && (pc.washT += dt) >= WASH) (gone ||= []).push(pc);
     }
     if (gone) this.washedAway(gone);
+    this.updateSand(dt);
     // water flows along a trench cell by cell, then stays
     for (const c of this.moat.values()) {
       if (!c.water || this.t < c.flowT || c.fill >= 1) continue;
@@ -764,6 +860,52 @@ export class Game {
       c.fill = Math.min(1, c.fill + dt / 0.3);
     }
     this.waterT -= dt;
+  }
+
+  addSpot(sp) {
+    if (this.spots.length >= MAX_SPOTS) this.spots.shift();
+    sp.t = 0; this.spots.push(sp);
+  }
+  updateSand(dt) {
+    let melting = 0;
+    for (const pc of this.pieces) if (pc.washT != null) melting++;
+    this.melting = melting;
+    // crumbling pieces: sand keeps falling off the crumbling top
+    for (const c of this.crumbs) {
+      c.t += dt;
+      const p = c.pc, u = c.t / CRUMBLE;
+      if (u < 0.85 && chance(dt * (this.n > 4 ? 20 : 34))) {
+        const [x0, x1, y0] = silhouette(p), by = p.y - p.z, cut = y0 + (by - y0) * ease.outQuad(clamp(u, 0, 1));
+        this.grainBurst(1, x0 + 8, x1 - 8, cut, cut + 4, p, { up: [40, 160], side: 90 });
+      }
+      if (c.t >= CRUMBLE && !c.done) {
+        c.done = true;
+        const f = foot(p), mold = DEFS[p.type].kind === 'mold', s = this.sc(p.x, p.y - p.z);
+        particles.burst(s.x, s.y, { type: 'dust', count: this.n > 4 ? 3 : 5, colors: [SAND_L], speed: [40, 120] });
+        if (p.z <= 0) this.addSpot({ x: p.x, y: p.y + 2, rx: f.hw * 0.75 + 6, ry: f.hd * 0.7 + 4, mh: mold ? 10 : 4 });
+      }
+    }
+    if (this.crumbs.length) this.crumbs = this.crumbs.filter((c) => !c.done);
+    // grains: fall, bounce a little, settle, shrink away
+    let drop = false;
+    for (const q of this.grains) {
+      q.age += dt;
+      if (!q.set) {
+        q.vy += 1700 * dt; q.x += q.vx * dt; q.y += q.vy * dt;
+        if (q.y >= q.fl && q.vy > 0) {
+          q.y = q.fl;
+          if (q.b > 0 && q.vy > 160) { q.b--; q.vy *= -0.36; q.vx *= 0.5; }
+          else { q.set = true; q.vx = q.vy = 0; }
+        }
+        if (q.age > 3) q.life = 0;
+      } else q.life -= dt;
+      if (q.life <= 0) drop = true;
+    }
+    if (drop) this.grains = this.grains.filter((q) => q.life > 0);
+    if (this.spots.length) {
+      for (const sp of this.spots) sp.t += dt;
+      this.spots = this.spots.filter((sp) => sp.t < (sp.wet ? MELT_FLAT + WET_PATCH : PILE_TIME));
+    }
   }
 
   updateBuild(dt) {
@@ -1034,18 +1176,22 @@ export class Game {
     else if (w && w.stage !== 'swell') drawWave(g, w.y, this.t, 0.85);
     // everything that stands on the sand, back to front
     const k = this.k, list = [];
+    this.snapBudget = 8;
     for (const pc of this.pieces) list.push({ y: this.oy + pc.sy * k, pc });
     for (const st of this.stations) {
       if (st.held) list.push({ y: this.oy + (st.held.y + 0.3) * k + 0.01, st, pc: st.held, held: true });
       list.push({ y: st.actor.y, st, actor: true });
     }
     for (const c of this.crabs) list.push({ y: c.y, crab: c });
+    for (const c of this.crumbs) list.push({ y: this.oy + c.pc.sy * k, crumb: c });
     list.sort((a, b) => a.y - b.y);
     for (const e of list) {
       if (e.crab) this.drawCrab(g, e.crab);
       else if (e.actor) e.st.actor.draw(g, { ring: e.st.p.color });
+      else if (e.crumb) this.drawCrumb(g, e.crumb);
       else this.drawPlaced(g, e.pc, e.held);
     }
+    this.drawGrains(g, false);
     for (const st of this.stations) if (this.phase === 'build' && !st.ready) this.drawCursor(g, st);
     if (this.sunsetK > 0.01) {
       g.save(); g.globalAlpha = this.sunsetK * 0.07; g.fillStyle = '#ff7a59'; g.fillRect(0, SHORE, W, H - SHORE); g.restore();
@@ -1056,8 +1202,10 @@ export class Game {
     g.save();
     g.translate(this.ox, this.oy); g.scale(this.k, this.k);
     this.drawMoat(g);
+    this.drawSpots(g);
     for (const pc of this.pieces) drawPieceShadow(g, pc);
     g.restore();
+    this.drawGrains(g, true);
   }
 
   drawMoat(g) {
@@ -1101,15 +1249,9 @@ export class Game {
       const lift = 26 + Math.sin(this.t * 6) * 5;
       drawPiece(g, { ...pc, z: pc.z + lift }, this.t, { alpha: 0.92 });
     } else {
-      let alpha;
-      if (pc.washT != null) {
-        // washing away: slumps into a soft wet heap, drifts toward the sea and melts into the water
-        const u = clamp(pc.washT / WASH, 0, 1), r = this.root(pc);
-        g.translate(r.x, r.y - u * 16); g.scale(1 + u * 0.3, 1 - u * 0.7); g.translate(-r.x, -r.y);
-        alpha = 1 - u * u;
-      }
-      drawPiece(g, { ...pc, z: pc.z + (pc.dz || 0) }, this.t, { wet: pc.washT != null ? 1 : pc.wet, alpha });
-      if (this.phase === 'build' && pc.washT == null) {
+      if (pc.washT != null) { this.drawMelt(g, pc); g.restore(); return; }
+      drawPiece(g, { ...pc, z: pc.z + (pc.dz || 0) }, this.t, { wet: pc.wet });
+      if (this.phase === 'build') {
         for (const st of this.stations) {
           if (st.hover !== pc || st.ready) continue;
           const [x0, x1, y0, y1] = silhouette({ ...pc, z: pc.z + (pc.dz || 0) });
@@ -1119,6 +1261,106 @@ export class Game {
           g.restore();
         }
       }
+    }
+    g.restore();
+  }
+
+  /**
+   * Washed away (beach units): the piece's two snapshots drawn in horizontal bands that sag toward its
+   * stack's base and spread out there, the top wobbling and fading first, dry above a rising wet line
+   * and soaked below it; a wet mound grows at the base of the stack.
+   */
+  drawMelt(g, pc) {
+    const m = pc.melt || (pc.melt = { snap: null, mh: 0, seed: 0 });
+    const u = clamp(pc.washT / WASH, 0, 1), r = this.root(pc), rf = foot(r), f = foot(pc);
+    if (!m.snap) {
+      // a big wave: only a few new snapshots a frame (the rest stand a moment longer), smaller ones
+      if (this.snapBudget <= 0) { drawPiece(g, { ...pc, z: pc.z + (pc.dz || 0) }, this.t, { wet: 1 }); return; }
+      this.snapBudget--;
+      const tr = g.getTransform();
+      m.snap = snapPiece(pc, Math.min(this.melting > 30 ? 1.2 : 2, Math.hypot(tr.a, tr.b)), this.t);
+    }
+    const S = m.snap, base = r.y - r.z + rf.hd, by = pc.y - pc.z;
+    const sag = smooth(0, 0.8, u), wetH = 12 + 300 * smooth(0, 0.55, u), alpha = 1 - smooth(0.7, 1, u);
+    const top = by + f.hd + 12 - S.h, N = this.melting > 40 ? 5 : 10, bandH = S.h / N, srcH = S.ch / N;
+    const lift = (h) => (h > 0 ? h * (1 - 0.85 * sag) : h);
+    if (alpha > 0.01) {
+      g.save();
+      for (let j = N - 1; j >= 0; j--) {   // bottom up, each band overlapping the one below a little
+        const y0 = top + j * bandH, y1 = y0 + bandH, hm = base - (y0 + y1) / 2;
+        const rel = clamp(hm / 150, 0, 1);
+        const wf = 1 + sag * (0.15 + 0.6 * (1 - rel));
+        const dx = Math.sin(hm * 0.07 + m.seed + this.t * 2.6) * sag * 8 * rel;
+        const dy0 = base - lift(base - y0), dy1 = base - lift(base - y1);
+        const w = S.w * wf, x = r.x + (pc.x - r.x) * wf + dx - w / 2;
+        const ba = alpha * (1 - sag * rel * 0.7);
+        const wet = clamp((wetH - hm) / 24 + 0.5, 0, 1);
+        if (wet < 1) { g.globalAlpha = ba; g.drawImage(S.pics[0], 0, j * srcH, S.cw, srcH, x, dy0, w, dy1 - dy0 + 0.8); }
+        if (wet > 0) { g.globalAlpha = ba * wet; g.drawImage(S.pics[1], 0, j * srcH, S.cw, srcH, x, dy0, w, dy1 - dy0 + 0.8); }
+      }
+      g.restore();
+    }
+    if (m.mh && !pc.on) {
+      const rx = rf.hw * (0.8 + 0.55 * sag) + 6, ry = rf.hd + 6 + 4 * sag;
+      g.fillStyle = `rgba(120,80,40,${0.3 * smooth(0, 0.3, u)})`;
+      g.beginPath(); g.ellipse(r.x, r.y, rx + 10, ry + 5, 0, 0, TAU); g.fill();
+      mound(g, r.x, r.y, rx, ry, m.mh * smooth(0.25, 0.85, u), WET_SAND, WET_SAND_D);
+    }
+  }
+  /** Taken away (B): crumbling down from the top and sinking into the sand, shaking a little. */
+  drawCrumb(g, c) {
+    const p = c.pc, u = clamp(c.t / CRUMBLE, 0, 1), f = foot(p);
+    const [x0, x1, y0] = silhouette(p), by = p.y - p.z, base = by + f.hd + 2;
+    const cut = y0 - 6 + (base - y0 + 6) * ease.outQuad(u), sink = (base - y0) * 0.22 * u;
+    g.save();
+    g.translate(this.ox, this.oy); g.scale(this.k, this.k);
+    g.beginPath();
+    const n = c.jag.length, wd = x1 - x0 + 24;
+    g.moveTo(x0 - 12, base);
+    for (let i = 0; i < n; i++) g.lineTo(x0 - 12 + (i * wd) / (n - 1), cut + c.jag[i] * (u > 0.05 ? 1 : 0));
+    g.lineTo(x1 + 12, base);
+    g.closePath(); g.clip();
+    g.translate(Math.sin(c.t * 70) * 2 * (1 - u), 0);
+    drawPiece(g, { ...p, z: p.z - sink }, this.t, { wet: p.wet });
+    g.restore();
+  }
+  /** Sand piles left by crumbles; wet mounds smoothed flat by the water, then dark wet patches drying. */
+  drawSpots(g) {
+    for (const sp of this.spots) {
+      if (sp.wet) {
+        const k = smooth(0, MELT_FLAT, sp.t), fade = 1 - smooth(MELT_FLAT, MELT_FLAT + WET_PATCH, sp.t);
+        const rx = sp.rx * (1 + 0.18 * k), ry = sp.ry * (1 + 0.1 * k);
+        g.fillStyle = `rgba(120,80,40,${0.36 * fade})`;
+        g.beginPath(); g.ellipse(sp.x, sp.y, rx + 10, ry + 5, 0, 0, TAU); g.fill();
+        if (k < 1) mound(g, sp.x, sp.y, rx, ry, sp.mh * (1 - k), WET_SAND, WET_SAND_D);
+        if (fade > 0.3) {   // a little shine on the wet sand
+          g.fillStyle = `rgba(255,255,255,${0.16 * fade})`;
+          g.beginPath(); g.ellipse(sp.x - rx * 0.25, sp.y - ry * 0.2, rx * 0.35, ry * 0.25, 0, 0, TAU); g.fill();
+        }
+      } else {
+        const fade = 1 - smooth(PILE_TIME - 0.9, PILE_TIME, sp.t), grow = smooth(0, 0.25, sp.t);
+        g.save(); g.globalAlpha = fade;
+        mound(g, sp.x, sp.y, sp.rx * (0.6 + 0.4 * grow), sp.ry, sp.mh * grow * (0.4 + 0.6 * fade), SAND_L, SAND_D);
+        g.restore();
+      }
+    }
+  }
+  /** Sand grains: settled ones on the sand go under everything (ground), the rest over it. */
+  drawGrains(g, ground) {
+    if (!this.grains.length) return;
+    g.save();
+    g.translate(this.ox, this.oy); g.scale(this.k, this.k);
+    for (let ci = 0; ci < GRAIN_COLORS.length; ci++) {
+      g.beginPath();
+      let any = false;
+      for (const q of this.grains) {
+        if (q.c !== ci || (q.set && !q.top) !== ground) continue;
+        const r = q.set ? q.r * Math.min(1, q.life / 0.6) : q.r;
+        if (r < 0.4) continue;
+        if (q.r > 4.6) { g.moveTo(q.x + r, q.y); g.arc(q.x, q.y, r, 0, TAU); } else g.rect(q.x - r / 2, q.y - r / 2, r, r);
+        any = true;
+      }
+      if (any) { g.fillStyle = GRAIN_COLORS[ci]; g.fill(); }
     }
     g.restore();
   }

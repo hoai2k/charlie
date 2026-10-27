@@ -1,3 +1,34 @@
+## 2026-10-27: In-game check of the October 27 deliveries (dance poses, dance buttons, nail hands, Charlie Sister poses)
+
+Integrator's in-game review, after the delivery agent's own pass. Outcome: all
+fielded; one re-generation row filed (`prop/dance-move-twirl`, it reads as a
+hula hoop next to the new Hula button, see image-requests.md). Fixed in code
+and data:
+
+- Dance Studio: the stand-in motion now switches off where the move's own
+  dance-* art plays (`Dancer.hasArt`): no cartwheel spin, no can-can hops and
+  rocking (the halfway side switch stays), no splits stretch, no moonwalk lean;
+  the Star Jump hop drops from 0.42 to `artHop` 0.1 (the starfish art is
+  already airborne), Disco's lean halves. The engine's procedural `proc` on
+  `dance-starfish` (a 34 px hop), `dance-hula` (`float`: lifted the feet off
+  the floor), `dance-splits` (squash) and `dance-moonwalk` (walk bounce) is
+  removed. All eight moves checked on Cotton Candy, the cake, Bronze, the KPop
+  trio, Unicorn, Hotdog, Marina and Felicity, setup and show: feet on the ring,
+  nothing clipped; all eight button pictures in the panel.
+- `tuck` (15 Charlie sets) re-anchored from the ball's centre to its bottom,
+  like the fairy sets: Fairy Flutter spins about the body centre and Bed Bounce
+  lands it on the duvet, so the centre anchor sank the ball half its height and
+  swung it round off-centre.
+- Sparkle Nails: the five hands, nail beds (`HAND_ART_NAILS`) and polish,
+  designs and gems line up at 1, 2, 4 and 8 players and on the gallery
+  pedestals; the gem "on the hand" test now uses the picture's own outline
+  (the procedural finger geometry missed the art's ring and little fingers and
+  counted the air beside them).
+
+Noted, not filed: Hotdog's dance frames draw its head about 15% larger than
+idle (the same as its older `dance-up`); Cotton Candy's cuddle / tiptoe / laugh
+heads are a little smaller than idle. Both read fine in game.
+
 ## 2026-10-27: Dance Studio and Charlie Sister actions — delivered
 
 189 dance frames cover all21 playable sets (Glimmer added to complete the every-playable requirement), plus117 Sister frames for15 Charlie sets. Six move pictograms are delivered. New actions are authored, registered, optimized and body-mapped; all full/optimized sets stay below25MiB. Native RGBA sources, exact prompts, portrait-resolution archives and reproducible specs are preserved. Actual full/optimized Actor review, all eight consuming Sister games and Dance Studio smoke passed. Coverage/budgets: reference/pending/OCT27-FINAL-AUDIT.json; galleries: OCT27-DANCE-REVIEW.html and OCT27-SISTER-REVIEW.html.

@@ -127,7 +127,13 @@ class Dancer {
     a.facing = this.dir;
     this.pose = pickPose(a, M.poses);
     a.playOnce(this.pose, this.dur * 0.97, 'idle');
-    a.squash(M.drop ? 0.3 : -0.15);
+    a.squash(M.drop ? (this.hasArt ? 0.12 : 0.3) : -0.15);
+  }
+  /** Is this move drawn with its own dance-* art? Then the stand-in motion (the cartwheel's
+   *  spin, the can-can's hops, the splits' stretch) stays off: the picture already does it. */
+  get hasArt() {
+    const M = this.mv;
+    return !!M && this.pose === M.poses[0] && !!getSpriteSet(this.a.leader.asset)?.poses[this.pose];
   }
   update(dt, beat = 0) {
     const a = this.a;
@@ -136,9 +142,11 @@ class Dancer {
     if (M) {
       this.u += dt / this.dur;
       const k = Math.min(1, this.u), s = Math.sin(k * Math.PI), h = a.height, d = this.dir;
-      if (M.hop) z = s * h * M.hop;
-      if (M.lean) this.rot += s * M.lean * d;
-      if (M.roll && this.pose !== M.poses[0]) {
+      const art = this.hasArt;
+      // the starfish art is airborne already: only a little float on top of it
+      if (M.hop) z = s * h * (art && M.artHop != null ? M.artHop : M.hop);
+      if (M.lean) this.rot += s * M.lean * d * (art ? 0.5 : 1);
+      if (M.roll && !art) {
         // stand-in cartwheel: a whole turn about the middle, upside down halfway
         // (the dance-cartwheel art is upside down itself, so it isn't turned)
         this.rot = ease.inOutQuad(k) * TAU * d; this.pivot = 0.5; z = s * h * 0.12;
@@ -151,16 +159,20 @@ class Dancer {
         // moonwalk: facing forward, sliding backward
         if (this.canTravel) this.hx = clamp(this.hx - (d * M.glide * dt) / this.dur, this.minX, this.maxX);
         else this.dx = -s * Math.min(36, h * 0.22) * d;
-        this.rot -= s * 0.1 * d;
+        if (!art) this.rot -= s * 0.1 * d;   // the moonwalk art leans back by itself
       }
       if (M.kick) {
-        // two kicks: one leg then the other (the art mirrors halfway)
+        // two kicks: one leg then the other (the art switches side at once halfway);
+        // the stand-in pose also hops and rocks, the can-can art kicks by itself
         a.facing = k < 0.5 ? d : -d;
-        const kk = Math.abs(Math.sin(k * TAU));
-        z = kk * h * 0.07; this.rot += Math.sin(k * TAU) * 0.08;
+        if (!art) {
+          const kk = Math.abs(Math.sin(k * TAU));
+          z = kk * h * 0.07; this.rot += Math.sin(k * TAU) * 0.08;
+        }
       }
       if (M.sway) { const w = Math.sin(k * TAU * 2); this.rot += w * M.sway; this.dx += w * h * 0.06; }
-      if (M.drop) {
+      if (M.drop && !art) {
+        // stand-in splits: squash down and wide (the splits art is on the floor already)
         const e = k < 0.15 ? ease.outBack(k / 0.15) : k > 0.85 ? (1 - k) / 0.15 : 1;
         this.ksx = 1 + 0.22 * e; this.ksy = 1 - 0.2 * e;
       }

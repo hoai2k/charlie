@@ -26,7 +26,7 @@ import { SCENES, buildScene } from './seek-and-find/scenes.js';
 import { drawOccluder, occluderBox } from './seek-and-find/painters.js';
 
 const NAVY = '#24163f';
-const SEEK_TIME = 300;   // the Play Studio clock (seconds of seeking), then "Time's up!" asks
+const ROUND_TIME = 100;  // seconds of seeking per scene; at 0 it's simply on to the next scene (or the end)
 // Resolution of the cached scene layers: the screen's own (capped at 1.5x)
 // so the backdrop stays sharp on high-DPI screens; 1x elsewhere, where a
 // scaled full-screen blit would cost a lot on software-rendered canvases.
@@ -80,21 +80,18 @@ export class Game {
     this.rounds = SCENES.length;
     this.finished = false;
     this.flyers = [];
-    // The Play Studio clock: 5 minutes of seeking for all three scenes (drawn by the play scene;
-    // it runs while seeking). At 0 it asks the goal question: Go! (the default) ends the hunt (as
-    // the pause menu's "All done!"), the stay choice adds a minute. Like api.studioClock, but
-    // paused between scenes.
-    this.seekLeft = SEEK_TIME;
-    api.limit(() => (this.phase === 'seek' && !this.finished ? this.seekLeft : null), {
-      showAt: Infinity, x: W - 120, y: 56,
-      timeUp: { goal: true, title: 'Time to pack up the picnic!', goLabel: 'See what we found!', moreLabel: 'Keep looking', more: () => { this.seekLeft += 60; }, done: () => this.onDone() },
-    });
+    // A clock per scene (drawn by the play scene while seeking). Not a creative game, so no
+    // "stay" question (the owner's rule): at 0 it's "Time's up!" and on to the next scene, or
+    // the end after the last one.
+    this.seekLeft = ROUND_TIME; this.timedOut = false; this.foundT = 0;
+    api.limit(() => (this.phase === 'seek' && !this.finished ? this.seekLeft : null), { showAt: Infinity, x: W - 120, y: 56 });
     this.startRound(0);
   }
 
   // ---------------------------------------------------------------- rounds
   startRound(r) {
     this.round = r;
+    this.seekLeft = ROUND_TIME; this.timedOut = false; this.foundT = 0;
     const def = SCENES[r];
     this.layout = buildScene(def, chance(0.5), randInt(1, 9999));
     this.renderLayers();
@@ -307,8 +304,17 @@ export class Game {
     this.t += dt; this.phaseT += dt;
     const ph = this.phase;
     if (ph === 'intro' && this.phaseT > 1.9) { this.phase = 'seek'; this.phaseT = 0; }
-    if (ph === 'seek') { this.seekLeft = Math.max(0, this.seekLeft - dt); this.updateSeek(dt); }   // the clock waits at 0 for "Time's up!"
-    if (ph === 'found' || ph === 'wipe') this.foundT = (this.foundT || 0) + dt;
+    if (ph === 'seek') {
+      this.seekLeft = Math.max(0, this.seekLeft - dt);
+      this.updateSeek(dt);
+      if (this.seekLeft <= 0 && this.phase === 'seek' && !this.finished) {   // time's up: next scene, or the end
+        sfx('whistle'); this.timedOut = true; this.foundT = 0;
+        if (this.round >= this.rounds - 1) { this.phase = 'timeup'; this.phaseT = 0; }
+        else { this.phase = 'wipe'; this.phaseT = -1.2; sfx('whoosh'); }   // a beat to read it, then the wipe
+      }
+    }
+    if (ph === 'timeup' && this.phaseT > 1.6) this.finishGame();
+    if (ph === 'found' || ph === 'wipe' || ph === 'timeup') this.foundT = (this.foundT || 0) + dt;
     if (ph === 'found') {
       this.updateCelebs(dt);
       const last = this.round >= this.rounds - 1;
@@ -919,9 +925,9 @@ export class Game {
       if (this.phaseT > 0.35) ui.banner(g, `Round ${this.round + 1} of ${this.rounds}`, this.phaseT - 0.35, { size: 48, y: 530, color: '#ffffff', strokeWidth: 12 });
       g.restore();
     }
-    if (ph === 'found' || ph === 'wipe') {
-      const last = this.round >= this.rounds - 1;
-      const str = last ? (this.solo ? 'You found it all!' : 'We found it all!') : (this.solo ? 'You found everything!' : 'We found everything!');
+    if (ph === 'found' || ph === 'wipe' || ph === 'timeup') {
+      const last = this.round >= this.rounds - 1 && !this.timedOut;
+      const str = this.timedOut ? "Time's up!" : last ? (this.solo ? 'You found it all!' : 'We found it all!') : (this.solo ? 'You found everything!' : 'We found everything!');
       const ft = this.foundT || 0;
       ui.banner(g, str, ft, { size: 100, y: 300, color: '#ffe066' });
       if (last && ft > 1.2) {

@@ -77,7 +77,9 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   limit is drawn by the play scene, so none is hidden; in Play Studio a limit
   never ends the game by itself: `timeUp` / `api.studioClock` ask "Time's up!"
   with Keep playing as the default; a game with a goal ending a stage passes
-  `timeUp.goal` instead: its own title, "Go!" first and the default, "stay" for more time),
+  `timeUp.goal` instead: its own title, "Go!" first and the default, "stay" for more time;
+  only creative activities offer "stay" - a game with rounds just says "Time's up!"
+  and moves on, like Hide & Seek Picnic),
   `api.finishTogether`, `showstopper()` in `engine/util.js`, `engine/easy.js`
   (Sister Party Easy: the stick is optional, A does everything, `easyPrompt` is
   the one big-A cue; A only walks a child somewhere on a repeated press with no
@@ -111,6 +113,8 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   scene's 'gallery' state keeps the game's last screen up with everyone's stars
   and A/Y to go on, so end such a game on the art itself (Fashion Show posts its
   runway photos on a wall). Pass `gallery: false` only to keep the podium.
+- A Play Studio contest (`competitive: true` in its meta: Sparkle Bead Shop, Memory
+  Match) ends on the podium and has no pause-menu "All done!".
 - No paper flips: never squash flat art through scaleX 0 to turn or twirl; switch facing instantly; twirls use the pose-twirl pose (or an in-plane spin).
 - Audio in the race goes through the Web Audio engine in `audio.js`; don't set
   `HTMLAudioElement.volume` directly (iOS ignores it).

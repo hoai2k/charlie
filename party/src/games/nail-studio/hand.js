@@ -8,7 +8,7 @@
 // player paints, so their geometry is exact and shared by drawing and the
 // cursor hit test.
 import { HAND_ART_NAILS, HAND_ART_SHAPES } from './hand-art-geometry.js';
-import { drawArt, hasArt } from '../../engine/art.js';
+import { art, drawArt, hasArt } from '../../engine/art.js';
 import { RAINBOW } from '../../engine/particles.js';
 import { drawSparkleShape, drawStarShape, drawHeartShape, starPath } from '../../engine/emotes.js';
 import * as ui from '../../engine/ui.js';
@@ -156,9 +156,40 @@ function segDist(px, py, ax, ay, bx, by) {
   return Math.hypot(px - (ax + u * vx), py - (ay + u * vy));
 }
 
+// The hand picture's own outline, for onHand: its alpha at 4 hand units a cell (the drawn
+// fingers and thumb don't follow FINGERS, which is the procedural hand's geometry).
+const MASK_N = 128, artMasks = new Map();
+function artMask(style) {
+  const key = handArtKey(style);
+  if (artMasks.has(key)) return artMasks.get(key);
+  const img = art(key);
+  if (!img || !img.width) return null;
+  let m = null;
+  try {
+    const c = document.createElement('canvas'); c.width = c.height = MASK_N;
+    const q = c.getContext('2d', { willReadFrequently: true });
+    q.drawImage(img, 0, 0, MASK_N, MASK_N);
+    const d = q.getImageData(0, 0, MASK_N, MASK_N).data;
+    m = new Uint8Array(MASK_N * MASK_N);
+    for (let i = 0; i < m.length; i++) m[i] = d[i * 4 + 3] > 128 ? 1 : 0;
+  } catch { m = null; }
+  artMasks.set(key, m);
+  return m;
+}
+function onArt(m, x, y) {
+  const i = Math.floor(((x + 256) / 512) * MASK_N), j = Math.floor(((y + 256) / 512) * MASK_N);
+  return i >= 0 && j >= 0 && i < MASK_N && j < MASK_N && m[j * MASK_N + i] === 1;
+}
+
 /** Is hand point (x, y) on the hand (back of the hand, fingers or nails)? */
 export function onHand(style, G, x, y, slack = 6) {
   if (nailAt(G, x, y, slack) >= 0) return true;
+  const m = hasHandArt(style) ? artMask(style) : null;
+  if (m) {
+    // the hand picture: its skin, not the wrist under the cuff
+    if (y > 166 + slack) return false;
+    return onArt(m, x, y) || onArt(m, x - slack, y) || onArt(m, x + slack, y) || onArt(m, x, y - slack) || onArt(m, x, y + slack);
+  }
   if (x >= -100 - slack && x <= 96 + slack && y >= -18 - slack && y <= 166 + slack) return true;
   return G.fingers.some((f) => segDist(x, y, f.bx, f.by, f.tx, f.ty) <= f.w / 2 + slack);
 }
