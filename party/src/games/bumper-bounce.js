@@ -274,7 +274,7 @@ export class Game {
     // dash: toward the stick (any direction, up and down included), else the way you're going
     const dl = Math.hypot(e.dirx, e.diry) || 1;
     e.aimx = m > 0.25 ? ix / m : e.dirx / dl; e.aimy = m > 0.25 ? iy / m : e.diry / dl; e.aimHeld = m > 0.25;
-    if (!this.ends && ctrl.pressed('a') && e.cd <= 0 && e.stun <= 0) this.doDash(e, [e.aimx, e.aimy]);
+    if (!this.ends && (ctrl.pressed('a') || ctrl.pressed('b')) && e.cd <= 0 && e.stun <= 0) this.doDash(e, [e.aimx, e.aimy]);   // A or B
     const drag = e.dash > 0 ? DRAG * 0.45 : DRAG;
     const f = Math.exp(-drag * dt);
     e.vx *= f; e.vy *= f;

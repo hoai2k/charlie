@@ -22,6 +22,7 @@ import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
 import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, later } from '../engine/util.js';
+import { Dash } from '../engine/dash.js';
 import { drawBubble, drawDuckling, drawStarFace, drawCupcake, drawFrog, drawRainbow, drawRubberDuck, drawMachine, drawGarden, drawSparkle } from './bubble-pop/art.js';
 
 const snd = (k, fb, o = {}) => sfx(k, { ...o, fallback: fb });
@@ -71,7 +72,7 @@ export class Game {
       if (a.height < 110 * this.scale) a.scale *= (110 * this.scale) / a.height;   // tiny avatars (fairies) stay readable
       const x = n === 1 ? W / 2 : 240 + ((W - 480) * i) / (n - 1);
       a.x = x; a.y = GROUND_Y + ((i % 3) - 1) * 14; a.facing = x < W / 2 ? 1 : -1; a.snap();
-      return { p, a, i, x, vx: 0, z: 0, vz: 0, pops: 0, combo: 0, popN: 0, popT: 0, brain: new Brain(p), target: null, err: 0, wander: 0, wanderX: x, frogT: 0 };
+      return { p, a, i, x, vx: 0, z: 0, vz: 0, pops: 0, combo: 0, popN: 0, popT: 0, dash: new Dash({ axis: 'x' }), brain: new Brain(p), target: null, err: 0, wander: 0, wanderX: x, frogT: 0 };
     });
   }
 
@@ -380,7 +381,8 @@ export class Game {
     }
     const target = inX * MAX_SPEED;
     e.vx = approach(e.vx, target, (Math.sign(target) !== Math.sign(e.vx) ? 6000 : 4200) * dt);
-    e.x = clamp(e.x + e.vx * dt, 60, W - 60);
+    const dd = e.dash.update(dt, ctrl, { x: e.x, y: a.y, facing: a.facing, actor: e.z > 1 ? null : a, ok: !this.done && !p.isAI });   // B: a short dash left / right
+    e.x = clamp(e.x + e.vx * dt + dd.x, 60, W - 60);
     if (!this.done && ctrl.pressed('a') && e.z <= 0.5) {
       e.vz = JUMP_V; e.combo = 0; sfx('jump', { vol: 0.6 }); a.squash(-0.25);
       particles.burst(e.x, a.y, { type: 'dust', count: 4, color: '#fff', speed: [30, 90], size: [8, 14] });

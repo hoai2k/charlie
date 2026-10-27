@@ -23,6 +23,7 @@ import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { drawSparkleShape, drawStarShape, drawHeartShape } from '../engine/emotes.js';
 import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { clamp, approach, lerp, rand, pick, chance, ease, TAU, later } from '../engine/util.js';
+import { Dash } from '../engine/dash.js';
 import { meta } from './rainbow-painter.meta.js';
 
 const NAVY = '#24163f';
@@ -136,7 +137,7 @@ export class Game {
       const x = n === 1 ? W / 2 : 260 + ((W - 520) * i) / (n - 1);
       const y = 430 + (i % 2) * 120;
       a.facing = x < W / 2 ? 1 : -1;
-      const e = { p, a, i, x, y, vx: 0, vy: 0, spraying: false, sprayT: 0, score: 0, brain: new Brain(p), tx: x, ty: y, cell: null, wander: 0, holdOff: 0, tilt: 0, sq: 0, bob: rand(TAU), popN: 0, popT: 0, combo: 0, comboT: 0 };
+      const e = { p, a, i, x, y, vx: 0, vy: 0, spraying: false, sprayT: 0, score: 0, dash: new Dash({ yScale: 1 }), brain: new Brain(p), tx: x, ty: y, cell: null, wander: 0, holdOff: 0, tilt: 0, sq: 0, bob: rand(TAU), popN: 0, popT: 0, combo: 0, comboT: 0 };
       if (this.easy && !p.isAI) e.ez = { cell: null, think: 0 };
       this.placeActor(e);
       a.snap && a.snap();
@@ -268,7 +269,9 @@ export class Game {
     const tvx = ix * k * MAXV, tvy = iy * k * MAXV;
     e.vx = approach(e.vx, tvx, ACCEL * dt);
     e.vy = approach(e.vy, tvy, ACCEL * dt);
-    e.x += e.vx * dt; e.y += e.vy * dt;
+    const dd = e.dash.update(dt, c, { x: e.x, y: e.y, facing: e.a.facing, ok: playing && !e.p.isAI });   // B: a short dash (she stays sitting on her cloud)
+    if (dd.x || dd.y) e.sq = 0.12;
+    e.x += e.vx * dt + dd.x; e.y += e.vy * dt + dd.y;
     if (e.x < 90) { e.x = 90; e.vx = Math.abs(e.vx) * 0.4; }
     if (e.x > W - 90) { e.x = W - 90; e.vx = -Math.abs(e.vx) * 0.4; }
     if (e.y < Y_MIN) { e.y = Y_MIN; e.vy = Math.abs(e.vy) * 0.4; }
