@@ -252,7 +252,8 @@ export class Game {
     const dd = e.dash.update(dt, c, { x: e.x, y: e.y, facing: a.facing, actor: e.held ? null : a, ok: !this.done && !p.isAI });   // B: a short dash
     e.x = clamp(e.x + e.vx * dt + dd.x, FLOOR.x0, FLOOR.x1);
     e.y = clamp(e.y + e.vy * dt + dd.y, FLOOR.y0, FLOOR.y1);
-    if (!this.done && c.pressed('a') && e.cool <= 0) this.action(e);
+    if (!this.done && !p.isAI && e.held && c.pressed('y')) this.drop(e);   // Y: put the sock down
+    else if (!this.done && c.pressed('a') && e.cool <= 0) this.action(e);
     if (!a._once && !this.done) {
       const sp = Math.hypot(e.vx, e.vy);
       if (e.held && sp > 40) { a.setPose('carry'); if (Math.abs(e.vx) > 4) a.facing = e.vx > 0 ? 1 : -1; a.speed = clamp(sp / MAX_SPEED, 0, 1); }
@@ -310,12 +311,18 @@ export class Game {
     }
     if (e.held) {
       if (s.pat === e.held.pat) return this.match(e, e.held, s);
-      // swap: drop the one in hand
-      const old = e.held;
-      old.state = 'ground'; old.x = e.x + (e.a.facing > 0 ? -60 : 60); old.y = clamp(e.y + 10, FIELD.y0, FLOOR.y1); old.by = null; old.sq = 0.4; old.rot = rand(-0.4, 0.4);
-      sfx('boing', { vol: 0.4, fallback: 'bounce' });
+      this.drop(e);   // swap: drop the one in hand
     }
     this.grab(e, s);
+  }
+
+  /** Put the carried sock down beside her (Y, or swapping for another), free to pick again. */
+  drop(e) {
+    const old = e.held;
+    if (!old) return;
+    old.state = 'ground'; old.x = e.x + (e.a.facing > 0 ? -60 : 60); old.y = clamp(e.y + 10, FIELD.y0, FLOOR.y1); old.by = null; old.sq = 0.4; old.rot = rand(-0.4, 0.4);
+    e.held = null; e.heldT = 0; e.cool = 0.15;
+    sfx('boing', { vol: 0.4, fallback: 'bounce' });
   }
 
   grab(e, s) {
