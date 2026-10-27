@@ -22,6 +22,7 @@ import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, rand, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
 import { art } from '../engine/art.js';
+import { Dash } from '../engine/dash.js';
 import { PATTERNS, PAT_COLOR, drawSock, drawPuppy, drawBasket, drawLine, drawPin, drawYard, lineY, LINE } from './sock-match/draw.js';
 
 import { meta } from './sock-match.meta.js';
@@ -75,7 +76,7 @@ export class Game {
       const y = 640 + (i % 2) * 60;
       const a = new Actor(p, { scale: this.scale, x, y });
       a.facing = x < W / 2 ? 1 : -1; a.snap();
-      return { p, a, i, x, y, vx: 0, vy: 0, held: null, heldT: 0, score: 0, cool: 0, bumpT: 0, brain: new Brain(p), plan: null,
+      return { p, a, i, x, y, vx: 0, vy: 0, held: null, heldT: 0, score: 0, cool: 0, bumpT: 0, dash: new Dash(), brain: new Brain(p), plan: null,
         auto: this.easy && !p.isAI ? { ix: 0, iy: 0, sock: null, t: 0 } : null };
     });
     this.burst(this.pairsPerWave, true);
@@ -248,9 +249,11 @@ export class Game {
     const tx = ix * k * MAX_SPEED * cap, ty = iy * k * MAX_SPEED * 0.85 * cap;
     const step = ACCEL * dt;
     e.vx += clamp(tx - e.vx, -step, step); e.vy += clamp(ty - e.vy, -step, step);
-    e.x = clamp(e.x + e.vx * dt, FLOOR.x0, FLOOR.x1);
-    e.y = clamp(e.y + e.vy * dt, FLOOR.y0, FLOOR.y1);
-    if (!this.done && c.pressed('a') && e.cool <= 0) this.action(e);
+    const dd = e.dash.update(dt, c, { x: e.x, y: e.y, facing: a.facing, actor: e.held ? null : a, ok: !this.done && !p.isAI });   // B: a short dash
+    e.x = clamp(e.x + e.vx * dt + dd.x, FLOOR.x0, FLOOR.x1);
+    e.y = clamp(e.y + e.vy * dt + dd.y, FLOOR.y0, FLOOR.y1);
+    if (!this.done && !p.isAI && e.held && c.pressed('y')) this.drop(e);   // Y: put the sock down
+    else if (!this.done && c.pressed('a') && e.cool <= 0) this.action(e);
     if (!a._once && !this.done) {
       const sp = Math.hypot(e.vx, e.vy);
       if (e.held && sp > 40) { a.setPose('carry'); if (Math.abs(e.vx) > 4) a.facing = e.vx > 0 ? 1 : -1; a.speed = clamp(sp / MAX_SPEED, 0, 1); }
@@ -308,12 +311,18 @@ export class Game {
     }
     if (e.held) {
       if (s.pat === e.held.pat) return this.match(e, e.held, s);
-      // swap: drop the one in hand
-      const old = e.held;
-      old.state = 'ground'; old.x = e.x + (e.a.facing > 0 ? -60 : 60); old.y = clamp(e.y + 10, FIELD.y0, FLOOR.y1); old.by = null; old.sq = 0.4; old.rot = rand(-0.4, 0.4);
-      sfx('boing', { vol: 0.4, fallback: 'bounce' });
+      this.drop(e);   // swap: drop the one in hand
     }
     this.grab(e, s);
+  }
+
+  /** Put the carried sock down beside her (Y, or swapping for another), free to pick again. */
+  drop(e) {
+    const old = e.held;
+    if (!old) return;
+    old.state = 'ground'; old.x = e.x + (e.a.facing > 0 ? -60 : 60); old.y = clamp(e.y + 10, FIELD.y0, FLOOR.y1); old.by = null; old.sq = 0.4; old.rot = rand(-0.4, 0.4);
+    e.held = null; e.heldT = 0; e.cool = 0.15;
+    sfx('boing', { vol: 0.4, fallback: 'bounce' });
   }
 
   grab(e, s) {

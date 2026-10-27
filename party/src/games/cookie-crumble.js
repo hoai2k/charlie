@@ -13,6 +13,7 @@ import { aiProfile, reactionTime } from '../engine/ai.js';
 import { depthScale } from '../engine/camera.js';
 import { bodyRadius } from '../engine/crowd.js';
 import { rand, randInt, pick, chance, clamp, lerp, damp, ease, shuffle, TAU } from '../engine/util.js';
+import { Dash } from '../engine/dash.js';
 
 const T = 136;                       // cell size
 const COLS = 10, ROWS = 6;
@@ -154,7 +155,7 @@ export class Game {
       a.snap(); a.setPose('idle');
       tl.stepped = true;
       return {
-        a, state: 'play', x: tl.x, y: tl.y + 14, vx: 0, vy: 0, kx: 0, ky: 0, hop: null, hopCd: 0, z: 0, face: { x: tl.x < W / 2 ? 1 : -1, y: 0 },
+        a, state: 'play', x: tl.x, y: tl.y + 14, vx: 0, vy: 0, kx: 0, ky: 0, hop: null, hopCd: 0, dash: new Dash({ yScale: 1 }), z: 0, face: { x: tl.x < W / 2 ? 1 : -1, y: 0 },
         rank: 0, outAt: null, swim: null, cheerT: rand(1, 3), warned: false, ai: { path: [], target: null, brain: null, hopNext: 0, hesitate: 0 },
       };
     });
@@ -393,6 +394,7 @@ export class Game {
     const c = p.ctrl;
     s.hopCd -= dt;
     if (s.hop) {
+      s.dash.cancel();
       s.hop.t += dt;
       const k = clamp(s.hop.t / HOP_DUR, 0, 1);
       s.z = Math.sin(k * Math.PI) * 78;
@@ -412,7 +414,8 @@ export class Game {
       const tvx = dead ? 0 : ix * SPEED, tvy = dead ? 0 : iy * SPEED;
       const kk = Math.min(1, (dead ? 14 : 11) * dt);
       s.vx += (tvx - s.vx) * kk; s.vy += (tvy - s.vy) * kk;
-      s.x += s.vx * dt; s.y += s.vy * dt;
+      const dd = s.dash.update(dt, c, { x: s.x, y: s.y, actor: s.a, sx: dead ? s.face.x : c.x, sy: dead ? s.face.y : c.y, ok: !this.ended && !p.isAI });   // B: a short dash
+      s.x += s.vx * dt + dd.x; s.y += s.vy * dt + dd.y;
       if (!dead) { s.face.x = ix / (m > 1 ? 1 : m || 1); s.face.y = iy / (m > 1 ? 1 : m || 1); const fm = Math.hypot(s.face.x, s.face.y) || 1; s.face.x /= fm; s.face.y /= fm; }
       if (c.pressed('a') && s.hopCd <= 0) this.startHop(s, dead ? null : { x: ix / (m || 1), y: iy / (m || 1) });
     }

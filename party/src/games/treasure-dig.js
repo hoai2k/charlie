@@ -25,6 +25,7 @@ import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, makesMistake } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, chance, TAU, ease, dist, placementsFromScores } from '../engine/util.js';
 import { spread, bodyRadius, claimed } from '../engine/crowd.js';
+import { Dash } from '../engine/dash.js';
 import {
   NAVY, SHORE, LOOT, buildBeach, heatColor, drawLoot, drawCrab, drawSeaweed, drawSock, drawDuck,
   drawChest, drawDetector, drawBang, drawHole,
@@ -107,7 +108,7 @@ export class Game {
     return {
       p, i, a, x, y, vx: 0, vy: 0,
       heat: 0, shown: 0, beepT: rand(0.2, 0.9), pulse: 0, ripples: [], gx: x, gy: y - 80,
-      dig: 0, digX: x, digY: y, scooped: 0, hole: null, stun: 0, hop: 0, wet: 0, waveHit: -1, seaweed: 0, carry: null,
+      dig: 0, digX: x, digY: y, scooped: 0, hole: null, stun: 0, hop: 0, dash: new Dash(), wet: 0, waveHit: -1, seaweed: 0, carry: null,
       score: 0, finds: 0,
       ai: { dir: rand(TAU), sampleT: rand(0.1, 0.4), lastH: null, px: x, py: y, sign: chance(0.5) ? 1 : -1, turned: false, best: 0, stale: 0, digAt: -1, distract: 0, chestPref: null, prefT: 0 },
     };
@@ -265,7 +266,9 @@ export class Game {
     }
     const speed = WALK * (U.wet > 0 ? 0.62 : 1);
     U.vx = damp(U.vx, mx * speed, 12, dt); U.vy = damp(U.vy, my * speed, 12, dt);
-    U.x += U.vx * dt; U.y += U.vy * dt;
+    if (busy) U.dash.cancel();
+    const dd = U.dash.update(dt, p.ctrl, { x: U.x, y: U.y, actor: a, ok: !busy && !this.over && !p.isAI });   // B: a short dash
+    U.x += U.vx * dt + dd.x; U.y += U.vy * dt + dd.y;
     if (U.wet > 0 && Math.hypot(U.vx, U.vy) > 80 && Math.random() < dt * 14) particles.burst(U.x + rand(-20, 20), U.y - 4, { type: 'drop', count: 1, colors: ['#bdf2ff', '#fff'], speed: [80, 200], angle: -Math.PI / 2, spread: 0.8 });
     // digging
     if (U.dig > 0) {

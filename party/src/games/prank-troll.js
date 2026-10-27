@@ -37,6 +37,7 @@ import {
   drawItem, drawBush, drawSwat, drawMirror,
 } from './prank-troll/draw.js';
 import { drawShock, drawSteam, drawShout } from '../engine/fluster.js';
+import { Dash } from '../engine/dash.js';
 import { meta } from './prank-troll.meta.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
@@ -86,7 +87,7 @@ export class Game {
       a.facing = s.x < W / 2 ? 1 : -1; a.snap();
       const U = {
         p, i, a, x: s.x, y: s.y, vx: 0, vy: 0, kx: 0, ky: 0, item: null, pranks: 0, still: 0, bush: 0,
-        swatted: false, stun: 0, sneaky: 0, swats: 0,
+        swatted: false, stun: 0, sneaky: 0, swats: 0, dash: new Dash({ color: '#d8c79a' }),
         ai: { mode: 'fetch', st: null, tx: s.x, ty: s.y, wait: rand(0.2, 0.8), freezeAt: null, oops: 0, oopsT: 0, dx: 0, dy: 0 },
         ez: { mode: null, st: null, tx: s.x, ty: s.y, idle: 0, cool: 0 },
       };
@@ -313,7 +314,7 @@ export class Game {
       U.ez.cool = Math.max(0, U.ez.cool - dt);
     }
     const mag = Math.hypot(sx, sy);
-    const moving = easy ? c.held('a') || c.pressed('a') || (U.ez.push && mag > 0.15) : mag > 0.3 || c.pressed('a');
+    const moving = (easy ? c.held('a') || c.pressed('a') || (U.ez.push && mag > 0.15) : mag > 0.3 || c.pressed('a')) || U.dash.active || (!finale && U.stun <= 0 && c.pressed('b'));   // a dash is never a freeze
     if (watch && !moving && U.stun <= 0) U.still += dt; else U.still = 0;
     const wantBush = watch && U.still > 0.2 && !U.swatted;
     U.bush = damp(U.bush, wantBush ? 1 : 0, wantBush ? 14 : 8, dt);
@@ -330,6 +331,10 @@ export class Game {
     U.vx = damp(U.vx, vx, 12, dt); U.vy = damp(U.vy, vy, 12, dt);
     U.kx *= Math.pow(0.04, dt); U.ky *= Math.pow(0.04, dt);
     U.x += (U.vx + U.kx) * dt; U.y += (U.vy + U.ky) * dt;
+    const dd = U.dash.update(dt, c, { x: U.x, y: U.y, actor: a, ok: U.stun <= 0 && !finale && !U.p.isAI });   // B: a short dash (loud near him!)
+    if (U.stun > 0) U.dash.cancel();
+    U.x += dd.x; U.y += dd.y;
+    if (U.dash.active && this.sleeping && U.item && inZone(U.x, U.y, ZONE, 1.9) < 1) this.noise += dt * 0.6;
     this.collide(U);
     // noise: running near him while carrying
     if (this.sleeping && U.item && mag > 0.85 && inZone(U.x, U.y, ZONE, 1.9) < 1) {

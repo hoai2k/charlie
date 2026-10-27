@@ -387,7 +387,7 @@ export class Game {
     let ix = this.done ? 0 : ctrl.x, iy = this.done ? 0 : ctrl.y;
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
     if (m > 0.2) { e.dx = ix / Math.max(m, 0.01); e.dy = iy / Math.max(m, 0.01); }
-    if (!this.done && ctrl.pressed('a') && e.dashCd <= 0) {
+    if (!this.done && (ctrl.pressed('a') || ctrl.pressed('b')) && e.dashCd <= 0) {   // A or B: zoom dash
       e.dashT = DASH_T; e.dashCd = DASH_CD;
       snd('lb-dash', 'dash', { vol: 0.5 * e.vol });
       a.playOnce('dash', 0.3); a.squash(-0.15);

@@ -266,7 +266,7 @@ export class Game {
     if (U.stun > 0) { mx = my = 0; }
     // dash
     // (the crown holder can dash too: to get away)
-    if (p.ctrl.pressed('a') && U.stun <= 0 && U.dashCd <= 0 && U.dashT <= 0) {
+    if ((p.ctrl.pressed('a') || p.ctrl.pressed('b')) && U.stun <= 0 && U.dashCd <= 0 && U.dashT <= 0) {   // A or B
       U.dashT = DASH_TIME; U.dashCd = DASH_CD; U.dashed++;
       U.dvx = Math.cos(U.aim); U.dvy = Math.sin(U.aim);
       a.playOnce(POSE.dash, 0.3); a.squash(0.3);
@@ -742,7 +742,8 @@ export class Game {
       g.save(); g.globalAlpha = a;
       ui.panel(g, W / 2 - 480, 1000, 960, 66, { r: 33 });
       ui.glyph(g, 'a', W / 2 - 440, 1033, 48, { pulse: true });
-      ui.text(g, 'Dash into whoever wears the crown!', W / 2 + 30, 1033, { size: 36, color: NAVY, stroke: false, maxWidth: 800 });
+      ui.glyph(g, 'b', W / 2 - 384, 1033, 48, { pulse: true });
+      ui.text(g, 'Dash into whoever wears the crown!', W / 2 + 50, 1033, { size: 36, color: NAVY, stroke: false, maxWidth: 760 });
       g.restore();
     }
   }

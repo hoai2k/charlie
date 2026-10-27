@@ -20,6 +20,7 @@ import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
 import { clamp, rand, pick, chance, TAU, placementsFromScores, ease } from '../engine/util.js';
+import { Dash } from '../engine/dash.js';
 import {
   ITEMS, ITEM_COLOR, drawItem, drawGuest, drawHat, drawBubble, drawCart, drawTable, drawTeapot, drawGarden, TABLE,
 } from './tea-party/draw.js';
@@ -89,7 +90,7 @@ export class Game {
       const a = new Actor(p, { scale: this.scale, x, y });
       a.facing = x < W / 2 ? 1 : -1; a.snap();
       return {
-        p, a, i, x, y, vx: 0, vy: 0, held: null, heldT: 0, score: 0, served: 0, cool: 0,
+        p, a, i, x, y, vx: 0, vy: 0, held: null, heldT: 0, score: 0, served: 0, cool: 0, dash: new Dash(),
         brain: new Brain(p), plan: null, popT: 0, popN: 0,
       };
     });
@@ -209,8 +210,9 @@ export class Game {
     const tx = ix * k * MAX_SPEED * cap, ty = iy * k * MAX_SPEED * 0.8 * cap;
     const step = ACCEL * dt;
     e.vx += clamp(tx - e.vx, -step, step); e.vy += clamp(ty - e.vy, -step, step);
-    e.x = clamp(e.x + e.vx * dt, FLOOR.x0, FLOOR.x1);
-    e.y = clamp(e.y + e.vy * dt, FLOOR.y0, FLOOR.y1);
+    const dd = e.dash.update(dt, c, { x: e.x, y: e.y, facing: a.facing, actor: e.held ? null : a, ok: !this.done && !p.isAI });   // B: a short dash
+    e.x = clamp(e.x + e.vx * dt + dd.x, FLOOR.x0, FLOOR.x1);
+    e.y = clamp(e.y + e.vy * dt + dd.y, FLOOR.y0, FLOOR.y1);
     if (!this.done && c.pressed('a') && e.cool <= 0) this.action(e);
     if (!a._once) {
       const sp = Math.hypot(e.vx, e.vy);

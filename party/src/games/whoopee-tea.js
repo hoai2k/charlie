@@ -25,6 +25,7 @@ import { aiProfile, reactionTime, Brain, steer, mash } from '../engine/ai.js';
 import { bodyRadius, claimed, spread } from '../engine/crowd.js';
 import { easySteer, easyNearest, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { clamp, lerp, rand, pick, chance, TAU, ease, placementsFromScores, dist, later } from '../engine/util.js';
+import { Dash } from '../engine/dash.js';
 import {
   NAVY, GUESTS, GUEST_KINDS, GATES, drawGuest, drawGuestFx, guestHeadTop, drawHat, drawTable, drawChairBack, drawChairFront, CHAIR_SEAT,
   drawThrone, drawThroneFront, THRONE_SEAT, drawCushion, drawBasket, drawButler, drawFrog, drawMoon, drawPuff, drawGarden,
@@ -108,7 +109,7 @@ export class Game {
       const a = new Actor(p, { scale: this.scale, x, y });
       if (a.height < 110 * this.scale) a.scale *= (110 * this.scale) / a.height;   // tiny avatars (fairies) stay readable
       a.facing = x < W / 2 ? 1 : -1; a.snap();
-      return { p, a, i, x, y, vx: 0, vy: 0, held: null, score: 0, pffts: 0, frogs: 0, heaves: 0, cool: 0, brain: new Brain(p), plan: null, mashS: {}, popT: 0, popN: 0,
+      return { p, a, i, x, y, vx: 0, vy: 0, held: null, score: 0, pffts: 0, frogs: 0, heaves: 0, cool: 0, dash: new Dash(), brain: new Brain(p), plan: null, mashS: {}, popT: 0, popN: 0,
         auto: this.easy && !p.isAI ? { plan: null, t: 0, ix: 0, iy: 0 } : null };
     });
   }
@@ -587,8 +588,9 @@ export class Game {
     const tx = ix * k * MAX_SPEED * cap, ty = iy * k * MAX_SPEED * 0.8 * cap;
     const step = ACCEL * dt;
     e.vx += clamp(tx - e.vx, -step, step); e.vy += clamp(ty - e.vy, -step, step);
-    e.x = clamp(e.x + e.vx * dt, FLOOR.x0, FLOOR.x1);
-    e.y = clamp(e.y + e.vy * dt, FLOOR.y0, FLOOR.y1);
+    const dd = e.dash.update(dt, c, { x: e.x, y: e.y, facing: a.facing, actor: e.held ? null : a, ok: !lock && !p.isAI });   // B: a short dash
+    e.x = clamp(e.x + e.vx * dt + dd.x, FLOOR.x0, FLOOR.x1);
+    e.y = clamp(e.y + e.vy * dt + dd.y, FLOOR.y0, FLOOR.y1);
     this.pushOut(e);
     if (!lock && c.pressed('a') && e.cool <= 0) this.action(e);
     if (!a._once && !lock) {

@@ -1104,11 +1104,43 @@ make it read better. Newest first; fixed items move to
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
+| `prop/dance-move-twirl` (Dance Studio Y "Twirl"; also Dance Party's move palette) | Checked 2026-10-27 next to the new move pictograms on the Dance Studio button panel: its pink-and-orange swirl ring sits flat round the kid's waist, so at 60–110 px it reads as **hula-hooping**, and it now stands right next to the new `prop/dance-move-hula` (B, "Hula"). Kids can't tell the two buttons apart by picture | Same 160×160 transparent card, same white round-headed kid with navy outline and rosy cheeks, same candy swooshes and sparkles as the other `prop/dance-move-*`. A ballerina **pirouette**: up on the toes of one foot, the other foot tucked to the knee, arms in a rounded circle overhead, eyes happily shut, and two or three curved spin arrows/arcs **around the whole body at shoulder and ankle height, open at the back** (motion arcs, not a closed ring at the waist). Nothing that looks like a hoop. No text |
 
 Engine-side notes from the same review: several keys are aliases of one
 file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
 `prop/gem` = `prop/gem-red`, `prop/cookie-tile` = `prop/cookie-1`). That's
 fine; the code uses one of each pair.
 
+### opposite-ballet — Dance Along: Madame Papillon's dance moves   (requested by the Dance Along redesign, 2026-10-27, priority: nice-to-have)
+
+Opposite Ballet is now **Dance Along** (same id): Madame Papillon calls one of the eight Dance Studio
+moves and performs it as the example for the class to copy. All six fairy sets and every Charlie set
+already have all eight `dance-*` poses (checked 2026-10-27), so **no sprite work is needed**; only
+Madame lacks art for seven of the moves. Today the code fakes them from her existing art
+(`prop/ballet-teacher-*`, `prop/oballet-teacher-silly`) plus motion: disco = side pose + lean,
+star jump = arms-up pose + hop, hula = silly pose + sway, cartwheel = arms-up pose spun in-plane,
+can-can = side pose switching sides, splits = plié dipped down, moonwalk = side pose gliding back.
+The code picks up each key below the moment it is in `assets/art/index.json` (add it to the
+`opposite-ballet` group too); the twirl already has `prop/ballet-teacher-twirl`.
+
+Every key: **512×640, transparent**, the same canvas, scale, framing and **bottom anchor** as
+`prop/ballet-teacher.webp` (her pointe shoes on the same ground line, near the bottom edge; head
+at the same height when standing), facing screen-right (the code mirrors her instantly for the
+other side; no paper flips). Same character exactly: Madame Papillon, warm brown skin, lilac
+hair in a tall bun with a pink flower and tiara, big rainbow butterfly wings (pink/peach/teal with
+navy edges and yellow dots), pink petal tutu and leotard, pink pointe shoes. Cheerful, proud,
+graceful teacher expression (she is showing children how it's done). House style: navy #24163f
+outlines, soft cel shading, bright candy colours. No text, no shadow, no motion lines, no
+sparkles (the code adds those), no other characters. Drawn ~360 px tall at the back of the stage.
+
+| Key | Pose |
+| --- | --- |
+| `prop/oballet-teacher-disco` | Disco point: right arm pointing straight up-and-out to the top-right corner, left hand on her hip, hips pushed to one side, one knee bent with that toe tapping, big grin |
+| `prop/oballet-teacher-starfish` | Star jump: airborne about 10% of her height above the ground line, arms and legs flung wide in an X (starfish), wings spread, delighted open-mouth smile |
+| `prop/oballet-teacher-hula` | Hula: hips swung to one side, both arms flowing to the same side in soft waves at shoulder height, knees softly bent, eyes happily closed |
+| `prop/oballet-teacher-cartwheel` | Mid-cartwheel, **upside down**: both hands on the ground line, legs straight up in a wide V, tutu flipped up neatly, wings spread, laughing. Fits the same 512×640 canvas (centre of mass in the middle) |
+| `prop/oballet-teacher-cancan` | Can-can: one leg kicked high to the front (toe at head height), standing on the other pointe, both hands holding the tutu edge out, cheeky wink |
+| `prop/oballet-teacher-splits` | Front splits on the ground: one leg forward, one back, flat on the ground line, arms raised in a graceful V, proud smile. Her head lower in the canvas, feet still on the ground line |
+| `prop/oballet-teacher-moonwalk` | Moonwalk: leaning back slightly, one foot flat and sliding back, the other up on its toe, one hand tipping an imaginary hat by her tiara, cool smug smile |
 
 All Play Studio, Molly, grown-up reaction, October16 audit, October27 Dance Studio, nail-hand and Charlie Sister action image requests are delivered and checked. Add new requests or regeneration feedback above; delivery details are in image-requests-history.md and reference/IMAGE-WORK-QUEUE.md.

@@ -5,12 +5,12 @@ export const meta = {
   category: 'molly',
   type: 'Seek & find',
   goal: 'Find the fairies hiding in the garden!',
-  controls: [['stick', 'Walk with your magnifying glass'], ['a', 'Peek! Check a hiding spot']],
+  controls: [['stick', 'Walk with your magnifying glass'], ['a', 'Peek! Check a hiding spot'], ['b', 'Dash']],
   tips: ['Look through your glass to see who is hiding.', 'Wiggly, sparkly spots have a fairy!', 'Frogs and snails are just being silly.'],
   // Easy (A only): you walk from spot to spot by yourself and stop to look;
   // the stick still walks you if you like, and A off a spot walks to the nearest one.
   goalEasy: 'Find the fairies hiding in the garden!',
-  controlsEasy: [['a', 'Peek! when you see a fairy'], ['stick', 'Walk anywhere you like (or let it walk you)']],
+  controlsEasy: [['a', 'Peek! when you see a fairy'], ['stick', 'Walk anywhere you like (or let it walk you)'], ['b', 'Dash (if you like)']],
   tipsEasy: ['You walk to the hiding spots all by yourself, or move with either stick!', 'See a fairy in your glass? Press A quick!', 'Frogs and snails are just being silly.'],
   music: 'sneaky',
   duration: '60 sec',

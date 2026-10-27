@@ -1,5 +1,7 @@
 // Snowflake Giggles (Molly Party) - race around a snowy meadow catching
-// giggly snowflakes on your tongue (hold A). Every flake flies to the big
+// giggly snowflakes in a little snow jar held up over your head (hold A).
+// Flakes pop into the jar with a sparkle and a giggle, and the jar fills up and
+// glows when it's full. Every flake also flies on to the big
 // shared snowman at the back, who grows piece by piece until he's finished
 // and dances. A cheeky snowman friend lobs snowballs that burst into glitter
 // (glitter = a bonus!), and sledding penguins zoom across spraying extra
@@ -8,9 +10,10 @@
 // Art hooks (all optional, procedural fallbacks ship today): bg/snowflake-catch,
 //   prop/snowflake, prop/snowflake-big, prop/snowball, prop/snowman-friend(+-throw),
 //   prop/penguin-sled, prop/bigsnowman-1..6
-// New-pose hooks: 'tongue-out' -> look-up -> think
+// Poses: 'carry' (arms up, holding something overhead) while the jar is up; every
+//   playable character has it, and characters without arms balance the jar on top.
 import { W, H } from '../engine/canvas.js';
-import { Actor, POSE_NAMES } from '../engine/sprites.js';
+import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
@@ -20,7 +23,8 @@ import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, dist } from '../engine/util.js';
-import { ARENA, BIG, FRIEND, NAVY, drawFlake, drawSnowball, drawPenguin, drawFriend, drawBigSnowman, drawMeadow, drawTongue, friendHand } from './snowflake-catch/art.js';
+import { Dash } from '../engine/dash.js';
+import { ARENA, BIG, FRIEND, NAVY, drawFlake, drawSnowball, drawPenguin, drawFriend, drawBigSnowman, drawMeadow, drawSnowJar, JAR, friendHand } from './snowflake-catch/art.js';
 
 import { meta } from './snowflake-catch.meta.js';
 
@@ -31,8 +35,8 @@ const DURATION = 45;
 const STORM_AT = 10;
 const SPEED = 560;
 const STAGE_FRACS = [0.06, 0.22, 0.4, 0.58, 0.78, 1.0];
-const NEW_POSE_FALLBACK = { 'tongue-out': 'look-up' };
-const poseName = (n) => (POSE_NAMES.includes(n) ? n : NEW_POSE_FALLBACK[n] || 'idle');
+const JAR_FULL = 6;         // flakes that fill a jar (it glows, then empties: just for show)
+const POP_IN = 0.16;        // seconds a caught flake takes to drop into the jar
 /** Like engine steer(), but at a capped Molly-Party speed. */
 function steerTo(p, fx, fy, tx, ty, arrive, speed, wobble = 0) {
   const dx = tx - fx, dy = ty - fy, d = Math.hypot(dx, dy);
@@ -48,13 +52,13 @@ export class Game {
   constructor(api) {
     this.api = api;
     this.players = api.players;
-    this.easy = !!api.easy;     // Molly Easy: A = tongue; A again and again (no steering) walks you under a flake
+    this.easy = !!api.easy;     // Molly Easy: A = hold up the jar; A again and again (no steering) walks you under a flake
     const n = this.n = this.players.length;
     this.t = 0; this.timeLeft = DURATION; this.done = false; this.storm = false; this.stormT = 0;
     // the snow clock, shown the whole game
     api.limit(() => (this.done ? null : this.timeLeft), { showAt: Infinity });
     this.base = n <= 2 ? 1 : n <= 4 ? 0.92 : n <= 6 ? 0.84 : 0.78;
-    this.flakes = []; this.balls = []; this.penguins = []; this.motes = []; this.poofs = [];
+    this.flakes = []; this.balls = []; this.penguins = []; this.motes = []; this.poofs = []; this.popIns = [];
     this.spawnT = 0.2; this.bigT = rand(4, 6); this.ballT = rand(3, 4); this.pengT = rand(5, 7);
     this.goal = Math.round(16 + n * 11);      // flakes for a finished snowman
     this.built = 0; this.stage = 0; this.bounce = 0; this.dance = 0;
@@ -69,18 +73,24 @@ export class Game {
       const a = new Actor(p, { scale: this.base, x, y });
       a.facing = x < W / 2 ? 1 : -1; a.snap();
       const boost = a.leader.h < 80 ? 1.9 : 1;   // tiny fairy avatars
-      return { p, a, i, boost, x, y, vx: 0, vy: 0, score: 0, tongue: 0, spin: 0, spinDir: 1, glitter: 0, brain: new Brain(p), target: null, wander: 0, wx: x, wy: y, err: [0, 0], popN: 0, popT: 0, giggleT: 0 };
+      return { p, a, i, boost, x, y, vx: 0, vy: 0, score: 0, lift: 0, jar: 0, jarFull: 0, jarBump: 0, spin: 0, spinDir: 1, glitter: 0, dash: new Dash(), brain: new Brain(p), target: null, wander: 0, wx: x, wy: y, err: [0, 0], popN: 0, popT: 0, giggleT: 0 };
     });
   }
 
   // ----------------------------------------------------------------- helpers
-  mouth(e) {
-    const a = e.a, eye = a.anchor('eyes');
-    return { x: eye.x + a.facing * a.height * 0.04, y: eye.y + a.height * 0.12 };
+  /** The held-up jar: bottom centre (x, y), its scale s and the screen y of its open mouth. */
+  jarPos(e) {
+    const a = e.a, head = a.anchor('head'), hand = a.anchor('hand');
+    const s = clamp(a.height / 165, 0.7, 1.6);
+    // on top of the head (whichever is higher: the art's head point or the body's top,
+    // so it never covers a face), or between raised hands when they reach higher
+    const top = Math.min(head.y, e.y - a.height, hand.y + a.height * 0.06);
+    const y = top - 4 * s + (1 - e.lift) * 24 * s;
+    return { x: head.x, y, s, mouth: y - JAR.mouth * s };
   }
   pop(e, str, color, size = 50) {
     e.popN = e.popT > 0 ? e.popN + 1 : 0; e.popT = 0.7;
-    const top = e.a.y - e.a.height - 30, lvl = e.popN % 3;
+    const top = Math.min(e.a.y - e.a.height, e.lift > 0.02 ? this.jarPos(e).mouth - 50 : Infinity) - 30, lvl = e.popN % 3;
     particles.popText(e.x + (lvl === 1 ? 40 : lvl === 2 ? -40 : 0), top - lvl * 46, str, color, size);
   }
   spawnFlake(o = {}) {
@@ -118,6 +128,7 @@ export class Game {
     this.updateBalls(dt);
     this.updatePenguins(dt);
     this.updateMotes(dt);
+    this.updatePopIns(dt);
     this.bounce = approach(this.bounce, 0, dt * 2.5);
     this.friendThrow = Math.max(0, this.friendThrow - dt);
     for (const e of this.ents) { e.a.x = e.x; e.a.y = e.y; e.a.scale = this.base * e.boost * depthScale(e.y, { top: 380, near: 1020 }); e.a.update(dt); }
@@ -187,31 +198,42 @@ export class Game {
     e.glitter = Math.max(0, e.glitter - dt);
     if (e.glitter <= 0 && a._tint) a.tint(null);
     if (e.spin > 0) {
-      e.spin -= dt;
+      e.spin -= dt; e.dash.cancel();
       a.facing = Math.sin(e.spin * 30) > 0 ? 1 : -1;
       e.vx *= Math.exp(-4 * dt); e.vy *= Math.exp(-4 * dt);
       e.x = clamp(e.x + e.vx * dt, ARENA.x0, ARENA.x1); e.y = clamp(e.y + e.vy * dt, ARENA.y0, ARENA.y1);
       if (e.spin <= 0 && !a._once) a.setPose('idle');
-      e.tongue = 0;
+      e.lift = 0;
       return;
     }
     const auto = this.easy && !e.p.isAI;
     let ix = this.done ? 0 : auto ? e.autoX || 0 : ctrl.x, iy = this.done ? 0 : auto ? e.autoY || 0 : ctrl.y;
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
-    if (auto) e.tongueHold = Math.max(0, (e.tongueHold || 0) - dt);
-    const tongue = !this.done && (ctrl.held('a') || (auto && e.tongueHold > 0));
+    if (auto) e.liftHold = Math.max(0, (e.liftHold || 0) - dt);
+    const up = !this.done && (ctrl.held('a') || (auto && e.liftHold > 0));
     if (!this.done && ctrl.pressed('a')) {
-      snd('sfc-tongue', 'pop', { vol: 0.35, rate: 1.5 });
+      sfx('pop', { vol: 0.3, rate: 1.7 });
       a.squash(-0.15);
-      if (auto) e.tongueHold = 0.55;   // a quick tap still catches
+      if (auto) e.liftHold = 0.55;   // a quick tap still catches
     }
-    e.tongue = tongue ? Math.min(1, e.tongue + dt * 10) : Math.max(0, e.tongue - dt * 8);
-    // Easy: the auto-walk slows right down with the tongue out, so timing A beats holding it
-    const sp = SPEED * (tongue ? (auto && !e.ezManual ? 0.4 : 0.85) : 1);
+    e.lift = up ? Math.min(1, e.lift + dt * 9) : Math.max(0, e.lift - dt * 7);
+    e.jarBump = Math.max(0, e.jarBump - dt * 5);
+    if (e.jarFull > 0) {
+      e.jarFull -= dt;
+      if (e.jarFull <= 0) {   // the full jar tips its snow off to the big snowman (just for show)
+        e.jar = Math.max(0, e.jar - JAR_FULL); e.jarFull = 0;
+        const j = this.jarPos(e);
+        particles.burst(j.x, j.mouth, { type: 'sparkle', count: 10, colors: ['#ffffff', '#d6ecff', '#ffe1f5'], speed: [120, 260], size: [10, 18], angle: Math.atan2(BIG.y - 300 - j.mouth, BIG.x - j.x), spread: 0.7 });
+      }
+    }
+    // Easy: the auto-walk slows right down with the jar up, so timing A beats holding it
+    const sp = SPEED * (up ? (auto && !e.ezManual ? 0.4 : 0.85) : 1);
     e.vx = approach(e.vx, ix * sp, 4200 * dt); e.vy = approach(e.vy, iy * sp * 0.8, 4200 * dt);
-    e.x = clamp(e.x + e.vx * dt, ARENA.x0, ARENA.x1); e.y = clamp(e.y + e.vy * dt, ARENA.y0, ARENA.y1);
-    if (tongue && !a._once) {
-      a.setPose(poseName('tongue-out'));
+    const dd = e.dash.update(dt, ctrl, { x: e.x, y: e.y, actor: up ? null : a, facing: a.facing, ok: !this.done && !e.p.isAI });   // B: a short dash
+    e.x = clamp(e.x + e.vx * dt + dd.x, ARENA.x0, ARENA.x1); e.y = clamp(e.y + e.vy * dt + dd.y, ARENA.y0, ARENA.y1);
+    if (up && !a._once) {
+      a.setPose('carry');   // arms up, holding the jar overhead
+      a.speed = clamp(Math.hypot(e.vx, e.vy) / SPEED, 0, 1);
       if (Math.abs(e.vx) > 30) a.facing = e.vx > 0 ? 1 : -1;
     } else a.moveAnim(e.vx, e.vy, SPEED, { run: Math.hypot(e.vx, e.vy) > 380 });
   }
@@ -240,9 +262,9 @@ export class Game {
 
   tryCatch(f) {
     for (const e of this.ents) {
-      if (e.tongue < 0.5 || e.spin > 0) continue;
+      if (e.lift < 0.5 || e.spin > 0) continue;
       const a = e.a, h = a.height;
-      if (f.z > h * 1.45 || f.z < h * 0.15) continue;
+      if (f.z > h * 1.65 || f.z < h * 0.5) continue;   // around the jar, held up overhead
       const R = 70 * this.base + (f.big ? 36 : 0) + a.radius * 0.4;
       const dx = f.x - e.x, dy = (f.y - e.y) * 1.7;
       if (dx * dx + dy * dy < R * R) { this.catchFlake(e, f); return; }
@@ -253,25 +275,38 @@ export class Game {
     f.state = 'dead';
     const pts = f.big ? 3 : 1;
     e.score += pts;
-    const a = e.a, m = this.mouth(e);
-    a.squash(0.25);
+    const a = e.a, j = this.jarPos(e), m = { x: j.x, y: j.mouth + 30 * j.s };
+    a.squash(0.12);
+    // the flake drops into the jar, which fills up and glows when full
+    this.popIns.push({ e, x: f.x, y: f.y - f.z, rot: f.rot, big: f.big, t: 0 });
+    e.jar += pts; e.jarBump = 1;
+    if (e.jar >= JAR_FULL && e.jarFull <= 0) {
+      e.jarFull = 1.1;
+      snd('ff-jar-full', 'sparkle', { vol: 0.55 });
+      particles.ring(j.x, j.mouth + 36 * j.s, '#fff6a8', 90 * j.s + 30, 0.4);
+    }
     if (f.big) {
       snd('sfc-big', 'golden-chime'); sfx('sparkle'); voice(e.p.charId, 'woo');
       particles.burst(m.x, m.y, { type: 'star', count: 14, colors: ['#ffc2f0', '#c9b0ff', '#a8f0ff', '#fff6a8'], speed: [160, 360] });
       fx.flash('#f2e6ff', 0.12); fx.shake(6, 0.18);
       this.api.camera && this.api.camera.punch(e.x, a.y - a.height * 0.6, 1.12, 0.3);
       this.pop(e, '+3', '#b36bff', 66);
-      a.emote('sparkle', 1);
       if (!e.p.isAI) e.p.ctrl.rumble(0.5, 140);
     } else {
       if (this.t - this.catchAt > 0.04) snd('sfc-catch', 'collect', { step: (e.score % 12), vol: 0.7 });
       this.catchAt = this.t;
-      particles.burst(m.x, m.y, { type: 'sparkle', count: 6, colors: ['#ffffff', '#bfe6ff', '#ffe1f5'], speed: [80, 200], size: [10, 18] });
+      particles.burst(m.x, m.y - 20 * j.s, { type: 'sparkle', count: 6, colors: ['#ffffff', '#bfe6ff', '#ffe1f5'], speed: [80, 200], size: [10, 18] });
       this.pop(e, '+1', '#3fa7ff', 46);
-      if (e.giggleT <= 0 && chance(0.25)) { e.giggleT = 2.5; sfx('giggle', { vol: 0.45, rate: rand(1.1, 1.4) }); a.emote('happy', 0.7); }
+      // the flake giggles as it lands (a sound, not a voice; held back so it never chatters)
+      if (e.giggleT <= 0) { e.giggleT = 1.1; sfx('giggle', { vol: 0.35, rate: rand(1.3, 1.6) }); }
     }
     // a little sparkle flies to the big snowman
     for (let i = 0; i < pts; i++) this.motes.push({ x: m.x, y: m.y, sx: m.x, sy: m.y, t: -i * 0.08, d: rand(0.55, 0.75), color: f.big ? pick(['#ffc2f0', '#c9b0ff', '#a8f0ff']) : '#ffffff' });
+  }
+
+  updatePopIns(dt) {
+    for (const p of this.popIns) p.t += dt;
+    this.popIns = this.popIns.filter((p) => p.t < POP_IN);
   }
 
   updateMotes(dt) {
@@ -338,7 +373,7 @@ export class Game {
         e.a.playOnce('surprised', 0.35, 'idle'); e.a.squash(0.35); e.a.emote('sparkle', 1.2);
         voice(e.p.charId, 'laugh');
         this.pop(e, 'Glitter! +1', '#ff7ac6', 46);
-        const m = this.mouth(e);
+        const m = e.a.anchor('head');
         this.motes.push({ x: m.x, y: m.y, sx: m.x, sy: m.y, t: 0, d: 0.7, color: '#ffc2f0' });
       }
     }
@@ -416,7 +451,7 @@ export class Game {
     if (d < 14) ctrl.move(0, 0);
   }
 
-  /** Molly Easy (humans): the stick walks you, A is the tongue. Nobody walks you otherwise,
+  /** Molly Easy (humans): the stick walks you, A holds up the jar. Nobody walks you otherwise,
    *  except for a moment after each A pressed again and again with no steering (easyAutoOk):
    *  then you walk under the best flake by yourself. */
   easyThink(e, dt) {
@@ -429,13 +464,13 @@ export class Game {
     e.ezGoT = Math.max(0, (e.ezGoT || 0) - dt);
     if (e.spin > 0) return;
     const h = e.a.height;
-    const ok = (f) => f && f.state === 'fall' && f.z > h * 0.2;
+    const ok = (f) => f && f.state === 'fall' && f.z > h * 0.5;
     e.retarget = (e.retarget || 0) - dt;
     if (e.retarget <= 0 || !ok(e.target)) {
       e.retarget = 0.3;
       let best = null, bu = -1;
       for (const f of this.flakes) {
-        if (!ok(f) || f.z < h * 0.5) continue;
+        if (!ok(f) || f.z < h * 0.7) continue;
         const tArrive = (f.z - h * 0.8) / f.vz;
         const travel = Math.hypot(f.x - e.x, (f.y - e.y) * 1.25) / (SPEED * 0.7);
         if (travel > tArrive + 0.2) continue;
@@ -455,11 +490,11 @@ export class Game {
     e.autoX = (dx / d) * k; e.autoY = (dy / d) * k;
   }
 
-  /** Easy: is this player's flake in reach of the tongue right now? */
+  /** Easy: is this player's flake in reach of the jar right now? */
   easyNow(e) {
     const f = e.target, h = e.a.height;
     if (!f || f.state !== 'fall' || e.spin > 0) return false;
-    return f.z < h * 1.7 && f.z > h * 0.2 && Math.hypot(f.x - e.x, (f.y - e.y) * 1.7) < 110;
+    return f.z < h * 1.9 && f.z > h * 0.5 && Math.hypot(f.x - e.x, (f.y - e.y) * 1.7) < 110;
   }
 
   // ------------------------------------------------------------------ finish
@@ -473,7 +508,7 @@ export class Game {
       this.motes.push({ x: e.x, y: e.y - 100, sx: e.x, sy: e.y - 100, t: -i * 0.03, d: 0.6, color: '#ffffff' });
     }
     if (left > 40) this.built += left - 40;
-    this.ents.forEach((e) => { e.a.clearEmotes(); e.a.tint(null); e.tongue = 0; e.a.setPose('celebrate'); });
+    this.ents.forEach((e) => { e.a.clearEmotes(); e.a.tint(null); e.lift = 0; e.a.setPose('celebrate'); });
     const scores = this.ents.map((e) => e.score);
     sfx('cheer', { vol: 0.6 });
     this.api.finishTogether({
@@ -546,18 +581,26 @@ export class Game {
       if (sy < -60) continue;
       g.save(); g.translate(f.x, sy); drawFlake(g, f.big ? 120 : 58, f.rot, f.age, f.big); g.restore();
     }
+    // caught flakes dropping into their jar
+    for (const p of this.popIns) {
+      const j = this.jarPos(p.e), u = clamp(p.t / POP_IN, 0, 1), k = u * u;
+      g.save(); g.translate(p.x + (j.x - p.x) * k, p.y + (j.mouth + 10 * j.s - p.y) * k);
+      drawFlake(g, (p.big ? 120 : 58) * (1 - u * 0.65), p.rot + u * 3, this.t, p.big); g.restore();
+    }
     for (const b of this.balls) { g.save(); g.translate(b.x, b.y - b.z - 30); g.rotate(b.rot); drawSnowball(g, 32); g.restore(); }
     for (const mo of this.motes) if (mo.t > 0) {
       g.save(); g.translate(mo.x, mo.y); g.globalAlpha = 0.9; drawFlake(g, 22, mo.t * 8, mo.t); g.restore();
     }
     // tags
     for (const e of this.ents) {
-      const top = e.y - e.a.height - 26 - (e.a.emotes.length ? 48 : 0);
+      // (above the jar while it's held up)
+      const head = e.lift > 0.02 ? Math.min(e.y - e.a.height, this.jarPos(e).mouth - 6) : e.y - e.a.height;
+      const top = head - 26 - (e.a.emotes.length ? 48 : 0);
       if (!this.api.ended?.()) ui.playerTag(g, e.p, e.x, top);
-      // Easy: a big bouncing A when your flake is right above your tongue
+      // Easy: a big bouncing A when your flake is right above your head (A = jar up)
       if (this.easy && !this.done && !e.p.isAI && this.easyNow(e)) {
         const f = e.target;
-        easyPrompt(g, e.p, { target: { x: f.x, y: f.y - f.z }, child: { x: e.x, y: e.y - e.a.height } });
+        easyPrompt(g, e.p, { target: { x: f.x, y: f.y - f.z }, child: { x: e.x, y: Math.min(e.y - e.a.height, this.jarPos(e).mouth) } });
       }
     }
   }
@@ -565,10 +608,11 @@ export class Game {
   drawPlayer(g, e) {
     const a = e.a;
     a.draw(g, { ring: e.p.color });
-    if (e.tongue > 0.05) {
-      const m = this.mouth(e);
-      g.save(); g.translate(m.x, m.y); g.scale(e.tongue, e.tongue);
-      drawTongue(g, a.scale * 1.1, Math.sin(this.t * 14) * 0.15);
+    if (e.lift > 0.02) {
+      const j = this.jarPos(e), k = e.lift < 1 ? 1 - Math.pow(1 - e.lift, 3) : 1;
+      g.save(); g.translate(j.x, j.y); g.rotate(Math.sin(this.t * 5 + e.i) * 0.05); g.scale(k, k);
+      g.globalAlpha = Math.min(1, e.lift * 2);
+      drawSnowJar(g, j.s, Math.min(1, e.jar / JAR_FULL), clamp(e.jarFull, 0, 1), this.t, e.jarBump);
       g.restore();
     }
     if (e.glitter > 0) {
@@ -581,6 +625,13 @@ export class Game {
     if (this.api.ended?.()) return;
     // (the snow clock is api.limit's, drawn by the play scene)
     ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 14, avoidCenter: true, format: (v) => '❄ ' + v });
+    // a reminder of the one button for the first few seconds
+    const el = this.startT === undefined ? 0 : this.t - this.startT;
+    if (el < 6 && this.players.some((p) => !p.isAI)) {
+      g.save(); g.globalAlpha = clamp(6 - el, 0, 1);
+      ui.text(g, this.easy ? 'Press A to catch snowflakes in your jar!' : 'Hold A to hold up your snow jar!', W / 2, H - 60, { size: 40, color: '#ffffff', weight: 800, stroke: NAVY });
+      g.restore();
+    }
     if (this.storm) {
       const pulse = 1 + Math.sin(this.t * 9) * 0.06;
       g.save(); g.translate(W / 2, 150); g.scale(pulse, pulse);

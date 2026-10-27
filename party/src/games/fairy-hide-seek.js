@@ -23,6 +23,7 @@ import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { easySteer, easyNearest, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { bodyRadius, claimed } from '../engine/crowd.js';
 import { clamp, lerp, rand, pick, chance, shuffle, TAU, dist, placementsFromScores } from '../engine/util.js';
+import { Dash } from '../engine/dash.js';
 import {
   NAVY, SPOTS, peekFor, bgImage, drawSpot, drawFairy, FAIRY_COLS, drawFrog, drawSnail, drawLadybug, bubble, drawMagnifier, glow,
 } from './fairy-hide-seek/art.js';
@@ -71,7 +72,7 @@ export class Game {
       const a = new Actor(p, { scale: this.sc, x, y });
       a.scale *= clamp(150 / a.leader.h, 1, 2.8);       // small avatars (garden fairies) drawn bigger
       a.snap();
-      const e = { p, a, x, y, vx: 0, vy: 0, lx: x, ly: y - 200, score: 0, cd: 0, glint: 0, spot: null, brain: new Brain(p), tgt: null, aimT: 0 };
+      const e = { p, a, x, y, vx: 0, vy: 0, lx: x, ly: y - 200, score: 0, cd: 0, glint: 0, spot: null, dash: new Dash(), brain: new Brain(p), tgt: null, aimT: 0 };
       this.lensTarget(e); e.lx = e.tlx; e.ly = e.tly;
       return e;
     });
@@ -176,7 +177,8 @@ export class Game {
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
     const k = 1 - Math.exp(-12 * dt);
     e.vx += (ix * SPEED - e.vx) * k; e.vy += (iy * SPEED * 0.85 - e.vy) * k;
-    e.x = clamp(e.x + e.vx * dt, 70, W - 70); e.y = clamp(e.y + e.vy * dt, MIN_Y, MAX_Y);
+    const dd = e.dash.update(dt, ctrl, { x: e.x, y: e.y, actor: a, ok: !this.done && !e.p.isAI });   // B: a short dash
+    e.x = clamp(e.x + e.vx * dt + dd.x, 70, W - 70); e.y = clamp(e.y + e.vy * dt + dd.y, MIN_Y, MAX_Y);
     a.x = e.x; a.y = e.y;
     a.moveAnim(e.vx, e.vy, SPEED);
     a.update(dt);
