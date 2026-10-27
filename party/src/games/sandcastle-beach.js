@@ -73,8 +73,8 @@ const CHEERS = ['Ta-da!', 'Ooh!', 'Sandy!', 'Yay!', 'Pretty!'];
 // smooths flat, leaving a dark wet patch for a few seconds.
 const CRUMBLE = 0.42, MELT_FLAT = 0.9, WET_PATCH = 4, PILE_TIME = 2.4;
 const MAX_GRAINS = 240, MAX_SPOTS = 90, MAX_CRUMBS = 24;
-const GRAIN_COLORS = [SAND, SAND_L, SAND_D, SAND_DD, '#e9bc6c'];
-const WET_SAND = '#c3925a', WET_SAND_D = '#9c6f3e';
+const GRAIN_COLORS = [SAND, SAND_D, SAND_DD, '#e0aa5a', '#c8904c'];
+const WET_SAND = '#d6a868', WET_SAND_D = '#b0804a';
 const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
 const snapPool = [];
 /** Two pictures of a piece (as it stands, and soaked dark) for its melt, s px per beach unit. */
@@ -116,7 +116,10 @@ function mound(g, x, y, rx, ry, mh, top, bot) {
   g.ellipse(x, y, rx, ry, 0, 0, Math.PI);
   g.closePath();
   g.fillStyle = gr; g.fill();
-  g.lineWidth = 2.2; g.strokeStyle = 'rgba(36,22,63,0.55)'; g.stroke();
+  g.lineWidth = 2; g.strokeStyle = 'rgba(110,70,30,0.45)'; g.stroke();
+  // a soft shine on top
+  g.fillStyle = 'rgba(255,255,255,0.18)';
+  g.beginPath(); g.ellipse(x - rx * 0.2, y - mh * 0.75, rx * 0.4, Math.max(1, mh * 0.22), 0, 0, TAU); g.fill();
 }
 
 // --- layout --------------------------------------------------------------------------------
@@ -336,14 +339,14 @@ export class Game {
     this.grainBurst(n, x0 + 6, x1 - 6, y0 + 8, by, p);
   }
   /** n grains thrown off between x0..x1 at heights y0..y1 (beach units), to settle round piece p's foot. */
-  grainBurst(n, x0, x1, y0, y1, p, { up = [120, 380], side = 170 } = {}) {
+  grainBurst(n, x0, x1, y0, y1, p, { up = [60, 250], side = 150 } = {}) {
     const f = foot(p), lift = p.z > 0;
     for (let i = 0; i < n && this.grains.length < MAX_GRAINS; i++) {
       const x = rand(x0, x1), clump = chance(0.22);
       this.grains.push({
         x, y: rand(y0, y1), vx: (x - p.x) * 2.2 + rand(-side, side), vy: -rand(...up),
         fl: p.y - p.z + rand(-f.hd, f.hd) * 0.9 + rand(0, 6), b: chance(0.45) ? randInt(1, 2) : 0,
-        r: clump ? rand(3.5, 6) : rand(1.6, 3), c: randInt(0, GRAIN_COLORS.length - 1), set: false, life: rand(1.1, 2.2), age: 0, top: lift,
+        r: clump ? rand(5, 8) : rand(2.6, 4.2), c: randInt(0, GRAIN_COLORS.length - 1), set: false, life: rand(1.1, 2.2), age: 0, top: lift,
       });
     }
   }
@@ -504,7 +507,7 @@ export class Game {
     if (melted) for (const r of melted) {
       let top = DEFS[r.type].vh;
       for (const pc of this.pieces) if (pc !== r && this.root(pc) === r) top = Math.max(top, pc.z + DEFS[pc.type].vh);
-      r.melt.mh = clamp(8 + top * 0.17, 12, 46);
+      r.melt.mh = clamp(6 + top * 0.09, 9, 24);
     }
     if (!w) return;
     // feet in the water: a giggle
@@ -1173,6 +1176,7 @@ export class Game {
     else if (w && w.stage !== 'swell') drawWave(g, w.y, this.t, 0.85);
     // everything that stands on the sand, back to front
     const k = this.k, list = [];
+    this.snapBudget = 8;
     for (const pc of this.pieces) list.push({ y: this.oy + pc.sy * k, pc });
     for (const st of this.stations) {
       if (st.held) list.push({ y: this.oy + (st.held.y + 0.3) * k + 0.01, st, pc: st.held, held: true });
@@ -1269,21 +1273,27 @@ export class Game {
   drawMelt(g, pc) {
     const m = pc.melt || (pc.melt = { snap: null, mh: 0, seed: 0 });
     const u = clamp(pc.washT / WASH, 0, 1), r = this.root(pc), rf = foot(r), f = foot(pc);
-    if (!m.snap) { const tr = g.getTransform(); m.snap = snapPiece(pc, Math.min(3, Math.hypot(tr.a, tr.b)), this.t); }
+    if (!m.snap) {
+      // a big wave: only a few new snapshots a frame (the rest stand a moment longer), smaller ones
+      if (this.snapBudget <= 0) { drawPiece(g, { ...pc, z: pc.z + (pc.dz || 0) }, this.t, { wet: 1 }); return; }
+      this.snapBudget--;
+      const tr = g.getTransform();
+      m.snap = snapPiece(pc, Math.min(this.melting > 30 ? 1.2 : 2, Math.hypot(tr.a, tr.b)), this.t);
+    }
     const S = m.snap, base = r.y - r.z + rf.hd, by = pc.y - pc.z;
-    const sag = smooth(0, 0.92, u), wetH = 12 + 300 * smooth(0, 0.6, u), alpha = 1 - smooth(0.6, 1, u);
+    const sag = smooth(0, 0.8, u), wetH = 12 + 300 * smooth(0, 0.55, u), alpha = 1 - smooth(0.7, 1, u);
     const top = by + f.hd + 12 - S.h, N = this.melting > 40 ? 5 : 10, bandH = S.h / N, srcH = S.ch / N;
-    const lift = (h) => (h > 0 ? h * (1 - 0.82 * sag) : h);
+    const lift = (h) => (h > 0 ? h * (1 - 0.85 * sag) : h);
     if (alpha > 0.01) {
       g.save();
       for (let j = N - 1; j >= 0; j--) {   // bottom up, each band overlapping the one below a little
         const y0 = top + j * bandH, y1 = y0 + bandH, hm = base - (y0 + y1) / 2;
         const rel = clamp(hm / 150, 0, 1);
-        const wf = 1 + sag * (0.1 + 0.45 * (1 - rel));
+        const wf = 1 + sag * (0.15 + 0.6 * (1 - rel));
         const dx = Math.sin(hm * 0.07 + m.seed + this.t * 2.6) * sag * 8 * rel;
         const dy0 = base - lift(base - y0), dy1 = base - lift(base - y1);
         const w = S.w * wf, x = r.x + (pc.x - r.x) * wf + dx - w / 2;
-        const ba = alpha * (1 - sag * rel * 0.55);
+        const ba = alpha * (1 - sag * rel * 0.7);
         const wet = clamp((wetH - hm) / 24 + 0.5, 0, 1);
         if (wet < 1) { g.globalAlpha = ba; g.drawImage(S.pics[0], 0, j * srcH, S.cw, srcH, x, dy0, w, dy1 - dy0 + 0.8); }
         if (wet > 0) { g.globalAlpha = ba * wet; g.drawImage(S.pics[1], 0, j * srcH, S.cw, srcH, x, dy0, w, dy1 - dy0 + 0.8); }
@@ -1294,7 +1304,7 @@ export class Game {
       const rx = rf.hw * (0.8 + 0.55 * sag) + 6, ry = rf.hd + 6 + 4 * sag;
       g.fillStyle = `rgba(120,80,40,${0.3 * smooth(0, 0.3, u)})`;
       g.beginPath(); g.ellipse(r.x, r.y, rx + 10, ry + 5, 0, 0, TAU); g.fill();
-      mound(g, r.x, r.y, rx, ry, m.mh * smooth(0.05, 0.6, u), WET_SAND, WET_SAND_D);
+      mound(g, r.x, r.y, rx, ry, m.mh * smooth(0.25, 0.85, u), WET_SAND, WET_SAND_D);
     }
   }
   /** Taken away (B): crumbling down from the top and sinking into the sand, shaking a little. */
@@ -1347,7 +1357,7 @@ export class Game {
         if (q.c !== ci || (q.set && !q.top) !== ground) continue;
         const r = q.set ? q.r * Math.min(1, q.life / 0.6) : q.r;
         if (r < 0.4) continue;
-        if (q.r > 3.4) { g.moveTo(q.x + r, q.y); g.arc(q.x, q.y, r, 0, TAU); } else g.rect(q.x - r / 2, q.y - r / 2, r, r);
+        if (q.r > 4.6) { g.moveTo(q.x + r, q.y); g.arc(q.x, q.y, r, 0, TAU); } else g.rect(q.x - r / 2, q.y - r / 2, r, r);
         any = true;
       }
       if (any) { g.fillStyle = GRAIN_COLORS[ci]; g.fill(); }
