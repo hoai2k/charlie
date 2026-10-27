@@ -13,28 +13,27 @@ export const NAVY = '#24163f';
 
 // ---------------------------------------------------------------------------
 // Data
-// Each move is one beat. pose = the character pose; the extras add motion on
-// top (hop: jump height as a fraction of the height, spin: twirl around,
-// slide: glide sideways and back, shift: hip lean, wobble: rock, float: rise).
-export const MOVES = [
-  { id: 'up', name: 'Arms Up', pose: 'dance-up', color: '#ff6fb1', sound: 'pop' },
-  { id: 'point', name: 'Point', pose: 'dance-side', color: '#ff9f1c', lean: 0.12, sound: 'pop' },
-  { id: 'knees', name: 'Knees', pose: 'dance-down', color: '#ffd23f', squash: 0.25, sound: 'land' },
-  { id: 'star', name: 'Star Jump', pose: 'dance-star', color: '#5ddc6a', hop: 0.3, sound: 'boing' },
-  { id: 'twirl', name: 'Twirl', pose: 'pose-twirl', color: '#9b5cff', spin: true, sound: 'sparkle' },
-  { id: 'clap', name: 'Clap', pose: 'clap', color: '#3fa7ff', sound: 'clap' },
-  { id: 'wave', name: 'Wave', pose: 'wave', color: '#ff4d6d', sound: 'pop' },
-  { id: 'bump', name: 'Hip Bump', pose: 'hip-bump', color: '#ff6fd0', shift: true, sound: 'boing' },
-  { id: 'swim', name: 'Swim', pose: 'swim', color: '#36c9d1', wobble: 0.08, sound: 'bubble' },
-  { id: 'slide', name: 'Slide', pose: 'dash', color: '#7fd3ff', slide: true, lean: 0.1, sound: 'whoosh' },
-  { id: 'peace', name: 'Peace!', pose: 'photo', color: '#ff8fc8', sound: 'pop' },
-  { id: 'tada', name: 'Ta-da!', pose: 'strike3', color: '#ffc12e', sound: 'star' },
-  { id: 'wobble', name: 'Wobble', pose: 'balance', color: '#6fe3b4', wobble: 0.16, sound: 'boing' },
-  { id: 'bow', name: 'Bow', pose: 'bow', color: '#c49bff', sound: 'select' },
-  { id: 'hop', name: 'Hop', pose: 'spring-jump', color: '#ff9f1c', hop: 0.4, sound: 'jump' },
-  { id: 'float', name: 'Float', pose: 'float', color: '#8fd0ff', float: true, sound: 'magic' },
+// The dance moves. Each one sits on a button (btn); `show` moves are only in
+// the show, where LB / RB aren't needed for the setup categories. poses: the
+// character pose to play, best first: the requested dance-* art (see
+// image-requests.md, "dance-studio — real-time dance moves") and then poses
+// every character already has. beats: how long it lasts. The extras add motion
+// on top: hop (jump height, fraction of the height), spin (twirl round), roll
+// (a full cartwheel turn about the middle), travel (px it carries you in the
+// show; none in the setup), kick (can-can kicks), sway (hula hips), drop
+// (splits: down and wide), lean (radians), glide (moonwalk: slides back while
+// facing forward), mirror (every other press does it to the other side).
+export const DANCES = [
+  { id: 'disco', btn: 'x', name: 'Disco!', poses: ['dance-disco', 'dance-side'], color: '#ff6fb1', beats: 1, lean: -0.16, mirror: true, sound: 'sparkle' },
+  { id: 'star', btn: 'a', name: 'Star Jump', poses: ['dance-starfish', 'dance-star'], color: '#ffd23f', beats: 1, hop: 0.42, sound: 'boing' },
+  { id: 'hula', btn: 'b', name: 'Hula', poses: ['dance-hula', 'float', 'balance'], color: '#5ddc6a', beats: 2, sway: 0.16, sound: 'whoosh' },
+  { id: 'twirl', btn: 'y', name: 'Twirl', poses: ['pose-twirl'], color: '#9b5cff', beats: 1, spin: true, sound: 'sparkle' },
+  { id: 'cartwheel', btn: 'lt', name: 'Cartwheel', poses: ['dance-cartwheel', 'dance-star'], color: '#ff9f1c', beats: 2, roll: true, travel: 220, mirror: true, sound: 'whoosh' },
+  { id: 'cancan', btn: 'rt', name: 'Can-can', poses: ['dance-cancan', 'balance', 'dance-star'], color: '#ff4d6d', beats: 2, kick: true, mirror: true, sound: 'boing' },
+  { id: 'splits', btn: 'lb', name: 'Splits', poses: ['dance-splits', 'dance-down'], color: '#3fa7ff', beats: 2, drop: true, show: true, sound: 'land' },
+  { id: 'moonwalk', btn: 'rb', name: 'Moonwalk', poses: ['dance-moonwalk', 'walk'], color: '#c49bff', beats: 2, glide: 150, mirror: true, show: true, sound: 'whoosh' },
 ];
-export const MOVE = Object.fromEntries(MOVES.map((m, i) => [m.id, i]));
+export const DANCE = Object.fromEntries(DANCES.map((m, i) => [m.id, i]));
 
 // Built-in songs (engine SONGS table): key, bpm.
 export const MUSIC = [
@@ -47,6 +46,7 @@ export const MUSIC = [
 ];
 
 export const LIGHTS = [
+  { id: 'none', name: 'None', colors: ['#ffffff'], none: true },
   { id: 'rainbow', name: 'Rainbow', colors: RAINBOW },
   { id: 'pink', name: 'Bubblegum', colors: ['#ff6fb1', '#ffb3d9', '#ff4d9a', '#ffd6ef'] },
   { id: 'ocean', name: 'Ocean', colors: ['#3fa7ff', '#36e0d0', '#7fd3ff', '#5b8cff'] },
@@ -298,7 +298,7 @@ export function drawFloor(g, x, y0, w, h, light, t) {
     g.fillStyle = '#ffd23f'; g.fillRect(x, y0, w, Math.max(3, h * 0.025));
   }
   // glossy shine + coloured light pools
-  if (light) {
+  if (light && !light.none) {
     g.save(); g.globalCompositeOperation = 'lighter';
     const cs = light.colors;
     for (let i = 0; i < 4; i++) {
@@ -314,7 +314,7 @@ export function drawFloor(g, x, y0, w, h, light, t) {
 // ---------------------------------------------------------------------------
 // Light beams from the top of a box. beat: fractional beat; pulse 0..1 (on-beat flash).
 export function drawLights(g, light, x, y, w, h, t, beat = 0, pulse = 0, power = 1) {
-  if (!light || power <= 0) return;
+  if (!light || light.none || power <= 0) return;
   const cs = light.colors, n = clamp(Math.round(w / 300), 3, 6);
   g.save(); g.globalCompositeOperation = 'lighter';
   for (let i = 0; i < n; i++) {
@@ -458,7 +458,24 @@ const PICTO = {
   bow:    { la: [10, 0], ra: [10, 0], ll: [6, 0], rl: [6, 0], bow: true },
   hop:    { la: [140, 0], ra: [140, 0], ll: [50, -110], rl: [50, -110], dy: -18, deco: 'hop' },
   float:  { la: [100, -25], ra: [100, -25], ll: [4, 0], rl: [4, 0], dy: -12, deco: 'float' },
+  // the real-time dance moves (DANCES)
+  disco:     { la: [148, 0], ra: [40, -105], ll: [22, 0], rl: [6, -35], lean: -10, deco: 'sparkle' },
+  hula:      { la: [96, -28], ra: [96, 28], ll: [10, 0], rl: [10, 0], hip: 8, lean: -6, deco: 'hula' },
+  cartwheel: { la: [128, 0], ra: [128, 0], ll: [34, 0], rl: [34, 0], flip: true, deco: 'roll' },
+  cancan:    { la: [55, -120], ra: [55, -120], ll: [6, 0], rl: [165, 0], lean: -8, deco: 'kick' },
+  splits:    { la: [150, 0], ra: [150, 0], ll: [88, 0], rl: [88, 0], dy: 22 },
+  moonwalk:  { la: [35, 30], ra: [20, 25], ll: [8, 0], rl: [28, -45], lean: -12, deco: 'speed' },
 };
+
+/** The standard "None" icon (dashed circle with a cross), as in the dress-up menus. */
+export function drawNoneIcon(g, cx, cy, size) {
+  g.save(); g.translate(cx, cy);
+  g.setLineDash([size * 0.08, size * 0.07]);
+  g.beginPath(); g.arc(0, 0, size * 0.3, 0, TAU); g.lineWidth = Math.max(2, size * 0.04); g.strokeStyle = 'rgba(255,255,255,0.6)'; g.stroke();
+  g.setLineDash([]);
+  g.beginPath(); g.moveTo(-size * 0.12, -size * 0.12); g.lineTo(size * 0.12, size * 0.12); g.moveTo(size * 0.12, -size * 0.12); g.lineTo(-size * 0.12, size * 0.12);
+  g.stroke(); g.restore();
+}
 
 /** Draw a move card's picture centred at (cx, cy), fitted to `size`. */
 export function drawMovePicto(g, move, cx, cy, size, t = 0, active = false) {
@@ -467,6 +484,7 @@ export function drawMovePicto(g, move, cx, cy, size, t = 0, active = false) {
   g.save(); g.translate(cx, cy + size * 0.02); g.scale(k, k);
   const bob = active ? Math.sin(t * 10) * 3 : 0;
   g.translate(0, (P.dy || 0) + bob);
+  if (P.flip) g.rotate(Math.PI + (active ? Math.sin(t * 4) * 0.25 : 0));
   // deco behind
   g.lineCap = 'round'; g.lineJoin = 'round';
   decoBehind(g, P.deco, move.color, t);
@@ -514,6 +532,12 @@ function decoBehind(g, deco, color, t) {
   } else if (deco === 'speed') {
     g.strokeStyle = color; g.lineWidth = 4;
     for (const yy of [-20, 0, 20]) { g.beginPath(); g.moveTo(-50, yy); g.lineTo(-32, yy); g.stroke(); }
+  } else if (deco === 'roll') {
+    g.strokeStyle = color; g.lineWidth = 5;
+    g.beginPath(); g.arc(0, 0, 50, 0.3 + t * 3, 0.3 + t * 3 + 4.2); g.stroke();
+  } else if (deco === 'kick') {
+    g.strokeStyle = color; g.lineWidth = 4;
+    g.beginPath(); g.arc(14, 0, 44, -1.9, -0.9); g.stroke(); g.beginPath(); g.arc(14, 0, 54, -1.8, -1.0); g.stroke();
   } else if (deco === 'float') {
     g.fillStyle = color; g.globalAlpha = 0.6; g.beginPath(); g.ellipse(0, 46, 22, 5, 0, 0, TAU); g.fill(); g.globalAlpha = 1;
   }
@@ -536,6 +560,9 @@ function decoFront(g, deco, color, t, parts) {
     for (const [x, y, s] of [[-44, -30, 1], [44, -36, 0.8], [40, 10, 0.6]]) { g.save(); g.translate(x, y); g.scale(s * (0.8 + 0.2 * Math.sin(t * 6 + x)), s); drawSparkleShape(g, 26, '#ffd23f'); g.restore(); }
   } else if (deco === 'wobble') {
     g.beginPath(); g.arc(0, -10, 44, -2.6, -2.1); g.stroke(); g.beginPath(); g.arc(0, -10, 44, -1.05, -0.55); g.stroke();
+  } else if (deco === 'hula') {
+    g.lineWidth = 3;
+    for (let i = -3; i <= 3; i++) { const sw = Math.sin(t * 8 + i) * 3; g.beginPath(); g.moveTo(i * 5 + 8, 18); g.lineTo(i * 6 + 8 + sw, 34); g.stroke(); }
   } else if (deco === 'hop') {
     g.beginPath(); g.moveTo(-14, 54); g.lineTo(-20, 62); g.moveTo(0, 54); g.lineTo(0, 64); g.moveTo(14, 54); g.lineTo(20, 62); g.stroke();
   } else if (deco === 'float') {
