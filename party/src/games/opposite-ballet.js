@@ -55,7 +55,7 @@ const EXTRA = ['cartwheel', 'cancan', 'splits', 'moonwalk'];  // triggers / bump
 // prop/oballet-teacher-<id>, is used the moment it lands), plus the motion that sells it.
 const TEACH = {
   disco: { pose: 'side', lean: -0.12 },
-  star: { pose: 'up', hop: 0.16 },
+  star: { pose: 'up', hop: 0.16, art: 'starfish' },
   hula: { pose: 'silly', sway: 0.12 },
   twirl: { pose: 'twirl', hop: 0.04 },
   cartwheel: { pose: 'up', spin: true },
@@ -678,7 +678,7 @@ export class Game {
     else if (dm) {
       const T = TEACH[dm.M.id], u = clamp(dm.t / dm.dur, 0, 1), s = Math.sin(u * Math.PI), h = TEACHER.h;
       pose = T.pose; k = T.pose === 'side' || T.pose === 'plie' || T.pose === 'up' ? clamp(u * 1.6, 0, 0.5) : u; side = dm.side;
-      artKey = 'prop/oballet-teacher-' + dm.M.id;
+      artKey = 'prop/oballet-teacher-' + (T.art || dm.M.id);
       if (T.hop) z = s * h * T.hop;
       if (T.lean) rot = s * T.lean * side;
       if (T.spin) { rot = ease.inOutQuad(u) * TAU * side; z = s * h * 0.1; }
