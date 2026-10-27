@@ -44,7 +44,15 @@
             68,
             126
           ],
-          "dur": 1.8
+          "dur": 1.8,
+          "belly": [
+            74,
+            126
+          ],
+          "tail": [
+            135,
+            218
+          ]
         },
         {
           "src": "idle-01.webp",
@@ -74,7 +82,15 @@
             68,
             126
           ],
-          "dur": 0.12
+          "dur": 0.12,
+          "belly": [
+            73,
+            123
+          ],
+          "tail": [
+            136,
+            214
+          ]
         }
       ]
     },
@@ -112,7 +128,15 @@
             102,
             140
           ],
-          "bodyHeight": 270.5
+          "bodyHeight": 270.5,
+          "belly": [
+            88,
+            127
+          ],
+          "tail": [
+            103,
+            188
+          ]
         },
         {
           "src": "celebrate-01.webp",
@@ -142,7 +166,15 @@
             122,
             162
           ],
-          "bodyHeight": 270.5
+          "bodyHeight": 270.5,
+          "belly": [
+            128,
+            142
+          ],
+          "tail": [
+            52,
+            204
+          ]
         },
         {
           "src": "celebrate-02.webp",
@@ -172,7 +204,15 @@
             76,
             128
           ],
-          "bodyHeight": 240.0
+          "bodyHeight": 240.0,
+          "belly": [
+            86,
+            125
+          ],
+          "tail": [
+            149,
+            212
+          ]
         },
         {
           "src": "celebrate-03.webp",
@@ -202,7 +242,15 @@
             103,
             158
           ],
-          "bodyHeight": 282.8
+          "bodyHeight": 282.8,
+          "belly": [
+            103,
+            128
+          ],
+          "tail": [
+            134,
+            213
+          ]
         }
       ]
     },
@@ -239,6 +287,14 @@
           "back": [
             60,
             129
+          ],
+          "belly": [
+            58,
+            142
+          ],
+          "tail": [
+            115,
+            215
           ]
         },
         {
@@ -268,6 +324,14 @@
           "back": [
             87,
             158
+          ],
+          "belly": [
+            69,
+            135
+          ],
+          "tail": [
+            119,
+            206
           ]
         }
       ],
@@ -306,6 +370,14 @@
           "back": [
             69,
             133
+          ],
+          "belly": [
+            69,
+            141
+          ],
+          "tail": [
+            120,
+            216
           ]
         }
       ]
@@ -343,6 +415,14 @@
           "back": [
             63,
             125
+          ],
+          "belly": [
+            68,
+            124
+          ],
+          "tail": [
+            121,
+            212
           ]
         }
       ]
@@ -380,6 +460,14 @@
           "back": [
             76,
             130
+          ],
+          "belly": [
+            81,
+            127
+          ],
+          "tail": [
+            142,
+            212
           ]
         }
       ]
@@ -417,6 +505,14 @@
           "back": [
             70,
             132
+          ],
+          "belly": [
+            73,
+            131
+          ],
+          "tail": [
+            124,
+            215
           ]
         }
       ]
@@ -454,6 +550,14 @@
           "back": [
             71,
             129
+          ],
+          "belly": [
+            78,
+            130
+          ],
+          "tail": [
+            162,
+            213
           ]
         }
       ]
@@ -491,6 +595,14 @@
           "back": [
             84,
             137
+          ],
+          "belly": [
+            81,
+            126
+          ],
+          "tail": [
+            48,
+            214
           ]
         }
       ]
@@ -528,6 +640,14 @@
           "back": [
             93,
             123
+          ],
+          "belly": [
+            90,
+            132
+          ],
+          "tail": [
+            103,
+            217
           ]
         }
       ]
@@ -565,6 +685,14 @@
           "back": [
             92,
             124
+          ],
+          "belly": [
+            87,
+            114
+          ],
+          "tail": [
+            114,
+            156
           ]
         }
       ]
@@ -602,6 +730,14 @@
           "back": [
             62,
             140
+          ],
+          "belly": [
+            65,
+            131
+          ],
+          "tail": [
+            106,
+            219
           ]
         }
       ]
@@ -639,6 +775,14 @@
           "back": [
             96,
             157
+          ],
+          "belly": [
+            85,
+            130
+          ],
+          "tail": [
+            118,
+            208
           ]
         }
       ],
@@ -677,6 +821,14 @@
           "back": [
             82,
             156
+          ],
+          "belly": [
+            76,
+            132
+          ],
+          "tail": [
+            112,
+            213
           ]
         }
       ]
@@ -714,6 +866,14 @@
           "back": [
             103,
             123
+          ],
+          "belly": [
+            102,
+            118
+          ],
+          "tail": [
+            36,
+            189
           ]
         },
         {
@@ -743,6 +903,14 @@
           "back": [
             60,
             131
+          ],
+          "belly": [
+            67,
+            121
+          ],
+          "tail": [
+            96,
+            211
           ]
         },
         {
@@ -772,6 +940,14 @@
           "back": [
             61,
             127
+          ],
+          "belly": [
+            68,
+            139
+          ],
+          "tail": [
+            130,
+            207
           ]
         },
         {
@@ -801,6 +977,14 @@
           "back": [
             62,
             132
+          ],
+          "belly": [
+            65,
+            139
+          ],
+          "tail": [
+            96,
+            212
           ]
         }
       ]
@@ -842,7 +1026,15 @@
             98,
             163
           ],
-          "bodyHeight": 274.0
+          "bodyHeight": 274.0,
+          "belly": [
+            95,
+            130
+          ],
+          "tail": [
+            150,
+            207
+          ]
         },
         {
           "src": "dance-01.webp",
@@ -872,7 +1064,15 @@
             90,
             163
           ],
-          "bodyHeight": 245.8
+          "bodyHeight": 245.8,
+          "belly": [
+            87,
+            133
+          ],
+          "tail": [
+            123,
+            204
+          ]
         },
         {
           "src": "dance-02.webp",
@@ -902,7 +1102,15 @@
             81,
             161
           ],
-          "bodyHeight": 268.5
+          "bodyHeight": 268.5,
+          "belly": [
+            85,
+            126
+          ],
+          "tail": [
+            71,
+            206
+          ]
         },
         {
           "src": "dance-03.webp",
@@ -932,7 +1140,15 @@
             116,
             156
           ],
-          "bodyHeight": 257.8
+          "bodyHeight": 257.8,
+          "belly": [
+            118,
+            127
+          ],
+          "tail": [
+            58,
+            201
+          ]
         }
       ]
     },
@@ -969,6 +1185,14 @@
           "back": [
             84,
             166
+          ],
+          "belly": [
+            76,
+            153
+          ],
+          "tail": [
+            159,
+            204
           ]
         },
         {
@@ -998,6 +1222,14 @@
           "back": [
             94,
             167
+          ],
+          "belly": [
+            79,
+            126
+          ],
+          "tail": [
+            156,
+            199
           ]
         }
       ]
@@ -1035,6 +1267,14 @@
           "back": [
             118,
             194
+          ],
+          "belly": [
+            113,
+            154
+          ],
+          "tail": [
+            97,
+            283
           ]
         }
       ],
@@ -1073,6 +1313,14 @@
           "back": [
             120,
             185
+          ],
+          "belly": [
+            102,
+            153
+          ],
+          "tail": [
+            174,
+            267
           ]
         }
       ],
@@ -1111,6 +1359,14 @@
           "back": [
             126,
             187
+          ],
+          "belly": [
+            135,
+            158
+          ],
+          "tail": [
+            171,
+            271
           ]
         }
       ],
@@ -1149,6 +1405,14 @@
           "back": [
             104,
             186
+          ],
+          "belly": [
+            75,
+            149
+          ],
+          "tail": [
+            167,
+            277
           ]
         }
       ]
@@ -1186,6 +1450,14 @@
           "back": [
             136,
             153
+          ],
+          "belly": [
+            104,
+            133
+          ],
+          "tail": [
+            217,
+            219
           ]
         }
       ],
@@ -1224,6 +1496,14 @@
           "back": [
             104,
             192
+          ],
+          "belly": [
+            75,
+            162
+          ],
+          "tail": [
+            137,
+            284
           ]
         }
       ],
@@ -1262,6 +1542,14 @@
           "back": [
             109,
             189
+          ],
+          "belly": [
+            105,
+            149
+          ],
+          "tail": [
+            89,
+            280
           ]
         }
       ],
@@ -1300,6 +1588,14 @@
           "back": [
             111,
             179
+          ],
+          "belly": [
+            86,
+            161
+          ],
+          "tail": [
+            155,
+            257
           ]
         }
       ],
@@ -1338,6 +1634,14 @@
           "back": [
             126,
             205
+          ],
+          "belly": [
+            124,
+            163
+          ],
+          "tail": [
+            189,
+            300
           ]
         }
       ],
@@ -1376,6 +1680,14 @@
           "back": [
             128,
             191
+          ],
+          "belly": [
+            103,
+            169
+          ],
+          "tail": [
+            182,
+            278
           ]
         }
       ],
@@ -1415,6 +1727,14 @@
           "back": [
             111,
             147
+          ],
+          "belly": [
+            132,
+            171
+          ],
+          "tail": [
+            78,
+            217
           ]
         },
         {
@@ -1444,6 +1764,14 @@
           "back": [
             159,
             171
+          ],
+          "belly": [
+            183,
+            149
+          ],
+          "tail": [
+            58,
+            243
           ]
         }
       ],
@@ -1484,7 +1812,15 @@
             100,
             158
           ],
-          "bodyHeight": 327.5
+          "bodyHeight": 327.5,
+          "belly": [
+            100,
+            141
+          ],
+          "tail": [
+            75,
+            223
+          ]
         },
         {
           "src": "hip-bump-01.webp",
@@ -1514,7 +1850,15 @@
             133,
             158
           ],
-          "bodyHeight": 240.0
+          "bodyHeight": 240.0,
+          "belly": [
+            158,
+            147
+          ],
+          "tail": [
+            105,
+            206
+          ]
         }
       ]
     },
@@ -1553,7 +1897,15 @@
             127,
             163
           ],
-          "bodyHeight": 276.0
+          "bodyHeight": 276.0,
+          "belly": [
+            165,
+            141
+          ],
+          "tail": [
+            58,
+            214
+          ]
         },
         {
           "src": "knockback-01.webp",
@@ -1583,7 +1935,15 @@
             111,
             178
           ],
-          "bodyHeight": 240.0
+          "bodyHeight": 240.0,
+          "belly": [
+            103,
+            143
+          ],
+          "tail": [
+            140,
+            262
+          ]
         }
       ]
     },
@@ -1620,6 +1980,14 @@
           "back": [
             116,
             184
+          ],
+          "belly": [
+            92,
+            157
+          ],
+          "tail": [
+            179,
+            272
           ]
         }
       ]
@@ -1657,6 +2025,14 @@
           "back": [
             102,
             193
+          ],
+          "belly": [
+            90,
+            153
+          ],
+          "tail": [
+            140,
+            282
           ]
         }
       ],
@@ -1695,6 +2071,14 @@
           "back": [
             140,
             184
+          ],
+          "belly": [
+            112,
+            160
+          ],
+          "tail": [
+            220,
+            254
           ]
         }
       ],
@@ -1733,6 +2117,14 @@
           "back": [
             102,
             193
+          ],
+          "belly": [
+            90,
+            159
+          ],
+          "tail": [
+            148,
+            286
           ]
         }
       ]
@@ -1770,6 +2162,14 @@
           "back": [
             124,
             180
+          ],
+          "belly": [
+            112,
+            149
+          ],
+          "tail": [
+            58,
+            258
           ]
         }
       ],
@@ -1808,6 +2208,14 @@
           "back": [
             103,
             183
+          ],
+          "belly": [
+            78,
+            149
+          ],
+          "tail": [
+            133,
+            264
           ]
         }
       ],
@@ -1846,6 +2254,14 @@
           "back": [
             120,
             182
+          ],
+          "belly": [
+            90,
+            153
+          ],
+          "tail": [
+            177,
+            248
           ]
         }
       ]
@@ -1883,6 +2299,14 @@
           "back": [
             104,
             187
+          ],
+          "belly": [
+            91,
+            150
+          ],
+          "tail": [
+            148,
+            275
           ]
         }
       ]
@@ -1920,6 +2344,14 @@
           "back": [
             131,
             207
+          ],
+          "belly": [
+            104,
+            163
+          ],
+          "tail": [
+            196,
+            300
           ]
         }
       ],
@@ -1958,6 +2390,14 @@
           "back": [
             120,
             176
+          ],
+          "belly": [
+            87,
+            150
+          ],
+          "tail": [
+            121,
+            253
           ]
         }
       ],
@@ -1996,6 +2436,14 @@
           "back": [
             120,
             200
+          ],
+          "belly": [
+            81,
+            170
+          ],
+          "tail": [
+            145,
+            288
           ]
         }
       ],
@@ -2034,6 +2482,14 @@
           "back": [
             113,
             198
+          ],
+          "belly": [
+            97,
+            154
+          ],
+          "tail": [
+            105,
+            266
           ]
         }
       ],
@@ -2072,6 +2528,14 @@
           "back": [
             111,
             173
+          ],
+          "belly": [
+            106,
+            167
+          ],
+          "tail": [
+            89,
+            249
           ]
         }
       ],
@@ -2109,7 +2573,15 @@
             97,
             153
           ],
-          "dur": 0.45
+          "dur": 0.45,
+          "belly": [
+            97,
+            129
+          ],
+          "tail": [
+            168,
+            241
+          ]
         }
       ]
     },
@@ -2146,6 +2618,14 @@
           "back": [
             115,
             189
+          ],
+          "belly": [
+            103,
+            163
+          ],
+          "tail": [
+            133,
+            270
           ]
         }
       ],
@@ -2184,6 +2664,14 @@
           "back": [
             106,
             190
+          ],
+          "belly": [
+            76,
+            157
+          ],
+          "tail": [
+            133,
+            273
           ]
         }
       ],
@@ -2222,6 +2710,14 @@
           "back": [
             84,
             125
+          ],
+          "belly": [
+            95,
+            129
+          ],
+          "tail": [
+            139,
+            212
           ]
         },
         {
@@ -2251,6 +2747,14 @@
           "back": [
             114,
             117
+          ],
+          "belly": [
+            110,
+            137
+          ],
+          "tail": [
+            63,
+            209
           ]
         },
         {
@@ -2277,6 +2781,14 @@
           "back": [
             107,
             132
+          ],
+          "belly": [
+            107,
+            110
+          ],
+          "tail": [
+            25,
+            206
           ]
         },
         {
@@ -2306,6 +2818,14 @@
           "back": [
             91,
             146
+          ],
+          "belly": [
+            67,
+            127
+          ],
+          "tail": [
+            109,
+            211
           ]
         }
       ]
@@ -2343,6 +2863,14 @@
           "back": [
             103,
             143
+          ],
+          "belly": [
+            74,
+            132
+          ],
+          "tail": [
+            125,
+            207
           ]
         }
       ]
@@ -2380,6 +2908,14 @@
           "back": [
             114,
             143
+          ],
+          "belly": [
+            90,
+            126
+          ],
+          "tail": [
+            147,
+            207
           ]
         }
       ]
@@ -2417,6 +2953,14 @@
           "back": [
             99,
             136
+          ],
+          "belly": [
+            86,
+            122
+          ],
+          "tail": [
+            124,
+            197
           ]
         }
       ]
@@ -2454,6 +2998,14 @@
           "back": [
             105,
             140
+          ],
+          "belly": [
+            82,
+            119
+          ],
+          "tail": [
+            133,
+            200
           ]
         }
       ]
@@ -2491,6 +3043,14 @@
           "back": [
             112,
             140
+          ],
+          "belly": [
+            96,
+            120
+          ],
+          "tail": [
+            150,
+            202
           ]
         }
       ]
@@ -2528,6 +3088,14 @@
           "back": [
             89,
             127
+          ],
+          "belly": [
+            74,
+            126
+          ],
+          "tail": [
+            113,
+            145
           ]
         }
       ]
@@ -2565,6 +3133,14 @@
           "back": [
             121,
             133
+          ],
+          "belly": [
+            100,
+            121
+          ],
+          "tail": [
+            162,
+            193
           ]
         }
       ]
@@ -2602,6 +3178,14 @@
           "back": [
             98,
             147
+          ],
+          "belly": [
+            105,
+            141
+          ],
+          "tail": [
+            128,
+            216
           ]
         }
       ]
@@ -2639,6 +3223,14 @@
           "back": [
             102,
             138
+          ],
+          "belly": [
+            89,
+            121
+          ],
+          "tail": [
+            38,
+            198
           ]
         }
       ]
@@ -2676,6 +3268,14 @@
           "back": [
             86,
             145
+          ],
+          "belly": [
+            74,
+            118
+          ],
+          "tail": [
+            62,
+            209
           ]
         }
       ]
@@ -2713,6 +3313,14 @@
           "back": [
             108,
             131
+          ],
+          "belly": [
+            115,
+            118
+          ],
+          "tail": [
+            43,
+            192
           ]
         }
       ],
@@ -2751,6 +3359,14 @@
           "back": [
             86,
             205
+          ],
+          "belly": [
+            82,
+            161
+          ],
+          "tail": [
+            89,
+            301
           ]
         }
       ],
@@ -2789,6 +3405,14 @@
           "back": [
             96,
             136
+          ],
+          "belly": [
+            101,
+            123
+          ],
+          "tail": [
+            39,
+            202
           ]
         }
       ],
@@ -2827,6 +3451,14 @@
           "back": [
             75,
             137
+          ],
+          "belly": [
+            65,
+            119
+          ],
+          "tail": [
+            94,
+            198
           ]
         }
       ]
@@ -2864,6 +3496,14 @@
           "back": [
             112,
             156
+          ],
+          "belly": [
+            78,
+            126
+          ],
+          "tail": [
+            162,
+            223
           ]
         }
       ]
@@ -2901,6 +3541,14 @@
           "back": [
             85,
             109
+          ],
+          "belly": [
+            79,
+            98
+          ],
+          "tail": [
+            114,
+            157
           ]
         }
       ],
@@ -2939,6 +3587,14 @@
           "back": [
             89,
             140
+          ],
+          "belly": [
+            68,
+            116
+          ],
+          "tail": [
+            121,
+            202
           ]
         }
       ]
@@ -2976,6 +3632,14 @@
           "back": [
             79,
             139
+          ],
+          "belly": [
+            62,
+            115
+          ],
+          "tail": [
+            102,
+            200
           ]
         }
       ]
@@ -3013,6 +3677,14 @@
           "back": [
             88,
             137
+          ],
+          "belly": [
+            76,
+            110
+          ],
+          "tail": [
+            73,
+            200
           ]
         }
       ],
@@ -3051,6 +3723,14 @@
           "back": [
             70,
             149
+          ],
+          "belly": [
+            65,
+            119
+          ],
+          "tail": [
+            103,
+            221
           ]
         }
       ],
@@ -3089,6 +3769,14 @@
           "back": [
             81,
             126
+          ],
+          "belly": [
+            88,
+            107
+          ],
+          "tail": [
+            41,
+            177
           ]
         }
       ]
@@ -3126,6 +3814,14 @@
           "back": [
             83,
             136
+          ],
+          "belly": [
+            77,
+            109
+          ],
+          "tail": [
+            19,
+            199
           ]
         }
       ],
@@ -3164,6 +3860,14 @@
           "back": [
             102,
             133
+          ],
+          "belly": [
+            83,
+            105
+          ],
+          "tail": [
+            173,
+            193
           ]
         }
       ],
@@ -3202,6 +3906,14 @@
           "back": [
             108,
             188
+          ],
+          "belly": [
+            92,
+            153
+          ],
+          "tail": [
+            153,
+            275
           ]
         }
       ],
@@ -3240,6 +3952,14 @@
           "back": [
             98,
             148
+          ],
+          "belly": [
+            106,
+            126
+          ],
+          "tail": [
+            64,
+            215
           ]
         }
       ]
@@ -3277,6 +3997,14 @@
           "back": [
             107,
             122
+          ],
+          "belly": [
+            71,
+            107
+          ],
+          "tail": [
+            125,
+            183
           ]
         }
       ]
@@ -3314,6 +4042,14 @@
           "back": [
             118,
             135
+          ],
+          "belly": [
+            95,
+            138
+          ],
+          "tail": [
+            140,
+            220
           ]
         }
       ]
@@ -3351,6 +4087,14 @@
           "back": [
             103,
             136
+          ],
+          "belly": [
+            111,
+            126
+          ],
+          "tail": [
+            66,
+            220
           ]
         },
         {
@@ -3380,6 +4124,14 @@
           "back": [
             96,
             125
+          ],
+          "belly": [
+            112,
+            120
+          ],
+          "tail": [
+            71,
+            202
           ]
         }
       ]
@@ -3417,6 +4169,14 @@
           "back": [
             63,
             158
+          ],
+          "belly": [
+            68,
+            119
+          ],
+          "tail": [
+            109,
+            211
           ]
         },
         {
@@ -3446,6 +4206,14 @@
           "back": [
             130,
             180
+          ],
+          "belly": [
+            126,
+            130
+          ],
+          "tail": [
+            75,
+            234
           ]
         }
       ]
@@ -3483,6 +4251,14 @@
           "back": [
             56,
             159
+          ],
+          "belly": [
+            74,
+            120
+          ],
+          "tail": [
+            106,
+            217
           ]
         },
         {
@@ -3512,6 +4288,14 @@
           "back": [
             63,
             161
+          ],
+          "belly": [
+            75,
+            121
+          ],
+          "tail": [
+            103,
+            213
           ]
         }
       ]
@@ -3549,6 +4333,14 @@
           "back": [
             58,
             160
+          ],
+          "belly": [
+            64,
+            118
+          ],
+          "tail": [
+            105,
+            214
           ]
         },
         {
@@ -3578,6 +4370,14 @@
           "back": [
             61,
             157
+          ],
+          "belly": [
+            68,
+            125
+          ],
+          "tail": [
+            118,
+            213
           ]
         }
       ]
@@ -3615,6 +4415,14 @@
           "back": [
             65,
             153
+          ],
+          "belly": [
+            80,
+            124
+          ],
+          "tail": [
+            122,
+            207
           ]
         }
       ]
@@ -3652,6 +4460,14 @@
           "back": [
             59,
             155
+          ],
+          "belly": [
+            70,
+            125
+          ],
+          "tail": [
+            112,
+            204
           ]
         }
       ]
@@ -3689,6 +4505,14 @@
           "back": [
             64,
             132
+          ],
+          "belly": [
+            72,
+            113
+          ],
+          "tail": [
+            53,
+            177
           ]
         }
       ],
@@ -3727,6 +4551,14 @@
           "back": [
             63,
             148
+          ],
+          "belly": [
+            88,
+            118
+          ],
+          "tail": [
+            61,
+            181
           ]
         }
       ]
@@ -3764,6 +4596,14 @@
           "back": [
             61,
             141
+          ],
+          "belly": [
+            100,
+            110
+          ],
+          "tail": [
+            73,
+            167
           ]
         }
       ]
@@ -3801,6 +4641,14 @@
           "back": [
             71,
             137
+          ],
+          "belly": [
+            95,
+            131
+          ],
+          "tail": [
+            85,
+            176
           ]
         }
       ]
@@ -3839,7 +4687,15 @@
             189,
             127
           ],
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            182,
+            115
+          ],
+          "tail": [
+            89,
+            169
+          ]
         },
         {
           "src": "roll-push-01.webp",
@@ -3869,7 +4725,15 @@
             157,
             127
           ],
-          "bodyHeight": 240
+          "bodyHeight": 240,
+          "belly": [
+            148,
+            117
+          ],
+          "tail": [
+            103,
+            182
+          ]
         }
       ]
     }
@@ -3881,5 +4745,17 @@
     "surprised": "portrait-surprised.webp",
     "determined": "portrait-determined.webp"
   },
-  "provenance": "Built-in image_gen extension sheet from approved canonical; source sheet is lossless WebP. Existing Marina/Scale core art and portraits are retained; new blink, celebration, pout, cheer, sad, dance, and ride frames are added. Added authored Round 2 action sheets from built-in image_gen using the approved canonical as input; each source is lossless WebP, cropped to each figure\u2019s actual alpha bounds, runtime encoded at quality 82. Added authored Tier 2/3 action sheets from built-in image_gen using the approved canonical as input; source sheets are lossless WebP, cropped by alpha-connected figure bounds, runtime quality 82. Added authored Tier 2/3 action sheets from built-in image_gen using the approved canonical as input; source sheets are lossless WebP, cropped by alpha-connected figure bounds, runtime quality 82. Added a Marina paint pose in a purple smock using the approved canonical identity; exact prompt and retry history are in marina-paint-generation-prompt.json."
+  "provenance": "Built-in image_gen extension sheet from approved canonical; source sheet is lossless WebP. Existing Marina/Scale core art and portraits are retained; new blink, celebration, pout, cheer, sad, dance, and ride frames are added. Added authored Round 2 action sheets from built-in image_gen using the approved canonical as input; each source is lossless WebP, cropped to each figure\u2019s actual alpha bounds, runtime encoded at quality 82. Added authored Tier 2/3 action sheets from built-in image_gen using the approved canonical as input; source sheets are lossless WebP, cropped by alpha-connected figure bounds, runtime quality 82. Added authored Tier 2/3 action sheets from built-in image_gen using the approved canonical as input; source sheets are lossless WebP, cropped by alpha-connected figure bounds, runtime quality 82. Added a Marina paint pose in a purple smock using the approved canonical identity; exact prompt and retry history are in marina-paint-generation-prompt.json.",
+  "bodyMap": {
+    "parts": [
+      "belly",
+      "footFront",
+      "footBack",
+      "earFront",
+      "earBack",
+      "tail"
+    ],
+    "tool": "tools/sprites/bodymap.py",
+    "note": "measured from frame alpha + bodymap-overrides.json; re-run after changing frames"
+  }
 }

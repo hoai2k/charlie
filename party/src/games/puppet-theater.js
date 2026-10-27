@@ -1,9 +1,11 @@
 // Puppet Theater (Play Studio): a little puppet booth for everyone.
 //   1. Set the stage: everyone moves a hand (left stick) and steps through
 //      the categories with LB / RB: Backdrop, Props, Puppet and, last, Done.
-//      X picks the next item there (backdrop, prop, stick / sock puppet);
-//      A keeps it and moves on (with Props: puts the prop where the hand is,
-//      or picks one up / places it); on Done, A: I'm ready (B: not yet).
+//      The d-pad (or LT / RT) picks the next item there (backdrop, prop,
+//      stick / sock puppet); A keeps it and moves on. Props: X puts the prop
+//      where the hand is and stays, A puts one there (unless X already has)
+//      and moves on; A / X on a prop picks it up / puts it down.
+//      On Done, A: I'm ready (B: not yet).
 //      B removes the prop under the hand (nothing there: back a category).
 //   2. Act 1: puppets pop up from behind the playboard. Move, hide (peekaboo!),
 //      jump, twirl, make silly sounds and "talk" with picture bubbles from a
@@ -378,14 +380,22 @@ export class Game {
     pp.tabPop = Math.max(0, pp.tabPop - dt * 4);
     // ready (Done + A): B = not yet after all
     if (pp.ready) { if (c.pressed('b')) this.toggleReady(pp); return; }
-    // LB / RB: categories (the last one is Done) · X (or the d-pad): the next item in it
+    // LB / RB: categories (the last one is Done) · the d-pad (or LT / RT): the next item in it
     const tabStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
     if (tabStep) this.stepTab(pp, tabStep);
-    const step = (c.pressed('x') ? 1 : 0) + (pad ? (c.pressed('right') || c.pressed('down') ? 1 : 0) - (c.pressed('left') || c.pressed('up') ? 1 : 0) : 0);
+    const step = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('right') || c.pressed('down') ? 1 : 0) - (c.pressed('left') || c.pressed('up') ? 1 : 0) : 0);
     if (step) this.nextItem(pp, step);
-    if (c.pressed('a')) {
+    // X: the Props' action, staying put (put another prop here / take one off the shelf / put it down)
+    const xAct = c.pressed('x') && (pp.held || pp.tab === T_PROPS || hv.kind === 'tile');
+    if (c.pressed('x') && !xAct) sfx('blip', { vol: 0.4 });
+    if (c.pressed('a') || xAct) {
+      const commit = c.pressed('a');
       if (pp.held) {
-        if (this.overStage(cur.x, cur.y)) this.placeHeld(pp);
+        if (this.overStage(cur.x, cur.y)) {
+          if (pp.held.isNew) pp.didTab = true;
+          this.placeHeld(pp);
+          if (commit && pp.tab === T_PROPS) this.stepTab(pp, 1);   // (A: placed, so on you go)
+        }
         else { // back to the shelf
           if (!pp.held.isNew) { /* a moved prop dropped off stage goes away */ particles.burst(cur.x, cur.y, { type: 'smoke', count: 6 }); }
           pp.held = null; sfx('back', { vol: 0.5 });
@@ -402,18 +412,25 @@ export class Game {
           pp.held = { id: d.id, x: cur.x, y: cur.y, owner: pp.i, isNew: true, s: 1, wr: 0, wv: 0, ph: rand(TAU) };
           sfx('pop', { vol: 0.6 });
         }
-      } else if (hv.kind === 'prop') {
+      } else if (hv.kind === 'prop' && commit && !(pp.putAt && Math.hypot(cur.x - pp.putAt.x, cur.y - pp.putAt.y) < 50)) {
+        // A picks a prop up (X puts another one in instead; and A doesn't pick up the one
+        // X just put down under the hand: it goes on, below)
         const pr = hv.pr;
         this.scene.props.splice(this.scene.props.indexOf(pr), 1);
         pr.isNew = false; pp.held = pr; sfx('select', { vol: 0.6 });
-      } else if (pp.tab === T_PROPS && hv.kind === 'stage') {
-        // A on the stage with Props picked: the chosen prop (X: the next one) goes right here
-        if (this.ownedProps(pp) >= this.propLimit) { sfx('error', { vol: 0.5 }); this.popText(cur.x, cur.y - 40, `${this.propLimit} props each!`, '#ff6fb1'); }
-        else {
-          const d = PROPS[pp.propSel];
-          pp.held = { id: d.id, x: cur.x, y: cur.y + (d.stand ? d.h * 0.5 : 0), owner: pp.i, isNew: true, s: 1, wr: 0, wv: 0, ph: rand(TAU) };
-          this.placeHeld(pp);
+      } else if (pp.tab === T_PROPS && (hv.kind === 'stage' || hv.kind === 'prop' || commit)) {
+        // on the stage with Props picked: the chosen prop goes right here (X: and stay;
+        // A: and on to the next category, or just on if X already put one in)
+        const full = this.ownedProps(pp) >= this.propLimit;
+        if (!(commit && pp.didTab) && (hv.kind === 'stage' || (hv.kind === 'prop' && !commit))) {
+          if (full) { sfx('error', { vol: 0.5 }); this.popText(cur.x, cur.y - 40, `${this.propLimit} props each!`, '#ff6fb1'); if (!commit) return; }
+          else {
+            const d = PROPS[pp.propSel];
+            pp.held = { id: d.id, x: cur.x, y: cur.y + (d.stand ? d.h * 0.5 : 0), owner: pp.i, isNew: true, s: 1, wr: 0, wv: 0, ph: rand(TAU) };
+            this.placeHeld(pp); pp.didTab = true; pp.putAt = { x: cur.x, y: cur.y };
+          }
         }
+        if (commit) this.stepTab(pp, 1);
       } else if (pp.tab !== T_PROPS) this.stepTab(pp, 1);   // keep this backdrop / puppet: on to the next category
     } else if (c.pressed('b')) {
       if (pp.held) { particles.burst(cur.x, cur.y, { type: 'smoke', count: 8 }); sfx('back', { vol: 0.5 }); pp.held = null; }
@@ -428,10 +445,10 @@ export class Game {
   stepTab(pp, dir) { this.setTab(pp, (pp.tab + dir + DONE + 1) % (DONE + 1)); }
   setTab(pp, tab) {
     if (pp.held && tab === DONE) { pp.held = null; }
-    pp.tab = tab; pp.tabPop = 1;
+    pp.tab = tab; pp.tabPop = 1; pp.didTab = false;
     if (!pp.p.isAI) sfx('move', { vol: 0.6 });
   }
-  /** X / d-pad: the next backdrop, prop or puppet (whichever category is picked). */
+  /** The d-pad / LT / RT: the next backdrop, prop or puppet (whichever category is picked). */
   nextItem(pp, dir) {
     if (pp.tab === T_BACKDROP) {
       const k = BACKDROPS.findIndex((b) => b.id === this.scene.backdrop);
@@ -517,11 +534,11 @@ export class Game {
         if (go(r.x + r.w / 2, r.y + r.h / 2)) { c.press('a'); S.stage = 1; A.wait = rand(0.2, 0.5); }
       } else if (S.stage === 1) {
         if (!pp.held) { A.step = null; return; }   // limit reached
-        if (go(S.spot.x, S.spot.y)) { c.press('a'); A.step = null; A.wait = rand(0.5, 1.4); }
+        if (go(S.spot.x, S.spot.y)) { c.press('x'); A.step = null; A.wait = rand(0.5, 1.4); }
       }
     } else if (S.kind === 'swap') {   // RB / LB to the Puppet category, then X
       if (pp.tab !== T_PUPPET) { c.press(pp.tab < T_PUPPET ? 'rb' : 'lb'); A.wait = rand(0.15, 0.3); return; }
-      c.press('x'); A.step = null; A.wait = rand(0.4, 0.9);
+      c.press('rt'); A.step = null; A.wait = rand(0.4, 0.9);
     } else if (S.kind === 'ready') {   // RB on to Done, then A
       if (pp.ready) { A.step = null; A.wait = 999; return; }
       if (pp.tab !== DONE) { c.press('rb'); A.wait = rand(0.15, 0.3); return; }
@@ -1124,7 +1141,7 @@ export class Game {
     if (!this.trans && this.humans.length) {
       const anyPad = this.humans.some((p) => p.ctrl.kind === 'pad');
       if (this.phase === 'setup') {
-        this.hintBar(g, [['stick', 'Move hand'], ['lb', '/ RB: Backdrop, Props, Puppet, Done'], [anyPad ? 'dpad' : 'x', 'Next'], ['a', 'OK / place'], ['b', 'Remove']], BOARD_Y + 50);
+        this.hintBar(g, [['stick', 'Move hand'], ['lb', '/ RB: Backdrop, Props, Puppet, Done'], [anyPad ? 'dpad' : 'rt', 'Next'], ['x', 'Place prop'], ['a', 'OK, go on'], ['b', 'Remove']], BOARD_Y + 50);
       } else if (this.phase === 'act') {
         this.hintBar(g, [['stick', 'Move · down hides'], ['a', 'Jump'], ['b', 'Hold: pictures'], ['x', 'Twirl'], ['y', 'Silly sound']].concat(anyPad ? [['dpad', 'Quick pictures']] : []), H - 40);
       } else if (this.phase === 'call') {

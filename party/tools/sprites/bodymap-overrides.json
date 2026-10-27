@@ -1,0 +1,186 @@
+{
+ "note": "Reviewed body-map corrections (tools/sprites/bodymap.py): per set, per frame file, frame pixels; artHash = the art they were made for; null = the frame does not show that part.",
+ "fellowfox": {
+  "balance-00.webp": {
+   "artHash": "cf71372a137e638de730c75ba4ecbfbbb251e605d0c9ce9faad741a3deefd30b",
+   "tail": [
+    16,
+    117
+   ]
+  },
+  "broom-zapped-00.webp": {
+   "artHash": "dfbeb70a615583ad514d2616d666c9c7119995e1d81b487603f4dcfc43dc5c2e",
+   "tail": [
+    30,
+    129
+   ]
+  },
+  "dance-up-00.webp": {
+   "artHash": "5cd06ad75d57cad513cda184a7a19810f73a21780dbb0435ae807451c0d2a01e",
+   "tail": [
+    111,
+    138
+   ]
+  },
+  "dizzy-00.webp": {
+   "artHash": "229d7193b08625e78684b584f63bacf9efd6e3a1d312e89f3e4359dd0a2e388d",
+   "tail": [
+    134,
+    120
+   ]
+  },
+  "hold-present-00.webp": {
+   "artHash": "8a62b9ec2c7a6cb6a8e35970359cf55588e67f243fe163a47310d960c5c78301",
+   "tail": [
+    21,
+    113
+   ]
+  },
+  "pose-twirl-01.webp": {
+   "artHash": "c5aa8511730601888ea8b915c7701de6c15728a42adc750a0a654dec31375a65",
+   "tail": [
+    28,
+    88
+   ]
+  },
+  "pose-twirl-02.webp": {
+   "artHash": "69616fde39c05b5781f3c114b551f0263ef98fc5ca1c6fc9391d5aee6128caa7",
+   "tail": [
+    113,
+    110
+   ]
+  },
+  "shake-sprinkles-00.webp": {
+   "artHash": "ba7272ed9929f73b32da27ed2da9a70a342bd7500a9f9747fde085e16889c24a",
+   "tail": [
+    24,
+    133
+   ]
+  },
+  "sooty-00.webp": {
+   "artHash": "f6d80007150aee704d6b2e45f4589ff4a9eaeb809386fec35320b337633f37ea",
+   "tail": [
+    16,
+    111
+   ]
+  },
+  "strike3-00.webp": {
+   "artHash": "5565f693c25fef5c0ccc41f0e841b56f94c6030eb6037ca0cce4b5f121639205",
+   "tail": [
+    129,
+    104
+   ]
+  },
+  "tumble-00.webp": {
+   "artHash": "8fb0a73e1967e7b8eba87277e3cd1a0ba6c5281d08a1f48c98337a9696486880",
+   "tail": [
+    101,
+    139
+   ]
+  },
+  "wand-up-00.webp": {
+   "artHash": "b78f87aec8ffad45f92d04a145cccc3154412bac3bed54d04339f21e40b18208",
+   "tail": [
+    121,
+    130
+   ]
+  }
+ },
+ "hotdog": {
+  "catch-present-00.webp": {
+   "artHash": "98d2fb3e0d5a90f5106622b2689f9cfcf43fd1aeac651f2aa102f263e036e10d",
+   "tail": [
+    26,
+    144
+   ]
+  },
+  "crouch-00.webp": {
+   "artHash": "f1387b25e331f31921a687559035348bd4c498bb52498b44cf090c39b3488220",
+   "tail": [
+    15,
+    76
+   ]
+  },
+  "dance-down-00.webp": {
+   "artHash": "d6b4c3f43f997235b08e34766c4e587775d50cf3e65bd81cf74f76d34abe6e05",
+   "tail": [
+    74,
+    49
+   ]
+  },
+  "high-five-00.webp": {
+   "artHash": "6a00db7a44bba3664df360882bd83118723e3110a87a0b248bd405b32d72a23e",
+   "tail": [
+    52,
+    165
+   ]
+  },
+  "hold-present-00.webp": {
+   "artHash": "b911f5b9edac7766923d391922d9e1c369266765fdc39ed686631493d92995f6",
+   "tail": [
+    38,
+    176
+   ]
+  },
+  "jump-00.webp": {
+   "artHash": "81cea4169475311c8850d84fa6e275383aba5b67cc956a00ab9e10a4ccaa997f",
+   "tail": [
+    35,
+    104
+   ]
+  },
+  "paint-00.webp": {
+   "artHash": "39721758516a2d7fe9c681cdff7f91234c2adcf0845f78564a80c70d76f99eba",
+   "tail": [
+    20,
+    70
+   ]
+  },
+  "pull-01.webp": {
+   "artHash": "0aa326b3235cca827db84fe8facd19ab7fb368bc55de92790648d9c5751524d1",
+   "tail": [
+    60,
+    165
+   ]
+  },
+  "sit-00.webp": {
+   "artHash": "1bbb81e3eefc989a36f9b2390f96240404c0041bea7744488286bb3726a58274",
+   "tail": [
+    32,
+    171
+   ]
+  },
+  "sooty-00.webp": {
+   "artHash": "f4239e5d05860408a3089fe26a1a22d9e54b63e2a7b5ada78d79873f9734e7a3",
+   "tail": [
+    35,
+    145
+   ]
+  },
+  "squeak-tiny-00.webp": {
+   "artHash": "7a390ddcf760c3d3e644e10ef6e06f66232be4451c7ce82ed2f16dbab2a5c520",
+   "tail": [
+    172,
+    202
+   ]
+  },
+  "swing-01.webp": {
+   "artHash": "23c140e7ad8c1cd6204b86dd6d8acdfefece280a89c5061001279ecfdb2e0856",
+   "tail": [
+    32,
+    176
+   ]
+  },
+  "throw-00.webp": {
+   "artHash": "d82abd622be9ea3a57c571fe18df26e7ac43235670a5a4f83e252e7d060a1333",
+   "tail": null
+  },
+  "wand-up-00.webp": {
+   "artHash": "ad75640acaaed6bdcfefd6f7c0f0342063ba7191ba3dd3a77114d76ac6d410f9",
+   "tail": [
+    30,
+    113
+   ]
+  }
+ }
+}

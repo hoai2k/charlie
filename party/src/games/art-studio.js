@@ -1,9 +1,12 @@
 // Art Studio (Play Studio). One shared easel canvas (1600x900 offscreen,
 // shown in a wooden frame). Every player has a cursor in their color: stick
-// moves it (with acceleration, right stick fine-adjusts), hold A to paint,
-// LB/RB (or d-pad up/down) change tool - the last one is Done, where A says
-// "I'm ready" -, X (or d-pad left/right) steps the color (or stamp in the
-// stamp tool), LT/RT the size, B undoes your own last stroke. Optional coloring
+// moves it (with acceleration, right stick fine-adjusts), hold X to paint
+// (X stamps / fills too), LB/RB change tool - the last one is Done, where A
+// says "I'm ready" -, A on a tool goes on to the next one (on Stamps / Fill it
+// stamps / fills once first if X hasn't; on a brush, until X has painted, it says
+// "Hold X to paint!"), d-pad left/right (keyboard: LT/RT, since WASD is the
+// brush) steps the color (or stamp), d-pad up/down or LT/RT on a gamepad the
+// size, B undoes your own last stroke. Optional coloring
 // pages (fill bucket stops at the lines). Once every painter is ready (or from
 // the pause menu) the painting hangs in a gold frame on the museum wall; X
 // there saves it as a PNG.
@@ -388,8 +391,9 @@ export class Game {
     const accel = 0.32 + 0.68 * clamp(st.hold / 0.7, 0, 1);
     const sp = 1000 * accel;
     const cur = st.cur;
-    // On a gamepad the d-pad picks tools and colors, so only the stick moves the brush.
-    const pad = c.kind === 'pad', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
+    // On a gamepad the d-pad picks colors and sizes, so only the stick moves the brush (CPUs drive
+    // like a gamepad). On a keyboard WASD is both stick and d-pad, so LT/RT pick the colors there.
+    const pad = c.kind !== 'kb', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     cur.x = clamp(cur.x + (mx * sp + c.rx * 160) * dt, 0, CW - 1);
     cur.y = clamp(cur.y + (my * sp + c.ry * 160) * dt, st.p.isAI ? 0 : -66, CH - 1);
     st.paletteT = Math.max(0, st.paletteT - dt);
@@ -399,21 +403,23 @@ export class Game {
     for (const [k, b] of Object.entries(BTN)) if (scr.x >= b.x && scr.x <= b.x + b.w && scr.y >= b.y - 10 && scr.y <= b.y + b.h + 10) st.overBtn = k;
 
     if (st.ready) st.readyT += dt;
-    // LB/RB (or d-pad up/down) change the tool, the last one is Done (A there: I'm ready); X (or d-pad
-    // left/right) steps through the colors or stamps, along the strip shown on screen; LT/RT the size.
+    // LB/RB change the tool, the last one is Done (A there: I'm ready); d-pad left/right (keyboard:
+    // LT/RT) steps through the colors or stamps, along the strip shown on screen; d-pad up/down or
+    // LT/RT on a gamepad the size. X uses the tool and stays (hold to paint); A commits: on Stamps /
+    // Fill it stamps / fills once if X hasn't yet, then goes on to the next tool.
     const NT = TOOLS.length + 1;
-    const toolStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0) + (pad ? (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0) : 0);
+    const toolStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
     if (toolStep) {
       st.tool = (st.tool + toolStep + NT) % NT; this.toolFx(st);
       if (st.ready && st.tool !== DONE) this.setReady(st, false);
     }
-    const pick = (c.pressed('x') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
+    const pick = pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
     if (pick && st.tool !== DONE) {
       if (this.toolOf(st) === 'stamp') { st.stamp = (st.stamp + pick + this.stampKinds.length) % this.stampKinds.length; sfx('stamp'); }
       else { st.color = (st.color + pick + COLORS.length) % COLORS.length; sfx('collect', { step: st.color }); }
       st.paletteT = 1.4;
     }
-    const sizeStep = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
+    const sizeStep = pad ? (c.pressed('rt') || c.pressed('up') ? 1 : 0) - (c.pressed('lt') || c.pressed('down') ? 1 : 0) : 0;
     if (sizeStep) { st.size = clamp(st.size + sizeStep, 0, SIZES.length - 1); sfx(sizeStep > 0 ? 'grow' : 'shrink'); }
     if (c.pressed('b')) {
       // right after a New page, B brings the old picture back (before any kid paints on the new one)
@@ -432,13 +438,15 @@ export class Game {
     }
     const inside = cur.y >= 0;
     if (c.pressed('a') && !inside && st.overBtn) { this.pressButton(st, st.overBtn); return; }
+    if (c.pressed('a') && !st.p.isAI) { this.nextTool(st, tool, inside); return; }
     const brushy = tool === 'brush' || tool === 'rainbow' || tool === 'glitter' || tool === 'eraser';
     if (brushy) {
-      if (c.pressed('a') && inside) {
+      if (c.pressed('x') && inside) {
+        st.usedX = true; st.hint = null;
         const s = { owner: st.i, tool, color: COLORS[st.color], r: SIZES[st.size].r, pts: [cur.x, cur.y], hue: rand(360), len: 0, seed: randInt(1, 1e9) };
         st.stroke = s; this.pushStroke(s); this.drawSeg(this.pctx, s, 0); st.strokes++;
         if (!st.p.isAI) this.markOwned(cur.x, cur.y, s.r);
-      } else if (c.held('a') && st.stroke && inside) {
+      } else if (c.held('x') && st.stroke && inside) {
         const s = st.stroke, n = s.pts.length;
         const dx = cur.x - s.pts[n - 2], dy = cur.y - s.pts[n - 1];
         if (dx * dx + dy * dy > 9) {
@@ -449,8 +457,9 @@ export class Game {
           if (tool === 'rainbow' && chance(0.3)) particles.trail(scr.x, scr.y, { type: 'star', size: [8, 14] });
         }
       }
-      if (!c.held('a') || !inside) st.stroke = null;
-    } else if (c.pressed('a') && inside) {
+      if (!c.held('x') || !inside) st.stroke = null;
+    } else if (c.pressed('x') && inside) {
+      st.usedX = true; st.hint = null; st.usedOn = st.tool;
       if (tool === 'stamp') this.doStamp(st);
       else if (tool === 'fill') this.doFill(st);
     }
@@ -458,8 +467,23 @@ export class Game {
     if (painting) { if (a.pose !== 'paint' && !a._once) a.setPose('paint'); } else if (a.pose === 'paint') a.setPose('idle');
   }
 
+  /** A on a tool commits it: on Stamps / Fill it stamps / fills once (if X hasn't on this visit), then
+   *  goes on to the next tool (after Eraser: Done). On a brush (painting is a hold, so there's no one
+   *  action for A) it moves on, but until X has painted something it says how instead, so a kid
+   *  pressing A to paint learns X. */
+  nextTool(st, tool, inside) {
+    if ((tool === 'stamp' || tool === 'fill') && st.usedOn !== st.tool) {
+      if (inside) { st.usedX = true; st.hint = null; if (tool === 'stamp') this.doStamp(st); else this.doFill(st); }
+    } else if (!st.usedX) {
+      const how = tool === 'stamp' ? 'Press X to stamp!' : tool === 'fill' ? 'Press X to fill!' : 'Hold X to paint!';
+      st.hint = { text: how, t: 2.2 }; st.toolPop = 0.4; sfx('blip');
+      return;
+    }
+    st.tool = Math.min(DONE, st.tool + 1); this.toolFx(st);
+  }
+
   toolFx(st) {
-    sfx('swap');
+    sfx('swap'); st.usedOn = -1;
     const scr = toScreen(st.cur.x, st.cur.y);
     particles.burst(scr.x, scr.y, { type: 'sparkle', count: 4, colors: ['#fff'] });
     st.stroke = null; st.paletteT = this.toolOf(st) === 'stamp' ? 1.2 : 0;
@@ -597,7 +621,7 @@ export class Game {
     const ai = st.ai, c = st.p.ctrl;
     if (ai.wait > 0) { ai.wait -= dt; c.move(0, 0); return; }
     if (!ai.cmds.length) {
-      c.move(0, 0); c.hold('a', false); ai.spot = null;
+      c.move(0, 0); c.hold('x', false); ai.spot = null;
       ai.idle -= dt;
       if (ai.idle <= 0) {
         ai.cmds = this.planActivity(st);
@@ -614,17 +638,17 @@ export class Game {
         const NT = TOOLS.length + 1, fwd = (cmd.v - st.tool + NT) % NT;
         c.press(fwd <= NT / 2 ? 'rb' : 'lb'); ai.wait = 0.24; break;
       }
-      case 'color': if (st.color === cmd.v) done(0.1); else { c.press('x'); ai.wait = 0.17; } break;
+      case 'color': if (st.color === cmd.v) done(0.1); else { c.press('right'); ai.wait = 0.17; } break;
       case 'size': if (st.size === cmd.v) done(0.05); else { c.press(cmd.v > st.size ? 'rt' : 'lt'); ai.wait = 0.2; } break;
-      case 'stamp': if (st.stamp === cmd.v) done(0.1); else { c.press('x'); ai.wait = 0.17; } break;
+      case 'stamp': if (st.stamp === cmd.v) done(0.1); else { c.press('right'); ai.wait = 0.17; } break;
       case 'goto': {
         const d = steer(st.p, st.cur.x, st.cur.y, cmd.x, cmd.y, { arrive: 140, wobble: false });
         cmd.t2 = (cmd.t2 || 0) + dt;
         if (d < 10 || cmd.t2 > 4) { c.move(0, 0); done(0.12); }
         break;
       }
-      case 'down': c.hold('a', true); done(0.05); break;
-      case 'up': c.hold('a', false); c.move(0, 0); done(0.25); break;
+      case 'down': c.hold('x', true); done(0.05); break;
+      case 'up': c.hold('x', false); c.move(0, 0); done(0.25); break;
       case 'path': {
         const pt = cmd.pts[cmd.i];
         if (!pt) { done(0.05); break; }
@@ -633,8 +657,8 @@ export class Game {
         if (d < 14 || cmd.t2 > 1.5) { cmd.i++; cmd.t2 = 0; }
         break;
       }
-      case 'tap': c.press('a'); done(0.4); break;
-      case 'fill': c.press('a'); done(0.6); break;
+      case 'tap': c.press('x'); done(0.4); break;
+      case 'fill': c.press('x'); done(0.6); break;
       default: done();
     }
   }
@@ -665,14 +689,14 @@ export class Game {
     this.oldPic = keep;
     this.picker = null;
     this.phase = 'paint';
-    for (const st of this.stations) { st.actor.playOnce('cheer', 0.5, 'idle'); if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('a', false); } }
+    for (const st of this.stations) { st.actor.playOnce('cheer', 0.5, 'idle'); if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('x', false); } }
   }
 
   // --- gallery -----------------------------------------------------------------
   startGallery() {
     if (this.phase === 'gallery') return;
     this.phase = 'gallery'; this.phaseT = 0; this.picker = null;
-    for (const st of this.stations) { st.stroke = null; if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('a', false); } }
+    for (const st of this.stations) { st.stroke = null; if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('x', false); } }
     // composite the finished picture
     this.final = document.createElement('canvas'); this.final.width = CW; this.final.height = CH;
     const g = this.final.getContext('2d');
@@ -764,6 +788,7 @@ export class Game {
       this.updatePainter(st, dt);
       if (this.phase !== 'paint') return;
       st.toolPop = Math.max(0, (st.toolPop || 0) - dt);
+      if (st.hint && (st.hint.t -= dt) <= 0) st.hint = null;
     }
     if (this.cpuOnly && this.paintT > 55) this.startGallery();
     // every painter said Done (the CPUs paint on until then)
@@ -935,6 +960,15 @@ export class Game {
         });
         ui.text(g, COLOR_NAMES[st.color], px + w / 2, py - 16, { size: 24, color: COLORS[st.color] === '#ffffff' ? '#24163f' : COLORS[st.color], stroke: COLORS[st.color] === '#ffffff' ? false : '#24163f', strokeWidth: 5 });
       }
+      g.globalAlpha = 1;
+    }
+    if (st.hint) {
+      // A pressed before X has painted: "Hold X to paint!" by the brush
+      g.globalAlpha = Math.min(1, st.hint.t / 0.3);
+      const fs = 30, w = ui.measure(g, st.hint.text, fs, 800) + 40, h = 56;
+      const px = clamp(x - w / 2, 10, W - w - 10), py = clamp(y - 110, 100, H - h - 10);
+      ui.panel(g, px, py, w, h, { r: h / 2, fill: '#fff8ec', stroke: st.p.color, lineWidth: 4, shadow: false });
+      ui.text(g, st.hint.text, px + w / 2, py + h / 2 + 1, { size: fs, color: '#24163f', stroke: false, weight: 800 });
       g.globalAlpha = 1;
     }
     if (tool === 'done' && !st.p.isAI) {

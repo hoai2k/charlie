@@ -453,10 +453,74 @@ export function renderBody(cake, k) {
   g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, c.width, c.height);
   g.setTransform(k, 0, 0, k, CACHE.ox * k, CACHE.oy * k);
   drawStand(g);
-  for (let i = 0; i < cake.layers; i++) drawLayer(g, cake, i);
-  drawDrizzle(g, cake);
+  const top = cake.layers - 1;
+  for (let i = 0; i < cake.layers; i++) {
+    if (cake.eaten?.[i]?.some(Boolean)) drawEatenLayer(g, cake, i, k, i === top);
+    else { drawLayer(g, cake, i); if (i === top) drawDrizzle(g, cake); }
+  }
   cake.renderedVersion = cake.version;
   cake.bites = 0;
+}
+
+// --- eating (the finale) ---------------------------------------------------------
+// Each layer is cut into columns along x; cake.eaten[layer][column] = 1 once a
+// column of that layer has been eaten. The body is drawn with those columns
+// bitten away (scalloped edges, sponge showing at the cut).
+export const BITE_COL = { w: 30, x0: -270, n: 18 };
+export const biteCol = (x) => clamp(Math.floor((x - BITE_COL.x0) / BITE_COL.w), 0, BITE_COL.n - 1);
+export const biteColX = (j) => BITE_COL.x0 + (j + 0.5) * BITE_COL.w;
+/** Is there (uneaten) cake of layer i at local x? */
+export function layerAt(cake, i, x) {
+  if (i < 0 || i >= cake.layers) return false;
+  if (x < BITE_COL.x0 || x >= BITE_COL.x0 + BITE_COL.w * BITE_COL.n) return false;
+  if (cake.eaten?.[i]?.[biteCol(x)]) return false;
+  return !!faceRange(cake, i, x);
+}
+/** Does column j of layer i hold any cake (eaten or not)? */
+export const colHasCake = (cake, i, j) => { const cx = biteColX(j), hw = BITE_COL.w / 2 - 1; return !!(faceRange(cake, i, cx - hw) || faceRange(cake, i, cx) || faceRange(cake, i, cx + hw)); };
+
+let eatCanvas = null;
+function biteRuns(cake, i) {
+  const e = cake.eaten[i], runs = [];
+  for (let j = 0; j < BITE_COL.n; j++) {
+    if (!e[j]) continue;
+    const last = runs[runs.length - 1];
+    if (last && last[1] === j - 1) last[1] = j; else runs.push([j, j]);
+  }
+  return runs.map(([a, b]) => [BITE_COL.x0 + a * BITE_COL.w, BITE_COL.x0 + (b + 1) * BITE_COL.w]);
+}
+function drawEatenLayer(g, cake, i, k, drizzle) {
+  const c = cake.cache;
+  if (!eatCanvas) eatCanvas = document.createElement('canvas');
+  if (eatCanvas.width !== c.width || eatCanvas.height !== c.height) { eatCanvas.width = c.width; eatCanvas.height = c.height; }
+  const tg = eatCanvas.getContext('2d');
+  tg.setTransform(1, 0, 0, 1, 0, 0); tg.globalCompositeOperation = 'source-over'; tg.clearRect(0, 0, c.width, c.height);
+  tg.setTransform(k, 0, 0, k, CACHE.ox * k, CACHE.oy * k);
+  drawLayer(tg, cake, i);
+  if (drizzle) drawDrizzle(tg, cake);
+  const L = layerGeom(cake, i), y0 = L.yt - L.w * KY * 0.6 - 40, y1 = L.yb + L.w * KY * 0.6 + 24;
+  const R = 13, STEP = 20;
+  const runs = biteRuns(cake, i);
+  const scallops = (gg) => {
+    gg.beginPath();
+    for (const [xa, xb] of runs) for (const x of [xa, xb]) for (let y = y0; y <= y1; y += STEP) { gg.moveTo(x + R, y); gg.arc(x, y, R, 0, TAU); }
+  };
+  // bite the columns away, scalloped like teeth marks
+  tg.globalCompositeOperation = 'destination-out';
+  tg.beginPath();
+  for (const [xa, xb] of runs) tg.rect(xa, y0, xb - xa, y1 - y0);
+  tg.fill();
+  scallops(tg); tg.fill();
+  // the sponge showing at the cut, then its outline (painted only onto cake that's left)
+  tg.globalCompositeOperation = 'source-atop';
+  const fl = FLAVORS[cake.flavors[i] ?? 0];
+  scallops(tg);
+  tg.lineWidth = 18; tg.strokeStyle = fl.rainbow ? RAINBOW[i * 2 % 7] : fl.c; tg.stroke();
+  tg.lineWidth = 5; tg.strokeStyle = NAVY; tg.stroke();
+  tg.fillStyle = fl.d || NAVY;
+  for (const [xa, xb] of runs) for (const x of [xa, xb]) for (let y = y0; y <= y1; y += 9) { tg.beginPath(); tg.arc(x + (x === xa ? -1 : 1) * (R + 4 + hash(y + x) * 6), y, 2.2, 0, TAU); tg.fill(); }
+  tg.globalCompositeOperation = 'source-over';
+  g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(eatCanvas, 0, 0); g.restore();
 }
 
 /** Take a bite out of the cached body (front-right of the top layer). */

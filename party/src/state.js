@@ -10,7 +10,7 @@ export const AI_LEVELS = ['Easy', 'Normal', 'Hard'];
 export const session = {
   /** @type {Player[]} in slot order (index 0 = P1) */
   players: [],
-  cpuLevel: 0,          // 0 easy (default: CPUs should not be too hard), 1 normal, 2 hard
+  cpuLevel: 1,          // Difficulty (Settings): 0 Easy, 1 Normal (default), 2 Hard - CPU players and game challenges
   played: [],           // minigame ids in order
   lastGameId: null,
   partyMode: null,      // { games: [...ids], round } when playing a party marathon
@@ -21,6 +21,28 @@ export const session = {
 // Molly Party level: Easy (default) plays every Molly game with A (and maybe X)
 // only, no stick; Medium is the full controls. Remembered in this browser;
 // ?molly=medium|easy in the URL overrides it (testing).
+// Difficulty: one setting for every game (Settings, or RB on the character screen). It sets
+// how good the CPU players are (engine/ai.js - even Hard stays beatable) and games read it
+// for their own challenge (Pop Star's notes...). Remembered in this browser.
+const DIFF_KEY = 'charlie-party-difficulty';
+try { const v = parseInt(localStorage.getItem(DIFF_KEY), 10); if (v >= 0 && v <= 2) session.cpuLevel = v; } catch (e) { /* storage blocked */ }
+export function setDifficulty(v) {
+  session.cpuLevel = ((v % 3) + 3) % 3;
+  for (const p of [...session.players, ...(session.roster || [])]) if (p.isAI) p.aiLevel = session.cpuLevel;
+  try { localStorage.setItem(DIFF_KEY, String(session.cpuLevel)); } catch (e) { /* storage blocked */ }
+}
+/** 0 Easy, 1 Normal, 2 Hard. */
+export const difficulty = () => session.cpuLevel;
+
+// Settings -> "Show all games" (default off): hidden games (games/index.js HIDDEN) come back on the shelves.
+const SHOWALL_KEY = 'charlie-party-show-all';
+session.showAllGames = false;
+try { session.showAllGames = localStorage.getItem(SHOWALL_KEY) === '1'; } catch (e) { /* storage blocked */ }
+export function setShowAllGames(on) {
+  session.showAllGames = !!on;
+  try { localStorage.setItem(SHOWALL_KEY, on ? '1' : '0'); } catch (e) { /* storage blocked */ }
+}
+
 export const MOLLY_LEVELS = ['easy', 'medium'];
 const MOLLY_KEY = 'charlie-party-molly-level';
 try { const v = localStorage.getItem(MOLLY_KEY); if (MOLLY_LEVELS.includes(v)) session.mollyLevel = v; } catch (e) { /* storage blocked */ }

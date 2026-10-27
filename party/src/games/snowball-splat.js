@@ -46,7 +46,13 @@ const WALL_HP = 4, SNOWMAN_HP = 3, WALL_REBUILD = 6.5, SNOWMAN_REBUILD = 7.5;
 const PU_LIFE = 12;
 
 // CPU tuning per level (Easy, Normal, Hard)
+// CPU tables by *tactics* level (Hard plays like the old Normal; Easy and Normal play the
+// old Easy tactics) - see ai(): Normal / Easy CPUs are also much slower to pack and throw.
 const CADENCE = [[1.3, 2.1], [0.75, 1.2], [0.45, 0.75]];
+// By Difficulty (0 Easy, 1 Normal, 2 Hard): seconds between a CPU's throws, and how much
+// slower than a kid it packs snow (Hard: the same).
+const CPU_THROW = [[3.4, 5.0], [2.4, 3.6], null];
+const CPU_PACK = [0.3, 0.42, 1];
 const LEAD = [0.0, 0.6, 0.95];
 const AIM_ERR = [0.32, 0.17, 0.08];
 const DODGE = [0.12, 0.38, 0.62];
@@ -265,7 +271,7 @@ export class Game {
         if (U.noSnowCd <= 0) { U.noSnowCd = 1.6; particles.popText(U.x, U.y - a.height - 30, 'No snow on ice!', '#bfe9ff', 34); sfx('error', { vol: 0.4 }); }
       } else {
         scooping = true;
-        U.scoopT += dt * (this.frenzy ? 2 : 1);
+        U.scoopT += dt * (this.frenzy ? 2 : 1) * (p.isAI ? CPU_PACK[clamp(p.aiLevel ?? 0, 0, 2)] : 1);   // CPUs pack slower (Normal / Easy)
         U.dentT -= dt;
         if (U.dentT <= 0) {
           U.dentT = 0.12;
@@ -642,7 +648,8 @@ export class Game {
   // --- CPU ---------------------------------------------------------------------------------
   ai(U, dt) {
     const p = U.p, c = p.ctrl, A = U.ai;
-    const lvl = clamp(p.aiLevel ?? 0, 0, 2), prof = aiProfile(p);
+    const diff = clamp(p.aiLevel ?? 0, 0, 2), prof = aiProfile(p);
+    const lvl = Math.max(0, diff - 1);   // tactics: Hard = the old Normal, Normal / Easy = the old Easy
     A.dodgeT -= dt; A.wanderT -= dt;
     if (U.stun > 0) { c.move(0, 0); c.hold('b', false); return; }
     if (U.brain.ready(dt)) { U.brain.wait(rand(...prof.reaction) * 0.6); this.aiDecide(U, lvl, prof); }
@@ -676,7 +683,7 @@ export class Game {
     if (T.inv > 0.25 && !(lvl === 0 && chance(0.02))) return;
     if (!this.lineClear(U.x, U.y, px, py) && !(lvl === 0 && chance(0.3))) { A.nextThrow = this.t + 0.25; return; }
     c.press('rt');
-    A.nextThrow = this.t + rand(...CADENCE[lvl]) * (U.mittenT > 0 ? 0.7 : 1);
+    A.nextThrow = this.t + rand(...(CPU_THROW[diff] || CADENCE[lvl])) * (U.mittenT > 0 ? 0.7 : 1);
     A.err = rand(-1, 1) * AIM_ERR[lvl] * (U.giant ? 0.5 : 1);
   }
 
@@ -994,10 +1001,11 @@ export class Game {
       // human out of snow: show "hold A"
       if (!U.p.isAI && U.ammo === 0 && !U.giant && U.scoopT <= 0 && U.stun <= 0 && this.t > 1) {
         const bob = Math.sin(t * 6) * 4;
-        g.save(); g.translate(U.x, top - 40 + bob);
-        ui.panel(g, -70, -24, 140, 48, { r: 24, fill: '#ffffff', lineWidth: 4, shadow: false });
-        ui.glyph(g, 'a', -42, 0, 34, { pulse: true });
-        ui.text(g, 'hold', 18, 1, { size: 26, color: NAVY, stroke: false, weight: 800 });
+        g.save(); g.translate(U.x, U.y + 58 + bob);   // under the feet: the tag and timer sit above
+        ui.panel(g, -175, -24, 350, 48, { r: 24, fill: '#ffffff', lineWidth: 4, shadow: false });
+        ui.text(g, 'Hold', -122, 1, { size: 26, color: NAVY, stroke: false, weight: 800 });
+        ui.glyph(g, 'a', -76, 0, 34, { pulse: true });
+        ui.text(g, 'to make snowballs', 52, 1, { size: 26, color: NAVY, stroke: false, weight: 800 });
         g.restore();
       }
     }

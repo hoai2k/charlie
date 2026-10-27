@@ -16,7 +16,7 @@ import { Actor, getBaseImage, drawSpeech, preloadCharacters, releaseSpriteSets, 
 import { particles } from '../engine/particles.js';
 import * as ui from '../engine/ui.js';
 import { CHARACTERS, PLAYER_COLORS } from '../data/characters.js';
-import { session, makePlayer, newAIController, assignGlows, MAX_PLAYERS, AI_LEVELS, restoreRoster } from '../state.js';
+import { session, makePlayer, newAIController, assignGlows, MAX_PLAYERS, AI_LEVELS, restoreRoster, setDifficulty } from '../state.js';
 import { variantCount, variantPalette } from '../data/variants.js';
 import { shell } from '../engine/shell.js';
 import { shuffle, TAU, clamp } from '../engine/util.js';
@@ -243,7 +243,7 @@ export class CharSelectScene {
       if (c.pressed('x')) { this.manualCpu = true; this.wantTotal = clamp(this.total + 1, 1, MAX_PLAYERS); if (this.addCpu()) sfx('join'); else sfx('error'); }
       if (c.pressed('y')) { this.manualCpu = true; if (this.removeCpu()) { this.wantTotal = this.total; sfx('back'); } else sfx('error'); }
       if (c.pressed('lb') || c.pressed('rb')) {
-        session.cpuLevel = (session.cpuLevel + (c.pressed('rb') ? 1 : 2)) % 3;
+        setDifficulty(session.cpuLevel + (c.pressed('rb') ? 1 : 2));
         sfx('move');
       }
     }

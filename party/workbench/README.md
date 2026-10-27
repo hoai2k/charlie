@@ -24,7 +24,9 @@ hand it over, and the edits are applied with
   mirrors the character like `actor.facing = -1`, **Checker** cycles
   backdrops. Dashed lines: the ground (current anchor) and the target height.
   Past 10x a pixel grid shows.
-- **Landmarks**: `feet` (anchor) `head` `eyes` `neck` `back` `hand` handles.
+- **Landmarks**: `feet` (anchor) `head` `eyes` `neck` `back` `hand` handles,
+  plus the body map (`belly` `tail` `ear F/B` `foot F/B`; applying an edit of
+  one writes a reviewed override for `tools/sprites/bodymap.py`).
   Drag one (whole frame pixels), or select it and nudge with the arrow keys
   (Shift = 10 px), or type x/y. A moved point shows its original position
   ghosted with a dashed line (`G` toggles). `Del` resets it.

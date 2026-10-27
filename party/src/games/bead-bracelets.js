@@ -5,8 +5,11 @@
 // a chime, a finished repeat sparkles, and the customer wears the bracelet
 // away (a star each). A wrong bead just wiggles off. Final round: free design
 // (bracelet, necklace or anklet, beads + charms: LB / RB go Beads, Charms,
-// Done; A on Done = finished); then everyone
+// Done; X threads one and stays, A threads one and goes on to the next one
+// (or just goes on if X already threaded); A on Done = finished); then everyone
 // wears their jewellery, twirls in the big mirror and poses for a photo.
+// A contest (though on the Play Studio shelf): most bracelets finished in the
+// two timed pattern rounds wins, with the FINISH banner and awards podium.
 import { playerName } from '../state.js';
 import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait, getSpriteSet } from '../engine/sprites.js';
@@ -17,7 +20,7 @@ import { fx } from '../engine/fx.js';
 import { sfx, hasSound } from '../engine/audio.js';
 import { art } from '../engine/art.js';
 import { aiProfile, makesMistake } from '../engine/ai.js';
-import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU, showstopper } from '../engine/util.js';
+import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU, placementsFromScores } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
 import { CHARACTERS } from '../data/characters.js';
 import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPoseHints } from '../engine/photo-poses.js';
@@ -43,7 +46,6 @@ const TABS = { x: 206, y: 346, w: 435, h: 40 };
 const TAB_W = TABS.w / 3;   // free design: Beads, Charms, Done
 const VIS_ROWS = 3, VIS_COLS = 6;
 const ROUND_TIME = 55, DESIGN_TIME = 80;
-const ROUND_MORE = 30;   // "Keep playing!" at a round's / the design's "Time's up!"
 const SCALE = [72, 74, 76, 79, 81, 84, 86, 88, 91, 93, 96, 98, 100, 103, 105, 108];
 const CUSTOMERS = [...CHARACTERS.map((c) => c.id), 'glimmer', 'professor-hoot', 'fellowfox'];
 const THANKS = ['Thank you!', 'So pretty!', 'I love it!', 'Sparkly!', 'Yay!', 'Perfect!'];
@@ -89,18 +91,12 @@ export class Game {
     this.t = 0;
     this.orders = [[], []];
     this.flashT = 0;
-    // The round clock, shown all game (the intros show the full time to come).
+    // The round clock, shown all game (the intros show the full time to come). A contest like a
+    // Party Game: at 0 the round ends (or, in the design round, the show starts) - no "Time's up!".
     api.limit(() => {
       const P = this.phase;
       return P === 'play' || P === 'design' ? this.timeLeft : P === 'intro' ? ROUND_TIME : P === 'designIntro' ? DESIGN_TIME : null;
-    }, {
-      showAt: Infinity, x: W / 2, y: 54,
-      // At 0 it asks "Time's up!": Keep playing = +ROUND_MORE s, All done = the round ends (or the show starts).
-      timeUp: {
-        more: () => { this.timeLeft += ROUND_MORE; },
-        done: () => { if (this.phase === 'play') this.endRound(); else if (this.phase === 'design') this.startShow(); },
-      },
-    });
+    }, { showAt: Infinity, x: W / 2, y: 54 });
     const rects = layoutStations(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
     this.ptrSt = this.stations.find((s) => !s.p.isAI) || null;
@@ -310,10 +306,11 @@ export class Game {
     if (this.finished) return;
     this.finished = true;
     const done = this.stations.map((s) => s.done);
+    // A contest: most finished patterns wins (FINISH banner and the awards podium; solo: vs your best).
     this.api.finish({
-      showcase: true,
-      highlight: showstopper(this.players, done),  // with kids playing, only a kid can be it
+      placements: placementsFromScores(done),
       stats: done.map((v) => plural(v, 'bracelet')),
+      solo: done[0],
       title: 'Sparkly!',
     });
   }
@@ -331,15 +328,16 @@ export class Game {
     if (P === 'intro') {
       if (this.phaseT >= 2.2) { this.phase = 'play'; this.phaseT = 0; for (const st of this.stations) if (st.mode === 'wait') this.beginOrder(st); }
     } else if (P === 'play') {
-      this.timeLeft = Math.max(0, this.timeLeft - dt);   // at 0 the clock's "Time's up!" (api.limit) ends the round
+      this.timeLeft = Math.max(0, this.timeLeft - dt);
+      if (this.timeLeft <= 0) this.endRound();   // the round clock (api.limit) ran out
     } else if (P === 'roundEnd') {
       if (this.phaseT > 2.8) { if (this.round === 0) this.startRound(1); else this.startDesign(); }
     } else if (P === 'designIntro') {
       if (this.phaseT > 2.2) { this.phase = 'design'; this.phaseT = 0; for (const st of this.stations) st.mode = 'pick'; }
     } else if (P === 'design') {
-      this.timeLeft = Math.max(0, this.timeLeft - dt);   // (at 0 the clock's "Time's up!" starts the show)
+      this.timeLeft = Math.max(0, this.timeLeft - dt);
       const all = this.stations.every((s) => s.mode === 'done' && s.doneT > 1.6);
-      if (all) this.startShow();
+      if (all || this.timeLeft <= 0) this.startShow();   // everyone's done, or the clock ran out
     } else if (P === 'show') {
       this.updateShow(dt);
     }
@@ -375,7 +373,8 @@ export class Game {
     st.sy = damp(st.sy, firstR, 14, dt); st.sx = damp(st.sx, firstC, 14, dt);
 
     if (st.mode === 'design') {
-      // LB / RB: Beads, Charms, Done · stick: pick a bead · X: the next bead · A: thread it (on Done: finished!) ·
+      // LB / RB: Beads, Charms, Done · stick / D-pad (LT / RT): pick a bead · X: thread it and stay ·
+      // A: thread one (unless X already has, here) and go on to the next tab (on Done: finished!) ·
       // B: take the last bead off (on Done: back to the tray)
       st.idleT += dt;
       const tab = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
@@ -384,21 +383,25 @@ export class Game {
         if (c.pressed('a')) this.finishDesign(st);
         else if (c.pressed('b')) this.stepTab(st, -1);
       } else {
-        if (c.nav.x) this.moveCursor(st, 0, c.nav.x);
+        const dx = c.nav.x + (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
+        if (dx) this.moveCursor(st, 0, Math.sign(dx));
         if (c.nav.y) this.moveCursor(st, c.nav.y, 0);
-        if (c.pressed('x')) this.nextBead(st);
-        if (c.pressed('a')) this.threadCursor(st);
+        if (c.pressed('x')) { if (this.threadCursor(st)) st.didTab = true; }
+        else if (c.pressed('a')) {
+          if (!st.didTab) this.threadCursor(st);
+          this.stepTab(st, 1);
+        }
         if (c.pressed('b')) this.undo(st);
       }
     } else if (st.mode === 'pattern') {
       st.idleT += dt;
       // a gentle nudge: the Y hint lights up by itself after a long think
       if (!p.isAI && st.idleT > 14 && st.hintT <= 0) { st.hintT = 3; st.idleT = 6; }
-      const dx = c.nav.x + (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
+      // (no categories here: LB / RB and LT / RT step along the tray too; A or X threads the bead)
+      const dx = c.nav.x + (c.pressed('rb') || c.pressed('rt') ? 1 : 0) - (c.pressed('lb') || c.pressed('lt') ? 1 : 0);
       if (dx) this.moveCursor(st, 0, Math.sign(dx));
       if (c.nav.y) this.moveCursor(st, c.nav.y, 0);
-      if (c.pressed('x')) this.nextBead(st);
-      if (c.pressed('a')) this.threadCursor(st);
+      if (c.pressed('a') || c.pressed('x')) this.threadCursor(st);
       if (c.pressed('b')) this.undo(st);
       if (c.pressed('y')) this.hint(st);
     } else if (st.mode === 'pick') {
@@ -418,17 +421,10 @@ export class Game {
     if (!st.p.isAI) sfx('move', { vol: 0.6 });
   }
 
-  /** X: the next bead on the tray (along the row, then on to the next row). */
-  nextBead(st) {
-    const nr = st.tray.rows.length, nc = st.tray.cols.length;
-    if (st.cur.c + 1 < nc) this.moveCursor(st, 0, 1);
-    else { st.cur.c = 0; this.moveCursor(st, nr > 1 ? 1 : 0, 0); }
-  }
-
   /** Free design, LB / RB: Beads -> Charms -> Done (and round again). */
   stepTab(st, d) {
     const cur = st.onDone ? 2 : st.tray.kind === 'beads' ? 0 : 1, next = (cur + d + 3) % 3;
-    st.onDone = next === 2;
+    st.onDone = next === 2; st.didTab = false;
     if (!st.onDone && (next === 0) !== (st.tray.kind === 'beads')) this.toggleTray(st);
     else { st.trayBump = 0.15; if (!st.p.isAI) sfx('move'); }
   }
@@ -461,18 +457,19 @@ export class Game {
     return { x0, y0, colW, rowH, visR, visC, innerX, innerW, innerY, innerH, br: Math.min(rowH * 0.38, colW * 0.3, 30) };
   }
 
-  threadCursor(st) { this.thread(st, this.tokAt(st, st.cur.r, st.cur.c), this.cellPos(st, st.cur.r, st.cur.c)); }
+  threadCursor(st) { return this.thread(st, this.tokAt(st, st.cur.r, st.cur.c), this.cellPos(st, st.cur.r, st.cur.c)); }
 
   thread(st, tok, from) {
-    if (st.mode !== 'pattern' && st.mode !== 'design') return;
-    if (st.fly || st.wob.some((w) => w.kind === 'wiggle' && !w.popped)) { st.queued = { tok, from }; return; }
-    if (st.beads.length >= st.slots) { st.stringShake = 0.35; sfx('blip'); return; }
+    if (st.mode !== 'pattern' && st.mode !== 'design') return false;
+    if (st.fly || st.wob.some((w) => w.kind === 'wiggle' && !w.popped)) { st.queued = { tok, from }; return true; }
+    if (st.beads.length >= st.slots) { st.stringShake = 0.35; sfx('blip'); return false; }
     const idx = st.beads.length;
     const ok = st.mode !== 'pattern' || sameTok(tok, st.order.seq[idx]);
     st.fly = { tok, from: { x: from.x, y: from.y }, idx, t: 0, ok };
     st.idleT = 0;
     snd('bead-click', 'tick', { vol: st.p.isAI ? 0.5 : 0.9 });
     st.actor.playOnce('action', 0.3, 'idle');
+    return true;
   }
 
   updateFly(st, dt) {
@@ -657,7 +654,7 @@ export class Game {
       if (!tok) { c.press(st.onDone ? 'a' : 'rb'); ai.t = st.onDone ? 3 : rand(0.3, 0.5); return; }   // RB to Done, then A
       const tg = tok.charm != null ? { kind: 'charms', r: Math.floor(tok.charm / 4), c: tok.charm % 4 } : { kind: 'beads', r: FREE_TRAY.rows.indexOf(tok.s), c: FREE_TRAY.cols.indexOf(tok.c) };
       if (navTo(tg)) return;
-      c.press('a'); ai.t = think() * 0.7;
+      c.press('x'); ai.t = think() * 0.7;   // (X: thread it and stay on this tray)
     }
   }
 
@@ -822,8 +819,8 @@ export class Game {
     const anyPick = this.stations.some((s) => s.mode === 'pick');
     let list;
     if (this.round === 2 && anyPick) list = [['stick', 'Choose'], ['a', 'OK']];
-    else if (this.round === 2) list = [['stick', 'Pick'], ['a', 'Thread'], ['b', 'Undo'], ['rb', 'Charms · Done']];
-    else list = [['stick', 'Pick'], ['x', 'Next'], ['a', 'Thread'], ['b', 'Undo'], ['y', 'Hint']];
+    else if (this.round === 2) list = [['stick', 'Pick'], ['x', 'Thread'], ['a', 'Thread, go on'], ['b', 'Undo'], ['rb', 'Charms · Done']];
+    else list = [['stick', 'Pick'], ['a', 'Thread'], ['b', 'Undo'], ['y', 'Hint']];
     ui.hints(g, list, W - 24, 54, { size: 30, gap: 20, align: 'right' });
   }
 

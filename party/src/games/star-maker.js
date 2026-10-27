@@ -365,8 +365,8 @@ export class Game {
       if (c.pressed('b')) this.setReady(st, false);
       return;
     }
-    // star colour: LB/RB (or the d-pad on a gamepad); past the last colour: Done
-    const step = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
+    // star colour: LB/RB, LT/RT (or the d-pad on a gamepad); past the last colour: Done
+    const step = (c.pressed('rb') || c.pressed('rt') ? 1 : 0) - (c.pressed('lb') || c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
     if (step && !st.drag) { st.col = (st.col + step + DONE + 1) % (DONE + 1); st.paletteT = 1.4; if (st.col === DONE) sfx('move'); else sfx('collect', { step: st.col }); }
     if (st.col === DONE) st.paletteT = Math.max(st.paletteT, 0.5);   // keep the strip (and its Done tile) up
     st.hover = st.drag ? null : this.starAt(st, st.cur.x, st.cur.y);

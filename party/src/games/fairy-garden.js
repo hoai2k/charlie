@@ -62,6 +62,46 @@ function leaf(g, x, y, len, ang, color = '#4cc95a') {
   g.restore();
 }
 
+// Where a plant art meets the soil, in image pixels: the lowest opaque row and
+// the middle of the stem / mound across its bottom rows. Measured once per image.
+const footCache = new WeakMap();
+function plantFoot(img) {
+  let f = footCache.get(img);
+  if (f) return f;
+  const w = img.width, h = img.height;
+  f = { x: w / 2, y: h };
+  try {
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const x = c.getContext('2d', { willReadFrequently: true });
+    x.drawImage(img, 0, 0);
+    const d = x.getImageData(0, 0, w, h).data;
+    const solid = (i, j) => d[(j * w + i) * 4 + 3] > 40;
+    let bottom = -1, top = h;
+    for (let j = h - 1; j >= 0 && bottom < 0; j--) for (let i = 0; i < w; i++) if (solid(i, j)) { bottom = j; break; }
+    for (let j = 0; j < h && top === h; j++) for (let i = 0; i < w; i++) if (solid(i, j)) { top = j; break; }
+    if (bottom >= 0) {
+      // the stem's (or mound's) middle over the bottom 5% of the drawing
+      const band = Math.max(2, Math.round((bottom - top) * 0.05));
+      let sx = 0, n = 0;
+      for (let j = bottom - band; j <= bottom; j++) for (let i = 0; i < w; i++) if (solid(i, j)) { sx += i; n++; }
+      f = { x: n ? sx / n + 0.5 : w / 2, y: bottom + 1 };
+    }
+  } catch (e) { /* unreadable image: fall back to the box's bottom centre */ }
+  footCache.set(img, f);
+  return f;
+}
+
+/** Plant art fitted (by its image box) into bw x bh, its foot at the origin. */
+function drawPlantArt(g, key, bw, bh, alpha = 1) {
+  const img = art(key);
+  if (!img) return false;
+  const k = Math.min(bw / img.width, bh / img.height), f = plantFoot(img);
+  g.save(); g.globalAlpha *= alpha;
+  g.drawImage(img, -f.x * k, -f.y * k, img.width * k, img.height * k);
+  g.restore();
+  return true;
+}
+
 /**
  * Draw a plant with its base at (x, y). stage 0..3, k = growth within the
  * stage (for a smooth grow), glow 0..1 (night), t time, sq squash spring.
@@ -77,11 +117,13 @@ function drawPlant(g, kind, stage, x, y, s, t, o = {}) {
   g.scale(s * (1 + sq * 0.5), s * (1 - sq * 0.5));
   const sway = Math.sin(t * 1.6 + (o.seed || 0)) * 0.05;
   g.rotate(sway * (stage > 0 ? 1 : 0));
-  // Seeds occupy only the bottom 52 pixels of a 256-square canvas; their
-  // planted base is at y=253, so preserve the canvas instead of shrinking it.
+  // Seeds occupy only the bottom 52 pixels of a 256-square canvas, so they keep
+  // the whole canvas as their box. Each art is sized by its image box but
+  // stood on its measured foot (plantFoot), not the box's bottom edge: the
+  // sprouts are painted with up to 60 px of empty canvas under the stem.
   const box = stage === 0 ? [256, 256] : [seed.h * 1.1, seed.h * 1.25];
-  if (drawArt(g, key, 0, stage === 0 ? 3 : 0, box[0], box[1], { anchor: 'bottom' })) {
-    if (night > 0 && night < 1) drawArt(g, `prop/plant-${seed.id}-glow`, 0, 0, seed.h * 1.1, seed.h * 1.25, { anchor: 'bottom', alpha: night });
+  if (drawPlantArt(g, key, box[0], box[1])) {
+    if (night > 0 && night < 1) drawPlantArt(g, `prop/plant-${seed.id}-glow`, seed.h * 1.1, seed.h * 1.25, night);
     g.restore(); return;
   }
   g.lineWidth = 3; g.strokeStyle = NAVY; g.lineJoin = 'round'; g.lineCap = 'round';

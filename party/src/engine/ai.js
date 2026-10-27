@@ -1,12 +1,13 @@
 // Helpers for CPU players. CPUs drive an AIController (same interface as a
 // gamepad) so minigame code treats every player the same way. Difficulty is
-// player.aiLevel: 0 Easy (default - kids should usually win), 1 Normal, 2 Hard.
+// player.aiLevel (the Difficulty setting): 0 Easy, 1 Normal (default), 2 Hard. Kids should
+// usually win on Normal, and even Hard CPUs stay beatable (a good try, never a wall).
 import { rand, chance, clamp } from './util.js';
 
 export const AI = [
-  { reaction: [0.45, 0.8], aimError: 0.35, mistake: 0.25, mashRate: 6.5, speed: 0.78, think: [0.6, 1.2] },  // Easy
-  { reaction: [0.3, 0.55], aimError: 0.2, mistake: 0.12, mashRate: 8.5, speed: 0.9, think: [0.4, 0.8] },    // Normal
-  { reaction: [0.18, 0.35], aimError: 0.1, mistake: 0.05, mashRate: 10.5, speed: 1.0, think: [0.25, 0.5] }, // Hard
+  { reaction: [0.6, 1.0], aimError: 0.45, mistake: 0.35, mashRate: 5.5, speed: 0.7, think: [0.8, 1.5] },    // Easy
+  { reaction: [0.45, 0.8], aimError: 0.35, mistake: 0.25, mashRate: 6.5, speed: 0.78, think: [0.6, 1.2] },  // Normal (the old Easy)
+  { reaction: [0.3, 0.5], aimError: 0.2, mistake: 0.13, mashRate: 8.5, speed: 0.9, think: [0.4, 0.8] },     // Hard (about the old Normal)
 ];
 
 /** Difficulty profile for a player. */

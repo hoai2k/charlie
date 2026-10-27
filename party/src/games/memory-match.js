@@ -46,9 +46,7 @@ export class Game {
     this.n = this.players.length;
     this.solo = this.n === 1;
     this.t = 0;
-    // Play Studio clock (no clock of its own): at 0 "Time's up!" asks; Keep playing = +1 min,
-    // All done ends the game like the pause menu's "All done!".
-    api.studioClock(240, { more: 60, x: SIDE_W / 2, y: 62, active: () => this.state !== 'end' });
+    // A contest with its own natural end (the last pair found): no clock, no "Time's up!".
     [this.cols, this.rows] = this.n <= 2 ? [4, 4] : this.n <= 4 ? [5, 4] : [6, 4];
     this.pairsTotal = (this.cols * this.rows) / 2;
 
@@ -289,7 +287,8 @@ export class Game {
     this.done = true;
     const pairs = this.seats.map((s) => s.pairs);
     if (this.solo && this.api.players.length === 1) {
-      this.api.finish({ placements: [1], stats: [`${this.tries} tries · ${'★'.repeat(this.rating())}`], title: ['Good try!', 'Great memory!', 'Super memory!'][this.rating() - 1] });
+      // solo: rated against your own best (every pair in the fewest tries = 100)
+      this.api.finish({ placements: [1], stats: [`${this.tries} tries · ${'★'.repeat(this.rating())}`], title: ['Good try!', 'Great memory!', 'Super memory!'][this.rating() - 1], solo: Math.round((100 * pairs[0]) / Math.max(this.pairsTotal, this.tries)) });
     } else {
       // Back to every party member: CPUs who sat this one out come after the players.
       const pl = placementsFromScores(pairs), last = Math.max(Math.max(...pl) + 1, this.api.players.length);
@@ -298,6 +297,9 @@ export class Game {
       this.api.finish({ placements, stats, title: 'Great memory!' });
     }
   }
+
+  /** The pause menu's "All done!": end now, ranked on the pairs found so far. */
+  onDone() { if (this.state !== 'end') this.endGame(); else this.finish(); }
 
   rating() {
     const P = this.pairsTotal;

@@ -2,6 +2,8 @@
 // Grab gems while a grumpy (never scary) Troll stomps around. He telegraphs a
 // ground-pound with a growing shadow; anyone inside gets dizzy and drops half
 // their gems. Sometimes he yawns and naps. The last 10 seconds he gets grumpier.
+// Brave bonus: staying close to the (awake) Troll earns a gem every BRAVE_EVERY
+// seconds. The Troll grabs gems too - if he ends with the most, the Troll wins!
 import { W, H } from '../engine/canvas.js';
 import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
@@ -20,6 +22,8 @@ const ANGRY_AT = 10;                       // seconds left when the Troll gets g
 const ARENA = { x0: 70, x1: W - 70, y0: 255, y1: H - 40 };
 const SPEED = 370, DASH_SPEED = 1150, DASH_TIME = 0.17, DASH_CD = 1.1;
 const STUN_TIME = 1.5, INV_TIME = 2.2;
+const BRAVE_R = 330, BRAVE_EVERY = 1.1;   // how close counts as brave (x; y squashed like the slam) and how often it pays
+const TROLL_GRAB_R = 120;                  // the Troll picks up gems this close to his feet
 const SLAM_R = 250, SLAM_RY = 0.82;        // telegraph radius (x) and squash (y) for the top-down look
 const GEM_COLORS = [['#ff5b9e', '#ffb3d6'], ['#35c8ff', '#b4ecff'], ['#7be04d', '#d3f7b0'], ['#b673ff', '#e3c9ff'], ['#ff9a2e', '#ffd9a6']];
 
@@ -115,14 +119,14 @@ export class Game {
       a.x = x; a.y = y; a.snap();
       return {
         p, i, a, x, y, vx: 0, vy: 0, gems: 0, dashT: 0, dashCd: 0, dashDx: 1, dashDy: 0,
-        stun: 0, inv: 0, chain: 0, chainT: 0, ringT: 0, flashT: 0,
+        stun: 0, inv: 0, chain: 0, chainT: 0, ringT: 0, flashT: 0, braveT: 0, brave: 0,
         ai: { gem: null, think: rand(0.1, 0.5), threatT: 0, wasThreat: false, reactT: 0, wp: null, seen: false, danceSeed: rand(100) },
       };
     });
     const ta = new Actor('troll', { scale: 0.92 });
     this.troll = {
       a: ta, x: W / 2, y: 470, vx: 0, vy: 0, state: 'wander', t: 2.6, target: null, wp: null, stepT: 0,
-      windDur: 0.9, windT: 0, napT: 0, snoreT: 0, angerT: 0, bumpCd: 0, napsDone: 0, slams: 0, lastTarget: -1,
+      windDur: 0.9, windT: 0, napT: 0, snoreT: 0, angerT: 0, bumpCd: 0, napsDone: 0, slams: 0, lastTarget: -1, gems: 0, gemPop: 0,
     };
     ta.x = this.troll.x; ta.y = this.troll.y; ta.snap();
     this.bg = null;
@@ -270,6 +274,36 @@ export class Game {
       }
       this.gems = this.gems.filter((gm) => !gm.collected);
     }
+    // brave bonus: hang around near the Troll (while he's awake) for extra gems
+    if (this.nearTroll(pl)) {
+      pl.braveT += dt;
+      if (pl.braveT >= BRAVE_EVERY) {
+        pl.braveT -= BRAVE_EVERY; pl.gems += 1; pl.brave += 1;
+        sfx('collect', { step: Math.min(pl.brave, 9), vol: 0.6 });
+        particles.popText(pl.x, pl.y - a.height - 50, 'Brave! +1', '#ffd23f', 44);
+        particles.burst(pl.x, pl.y - a.height * 0.6, { type: 'sparkle', count: 4, colors: ['#ffd23f', '#ffffff'], speed: [60, 160] });
+      }
+    } else pl.braveT = Math.max(0, pl.braveT - dt * 2);
+  }
+
+  /** Close enough to the awake Troll to earn the brave bonus (not while dizzy). */
+  nearTroll(pl) {
+    const tr = this.troll;
+    if (this.finished || pl.stun > 0 || tr.state === 'nap' || tr.state === 'yawn') return false;
+    const dx = (pl.x - tr.x) / BRAVE_R, dy = (pl.y - tr.y) / (BRAVE_R * SLAM_RY);
+    return dx * dx + dy * dy < 1;
+  }
+
+  /** The gem the Troll fancies: near him, bigger is better (null when there are none). */
+  trollGem() {
+    const tr = this.troll;
+    let best = null, bw = 0;
+    for (const gm of this.gems) {
+      if (gm.scatter && gm.pick > 0.3) continue;
+      const w = gm.v / (Math.hypot(gm.x - tr.x, gm.y - tr.y) + 160);
+      if (w > bw) { bw = w; best = gm; }
+    }
+    return best;
   }
 
   // ---- troll -------------------------------------------------------------------
@@ -313,8 +347,11 @@ export class Game {
     tr.vx = tr.vy = 0;
     switch (tr.state) {
       case 'wander': {
-        if (!tr.wp || Math.hypot(tr.wp.x - tr.x, tr.wp.y - tr.y) < 30) tr.wp = { x: rand(250, W - 250), y: rand(380, H - 120) };
-        moveTo(tr.wp.x, tr.wp.y, ang ? 170 : 125);
+        // he goes after gems himself (a stroll when there are none)
+        const want = this.trollGem();
+        if (want) tr.wp = { x: want.x, y: want.y + 10 };
+        else if (!tr.wp || Math.hypot(tr.wp.x - tr.x, tr.wp.y - tr.y) < 30) tr.wp = { x: rand(250, W - 250), y: rand(380, H - 120) };
+        moveTo(tr.wp.x, tr.wp.y, (ang ? 260 : 220) * (this.n <= 1 ? 0.62 : this.n === 2 ? 0.72 : this.n === 3 ? 0.86 : 1));   // fewer kids: a slower gem hunter, so he only sometimes wins
         a.moveAnim(tr.vx, tr.vy, 125);
         footsteps(0.48);
         if (tr.t <= 0) {
@@ -355,7 +392,7 @@ export class Game {
         if (tr.t <= 0) {
           const nap = !ang && this.left > ANGRY_AT + 3 && this.t > 8 && chance(0.34);
           if (nap) { tr.state = 'yawn'; tr.t = 1.1; a.setPose('think'); a.emote('dots', 1.0); sfx('shrink'); sfx('npc/troll/yawn'); a.squash(-0.35); }
-          else { tr.state = 'wander'; tr.t = ang ? rand(0.7, 1.4) : rand(1.5, 2.6); tr.wp = null; a.setPose('walk'); a.clearEmotes(); }
+          else { tr.state = 'wander'; tr.t = ang ? rand(1.0, 1.8) : rand(2.2, 3.4); tr.wp = null; a.setPose('walk'); a.clearEmotes(); }
         }
         break;
       }
@@ -386,6 +423,18 @@ export class Game {
     tr.x = clamp(tr.x, ARENA.x0 + 60, ARENA.x1 - 60); tr.y = clamp(tr.y, ARENA.y0 + 110, ARENA.y1);
     this.collide(tr, 56);
     a.x = tr.x; a.y = tr.y; a.scale = 0.92 * depthScale(tr.y);
+    // the Troll grabs gems he walks over (awake and on his feet)
+    tr.gemPop = Math.max(0, tr.gemPop - dt * 3);
+    if (!this.finished && (tr.state === 'wander' || tr.state === 'chase' || tr.state === 'recover')) {
+      for (const gm of this.gems) {
+        if ((gm.pick > 0 && gm.scatter) || gm.collected || Math.hypot(gm.x - tr.x, (gm.y - tr.y) * 1.2) > TROLL_GRAB_R) continue;
+        gm.collected = true; tr.gems += gm.v; tr.gemPop = 1;
+        sfx('coin', { vol: 0.55 });
+        particles.burst(gm.x, gm.y, { type: 'sparkle', count: 5, colors: ['#ffffff', GEM_COLORS[gm.kind % 5][0]], speed: [60, 200] });
+        a.squash(0.2);
+      }
+      this.gems = this.gems.filter((gm) => !gm.collected);
+    }
     // gently shove players he walks into (no damage - he is grumpy, not mean)
     if (tr.bumpCd <= 0 && (tr.state === 'chase' || tr.state === 'wander')) {
       for (const pl of this.pl) {
@@ -504,7 +553,7 @@ export class Game {
         const d = Math.hypot(gm.x - pl.x, gm.y - pl.y);
         let w = gm.v / (d + 110);
         const dt2 = Math.hypot(gm.x - tr.x, gm.y - tr.y);
-        if (trollAwake && dt2 < 380) w *= lvl === 0 ? 0.55 : lvl === 1 ? 0.2 : 0.1;
+        if (trollAwake && dt2 < 380) w *= lvl === 0 ? 0.6 : lvl === 1 ? 0.45 : 0.35;   // risky, but near him is brave (bonus gems)
         if (tr.state === 'windup' && this.inSlam(gm.x, gm.y, 40)) w *= 0.02;
         // a gem another CPU is already heading for is worth less: spread out over the field
         w /= 1 + 1.2 * claimed(this.pl, pl, gm, (o) => (o.p.isAI ? o.ai.gem : null));
@@ -535,6 +584,18 @@ export class Game {
     this.pl.forEach(() => {
     });
     this.troll.state = 'recover'; this.troll.t = 99; this.troll.a.setPose('laugh'); this.troll.a.z = 0; sfx('npc/troll/laugh');
+    const tr = this.troll;
+    if (tr.gems > best) {
+      // the Troll has the most: he wins (and nobody gets first place)
+      this.pl.forEach((q) => q.a.setPose('pout'));
+      tr.a.setPose('laugh'); tr.a.emote('star', 1.5);
+      this.api.finish({
+        placements: placements.map((pl) => pl + 1), title: 'The Troll wins!',
+        stats: scores.map((s) => `${s} gem${s === 1 ? '' : 's'}`), focus: { x: tr.x, y: tr.y - 120 },
+        guest: { charId: 'troll', name: 'Troll', color: '#6f8f2f', stat: `${tr.gems} gems`, line: 'Hehe! My gems!' },
+      });
+      return;
+    }
     const win = this.pl.filter((q) => q.gems === best)[0];
     this.api.finish({ placements, solo: scores[0], stats: scores.map((s) => `${s} gem${s === 1 ? '' : 's'}`), focus: win && best > 0 ? { x: win.x, y: win.y - 80 } : undefined });
   }
@@ -631,6 +692,7 @@ export class Game {
 
   draw(g) {
     this.drawBackground(g);
+    this.drawBraveZone(g);
     this.drawTelegraph(g);
     // target rings under chased players
     for (const pl of this.pl) {
@@ -699,6 +761,23 @@ export class Game {
     if (pl.stun > 0) { /* dizzy emote is automatic from the pose */ }
   }
 
+  /** The brave zone around the awake Troll: a glowing golden ring (gems for staying inside). */
+  drawBraveZone(g) {
+    const tr = this.troll;
+    if (this.finished || tr.state === 'nap' || tr.state === 'yawn') return;
+    const R = BRAVE_R, ry = R * SLAM_RY, pul = 0.5 + 0.5 * Math.sin(this.t * 4);
+    g.save(); g.translate(tr.x, tr.y);
+    const gr = g.createRadialGradient(0, 0, R * 0.55, 0, 0, R);
+    gr.addColorStop(0, 'rgba(255,214,63,0)'); gr.addColorStop(1, `rgba(255,214,63,${0.3 + pul * 0.12})`);
+    g.scale(1, SLAM_RY); g.fillStyle = gr; g.beginPath(); g.arc(0, 0, R, 0, TAU); g.fill();
+    g.restore();
+    g.save(); g.translate(tr.x, tr.y);
+    g.setLineDash([22, 16]); g.lineDashOffset = -this.t * 40;
+    g.lineWidth = 8; g.strokeStyle = `rgba(255,224,90,${0.8 + pul * 0.2})`;
+    g.beginPath(); g.ellipse(0, 0, R, ry, 0, 0, TAU); g.stroke();
+    g.restore();
+  }
+
   drawTroll(g) {
     const tr = this.troll, a = tr.a;
     // fist-shadow grows as he leaps
@@ -706,6 +785,15 @@ export class Game {
       g.save(); g.fillStyle = 'rgba(30,10,30,0.25)'; g.beginPath(); g.ellipse(tr.x, tr.y, 70 + a.z * 0.4, 22, 0, 0, TAU); g.fill(); g.restore();
     }
     a.draw(g, { scale: 1 });
+    // his gem count, so everyone can see if he's winning
+    if (tr.gems > 0) {
+      const head = a.anchor('head'), y = head.y - 70 - (a.emotes.length ? 40 : 0), k = 1.15 + tr.gemPop * 0.3;
+      g.save(); g.translate(head.x, y); g.scale(k, k);
+      ui.panel(g, -62, -28, 124, 56, { r: 28, fill: '#e9ffd9', lineWidth: 4, shadow: false });
+      drawGemShape(g, -30, 2, 16, 2);
+      ui.text(g, `${tr.gems}`, 14, 2, { size: 38, color: NAVY, stroke: false, weight: 800 });
+      g.restore();
+    }
   }
 
   drawHud(g) {

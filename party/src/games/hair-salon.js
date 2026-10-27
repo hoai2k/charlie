@@ -2,9 +2,10 @@
 // friendly client whose hair is a messy bed-head. Brush it smooth, snip it,
 // grow it with the magic spray, curl or straighten it, colour it (rainbow
 // streaks and glitter too), tie it up (ponytail, pigtails, bun, space buns,
-// braid) and add bows, flowers, clips and tiaras. LB / RB pick the tool (the
-// last one is Done: A there says the look is finished), X steps through the
-// tool's colours / styles / bling. Then a hand-mirror reveal at every chair and a photo-wall showcase:
+// braid) and add bows, flowers, clips and tiaras. X uses the tool (hold), LB / RB
+// pick the tool (the last one is Done: A there says the look is finished), A on a
+// tool goes on to the next one (or says what's left: "still messy, hold X to
+// brush"), Y steps through the tool's colours / styles / bling. Then a hand-mirror reveal at every chair and a photo-wall showcase:
 // the camera visits each client, and the stylists pose for a group photo.
 //
 // The hair is live strand geometry (games/hair-salon/hair.js), the client is
@@ -185,7 +186,7 @@ export class Game extends SalonDrawing {
     if (s.picking) { this.updatePick(s, dt); return; }
     const p = s.p, c = p.ctrl, cl = s.client, sc = s.scene;
     if (s.ai) this.ai(s, dt);
-    const pad = c.kind === 'pad', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
+    const pad = c.kind !== 'kb', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     const cur = s.cursor;
     const sp = 820 * clamp(s.k * 1.15, 0.6, 1.2);
     cur.px = cur.x; cur.py = cur.y;
@@ -194,22 +195,25 @@ export class Game extends SalonDrawing {
     cur.speed = damp(cur.speed, Math.hypot(cur.x - cur.px, cur.y - cur.py) / Math.max(dt, 1e-3), 12, dt);
     const motion = 0.75 + Math.min(1, cur.speed / (380 * s.k)) * 0.6;
 
-    // LB / RB (d-pad left / right): tools, the last one is Done · X (RT / LT, d-pad up / down):
-    // the tool's colours / styles / bling · A: use the tool (on Done: the look is finished) ·
-    // B: spin the chair / take bling off (once Done: not done yet)
+    // LB / RB: tools, the last one is Done · d-pad left / right (LT / RT; on a keyboard WASD is the
+    // hand, so LT / RT): the tool's colours / styles / bling · X: use the tool and stay · A: commit
+    // (Styles / Bling: does it once if X hasn't, then on to the next tool; on Done: the look is
+    // finished) · B: spin the chair / take bling off (once Done: not done yet)
     const N = TOOLS.length + 1;
-    if (c.pressed('rb') || (pad && c.pressed('right'))) this.setTool(s, (s.tool + 1) % N);
-    if (c.pressed('lb') || (pad && c.pressed('left'))) this.setTool(s, (s.tool + N - 1) % N);
-    const optStep = (c.pressed('x') || c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0) : 0);
+    if (c.pressed('rb')) this.setTool(s, (s.tool + 1) % N);
+    if (c.pressed('lb')) this.setTool(s, (s.tool + N - 1) % N);
+    const optStep = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
     if (optStep) this.stepOption(s, optStep);
     let usedB = false;
     if (s.tool === DONE && c.pressed('a') && !s.ready) this.toggleReady(s);
+    else if (s.tool !== DONE && c.pressed('a') && !s.p.isAI) this.nextTool(s);
     else if (s.ready && (c.pressed('b') || s.tool !== DONE)) { usedB = c.pressed('b'); this.toggleReady(s); }
     s.toolPop = Math.max(0, s.toolPop - dt * 3); s.optPop = Math.max(0, s.optPop - dt * 2.5);
     s.sfxT -= dt; s.cool -= dt; s.sparkT -= dt;
 
     const tool = s.tool === DONE ? 'done' : TOOLS[s.tool].id;
-    const hold = c.held('a'), tap = c.pressed('a');
+    const hold = c.held('x'), tap = c.pressed('x');
+    if (tap && tool !== 'done') s.usedX = true;
     const hp = this.toHead(s, cur.x, cur.y);
     const hair = cl.hair;
     s.working = false;
@@ -325,15 +329,17 @@ export class Game extends SalonDrawing {
         }
       }
     } else if (tap && tool === 'style') {
-      this.applyStyle(s, STYLES[s.opt.style].id);
+      this.applyStyle(s, STYLES[s.opt.style].id); s.usedOn = s.tool;
     } else if (tap && tool === 'bling') {
       const onIt = hair.hitAny(hp.x, hp.y, 40) || hair.onHead(hp.x, hp.y, 1.15);
+      if (s.held || s.hover || onIt) s.usedOn = s.tool;
       if (s.held) this.dropHeld(s, hp);
       else if (s.hover) this.pickUpBling(s, s.hover);
       else if (onIt) this.placeBling(s, hp);
       else { sfx('blip'); particles.burst(cur.x, cur.y, { type: 'spark', count: 4, colors: ['#ffffff'] }); }
     }
 
+    if (s.working) s.usedOn = s.tool;
     // client looks at the hand, the stylist walks to its side
     cl.update(dt, (hp.x) / 260, (hp.y - 20) / 260);
     this.updateStylist(s, dt);
@@ -359,15 +365,37 @@ export class Game extends SalonDrawing {
 
   setTool(s, i) {
     if (s.tool === i) { s.toolPop = 0.6; return; }
-    s.tool = i; s.toolPop = 1; s.optPop = TOOLS[i] && OPTIONS[TOOLS[i].id] ? 1 : 0; sfx('swap', { vol: 0.6 });
+    s.tool = i; s.usedOn = -1; s.toolPop = 1; s.optPop = TOOLS[i] && OPTIONS[TOOLS[i].id] ? 1 : 0; sfx('swap', { vol: 0.6 });
+  }
+
+  /** A on a tool commits it: on to the next (after Bling: Done). Styles / Bling are one tap, so A ties
+   *  the style / puts the bling on once first if X hasn't on this visit. The hold tools have no one
+   *  action, so A says what's left instead while the hair is still messy on the brush, or before X
+   *  has been used at all (a kid pressing A to work). */
+  nextTool(s) {
+    const id = TOOLS[s.tool].id, cl = s.client;
+    if ((id === 'style' || id === 'bling') && s.usedOn !== s.tool) {
+      s.usedX = true;
+      if (id === 'style') this.applyStyle(s, STYLES[s.opt.style].id);
+      else {
+        const hp = this.toHead(s, s.cursor.x, s.cursor.y), hair = cl.hair;
+        if (s.held) this.dropHeld(s, hp);
+        else if (!cl.blingAt(hp.x, hp.y) && (hair.hitAny(hp.x, hp.y, 40) || hair.onHead(hp.x, hp.y, 1.15))) this.placeBling(s, hp);
+      }
+    }
+    const VERB = { brush: 'brush', scissors: 'snip', grow: 'spray', curl: 'curl', straight: 'straighten', colour: 'colour', style: 'tie it up', bling: 'add bling' };
+    const hint = (text) => { cl.say(text, 2.4); s.toolPop = 0.6; sfx('blip'); };
+    if (id === 'brush' && !s.ev.tidy && cl.hair.avg('messy') > 0.3) { hint('Still messy! Hold X to brush'); return; }
+    if (!s.usedX) { hint(`${id === 'style' || id === 'bling' ? 'Press' : 'Hold'} X to ${VERB[id] || 'use it'}!`); return; }
+    this.setTool(s, s.tool + 1);
   }
 
   stepOption(s, d) {
     if (s.tool === DONE) return;
     const id = TOOLS[s.tool].id;
     if (!OPTIONS[id]) {
-      // X / up / down on a tool without options jumps to the colours.
-      this.setTool(s, TOOL_IDX.colour);
+      // nothing to choose on this tool
+      s.toolPop = 0.6; sfx('blip', { vol: 0.4 });
       return;
     }
     const n = OPTIONS[id].list.length;
@@ -565,7 +593,7 @@ export class Game extends SalonDrawing {
   ai(s, dt) {
     const A = s.ai, c = s.p.ctrl;
     A.wait -= dt; A.btnT -= dt;
-    c.hold('a', false);
+    c.hold('x', false);
     if (A.wait > 0) { c.move(0, 0); return; }
     const step = A.plan[A.si];
     if (!step) {
@@ -582,7 +610,7 @@ export class Game extends SalonDrawing {
     }
     if (step.opt !== undefined && s.opt[step.tool] !== step.opt) {
       c.move(0, 0);
-      if (A.btnT <= 0) { c.press('x'); A.btnT = rand(0.18, 0.32) / A.spd; }
+      if (A.btnT <= 0) { c.press('rt'); A.btnT = rand(0.18, 0.32) / A.spd; }
       return;
     }
     if (!step.pts) { step.pts = this.planPoints(s, step); step.k = 0; step.t = 0; }
@@ -597,18 +625,18 @@ export class Game extends SalonDrawing {
     const tap = step.tool === 'style' || step.tool === 'bling';
     const slow = step.tool === 'grow' ? 0.45 : 1;
     if (d < 14) {
-      if (tap) { c.press('a'); this.endStep(s); c.move(0, 0); return; }
+      if (tap) { c.press('x'); this.endStep(s); c.move(0, 0); return; }
       step.k++;
       if (step.k >= step.pts.length) { this.endStep(s); return; }
     }
     const m = Math.min(1, d / (50 * s.k + 10)) * A.spd * slow;
     c.move((dx / (d || 1)) * m, (dy / (d || 1)) * m);
-    if (!tap && step.k >= 1 && target.hold !== false) c.hold('a', true);
+    if (!tap && step.k >= 1 && target.hold !== false) c.hold('x', true);
   }
 
   endStep(s) {
     const A = s.ai, step = A.plan[A.si];
-    s.p.ctrl.hold('a', false);
+    s.p.ctrl.hold('x', false);
     // brushing again if it's still quite messy
     if (step && step.tool === 'brush' && !step.again && s.client.hair.avg('messy') > 0.3) { step.again = true; step.pts = null; return; }
     A.si++;
@@ -623,7 +651,7 @@ export class Game extends SalonDrawing {
     sfx('drumroll');
     this.stations.forEach((s, i) => {
       s.revealT = -i * 0.15; s.held = null; s.working = false;
-      s.p.ctrl.hold && s.p.isAI && s.p.ctrl.hold('a', false);
+      s.p.ctrl.hold && s.p.isAI && s.p.ctrl.hold('x', false);
     });
   }
 

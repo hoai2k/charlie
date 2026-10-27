@@ -2,11 +2,12 @@
 // stations). A client (any roster character or friendly NPC) peeks over the
 // table and rests a big cartoon hand, or a paw for animal clients, on a
 // cushion. Four steps, each at the player's own pace (LB / RB move between
-// them, and a gentle clock moves you on; after them comes "Done", where A says
-// the hand is finished): 1 Polish (hold A on a nail to paint it, A off the hand
-// paints all five; X = next colour), 2 Designs (glitter, stripes, dots, hearts, stars, tips, rainbow
-// tips), 3 Gems & stickers (A sticks one on; A on a placed one picks it up to
-// move it; B takes it off), 4 Dry (hold A to blow the little fan over the wet
+// them, A goes on to the next once a step is done - or says what's left - and a
+// gentle clock moves you on; after them comes "Done", where A says the hand is
+// finished). X does the work: 1 Polish (hold X on a nail to paint it, X off the
+// hand paints all five; Y = next colour), 2 Designs (glitter, stripes, dots, hearts, stars, tips, rainbow
+// tips), 3 Gems & stickers (X sticks one on; X on a placed one picks it up to
+// move it; B takes it off), 4 Dry (hold X to blow the little fan over the wet
 // nails). Finale: a nail gallery with every hand on a pedestal, a spotlight
 // on each, then a "Say cheese!" photo with the shared pose buttons.
 import { playerName } from '../state.js';
@@ -200,8 +201,9 @@ export class Game {
     if (st.mode === 'arrive') return;
     if (p.isAI && st.mode === 'work') this.ai(st, dt);
 
-    // cursor (on a gamepad only the stick moves it; the d-pad makes the choices)
-    const pad = c.kind === 'pad', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
+    // cursor (on a gamepad only the stick moves it; the d-pad makes the choices; CPUs drive like a
+    // gamepad. On a keyboard WASD is both, so LT / RT make the choices there)
+    const pad = c.kind !== 'kb', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     const mag = Math.hypot(mx, my);
     st.cur.hold = mag > 0.15 ? st.cur.hold + dt : 0;
     const sp = 820 * (0.35 + 0.65 * clamp(st.cur.hold / 0.5, 0, 1));
@@ -212,7 +214,7 @@ export class Game {
     st.hp = hp; st.G = G;
     st.hoverNail = nailAt(G, hp.x, hp.y, 10);
     st.onHand = onHand(st.style, G, hp.x, hp.y, 4);
-    if (mag > 0.2 || c.pressed('a')) st.idleT = 0; else st.idleT += dt;
+    if (mag > 0.2 || c.pressed('a') || c.pressed('x')) st.idleT = 0; else st.idleT += dt;
 
     if (st.mode === 'done') {
       st.doneT += dt;
@@ -226,36 +228,39 @@ export class Game {
 
     st.stepT += dt;
     st.painting = false;
-    // LB / RB: the steps (the last one is Done) · X (d-pad, LT / RT): colour / design / gem ·
-    // A: paint, decorate, stick, blow (on Done: finished!) · B: wipe / take off
+    // LB / RB: the steps (the last one is Done) · d-pad left / right or LT / RT: colour / design / gem
+    // (Designs: d-pad up / down the design's colour) · X: paint, decorate, stick, blow, and stay ·
+    // A: commit: does the step's one action if X hasn't yet (paint all five, decorate the nail,
+    // stick a gem), then on to the next (on Done: finished!) · B: wipe / take off
     const tab = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
     if (tab) { this.goStep(st, st.step + tab); return; }
     const step = SID(st);
+    if (step !== 'done' && c.pressed('a') && !p.isAI) { this.stepDoneA(st); return; }
+    if (step !== 'done' && c.pressed('x')) {
+      st.usedX = true;
+      if (step === 'polish' || step === 'dry' || st.hoverNail >= 0 || (step === 'gems' && (st.onHand || st.held))) st.usedOn = st.step;   // X did this step's thing
+    }
     const left = pad && c.pressed('left') ? 1 : 0, right = pad && c.pressed('right') ? 1 : 0;
     const up = pad && c.pressed('up') ? 1 : 0, down = pad && c.pressed('down') ? 1 : 0;
     const trig = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
     if (step === 'polish') {
-      if (left || right) this.pickColor(st, right - left);
-      if (up || down) this.pickColor(st, down - up);
-      if (c.pressed('x')) this.pickColor(st, 1);
-      if (trig) this.pickColor(st, trig);
-      if (c.held('a') && st.hoverNail >= 0) this.paintNail(st, st.hoverNail, dt);
-      else if (c.pressed('a') && !st.onHand) this.paintAll(st);
+      if (left || right || trig) this.pickColor(st, right - left + trig);
+      if (c.held('x') && st.hoverNail >= 0) this.paintNail(st, st.hoverNail, dt);
+      else if (c.pressed('x') && !st.onHand) this.paintAll(st);
       if (c.pressed('b')) this.wipe(st);
     } else if (step === 'art') {
-      if (left || right || trig) this.pickArtColor(st, right - left + trig);
-      if (c.pressed('x') || down) this.pickTool(st, 1);
-      if (up) this.pickTool(st, -1);
-      if (c.pressed('a')) this.decorate(st);
+      if (left || right || trig) this.pickTool(st, right - left + trig);
+      if (up || down) this.pickArtColor(st, down - up);
+      if (c.pressed('x')) this.decorate(st);
       if (c.pressed('b')) this.cleanArt(st);
     } else if (step === 'gems') {
-      if (left || right || up || down || c.pressed('x')) this.pickItem(st, right - left + down - up + (c.pressed('x') ? 1 : 0) || 1);
+      if (left || right || trig) this.pickItem(st, right - left + trig || 1);
       if (st.held) { st.held.hx = hp.x; st.held.hy = hp.y; }
       st.hoverGem = st.held ? null : this.gemAt(st, hp.x, hp.y);
-      if (c.pressed('a')) this.gemA(st);
+      if (c.pressed('x')) this.gemA(st);
       if (c.pressed('b')) this.gemB(st);
     } else if (step === 'dry') {
-      this.updateDry(st, dt, c.held('a'));
+      this.updateDry(st, dt, c.held('x'));
     } else if (step === 'done') {
       if (c.pressed('a')) this.finish(st);
     }
@@ -267,7 +272,7 @@ export class Game {
     // a little nudge for humans who stop for a long time
     if (!p.isAI && st.idleT > 12 && !st.tip) { st.idleT = 4; this.tipFor(st); }
     // the manicurist's pose
-    if (st.painting || (step === 'dry' && c.held('a'))) { if (!a._once && a.pose !== 'paint') a.setPose('paint'); }
+    if (st.painting || (step === 'dry' && c.held('x'))) { if (!a._once && a.pose !== 'paint') a.setPose('paint'); }
     else if (a.pose === 'paint') a.setPose('idle');
   }
 
@@ -307,15 +312,39 @@ export class Game {
 
   tipFor(st) {
     const step = SID(st);
-    const msg = step === 'polish' ? (this.anyPainted(st) ? 'RB = next step!' : 'Hold A on a nail!')
-      : step === 'art' ? 'A on a nail, then RB!'
-        : step === 'gems' ? 'A sticks a gem on!'
+    const msg = step === 'polish' ? (this.anyPainted(st) ? 'A = next step!' : 'Hold X on a nail!')
+      : step === 'art' ? 'X on a nail, then A!'
+        : step === 'gems' ? 'X sticks a gem on!'
           : step === 'done' ? "A = I'm ready!"
-            : 'Hold A by wet nails!';
+            : 'Hold X by wet nails!';
     st.tip = { text: msg, t: 0, dur: 3.2 };
     st.nextPulse = 3;
   }
 
+  /** A on a step: it's done, on to the next one - or a friendly line saying what's left (and that X
+   *  does the work). Polish wants every nail painted and Dry every nail dry; Designs and Gems are
+   *  extras, so A just goes on (once X has been used at all: before that, A shows how). */
+  stepDoneA(st) {
+    const step = SID(st);
+    const say = (text) => { st.tip = { text, t: 0, dur: 2.4 }; st.nextBump = 0.4; sfx('blip'); };
+    const fresh = st.usedOn !== st.step;   // X hasn't been used on this visit to the step
+    if (step === 'polish') {
+      // nothing painted yet: A paints all five in this colour (X off the hand does that too)
+      const bare = this.bareNails(st);
+      if (bare === st.nails.length && fresh) { this.paintAll(st); st.usedX = true; }
+      else if (bare) { say(`${plural(bare, 'nail')} to paint: hold X!`); return; }
+    } else if (step === 'dry') {
+      const wet = st.nails.filter((n) => n.wet > 0).length;
+      if (wet) { say(`${plural(wet, 'nail')} still wet: hold X!`); return; }
+    } else if (step === 'art' && fresh && st.hoverNail >= 0) { this.decorate(st); st.usedX = true; }
+    else if (step === 'gems' && (st.held || (fresh && st.onHand && !st.hoverGem))) { this.gemA(st); st.usedX = true; }
+    else if (!st.usedX) {
+      say(step === 'art' ? 'Press X on a nail!' : 'Press X to stick a gem!'); return;
+    }
+    this.goStep(st, st.step + 1);
+  }
+
+  bareNails(st) { return st.nails.filter((n) => !n.auto && !(n.color != null && n.cover >= 0.5)).length; }
   anyPainted(st) { return st.nails.some((n) => n.color != null && n.cover >= 0.5) || st.nails.some((n) => n.auto); }
 
   // --- choices ---------------------------------------------------------------------
@@ -605,9 +634,10 @@ export class Game {
     if (st.mode !== 'work') return;
     const step = SID(st);
     if (step === 'gems' && st.held) { const gm = st.held; st.held = null; if (gm.home) Object.assign(gm, gm.home); }
-    if (step === 'polish') for (const n of st.nails) if (n.auto) { n.auto = null; n.cover = Math.max(n.cover, 1); }
+    // nails still being painted by "paint all" (X off the hand, or A) finish their coat at once
+    if (step === 'polish') st.nails.forEach((n, i) => { if (n.auto) { this.startCoat(n, n.auto.color); n.auto = null; n.cover = 1; this.coatDone(st, i); } });
     st.step = (i + DONE + 1) % (DONE + 1);
-    st.stepT = 0; st.stepExtra = 0; st.idleT = 0; st.tip = null; st.nextPulse = 0; st.nextBump = 0.25;
+    st.stepT = 0; st.stepExtra = 0; st.usedOn = -1; st.idleT = 0; st.tip = null; st.nextPulse = 0; st.nextBump = 0.25;
     sfx('swap', { vol: st.p.isAI ? 0.3 : 0.7 });
     if (st.step < DONE) { sfx('sparkle', { vol: st.p.isAI ? 0.2 : 0.5 }); st.actor.playOnce('cheer', 0.5, 'idle'); this.react(st, 'step', true); }
     if (SID(st) === 'dry') this.startDry(st);
@@ -688,41 +718,42 @@ export class Game {
   ai(st, dt) {
     const p = st.p, c = p.ctrl, A = st.ai, prof = aiProfile(p);
     c.move(0, 0);
-    if (A.planned !== st.step) { c.hold('a', false); this.planFor(st); A.t = Math.max(A.t, rand(0.5, 1.1)); }
+    if (A.planned !== st.step) { c.hold('x', false); this.planFor(st); A.t = Math.max(A.t, rand(0.5, 1.1)); }
     A.t -= dt;
-    if (A.t > 0) { c.hold('a', false); return; }
+    if (A.t > 0) { c.hold('x', false); return; }
     if (!A.cur) {
       A.cur = A.tasks.shift() || null;
-      if (!A.cur) { c.hold('a', false); return; }
+      if (!A.cur) { c.hold('x', false); return; }
       A.cur.age = 0;
       // easier CPUs dawdle and admire between jobs
       if (chance(0.12 * (2 - Math.min(2, p.aiLevel || 0)))) { A.t = rand(0.5, 1.4); return; }
     }
     const tk = A.cur;
     tk.age += dt;
-    const done = (wait = reactionTime(p) * 0.6) => { A.cur = null; A.t = wait; c.hold('a', false); };
+    const done = (wait = reactionTime(p) * 0.6) => { A.cur = null; A.t = wait; c.hold('x', false); };
     const go = (lx, ly, arrive = 46) => steer(p, st.cur.x, st.cur.y, lx, ly, { arrive });
     const nailLocal = (i, dv = 0) => { const n = geom(st.style).nails[i], q = fromNail(n, 0, dv * n.h); return handToLocal(q.x, q.y); };
     if (tk.age > 9) { done(0.3); return; }   // never get stuck
     switch (tk.k) {
       case 'wait': if (tk.age >= tk.t) done(0); break;
       case 'next': c.press('rb'); done(0.5); break;
-      case 'finish': c.press('a'); done(0.5); break;
+      case 'finish': c.press('a'); done(0.5); break;   // (A on Done)
       case 'color': case 'acolor': {
         const curV = tk.k === 'color' ? st.color : st.artColor;
         if (curV === tk.v) { done(rand(0.2, 0.5)); break; }
         const fwd = (tk.v - curV + POLISH.length) % POLISH.length;
-        c.press(fwd <= POLISH.length / 2 ? 'rt' : 'lt'); A.t = rand(0.12, 0.25) / prof.speed;
+        if (tk.k === 'color') c.press(fwd <= POLISH.length / 2 ? 'rt' : 'lt');
+        else c.press(fwd <= POLISH.length / 2 ? 'down' : 'up'); A.t = rand(0.12, 0.25) / prof.speed;
         break;
       }
       case 'tool': {
         if (st.tool === tk.v) { done(rand(0.2, 0.5)); break; }
-        c.press('x'); A.t = rand(0.14, 0.28) / prof.speed;
+        c.press('rt'); A.t = rand(0.14, 0.28) / prof.speed;
         break;
       }
       case 'item': {
         if (st.item === tk.v) { done(rand(0.15, 0.4)); break; }
-        c.press('x'); A.t = rand(0.1, 0.22) / prof.speed;
+        c.press('rt'); A.t = rand(0.1, 0.22) / prof.speed;
         break;
       }
       case 'paint': {
@@ -730,13 +761,13 @@ export class Game {
         if (n.color === st.color && n.cover >= 1) { done(); break; }
         const q = nailLocal(tk.nail, 0.1);
         const d = go(q.x, q.y);
-        c.hold('a', d < 16 || (d < 30 && c.held('a')));
+        c.hold('x', d < 16 || (d < 30 && c.held('x')));
         break;
       }
       case 'tap': {
         const q = nailLocal(tk.nail, rand(-0.02, 0.02));
         const d = go(q.x, q.y, 40);
-        if (d < 12) { c.press('a'); done(); }
+        if (d < 12) { c.press('x'); done(); }
         break;
       }
       case 'gem': {
@@ -744,7 +775,7 @@ export class Game {
         const d = go(q.x, q.y, 40);
         if (d < 8) {
           if (st.hoverGem) { tk.x += rand(-30, 30); tk.y += rand(-20, 20); break; }
-          c.press('a'); done();
+          c.press('x'); done();
         }
         break;
       }
@@ -759,11 +790,11 @@ export class Game {
         if (st.held !== tk.gm) {
           const p0 = this.gemPos(st, tk.gm, st.G), q = handToLocal(p0.x, p0.y);
           const d = go(q.x, q.y, 40);
-          if (d < 7 && st.hoverGem === tk.gm) { c.press('a'); A.t = 0.3; }
+          if (d < 7 && st.hoverGem === tk.gm) { c.press('x'); A.t = 0.3; }
         } else {
           const q = handToLocal(tk.to.x, tk.to.y);
           const d = go(q.x, q.y, 40);
-          if (d < 8) { c.press('a'); done(); }
+          if (d < 8) { c.press('x'); done(); }
         }
         break;
       }
@@ -774,7 +805,7 @@ export class Game {
         tk.age = 0;
         const q = nailLocal(tk.nail, 0.9);
         const d = go(q.x, q.y + 10, 60);
-        c.hold('a', d < 70);
+        c.hold('x', d < 70);
         break;
       }
       default: done(0);
@@ -785,7 +816,7 @@ export class Game {
   startShow() {
     if (this.phase === 'show') return;
     this.phase = 'show'; this.phaseT = 0; this.cheese = false; this.photoTaken = false; this.photoT = 0;
-    for (const p of this.players) if (p.isAI) { p.ctrl.hold('a', false); p.ctrl.move(0, 0); }
+    for (const p of this.players) if (p.isAI) { p.ctrl.hold('x', false); p.ctrl.move(0, 0); }
     // everyone is show-ready (a little salon magic for unfinished hands)
     for (const st of this.stations) {
       if (!st.nails.some((n) => n.color != null)) { const c = randInt(0, 8); for (const n of st.nails) { n.color = c; n.cover = 1; } }
@@ -1233,11 +1264,11 @@ export class Game {
     const step = st.mode === 'done' ? 'ready' : SID(st);
     if (!p.isAI) {
       const pad = p.ctrl.kind === 'pad';
-      const pickG = pad ? 'dpad' : 'x';
-      const list = step === 'polish' ? [['a', 'Paint'], [pickG, 'Colour'], ['b', 'Wipe']]
-        : step === 'art' ? [['a', 'Decorate'], ['x', 'Design'], [pad ? 'dpad' : 'rt', 'Colour'], ['b', 'Clean']]
-          : step === 'gems' ? [['a', 'Stick / move'], [pickG, 'Gem'], ['b', 'Take off']]
-            : step === 'dry' ? [['a', 'Hold: blow']]
+      const pickG = pad ? 'dpad' : 'rt';
+      const list = step === 'polish' ? [['x', 'Paint'], [pickG, 'Colour'], ['b', 'Wipe']]
+        : step === 'art' ? (pad ? [['x', 'Decorate'], ['dpad', 'Design · ↑↓ Colour'], ['b', 'Clean']] : [['x', 'Decorate'], ['rt', 'Design'], ['b', 'Clean']])
+          : step === 'gems' ? [['x', 'Stick / move'], [pickG, 'Gem'], ['b', 'Take off']]
+            : step === 'dry' ? [['x', 'Hold: blow']]
               : step === 'done' ? [['a', "I'm ready!"], ['lb', 'Change']]
                 : [['a', 'Admire'], ['b', 'Not yet']];
       list.forEach(([b, label], i) => {
@@ -1260,14 +1291,14 @@ export class Game {
       ui.bar(g, bx, by + 12, bw, 34, 1 - wetSum / wetMax, '#8fe0ff');
       ui.text(g, 'Drying', bx + bw / 2, by - 6, { size: 20, color: NAVY, stroke: false });
     } else {
-      // RB: the next step (on Done: A = I'm ready!)
+      // A: the next step (on Done: A = I'm ready!)
       const onDone = step === 'done';
-      const ready = onDone ? this.anyPainted(st) : step !== 'polish' || this.anyPainted(st);
+      const ready = onDone ? this.anyPainted(st) : step !== 'polish' || !this.bareNails(st);
       const pulse = (st.nextPulse > 0 || onDone || (ready && st.stepT > 8 && step !== 'polish')) ? 1 + Math.sin(t * 8) * 0.05 : 1;
       const shake = st.nextBump > 0 && st.tip ? Math.sin(st.nextBump * 50) * 6 : 0;
       g.save(); g.translate(bx + bw / 2 + shake, by + bh / 2); g.scale(pulse, pulse);
       ui.roundRect(g, -bw / 2, -bh / 2, bw, bh, 29); g.fillStyle = onDone ? (ready ? '#36d17a' : '#e9e2f2') : ready ? '#ffd23f' : '#e9e2f2'; g.fill(); g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke();
-      ui.glyph(g, onDone ? 'a' : 'rb', -bw / 2 + 28, 0, 34);
+      ui.glyph(g, 'a', -bw / 2 + 28, 0, 34);
       ui.text(g, onDone ? 'Ready!' : 'Next', 18, 1, { size: 28, color: NAVY, stroke: false, weight: 800, maxWidth: bw - 64 });
       g.restore();
     }

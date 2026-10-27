@@ -9,9 +9,11 @@
 //
 // Decorating controls (the Play Studio pattern): left stick moves the hand
 // (right stick: tiny nudges), LB / RB pick a category (Face, Hats, Clothes,
-// Buttons, Friends and, last, Done), X (or the D-pad) the next decoration in
-// it, A puts it where the hand is (or picks one up / puts it down; on Done:
-// I'm ready!), B takes the one under the hand off (or undoes the last), Y is a
+// Buttons, Friends and, last, Done), the D-pad (or LT / RT) the next decoration
+// in it, X puts one where the hand is and stays (as many as you like), A puts one
+// on and goes on to the next category (just goes on if X already put one on; on a
+// decoration A picks it up / puts it down; on Done: I'm ready!), B takes the one
+// under the hand off (or undoes the last), Y is a
 // surprise look (a dressed snowman asks "A surprise look?" first; Go back is the default).
 import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait, POSES } from '../engine/sprites.js';
@@ -444,10 +446,10 @@ export class Game {
     const B = st.bounds, cur = st.cursor;
     cur.x = clamp(cur.x + (mx * sp + c.rx * 200) * dt, B.left, B.right);
     cur.y = clamp(cur.y + (my * sp + c.ry * 200) * dt, B.top, B.bottom);
-    // LB / RB: categories (the last one is Done) · X / D-pad: the next decoration in it
+    // LB / RB: categories (the last one is Done) · the D-pad / LT / RT: the next decoration in it
     const tabStep = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0);
     if (tabStep) this.stepTab(st, tabStep);
-    let step = c.pressed('x') ? 1 : 0;
+    let step = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
     if (pad) step += (c.pressed('down') || c.pressed('right') ? 1 : 0) - (c.pressed('up') || c.pressed('left') ? 1 : 0);
     if (step) this.stepItem(st, step);
     // Y: a surprise look (a dressed snowman asks first, Go back is the default)
@@ -456,7 +458,8 @@ export class Game {
       return;
     }
     if (st.held) {
-      if (c.pressed('a')) this.dropHeld(st);
+      if (c.pressed('x')) this.dropHeld(st);
+      else if (c.pressed('a')) { this.dropHeld(st); this.stepTab(st, 1); }   // (moving one counts: on you go)
       else if (c.pressed('b')) this.removeItem(st, st.held);
       st.hover = null;
       return;
@@ -464,20 +467,25 @@ export class Game {
     if (st.sel === DONE && c.pressed('a')) { this.setReady(st, true); return; }   // on Done, A is always "I'm ready"
     st.hover = st.p.isAI ? null : this.itemAt(st);
     if (st.hover && c.pressed('b')) { this.removeItem(st, st.hover); st.hover = null; return; }
-    if (st.hover && c.pressed('a')) { this.grab(st, st.hover); st.hover = null; return; }
-    if (c.pressed('a')) {
-      if (st.sel === DONE) this.setReady(st, true);
-      else { const it = this.place(st, ITEMS[st.sel].id, cur.x, cur.y); if (it) st.history.push(it); }
+    // (the decoration X just put on, still under the hand, isn't picked up by A: A goes on)
+    const justPut = st.putAt && Math.hypot(cur.x - st.putAt.x, cur.y - st.putAt.y) < 30;
+    if (st.hover && !justPut && c.pressed('a')) { this.grab(st, st.hover); st.hover = null; return; }
+    // X: put one on and stay · A: put one on (unless X already did here) and go on to the next category
+    const put = () => { const it = this.place(st, ITEMS[st.sel].id, cur.x, cur.y); if (it) { st.history.push(it); st.didTab = true; st.putAt = { x: cur.x, y: cur.y }; } };
+    if (c.pressed('x')) { if (st.sel === DONE) sfx('blip'); else put(); }
+    else if (c.pressed('a')) {
+      if (!st.didTab) put();
+      this.stepTab(st, 1);
     } else if (c.pressed('b')) this.undo(st);
   }
 
   /** LB / RB: the next / previous category; the last one is "Done". */
   stepTab(st, dir) {
-    st.tab = (st.tab + dir + DONE_TAB + 1) % (DONE_TAB + 1);
+    st.tab = (st.tab + dir + DONE_TAB + 1) % (DONE_TAB + 1); st.didTab = false;
     st.sel = st.tab === DONE_TAB ? DONE : st.selIn[st.tab];
     st.tabBump = 0.18; st.listBump = 0.15; sfx('move');
   }
-  /** X / D-pad: the next decoration in this category. */
+  /** The D-pad / LT / RT: the next decoration in this category. */
   stepItem(st, dir) {
     if (st.tab === DONE_TAB) { sfx('blip'); return; }
     const ids = CATS[st.tab].idx, k = ids.indexOf(st.sel);
@@ -618,7 +626,7 @@ export class Game {
     const goal = ai.plan[ai.pi];
     if (ai.mode === 'move' && goal) {
       const d = steer(st.p, st.cursor.x, st.cursor.y, goal.x, goal.y, { arrive: 70 });
-      if (d < 12) { c.move(0, 0); c.press('a'); ai.pi++; ai.mode = 'tick'; ai.t = rand(0.35, 0.8) / aiProfile(st.p).speed; }
+      if (d < 12) { c.move(0, 0); c.press('x'); ai.pi++; ai.mode = 'tick'; ai.t = rand(0.35, 0.8) / aiProfile(st.p).speed; }
       return;
     }
     c.move(0, 0);
@@ -626,14 +634,14 @@ export class Game {
     if (ai.t > 0) return;
     const hurry = !this.cpuOnly && this.stations.every((s) => s.ready || s.p.isAI);
     ai.t = rand(0.12, 0.3) * (hurry ? 0.5 : 1);
-    // RB / LB to the decoration's category (or Done), then X to the decoration
+    // RB / LB to the decoration's category (or Done), then RT to the decoration (X puts it on)
     const want = goal ? ITEM[goal.kind] : DONE, wantTab = goal ? catOf(want) : DONE_TAB;
     if (st.tab !== wantTab) {
       const fwd = (wantTab - st.tab + DONE_TAB + 1) % (DONE_TAB + 1);
       c.press(fwd <= (DONE_TAB + 1) / 2 ? 'rb' : 'lb');
       return;
     }
-    if (st.sel !== want) { c.press('x'); return; }
+    if (st.sel !== want) { c.press('rt'); return; }
     if (!goal) { c.press('a'); return; }
     ai.mode = 'move';
   }
@@ -1186,7 +1194,7 @@ export class Game {
       if (first > 0) { g.beginPath(); g.moveTo(ax - 12, areaY + 2); g.lineTo(ax + 12, areaY + 2); g.lineTo(ax, areaY - 10); g.fill(); }
       if (first + vis < total) { const yb = areaY + areaH; g.beginPath(); g.moveTo(ax - 12, yb - 2); g.lineTo(ax + 12, yb - 2); g.lineTo(ax, yb + 10); g.fill(); }
       const fy = lr.y + lr.h - footH / 2 - 6, fs = footH * 0.62;
-      ui.glyph(g, st.p.ctrl.kind === 'pad' ? 'dpad' : 'x', lr.x + 16 + fs / 2, fy, fs);
+      ui.glyph(g, st.p.ctrl.kind === 'pad' ? 'dpad' : 'rt', lr.x + 16 + fs / 2, fy, fs);
       ui.text(g, 'Next', lr.x + 26 + fs, fy + 1, { size: fs * 0.72, color: NAVY, stroke: false, align: 'left', weight: 800, maxWidth: lr.w - fs - 40 });
     }
     if (st.surpriseAsk) drawAsk(g, lr, st.surpriseAsk, { title: 'A surprise look?', yes: 'Surprise!' });
@@ -1221,9 +1229,9 @@ export class Game {
     else if (st.mode === 'built') items = [];
     else if (st.ready) items = [['b', 'Change']];
     else if (st.surpriseAsk) items = [['stick', 'Choose'], ['a', 'OK'], ['b', 'Go back']];
-    else if (st.held) items = [['stick', 'Move'], ['a', 'Put down'], ['b', 'Take off']];
+    else if (st.held) items = [['stick', 'Move'], ['x', 'Put down'], ['a', 'Put, go on'], ['b', 'Take off']];
     else if (st.sel === DONE) items = [['lb', 'Change something'], ['a', "I'm ready!"]];
-    else items = [['stick', 'Move'], ['a', st.hover ? 'Pick up' : 'Add'], [pad ? 'dpad' : 'x', 'Next'], ['rb', 'Category'], ['b', st.hover ? 'Take off' : 'Undo'], ['y', 'Surprise!']];
+    else items = [['stick', 'Move'], ['x', 'Add'], ['a', st.hover && !(st.putAt && Math.hypot(st.cursor.x - st.putAt.x, st.cursor.y - st.putAt.y) < 30) ? 'Pick up' : st.didTab ? 'Next category' : 'Add, go on'], [pad ? 'dpad' : 'rt', 'Next'], ['rb', 'Category'], ['b', st.hover ? 'Take off' : 'Undo'], ['y', 'Surprise!']];
     if (!items.length) return;
     const wide = r.w > 700;
     if (!wide) items = items.map(([b, l]) => [b, ['Surprise!', 'Next', 'Category', 'Change something'].includes(l) ? '' : l]);

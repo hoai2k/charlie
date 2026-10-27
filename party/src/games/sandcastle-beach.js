@@ -3,17 +3,21 @@
 // domes; stack them up to three high), dig moats with the spade that slowly
 // fill with sea water, and decorate with shells, starfish and flags. Friendly
 // crabs scuttle by, stop to admire a castle and sometimes leave a shell as a
-// present (tickle them with A!). When everyone is done (Done + A), or the gentle
+// present (tickle them with X!). When everyone is done (Done + A), or the gentle
 // clock runs out, a gentle wave rolls up the beach: it fills every moat to
 // the brim and leaves a present, and never knocks anything down. Then the sun
 // sets and the camera tours each castle before a sunset group photo.
 //
 // Controls (the Play Studio pattern): stick moves your hand (right stick:
-// tiny nudges), LB/RB pick a tool (the last one is Done), X (or the d-pad)
-// changes the style (window/door towers, wall direction, shell kind, colours),
-// A builds (on top of what's under your hand, so molds stack), A with the Move
-// hand picks a piece up and A puts it down, A on Done: I'm ready (B: not yet).
-// B removes what's under your hand (or fills a moat back in).
+// tiny nudges), LB/RB pick a tool (the last one is Done), d-pad left/right or
+// LT/RT (keyboard: LT/RT, since WASD is the hand) change the style
+// (window/door towers, wall direction, shell kind, colours). X is the tool's
+// action and stays: build (on top of what's under your hand, so molds stack),
+// hold to dig a moat, pick a piece up / put it down with the Move hand, tickle
+// a crab. A commits: it builds once if X hasn't on this visit to the tool (or
+// puts down what the hand carries), then goes on to the next tool; A on Done:
+// I'm ready (B: not yet). B removes what's under your hand (or fills a moat
+// back in).
 import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
@@ -288,7 +292,7 @@ export class Game {
   // --- tools ----------------------------------------------------------------------------------------
   stepTool(st, dir) {
     if (st.held) { sfx('blip'); return; }
-    st.tool = (st.tool + dir + TOOLS.length) % TOOLS.length; st.toolPop = 0.25;
+    st.tool = (st.tool + dir + TOOLS.length) % TOOLS.length; st.toolPop = 0.25; st.usedOn = -1;
     if (!st.p.isAI) sfx('move');
   }
   stepStyle(st, dir = 1) {
@@ -304,10 +308,11 @@ export class Game {
     sfx('swap', { vol: 0.6 });
   }
 
-  pressA(st) {
+  /** X: the tool's action, staying on the tool (build, pick up / put down, tickle; the moat is a hold). */
+  pressX(st) {
     const tool = TOOLS[st.tool].id;
     if (st.held) { this.drop(st); return; }
-    if (tool === 'done') { this.setReady(st, true); return; }
+    if (tool === 'done') { if (!st.p.isAI) sfx('blip'); return; }
     if (tool === 'moat') return;   // digging is a hold (see update)
     const hv = st.hover;
     if (st.hoverCrab && (!hv || tool === 'hand')) { this.tickle(st.hoverCrab, st); return; }
@@ -315,11 +320,26 @@ export class Game {
       if (hv) this.grab(st, hv); else if (!st.p.isAI) sfx('blip');
       return;
     }
-    const style = st.styles[tool];
     if (hv && !this.stackOK(hv, tool) && !st.p.isAI) { this.grab(st, hv); return; }
+    this.buildHere(st, tool);
+  }
+  buildHere(st, tool) {
+    const style = st.styles[tool];
     const aim = this.aimFor(st, tool, style);
     if (aim.on && st.p.isAI && st.ai && !st.ai.wantStack) { aim.on = null; Object.assign(aim, this.aimFor({ ...st, hover: null }, tool, style)); }
     this.build(st, tool, style, aim);
+    st.usedOn = st.tool;
+  }
+  /** A commits: puts down what the hand carries, or builds once if X hasn't on this visit to the tool,
+   *  then goes on to the next tool (the moat is a hold, so A just moves on; until a moat has been dug
+   *  it says how). On Done: I'm ready. */
+  pressA(st) {
+    const tool = TOOLS[st.tool].id;
+    if (tool === 'done') { this.setReady(st, true); return; }
+    if (st.held) this.drop(st);
+    else if (tool === 'moat') { if (!st.dug) { st.actor.say('Hold X to dig!', 1.8); st.toolPop = 0.25; sfx('blip'); return; } }
+    else if (tool !== 'hand' && st.usedOn !== st.tool && !(st.hover && !this.stackOK(st.hover, tool))) this.buildHere(st, tool);
+    this.stepTool(st, 1);
   }
   pressB(st) {
     if (st.held) { const pc = st.held; st.held = null; this.takeAway(st, { ...pc, on: null }, { silent: false }); return; }
@@ -479,16 +499,16 @@ export class Game {
     if (st.aiStick > 0) { st.aiStick -= dt; if (st.aiStick <= 0) c.move(0, 0); }
     if (st.ready) { c.move(0, 0); return; }
     const prof = aiProfile(st.p), slow = this.humans ? 1.5 : 1;
-    if (st.held && ai.mode !== 'carry') { c.press('a'); return; }
+    if (st.held && ai.mode !== 'carry') { c.press('x'); return; }
     if (ai.mode === 'dig') {
       const step = ai.steps[ai.i], pts = step.path, wp = pts[ai.wp];
-      c.hold('a', ai.wp > 0);
+      c.hold('x', ai.wp > 0);
       const d = steer(st.p, st.cur.x, st.cur.y, wp[0], wp[1], { arrive: 40, wobble: false });
-      if (ai.wp === 0) c.hold('a', false);
+      if (ai.wp === 0) c.hold('x', false);
       if (d < 14) {
-        if (ai.wp === 0) { c.move(0, 0); c.hold('a', true); }
+        if (ai.wp === 0) { c.move(0, 0); c.hold('x', true); }
         ai.wp++;
-        if (ai.wp >= pts.length) { c.hold('a', false); c.move(0, 0); ai.mode = 'next'; ai.i++; ai.t = rand(0.5, 1) * slow / prof.speed; }
+        if (ai.wp >= pts.length) { c.hold('x', false); c.move(0, 0); ai.mode = 'next'; ai.i++; ai.t = rand(0.5, 1) * slow / prof.speed; }
       }
       return;
     }
@@ -499,7 +519,7 @@ export class Game {
       if (d < 12) {
         c.move(0, 0);
         ai.pending = ai.i; ai.wantStack = !!tgt.on;
-        c.press('a');
+        c.press('x');
         ai.mode = 'next'; ai.i++;
         ai.t = rand(...prof.think) * slow * rand(0.9, 1.5);
       }
@@ -520,7 +540,7 @@ export class Game {
       c.press(fwd <= TOOLS.length / 2 ? 'rb' : 'lb');
       return;
     }
-    if (step.tool !== 'moat' && DEFS[step.tool].styles.length > 1 && st.styles[step.tool] !== step.style) { c.press('x'); return; }
+    if (step.tool !== 'moat' && DEFS[step.tool].styles.length > 1 && st.styles[step.tool] !== step.style) { c.press('rt'); return; }
     if (step.tool === 'moat') { ai.mode = 'dig'; ai.wp = 0; return; }
     if (step.on !== undefined && !(ai.pieceOf[step.on] && st.pieces.includes(ai.pieceOf[step.on]))) {
       // the piece to build on is gone: skip
@@ -595,32 +615,32 @@ export class Game {
         continue;
       }
       // cursor
-      const pad = c.kind === 'pad', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
+      // (on a gamepad the d-pad picks the style, so only the stick moves the hand; CPUs drive like a
+      // gamepad; on a keyboard WASD is both, so LT / RT pick the style there)
+      const pad = c.kind !== 'kb', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
       const mag = Math.hypot(mx, my);
       st.hold = mag > 0.15 ? st.hold + dt : 0;
       const sp = (st.p.isAI ? 560 : 640) * (0.4 + 0.6 * clamp(st.hold / 0.5, 0, 1)) / Math.max(0.8, st.k);
       st.cur.x = clamp(st.cur.x + (mx * sp + c.rx * 150) * dt, st.gx0 - 10, st.gx1 + 10);
       st.cur.y = clamp(st.cur.y + (my * sp + c.ry * 150) * dt, st.gy0 - HEAD + 30, st.gy1 + 4);
-      // LB / RB: tools (the last one is Done) · X or the d-pad: the style
-      if (pad) {
-        const ts = (c.pressed('right') || c.pressed('down') ? 1 : 0) - (c.pressed('left') || c.pressed('up') ? 1 : 0);
-        if (ts) this.stepStyle(st, ts);
-      }
+      // LB / RB: tools (the last one is Done) · d-pad left / right or LT / RT: the style
+      const ts = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
+      if (ts) this.stepStyle(st, ts);
       if (c.pressed('rb')) this.stepTool(st, 1);
       if (c.pressed('lb')) this.stepTool(st, -1);
-      if (c.pressed('x')) this.stepStyle(st, 1);
       // hover
       st.hover = st.held ? null : this.pieceAt(st, st.cur.x, st.cur.y);
       st.hoverCrab = null;
       const cs = this.toScreen(st, st.cur.x, st.cur.y);
       for (const cr of this.crabs) if (Math.hypot(cr.x - cs.x, cr.y - 18 * st.k - cs.y) < 34 * st.k) st.hoverCrab = cr;
       const tool = TOOLS[st.tool].id;
-      if (c.pressed('a')) this.pressA(st);
+      if (c.pressed('x')) this.pressX(st);
+      else if (c.pressed('a')) this.pressA(st);
       if (c.pressed('b')) this.pressB(st);
-      // digging
+      // digging (hold X)
       st.digging = false;
-      if (tool === 'moat' && c.held('a') && !st.held) {
-        st.digging = true;
+      if (tool === 'moat' && c.held('x') && !st.held && st.tool === TOOL.moat) {
+        st.digging = true; st.dug = true; st.usedOn = st.tool;
         st.digT -= dt;
         const n = this.dig(st, clamp(st.cur.x, st.gx0 + 14, st.gx1 - 14), clamp(st.cur.y, st.gy0 + 12, st.gy1 - 10));
         if (n && st.digT <= 0) {
@@ -674,7 +694,7 @@ export class Game {
     for (const st of this.stations) {
       if (st.held) this.drop(st);
       st.ready = true; st.hover = null; st.aim = null; st.digging = false;
-      if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('a', false); }
+      if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('x', false); }
       st.actor.setPose('idle');
       st.splashed = false; st.gifted = false;
     }
@@ -973,13 +993,13 @@ export class Game {
       g.restore();
     }
     if (this.humans > 1 || st.p.isAI) ui.text(g, st.p.tag, cs.x, cs.y - sz * 0.5 - 14, { size: 20, color: st.p.color, strokeWidth: 4 });
-    // what A / B would do right here
+    // what X / A / B would do right here
     if (!st.p.isAI) {
       let tip = null;
-      if (st.held) tip = [['a', 'Put down'], ['b', 'Take away']];
+      if (st.held) tip = [['x', 'Put down'], ['b', 'Take away']];
       else if (tool === 'done') tip = [['a', "I'm ready!"]];
-      else if (st.hoverCrab && (!st.hover || tool === 'hand')) tip = [['a', 'Tickle!']];
-      else if (st.hover) tip = tool === 'hand' || tool === 'moat' || !this.stackOK(st.hover, tool) ? [['a', 'Pick up'], ['b', 'Take away']] : [['a', 'Stack!'], ['b', 'Take away']];
+      else if (st.hoverCrab && (!st.hover || tool === 'hand')) tip = [['x', 'Tickle!']];
+      else if (st.hover) tip = tool === 'hand' || tool === 'moat' || !this.stackOK(st.hover, tool) ? [['x', 'Pick up'], ['b', 'Take away']] : [['x', 'Stack!'], ['b', 'Take away']];
       if (tip && tool === 'moat' && !st.held && st.hover) tip = [['b', 'Take away']];
       if (tip) {
         const fs = clamp(26 * k + 4, 18, 28), gs = fs * 1.15;
@@ -1011,7 +1031,7 @@ export class Game {
     if (this.phase === 'build') {
       this.drawClock(g);
       const pad = this.players.some((p) => !p.isAI && p.ctrl.kind === 'pad');
-      ui.hints(g, [['stick', 'Hand'], ['lb', '/ RB Tools'], [pad ? 'dpad' : 'x', 'Style'], ['a', 'Build'], ['b', 'Take away']], W / 2, 122, { size: 30, gap: 26 });
+      ui.hints(g, [['stick', 'Hand'], ['lb', '/ RB Tools'], [pad ? 'dpad' : 'rt', 'Style'], ['x', 'Build'], ['a', 'Next'], ['b', 'Take away']], W / 2, 122, { size: 30, gap: 26 });
       for (const st of this.stations) this.drawStrip(g, st);
     } else {
       this.drawFinaleHUD(g);

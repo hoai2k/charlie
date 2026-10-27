@@ -28,7 +28,11 @@
 // { h, w, head, hand, eyes, neck, back (each {x, y}), headAngle, pose, facing,
 // frame (the sprite frame record: its .pose / .index in sprites.json, or null) }.
 // Sprite sets can supply per-pose/per-frame head, hand, eyes, neck, back
-// points and headAngle so attachments track the art.
+// points and headAngle so attachments track the art. info.parts holds every
+// body part the frame shows (BODY_PARTS in bodyparts.js: head eyes earFront
+// earBack neck back belly hand tail footFront footBack); to stick something
+// on the nearest part so it rides every pose, store a.placeOnBody(x, y) and
+// draw at bodySpot(info, spot) (see bodyparts.js).
 
 import { CHARACTERS, ALL_ASSETS, charById } from '../data/characters.js';
 import { drawEmote } from './emotes.js';
@@ -37,6 +41,7 @@ import { clamp, damp, TAU } from './util.js';
 import { recolorFrame } from './recolor.js';
 import { rulesFor, variantPalette, MASK_SETS, PORTRAIT_SAFE } from '../data/variants.js';
 import { wearOutfit, unwearOutfit } from './outfits.js';   // (imports this file back; both only call each other at runtime)
+import { placeOnBody, bodySpot } from './bodyparts.js';
 
 // ---------------------------------------------------------------------------
 // Pose vocabulary. `fallback` lists poses to try, in order, when a sprite set
@@ -254,6 +259,9 @@ async function loadSpriteSet(asset) {
         rect, anchor, dur: Number.isFinite(fo.dur) && fo.dur > 0 ? fo.dur : null,
         head: fo.head || def.head || null, hand: fo.hand || def.hand || null,
         eyes: fo.eyes || def.eyes || null, neck: fo.neck || def.neck || null, back: fo.back || def.back || null,
+        // measured body map (tools/sprites/bodymap.py): absent = not shown in this frame
+        belly: fo.belly || null, tail: fo.tail || null, earFront: fo.earFront || null, earBack: fo.earBack || null,
+        footFront: fo.footFront || null, footBack: fo.footBack || null,
         headAngle: fo.headAngle ?? def.headAngle ?? 0,
         // Per-frame size correction: a frame drawn at a different scale than
         // idle names its own bodyHeight (frame px for the member's h).
@@ -755,14 +763,16 @@ export class Actor {
   detach(h) { this.attachments = this.attachments.filter((a) => a !== h); }
 
   /**
-   * World position of an anchor ('head' top-of-head, 'hand', 'feet', 'center')
-   * on the leader, ignoring squash/tilt. Handy for placing props and emotes.
+   * World position of an anchor ('head' top-of-head, 'hand', 'feet', 'center',
+   * or any body part: eyes neck back belly tail earFront earBack footFront
+   * footBack) on the leader, ignoring squash/tilt. Handy for placing props and
+   * emotes. A part the frame doesn't show falls back to its base-art guess.
    */
   anchor(name = 'head') {
     const m = this.members[0], d = m.def, h = d.h * this.scale;
     const { set, sp, t } = this._spriteState(m, this.pose);
     if (sp) {
-      const fr = pickFrame(sp, t), point = fr[name];
+      const fr = pickFrame(sp, t), point = name === 'feet' || name === 'center' ? null : fr[name];
       if (point) {
         const a = fr.anchor || set.anchor, scale = h / frameBodyHeight(sp, fr, set.bodyHeight);
         const flip = (sp.facing ?? set.facing) === -1 ? -1 : 1;
@@ -778,6 +788,9 @@ export class Actor {
       case 'hand': return { x: m.x + 0.28 * h * m.facing, y: m.y - this.z - 0.5 * h };
       case 'eyes': return { x: m.x + headDx * m.facing, y: m.y - this.z - (1 - d.face[1]) * h };
       case 'center': return { x: m.x, y: m.y - this.z - 0.5 * h };
+      case 'belly': case 'back': return { x: m.x, y: m.y - this.z - 0.42 * h };
+      case 'neck': return { x: m.x + headDx * m.facing, y: m.y - this.z - (1 - Math.min(0.95, d.face[1] + d.face[2] * 0.95)) * h };
+      case 'earFront': case 'earBack': return { x: m.x + headDx * m.facing, y: m.y - this.z - (d.top ?? 1) * h };
       default: return { x: m.x, y: m.y - this.z };
     }
   }
@@ -1008,9 +1021,69 @@ export class Actor {
       if (fr.neck) neck = conv(fr.neck);
       if (fr.back) back = conv(fr.back);
     }
-    return { h, w: aspect * h, head, hand, eyes, neck, back, headAngle: fr0Angle(sp, t), pose, facing: m.facing, member: m.i, frame: sp ? pickFrame(sp, t) : null };
+    // Body map (bodyparts.js): every part this frame shows, forward space.
+    const parts = { head, eyes, neck, back, hand, belly: { x: 0, y: -0.42 * h }, footFront: { x: 0.06 * h, y: -0.02 * h }, footBack: { x: -0.06 * h, y: -0.02 * h } };
+    if (sp) {
+      const fr = pickFrame(sp, t), conv = (pt) => ({ x: (pt[0] - anchor[0]) * pxScale * imgFlip, y: (pt[1] - anchor[1]) * pxScale });
+      // a measured frame shows exactly its parts (a mermaid has no feet);
+      // a set without a body map keeps the guesses
+      if (fr.belly) { delete parts.footFront; delete parts.footBack; }
+      for (const k of FRAME_PARTS) if (fr[k]) parts[k] = conv(fr[k]);
+      // the authored rear-view eyes: null means the face is turned away
+      if (fr.eyes === null) delete parts.eyes;
+    }
+    return { h, w: aspect * h, head, hand, eyes, neck, back, parts, headAngle: fr0Angle(sp, t), pose, facing: m.facing, member: m.i, frame: sp ? pickFrame(sp, t) : null };
+  }
+
+  /**
+   * The attachment info of a member's current frame (as an attach callback
+   * gets it) without the procedural squash/hop/tilt: for placing and
+   * hit-testing things stuck on the body.
+   */
+  bodyInfo(member = 0) {
+    const m = this.members[member] || this.members[0], def = m.def;
+    const { set, sp, t } = this._spriteState(m, this.pose);
+    let img, anchor, bodyH, artFacing;
+    if (sp) {
+      const fr = pickFrame(sp, t);
+      img = fr.img; anchor = fr.anchor || set.anchor; bodyH = frameBodyHeight(sp, fr, set.bodyHeight); artFacing = sp.facing ?? set.facing;
+    } else {
+      img = baseImages.get(def.asset);
+      anchor = img ? [img.width / 2, img.height] : [0, 0]; bodyH = img ? img.height : def.h; artFacing = def.facing;
+    }
+    const pxScale = (def.h * this.scale) / bodyH;
+    return this._attachInfo(m, def, this.scale, pxScale, artFacing === -1 ? -1 : 1, sp, img, anchor, this.pose, t);
+  }
+  /** World point -> a member's forward space (ignores squash/tilt). */
+  toBody(x, y, member = 0) {
+    const m = this.members[member] || this.members[0];
+    return { x: (x - m.x) * (m.facing || 1), y: y - (m.y - this.z) };
+  }
+  /** A member's forward-space point -> world. */
+  fromBody(p, member = 0) {
+    const m = this.members[member] || this.members[0];
+    return { x: m.x + p.x * (m.facing || 1), y: m.y - this.z + p.y };
+  }
+  /**
+   * Stick something on at world point (x, y): a spot on the nearest body part
+   * of the current frame (opts: rot, part, parts, member; see bodyparts.js).
+   * Draw it in an attachment at bodySpot(info, spot); it rides every pose.
+   */
+  placeOnBody(x, y, opts = {}) {
+    const member = opts.member || 0;
+    return placeOnBody(this.bodyInfo(member), this.toBody(x, y, member), opts);
+  }
+  /** Where a spot is now, in the world: { x, y, rot, part } (rot already mirrored for facing), or null. */
+  bodySpot(spot, member = 0) {
+    const at = bodySpot(this.bodyInfo(member), spot);
+    if (!at) return null;
+    const m = this.members[member] || this.members[0], f = m.facing || 1;
+    return { ...this.fromBody(at, member), rot: at.rot * f, part: at.part };
   }
 }
+
+/** Body-map points a frame record may carry (beyond head hand eyes neck back). */
+const FRAME_PARTS = ['belly', 'tail', 'earFront', 'earBack', 'footFront', 'footBack'];
 
 /** Per-frame head tilt (radians) from the sprite set, 0 for base art. */
 function fr0Angle(sp, t) { return sp ? pickFrame(sp, t).headAngle || 0 : 0; }

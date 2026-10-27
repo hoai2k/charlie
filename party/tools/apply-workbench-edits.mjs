@@ -34,7 +34,8 @@ if (!file || flag('help')) {
 }
 const root = path.resolve(opt('root') || path.join(path.dirname(fileURLToPath(import.meta.url)), '..'));
 const dry = flag('dry-run'), force = flag('force');
-const POINTS = ['anchor', 'head', 'eyes', 'neck', 'back', 'hand'];
+const BODY_MAP = ['belly', 'tail', 'earFront', 'earBack', 'footFront', 'footBack'];   // tools/sprites/bodymap.py
+const POINTS = ['anchor', 'head', 'eyes', 'neck', 'back', 'hand', ...BODY_MAP];
 const SLOTS = ['head', 'face', 'neck', 'back', 'hand', 'aura'];
 const MASK_SETS = ['felicity', 'kpop-girl-center', 'princess-amber'];   // tools/sprites/make_masks.py
 const spritesDir = path.join(root, 'assets', 'sprites');
@@ -89,6 +90,7 @@ function locate(where, set, pose, frame, src) {
 
 // --- landmarks -----------------------------------------------------------------
 const lmBySet = new Map();   // set -> [{ pose, index, point, to }]
+const bmBySet = new Map();   // set -> [{ src, artHash, point, to }] (body-map overrides)
 let lmApplied = 0, lmSkipped = 0;
 landmarks.forEach((e, i) => {
   const where = `landmarks[${i}]`;
@@ -105,8 +107,14 @@ landmarks.forEach((e, i) => {
     if (!force) { warnings.push(`${label}: sprites.json has ${fmtPt(cur)}, the edit was made from ${fmtPt(e.from)}; skipped (--force applies it)`); lmSkipped++; return; }
     warnings.push(`${label}: sprites.json has ${fmtPt(cur)}, the edit was made from ${fmtPt(e.from)}; applied anyway (--force)`);
   }
-  if (!lmBySet.has(e.set)) lmBySet.set(e.set, []);
-  lmBySet.get(e.set).push({ pose: e.pose, index: at.index, point: e.point, to });
+  if (BODY_MAP.includes(e.point)) {
+    // measured parts: the edit becomes a reviewed override of the body-map tool
+    if (!bmBySet.has(e.set)) bmBySet.set(e.set, []);
+    bmBySet.get(e.set).push({ src: at.fo.src, artHash: at.fo.artHash || null, point: e.point, to });
+  } else {
+    if (!lmBySet.has(e.set)) lmBySet.set(e.set, []);
+    lmBySet.get(e.set).push({ pose: e.pose, index: at.index, point: e.point, to });
+  }
   notes.push(`${label}: ${fmtPt(cur)} -> ${fmtPt(to)}`);
   lmApplied++;
 });
@@ -131,13 +139,30 @@ import optimize
 print(json.dumps({a: optimize.fingerprint(a) for a in sys.argv[2:]}))
 `;
 const optIndexPath = path.join(root, 'assets', 'sprites-opt', 'index.json');
-const editedSets = [...lmBySet.keys()];
-const maskSets = editedSets.filter((s) => MASK_SETS.includes(s));
+const editedSets = [...new Set([...lmBySet.keys(), ...bmBySet.keys()])];
+const maskSets = [...lmBySet.keys()].filter((s) => MASK_SETS.includes(s));   // masks read the landmarks, not the body map
 if (!dry && editedSets.length) {
   // which optimized copies are current before the edit (pixels don't change, so they stay current)
   let before = {}, opt = null;
   try { before = JSON.parse(py(FINGERPRINTS, toolsDir, ...editedSets)); opt = existsSync(optIndexPath) ? JSON.parse(readFileSync(optIndexPath, 'utf8')) : null; } catch (e) { warnings.push(`fingerprint check skipped: ${e.message}`); }
   for (const [set, edits] of lmBySet) py(WRITE_LANDMARKS, path.join(spritesDir, set, 'sprites.json'), JSON.stringify(edits));
+  if (bmBySet.size) {
+    // body-map edits: into tools/sprites/bodymap-overrides.json, then re-measure those sets
+    const ovPath = path.join(toolsDir, 'bodymap-overrides.json');
+    const ov = existsSync(ovPath) ? JSON.parse(readFileSync(ovPath, 'utf8')) : {};
+    for (const [set, edits] of bmBySet) {
+      const so = ov[set] || (ov[set] = {});
+      for (const e of edits) {
+        const fo = so[e.src] || (so[e.src] = {});
+        if (e.artHash) fo.artHash = e.artHash;
+        fo[e.point] = e.to;
+      }
+    }
+    writeFileSync(ovPath, JSON.stringify(ov, null, 1) + '\n');
+  }
+  // re-measure every edited set: landmark edits move the body map too (it is measured from them)
+  const r = spawnSync('python3', [path.join(toolsDir, 'bodymap.py'), '--no-fingerprint', ...editedSets], { encoding: 'utf8' });
+  if (r.status !== 0) errors.push(`bodymap.py failed: ${r.stderr || r.stdout}`);
   if (opt && Object.keys(before).length) {
     const after = JSON.parse(py(FINGERPRINTS, toolsDir, ...editedSets));
     let refreshed = 0, text = readFileSync(optIndexPath, 'utf8');
@@ -148,6 +173,11 @@ if (!dry && editedSets.length) {
       else if (info) warnings.push(`${set}: optimized copy was already stale; run python3 party/tools/sprites/optimize.py ${set}`);
     }
     if (refreshed) writeFileSync(optIndexPath, text);
+    // body-map-only edits leave colour masks current: refresh their fingerprint too
+    for (const set of editedSets.filter((x) => MASK_SETS.includes(x) && !lmBySet.has(x))) {
+      const mi = path.join(spritesDir, set, 'masks', 'index.json');
+      if (existsSync(mi)) { const t = readFileSync(mi, 'utf8'); if (t.includes(`"${before[set]}"`)) writeFileSync(mi, t.replace(`"${before[set]}"`, `"${after[set]}"`)); }
+    }
     if (refreshed) notes.push(`refreshed the optimized-copy fingerprint of ${refreshed} set(s) (landmarks only, pixels unchanged)`);
   }
   if (maskSets.length) {

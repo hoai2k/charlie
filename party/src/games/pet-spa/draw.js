@@ -7,6 +7,7 @@ import { clamp, lerp, ease, TAU } from '../../engine/util.js';
 import { drawHeartShape, drawStarShape, drawSparkleShape } from '../../engine/emotes.js';
 import { SPRAY_LEN, TOOLS, ACCESSORIES } from './data.js';
 import { drawDoneTab, drawDoneCard } from '../../engine/studio-ui.js';
+import { bodySpot } from '../../engine/bodyparts.js';
 
 export const NAVY = '#24163f';
 const TOOL_ART = { sponge: 'prop/sponge', shower: 'prop/shower-head', towel: 'prop/towel', brush: 'prop/brush', treat: 'prop/pet-treat' };
@@ -257,23 +258,27 @@ export class SpaView {
         g.restore();
       }
     }
-    // accessories (constant size relative to the pet)
+    g.restore();
+    // Bows sit on the body part they were put on (engine/bodyparts.js), so
+    // they ride every frame and pose: walking in the parade, bowing, dancing.
+    // (This callback draws in the pet's forward space; constant size relative to the pet.)
     for (const a of s.acc) {
       a.t += 1 / 60;
+      const at = bodySpot(info, a.spot);
+      if (!at) continue;
       let pop = a.t < 0.25 ? ease.outBack(a.t / 0.25) : 1;
       const held = a === s.held, hover = a === s.hover;
       if (held) pop *= 1.18 + Math.sin(tt * 8) * 0.04;
-      g.save(); g.translate(a.x, a.y); g.scale(flip, 1); g.rotate(a.rot + (held ? Math.sin(tt * 6) * 0.12 : 0));
+      g.save(); g.translate(at.x, at.y); g.rotate(at.rot + (held ? Math.sin(tt * 6) * 0.12 : 0));
       if (hover || held) {
         // soft glow so it's clear which bow the hand is on
         g.save(); g.globalAlpha = 0.55 + Math.sin(tt * 6) * 0.2; g.fillStyle = '#ffffff';
-        g.beginPath(); g.arc(0, 0, m.ih * 0.1 * pop, 0, TAU); g.fill(); g.restore();
+        g.beginPath(); g.arc(0, 0, info.h * 0.1 * pop, 0, TAU); g.fill(); g.restore();
       }
       g.scale(pop, pop);
-      drawAccessory(g, a.kind, a.color, m.ih * 0.13, tt + a.x);
+      drawAccessory(g, a.kind, a.color, info.h * 0.13, tt + a.n);
       g.restore();
     }
-    g.restore();
   }
 
   drawBackground(g) {
@@ -309,8 +314,10 @@ export class SpaView {
     ui.text(g, 'Pet Spa', W / 2 - 230, 55, { size: 50, color: '#ff6fb1' });
     ui.glyph(g, 'lb', W / 2 - 110, 54, 34); ui.glyph(g, 'rb', W / 2 - 66, 54, 34);
     ui.text(g, 'Tools · Done', W / 2 - 40, 55, { size: 30, color: NAVY, align: 'left', stroke: false });
-    ui.glyph(g, 'x', W / 2 + 160, 54, 36);
-    ui.text(g, 'Next step', W / 2 + 184, 55, { size: 30, color: NAVY, align: 'left', stroke: false });
+    ui.glyph(g, 'x', W / 2 + 150, 54, 36);
+    ui.text(g, 'Use', W / 2 + 174, 55, { size: 30, color: NAVY, align: 'left', stroke: false });
+    ui.glyph(g, 'a', W / 2 + 252, 54, 36);
+    ui.text(g, 'Go on', W / 2 + 276, 55, { size: 30, color: NAVY, align: 'left', stroke: false });
   }
 
   drawDecor(g, s) {
@@ -439,7 +446,9 @@ export class SpaView {
     const tx0 = r.x + (r.w - tw) / 2;
     g.save();
     ui.roundRect(g, tx0 - 10, ty - 4, tw + 20, th + 8, 18); g.fillStyle = 'rgba(36,22,63,0.18)'; g.fill();
-    const suggest = this.nextTool(s);
+    // A's bobbing cue: over the tool A goes on to, once this step is finished
+    const curId = TOOLS[s.tool]?.id;
+    const goTo = this.phase === 'spa' && curId && !s.p.isAI && this.canGoOn(s, curId) ? this.goOnTool(s) : -1;
     TOOLS.forEach((tl, i) => {
       const x = tx0 + i * (slot + 8), sel = i === s.tool;
       const lift = sel ? 6 + s.toolPop * 8 : 0;
@@ -453,7 +462,7 @@ export class SpaView {
         g.strokeStyle = '#fff'; g.lineWidth = 3; g.beginPath(); g.moveTo(cx - rr * 0.45, cy); g.lineTo(cx - rr * 0.1, cy + rr * 0.4); g.lineTo(cx + rr * 0.5, cy - rr * 0.4); g.stroke();
       }
       if (sel && tl.id === 'bow' && p.ctrl.kind === 'pad') {
-        // d-pad up / down steps through the bows
+        // d-pad up / down (or LT / RT) steps through the bows
         const ax = x + 2, ay = ty - lift + th / 2, aw = Math.max(7, slot * 0.13), bob = s.accPop * 4;
         g.fillStyle = '#ffffff'; g.strokeStyle = NAVY; g.lineWidth = 2.5;
         for (const d of [-1, 1]) {
@@ -461,17 +470,17 @@ export class SpaView {
           g.beginPath(); g.moveTo(ax - aw, yy - d * aw * 0.5); g.lineTo(ax + aw, yy - d * aw * 0.5); g.lineTo(ax, yy + d * aw * 0.7); g.closePath(); g.fill(); g.stroke();
         }
       }
-      if (suggest === tl.id && !sel && TOOLS[s.tool]?.id !== 'bow') {
+      if (goTo === i && !sel) {
         const bob = Math.abs(Math.sin(this.t * 5)) * 6;
-        ui.glyph(g, 'x', x + slot / 2, ty - 18 - bob, Math.min(30, slot * 0.5));
+        ui.glyph(g, 'a', x + slot / 2, ty - 18 - bob, Math.min(30, slot * 0.5));
       }
     });
     {
       const x = tx0 + TOOLS.length * (slot + 8), sel = s.tool === TOOLS.length, lift = sel ? 6 + s.toolPop * 8 : 0;
       drawDoneTab(g, x, ty - lift, slot, th, { sel, label: false });
-      if (!suggest && !sel && TOOLS[s.tool]?.id !== 'bow') {   // all the steps are done: X goes to Done
+      if (goTo === TOOLS.length && !sel) {   // all the steps are done: A goes to Done
         const bob = Math.abs(Math.sin(this.t * 5)) * 6;
-        ui.glyph(g, 'x', x + slot / 2, ty - 18 - bob, Math.min(30, slot * 0.5));
+        ui.glyph(g, 'a', x + slot / 2, ty - 18 - bob, Math.min(30, slot * 0.5));
       }
     }
     g.restore();
@@ -535,10 +544,11 @@ export class SpaView {
     if (!bowMode && tool !== 'done') drawTool(g, tool, 0, tool === 'shower' ? -size * 0.25 : 0, size, this.t, { on: using, acc: ACCESSORIES[s.accIdx % ACCESSORIES.length] });
     g.restore();
     ui.playerTag(g, p, c.x + 34 * k, c.y - 40 * k);
-    if (bowMode) {
-      // small hint under the hand: [A] Move / Drop   [B] Take off
+    // small hint under the hand on Bows: [X] Move / Drop  [B] Take off (on a bow), else [X] Put on  [B] Undo
+    const bowHint = tool === 'bow' && this.phase === 'spa' && !p.isAI && (bowMode || s.acc.length);
+    if (bowHint) {
       const gs = Math.round(26 * Math.max(0.8, k)), fs = gs * 0.8;
-      const items = [['a', s.held ? 'Drop' : 'Move'], ['b', 'Take off']];
+      const items = bowMode ? [['x', s.held ? 'Drop' : 'Move'], ['b', 'Take off']] : [['x', 'Put on'], ['b', 'Undo']];
       const widths = items.map(([, t]) => gs * 1.1 + ui.measure(g, t, fs, 700) + 14);
       let x = c.x - (widths.reduce((a, b) => a + b, 0) - 14) / 2;
       const y = c.y + 44 * k;
@@ -550,6 +560,48 @@ export class SpaView {
         x += widths[i];
       });
     }
+  }
+
+  /**
+   * A pressed before a step is finished: the pet's speech bubble says what's
+   * left, "Fox still needs more rinsing!" over "(hold [X] to rinse)", above its
+   * head and kept inside the station (scaled down to fit narrow ones).
+   */
+  drawNudge(g, s) {
+    const n = s.nudge;
+    if (!n || this.phase !== 'spa') return;
+    const r = s.r, pet = s.pet;
+    const f1 = 30, f2 = 26, gs = 30, pad = 18;
+    const w1 = ui.measure(g, n.text, f1, 700);
+    const pre = `(${n.pre}`, post = `${n.post})`;
+    const wp = ui.measure(g, pre, f2, 700), wq = ui.measure(g, post, f2, 700);
+    const w2 = wp + 8 + gs + 8 + wq;
+    const bw = Math.max(w1, w2) + pad * 2, bh = 104;
+    const k = Math.min(1.15, Math.max(0.8, s.k), (r.w - 24) / bw);
+    const pop = ease.outBack(clamp(n.t / 0.25, 0, 1)), fade = clamp((n.dur - n.t) / 0.25, 0, 1);
+    const head = pet.anchor('head');
+    const tipX = clamp(head.x, r.x + 30, r.x + r.w - 30);
+    const tipY = Math.max(r.y + s.headerH + bh * k + 24 * k, pet.y - pet.z - pet.height * 0.92);
+    const cx = clamp(tipX, r.x + 12 + (bw * k) / 2, r.x + r.w - 12 - (bw * k) / 2);
+    g.save();
+    g.globalAlpha *= fade;
+    g.translate(tipX, tipY); g.scale(k * (0.6 + 0.4 * pop), k * (0.6 + 0.4 * pop));
+    const x0 = (cx - tipX) / k - bw / 2, y0 = -bh - 18, tx = clamp(0, x0 + 28, x0 + bw - 28);
+    g.beginPath();
+    ui.roundRect(g, x0, y0, bw, bh, 26);
+    g.fillStyle = '#ffffff'; g.fill();
+    g.lineWidth = 4; g.strokeStyle = NAVY; g.lineJoin = 'round'; g.stroke();
+    g.beginPath(); g.moveTo(tx - 12, y0 + bh - 2); g.lineTo(0, 0); g.lineTo(tx + 12, y0 + bh - 2); g.closePath();
+    g.fill(); g.stroke();
+    g.fillStyle = '#ffffff'; g.fillRect(tx - 9, y0 + bh - 5, 18, 7);
+    const mx = x0 + bw / 2;
+    ui.text(g, n.text, mx, y0 + 32, { size: f1, color: NAVY, stroke: false, shadow: false });
+    let lx = mx - w2 / 2;
+    const ly = y0 + 74;
+    ui.text(g, pre, lx, ly, { size: f2, color: '#7a5a9a', align: 'left', stroke: false, shadow: false }); lx += wp + 8;
+    ui.glyph(g, 'x', lx + gs / 2, ly, gs, { pulse: true }); lx += gs + 8;
+    ui.text(g, post, lx, ly, { size: f2, color: '#7a5a9a', align: 'left', stroke: false, shadow: false });
+    g.restore();
   }
 
   drawFlying(g) {
@@ -637,6 +689,7 @@ export class SpaView {
       for (const s of this.stations) this.drawStation(g, s);
       this.drawFlying(g);
       for (const s of this.stations) this.drawCursor(g, s);
+      for (const s of this.stations) this.drawNudge(g, s);
     }
   }
 

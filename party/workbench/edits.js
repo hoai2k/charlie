@@ -8,7 +8,9 @@
 
 export const FORMAT = 'charlie-party-workbench-edits';
 export const VERSION = 1;
-export const POINTS = ['anchor', 'head', 'eyes', 'neck', 'back', 'hand'];
+export const POINTS = ['anchor', 'head', 'eyes', 'neck', 'back', 'hand', 'belly', 'tail', 'earFront', 'earBack', 'footFront', 'footBack'];
+/** Body-map parts (measured by tools/sprites/bodymap.py; edits become its reviewed overrides). */
+export const BODY_MAP_POINTS = ['belly', 'tail', 'earFront', 'earBack', 'footFront', 'footBack'];
 export const SLOTS = ['head', 'face', 'neck', 'back', 'hand', 'aura'];
 
 export const lmKey = (e) => `${e.set}|${e.pose}|${e.frame}|${e.point}`;

@@ -59,6 +59,7 @@ shell.initMobile({ isPlaying: () => scenes.name === 'play' && !scenes.current.pa
 
 let loadProgress = 0;
 let loaded = false;
+let loadFailed = false;   // the game code wouldn't load even after a reload (see boot)
 
 function drawLoading() {
   ui.partyBackdrop(g, performance.now() / 1000);
@@ -74,7 +75,22 @@ async function boot() {
   await Promise.all([loadSprites((p) => { loadProgress = p; }), loadArt()]);
 
   scenes.register('sprites', new SpriteViewerScene());
-  const extra = await import('./scenes/index.js').catch((e) => { console.warn('Scenes not available yet', e); return null; });
+  // The menus and games. A load hiccup (network, or a reload mid-deploy while the server
+  // has a mix of old and new files) is retried; if it still fails, the page reloads once
+  // and otherwise says so. The sprite viewer is only for ?scene=sprites (a tool, not a fallback).
+  let extra = null;
+  for (let i = 0; i < 3 && !extra; i++) {
+    extra = await import('./scenes/index.js').catch((e) => { console.warn('Scenes failed to load (try ' + (i + 1) + ')', e); return null; });
+    if (!extra) await new Promise((r) => setTimeout(r, 800 * (i + 1)));
+  }
+  if (!extra && params.get('scene') !== 'sprites') {
+    let retried = false;
+    try { retried = sessionStorage.getItem('party-reloaded') === '1'; sessionStorage.setItem('party-reloaded', '1'); } catch (e) { retried = true; }
+    if (!retried) { location.reload(); return; }
+    loadFailed = true;
+    return;
+  }
+  try { sessionStorage.removeItem('party-reloaded'); } catch (e) { /* storage blocked */ }
   if (extra) extra.registerScenes(scenes);
 
   loaded = true;
@@ -85,7 +101,7 @@ async function boot() {
     setupDebugPlayers();
     scenes.go(params.has('skipintro') ? 'play' : 'intro', { gameId: gameParam }, { instant: true });
   } else if (extra) scenes.go('title', {}, { instant: true });
-  else scenes.go('sprites', {}, { instant: true });
+  else scenes.go('sprites', {}, { instant: true });   // only reached with ?scene=sprites
 }
 
 function setupDebugPlayers() {
@@ -93,7 +109,7 @@ function setupDebugPlayers() {
   const auto = params.has('auto');
   const humans = auto ? 0 : Math.min(n, parseInt(params.get('humans') || '1', 10));
   const chars = (params.get('chars') || '').split(',').filter((c) => ALL_ENTRIES.some((x) => x.id === c));   // NPCs too (testing)
-  session.cpuLevel = parseInt(params.get('level') || '0', 10) || 0;
+  if (params.has('level')) session.cpuLevel = parseInt(params.get('level'), 10) || 0;
   const humanCtrls = [input.keyboards[0], input.keyboards[1]];
   session.players = [];
   for (let i = 0; i < n; i++) {
@@ -107,16 +123,25 @@ function setupDebugPlayers() {
   setTimeout(() => preloadVoices(session.players.map((p) => p.charId)), 500);
 }
 
+// Away from the tab (hidden, or another window focused): everything holds still - game
+// clocks and all - until the kids come back. Automated runs (webdriver) keep going.
+const pageAway = () => !navigator.webdriver && (document.hidden || (document.hasFocus && !document.hasFocus()));
+
 let last = performance.now();
 function frame(now) {
   const rawDt = Math.min(0.05, (now - last) / 1000);
   last = now;
   input.update(rawDt);
   beginFrame();
-  if (!loaded) {
+  if (loadFailed) {
+    ui.partyBackdrop(g, performance.now() / 1000);
+    ui.text(g, 'Oops! The party didn\'t load.', W / 2, H / 2 - 40, { size: 80, color: '#ffd23f', strokeWidth: 18 });
+    ui.text(g, 'Check the internet, then reload the page.', W / 2, H / 2 + 70, { size: 44 });
+  } else if (!loaded) {
     drawLoading();
   } else {
-    const steps = Math.max(1, Math.round(speed));
+    const away = pageAway();
+    const steps = away ? 0 : Math.max(1, Math.round(speed));
     for (let i = 0; i < steps; i++) {
       const dt = (rawDt * speed) / steps;
       const wdt = fx.timeScale(dt);
@@ -146,6 +171,11 @@ function frame(now) {
     songTag.draw(g);
     settings.draw(g);
     corner.draw(g);
+    if (away) {
+      g.save(); g.fillStyle = 'rgba(36,22,63,0.45)'; g.fillRect(0, 0, W, H); g.restore();
+      ui.text(g, 'Paused', W / 2, H / 2 - 30, { size: 110 });
+      ui.text(g, 'Click here to keep playing!', W / 2, H / 2 + 70, { size: 44 });
+    }
   }
   endFrame();
   requestAnimationFrame(frame);

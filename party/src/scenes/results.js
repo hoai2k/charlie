@@ -69,25 +69,31 @@ export class ResultsScene {
     this.baseStars = players.map((p) => p.stars);
     this.earned = bookResult(gameId, result);
 
+    // A guest who beat everyone (Troll Trouble's Troll: result.guest { charId, name, color,
+    // stat }) takes the gold spot as idx -1; the players' placements already start at 2.
+    const guest = result.guest || null;
+    this.guest = guest;
     // Podium order: 1st in the middle, then alternate left/right.
     const order = players.map((p, i) => i).sort((a, b) => pl[a] - pl[b] || a - b);
+    if (guest) order.unshift(-1);
     const slots = [];
     order.forEach((idx, k) => { if (k % 2 === 0) slots.push(idx); else slots.unshift(idx); });
-    const spacing = Math.min(300, (W - 200) / n);
+    const m = slots.length;
+    const spacing = Math.min(300, (W - 200) / m);
     const worst = Math.max(...pl);
     this.entries = slots.map((idx, k) => {
-      const place = pl[idx];
-      const x = W / 2 + (k - (n - 1) / 2) * spacing;
+      const place = idx < 0 ? 1 : pl[idx];
+      const x = W / 2 + (k - (m - 1) / 2) * spacing;
       const podium = this.showcase ? 60 : (PODIUM_H[place - 1] ?? 30);
       const floor = 860;
-      const a = new Actor(players[idx], { scale: n > 5 ? 0.9 : 1.1, x, y: floor - podium });
+      const a = idx < 0 ? new Actor(guest.charId, { scale: 0.95, x, y: floor - podium }) : new Actor(players[idx], { scale: n > 5 ? 0.9 : 1.1, x, y: floor - podium });
       a.z = 900 + k * 120; a.vz = 0; a.snap();
       const winner = this.showcase || place === 1;
       const loser = !this.showcase && n > 1 && place === worst && place !== 1;
       if (winner) a.attach((gg, info) => drawCrown(gg, info.head.x, info.head.y + 4, info.h * 0.11), {});
       return { idx, place, x, floor, podium, actor: a, landed: false, winner, loser, delay: 0.15 + k * 0.12 };
     });
-    this.revealAt = 0.15 + n * 0.12 + 0.5;
+    this.revealAt = 0.15 + m * 0.12 + 0.5;
     this.revealed = false;
     this.starJingle = false;
     this.camera = new Camera();
@@ -100,6 +106,7 @@ export class ResultsScene {
   }
 
   headline() {
+    if (this.guest) return this.result.title || `${this.guest.name} wins!`;
     if (this.showcase) return this.result.title || "Everyone's a star!";
     if (session.players.length === 1) return this.result.title || (this.winners.length ? 'You did it!' : 'So close!');
     if (!this.winners.length) return this.result.title || 'Great game!';
@@ -126,8 +133,8 @@ export class ResultsScene {
       this.revealed = true;
       // Sounds follow the human players: you only hear your own win or loss
       // (CPUs still emote and show bubbles, silently). All-CPU games keep it all.
-      const humans = this.entries.filter((e) => !session.players[e.idx].isAI);
-      const heard = (e) => !humans.length || !session.players[e.idx].isAI;
+      const humans = this.entries.filter((e) => e.idx >= 0 && !session.players[e.idx].isAI);
+      const heard = (e) => !humans.length || (e.idx >= 0 && !session.players[e.idx].isAI);
       const humanWon = !humans.length || this.showcase || humans.some((e) => e.winner);
       const humanLost = humans.length ? humans.some((e) => e.loser) : this.entries.some((e) => e.loser);
       // "Everyone's a star" finishes stay gentle: the results jingle and a soft cheer, no fanfare on top.
@@ -135,6 +142,7 @@ export class ResultsScene {
       else if (humanWon) { sfx('fanfare'); setTimeout(() => sfx('cheer'), 600); }
       else if (!humanLost) sfx('cheer', { vol: 0.6 });
       if (this.showcase) host('everyone-star', { interrupt: true });
+      else if (this.guest) { /* the guest's own fanfare is the laugh below */ }
       else if (this.winners.length === 1) host('name/' + session.players[this.winners[0].idx].charId, { interrupt: true });
       else host('tie', { interrupt: true });
       if (this.showcase && this.result.highlight != null) setTimeout(() => { sfx('jingle/showstopper'); host('showstopper'); }, 1800);
@@ -147,6 +155,7 @@ export class ResultsScene {
         this.camera.punch(wx, wy, 1.32, 1.3);
       }
       for (const e of this.entries) {
+        if (e.idx < 0) { e.actor.setPose('laugh'); e.actor.say(this.guest.line || 'Hehe! Mine!', 2.6, null); sfx('npc/troll/laugh'); particles.burst(e.actor.x, e.actor.y - 120, { type: 'star', count: 14 }); continue; }
         const p = session.players[e.idx];
         const lines = charById(p.charId).lines || {};
         if (e.winner) { e.actor.setPose('celebrate'); if (!this.showcase || e.idx === this.result.highlight) e.actor.say(lines.win || 'Yay!', 2.6, heard(e) ? 'yay' : null); else if (heard(e)) voice(p.charId, 'yay'); particles.burst(e.actor.x, e.actor.y - 120, { type: 'star', count: 14 }); }
@@ -213,7 +222,7 @@ export class ResultsScene {
 
     // Podiums.
     for (const e of this.entries) {
-      const w = 230 * (session.players.length > 5 ? 0.8 : 1);
+      const w = 230 * (this.entries.length > 5 ? 0.8 : 1);
       if (e.podium > 0) {
         if (!drawPodium(g, this.showcase ? 4 : Math.min(4, e.place), e.x, e.floor - e.podium, w, e.podium + 20))
           ui.panel(g, e.x - w / 2, e.floor - e.podium, w, e.podium + 20, { r: 16, fill: ['#ffd23f', '#d9e3f0', '#f0a35e'][e.place - 1] || '#c9b7f0', lineWidth: 5 });
@@ -223,6 +232,11 @@ export class ResultsScene {
     for (const e of this.entries.slice().sort((a, b) => a.actor.y - b.actor.y)) e.actor.draw(g);
     // Name + stat + earned stars.
     for (const e of this.entries) {
+      if (e.idx < 0) {
+        ui.text(g, this.guest.name, e.x, e.floor + 40, { size: 34, color: this.guest.color || '#7a9a3a' });
+        if (this.guest.stat) ui.text(g, this.guest.stat, e.x, e.floor + 82, { size: 30, color: '#24163f', stroke: false, maxWidth: 260 });
+        continue;
+      }
       const p = session.players[e.idx];
       ui.text(g, p.tag, e.x, e.floor + 40, { size: 34, color: p.color });
       const stat = this.result.stats && this.result.stats[e.idx];

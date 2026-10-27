@@ -80,6 +80,21 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   `api.finishTogether`, `showstopper()` in `engine/util.js`, `engine/easy.js`
   (Sister Party Easy: the stick is optional, A does everything, `easyPrompt` is
   the one big-A cue) and `engine/crowd.js` (8-player spacing).
+- Hidden games: `HIDDEN` in `party/src/games/index.js` takes a game off the
+  shelves (and Random / Marathon); Settings -> "Show all games" (default off)
+  puts them back at the end of their shelf. Page-2 games move up to fill the gaps;
+  the More tile always stays bottom-right (gaps before it are fine).
+- Difficulty is one setting (Settings, default Normal; `difficulty()` in
+  `party/src/state.js`, same as `session.cpuLevel`): it sets the CPU players
+  (`engine/ai.js`; even Hard stays beatable) and games read it for their own
+  challenge (Pop Star's notes). Don't add per-game difficulty pickers.
+- Buttons (the owner's rule): A is jump in action games. Elsewhere A *commits*
+  (does the step's action once if it has one, then moves on) and X *acts and
+  stays* (do it as many times as you like, then A). Plain "next item" is d-pad
+  left/right (+ LB/RB when they're free); LB/RB otherwise step categories; never
+  X / Y. When moving on also confirms the current choice (Pet Spa's steps, Fashion
+  Show's spots), A does it too. If A can't finish a step yet, say what's left
+  and to press X (Pet Spa: hold X to scrub, A = this step's done).
 - Play Studio controls (see `party/src/engine/studio-ui.js`; Fashion Show is the
   model): A confirms and moves on; LB/RB move between categories and the last
   category is "Done" (A there = ready); the left stick (and X) choose items or
@@ -249,6 +264,10 @@ hook to get round it.
 - `party/intake/` is the owner's drop folder for new files (songs, sounds,
   art). Integrate each into its proper place and remove it from the folder in
   the same commit; see `party/intake/README.md`.
+- A generated grid sheet (atlas) is cut into equal cells by the game, so it must
+  really be on an even grid: run `party/tools/sprites/repack_atlas.py <file>
+  --cols N --rows M` on it (finds each item, centres it in its cell) before use.
+  Save repacked art under a new name (`-v2`) so browsers drop the cached one.
 - `party/image-requests.md` keeps only standing guidance and open requests.
   Fielded requests (delivered and checked in game, or resolved/dropped)
   always move to `party/image-requests-history.md`, newest first.
