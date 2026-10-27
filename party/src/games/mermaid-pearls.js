@@ -313,7 +313,7 @@ export class Game {
       particles.burst(x, y, { type: 'star', count: 12, colors: ['#ffd23f', '#fff6a8', '#ffffff'] });
       fx.flash('#fff3b0', 0.08);
       this.pop(e, '+3', '#ffd23f', 60);
-      a.emote('sparkle', 1); voice(e.p.charId, 'yay');
+      a.emote('sparkle', 1); if (chance(0.35)) voice(e.p.charId, 'yay');   // voices stay rare
     } else {
       snd('mp-pearl', 'collect', { step: Math.min(e.pearls % 13, 12) });
       particles.burst(x, y, { type: 'sparkle', count: 5, colors: ['#ffffff', '#ffd6ef', '#c8f4ff'] });

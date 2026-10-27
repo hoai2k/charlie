@@ -426,7 +426,16 @@ export function preloadVoices(charIds) {
     Promise.all(list.map(loadBuffer)).then((bufs) => { const ok = bufs.filter(Boolean); if (ok.length) fileBuffers.set(name, ok); });
   }
 }
+// Voices stack uncomfortably (the owner's rule: any voice should be rare next to other sounds),
+// so they're rationed everywhere: none within VOICE_GAP s of another voice, and the same
+// character not again within VOICE_CHAR_GAP s. A skipped voice is just skipped.
+const VOICE_GAP = 1.6, VOICE_CHAR_GAP = 4;
+let lastVoiceAt = -1e9;
+const lastVoiceBy = new Map();
 export function voice(charId, kind) {
+  const t = performance.now() / 1000;
+  if (t - lastVoiceAt < VOICE_GAP || t - (lastVoiceBy.get(charId) ?? -1e9) < VOICE_CHAR_GAP) return;
+  lastVoiceAt = t; lastVoiceBy.set(charId, t);
   const key = `voice/${charId}/${kind}`;
   if (fileBuffers.has(key)) sfx(key);
   else { preloadVoices([charId]); sfx(VOICE_KINDS[kind] || 'blip'); }
