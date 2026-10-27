@@ -309,7 +309,6 @@ export function drawFish(g, f, env, o = {}) {
     g.rotate(f.tilt * (face >= 0 ? 1 : -1) * (k.upright || k.jelly ? -1 : 1) + tw + (f.spin || 0));
     const fx = k.jelly ? 1 : face >= 0 ? 1 : -1;
     g.scale(sc * pop * fx * (1 + bq), sc * pop * (1 - bq));
-    if (o.onScale) o.onScale(fx * (1 + bq));
     const key = `prop/aq-${k.id}-${col.n}` + (k.id === 'puffer' && f.puff > 0.5 ? '-puffed' : '');
     const img = art(key);
     if (img) {

@@ -750,8 +750,9 @@ export class Game {
     const top = this.topX(P);
     const theta = Math.atan2(top - cx, cy - BAR_Y) * 0.7 + P.rot * 0.12 + (low ? Math.sin(this.t * 38) * 0.03 : 0);
     const s = PS * P.size * ds;
+    // a twist on the rope switches its side at once (only a slight squash), never a paper-thin turn
     const cs = Math.cos(P.spin);
-    const sx = s * (1 + P.sq * 0.22) * (Math.sign(cs) || 1) * Math.max(0.5, Math.abs(cs)) * P.facing, sy = s * (1 - P.sq * 0.22);
+    const sx = s * (1 + P.sq * 0.22) * (Math.sign(cs) || 1) * (0.92 + 0.08 * Math.abs(cs)) * P.facing, sy = s * (1 - P.sq * 0.22);
     // rope to the tie point
     const [rx0, ry0] = def.rope;
     const lx = rx0 * sx, ly = ry0 * sy;

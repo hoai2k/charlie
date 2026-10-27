@@ -23,7 +23,7 @@ import { sfx, hasSound, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain, steer, mash } from '../engine/ai.js';
 import { bodyRadius, claimed, spread } from '../engine/crowd.js';
-import { easySteer, easyManual, easyNearest, easyPrompt } from '../engine/easy.js';
+import { easySteer, easyNearest, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { clamp, lerp, rand, pick, chance, TAU, ease, placementsFromScores, dist, later } from '../engine/util.js';
 import {
   NAVY, GUESTS, GUEST_KINDS, GATES, drawGuest, drawGuestFx, guestHeadTop, drawHat, drawTable, drawChairBack, drawChairFront, CHAIR_SEAT,
@@ -71,7 +71,7 @@ export { meta };
 export class Game {
   constructor(api) {
     this.api = api;
-    this.easy = !!api.easy;   // Molly Easy: humans walk by themselves, A does the action
+    this.easy = !!api.easy;   // Molly Easy: A does the action; A, A (no steering) walks you to it
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -645,8 +645,8 @@ export class Game {
     const a = e.a;
     if (!act) {
       a.playOnce('think', 0.3); e.cool = 0.2;
-      // Easy: nothing in reach - A walks you to the next thing (nearest from here), then does it
-      if (e.auto) { e.auto.goA = true; e.auto.goT = 6; e.auto.plan = null; e._ezSteer = 0; }
+      // Easy: nothing in reach - A again (no steering) walks you to the next thing, then does it
+      if (e.auto && easyAutoOk(e)) { e.auto.goA = true; e.auto.goT = 6; e.auto.plan = null; e._ezSteer = 0; }
       return;
     }
     if (act.kind === 'heave') return this.heave(e);
@@ -765,14 +765,14 @@ export class Game {
   }
 
   // ------------------------------------------------------------- Molly Easy
-  /** Easy (A only): walk this human by themselves to the next thing to do and
-   * stop there; the big A over it says "now!" and A does the usual action. */
+  /** Easy: A does the action in reach; with nothing in reach, pressing A again (no
+   * steering - easyAutoOk) walks them to the next thing and does it. Never otherwise. */
   easyThink(e, dt) {
     const au = e.auto;
     au.ix = 0; au.iy = 0;
     if (this.phase === 'finale' || this.done) { au.goA = false; return; }
-    // steering by hand: wait, and re-plan from where they are once they let go
-    if (easyManual(e) && !au.goA) { au.plan = null; return; }
+    // only a repeated A (no steering) walks them: otherwise they stay put (steering or not)
+    if (!au.goA) { au.plan = null; return; }
     // walked here on A: do the action as soon as it's in reach (give up after a while)
     if (au.goA && (au.goT -= dt) <= 0) au.goA = false;
     if (au.goA && e.cool <= 0 && this.actionFor(e)) { au.goA = false; this.action(e); return; }

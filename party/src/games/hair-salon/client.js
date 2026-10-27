@@ -93,8 +93,14 @@ export class Client {
 
   /** Current transform numbers (sway, squash, spin) for drawing and hit tests. */
   pose() {
-    const sx = this.spinT >= 0 ? Math.cos(this.spinT / 0.8 * TAU) : 1;
-    return { rot: Math.sin(this.bob * 1.3) * 0.025, sy: 1 - this.squash * 0.25, sx: (1 + this.squash * 0.2) * (Math.abs(sx) < 0.08 ? 0.08 * Math.sign(sx || 1) : sx), dy: Math.sin(this.bob * 2.1) * 3 };
+    // chair spin: a happy wiggle-and-bounce in the picture plane (a flat
+    // drawing squashed through zero would look like a turning sheet of paper)
+    const u = this.spinT >= 0 ? clamp(this.spinT / 0.8, 0, 1) : 0, env = Math.sin(u * Math.PI);
+    return {
+      rot: Math.sin(this.bob * 1.3) * 0.025 + Math.sin(u * TAU * 2) * 0.12 * env,
+      sy: 1 - this.squash * 0.25, sx: 1 + this.squash * 0.2,
+      dy: Math.sin(this.bob * 2.1) * 3 - Math.abs(Math.sin(u * TAU)) * 16 * env,
+    };
   }
 
   // ---- hair cache ---------------------------------------------------------------
@@ -154,7 +160,7 @@ export class Client {
     g.save();
     g.translate(0, P.dy);
     if (!o.noChair) this.drawChair(g);
-    // the bust sways as one; spin squashes it sideways
+    // the bust sways as one (the chair spin wiggles it)
     g.save();
     g.scale(P.sx, 1);
     g.translate(0, HEAD_RY * (1 - P.sy));
