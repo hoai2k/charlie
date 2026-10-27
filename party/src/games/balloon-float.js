@@ -20,7 +20,7 @@ import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
-import { easySteer, easyPrompt } from '../engine/easy.js';
+import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
 import { BALLOONS, drawBalloon, drawHeart, drawStar, drawGoldenStar, drawFaceCloud, drawBird, drawSky } from './balloon-float/art.js';
 
@@ -47,7 +47,7 @@ let serial = 0;
 export class Game {
   constructor(api) {
     this.api = api;
-    this.easy = !!api.easy;   // Molly Easy: humans keep their spot in the sky by themselves, A is up/down
+    this.easy = !!api.easy;   // Molly Easy: A is up/down; A again and again (no steering) drifts you to a treat
     this.players = api.players;
     const n = this.n = this.players.length;
     this.t = 0; this.el = 0; this.timeLeft = DURATION;
@@ -212,13 +212,21 @@ export class Game {
     e.popT = Math.max(0, e.popT - dt); e.streakT = Math.max(0, e.streakT - dt); e.boingT = Math.max(0, e.boingT - dt);
     if (e.streakT <= 0) e.streak = 0;
     const easy = this.easy && !p.isAI;
-    // Molly Easy: either stick still flies her about like Medium (up/down too); the
-    // autopilot waits, then picks the next treat from wherever she is
+    // Molly Easy: either stick still flies her about like Medium (up/down too); A is up.
+    // Sideways she stays put, except for a moment after each A pressed again and again with
+    // no steering (easyAutoOk): then she drifts toward the next treat
     const st = easy && !this.done ? easySteer(e, ctrl, dt) : null;
     if (st && st.manual) { e.target = null; e.homeX = clamp(e.x, 120, W * 0.8); }
-    if (easy && !this.done) { this.easyLook(e); e.ezA = ctrl.held('a') ? 0 : (e.ezA ?? 9) + dt; }
+    if (easy && !this.done) {
+      this.easyLook(e); e.ezA = ctrl.held('a') ? 0 : (e.ezA ?? 9) + dt;
+      if (st.pushing) e.ezGoT = 0;
+      if (ctrl.pressed('a') && easyAutoOk(e)) e.ezGoT = 2.5;
+      e.ezGoT = Math.max(0, (e.ezGoT || 0) - dt);
+      if (e.ezGoT <= 0) e.homeX = clamp(e.x, 120, W * 0.8);
+    }
     let inX = this.done ? 0 : ctrl.x;
     if (st && st.manual) inX = st.x;
+    else if (easy && !this.done && e.ezGoT <= 0) inX = 0;
     else if (easy && !this.done) {
       // drift toward the next treat, but stay near your own patch of sky
       const want = e.target && !e.target.dead ? clamp(e.target.x - this.wind * 0.25, 120, W * 0.8) : e.homeX;
