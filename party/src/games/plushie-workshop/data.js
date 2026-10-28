@@ -105,13 +105,13 @@ export const DRESS_ROWS = [
   // lands on the first paw, the item tilted `rot` about it (sticks, stems, strings).
   { id: 'hug', name: 'Hug', items: [
     { name: 'Nothing' },
-    { name: 'Heart pillow', box: [256, 398, 150], pd: ['pillow', '#ff6f9f'], paws: [[206, 418], [306, 418]] },
+    { name: 'Heart pillow', box: [256, 396, 168], pd: ['pillow', '#ff6f9f'], paws: [[206, 418], [306, 418]] },
     { name: 'Tiny teddy', key: 'prop/room-teddy', box: [256, 394, 124], paws: [[204, 420], [308, 420]] },
     { name: 'Present', key: 'prop/present', box: [256, 404, 128], paws: [[204, 424], [308, 424]] },
     { name: 'Rose', key: 'prop/plant-rose-bloom', box: [0, 0, 104], grip: [0.52, 0.86], rot: 0.18, paws: [[300, 424]] },
     { name: 'Star wand', key: 'prop/wand-star', box: [0, 0, 82], grip: [0.6, 0.8], rot: 0.26, paws: [[300, 424]] },
     { name: 'Lollipop', key: 'prop/lollipop-swirl', box: [0, 0, 78], grip: [0.5, 0.8], rot: 0.22, paws: [[300, 424]] },
-    { name: 'Star balloon', key: 'prop/balloon-star', box: [0, 0, 96], grip: [0.49, 0.93], rot: 0.3, paws: [[300, 424]] },
+    { name: 'Star balloon', key: 'prop/balloon-star', box: [0, 0, 140], grip: [0.49, 0.93], rot: 0.46, paws: [[300, 424]] },
   ] },
   { id: 'back', name: 'Back', behind: true, items: [
     { name: 'Nothing' },

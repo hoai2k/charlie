@@ -466,15 +466,20 @@ function drawPillow(g, c, w) {
   g.fillStyle = gr; g.fill(p);
   outline(g, p, 5);
   stitchRing(g, heartPath(new Path2D(), 0, -r * 0.03, r * 0.68));
-  for (const s of [-1, 1]) { const q = poly([[s * r * 0.84, -r * 0.42], [s * r * 1.02, -r * 0.56], [s * r * 0.98, -r * 0.34]]); g.fillStyle = mix(c, '#ffffff', 0.3); g.fill(q); outline(g, q, 3); }
 }
 
-/** A little paw (the plush's own fabric) holding a Hug item. */
+/** A little paw (the plush's own fabric) holding a Hug item: a round mitten with toe seams. */
 function drawPaw(g, fab, x, y) {
-  const p = ell(x, y, 27, 22, 0);
-  fabricPart(g, fab, p, 'rgba(36,22,63,0.08)', 5);
-  g.save(); g.strokeStyle = 'rgba(36,22,63,0.45)'; g.lineWidth = 3; g.lineCap = 'round';
-  for (const dx of [-9, 0, 9]) { g.beginPath(); g.moveTo(x + dx, y - 16); g.lineTo(x + dx * 1.1, y - 7); g.stroke(); }
+  const p = ell(x, y, 30, 25, 0);
+  g.fillStyle = fab.c; g.fill(p);
+  const tile = tileFor(fab);
+  if (tile) { g.fillStyle = g.createPattern(tile, 'repeat'); g.fill(p); }
+  const sh = g.createRadialGradient(x - 10, y - 10, 2, x, y, 32);
+  sh.addColorStop(0, 'rgba(255,255,255,0.45)'); sh.addColorStop(0.5, 'rgba(255,255,255,0.05)'); sh.addColorStop(1, 'rgba(36,22,63,0.28)');
+  g.fillStyle = sh; g.fill(p);
+  g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke(p);
+  g.save(); g.strokeStyle = 'rgba(36,22,63,0.55)'; g.lineWidth = 3; g.lineCap = 'round';
+  for (const dx of [-10, 0, 10]) { g.beginPath(); g.moveTo(x + dx, y + 24); g.lineTo(x + dx * 0.9, y + 12); g.stroke(); }
   g.restore();
 }
 
