@@ -531,6 +531,7 @@ function streamFor(file) {
 // Songs that pick up where they were left when they come back (Molly Party's
 // menu song: back from a game or from Charlie's menus, it fades in from there).
 const RESUMES = new Set(['molly']);
+const MOLLY_SONG = false;   // Sister Party's own menu song (music/molly-time.mp3) is kept but not played for now
 
 const songLabel = (name, e) => (e && e.label) || name.charAt(0).toUpperCase() + name.slice(1);
 
@@ -625,8 +626,9 @@ class Music {
     }
     this.play('menu');
   }
-  /** Molly Party's menus: its song, faded in where it was last left. */
-  molly() { this.play('molly', { fadeIn: 2 }); }
+  /** Molly Party's menus: its song, faded in where it was last left. Molly Time is resting
+   *  (the owner's call, 2026-10-28): MOLLY_SONG = true brings it back; till then, the menu song. */
+  molly() { if (!MOLLY_SONG) return this.menu(); this.play('molly', { fadeIn: 2 }); }
   /** Leaving the title screen: the streamed anthem plays to its end, then the menu loop. */
   carryTitle() {
     if (this.name !== 'title' || !this.stream) return;   // synth title: menus just switch to the menu loop
