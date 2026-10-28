@@ -442,7 +442,7 @@ function drawCape(g, img, top, t) {
   const h = 300, w = 400;
   for (const s of [-1, 1]) {
     const px = F.cx + s * 46, py = top + 18;
-    const ang = s * (0.62 + Math.sin(t * 1.7 + (s > 0 ? 0 : 1.3)) * 0.04);
+    const ang = -s * (0.62 + Math.sin(t * 1.7 + (s > 0 ? 0 : 1.3)) * 0.04);
     g.save(); g.translate(px, py); g.rotate(ang);
     // strips: the inner edge stays at the pivot, the outer edge fans out
     for (let j = 0; j < n; j++) {
