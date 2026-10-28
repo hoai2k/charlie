@@ -1152,4 +1152,58 @@ for all six bodies (bear, bunny, unicorn, kitty, puppy, dragon).
     `prop/wand-star`, `prop/lollipop-swirl`, `prop/balloon-star`), which reads well.
 
 
+### New Molly Party game: leaf-pile-leap
+
+### leaf-pile-leap — Leaf Pile Leap   (requested by the leaf-pile-leap agent, 2026-10-28, priority: nice-to-have)
+
+Sister Party (ages 4-5). Autumn in Granny Goose's garden: everyone rakes the fallen
+leaves into **one giant pile** in the middle of the lawn (A rakes; the leaves tumble
+through the air onto the pile, which grows in four stages). Cheeky squirrels dart
+through it and scatter a few leaves. By the gate, Granny Goose has raked her own **neat
+little pile** while she waters her flowers or dozes; jumping in it makes her gasp,
+harrumph, then laugh. When the big pile is huge, a **stepladder** appears beside it,
+everyone climbs up and cannonballs in with a giant leaf explosion, and the game ends with
+**everyone's heads poking out of the leaves**. Every key below has a procedural
+stand-in that ships today, and the code already asks for every key. House style: navy
+`#24163f` outlines, soft cel shading, warm autumn colours (red, orange, gold, a little
+brown), **no text**. Granny Goose is the existing character (`prop/mm-granny*`): attach
+`prop/mm-granny.webp` as the identity reference for her new poses.
+
+**Reuses (keep alive):** `prop/mm-granny` (watering her flowers with the hose),
+`prop/mm-granny-gasp` (she turns round: someone is in her pile!), `prop/mm-granny-huff`
+(harrumph; also her dozing stand-in), `bg/fairy-hide-seek` (tinted autumn as the
+background stand-in). These are listed in the `leaf-pile-leap` group in
+`assets/art/index.json`; add each new key there too when it lands.
+
+**Layout (the bg must match):** sky and a band of autumn trees at the top; a white picket
+fence across the garden at about y = 330, with a **little garden gate at x ≈ 1690** (the
+gate itself may be drawn in the bg); a **flower bed of autumn flowers (mums, asters) in the
+right-hand corner, x 1760-1920, y 360-520** (Granny waters it, standing at x ≈ 1790, y ≈
+500); then a wide, plain lawn below y ≈ 360. The code draws the giant pile at x ≈ 900,
+y ≈ 610 (up to 680 px wide and 380 px tall), the stepladder left of it at x ≈ 520, Granny's
+little pile at (1580, 520) and all the loose leaves, so keep the lawn plain: soft mowing
+stripes and at most a handful of painted leaves near the edges. Keep the top 110 px calm
+(score chips and the clock).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/leaf-pile-leap` | 1920×1080, opaque | Full screen, layout above | A sunny autumn cottage garden seen from slightly above: soft blue sky with a few clouds, a row of round trees in orange, red and gold along the top with a few leaves drifting, a white picket fence with a small arched garden gate on the right, a bed of autumn flowers in the right corner, then a wide plain green-gold lawn with soft mowing stripes. No characters, no animals, no leaf piles |
+| `thumb/leaf-pile-leap` | 800×500, opaque | Shelf card and how-to screen | A little garden fairy (not a Charlie Party roster character) cannonballing off a wooden stepladder into a giant pile of red, orange and gold leaves, leaves exploding upward, a cheeky squirrel peeking out of the pile, Granny Goose in her lavender apron and pink curlers laughing in the background by the garden gate. Subject centred |
+| `prop/llp-leaves` | 512×512 atlas, transparent, **4 columns × 4 rows of 128 px cells on an exact even grid** (run `tools/sprites/repack_atlas.py prop/llp-leaves.webp --cols 4 --rows 4`) | One leaf per cell, centred, filling ~80% of the cell, flat, seen from above, stem pointing down. Columns = shapes: maple, oak, round birch, long slim willow-ish leaf. Rows = colours: red, orange, gold-yellow, warm brown. The code draws each leaf 26-60 px and spins it **in the plane** (never squashed) while it tumbles | Single cartoon autumn leaves with a bold navy outline, a lighter centre vein and simple cel shading, bright and cheerful |
+| `prop/llp-pile-1` … `prop/llp-pile-4` | 900×540 canvas each, transparent | The giant pile's four growth stages, **bottom-centre anchor = the middle of its base on the lawn**. Drawn 300 / 430 / 560 / 680 px wide (stage 4 about 380 px tall); the code bounces it and adds loose leaves on top. The base edge should be a soft ragged ring of leaves lying flat on the grass, front view from slightly above | A dome-shaped heap of fallen autumn leaves (red, orange, gold, a few brown), individual leaves readable at the edges and on top, puffy and inviting: 1 = a small knee-high heap, 2 = a waist-high mound, 3 = a big round heap, 4 = an enormous, gloriously tall pile with a few leaves balanced on the very top |
+| `prop/llp-granny-pile` | 400×260, transparent | Granny's neat little pile by the gate, bottom-centre anchor, drawn 200 px wide. The code throws its leaves about when someone jumps in and grows it back as Granny tidies | A small, very neat, perfectly round little heap of autumn leaves, tidy as a cake, with a tiny bow-tied garden label stake beside it (no text on the label) |
+| `prop/llp-rake` | 360×140, transparent | A child-sized leaf rake lying **horizontally: the handle end at the left edge, the fan head at the right with its tines pointing down-right**. Held in the character's hand and drawn ~150 px long; the code rotates it for the sweeping stroke | A cheerful wooden-handled leaf rake with a fan-shaped head of springy red tines, a little yellow grip at the handle end |
+| `prop/llp-squirrel-run-1`, `prop/llp-squirrel-run-2` | 260×200 each, transparent | Side view facing right, bottom-centre anchor (feet), drawn ~120 px long; alternated as it darts across the lawn (mirrored to run left) | A cheeky little red squirrel bounding: 1 = stretched out mid-leap, big fluffy tail streaming behind; 2 = bunched up with paws together and tail curled up. Mischievous grin |
+| `prop/llp-squirrel-scared` | 260×220, transparent | Same anchor/size; shown when a child shoos it (it hops up and scampers off giggling) | The same squirrel startled in a funny way: leaping straight up, fur and tail fluffed out, eyes wide, a giggly open-mouthed grin (never frightened, just tickled) |
+| `prop/llp-ladder` | 300×640, transparent | A wooden A-frame stepladder seen from the side-front, bottom-centre anchor, drawn ~230 px wide and ~440 px tall; the code makes the players climb its front at x −40…+40 and leap from its top step | A sturdy wooden stepladder with six rounded rungs, painted red-orange with a little flower stencil on the top step, standing open on the grass |
+| `prop/llp-granny-laugh` | 400×520, transparent | Same anchor and size as `prop/mm-granny` (bottom centre = feet, drawn ~230 px tall, facing right) | Granny Goose (identical to `prop/mm-granny`: lavender apron, pink curlers under a hairnet, round spectacles, pearls) laughing her head off: eyes squeezed shut, beak wide open, one wing on her tummy and the other waving, spectacles bouncing. No hose |
+| `prop/llp-granny-doze` | 400×520, transparent | Same anchor/size; shown while she naps standing by her flowers (the code adds the "z z z") | The same goose dozing on her feet: eyes shut, head nodding forward, a contented little smile, wings folded on her apron, holding a small watering can that is tipping |
+
+Player poses used: `idle`, `walk`, `run` (moveAnim), `push` (each rake stroke, with the
+rake drawn in the hand), `dash`, `jump` and `tuck` (jumping into Granny's pile and the
+cannonball; `tuck` is spun in the plane, no flips), `carry` (arms up, climbing the
+ladder), `laugh` (heads poking out at the end), `giggle`, `surprised`, `cheer`,
+`celebrate`. **No new poses needed**; a dedicated `climb` pose (back view, hands and feet on
+rungs) would read better on the ladder one day, but `carry` works.
+
 All Play Studio, Molly, grown-up reaction, October16 audit, October27 Dance Studio, nail-hand and Charlie Sister action image requests are delivered and checked. Add new requests or regeneration feedback above; delivery details are in image-requests-history.md and reference/IMAGE-WORK-QUEUE.md.
