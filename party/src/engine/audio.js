@@ -449,7 +449,7 @@ export function voice(charId, kind) {
 const MAJOR = [0, 2, 4, 5, 7, 9, 11];
 const MINOR = [0, 2, 3, 5, 7, 8, 10];
 const SONGS = {
-  molly:   { bpm: 120, recordedOnly: true },   // Molly Party's menus (recording only, music/molly-time.mp3)
+  molly:   { bpm: 120, recordedOnly: true },   // Sister Party's menus (recording only, music/sister-party.mp3; molly-time.mp3 is kept, unused)
   title:   { bpm: 124, root: 60, scale: MAJOR, prog: [0, 4, 5, 3], seed: 11, drums: 'pop', lead: 'square', arp: true },
   menu:    { bpm: 112, root: 65, scale: MAJOR, prog: [0, 5, 3, 4], seed: 4, drums: 'light', lead: 'triangle', arp: true },
   party:   { bpm: 138, root: 62, scale: MAJOR, prog: [0, 3, 4, 4, 0, 3, 5, 4], seed: 7, drums: 'pop', lead: 'square', arp: true },
@@ -531,7 +531,7 @@ function streamFor(file) {
 // Songs that pick up where they were left when they come back (Molly Party's
 // menu song: back from a game or from Charlie's menus, it fades in from there).
 const RESUMES = new Set(['molly']);
-const MOLLY_SONG = false;   // Sister Party's own menu song (music/molly-time.mp3) is kept but not played for now
+const MOLLY_SONG = true;   // Sister Party's own menu song ('molly' in the manifest: music/sister-party.mp3); false = the default menu song
 
 const songLabel = (name, e) => (e && e.label) || name.charAt(0).toUpperCase() + name.slice(1);
 
@@ -626,8 +626,8 @@ class Music {
     }
     this.play('menu');
   }
-  /** Molly Party's menus: its song, faded in where it was last left. Molly Time is resting
-   *  (the owner's call, 2026-10-28): MOLLY_SONG = true brings it back; till then, the menu song. */
+  /** Sister Party's menus: its song ("Sister Party", 2026-10-28), faded in where it was last left.
+   *  MOLLY_SONG = false plays the default menu song instead. Molly Time (music/molly-time.mp3) is kept, unused. */
   molly() { if (!MOLLY_SONG) return this.menu(); this.play('molly', { fadeIn: 2 }); }
   /** Leaving the title screen: the streamed anthem plays to its end, then the menu loop. */
   carryTitle() {

@@ -668,7 +668,7 @@ export class Game {
         V.aiT = rand(0.8, 1.8);
         V.aiM = chance(0.45) ? rand(-0.8, 0.8) : 0;
         if (!ended && chance(0.25)) jump = true;
-        if (chance(0.3)) nib = true;
+        if (st.nibbles < 2 && chance(0.3)) nib = true;   // a CPU tastes a candy or two, never eats its house bare
       }
       mx = V.aiM;
       if (Math.abs(a.x - V.x) > V.slot * 0.45) mx = Math.sign(V.x - a.x) * 0.7;
