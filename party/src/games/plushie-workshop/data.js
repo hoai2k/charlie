@@ -164,7 +164,8 @@ export function moveRule(row, idx) {
   }
   if (R.id === 'hug') {
     // held in one paw (sticks, stems, strings): the grip, from that paw across the tummy to the other
-    if (it.grip) return { home: { x: it.paws[0][0], y: it.paws[0][1] }, lim: [-100, 12, -36, 20], grip: true };
+    // (a tall one, the balloon, stays on its own side: in the middle it would hide the face)
+    if (it.grip) return { home: { x: it.paws[0][0], y: it.paws[0][1] }, lim: [it.box[2] > 120 ? -24 : -100, 12, -36, 20], grip: true };
     return { home: { x: it.box[0], y: it.box[1] }, lim: [-34, 34, -40, 22] };                    // hugged in both paws
   }
   if (R.id === 'back') {   // behind the shoulders
@@ -184,7 +185,7 @@ export function moveLean(row, idx, x) {
   const dx = x - rule.home.x;
   if (R.id === 'head') return clamp((x - F.cx) / 110, -1, 1) * 0.35;
   if (R.id === 'neck') return clamp(dx / 40, -1, 1) * 0.12;
-  if (R.id === 'hug') return rule.grip ? clamp((x - F.cx) / 44, -1, 1) * it.rot - it.rot : clamp(dx / 34, -1, 1) * 0.1;
+  if (R.id === 'hug') return rule.grip ? clamp((x - F.cx) / 16, -1, 1) * it.rot - it.rot : clamp(dx / 34, -1, 1) * 0.1;
   return 0;
 }
 
