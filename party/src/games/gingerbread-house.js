@@ -347,7 +347,7 @@ export class Game {
           // above the house: the icing drips down onto the top below
           P.dripT -= dt;
           const tg = P.dripT <= 0 && this.iceTarget(st);
-          if (tg && tg.t === 'drip') { this.addDrip(st, tg, P.entry); P.dripT = 0.1; }
+          if (tg && tg.t === 'drip') { this.addDrip(st, tg, P.entry); P.dripT = 0.14; }
         }
       }
     }
@@ -868,7 +868,7 @@ export class Game {
       }
     }
     if (!best) return null;
-    const r = 15 + rand(0, 4);
+    const r = 18 + rand(0, 5);
     // the bite's middle sits a little outside the edge, so it takes a round notch out of it
     return { x: best.x + Math.cos(best.a) * r * 0.35, y: best.y + Math.sin(best.a) * r * 0.35, r, a: best.a + Math.PI };
   }
@@ -1002,10 +1002,11 @@ export class Game {
     if (tg.e !== undefined) {
       const e = shape.edges[tg.e];
       const path = () => { g.beginPath(); e.pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); if (e.closed) g.closePath(); };
-      path(); g.globalAlpha = 0.18 + 0.12 * pulse; g.lineWidth = 26; g.strokeStyle = col; g.stroke();
-      path(); g.globalAlpha = 0.35 + 0.2 * pulse; g.lineWidth = 14; g.stroke();
-      g.globalAlpha = 0.7; g.setLineDash([9, 9]); g.lineDashOffset = -this.t * 30;
-      path(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
+      path(); g.globalAlpha = 0.14; g.lineWidth = 22; g.strokeStyle = NAVY; g.stroke();
+      path(); g.globalAlpha = 0.25 + 0.15 * pulse; g.lineWidth = 32; g.strokeStyle = col; g.stroke();
+      path(); g.globalAlpha = 0.55 + 0.25 * pulse; g.lineWidth = 15; g.stroke();
+      g.globalAlpha = 0.8; g.setLineDash([10, 9]); g.lineDashOffset = -this.t * 30;
+      path(); g.lineWidth = 3.5; g.strokeStyle = NAVY; g.stroke();
       g.setLineDash([]);
       const [px, py] = e.pts[clamp(tg.j, 0, e.pts.length - 1)];
       g.globalAlpha = 0.9; g.beginPath(); g.arc(px, py, 7 + pulse * 2, 0, TAU); g.fillStyle = col; g.fill(); g.lineWidth = 2.5; g.strokeStyle = NAVY; g.stroke();
@@ -1025,8 +1026,9 @@ export class Game {
   /** Drops of icing on their way down (house units). */
   drawDrips(g, st) {
     for (const d of st.drips) {
-      g.beginPath(); g.moveTo(d.x, d.y - 9); g.quadraticCurveTo(d.x + 6, d.y, d.x, d.y + 5); g.quadraticCurveTo(d.x - 6, d.y, d.x, d.y - 9);
-      g.fillStyle = icingColor(d.k, Math.round(d.y)); g.fill(); g.lineWidth = 1.6; g.strokeStyle = 'rgba(36,22,63,0.6)'; g.stroke();
+      g.beginPath(); g.moveTo(d.x, d.y - 15); g.bezierCurveTo(d.x + 3, d.y - 8, d.x + 8, d.y - 3, d.x + 8, d.y + 2); g.arc(d.x, d.y + 2, 8, 0, Math.PI); g.bezierCurveTo(d.x - 8, d.y - 3, d.x - 3, d.y - 8, d.x, d.y - 15);
+      g.fillStyle = icingColor(d.k, Math.round(d.y)); g.fill(); g.lineWidth = 2; g.strokeStyle = 'rgba(36,22,63,0.7)'; g.stroke();
+      g.beginPath(); g.arc(d.x - 3, d.y, 2.2, 0, TAU); g.fillStyle = 'rgba(255,255,255,0.8)'; g.fill();
     }
   }
 
