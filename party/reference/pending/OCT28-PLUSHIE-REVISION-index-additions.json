@@ -1,0 +1,14 @@
+{
+  "images": {
+    "prop/plushie-scarves": "prop/plushie-scarves-v1.webp",
+    "prop/plushie-heart-pillow": "prop/plushie-heart-pillow-v1.webp"
+  },
+  "compact": {
+    "prop/plushie-scarves": "prop/plushie-scarves-v1-compact.webp",
+    "prop/plushie-heart-pillow": "prop/plushie-heart-pillow-v1-compact.webp"
+  },
+  "groupAdditions": [
+    "prop/plushie-scarves",
+    "prop/plushie-heart-pillow"
+  ]
+}

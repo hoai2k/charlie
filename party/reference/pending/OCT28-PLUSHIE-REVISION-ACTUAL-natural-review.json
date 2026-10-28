@@ -1,0 +1,12 @@
+{
+  "state": {
+    "scene": "PlayScene",
+    "state": "gallery",
+    "phase": "shelf",
+    "finished": true
+  },
+  "hugged": true,
+  "elapsedSeconds": 5.415,
+  "errors": [],
+  "passed": true
+}

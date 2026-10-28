@@ -1,0 +1,13 @@
+{
+  "mode": "full",
+  "sourceConsumer": "Actual merged main game and wardrobe renderer; no source overrides; index route chooses full/compact assets only",
+  "errors": [],
+  "failed": [],
+  "shots": [
+    "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-PLUSHIE-REVISION-ACTUAL-full-1-wardrobe.jpg",
+    "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-PLUSHIE-REVISION-ACTUAL-full-1-pillow.jpg",
+    "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-PLUSHIE-REVISION-ACTUAL-full-six-bodies-scarves.jpg",
+    "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-PLUSHIE-REVISION-ACTUAL-full-six-bodies-pillow.jpg",
+    "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-PLUSHIE-REVISION-ACTUAL-full-8-wardrobe.jpg"
+  ]
+}
