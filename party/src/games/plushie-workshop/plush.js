@@ -323,9 +323,9 @@ export function stitchPath(row, x, y) {
   const R = SEW_ROWS[row], pts = [], jump = new Set();
   const loop = (cx, cy, r, n, a0) => { for (let k = 0; k <= n; k++) { const a = a0 + (k / n) * TAU; pts.push({ x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r }); } };
   if (R.id === 'eyes') {
-    loop(x - F.eyeDX, y, R.size * 0.52, 4, -Math.PI / 2);
+    loop(x - F.eyeDX, y, R.size * 0.52, 6, -Math.PI / 2);
     jump.add(pts.length - 1);
-    loop(x + F.eyeDX, y, R.size * 0.52, 4, -Math.PI / 2);
+    loop(x + F.eyeDX, y, R.size * 0.52, 6, -Math.PI / 2);
   } else if (R.id === 'mouth') {
     const n = 6; for (let k = 0; k <= n; k++) { const a = -Math.PI / 2 + (k / n) * TAU; pts.push({ x: x + Math.cos(a) * R.size * 0.55, y: y + Math.sin(a) * R.size * 0.3 }); }
   } else loop(x, y, pieceRadius(row) * 0.82, 7, -Math.PI / 2);

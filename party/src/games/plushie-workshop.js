@@ -989,7 +989,8 @@ export class Game {
         row.icon(g, row.cur, 0, 0, isz);
         g.restore();
         g.fillStyle = NAVY;
-        for (const d of [-1, 1]) { const ax = d * (bw / 2 - 10); g.beginPath(); g.moveTo(ax, cy - 9); g.lineTo(ax + d * 9, cy); g.lineTo(ax, cy + 9); g.fill(); }
+        if (row.vertical) for (const d of [-1, 1]) { const ax = bw / 2 - 16, ay = cy + d * 8; g.beginPath(); g.moveTo(ax - 9, ay); g.lineTo(ax + 9, ay); g.lineTo(ax, ay + d * 10); g.fill(); }   // (up / down)
+        else for (const d of [-1, 1]) { const ax = d * (bw / 2 - 10); g.beginPath(); g.moveTo(ax, cy - 9); g.lineTo(ax + d * 9, cy); g.lineTo(ax, cy + 9); g.fill(); }
         ui.text(g, row.name, 0, h / 2 - lab * 1.0, { size: lab, color: NAVY, stroke: false, weight: 700, maxWidth: bw - 16 });
       }
       g.restore();
