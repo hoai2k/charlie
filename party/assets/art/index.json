@@ -1312,6 +1312,26 @@
     "prop/oballet-teacher-moonwalk": "prop/oballet-teacher-moonwalk.webp"
   },
   "groups": {
+    "gingerbread-house": [
+      "bg/gingerbread-house",
+      "bg/gingerbread-house-night",
+      "thumb/gingerbread-house",
+      "prop/gh-cottage-wall",
+      "prop/gh-cottage-roof-left",
+      "prop/gh-cottage-roof-right",
+      "prop/gh-cottage-chimney",
+      "prop/gh-tall-wall",
+      "prop/gh-tall-roof-left",
+      "prop/gh-tall-roof-right",
+      "prop/gh-tall-porch",
+      "prop/gh-castle-tower-left",
+      "prop/gh-castle-tower-right",
+      "prop/gh-castle-keep",
+      "prop/gh-castle-cone-left",
+      "prop/gh-castle-cone-right",
+      "prop/gh-candy",
+      "prop/gh-gingerbread-person"
+    ],
     "beach-ball-soccer": [
       "bg/beach-ball-soccer",
       "bg/sandcastle-beach",
