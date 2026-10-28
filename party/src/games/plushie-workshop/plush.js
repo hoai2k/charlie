@@ -439,30 +439,11 @@ function drawClothesProc(g, kind, c, c2, w, t) {
   }
 }
 
-/**
- * A worn scarf from the clothes atlas. The generated scarves are a ring seen a little from
- * above (the back of the neck shows as a rim over the front band), so they read as lying
- * flat. Drawn in thin vertical strips: the whole scarf behind the body (its ends wrap round
- * the sides), then over the body only below the rim (an outline closes the cut), with the
- * band sagging into a smile so it hugs the round neck.
- */
-const SCARF_CUT = 82, SCARF_SAG = 12;
-function scarfCut(x) { return SCARF_CUT * smooth(36, 62, x) * (1 - smooth(186, 206, x)); }
-function scarfSag(x) { const u = (x - 128) / 128; return SCARF_SAG * Math.max(0, 1 - u * u); }
-function drawScarfArt(g, img, cw, ch, col, arow, front) {
-  const dw = 295, k = dw / 256, ax = 128, ay = 96, at = F.neck;
-  const sx0 = col * cw, sy0 = arow * ch, q = cw / 256;
-  const step = 4;
-  for (let x = 0; x < 256; x += step) {
-    const cut = front ? scarfCut(x + step / 2) : 0, dy = scarfSag(x + step / 2);
-    g.drawImage(img, sx0 + x * q, sy0 + cut * q, step * q + 0.5, (256 - cut) * q,
-      at.x + (x - ax) * k - 0.25, at.y + (cut + dy - ay) * k, step * k + 0.5, (256 - cut) * k);
-  }
-  if (front) {   // close the cut with the art's own outline
-    g.beginPath();
-    for (let x = 58; x <= 190; x += 4) { const px = at.x + (x - ax) * k, py = at.y + (scarfCut(x) + scarfSag(x) - ay) * k + 1; if (x === 58) g.moveTo(px, py); else g.lineTo(px, py); }
-    g.lineWidth = 4.5; g.lineCap = 'round'; g.strokeStyle = NAVY; g.stroke();
-  }
+/** The front-view scarf is authored to fit the neck; draw its whole unbent cell. */
+function drawScarfArt(g, img, cw, ch, col, arow) {
+  const k = 295 / 256;
+  g.drawImage(img, col * cw, arow * ch, cw, ch,
+    F.neck.x - 128 * k, F.neck.y - 96 * k, 256 * k, 256 * k);
 }
 
 /**
@@ -529,7 +510,7 @@ export function drawClothes(g, row, idx, t = 0, P = null) {
     const img = art(key);
     if (img) {
       const cw = img.width / cols, ch = img.height / rows;
-      drawScarfArt(g, img, cw, ch, col, arow, true);
+      drawScarfArt(g, img, cw, ch, col, arow);
       return;
     }
     g.save(); g.translate(F.neck.x, F.neck.y);
@@ -563,14 +544,6 @@ export function drawClothes(g, row, idx, t = 0, P = null) {
   if (it.paws && P) { const fab = FABRICS[P.fabric]; for (const [x, y] of it.paws) drawPaw(g, fab, x, y); }
 }
 
-/** The part of a worn item drawn behind the body (scarves' back strand). */
-function drawClothesBehind(g, row, idx) {
-  const it = DRESS_ROWS[row].items[idx];
-  if (!it || !idx || !it.atlas) return;
-  const [key, cols, rows, col, arow] = it.atlas, img = art(key);
-  if (img) drawScarfArt(g, img, img.width / cols, img.height / rows, col, arow, false);
-}
-
 // ---------------------------------------------------------------------------
 /**
  * Draw a plushie. (x, y) = its seat point on screen; size = the frame's height
@@ -589,9 +562,8 @@ export function drawPlush(g, P, x, y, size, opts = {}) {
   if (opts.tilt) { g.translate(F.cx, F.seat); g.rotate(opts.tilt); g.translate(-F.cx, -F.seat); }
   const dress = P.dress || [0, 0, 0, 0];
   const inSquash = (fn) => { g.save(); g.translate(F.cx, F.seat); g.scale(S.sx, S.sy); g.translate(-F.cx, -F.seat); fn(); g.restore(); };
-  // behind: capes and wings, and the back of a scarf
+  // behind: capes and wings
   if (dress[3]) inSquash(() => drawClothes(g, 3, dress[3], t, P));
-  if (dress[1]) inSquash(() => drawClothesBehind(g, 1, dress[1]));
   drawBody(g, body, fab, p, t);
   inSquash(() => {
     for (const pc of P.pieces || []) {

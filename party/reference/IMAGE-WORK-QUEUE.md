@@ -1,3 +1,11 @@
+## New requests active — Leaf Pile Leap and Plushie revisions
+
+Main b2e507a9 adds17newimagekeys: two Plushie Workshop items and15Leaf Pile Leap assets. Root owns shared registration/budgets/intake publication and consumer review. oct28_scarf_revision owns front-worn scarf atlas + heart pillow and minimal own consumer changes; oct28_leaf_environment owns nine backdrop/leaf/pile/rake/ladder assets; oct28_leaf_characters owns six squirrel/Granny/thumbnail assets. Do not duplicate these claims. Molly approvals are waived; existing Granny/fairy identities are preserved. Exact prompts/nativeRGBA archives and measured registration are being saved under OCT28-PLUSHIE-REVISION and OCT28-LEAF*. Reviewed batches will publish regularly.
+
+Leaf gameplay and new Plushie Hug consumer are not yet on main; latest fetched feature branch contains incomplete/inconsistent consumer code. Continue generation and isolated drawing review while waiting for the feature owner's main merge; never overwrite main with an older branch snapshot.
+
+Started/check UTC: 2026-10-28T22:28:45.435564+00:00. No timer requested.
+
 ## Mole Madness complete — all current images delivered
 
 Final approved reference: reference/canonical/mole.webp, with smaller paws as requested. Mole Madness replaces the visible Gopher Gardens title; internalgopher-garden/prop-gopher identifiers remain stable. Published batch90cc38d7 adds six authored body states plus thumbnail, head-first sneaky peek, calm L/R scanning and blink. Body art has no ground. All52images from thisfour-game delivery are complete (49requested+3extra mole frames). No pending canonical approval, generation or intake.

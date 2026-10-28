@@ -1361,7 +1361,9 @@
     "prop/gopher-up-2": "prop/gopher-up-2.webp",
     "prop/gopher-blink": "prop/gopher-blink.webp",
     "prop/gopher-bonked": "prop/gopher-bonked.webp",
-    "thumb/gopher-garden": "thumb/gopher-garden.webp"
+    "thumb/gopher-garden": "thumb/gopher-garden.webp",
+    "prop/plushie-scarves": "prop/plushie-scarves-v1.webp",
+    "prop/plushie-heart-pillow": "prop/plushie-heart-pillow-v1.webp"
   },
   "groups": {
     "dino-dig": [
@@ -1395,7 +1397,9 @@
       "prop/plushie-stuffer",
       "prop/plushie-needle",
       "prop/plushie-tag",
-      "prop/snowman-bowtie"
+      "prop/snowman-bowtie",
+      "prop/plushie-scarves",
+      "prop/plushie-heart-pillow"
     ],
     "gingerbread-house": [
       "bg/gingerbread-house",

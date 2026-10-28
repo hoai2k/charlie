@@ -92,10 +92,10 @@ export const DRESS_ROWS = [
   ] },
   { id: 'neck', name: 'Neck', items: [
     { name: 'Nothing' },
-    { name: 'Stripy scarf', atlas: ['prop/plushie-clothes', 4, 2, 0, 0], pd: ['scarf', '#ff5d6c', '#ffffff'] },
-    { name: 'Pompom scarf', atlas: ['prop/plushie-clothes', 4, 2, 1, 0], pd: ['scarf', '#5d9bff', '#bfe0ff'] },
-    { name: 'Dotty scarf', atlas: ['prop/plushie-clothes', 4, 2, 2, 0], pd: ['scarf', '#ff8ec4', '#ffffff'] },
-    { name: 'Rainbow scarf', atlas: ['prop/plushie-clothes', 4, 2, 3, 0], pd: ['scarf', 'rainbow'] },
+    { name: 'Stripy scarf', atlas: ['prop/plushie-scarves', 4, 1, 0, 0], pd: ['scarf', '#ff5d6c', '#ffffff'] },
+    { name: 'Pompom scarf', atlas: ['prop/plushie-scarves', 4, 1, 1, 0], pd: ['scarf', '#5d9bff', '#bfe0ff'] },
+    { name: 'Dotty scarf', atlas: ['prop/plushie-scarves', 4, 1, 2, 0], pd: ['scarf', '#ff8ec4', '#ffffff'] },
+    { name: 'Rainbow scarf', atlas: ['prop/plushie-scarves', 4, 1, 3, 0], pd: ['scarf', 'rainbow'] },
     { name: 'Bow tie', key: 'prop/snowman-bowtie', box: [256, 330, 130], pd: ['bowtie', '#ff4d6d'] },
     { name: 'Heart necklace', key: 'prop/necklace-heart', box: [256, 352, 150], pd: ['necklace', '#ffd23f'] },
   ] },
@@ -107,7 +107,7 @@ export const DRESS_ROWS = [
   // lands on the first paw, the item tilted `rot` about it (sticks, stems, strings).
   { id: 'hug', name: 'Hug', items: [
     { name: 'Nothing' },
-    { name: 'Heart pillow', box: [256, 396, 168], pd: ['pillow', '#ff6f9f'], paws: [[206, 418], [306, 418]] },
+    { name: 'Heart pillow', key: 'prop/plushie-heart-pillow', box: [256, 396, 168], pd: ['pillow', '#ff6f9f'], paws: [[206, 418], [306, 418]] },
     { name: 'Tiny teddy', key: 'prop/room-teddy', box: [256, 394, 124], paws: [[204, 420], [308, 420]] },
     { name: 'Present', key: 'prop/present', box: [256, 404, 128], paws: [[204, 424], [308, 424]] },
     { name: 'Rose', key: 'prop/plant-rose-bloom', box: [0, 0, 104], grip: [0.52, 0.86], rot: 0.18, paws: [[300, 424]] },

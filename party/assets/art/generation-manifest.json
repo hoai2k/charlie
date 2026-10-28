@@ -41099,6 +41099,23 @@
       "tool": "built-in imagegen",
       "bytes": 94088,
       "intake": "party/reference/pending/OCT28-MOLE-THUMBNAIL.json"
+    },
+    {
+      "key": "prop/plushie-scarves",
+      "prompt": "Use case: stylized-concept\nAsset type: transparent game accessory atlas for Plushie Workshop.\nPrimary request: Create a brand new atlas of FOUR scarves being WORN, seen exactly straight from the front, in four equal 256\u00d7256 cells in one horizontal row, final canvas 1024\u00d7256. Reference image 1 gives only the chunky knit, soft cel shading, dark navy #24163f outlines and colour styles; do NOT copy its flat ring perspective. No body or invisible-neck outline is drawn.\nEach scarf is the front surface of a thick soft wrap: a broad shallow smile-shaped BAND, with closed rounded ends curving behind an invisible neck. It has NO hole, NO inner ellipse, NO back neck rim, NO visible upper/back surface, NO torus/donut or oval ring. The band's silhouette has two nearly parallel softly curved edges; only its knitted front face is visible. Knot right of centre and TWO distinct tails hanging almost vertically DOWN in front.\nExact geometry in EVERY cell: neck attachment at (128,96), middle band top edge y78 and lower edge y122; rounded left and right ends at x18 and x238. Knot centre (150,108). Two tails hang between x132 and x200, extending down to at most y236. Keep large transparent space above band. Art must be confined inside each cell with transparent gutters.\nLeft to right: (1) red and white striped chunky knit scarf with fringed tails; (2) blue chunky cable-knit scarf with two fluffy blue pompoms at tail ends; (3) pink scarf with white polka dots, two soft rounded tails; (4) bright rainbow striped knitted scarf with fringed tails.\nTransparent background with actual alpha. Crisp clean navy outlines, cozy plush textile details, soft cel shading, colourful friendly children's game style. Do not draw a head/body, mannequin, arms, hanger, cast shadow, floor, labels, frames, words or watermark. The four scarf neck wraps must all have same geometry and scale, front-view bands with tails DOWN.",
+      "source": "/Users/hoai/.codex/generated_images/01a18496-fca0-7c80-9e47-263953eada5c/exec-962cbaf1-509f-434b-98bc-2a24548a8ccd.png",
+      "archive": "party/reference/sources/oct28-plushie-revision/scarves-native.webp",
+      "tool": "built-in imagegen",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-REVISION.json",
+      "editPrompt": "Use case: precise-object-edit\nEdit target: the four-scarf atlas in the reference image. Keep these exact four scarf designs, colours, front-only band shape, knit details, outline weight and true transparent background. Change ONLY where each knot and its two hanging tails attach: move the knot and BOTH tails LEFT, toward the horizontal centre of each scarf. The knot should be only 10% of a cell-width to the RIGHT of centre, rather than the current 30%. The tails should occupy x132 through x200 of a 256-unit-wide cell; leave the far-right shoulder visible beyond the knot. Both tails must hang downward from the central-right knot. Do not change scarf ordering. Keep the broad front-only curved band spanning x18..238, with NO upper/back rim, NO inner ring or hole. All four neck bands use identical scale. Canvas: four equal cells in one horizontal row; transparent background, no text or body."
+    },
+    {
+      "key": "prop/plushie-heart-pillow",
+      "prompt": "Use case: stylized-concept\nAsset type: transparent game accessory sprite, a heart pillow held by a stuffed toy.\nPrimary request: One small puffy stitched FELT HEART PILLOW, front view, centred on a square 256\u00d7256 transparent canvas. Fill about 85% of canvas with generous transparent margin around all edges. Plump rounded heart lobes and pointed bottom, pink felt fabric, soft plush volume, white running-stitch border neatly following the contour just inside a dark navy #24163f outline. Soft cel shading and subtle textile texture, warm friendly children's game artwork. Match the source reference's pink heart colour, clean navy outline and sewing style, but make this a three-dimensional puffy pillow with no face or extra patches.\nConstraints: Exactly one single pink heart pillow. True transparent alpha background. No paws, arms, hands, body, face, text, watermark, shadows outside the heart, frame or scenery.",
+      "source": "/Users/hoai/.codex/generated_images/01a18496-fca0-7c80-9e47-263953eada5c/exec-c37d3c4e-7c10-4fd9-a7f1-0d27537326f6.png",
+      "archive": "party/reference/sources/oct28-plushie-revision/heart-pillow-native.webp",
+      "tool": "built-in imagegen",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-REVISION.json"
     }
   ]
 }
