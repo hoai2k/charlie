@@ -1,0 +1,51 @@
+{
+  "key": "prop/llp-ladder",
+  "prompt": "Use case: stylized-concept. Asset type: transparent 2D cartoon stepladder game prop, portrait 300x640 aspect ratio.\nOne sturdy tall wooden A-frame stepladder standing OPEN, viewed from side-front (front climbing face clearly visible). Painted warm RED-ORANGE, rounded safe edges, exactly SIX clearly visible rounded horizontal climbing rungs on the FRONT face, evenly spaced bottom to top, including a broad top step with a tiny yellow-and-white flower stencil on it. Count six front rungs; do not add extra front rungs. Open rear support legs recede right and have no climbing rungs, simple side brace. Tall narrow ladder, feet spread at bottom, top platform easily visible for a fairy to leap from. Full ladder visible with clean transparent space around all legs. Match viewed approved children's game prop style: bold navy #24163f outlines, clean soft cel shading, flat hand-painted 2D bright cheerful cartoon, no realism, no 3D. Bottom centre anchor is middle between grounded feet. Genuine transparent alpha background including gaps between rungs and legs, no grass or ground, no baked cast shadow, no text, no characters, no extra objects.",
+  "status": "intaken-and-visually-reviewed-pending-consumer-check",
+  "mode": "built-in imagegen",
+  "styleReference": "assets/art/prop/room-teddy.webp",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-6c8a9e43-e21d-4a9b-a44c-a67b7d7a68f2.png",
+  "nativeSize": [
+    859,
+    1831
+  ],
+  "source": "reference/sources/oct28-leaf-environment/llp-ladder-native.webp",
+  "runtime": "assets/art/prop/llp-ladder.webp",
+  "outputSize": [
+    300,
+    640
+  ],
+  "geometry": {
+    "sourceBounds": [
+      10,
+      84,
+      852,
+      1771
+    ],
+    "boundsAlphaThreshold": 16,
+    "uniformScale": 0.3491686460807601,
+    "placement": [
+      3,
+      51
+    ],
+    "bottomCentreAnchor": [
+      150.0,
+      640
+    ],
+    "alphaBounds": [
+      3,
+      51,
+      297,
+      640
+    ]
+  },
+  "processing": "Native RGBA lossless WebP exact=True archive; whole-art uniform fit and bottom-centre placement.",
+  "runtimeSha256": "71f754bbd4b9497966c35c014f7c1cfe788250133d14b37d40aea53f99225198",
+  "runtimeBytes": 45472,
+  "decodedBytes": 768000,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "review": "Native and runtime viewed. Counted five front rungs plus broad flower-painted top step = six climbing levels. Rear support has no rungs. True alpha gaps, red-orange paint, open A-frame."
+}

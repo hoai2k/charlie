@@ -40,7 +40,7 @@ import { sayFor, drawShock, drawSteam, drawShout } from '../engine/fluster.js';
 import { Dash } from '../engine/dash.js';
 import {
   NAVY, leafKind, drawLeaf, drawPile, domeTop, PILE_FULL_W, drawNeatPile, drawRake, drawSquirrel,
-  drawLadder, LADDER_H, drawGranny, drawBackground, drawCollar,
+  drawLadder, LADDER_H, LADDER_TOP, drawGranny, drawBackground, drawCollar,
 } from './leaf-pile-leap/art.js';
 import { meta } from './leaf-pile-leap.meta.js';
 
@@ -730,8 +730,8 @@ export class Game {
       }
       case 'climb': {
         F.p = Math.min(1, F.p + dt / 1.05);
-        a.z = F.p * (LADDER_H - 6);
-        e.x = LAD.x - 18 + F.p * 30;
+        a.z = F.p * (LADDER_TOP.height + 6);
+        e.x = lerp(LAD.x - 18, LAD.x + LADDER_TOP.x, F.p);
         a.facing = 1;
         if (!a._once) a.setPose('carry');
         if (F.p >= 1) { F.state = 'top'; F.t = 0; a.setPose('ready'); a.squash(0.2); }
@@ -912,8 +912,7 @@ export class Game {
     const h = info.h, hand = info.hand;
     const s = e.sweep, k = s > 0 ? Math.sin((1 - s) * Math.PI) : 0;   // out and back in one stroke
     const hx = h * (0.5 + 0.32 * k), hy = -6 - k * 10;
-    const dx = hx - hand.x, dy = hy - hand.y, d = Math.hypot(dx, dy) || 1;
-    drawRake(g, hand.x - (dx / d) * h * 0.25, hand.y - (dy / d) * h * 0.25, hx, hy);
+    drawRake(g, hand.x, hand.y, hx, hy);
   }
 
   drawGrannyNow(g) {

@@ -1363,7 +1363,22 @@
     "prop/gopher-bonked": "prop/gopher-bonked.webp",
     "thumb/gopher-garden": "thumb/gopher-garden.webp",
     "prop/plushie-scarves": "prop/plushie-scarves-v1.webp",
-    "prop/plushie-heart-pillow": "prop/plushie-heart-pillow-v1.webp"
+    "prop/plushie-heart-pillow": "prop/plushie-heart-pillow-v1.webp",
+    "bg/leaf-pile-leap": "bg/leaf-pile-leap-v3-compact.webp",
+    "prop/llp-leaves": "prop/llp-leaves.webp",
+    "prop/llp-pile-1": "prop/llp-pile-1-compact.webp",
+    "prop/llp-pile-2": "prop/llp-pile-2-compact.webp",
+    "prop/llp-pile-3": "prop/llp-pile-3-compact.webp",
+    "prop/llp-pile-4": "prop/llp-pile-4-compact.webp",
+    "prop/llp-granny-pile": "prop/llp-granny-pile.webp",
+    "prop/llp-rake": "prop/llp-rake.webp",
+    "prop/llp-ladder": "prop/llp-ladder.webp",
+    "prop/llp-squirrel-run-1": "prop/llp-squirrel-run-1.webp",
+    "prop/llp-squirrel-run-2": "prop/llp-squirrel-run-2.webp",
+    "prop/llp-squirrel-scared": "prop/llp-squirrel-scared.webp",
+    "prop/llp-granny-laugh": "prop/llp-granny-laugh.webp",
+    "prop/llp-granny-doze": "prop/llp-granny-doze.webp",
+    "thumb/leaf-pile-leap": "thumb/leaf-pile-leap.webp"
   },
   "groups": {
     "dino-dig": [
@@ -1378,7 +1393,22 @@
       "bg/fairy-hide-seek",
       "prop/mm-granny",
       "prop/mm-granny-gasp",
-      "prop/mm-granny-huff"
+      "prop/mm-granny-huff",
+      "bg/leaf-pile-leap",
+      "prop/llp-leaves",
+      "prop/llp-pile-1",
+      "prop/llp-pile-2",
+      "prop/llp-pile-3",
+      "prop/llp-pile-4",
+      "prop/llp-granny-pile",
+      "prop/llp-rake",
+      "prop/llp-ladder",
+      "prop/llp-squirrel-run-1",
+      "prop/llp-squirrel-run-2",
+      "prop/llp-squirrel-scared",
+      "prop/llp-granny-laugh",
+      "prop/llp-granny-doze",
+      "thumb/leaf-pile-leap"
     ],
     "plushie-workshop": [
       "bg/plushie-workshop",

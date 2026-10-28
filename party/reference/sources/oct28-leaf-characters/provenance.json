@@ -1,0 +1,314 @@
+{
+  "assets": [
+    {
+      "id": "run1",
+      "prompt": "Use case: illustration-story. Asset type: single transparent game sprite prop/llp-squirrel-run-1 for Leaf Pile Leap. Create one cheeky little red squirrel bounding toward RIGHT, clear full side view. Phase 1 is stretched long mid-leap, forepaws reaching forward, hind paws stretched backward, huge fluffy tail streaming backward to the LEFT. Warm russet red fur, cream muzzle and belly, tiny round dark nose, expressive shiny dark eyes, small tufted ears, mischievous grin; cute welcoming child-friendly personality. House style exactly 2D smooth bold navy #24163f outlines and clean soft cel shading matching the supplied existing Granny style reference, no 3D, no photorealism. Transparent background, no ground shadow, no text, no props, no scenery. Horizontal composition designed for a260x200 canvas; entire ears, paws and tail inside with clear margins. Consistent anatomy: four paws, one tail. This establishes the squirrel identity for subsequent running and funny-startled poses.",
+      "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-a311932b-fc31-4c24-8dfa-358bff46c907.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "tool": "image_gen.imagegen",
+      "review": "Native and final runtime visually inspected. Exact RGBA source archive verified pixel-for-pixel; exact lossless runtime re-decode verified. Granny neutral/laugh/doze compared at same230px canvas height; original foot baseline and head/body scales retained. Squirrel distinct locomotion and delighted startled expressions checked at120px width. Actual game consumer review remains with integrator.",
+      "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-a311932b-fc31-4c24-8dfa-358bff46c907.png",
+      "source": "party/reference/sources/oct28-leaf-characters/llp-squirrel-run-1-native.webp",
+      "source_size": [
+        1430,
+        1100
+      ],
+      "native_rgba_exact_verified": true,
+      "key": "prop/llp-squirrel-run-1",
+      "file": "party/assets/art/prop/llp-squirrel-run-1.webp",
+      "size": [
+        260,
+        200
+      ],
+      "width": 260,
+      "height": 200,
+      "runtimeBytes": 40290,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "meaningfulAlphaBBox": [
+        4,
+        20,
+        256,
+        174
+      ],
+      "anchor": [
+        130.0,
+        200
+      ],
+      "status": "native and runtime visually reviewed; actual game consumer review pending integrator",
+      "operation": "full-canvas proportional resize, no alpha trim or normalization",
+      "runtime_rgba_exact_verified": true,
+      "references": [
+        "party/assets/art/prop/mm-granny.webp"
+      ],
+      "anchorMeaning": "bottom-centre of full canvas; virtual ground baseline for airborne bounding squirrel phases",
+      "sourceSha256": "78daa19a31014727ac4d2c21823ccfd124989166f2dc512faa5f8f3ced012f27",
+      "runtimeSha256": "90b3351dc3e8cb5b545b040deb4f5993f91d3eb41fed219142c5ba421ca4e852"
+    },
+    {
+      "id": "run2",
+      "prompt": "Use case: identity-preserve. Asset type: single transparent game sprite prop/llp-squirrel-run-2. Edit the supplied squirrel, preserving EXACT identity: same russet red fur and cream muzzle/belly/tail underside, same tufted ears, shiny dark eyes, round dark nose, mischievous grin, same head/body proportions and navy #24163f outline weight. Change only locomotion phase: still full side view facing RIGHT, now bunched into a compact bounding contact/pass phase, four paws tucked closely together under the chest/belly, back arched, huge fluffy tail curled UP behind. The head must remain the same physical scale as in input; compact pose naturally narrower. Full body completely visible with margin. True transparent background. House style2D smooth navy outlines clean soft cel shading, no3D or photorealism. No ground, shadow, text, motion marks, extra objects or scenery. Designed for260x200 horizontal canvas.",
+      "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-562cf699-dd7d-48d7-baa5-f4b4eadf0aae.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "tool": "image_gen.imagegen",
+      "review": "Native and final runtime visually inspected. Exact RGBA source archive verified pixel-for-pixel; exact lossless runtime re-decode verified. Granny neutral/laugh/doze compared at same230px canvas height; original foot baseline and head/body scales retained. Squirrel distinct locomotion and delighted startled expressions checked at120px width. Actual game consumer review remains with integrator.",
+      "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-562cf699-dd7d-48d7-baa5-f4b4eadf0aae.png",
+      "source": "party/reference/sources/oct28-leaf-characters/llp-squirrel-run-2-native.webp",
+      "source_size": [
+        1430,
+        1100
+      ],
+      "native_rgba_exact_verified": true,
+      "key": "prop/llp-squirrel-run-2",
+      "file": "party/assets/art/prop/llp-squirrel-run-2.webp",
+      "size": [
+        260,
+        200
+      ],
+      "width": 260,
+      "height": 200,
+      "runtimeBytes": 39356,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "meaningfulAlphaBBox": [
+        16,
+        27,
+        241,
+        200
+      ],
+      "anchor": [
+        130.0,
+        200
+      ],
+      "status": "native and runtime visually reviewed; actual game consumer review pending integrator",
+      "operation": "full source resized by same260/1430 squirrel scale; translated vertically +14px only to put bunched paws on200px ground baseline; no horizontal recenter or rescale",
+      "runtime_rgba_exact_verified": true,
+      "references": [
+        "party/reference/sources/oct28-leaf-characters/llp-squirrel-run-1-native.webp"
+      ],
+      "anchorMeaning": "fullcanvas bottom-centre130,200; visible bunched-paw support centred176,200",
+      "runtimeTranslation": [
+        0,
+        14
+      ],
+      "measuredSupportPoints": [
+        [
+          176,
+          200
+        ]
+      ],
+      "sourceSha256": "0b755fb67b79d9a24b78858b411c643c1e589447b2a7983d14d40ad6af895867",
+      "runtimeSha256": "be1f3b3b9b87c562d8bc19ad3907465b8facbc1b36babb2ef91d38a34cdd730f"
+    },
+    {
+      "id": "scared",
+      "prompt": "Use case: identity-preserve. Asset type: single transparent game sprite prop/llp-squirrel-scared. Edit supplied squirrel preserving exact character identity and head proportions: russet red fur, cream muzzle, belly and tail underside, round dark nose, brown shiny eyes, tufted ears and cheeky smile. Pose: the squirrel has been gently shooed and is hopping STRAIGHT UP in a funny tickled surprise. Body upright, all four paws popped outward, enormous bushy tail fluffed, eyes wide with delight, giggly open-mouth grin. It must read playful startled laughter, never fear or distress. Face toward RIGHT in same side/threequarter side view as supplied. True transparent background, entire tail/paws/ears visible with margins. House style 2D smooth navy #24163f outlines and clean soft cel shading, no3D/no photorealism. No ground shadow, no scenery, no text, no motion/emote marks, no tools. Designed for260x220 canvas.",
+      "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-1a860cf1-9671-4924-b0df-b762206b8471.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "tool": "image_gen.imagegen",
+      "review": "Native and final runtime visually inspected. Exact RGBA source archive verified pixel-for-pixel; exact lossless runtime re-decode verified. Granny neutral/laugh/doze compared at same230px canvas height; original foot baseline and head/body scales retained. Squirrel distinct locomotion and delighted startled expressions checked at120px width. Actual game consumer review remains with integrator.",
+      "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-1a860cf1-9671-4924-b0df-b762206b8471.png",
+      "source": "party/reference/sources/oct28-leaf-characters/llp-squirrel-scared-native.webp",
+      "source_size": [
+        1364,
+        1153
+      ],
+      "native_rgba_exact_verified": true,
+      "key": "prop/llp-squirrel-scared",
+      "file": "party/assets/art/prop/llp-squirrel-scared.webp",
+      "size": [
+        260,
+        220
+      ],
+      "width": 260,
+      "height": 220,
+      "runtimeBytes": 52128,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "meaningfulAlphaBBox": [
+        10,
+        15,
+        250,
+        212
+      ],
+      "anchor": [
+        130.0,
+        220
+      ],
+      "status": "native and runtime visually reviewed; actual game consumer review pending integrator",
+      "operation": "shared squirrel260/1430 scale, full source centered into260x220; no alpha trim",
+      "runtime_rgba_exact_verified": true,
+      "references": [
+        "party/reference/sources/oct28-leaf-characters/llp-squirrel-run-1-native.webp"
+      ],
+      "anchorMeaning": "bottom-centre of full canvas; virtual ground baseline for airborne bounding squirrel phases",
+      "sourceSha256": "3b6056408af471ece1e029de1f6f1ee01e26fdcd73aa7f26453891b70842eb23",
+      "runtimeSha256": "ebdb74a1f6d63cb08cd8ddba177a1d552f782ba548e9b107cc94d27deb8cfa58"
+    },
+    {
+      "id": "laugh",
+      "prompt": "Use case: precise-object-edit. Edit target: supplied approved Granny Goose laughing sprite. Change ONLY this: remove ALL detached navy curved motion lines around her raised waving wing (small arcs at left of wing, above wing tip and outside/right of wing). Those motion marks must become truly transparent empty background. Preserve every part of Granny herself unchanged: exact same full-frame position,400x520 logical canvas proportions, identical head/curlers/hairnet, laughing closed eyes and open beak, round gold spectacles, pearls, lavender apron/floral pocket/scalloped trim, feathers, waving wing pose and tummy wing, orange webbed feet, exact physical scale and feet baseline. No redraw, no reframe, no cropping, no rescaling. Full image stays same portrait framing as input. Smooth bold navy #24163f outlines, clean soft cel shading,2D. True transparency, no background/ground/shadows, no text, no effects, no additional objects.",
+      "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-5c75c696-6ec3-4c1f-bbb3-ad7676612244.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "tool": "image_gen.imagegen",
+      "review": "Detached motion marks removed. Native and runtime inspected; identical costume/pose/framing and original400x520 foot registration preserved.",
+      "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-5c75c696-6ec3-4c1f-bbb3-ad7676612244.png",
+      "source": "party/reference/sources/oct28-leaf-characters/llp-granny-laugh-clean-native.webp",
+      "source_size": [
+        1100,
+        1430
+      ],
+      "native_rgba_exact_verified": true,
+      "key": "prop/llp-granny-laugh",
+      "file": "party/assets/art/prop/llp-granny-laugh.webp",
+      "size": [
+        400,
+        520
+      ],
+      "width": 400,
+      "height": 520,
+      "runtimeBytes": 39356,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "meaningfulAlphaBBox": [
+        16,
+        27,
+        241,
+        200
+      ],
+      "anchor": [
+        200.0,
+        520
+      ],
+      "status": "native and runtime visually reviewed; actual game consumer review pending integrator",
+      "operation": "full-canvas proportional resize, no alpha trim or normalization",
+      "runtime_rgba_exact_verified": true,
+      "references": [
+        "party/reference/sources/oct28-leaf-characters/llp-granny-laugh-native.webp"
+      ],
+      "anchorMeaning": "bottom-centre feet baseline matching400x520 mm-granny",
+      "history": [
+        {
+          "prompt": "Use case: identity-preserve. Asset type: transparent reaction game prop/llp-granny-laugh. EDIT TARGET is supplied existing Granny Goose. Preserve her EXACT approved identity and costume: cream-white feathered goose, same long neck, orange beak and orange webbed feet, lavender apron with scalloped white-lavender trim and small floral embroidered front pocket, pink curlers beneath same crisscross hairnet, gold round spectacles, round cream pearls, same proportions and smooth navy #24163f outlines with clean soft cel shading. Change only expression and wing pose: Granny is LAUGHING her head off, eyes squeezed shut, beak wide open in joyful laughter, one wing on tummy, other waving. Spectacles still on face slightly bouncing. Remove entire hose/nozzle completely. FULL BODY facing right. Preserve the entire400x520 reference frame registration: feet sit on same bottom baseline, head/curlers and torso same physical size and position; do not independently enlarge or recenter the goose just because hose removed. Keep generous transparent canvas area on right vacated by hose. True transparent background. No ground, no cast shadow, no text or symbols, no scenery, no extra objects. 2D, no3D/no photorealism.",
+          "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-ab5707ac-43bf-4626-bf7a-2598f9c07343.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+          "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-ab5707ac-43bf-4626-bf7a-2598f9c07343.png",
+          "source": "party/reference/sources/oct28-leaf-characters/llp-granny-laugh-native.webp",
+          "source_size": [
+            1100,
+            1430
+          ],
+          "review": "Native and final runtime visually inspected. Exact RGBA source archive verified pixel-for-pixel; exact lossless runtime re-decode verified. Granny neutral/laugh/doze compared at same230px canvas height; original foot baseline and head/body scales retained. Squirrel distinct locomotion and delighted startled expressions checked at120px width. Actual game consumer review remains with integrator."
+        }
+      ],
+      "edit_target": "party/reference/sources/oct28-leaf-characters/llp-granny-laugh-native.webp",
+      "measuredSupportPoints": [
+        [
+          124,
+          520
+        ],
+        [
+          233,
+          515
+        ]
+      ],
+      "sourceSha256": "cb76003dc2c60f7e2d25e316d42f9faf91dafa3c1f82374b8b14b0ba3a6c576d",
+      "runtimeSha256": "fb691c65e65a6bd2f2301726782b5e3cbdd84a32120f2afaaba87da38c8598d7"
+    },
+    {
+      "id": "doze",
+      "prompt": "Use case: identity-preserve. Asset type: transparent reaction game prop/llp-granny-doze. EDIT TARGET is supplied existing Granny Goose. Preserve her EXACT approved identity and costume: cream-white feathered goose, same long neck, orange beak and orange webbed feet, lavender apron with scalloped white-lavender trim and same small floral embroidered front pocket, pink curlers beneath same crisscross hairnet, gold round spectacles, round cream pearls, same proportions and smooth navy #24163f outlines with clean soft cel shading. Change only pose: Granny is DOZING STANDING ON HER FEET, eyes softly shut, head nodding forward, contented little closed-beak smile. Her two wings folded over her apron holding ONE SMALL GREEN WATERING CAN that tips slightly forward as she naps. Remove all garden hose and spray nozzle. This watering can is the only added prop. FULL BODY facing right. Preserve entire400x520 reference frame registration: feet sit on same bottom baseline, head/curlers and torso same physical size; don't enlarge or recenter figure to fill vacated hose space, keep source padding. True transparent background. No ground or cast shadow, no zzz or text or symbols, no scenery, no water spray, no extra objects. 2D, no3D/no photorealism.",
+      "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-e621f3c7-fe78-4417-8647-6f8d4cddd017.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "tool": "image_gen.imagegen",
+      "review": "Native and final runtime visually inspected. Exact RGBA source archive verified pixel-for-pixel; exact lossless runtime re-decode verified. Granny neutral/laugh/doze compared at same230px canvas height; original foot baseline and head/body scales retained. Squirrel distinct locomotion and delighted startled expressions checked at120px width. Actual game consumer review remains with integrator.",
+      "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-e621f3c7-fe78-4417-8647-6f8d4cddd017.png",
+      "source": "party/reference/sources/oct28-leaf-characters/llp-granny-doze-native.webp",
+      "source_size": [
+        1100,
+        1430
+      ],
+      "native_rgba_exact_verified": true,
+      "key": "prop/llp-granny-doze",
+      "file": "party/assets/art/prop/llp-granny-doze.webp",
+      "size": [
+        400,
+        520
+      ],
+      "width": 400,
+      "height": 520,
+      "runtimeBytes": 139412,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "meaningfulAlphaBBox": [
+        13,
+        1,
+        345,
+        519
+      ],
+      "anchor": [
+        200.0,
+        520
+      ],
+      "status": "native and runtime visually reviewed; actual game consumer review pending integrator",
+      "operation": "full-canvas proportional resize, no alpha trim or normalization",
+      "runtime_rgba_exact_verified": true,
+      "references": [
+        "party/assets/art/prop/mm-granny.webp"
+      ],
+      "anchorMeaning": "bottom-centre feet baseline matching400x520 mm-granny",
+      "sourceSha256": "517dead180ab5ba7b5d650c7aa8d8a70136bdfcaae0d4ff9499349342629ec99",
+      "runtimeSha256": "b82c28fa9daba8b9e94c41e46996386cd4d7b27b18c3587000bd7659a94614e0"
+    },
+    {
+      "id": "thumb",
+      "prompt": "Use case: illustration-story. Asset type: opaque800x500 shelf thumbnail for Leaf Pile Leap, no text. References: image1 is approved little pink garden fairy identity; image2 is Granny Goose identity; image3 is red squirrel identity; image4 is approved leaf heap style. Make one lively cheerful garden scene: the same little brown-bob-haired pink garden fairy with petal cap, petal dress, pink translucent wings and green eyes is CANNONBALLING from top of a sturdy red-orange wooden A-frame stepladder with six rounded rungs and a flower stencil on top step into an ENORMOUS round dome pile of vivid red, orange, golden yellow and a few brown autumn leaves. Fairy centred above mound, knees tucked and joyful laughing face, clearly flying downward toward leaves, leaves explode upward around her. Ladder visibly stands open beside the pile. The cheeky red squirrel with cream muzzle/belly and huge bushy tail peeks out of pile edge grinning. In background at garden gate, approved cream-white Granny Goose laughs, lavender floral-pocket apron, pink curlers under crisscross hairnet, round gold spectacles and pearls, no hose. Bright autumn garden lawn, white picket gate and flowering border. Main action centred and easily readable at small shelf size. Match supplied art: true 2D smooth bold navy #24163f outlines, clean soft cel shading, vivid cheerful colours. No3D, no photorealism, no text, no lettering, no logos, no border. Use the existing fairy exactly, no Charlie Party roster character or extra child.",
+      "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-255416f7-d703-4bdc-b14b-92f3318e94ea.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "tool": "image_gen.imagegen",
+      "review": "Native and final runtime visually inspected. Exact RGBA source archive verified pixel-for-pixel; exact lossless runtime re-decode verified. Granny neutral/laugh/doze compared at same230px canvas height; original foot baseline and head/body scales retained. Squirrel distinct locomotion and delighted startled expressions checked at120px width. Actual game consumer review remains with integrator.",
+      "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-255416f7-d703-4bdc-b14b-92f3318e94ea.png",
+      "source": "party/reference/sources/oct28-leaf-characters/leaf-pile-leap-thumbnail-native.webp",
+      "source_size": [
+        1586,
+        992
+      ],
+      "native_rgba_exact_verified": true,
+      "key": "thumb/leaf-pile-leap",
+      "file": "party/assets/art/thumb/leaf-pile-leap.webp",
+      "size": [
+        800,
+        500
+      ],
+      "width": 800,
+      "height": 500,
+      "runtimeBytes": 673956,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "meaningfulAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "anchor": null,
+      "status": "native and runtime visually reviewed; actual game consumer review pending integrator",
+      "operation": "full-canvas proportional resize, no alpha trim or normalization",
+      "runtime_rgba_exact_verified": true,
+      "references": [
+        "party/reference/canonical/garden-fairy-pink.webp",
+        "party/reference/sources/oct28-leaf-characters/llp-granny-laugh-native.webp",
+        "party/reference/sources/oct28-leaf-characters/llp-squirrel-run-1-native.webp",
+        "party/assets/art/prop/llp-pile-2.webp"
+      ],
+      "anchorMeaning": "opaque shelf card, full canvas",
+      "sourceSha256": "e5db6badb8e0bac75d123bee5656fac59748b75199d6f3049cac48c4cc8bb727",
+      "runtimeSha256": "f137b94367e1b9a9d94668d75221a6b6e1dad298a1260e157c65c9f69ce3eead"
+    }
+  ]
+}

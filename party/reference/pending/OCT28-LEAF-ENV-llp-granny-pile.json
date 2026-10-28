@@ -1,0 +1,51 @@
+{
+  "key": "prop/llp-granny-pile",
+  "prompt": "Use case: stylized-concept. Asset type: transparent 2D cartoon game prop, Granny Goose's small neat leaf pile, landscape 400x260 aspect ratio. Match attached autumn pile reference's flat illustrated leaf designs, warm red orange gold and occasional brown, bold navy #24163f outlines and clean soft cel shading. One SMALL VERY NEAT perfectly ROUND little heap of autumn leaves, tidy as a cake, a low domed symmetrical oval with a carefully arranged clean circular edge, front view from slightly above. Much tidier and smaller than children's messy giant pile. One tiny wooden garden label stake on the RIGHT beside the heap, with a neat pink bow tied below its blank cream label. Absolutely no writing on label. Complete pile and stake fully visible. Base at bottom centre, actual leaf pile about 1.8 times wider than tall. Charming cheerful bright 2D children's game illustration, no 3D no realism, no characters. True transparent alpha background, including around stake; no grass, no ground, no cast shadow, no glow, no extra objects or leaves flying.",
+  "status": "intaken-and-visually-reviewed-pending-consumer-check",
+  "mode": "built-in imagegen",
+  "styleReference": "assets/art/prop/llp-pile-1.webp",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-54a1ccfa-0a16-47e0-92b7-0700220ac1b5.png",
+  "nativeSize": [
+    1555,
+    1011
+  ],
+  "source": "reference/sources/oct28-leaf-environment/llp-granny-pile-native.webp",
+  "runtime": "assets/art/prop/llp-granny-pile.webp",
+  "outputSize": [
+    400,
+    260
+  ],
+  "geometry": {
+    "sourceBounds": [
+      169,
+      367,
+      1528,
+      929
+    ],
+    "boundsAlphaThreshold": 16,
+    "uniformScale": 0.28550404709345106,
+    "placement": [
+      6,
+      100
+    ],
+    "bottomCentreAnchor": [
+      200.0,
+      260
+    ],
+    "alphaBounds": [
+      6,
+      100,
+      394,
+      260
+    ]
+  },
+  "processing": "Native RGBA lossless WebP exact=True archive; whole-art uniform fit and bottom-centre placement.",
+  "runtimeSha256": "95456fe8fd45cae832bb7c6e754750dd3fd6370088647a3565eaab89d41f7151",
+  "runtimeBytes": 27084,
+  "decodedBytes": 416000,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "review": "Native and runtime viewed. Small oval neat heap with blank cream label and pink bow on right, no text. Whole pile uniformly scaled; base anchored y260."
+}

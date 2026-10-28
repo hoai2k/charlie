@@ -1,0 +1,56 @@
+{
+  "key": "prop/llp-pile-1",
+  "prompt": "Use case: stylized-concept. Asset type: transparent 2D cartoon game prop, growth stage ONE of four autumn leaf piles. A small knee-high low broad heap of fallen autumn leaves, red orange gold with a few warm brown, front view from slightly above, soft ragged oval ring of flat leaves around base. Friendly and inviting. Distinct low shallow dome, about FOUR TIMES wider than tall; not a tall mound. Individual maple, oak, birch and willow leaves readable around edges and top; use big simple overlapping leaf shapes rather than thousands of tiny lines. Match attached approved 2D prop style: bold navy #24163f outlines, clean soft cel shading, warm bright autumn colors, flat hand-painted cartoon no 3D no realism. Wide landscape composition. This is one pile, centred in the frame, fully visible. Its bottom base at bottom centre. True transparent alpha, no grass, no ground plane, no baked cast shadow, no glow, no characters, no text or decorations.",
+  "status": "intaken-and-visually-reviewed-pending-consumer-check",
+  "mode": "built-in imagegen",
+  "styleReference": "assets/art/prop/room-teddy.webp",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-9cd1f660-b1ba-4e52-86a1-10fdf22817cd.png",
+  "nativeSize": [
+    1774,
+    887
+  ],
+  "source": "reference/sources/oct28-leaf-environment/llp-pile-1-native.webp",
+  "runtime": "assets/art/prop/llp-pile-1.webp",
+  "outputSize": [
+    900,
+    540
+  ],
+  "geometry": {
+    "sourceBounds": [
+      30,
+      223,
+      1744,
+      760
+    ],
+    "boundsAlphaThreshold": 16,
+    "uniformScale": 0.48417132216014896,
+    "placement": [
+      35,
+      280
+    ],
+    "bottomCentreAnchor": [
+      450.0,
+      540
+    ],
+    "alphaBounds": [
+      35,
+      280,
+      865,
+      540
+    ],
+    "requestedDrawWidth": 300,
+    "apparentSizeAtDrawWidth": [
+      276.67,
+      86.67
+    ]
+  },
+  "processing": "Native RGBA lossless WebP exact=True archive; whole-art uniform fit and bottom-centre placement.",
+  "runtimeSha256": "8f07e163f773288e70c89f3da199ee3365d94ba5936fdf936a8637c0ffe4de7f",
+  "runtimeBytes": 62696,
+  "decodedBytes": 1944000,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "review": "Native and runtime reviewed: family-consistent leaves and colors, stage-specific silhouette preserved with one uniform scale per whole asset. Shared full900x540 canvas; all bases on y540. No baked cast shadows."
+}

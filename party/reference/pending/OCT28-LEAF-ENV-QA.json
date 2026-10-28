@@ -1,0 +1,131 @@
+{
+  "status": "all-native-archives-and-runtime-geometry-verified",
+  "assets": [
+    {
+      "key": "bg/leaf-pile-leap",
+      "record": "OCT28-LEAF-ENV-bg-v2.json",
+      "runtime": "assets/art/bg/leaf-pile-leap-v2.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 203704,
+      "nativeArchivePixelsIdentical": true
+    },
+    {
+      "key": "bg/leaf-pile-leap",
+      "record": "OCT28-LEAF-ENV-bg-v3.json",
+      "runtime": "assets/art/bg/leaf-pile-leap-v3.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 199328,
+      "nativeArchivePixelsIdentical": true
+    },
+    {
+      "key": "bg/leaf-pile-leap",
+      "record": "OCT28-LEAF-ENV-bg.json",
+      "runtime": "assets/art/bg/leaf-pile-leap.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 196266,
+      "nativeArchivePixelsIdentical": true
+    },
+    {
+      "key": "prop/llp-granny-pile",
+      "record": "OCT28-LEAF-ENV-llp-granny-pile.json",
+      "runtime": "assets/art/prop/llp-granny-pile.webp",
+      "size": [
+        400,
+        260
+      ],
+      "bytes": 27084,
+      "nativeArchivePixelsIdentical": true
+    },
+    {
+      "key": "prop/llp-ladder",
+      "record": "OCT28-LEAF-ENV-llp-ladder.json",
+      "runtime": "assets/art/prop/llp-ladder.webp",
+      "size": [
+        300,
+        640
+      ],
+      "bytes": 45472,
+      "nativeArchivePixelsIdentical": true
+    },
+    {
+      "key": "prop/llp-leaves",
+      "record": "OCT28-LEAF-ENV-llp-leaves.json",
+      "runtime": "assets/art/prop/llp-leaves.webp",
+      "size": [
+        512,
+        512
+      ],
+      "bytes": 147462,
+      "nativeArchivePixelsIdentical": true
+    },
+    {
+      "key": "prop/llp-pile-1",
+      "record": "OCT28-LEAF-ENV-llp-pile-1.json",
+      "runtime": "assets/art/prop/llp-pile-1.webp",
+      "size": [
+        900,
+        540
+      ],
+      "bytes": 62696,
+      "nativeArchivePixelsIdentical": true
+    },
+    {
+      "key": "prop/llp-pile-2",
+      "record": "OCT28-LEAF-ENV-llp-pile-2.json",
+      "runtime": "assets/art/prop/llp-pile-2.webp",
+      "size": [
+        900,
+        540
+      ],
+      "bytes": 78310,
+      "nativeArchivePixelsIdentical": true
+    },
+    {
+      "key": "prop/llp-pile-3",
+      "record": "OCT28-LEAF-ENV-llp-pile-3.json",
+      "runtime": "assets/art/prop/llp-pile-3.webp",
+      "size": [
+        900,
+        540
+      ],
+      "bytes": 92498,
+      "nativeArchivePixelsIdentical": true
+    },
+    {
+      "key": "prop/llp-pile-4",
+      "record": "OCT28-LEAF-ENV-llp-pile-4.json",
+      "runtime": "assets/art/prop/llp-pile-4.webp",
+      "size": [
+        900,
+        540
+      ],
+      "bytes": 121600,
+      "nativeArchivePixelsIdentical": true
+    },
+    {
+      "key": "prop/llp-rake",
+      "record": "OCT28-LEAF-ENV-llp-rake.json",
+      "runtime": "assets/art/prop/llp-rake.webp",
+      "size": [
+        360,
+        140
+      ],
+      "bytes": 9772,
+      "nativeArchivePixelsIdentical": true
+    }
+  ],
+  "visualProofs": [
+    "reference/pending/OCT28-LEAF-ENV-piles-review.png",
+    "reference/pending/OCT28-LEAF-ENV-layout-review.jpg"
+  ],
+  "consumerCheck": "Pending root integration; no game code currently available to environment worker."
+}

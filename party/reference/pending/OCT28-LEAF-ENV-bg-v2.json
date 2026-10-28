@@ -1,0 +1,33 @@
+{
+  "key": "bg/leaf-pile-leap",
+  "prompt": "Use case: precise-object-edit. Edit target: attached approved autumn garden game backdrop. Preserve EXACT existing flat 2D illustration style, navy #24163f outlines, cheerful red orange gold trees, blue sky and empty green-gold lawn with subtle mowing stripes. Make only the following layout corrections in final1920x1080 design space:\n1. Move the white picket fence DOWN so the fence bottom/grass boundary is near y=330 (currently near285). Keep a calm sky and distant treetops at top.\n2. Move arched garden gate slightly RIGHT so its centre is x=1690.\n3. Move and shrink autumn flower bed into the extreme RIGHT corner: actual flowers occupy x=1760..1920, y=360..520, with flower tops around y=360 and foliage/base at y=520. The flower bed is BELOW the fence beside the gate, not above the fence and not spread across the lawn. This is crucial: Granny will stand at world (1790,500) and water these flowers.\nKeep the huge centre/lower lawn plain and unobstructed below y360, no new scenery. No characters, no animals, no piles, no ladder, no rake, no furniture, no path, no text or logos. Output opaque1920x1080 landscape16:9 fullbleed.",
+  "status": "superseded-layout-native-source-retained",
+  "mode": "built-in imagegen",
+  "editTarget": "assets/art/bg/leaf-pile-leap.webp",
+  "reason": "Root audit requested flowerbed gate fence placement correction.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-d4eb3604-03d3-479f-a535-436179d74f11.png",
+  "nativeSize": [
+    1672,
+    941
+  ],
+  "source": "reference/sources/oct28-leaf-environment/bg-v2-native.webp",
+  "runtime": "assets/art/bg/leaf-pile-leap-v2.webp",
+  "outputSize": [
+    1920,
+    1080
+  ],
+  "geometry": {
+    "designSpace": [
+      1920,
+      1080
+    ]
+  },
+  "processing": "Native RGBA lossless WebP exact=True archive; resized to requested opaque design canvas.",
+  "runtimeSha256": "4450ada76acd66999dd1c4531c36688f76fa2d87e434a817b9867569df8a2941",
+  "runtimeBytes": 203704,
+  "decodedBytes": 8294400,
+  "alphaExtrema": [
+    255,
+    255
+  ]
+}

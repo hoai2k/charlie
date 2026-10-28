@@ -1,0 +1,56 @@
+{
+  "key": "prop/llp-pile-4",
+  "prompt": "Use case: stylized-concept. Asset type: transparent 2D cartoon game prop, final growth stage FOUR of four autumn leaf piles. Use attached first-stage pile only as exact STYLE and LEAF DESIGN reference, not its shallow silhouette. Final pile is ENORMOUS and GLORIOUSLY TALL, a huge high rounded dome, only 1.7 TIMES wider than tall, with many more overlapping layers of leaves climbing steeply to a fluffy rounded crown. Top peak about 60% of entire pile width above the bottom. A few leaves balanced on the very top. Red, orange, gold, a few warm brown fallen maple/oak/birch/willow leaves, individual leaves clearly readable at edges and on top. Soft ragged oval ring of flat leaves at base, front view from slightly above. Inviting and puffy, enormous enough for many children to jump into, no children shown. Bold navy #24163f outlines, clean simple soft cel shading, warm bright flat 2D illustrated children's game art, no 3D, no realism. One tall pile centred, fully visible with margin, bottom centre base. True transparent alpha, no ground, no grass, no cast shadow, no glow, no text, no animals or characters.",
+  "status": "intaken-and-visually-reviewed-pending-consumer-check",
+  "mode": "built-in imagegen",
+  "styleReference": "assets/art/prop/llp-pile-1.webp",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-8a5d4606-b6a7-4aa9-8f97-8b39ee53bd3c.png",
+  "nativeSize": [
+    1620,
+    971
+  ],
+  "source": "reference/sources/oct28-leaf-environment/llp-pile-4-native.webp",
+  "runtime": "assets/art/prop/llp-pile-4.webp",
+  "outputSize": [
+    900,
+    540
+  ],
+  "geometry": {
+    "sourceBounds": [
+      6,
+      7,
+      1615,
+      961
+    ],
+    "boundsAlphaThreshold": 16,
+    "uniformScale": 0.5241090146750524,
+    "placement": [
+      28,
+      40
+    ],
+    "bottomCentreAnchor": [
+      450.0,
+      540
+    ],
+    "alphaBounds": [
+      28,
+      40,
+      871,
+      540
+    ],
+    "requestedDrawWidth": 680,
+    "apparentSizeAtDrawWidth": [
+      636.93,
+      377.78
+    ]
+  },
+  "processing": "Native RGBA lossless WebP exact=True archive; whole-art uniform fit and bottom-centre placement.",
+  "runtimeSha256": "1859a8c2d5765378bd6caf16de5970d2ff2f3b03eb99f143b9033606239cbf10",
+  "runtimeBytes": 121600,
+  "decodedBytes": 1944000,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "review": "Native and runtime reviewed: family-consistent leaves and colors, stage-specific silhouette preserved with one uniform scale per whole asset. Shared full900x540 canvas; all bases on y540. No baked cast shadows."
+}

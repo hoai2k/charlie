@@ -1,0 +1,697 @@
+[
+  {
+    "n": 8,
+    "tag": "before",
+    "isolatedPreview": true,
+    "source": "origin/claude/busy-ptolemy-gjxlwj git archive; current shared assets symlink; no main code modified",
+    "state": {
+      "scene": "PlayScene",
+      "state": "gallery",
+      "phase": "heads",
+      "finished": true,
+      "shown": 1,
+      "fill": 1,
+      "stage": 4,
+      "granny": "water",
+      "ent": [
+        {
+          "fin": "head",
+          "climb": 1,
+          "x": 956.6666666666666,
+          "y": 400.58931176503734,
+          "z": 0,
+          "pose": "giggle"
+        },
+        {
+          "fin": "head",
+          "climb": 1,
+          "x": 843.3333333333334,
+          "y": 371.95733456403366,
+          "z": 0,
+          "pose": "laugh"
+        },
+        {
+          "fin": "head",
+          "climb": 1,
+          "x": 1070,
+          "y": 395.8498286169252,
+          "z": 0,
+          "pose": "giggle"
+        },
+        {
+          "fin": "head",
+          "climb": 1,
+          "x": 1138,
+          "y": 563.5748725625094,
+          "z": 0,
+          "pose": "giggle"
+        },
+        {
+          "fin": "head",
+          "climb": 1,
+          "x": 662,
+          "y": 528.753855442312,
+          "z": 0,
+          "pose": "laugh"
+        },
+        {
+          "fin": "head",
+          "climb": 1,
+          "x": 730,
+          "y": 421.7908273248411,
+          "z": 0,
+          "pose": "laugh"
+        },
+        {
+          "fin": "head",
+          "climb": 1,
+          "x": 820.6666666666666,
+          "y": 506.02146147589616,
+          "z": 0,
+          "pose": "giggle"
+        },
+        {
+          "fin": "head",
+          "climb": 1,
+          "x": 979.3333333333333,
+          "y": 515.5888601265927,
+          "z": 0,
+          "pose": "giggle"
+        }
+      ]
+    },
+    "elapsedSeconds": 12.471,
+    "errors": [],
+    "failed": [],
+    "shots": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-LEAF-GAME-before-8-stage-1.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-LEAF-GAME-before-8-raking.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-LEAF-GAME-before-8-stage-2.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-LEAF-GAME-before-8-stage-3.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-LEAF-GAME-before-8-stage-4.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-LEAF-GAME-before-8-climb.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-LEAF-GAME-before-8-top.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-LEAF-GAME-before-8-cannonball.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-LEAF-GAME-before-8-heads.jpg"
+    ],
+    "states": [
+      {
+        "label": "stage-1",
+        "scene": "PlayScene",
+        "state": "countdown",
+        "phase": "play",
+        "finished": false,
+        "shown": 0.059782608695652176,
+        "fill": 0.059782608695652176,
+        "stage": 0,
+        "granny": "water",
+        "ent": [
+          {
+            "x": 220,
+            "y": 820,
+            "z": 0,
+            "pose": "idle"
+          },
+          {
+            "x": 420,
+            "y": 930,
+            "z": 0,
+            "pose": "idle"
+          },
+          {
+            "x": 620,
+            "y": 820,
+            "z": 0,
+            "pose": "idle"
+          },
+          {
+            "x": 820,
+            "y": 930,
+            "z": 0,
+            "pose": "idle"
+          },
+          {
+            "x": 1020,
+            "y": 820,
+            "z": 0,
+            "pose": "idle"
+          },
+          {
+            "x": 1220,
+            "y": 930,
+            "z": 0,
+            "pose": "idle"
+          },
+          {
+            "x": 1420,
+            "y": 820,
+            "z": 0,
+            "pose": "idle"
+          },
+          {
+            "x": 1620,
+            "y": 930,
+            "z": 0,
+            "pose": "idle"
+          }
+        ]
+      },
+      {
+        "label": "raking",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "play",
+        "finished": false,
+        "shown": 0.059782608695652176,
+        "fill": 0.059782608695652176,
+        "stage": 0,
+        "granny": "water",
+        "ent": [
+          {
+            "x": 220,
+            "y": 820,
+            "z": 0,
+            "pose": "push"
+          },
+          {
+            "x": 420,
+            "y": 930,
+            "z": 0,
+            "pose": "push"
+          },
+          {
+            "x": 620,
+            "y": 820,
+            "z": 0,
+            "pose": "push"
+          },
+          {
+            "x": 820,
+            "y": 930,
+            "z": 0,
+            "pose": "push"
+          },
+          {
+            "x": 1020,
+            "y": 820,
+            "z": 0,
+            "pose": "push"
+          },
+          {
+            "x": 1220,
+            "y": 930,
+            "z": 0,
+            "pose": "push"
+          },
+          {
+            "x": 1420,
+            "y": 820,
+            "z": 0,
+            "pose": "push"
+          },
+          {
+            "x": 1620,
+            "y": 930,
+            "z": 0,
+            "pose": "push"
+          }
+        ]
+      },
+      {
+        "label": "stage-2",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "play",
+        "finished": false,
+        "shown": 0.2554347826086957,
+        "fill": 0.2554347826086957,
+        "stage": 1,
+        "granny": "water",
+        "ent": [
+          {
+            "x": 723.3454413262766,
+            "y": 768.3028786861952,
+            "z": 0,
+            "pose": "run"
+          },
+          {
+            "x": 592.4704018535688,
+            "y": 680.0523311411037,
+            "z": 0,
+            "pose": "push"
+          },
+          {
+            "x": 643.0115799154394,
+            "y": 511.7601722959375,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "x": 1285.0190484155703,
+            "y": 780.7960812017219,
+            "z": 0,
+            "pose": "push"
+          },
+          {
+            "x": 745.3456941748548,
+            "y": 618.422143589486,
+            "z": 0,
+            "pose": "push"
+          },
+          {
+            "x": 821.4526903322452,
+            "y": 731.3791801494441,
+            "z": 0,
+            "pose": "run"
+          },
+          {
+            "x": 1660.1666405174608,
+            "y": 716.257590125374,
+            "z": 0,
+            "pose": "push"
+          },
+          {
+            "x": 1181.0802204908987,
+            "y": 844.9775702717318,
+            "z": 0,
+            "pose": "run"
+          }
+        ]
+      },
+      {
+        "label": "stage-3",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "play",
+        "finished": false,
+        "shown": 0.5,
+        "fill": 0.5,
+        "stage": 2,
+        "granny": "doze",
+        "ent": [
+          {
+            "x": 808.5866999031879,
+            "y": 846.5803654865477,
+            "z": 0,
+            "pose": "idle"
+          },
+          {
+            "x": 1273.2509078127455,
+            "y": 802.6948740381523,
+            "z": 0,
+            "pose": "idle"
+          },
+          {
+            "x": 1209.3885186738314,
+            "y": 788.0513526307438,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "x": 818.8689351718288,
+            "y": 756.7539109439173,
+            "z": 0,
+            "pose": "idle"
+          },
+          {
+            "x": 688.2138901017421,
+            "y": 973.0017414302872,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "x": 769.7633045744469,
+            "y": 696.1256928000585,
+            "z": 0,
+            "pose": "idle"
+          },
+          {
+            "x": 908.413558662315,
+            "y": 981.0996211985614,
+            "z": 0,
+            "pose": "idle"
+          },
+          {
+            "x": 1487.4610447793839,
+            "y": 571.2869039955006,
+            "z": 184.27675450911968,
+            "pose": "jump"
+          }
+        ]
+      },
+      {
+        "label": "stage-4",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "play",
+        "finished": false,
+        "shown": 0.75,
+        "fill": 0.75,
+        "stage": 3,
+        "granny": "laugh",
+        "ent": [
+          {
+            "x": 1417.0125241464773,
+            "y": 488.3551065468689,
+            "z": 0,
+            "pose": "giggle"
+          },
+          {
+            "x": 325.8929717968991,
+            "y": 688.6158660289168,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "x": 1283.104369231229,
+            "y": 741.5242122597439,
+            "z": 0,
+            "pose": "run"
+          },
+          {
+            "x": 942.7223155867691,
+            "y": 714.9561165780439,
+            "z": 0,
+            "pose": "run"
+          },
+          {
+            "x": 1345.680037876886,
+            "y": 678.6929803063258,
+            "z": 0,
+            "pose": "giggle"
+          },
+          {
+            "x": 1216.435129049436,
+            "y": 627.4243963911593,
+            "z": 0,
+            "pose": "run"
+          },
+          {
+            "x": 388.3331618161221,
+            "y": 579.8541473290815,
+            "z": 0,
+            "pose": "run"
+          },
+          {
+            "x": 855.1219437775518,
+            "y": 777.9873962085713,
+            "z": 0,
+            "pose": "run"
+          }
+        ]
+      },
+      {
+        "label": "climb",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "finished": false,
+        "shown": 1,
+        "fill": 1,
+        "stage": 4,
+        "granny": "water",
+        "ent": [
+          {
+            "fin": "walk",
+            "x": 346.91682035530414,
+            "y": 638.8913278248082,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "fin": "wait",
+            "x": 355.12938598117796,
+            "y": 656.6603809095706,
+            "z": 0,
+            "pose": "cheer"
+          },
+          {
+            "fin": "walk",
+            "x": 1018.2665775773771,
+            "y": 552.7233806289616,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "fin": "walk",
+            "x": 1042.8815778494263,
+            "y": 686.9167426577734,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "fin": "walk",
+            "x": 842.5943578216381,
+            "y": 774.0756856276262,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "fin": "climb",
+            "climb": 0.015809523809522424,
+            "x": 452.47428571428566,
+            "y": 656,
+            "z": 6.7032380952375075,
+            "pose": "carry"
+          },
+          {
+            "fin": "walk",
+            "x": 866.6068458611082,
+            "y": 702.2332517161611,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "fin": "walk",
+            "x": 973.6032405863891,
+            "y": 669.574584838861,
+            "z": 0,
+            "pose": "walk"
+          }
+        ]
+      },
+      {
+        "label": "top",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "finished": false,
+        "shown": 1,
+        "fill": 1,
+        "stage": 4,
+        "granny": "water",
+        "ent": [
+          {
+            "fin": "climb",
+            "climb": 0.17457142857142785,
+            "x": 457.2371428571428,
+            "y": 656,
+            "z": 74.01828571428541,
+            "pose": "carry"
+          },
+          {
+            "fin": "climb",
+            "climb": 0.6314285714285713,
+            "x": 470.9428571428571,
+            "y": 656,
+            "z": 267.7257142857143,
+            "pose": "carry"
+          },
+          {
+            "fin": "walk",
+            "x": 560.5957570068173,
+            "y": 607.3089685630556,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "fin": "walk",
+            "x": 586.3743357106159,
+            "y": 748.6457565143013,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "fin": "walk",
+            "x": 394.298766571957,
+            "y": 672.0082745229013,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "fin": "top",
+            "climb": 1,
+            "x": 482,
+            "y": 656,
+            "z": 424,
+            "pose": "ready"
+          },
+          {
+            "fin": "walk",
+            "x": 413.4811828601619,
+            "y": 690.9807770018217,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "fin": "walk",
+            "x": 521.8321790141933,
+            "y": 729.534673729668,
+            "z": 0,
+            "pose": "walk"
+          }
+        ]
+      },
+      {
+        "label": "cannonball",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "finished": false,
+        "shown": 1,
+        "fill": 1,
+        "stage": 4,
+        "granny": "water",
+        "ent": [
+          {
+            "fin": "climb",
+            "climb": 0.36504761904761834,
+            "x": 462.95142857142855,
+            "y": 656,
+            "z": 154.78019047619017,
+            "pose": "carry"
+          },
+          {
+            "fin": "climb",
+            "climb": 0.881904761904762,
+            "x": 478.45714285714286,
+            "y": 656,
+            "z": 373.9276190476191,
+            "pose": "carry"
+          },
+          {
+            "fin": "walk",
+            "x": 480.4795018207491,
+            "y": 639.6562351393962,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "fin": "walk",
+            "x": 501.6643429878168,
+            "y": 765.6509655075255,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "fin": "wait",
+            "x": 354.07017802877505,
+            "y": 656.027877507072,
+            "z": 0,
+            "pose": "cheer"
+          },
+          {
+            "fin": "leap",
+            "climb": 1,
+            "x": 486.8432941176466,
+            "y": 215.6506182629286,
+            "z": 0,
+            "pose": "jump"
+          },
+          {
+            "fin": "walk",
+            "x": 329.4754833027366,
+            "y": 670.7817066799578,
+            "z": 0,
+            "pose": "walk"
+          },
+          {
+            "fin": "walk",
+            "x": 437.3865448274539,
+            "y": 711.2618833899472,
+            "z": 0,
+            "pose": "walk"
+          }
+        ]
+      },
+      {
+        "label": "heads",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "heads",
+        "finished": false,
+        "shown": 1,
+        "fill": 1,
+        "stage": 4,
+        "granny": "water",
+        "ent": [
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 956.6666666666666,
+            "y": 398.469377863821,
+            "z": 0,
+            "pose": "giggle"
+          },
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 843.3333333333334,
+            "y": 372.03078737995236,
+            "z": 0,
+            "pose": "giggle"
+          },
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 1070,
+            "y": 398.0491359697683,
+            "z": 0,
+            "pose": "laugh"
+          },
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 1138,
+            "y": 565.8780014146984,
+            "z": 0,
+            "pose": "giggle"
+          },
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 662,
+            "y": 529.0433197485673,
+            "z": 0,
+            "pose": "giggle"
+          },
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 730,
+            "y": 419.80049493692457,
+            "z": 0,
+            "pose": "laugh"
+          },
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 820.6666666666666,
+            "y": 503.58123481237016,
+            "z": 0,
+            "pose": "giggle"
+          },
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 979.3333333333333,
+            "y": 514.9422723282213,
+            "z": 0,
+            "pose": "giggle"
+          }
+        ]
+      }
+    ],
+    "passed": true
+  }
+]

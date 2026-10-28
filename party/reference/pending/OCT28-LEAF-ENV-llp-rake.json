@@ -1,0 +1,63 @@
+{
+  "key": "prop/llp-rake",
+  "prompt": "Use case: stylized-concept. Asset type: transparent 2D cartoon child-sized leaf rake game prop, wide horizontal 360x140 aspect ratio.\nPrimary request: one cheerful wooden-handled leaf rake lying horizontally. Little yellow grip at the far LEFT handle end. Long slim warm wood shaft runs LEFT to RIGHT across the canvas, then springy bright RED fan-shaped rake head at the far RIGHT; fan tines spread and point diagonally DOWN-RIGHT. Tines must be individually separated with transparent spaces. Entire tool fully visible with margin. Grip easy to hold, handle uninterrupted, cute rounded safe shapes. Match attached approved prop illustration style: bold navy #24163f outlines, clean soft cel shading, bright warm 2D children's game art, no 3D no photorealism. Genuine transparent alpha background, no ground, no cast shadow, no glow, no leaves caught in tines, no hands or people, no text or logos.",
+  "status": "intaken-and-visually-reviewed-pending-consumer-check",
+  "mode": "built-in imagegen",
+  "styleReference": "assets/art/prop/room-teddy.webp",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-6cd7d903-1774-4519-943b-796533af94ea.png",
+  "nativeSize": [
+    2009,
+    783
+  ],
+  "source": "reference/sources/oct28-leaf-environment/llp-rake-native.webp",
+  "runtime": "assets/art/prop/llp-rake.webp",
+  "outputSize": [
+    360,
+    140
+  ],
+  "geometry": {
+    "sourceBounds": [
+      26,
+      151,
+      1986,
+      704
+    ],
+    "boundsAlphaThreshold": 16,
+    "uniformScale": 0.17755102040816326,
+    "placement": [
+      6,
+      42
+    ],
+    "bottomCentreAnchor": [
+      180.0,
+      140
+    ],
+    "alphaBounds": [
+      6,
+      42,
+      354,
+      140
+    ],
+    "grip": [
+      35,
+      68
+    ],
+    "shaftEnd": [
+      254,
+      73
+    ],
+    "tinesDownRight": [
+      335,
+      136
+    ]
+  },
+  "processing": "Native RGBA lossless WebP exact=True archive; whole-art uniform fit and bottom-centre placement.",
+  "runtimeSha256": "51061e8938783e54dabb7c2dbf0c3ace99fdb0adc0f5df27a7315897bf47dcee",
+  "runtimeBytes": 9772,
+  "decodedBytes": 201600,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "review": "Viewed native/runtime. Yellow grip left, wood shaft horizontal, red fan right with individually separated tines predominantly down-right. No cast shadow."
+}

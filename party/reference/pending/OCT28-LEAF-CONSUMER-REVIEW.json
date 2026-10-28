@@ -1,0 +1,213 @@
+{
+  "status": "Reviewed in actual main checkout after integration; all15assets ready for publication",
+  "mainCodeModified": false,
+  "sharedIndexModified": false,
+  "isolatedPreview": "/tmp/oct28-leaf-preview",
+  "previewURL": "http://127.0.0.1:8598/party/?game=leaf-pile-leap&players=8&auto=1&skipintro=1",
+  "sourceCommit": "e15c116af3c899d2aea1dfbb3a05bc765cc11b6d",
+  "patch": "OCT28-LEAF-CONSUMER.patch",
+  "patchScope": [
+    "Rake source grip(35,68) placed on actor hand; sweeping head target retained",
+    "Ladder rendered440px high with top step measured at(151,78)",
+    "Climb finishes at actual top-step coordinate, not top of image canvas"
+  ],
+  "preserved": "Latest source head enlargement, rain order, neck tracking, raking supply/timing, Granny reactions and all other feature behavior; no procedural pile overpaint or body-mask changes",
+  "naturalRuns": [
+    {
+      "players": 1,
+      "passed": true,
+      "elapsedSeconds": 18.103,
+      "errors": [],
+      "failedRequests": [],
+      "captured": [
+        "stage-1",
+        "raking",
+        "stage-2",
+        "stage-3",
+        "stage-4",
+        "climb",
+        "top",
+        "cannonball",
+        "heads"
+      ],
+      "end": {
+        "scene": "PlayScene",
+        "state": "gallery",
+        "phase": "heads",
+        "finished": true,
+        "shown": 1,
+        "fill": 1,
+        "stage": 4,
+        "granny": "doze",
+        "ent": [
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 900,
+            "y": 518.9533502980075,
+            "z": 0,
+            "pose": "giggle"
+          }
+        ]
+      }
+    },
+    {
+      "players": 8,
+      "passed": true,
+      "elapsedSeconds": 19.738,
+      "errors": [],
+      "failedRequests": [],
+      "captured": [
+        "stage-1",
+        "raking",
+        "stage-2",
+        "stage-3",
+        "stage-4",
+        "climb",
+        "top",
+        "cannonball",
+        "heads"
+      ],
+      "end": {
+        "scene": "PlayScene",
+        "state": "gallery",
+        "phase": "heads",
+        "finished": true,
+        "shown": 1,
+        "fill": 1,
+        "stage": 4,
+        "granny": "doze",
+        "ent": [
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 1138,
+            "y": 549.5175965634935,
+            "z": 0,
+            "pose": "giggle"
+          },
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 820.6666666666666,
+            "y": 505.61759255942627,
+            "z": 0,
+            "pose": "laugh"
+          },
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 1070,
+            "y": 430.69679966826556,
+            "z": 0,
+            "pose": "giggle"
+          },
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 979.3333333333333,
+            "y": 526.2249881694759,
+            "z": 0,
+            "pose": "laugh"
+          },
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 730,
+            "y": 420.9330948435645,
+            "z": 0,
+            "pose": "giggle"
+          },
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 843.3333333333334,
+            "y": 382.3880687745074,
+            "z": 0,
+            "pose": "giggle"
+          },
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 662,
+            "y": 549.3815971036619,
+            "z": 0,
+            "pose": "giggle"
+          },
+          {
+            "fin": "head",
+            "climb": 1,
+            "x": 956.6666666666666,
+            "y": 384.5941850956058,
+            "z": 0,
+            "pose": "giggle"
+          }
+        ]
+      }
+    }
+  ],
+  "anchorCheck": {
+    "rakeGripError": 0,
+    "ladderFeetError": 0,
+    "passed": true,
+    "worldLadderStep": [
+      470.6875,
+      263.625
+    ]
+  },
+  "runtimeBudget": {
+    "groupKeys": 19,
+    "newAssets": 15,
+    "decodedMiB": 24.60137939453125,
+    "under25MiB": true,
+    "all15NativeRGBAExact": true,
+    "all15PromptsPresent": true
+  },
+  "watering": {
+    "currentGame": "Water state displays existing hose art; no generated stream",
+    "gameGrannyFeet": [
+      1792,
+      512
+    ],
+    "gameArtHeight": 232,
+    "nozzleSourceEstimate": [
+      370,
+      177
+    ],
+    "nozzleScreenEstimate": [
+      1867.8461538461538,
+      358.96923076923076
+    ],
+    "flowerTarget": [
+      1840,
+      385
+    ],
+    "assessment": "Nozzle points into the right side of the actual flower bed. Its centre is about28px right and26px above the requested bed centre; any future stream should target the right-side flowers or shift its emitter if an exact centre hit is required."
+  },
+  "evidence": [
+    "OCT28-LEAF-GAME-actualmain-review.json",
+    "OCT28-LEAF-ACTUAL-ANCHOR-REVIEW.json",
+    "OCT28-LEAF-ASSEMBLY-REVIEW.html",
+    "OCT28-LEAF-ASSEMBLY-REVIEW.jpg",
+    "OCT28-LEAF-ASSEMBLY-REVIEW.json",
+    "OCT28-LEAF-PROVENANCE-REVIEW.json"
+  ],
+  "visualReview": "Actualmain1/8CPUgame screenshots inspected: allfourpilegrowthstages/raking/ladderclimb/top/cannonball/heads; HUD readable and enlargedheads/banner/rain behavior retained. No source or asset overrides. Actualgame reaches gallery without errors.",
+  "actualMain": true,
+  "mainCodeModifiedByThisAgentInFinalReview": false,
+  "actualMainBaseCommit": "3508ca5c82a4fa42e9e73a6ad8ba7e4155021157",
+  "actualMainSourceHashes": {
+    "party/src/games/leaf-pile-leap.js": "746d5f63cb2f60fb75b85200099bd426c3efa43003cf29f7e0311ccfeb207be6",
+    "party/src/games/leaf-pile-leap/art.js": "1011eb3f43b99302cd1760168697e9d096ca64b148ddafdf6575a76fd2e55274"
+  },
+  "regressionChecks": {
+    "HEAD_SCALE1.22Retained": true,
+    "finalHeadsEnlarged": true,
+    "closingRainBehindPile": true,
+    "nonRainForegroundRetained": true,
+    "bannerBelowFacesY830": true,
+    "authoredPileArtRetained": true,
+    "noProceduralPileOverpaint": true
+  },
+  "previousIsolatedReview": "OCT28-LEAF-GAME-reviewed-review.json"
+}

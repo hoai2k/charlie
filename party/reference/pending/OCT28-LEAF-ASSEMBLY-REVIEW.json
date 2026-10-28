@@ -1,0 +1,80 @@
+{
+  "ready": true,
+  "kind": "source assembly — not gameplay",
+  "missing": [],
+  "keys": [
+    "prop/mm-granny",
+    "prop/mm-granny-gasp",
+    "prop/mm-granny-huff",
+    "bg/fairy-hide-seek",
+    "bg/leaf-pile-leap",
+    "prop/llp-leaves",
+    "prop/llp-pile-1",
+    "prop/llp-pile-2",
+    "prop/llp-pile-3",
+    "prop/llp-pile-4",
+    "prop/llp-granny-pile",
+    "prop/llp-rake",
+    "prop/llp-ladder",
+    "prop/llp-squirrel-run-1",
+    "prop/llp-squirrel-run-2",
+    "prop/llp-squirrel-scared",
+    "prop/llp-granny-laugh",
+    "prop/llp-granny-doze",
+    "thumb/leaf-pile-leap"
+  ],
+  "decodedBytes": 25796416,
+  "decodedMiB": 24.60137939453125,
+  "ladder": {
+    "canvas": [
+      300,
+      640
+    ],
+    "drawHeight": 440,
+    "base": [
+      520,
+      610
+    ],
+    "frontTopStep": [
+      151,
+      78
+    ],
+    "screenTopStep": [
+      520.6875,
+      223.625
+    ],
+    "rise": 386.375
+  },
+  "rake": {
+    "canvas": [
+      360,
+      140
+    ],
+    "grip": [
+      35,
+      68
+    ]
+  },
+  "watering": {
+    "grannyFeet": [
+      1790,
+      500
+    ],
+    "height": 230,
+    "nozzleSourceEstimate": [
+      370,
+      177
+    ],
+    "nozzleScreen": {
+      "x": 1865.1923076923076,
+      "y": 348.28846153846155
+    },
+    "flowerTarget": [
+      1840,
+      385
+    ],
+    "note": "No water stream in current game; nozzle is slightly right/above centre, within the flower bed."
+  },
+  "errors": [],
+  "failed": []
+}

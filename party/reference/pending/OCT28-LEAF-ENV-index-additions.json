@@ -1,0 +1,25 @@
+{
+  "images": {
+    "bg/leaf-pile-leap": "bg/leaf-pile-leap-v3.webp",
+    "prop/llp-leaves": "prop/llp-leaves.webp",
+    "prop/llp-pile-1": "prop/llp-pile-1.webp",
+    "prop/llp-pile-2": "prop/llp-pile-2.webp",
+    "prop/llp-pile-3": "prop/llp-pile-3.webp",
+    "prop/llp-pile-4": "prop/llp-pile-4.webp",
+    "prop/llp-granny-pile": "prop/llp-granny-pile.webp",
+    "prop/llp-rake": "prop/llp-rake.webp",
+    "prop/llp-ladder": "prop/llp-ladder.webp"
+  },
+  "group": "leaf-pile-leap",
+  "keys": [
+    "bg/leaf-pile-leap",
+    "prop/llp-leaves",
+    "prop/llp-pile-1",
+    "prop/llp-pile-2",
+    "prop/llp-pile-3",
+    "prop/llp-pile-4",
+    "prop/llp-granny-pile",
+    "prop/llp-rake",
+    "prop/llp-ladder"
+  ]
+}

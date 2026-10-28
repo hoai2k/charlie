@@ -1,0 +1,251 @@
+{
+  "key": "prop/llp-leaves",
+  "prompt": "Use case: stylized-concept. Asset type: transparent 2D cartoon game leaf atlas. Produce EXACTLY 16 separate leaves in an evenly spaced 4-column by 4-row grid, no extra leaves. All leaves flat and seen from above, stem pointing straight down, complete with generous clear gutters, no shadows.\nExact column identities in EVERY row, left to right: 1 maple leaf with sharp five lobes; 2 oak leaf with rounded finger-like lobes along a long centre; 3 round broad birch leaf with softly serrated edge and pointed tip; 4 long very slim willow leaf. Exact rows from top to bottom: row1 red; row2 orange; row3 gold yellow; row4 warm brown. Color is the leaf body, not merely the vein. Each leaf has bold navy #24163f outline, lighter centre vein and a few simple clean cel shaded panels. Match viewed approved cartoon prop reference: flat hand-drawn 2D illustration, warm bright clean style, not 3D, no realism, no bevels. Each leaf fills about 80% of its cell's height, narrow willow leaves remain narrow. Output square canvas, true transparent alpha background, no text, no labels, no gridlines, no scenery, no cast shadow, no detached decor or highlights outside leaf silhouettes.",
+  "status": "intaken-and-visually-reviewed-pending-consumer-check",
+  "mode": "built-in imagegen",
+  "styleReference": "assets/art/prop/room-teddy.webp",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-e9c4a468-b53c-4027-8544-7e17fb08a9e4.png",
+  "nativeSize": [
+    1254,
+    1254
+  ],
+  "source": "reference/sources/oct28-leaf-environment/llp-leaves-native.webp",
+  "runtime": "assets/art/prop/llp-leaves.webp",
+  "outputSize": [
+    512,
+    512
+  ],
+  "geometry": {
+    "columns": 4,
+    "rows": 4,
+    "cellSize": [
+      128,
+      128
+    ],
+    "nativeCellBounds": [
+      [
+        [
+          102,
+          41,
+          354,
+          317
+        ],
+        [
+          424,
+          30,
+          625,
+          319
+        ],
+        [
+          693,
+          50,
+          917,
+          317
+        ],
+        [
+          1021,
+          36,
+          1110,
+          318
+        ]
+      ],
+      [
+        [
+          101,
+          339,
+          355,
+          617
+        ],
+        [
+          424,
+          330,
+          624,
+          618
+        ],
+        [
+          693,
+          345,
+          919,
+          617
+        ],
+        [
+          1020,
+          334,
+          1109,
+          617
+        ]
+      ],
+      [
+        [
+          101,
+          637,
+          355,
+          916
+        ],
+        [
+          423,
+          628,
+          624,
+          919
+        ],
+        [
+          691,
+          647,
+          920,
+          917
+        ],
+        [
+          1021,
+          633,
+          1110,
+          918
+        ]
+      ],
+      [
+        [
+          97,
+          938,
+          352,
+          1216
+        ],
+        [
+          424,
+          930,
+          628,
+          1222
+        ],
+        [
+          692,
+          947,
+          921,
+          1219
+        ],
+        [
+          1020,
+          935,
+          1110,
+          1218
+        ]
+      ]
+    ],
+    "rowColors": [
+      "red",
+      "orange",
+      "gold-yellow",
+      "warm brown"
+    ],
+    "columnShapes": [
+      "maple",
+      "oak",
+      "round birch",
+      "slim willow"
+    ],
+    "runtimeCellAlphaBounds": [
+      [
+        20,
+        15,
+        109,
+        113
+      ],
+      [
+        28,
+        13,
+        99,
+        115
+      ],
+      [
+        24,
+        16,
+        103,
+        111
+      ],
+      [
+        48,
+        14,
+        79,
+        114
+      ],
+      [
+        20,
+        15,
+        109,
+        113
+      ],
+      [
+        28,
+        14,
+        99,
+        115
+      ],
+      [
+        24,
+        16,
+        103,
+        112
+      ],
+      [
+        48,
+        14,
+        80,
+        114
+      ],
+      [
+        20,
+        15,
+        109,
+        113
+      ],
+      [
+        28,
+        13,
+        99,
+        115
+      ],
+      [
+        24,
+        16,
+        105,
+        112
+      ],
+      [
+        48,
+        14,
+        79,
+        115
+      ],
+      [
+        19,
+        15,
+        109,
+        113
+      ],
+      [
+        28,
+        13,
+        100,
+        115
+      ],
+      [
+        24,
+        16,
+        105,
+        112
+      ],
+      [
+        48,
+        14,
+        80,
+        114
+      ]
+    ]
+  },
+  "processing": "Native RGBA lossless exact=True archive; square 512 resize, repack_atlas.py --cols 4 --rows 4 --margin 0.1; zero-alpha RGB cleared.",
+  "runtimeSha256": "a8cc5b4d50565027e7600094f0128e71d3562541e5e801157d4e3e6e9f4637c5",
+  "runtimeBytes": 147462,
+  "decodedBytes": 1048576,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "review": "Inspected all 16 leaves: columns maple/oak/birch/willow; rows red/orange/gold/warm brown. Stems down, complete silhouettes, generous transparent gutters. Runtime atlas 4x4 exact 128px cells."
+}

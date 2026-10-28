@@ -1,0 +1,45 @@
+{
+  "samples": [
+    {
+      "key": "prop/llp-rake",
+      "sourcePoint": [
+        35,
+        68
+      ],
+      "worldPoint": [
+        100,
+        200
+      ]
+    },
+    {
+      "key": "prop/llp-ladder",
+      "sourcePoint": [
+        151,
+        78
+      ],
+      "worldPoint": [
+        470.6875,
+        263.625
+      ]
+    }
+  ],
+  "ladderTop": {
+    "x": 0.6875,
+    "height": 386.375
+  },
+  "rakeGripExpected": [
+    100,
+    200
+  ],
+  "ladderStepExpected": [
+    470.6875,
+    263.625
+  ],
+  "naturalClimbFeet": [
+    470.6875,
+    263.625
+  ],
+  "rakeGripError": 0,
+  "ladderFeetError": 0,
+  "passed": true
+}

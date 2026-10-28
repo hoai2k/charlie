@@ -1,0 +1,32 @@
+{
+  "key": "bg/leaf-pile-leap",
+  "prompt": "Use case: illustration-story.\nAsset type: finished 1920x1080 opaque 2D cartoon game background for Charlie Party Leaf Pile Leap.\nPrimary request: Sunny autumn cottage garden seen from slightly above. Match the attached approved garden reference's bold dark navy #24163f outlines, clean soft cel shading, cheerful illustrated children's game style; no 3D, no realism.\nLayout is exact in a 1920x1080 design space: soft blue sky and only a few soft white clouds, calm low-detail top 110 pixels for HUD; row of round autumn trees in warm orange, red and gold along the top, behind a white picket fence crossing around y=330. Small arched garden gate centred at x=1690 in the fence. A small bed of autumn mums and asters confined to right corner x=1760-1920 and y=360-520. Below y=360 a vast empty plain green-gold lawn, subtle wide soft mowing stripes. Keep centre and lower lawn completely clear for children and runtime leaf piles; at most five painted leaves near outer edges. No path across lawn.\nNo characters, no animals, no leaf piles, no ladder, no rake, no furniture, no text, no logo. Landscape 16:9, full bleed background.",
+  "mode": "built-in imagegen",
+  "status": "superseded-layout-native-source-retained",
+  "styleReference": "assets/art/bg/fairy-hide-seek.webp",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-62f61b6d-a948-4e11-8910-22f03d71027b.png",
+  "nativeSize": [
+    1672,
+    941
+  ],
+  "source": "reference/sources/oct28-leaf-environment/bg-native.webp",
+  "runtime": "assets/art/bg/leaf-pile-leap.webp",
+  "outputSize": [
+    1920,
+    1080
+  ],
+  "geometry": {
+    "designSpace": [
+      1920,
+      1080
+    ]
+  },
+  "processing": "Native RGBA lossless WebP exact=True archive; resized to requested opaque design canvas.",
+  "runtimeSha256": "aee4e16bd0f3ee2edfa6b516263936fe4caca7d3372017560d7c08eed29efde7",
+  "runtimeBytes": 196266,
+  "decodedBytes": 8294400,
+  "alphaExtrema": [
+    255,
+    255
+  ]
+}

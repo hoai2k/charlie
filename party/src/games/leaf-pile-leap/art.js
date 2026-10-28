@@ -179,7 +179,7 @@ export function drawRake(g, x0, y0, x1, y1) {
   g.save(); g.translate(x0, y0); g.rotate(ang);
   if (img) {
     const L = len * 1.12, h = L * img.height / img.width;
-    g.drawImage(img, 0, -h * 0.35, L, h);
+    g.drawImage(img, -(35 / 360) * L, -(68 / 140) * h, L, h);
     g.restore(); return;
   }
   g.lineCap = 'round';
@@ -237,13 +237,15 @@ export function drawSquirrel(g, frame, t) {
 }
 
 // --- the stepladder -------------------------------------------------------------
-export const LADDER_H = 430;
+export const LADDER_H = 440;
+// The authored front top step, measured on the 300 × 640 canvas (151, 78).
+export const LADDER_TOP = { x: (151 - 150) * LADDER_H / 640, height: (640 - 78) * LADDER_H / 640 };
 /** The stepladder standing at (x, y) (base centre); k 0..1 pops it up. */
 export function drawLadder(g, x, y, k = 1) {
   if (k <= 0.01) return;
   const img = art('prop/llp-ladder');
   g.save(); g.translate(x, y); g.scale(1, k);
-  if (img) { const h = LADDER_H + 12, w = h * img.width / img.height; g.drawImage(img, -w / 2, -h, w, h); g.restore(); return; }
+  if (img) { const h = LADDER_H, w = h * img.width / img.height; g.drawImage(img, -w / 2, -h, w, h); g.restore(); return; }
   const Hh = LADDER_H;
   g.lineCap = 'round'; g.lineJoin = 'round';
   // back legs

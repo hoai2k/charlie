@@ -1,0 +1,61 @@
+--- a/party/src/games/leaf-pile-leap.js
++++ b/party/src/games/leaf-pile-leap.js
+@@ -40,7 +40,7 @@
+ import { Dash } from '../engine/dash.js';
+ import {
+   NAVY, leafKind, drawLeaf, drawPile, domeTop, PILE_FULL_W, drawNeatPile, drawRake, drawSquirrel,
+-  drawLadder, LADDER_H, drawGranny, drawBackground, drawCollar,
++  drawLadder, LADDER_H, LADDER_TOP, drawGranny, drawBackground, drawCollar,
+ } from './leaf-pile-leap/art.js';
+ import { meta } from './leaf-pile-leap.meta.js';
+ 
+@@ -730,8 +730,8 @@
+       }
+       case 'climb': {
+         F.p = Math.min(1, F.p + dt / 1.05);
+-        a.z = F.p * (LADDER_H - 6);
+-        e.x = LAD.x - 18 + F.p * 30;
++        a.z = F.p * (LADDER_TOP.height + 6);
++        e.x = lerp(LAD.x - 18, LAD.x + LADDER_TOP.x, F.p);
+         a.facing = 1;
+         if (!a._once) a.setPose('carry');
+         if (F.p >= 1) { F.state = 'top'; F.t = 0; a.setPose('ready'); a.squash(0.2); }
+@@ -912,8 +912,7 @@
+     const h = info.h, hand = info.hand;
+     const s = e.sweep, k = s > 0 ? Math.sin((1 - s) * Math.PI) : 0;   // out and back in one stroke
+     const hx = h * (0.5 + 0.32 * k), hy = -6 - k * 10;
+-    const dx = hx - hand.x, dy = hy - hand.y, d = Math.hypot(dx, dy) || 1;
+-    drawRake(g, hand.x - (dx / d) * h * 0.25, hand.y - (dy / d) * h * 0.25, hx, hy);
++    drawRake(g, hand.x, hand.y, hx, hy);
+   }
+ 
+   drawGrannyNow(g) {
+--- a/party/src/games/leaf-pile-leap/art.js
++++ b/party/src/games/leaf-pile-leap/art.js
+@@ -179,7 +179,7 @@
+   g.save(); g.translate(x0, y0); g.rotate(ang);
+   if (img) {
+     const L = len * 1.12, h = L * img.height / img.width;
+-    g.drawImage(img, 0, -h * 0.35, L, h);
++    g.drawImage(img, -(35 / 360) * L, -(68 / 140) * h, L, h);
+     g.restore(); return;
+   }
+   g.lineCap = 'round';
+@@ -237,13 +237,15 @@
+ }
+ 
+ // --- the stepladder -------------------------------------------------------------
+-export const LADDER_H = 430;
++export const LADDER_H = 440;
++// The authored front top step, measured on the 300 × 640 canvas (151, 78).
++export const LADDER_TOP = { x: (151 - 150) * LADDER_H / 640, height: (640 - 78) * LADDER_H / 640 };
+ /** The stepladder standing at (x, y) (base centre); k 0..1 pops it up. */
+ export function drawLadder(g, x, y, k = 1) {
+   if (k <= 0.01) return;
+   const img = art('prop/llp-ladder');
+   g.save(); g.translate(x, y); g.scale(1, k);
+-  if (img) { const h = LADDER_H + 12, w = h * img.width / img.height; g.drawImage(img, -w / 2, -h, w, h); g.restore(); return; }
++  if (img) { const h = LADDER_H, w = h * img.width / img.height; g.drawImage(img, -w / 2, -h, w, h); g.restore(); return; }
+   const Hh = LADDER_H;
+   g.lineCap = 'round'; g.lineJoin = 'round';
+   // back legs
