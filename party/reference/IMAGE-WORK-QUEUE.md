@@ -1,3 +1,11 @@
+## Mole Madness complete — all current images delivered
+
+Final approved reference: reference/canonical/mole.webp, with smaller paws as requested. Mole Madness replaces the visible Gopher Gardens title; internalgopher-garden/prop-gopher identifiers remain stable. Published batch90cc38d7 adds six authored body states plus thumbnail, head-first sneaky peek, calm L/R scanning and blink. Body art has no ground. All52images from thisfour-game delivery are complete (49requested+3extra mole frames). No pending canonical approval, generation or intake.
+
+All22PartyNode tests passed, including5focused mole tests. Actual1/8CPUgames complete error-free; low-peek visibility, reactions, hole lip, scaled pose stability and garden contrast reviewed. Complete Mole Madness art13.757MiBdecoded. Prompts/source archives and actualrenderer GIF: pending/OCT28-MOLE*. Delivery audit: pending/OCT28-DELIVERY-AUDIT.json.
+
+Latest delivered artwork revision: `90cc38d7`. Last checked main revision: `90cc38d7`. Last checked request blob: `d37a7675c5f40e7ede371a5a605b5cb79b267328`. Delivery/check UTC: `2026-10-28T18:05:38.594188+00:00`. No new requests beyond this completed batch. No timer was requested; none created. Older pending approval entries below are superseded.
+
 ## Gopher canonical revision — awaiting approval
 
 The user rejected the friendly gopher and requested a grumpy-looking garden pest. A scowling, crossed-arm revision is saved as reference/pending/OCT28-GOPHER-GRUMPY-CANONICAL.{webp,json}, generated with built-in imagegen; exact prompt and pixel-exact native RGBA are preserved. Approval question is pending. Do not generate its three poses or thumbnail until approved. All45 independent images remain delivered.

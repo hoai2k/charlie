@@ -1,3 +1,50 @@
+## 2026-10-28: Mole Madness — final approved mole, all images complete
+
+Renamed Gopher Gardens to **Mole Madness** after the owner supplied a mole reference and refined the design. The final approved creature has chocolate-brown velvety fur, a long pink snout, narrowed grumpy eyes and smaller low digging paws. Canonical: `reference/canonical/mole.webp`. Body pictures have no dirt.
+
+All four held images are delivered, plus three extra animation frames: neutral, teasing, dizzy-bonk, look-left, look-right, blink and the800×500thumbnail. The game uses authored poses for a cautious0.6s emergence with a low peek pause, calm L/R scans and brief blink. Shared scale/bottom torso anchors keep the mole planted; authored rise travel uses its measured206/320 visible content so eyes/nose clear the hole. Bonk stars follow the actual head. Bop scoring and fairy/troll rise behavior are preserved.
+
+Published artwork/gameplay revision: `90cc38d7`. Exact prompts/native sources: `OCT28-MOLE-SPRITES.json`, `OCT28-MOLE-THUMBNAIL.json` and `canonical/mole-generation-manifest.json`. Actual-renderer preview: `reference/pending/OCT28-MOLE-ANIMATION.gif`. All22Party Node tests pass, including5focused motion/visibility tests; actual1/8CPUgames reached results without errors. Low peeks, scanning, reactions, occlusion and garden contrast reviewed. Complete game art13.757MiB decoded. All52images from the four-game delivery are complete (49requested plus3extra mole states); no canonical approvals or images remain pending.
+
+### Archived original request (superseded gopher identity; stable internal keys retained)
+
+### gopher-garden — Gopher Gardens   (requested by the gopher-garden agent, 2026-10-28, priority: nice-to-have)
+
+**Pending: new gopher canonical approval.** Revised preview: `reference/pending/OCT28-GOPHER-GRUMPY-CANONICAL.webp`. Latest user direction: a grumpy-looking garden pest. Carry the scowling brows and grouchy attitude through the poses and thumbnail; the teasing pose can be smug, and the bopped pose comically annoyed/dizzy rather than hurt. The earlier friendly design was rejected. Hold the three gopher expressions and their thumbnail until the user approves. Six environment/prop images are delivered and reviewed in four/eight-player gameplay; measured geometry is integrated on main.
+
+A sunny whack-a-mole party game (Charlie Party, 1–8 players, 60 s): everyone
+runs around **one shared garden** full of dirt-mound holes and bops the cheeky
+gophers that pop up with a soft squeaky toy mallet (A; B dashes). A bopped
+gopher ducks down dazed and happy-silly (+1). Sometimes a garden fairy pops
+up instead (don't bop her: she goes dizzy, you lose a point), and now and then
+the Troll pops up and grabs your mallet for a tug-of-war. Every key below has
+a procedural fallback that ships today, and the code already asks for each
+one (it drops in as soon as it is in `assets/art/index.json`; add it to a
+`gopher-garden` group). House style: navy `#24163f` outlines, soft cel
+shading, bright candy colours, **no text**. No baked-in shadows, sparkles,
+stars, motion lines or dust (the code draws them).
+
+**Reused, no art needed:** the garden fairy sprite sets
+(`garden-fairy-*`: `idle`/`float` popping up, `dizzy` when bopped), the troll
+sprite set (`laugh` popping up, `grab` holding the mallet), and the players'
+own `swing` (the bop), `pull` (tugging the mallet back from the troll),
+`surprised` (bopped a fairy), `dash`, `run`, `cheer`, `celebrate`, `pout`.
+No new poses.
+
+**Layout (screen px on the 1920×1080 canvas, high three-quarter view looking
+down at the lawn):** a garden hedge, flower beds and sky in the top band
+(y 0 to ≈330; keep the top 130 px calm for the clock); the lawn from y ≈340
+to the bottom. The code draws the 18 holes itself in 4 staggered rows:
+y ≈ 445 (4 holes), 595 (5), 750 (4), 905 (5), x ≈ 300–1620, 330 px apart.
+Holes are drawn 230 px wide at the front row and ≈190 px at the back row.
+The score chips sit along the bottom (y ≈ 990).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `prop/gopher-up`, `prop/gopher-up-2` | 320×320 each, transparent | Bottom-centre anchor at the hole's opening, drawn 160 px wide at depth 1 (cut off below the hole's front lip by the code). The body runs off the bottom edge of the canvas, cut flat (that part is hidden in the hole). Facing the viewer | A cute chubby gopher popping up out of a burrow, from the tummy up: warm caramel-brown fur, cream muzzle and tummy, two big buck teeth, round black shiny eyes, little pink nose, small round ears, tiny paws. (1) cheeky grin, paws up by its cheeks as if saying "peekaboo!"; (2) a teasing wink with its tongue poking out. Round, soft, friendly, never scary |
+| `prop/gopher-bonked` | 320×320, transparent | Same anchor and size as `prop/gopher-up`; shown after a bop while it wobbles and sinks back down (the code adds circling stars, a squash and a small bump) | The same gopher just bopped, dazed and happy-silly: squished down a little, eyes turned into dizzy swirls, a goofy lopsided grin with the tongue lolling out, a little round pink bump on top of its head, cheeks rosy. Clearly giggly, not hurt |
+| `thumb/gopher-garden` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A sunny garden lawn with three dirt-mound holes: a cheeky gopher popping up from the middle one with a pink squeaky mallet bopping down on it (only the mallet, no player), a little pink flower fairy peeking out of the left hole, and the troll's big green hand reaching out of the right one. Subject centred |
+
 ## 2026-10-28: four new games — 45 images delivered, four gopher images held for approval
 
 Published batches: Gopher props7e7dc8d8 plus measured consumer ca374f62; Soccer af5ff859; Gingerbread6b331fea; Plushie b10e280b. All45 requested keys have generated art, exact prompts and pixel-exact native RGBA archives. Full requested canvases are preserved; proportional compact runtime siblings fit all mixed-player game groups below25MiB decoded. Actual4/8CPU Soccer/Gopher and1/8Gingerbread/Plushie station/finale reviews pass;17 Party Node test files pass. Audit: `reference/pending/OCT28-DELIVERY-AUDIT.json`; runtime derivative map: `OCT28-STUDIO-RUNTIME-BUDGETS.json`. Only the new gopher design and its four dependent images remain open.
