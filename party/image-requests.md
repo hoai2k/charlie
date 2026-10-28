@@ -1240,3 +1240,74 @@ view, no icing, no candy (the players add those).
 | `prop/gh-castle-cone-left`, `prop/gh-castle-cone-right` | 960×880 each, transparent | Pointed tower roofs: triangle (-226, -282), (-106, -282), (-166, -420); right: the mirror image | A pointed cone-shaped gingerbread tower roof, seen front-on as a tall triangle, edge gently scalloped |
 | `prop/gh-candy` | 640×320 atlas, transparent, **4 columns × 2 rows of 160×160 cells, on an exact even grid** (run `tools/sprites/repack_atlas.py --cols 4 --rows 2`) | Each candy centred in its cell, filling about 80% of it; the code cuts the cells and draws one centred on the spot it sticks to, about 30 house units (60 px) across. Order: row 1 gumdrop red, gumdrop green, gumdrop yellow, gumdrop purple; row 2 peppermint red, peppermint green, chocolate button, candy heart | Sugar-coated gumdrops (domed, sparkly sugar texture) in four colours; round peppermint swirl candies (white with red, and white with green, pinwheel stripes) seen flat; a round flat milk-chocolate button; a little pink sugar candy heart. All seen straight on, flat lighting from the upper left |
 | `prop/gh-gingerbread-person` | 240×320, transparent | Bottom-centred (feet on the bottom edge, x = 120). Drawn about 70 house units tall rising up in the open doorway in the finale (clipped to the door hole), rocking side to side in plane to wave | A cute little gingerbread person, front view, waving one arm up high: white icing squiggles on wrists and ankles, two icing dot eyes, a big icing smile, rosy pink cheeks, three gumdrop buttons (red, green, yellow). Cheerful |
+
+### plushie-workshop — Plushie Workshop   (requested by the plushie-workshop agent, 2026-10-28, priority: nice-to-have)
+
+A Play Studio game (1–8 players, everyone wins). Each player has a station on
+a sewing-workshop table: pick a plush body (bear, bunny, unicorn, kitty, puppy,
+dragon) and a fabric, hold X to puff stuffing in until it plumps from a flat
+empty skin to fluffy (squeak!), sew on eyes, a nose, a mouth, hearts and
+patches exactly where the needle points (X stitches), dress it (bows, hats,
+scarves, tutus, capes, wings) and give it a name. Finale: every player's
+character hugs their plushie (the `cuddle` pose) while hearts float up, then
+the plushies hop onto a big toy shelf with name tags; the game ends on that
+shelf. Every key below has a procedural fallback that ships today, and the
+code already asks for each one (it drops in as soon as it is in
+`assets/art/index.json`; add it to the `plushie-workshop` group, which is
+already there). House style: navy `#24163f` outlines, soft cel shading,
+bright candy colours, a soft felt / plush fabric texture on the toys,
+**no text**. No baked-in shadows, sparkles, hearts, glow or motion lines (the
+code draws them).
+
+**Reused, no art needed:** clothes `prop/bow-pink`, `prop/bow-blue`,
+`prop/pet-bow-purple`, `prop/bow-back`, `prop/hat-top`, `prop/hat-party`,
+`prop/hat-witch`, `prop/crown-gold`, `prop/crown-flower`, `prop/tiara-star`,
+`prop/cape-royal`, `prop/cape-starry`, `prop/cape-rainbow`,
+`prop/wings-fairy`, `prop/wings-butterfly`, `prop/wings-dragon`,
+`prop/necklace-heart`, `prop/snowman-bowtie` (in the group). Every character
+set already has the `cuddle` pose; no new poses.
+
+**The plush frame (shared by every body, so eyes, patches and clothes line
+up on all six).** Each body is one 512×560 cell. In every cell of every body
+these landmarks are at the same pixel (cell px, origin top-left):
+
+| Landmark | Cell px | Used for |
+| --- | --- | --- |
+| Seat line (bottom of the bottom and feet) | y = 540, centred on x = 256 | The plush sits on it (table, arms, shelf) |
+| Top of the head (hat line) | y = 88 (ears / horn / dragon horns stick up above it, up to y ≈ 12) | Hats and crowns sit on it |
+| Head | circle centred (256, 200), radius ≈ 115 | Face area |
+| Eye line | y = 195; default eyes at x = 206 and 306 | Eyes |
+| Nose | (256, 240) | Nose |
+| Mouth | (256, 272) | Mouth |
+| Neck / chin line | y = 322 | Scarves, bow ties, necklaces |
+| Shoulders / back | (256, 350) | Capes hang from here, wings centre at (256, 375), both drawn **behind** the body |
+| Tummy | centred (256, 425), a calm plain area about 180×140 | Hearts and patches |
+| Waist | y = 470 | Tutus |
+
+Pose: sitting, front view, chubby and round (a big head about 45% of the
+height, a round body, short stubby arms resting at the sides from y ≈ 340 to
+430 that do **not** cover the tummy, short legs sticking forward with round
+feet at about (186, 515) and (326, 515)), tail behind, peeking out to one
+side. **Blank face**: no eyes, no nose, no mouth (the players sew them on);
+a muzzle shape (bear, puppy) or cheek fluff is fine.
+
+**Flat (unstuffed) state:** the same plush as an empty, limp fabric skin
+slumped onto the seat line: the stuffed outline squashed about the seat line
+to **60% height and 112% width** (so its head top lies at y ≈ 269 and its eye
+line at y ≈ 333), ears flopped down, soft wrinkles and loose folds, a little
+gap in the side seam. The code moves sewn-on items with exactly this squash
+while it puffs up, and cross-fades flat → stuffed.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `prop/plushie-body-bear`, `prop/plushie-body-bunny`, `prop/plushie-body-unicorn`, `prop/plushie-body-kitty`, `prop/plushie-body-puppy`, `prop/plushie-body-dragon` | 1024×1120 each, transparent, **2 columns × 2 rows of 512×560 cells, on an exact even grid** (run `tools/sprites/repack_atlas.py --cols 2 --rows 2` but keep the landmarks above, do not re-centre) | Columns: **flat** (left), **stuffed** (right). Rows: **fabric** (top): the whole plush in plain **white fabric** with soft light-grey cel shading and navy outlines, which the code tints to the chosen fabric (multiply) and lays the fabric pattern over (clipped to it); **trim** (bottom): only the parts that keep their own colour, exactly registered over row 1 (same pixels), transparent elsewhere: inner ears, paw pads, muzzle/snout, cheek blush, the unicorn's golden horn and pastel rainbow mane and tail tuft, the dragon's soft spikes, little horns and wing membranes, the bunny's pink inner ears and cotton tail. Drawn bottom-anchored on the seat line, about 300–440 px tall at a station and 230 px on the shelf | A cute handmade plush toy (teddy-bear-style stuffed animal) sitting, front view, chubby and round with a big head and stubby limbs, soft felt and minky fabric texture with visible little seams. **bear**: round ears, oval muzzle; **bunny**: two long upright ears (one bent at the tip), round cotton tail; **unicorn**: small pointed ears, a spiral horn, a short fluffy mane and a tail tuft; **kitty**: pointed ears, cheek fluff, long curled tail; **puppy**: long floppy ears hanging down, round muzzle, short tail; **dragon**: two little soft horns, a row of soft spikes over the head and back, tiny folded wings behind the shoulders, a chunky tail. Each in the flat (empty limp skin) and stuffed state described above |
+| `prop/plushie-face` | 1024×384 atlas, transparent, **8 columns × 3 rows of 128×128 cells, on an exact even grid** | Each piece centred in its cell, filling about 75% of it; the code draws an eye about 58 px across (cell px of the plush frame), a nose about 52 px, a mouth about 92 px wide, centred exactly on the needle point. Eyes are drawn as a pair 100 px apart: the cell holds the eye on the **viewer's right**; the code mirrors it for the other eye. Row 1 eyes: black button eye with two thread holes; big shiny black eye with two white highlights; sleepy closed arc with lashes; pink heart eye; gold star eye; googly eye (white with a black pupil); big blue sparkly eye with lashes; embroidered happy arc (^). Row 2 noses: rounded brown triangle (bear); pink bunny Y nose; pink heart nose; round black button nose; small pink kitty triangle; big shiny black oval (puppy); two little dark nostril dots (dragon); red pompom nose. Row 3 mouths: stitched smile (one navy thread line); open happy mouth with pink tongue; kitty "w" mouth; small "o" mouth; smile with two bunny buck teeth; silly tongue-out; little smile with two tiny fangs; big grin | Felt and embroidered plush-toy face pieces, as if sewn on: tiny running stitches round each edge, flat front view, soft lighting from the upper left |
+| `prop/plushie-patches` | 1024×256 atlas, transparent, **8 columns × 2 rows of 128×128 cells, on an exact even grid** | Each centred, filling about 80% of its cell; the code draws one about 76 px across (plush frame px) centred exactly on the needle point. Row 1 hearts: red felt heart; pink felt heart with white stitches; rainbow-striped heart; heart-shaped button with two holes; lilac heart with a tiny gold star; three tiny hearts in a cluster; gold glitter heart; patchwork heart (four little fabric squares). Row 2 patches: yellow star; white daisy; round blue patch with cross-stitch edge; red gingham square; crescent moon; fluffy cloud; rainbow arc; paw print | Felt appliqué patches for a plush toy with visible running-stitch edges, flat front view, bright candy colours |
+| `prop/plushie-clothes` | 1024×512 atlas, transparent, **4 columns × 2 rows of 256×256 cells, on an exact even grid** | Row 1 **scarves**, worn round the neck: the knot centre at (128, 96) of the cell, the wrap spanning x ≈ 24–232, tails hanging down on the viewer's right; drawn about 240 px wide (plush frame px) with the knot on the neck point (256, 322). Order: red-and-white striped knit; blue knit with pompoms; pink with white polka dots; rainbow stripes. Row 2 **tutus**, front view: the waistband's centre at (128, 80) of the cell, the skirt spanning x ≈ 8–248 and flaring down to y ≈ 190, the band's opening about 60% of the width; drawn about 300 px wide with the band on the waist (256, 470). Order: pink tulle; lavender with sparkles; mint with little stars; rainbow layers | Doll-sized clothes for a plush toy, front view: chunky cosy knitted scarves wrapped once round a neck (no neck drawn); fluffy layered tulle tutus seen from the front (no body drawn) |
+| `bg/plushie-workshop` | 1920×1080, opaque | Behind each player's station, scaled to cover it so that **image y = 780 lands on the station's table edge** and image x = 960 on the plush (stations are 470–1320 px wide, so only the middle part shows with many players). The table top runs from y = 780 to the bottom. Keep the middle (x 560–1360, y 180–780) calm and low-contrast: the plush sits there | A cosy, sunny toy-maker's sewing workshop, front view: a pastel wall with a pegboard of colourful thread spools and scissors, shelves of folded fabric bolts in candy colours, a big round window with a soft sky, a string of fabric bunting across the top, a big pincushion and a basket of yarn at the far edges; a warm honey-wood worktable top with a measuring tape lying along the front edge from y ≈ 780 to the bottom. Soft and slightly desaturated. No toys, no people |
+| `bg/plushie-shelf` | 1920×1080, opaque | Full screen for the finale and the gallery ending. Two long shelf boards whose **top surfaces are at y = 430 and y = 760**, spanning at least x = 200–1720, each with a front lip about 40 px deep (the code pins a name tag on the lip under each plushie). The plushies sit on the boards between x = 330 and 1590: keep that part of each board and the wall above it empty and calm. A few small decorations may sit on the boards' far ends (x < 330, x > 1590). Keep the top 170 px calm (the title banner) and y ≥ 900 calm (the stars bar) | A big friendly wooden toy shelf (bookcase) filling the screen, front view: warm cream-painted wood with rounded corners, the back panel in soft mint wallpaper with tiny stars, two long empty shelves, a stack of picture books and a wooden toy block at the far left end of the upper shelf, a yarn basket and a little toy drum at the far right end of the lower shelf, a cosy rug and floorboards below. No plush toys, no characters |
+| `thumb/plushie-workshop` | 800×500, opaque | Game-select shelf and how-to screen | A freshly made cute plush bunny with a pink bow and a sewn-on heart patch sitting on a sewing table, a big needle with pink thread stitching a button eye on a little plush bear next to it, fluffy white stuffing puffs flying, thread spools and a pincushion around. No characters. Subject centred |
+| `prop/plushie-stuffing` | 256×256, transparent | One fluffy puff of white toy stuffing, centred; the code draws many of them (40–110 px across) flying from the stuffer into the plush, spinning and shrinking, and a little pile beside the plush | A fluffy tuft of white polyester toy stuffing, like a small soft cloud of cotton, soft light-grey shading |
+| `prop/plushie-stuffer` | 384×384, transparent | Stands on the table beside the plush; **its nozzle's tip at (40, 300)** of the image points at the plush's side (the code puffs stuffing from that point) | A cute stuffing machine for a toy workshop: a round pastel-pink tank with a clear dome on top full of white fluff, a little crank handle on the right, a curved nozzle sticking out to the lower left, four stubby feet |
+| `prop/plushie-needle` | 256×256, transparent | The sewing cursor: **its point at pixel (28, 228)**, which the code puts exactly on the spot where the next piece lands; the code bobs it up and down while stitching and draws the thread trail | A big shiny silver sewing needle lying diagonally, its sharp point at the bottom-left and its eye at the top-right, a loop of pink thread through the eye curling away. Friendly, chunky, cartoon |
+| `prop/plushie-tag` | 384×160, transparent | A blank name tag pinned on the shelf lip under each plushie, drawn about 190 px wide; the code writes the plushie's name in the area x 80–360, y 30–130 | A blank cream paper luggage tag with rounded corners, a punched hole on the left with a loop of pink ribbon through it, a thin stitched border. No text |
