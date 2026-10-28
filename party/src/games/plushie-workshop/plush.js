@@ -362,14 +362,22 @@ function drawClothesProc(g, kind, c, c2, w, t) {
     const h = heartPath(new Path2D(), 0, r * 0.08, r * 0.2); g.fillStyle = '#ff6fa3'; g.fill(h); outline(g, h, 3);
   } else if (kind === 'tutu') {
     for (let layer = 0; layer < 3; layer++) {
-      const p = new Path2D(), y0 = layer * 10, rr = r * (1 - layer * 0.08), dep = 70 + layer * 12;
-      p.moveTo(-rr * 0.55, y0);
-      for (let k = 0; k <= 10; k++) { const x = -rr + (k / 10) * 2 * rr; p.lineTo(x, y0 + dep * (0.75 + 0.25 * (k % 2))); }
-      p.lineTo(rr * 0.55, y0); p.closePath();
-      const cc = c === 'rainbow' ? mix(RAINBOW[layer * 2], '#ffffff', 0.35) : mix(c, '#ffffff', layer * 0.2);
+      const y0 = layer * 8, rr = r * (1 - layer * 0.1), dep = 78 - layer * 14, n = 9;
+      const p = new Path2D();
+      p.moveTo(-rr * 0.5, y0 - 4);
+      p.quadraticCurveTo(-rr * 1.02, y0 + dep * 0.3, -rr, y0 + dep * 0.8);
+      for (let k = 0; k < n; k++) {
+        const x0 = -rr + (k / n) * 2 * rr, x1 = -rr + ((k + 1) / n) * 2 * rr;
+        p.quadraticCurveTo((x0 + x1) / 2, y0 + dep * 1.18, x1, y0 + dep * 0.8);
+      }
+      p.quadraticCurveTo(rr * 1.02, y0 + dep * 0.3, rr * 0.5, y0 - 4); p.closePath();
+      const cc = c === 'rainbow' ? mix(RAINBOW[layer * 2], '#ffffff', 0.35) : mix(c, '#ffffff', layer * 0.22);
       g.fillStyle = cc; g.fill(p); outline(g, p, 3);
+      g.save(); g.clip(p); g.strokeStyle = 'rgba(255,255,255,0.5)'; g.lineWidth = 3;
+      for (let k = -4; k <= 4; k++) { g.beginPath(); g.moveTo(k * rr * 0.11, y0); g.lineTo(k * rr * 0.24, y0 + dep); g.stroke(); }
+      g.restore();
     }
-    const band = new Path2D(); band.rect(-r * 0.6, -10, r * 1.2, 20); g.fillStyle = c === 'rainbow' ? '#ff6fb1' : mix(c, NAVY, 0.15); g.fill(band); outline(g, band, 3);
+    const band = new Path2D(); band.ellipse(0, 0, r * 0.52, 12, 0, 0, TAU); g.fillStyle = c === 'rainbow' ? '#ff6fb1' : mix(c, NAVY, 0.15); g.fill(band); outline(g, band, 3);
   } else if (kind === 'cape') {
     const p = new Path2D(); p.moveTo(-r * 0.45, 0); p.lineTo(r * 0.45, 0); p.quadraticCurveTo(r * 0.9, 120, r, 230);
     for (let k = 0; k <= 6; k++) p.quadraticCurveTo(r - (k + 0.5) * (2 * r / 7), 250, r - (k + 1) * (2 * r / 7), 232);
@@ -507,5 +515,19 @@ export function drawNeedle(g, x, y, s, bob = 0, thread = '#ff5fa2') {
   const gr = g.createLinearGradient(0, -s * 0.04, 0, s * 0.04); gr.addColorStop(0, '#ffffff'); gr.addColorStop(1, '#9aa6c2');
   g.fillStyle = gr; g.fill(p); g.lineWidth = Math.max(2, s * 0.022); g.strokeStyle = NAVY; g.stroke(p);
   g.fillStyle = NAVY; g.beginPath(); g.ellipse(L * 0.92, 0, s * 0.03, s * 0.012, 0, 0, TAU); g.fill();
+  g.restore();
+}
+
+/** A round fabric swatch (the Fabric list). */
+export function drawSwatch(g, fab, x, y, r) {
+  const p = circ(x, y, r);
+  g.save();
+  g.fillStyle = fab.c; g.fill(p);
+  const tile = tileFor(fab);
+  if (tile) { g.save(); g.clip(p); g.translate(x, y); g.scale(r / 60, r / 60); g.fillStyle = g.createPattern(tile, 'repeat'); g.fillRect(-80, -80, 160, 160); g.restore(); }
+  const sh = g.createRadialGradient(x - r * 0.35, y - r * 0.35, r * 0.1, x, y, r);
+  sh.addColorStop(0, 'rgba(255,255,255,0.45)'); sh.addColorStop(0.5, 'rgba(255,255,255,0)'); sh.addColorStop(1, 'rgba(36,22,63,0.2)');
+  g.fillStyle = sh; g.fill(p);
+  g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke(p);
   g.restore();
 }

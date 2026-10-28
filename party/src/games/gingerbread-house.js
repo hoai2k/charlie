@@ -21,7 +21,7 @@ import { aiProfile, steer } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 import { drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
 import {
-  NAVY, SHAPES, ICINGS, CANDIES, CANDY, BOARD_W, onHouse, landing, nearestEdge, newIcing, icingColor,
+  NAVY, SHAPES, ICINGS, CANDIES, CANDY, BOARD_W, CANDY_S, onHouse, landing, nearestEdge, newIcing, icingColor,
   drawHouse, drawGlow, drawCandy, drawShapeIcon, drawGingerPerson, sprinkleColor,
 } from './gingerbread-house/house.js';
 import { meta } from './gingerbread-house.meta.js';
@@ -39,7 +39,7 @@ const BUILD_TIME = 240, BUILD_MORE = 60;   // the studio clock (shown all along)
 const DROP_H = 300, GRAV = 2600;           // pieces fall into place from above (house units)
 const CURSOR_SP = 560, PIPE_SPEED = 230, SNAP_R = 34;
 const MAX_CANDY = 90, MAX_SPRINKLES = 700, MAX_DOTS = 400;
-const VILLAGE_FRONT = 880, VILLAGE_BACK = 690;
+const VILLAGE_FRONT = 880, VILLAGE_BACK = 640;
 const snd = (key, fallback, o) => (hasSound(key) ? sfx(key, o) : fallback && sfx(fallback, o));
 const STEP_LEN = 7;   // icing sample spacing (house.js STEP)
 
@@ -217,7 +217,9 @@ export class Game {
     const a = pts[Math.max(0, j - 1)], b = pts[Math.min(pts.length - 1, j + 1)];
     const dot = (b[0] - a[0]) * mx + (b[1] - a[1]) * my;
     if (Math.abs(dot) > 0.5) return Math.sign(dot);
-    if (j + 1 < arr.length && arr[j + 1] !== k) return 1;
+    const fwd = j + 1 < arr.length && arr[j + 1] !== k, back = j > 0 && arr[j - 1] !== k;
+    if (fwd && back && !e.closed) return j < (arr.length - 1) / 2 ? 1 : -1;   // the longer way
+    if (fwd) return 1;
     if (j > 0 && arr[j - 1] !== k) return -1;
     return 1;
   }
@@ -332,7 +334,7 @@ export class Game {
     const cur = st.cursor, list = st.H.candies;
     for (let j = list.length - 1; j >= 0; j--) {
       const c = list[j], def = CANDIES[CANDY[c.kind]];
-      if (Math.hypot(cur.x - c.x, cur.y - c.y) < def.r + 6) return c;
+      if (Math.hypot(cur.x - c.x, cur.y - c.y) < def.r * CANDY_S + 6) return c;
     }
     return null;
   }
@@ -398,13 +400,13 @@ export class Game {
     const shape = this.shape(st), out = [], built = st.H.built;
     const roofKind = pick(['gumdrop', 'gumdrop', 'peppermint', 'button']);
     for (const e of shape.edges.filter((x) => x.roof)) {
-      for (let j = 3; j < e.pts.length - 2; j += randInt(5, 8)) {
+      for (let j = 3; j < e.pts.length - 2; j += randInt(6, 9)) {
         const [x, y] = e.pts[j];
-        if (onHouse(shape, built, x, y + 16)) out.push({ kind: roofKind, x, y: y + 16 });
+        if (onHouse(shape, built, x, y + 22)) out.push({ kind: roofKind, x, y: y + 22 });
       }
     }
     const door = shape.door?.h;
-    if (door && chance(0.8)) { out.push({ kind: 'cane', x: door.x - 14, y: door.y + door.h * 0.55 }); out.push({ kind: 'cane', x: door.x + door.w + 14, y: door.y + door.h * 0.55 }); }
+    if (door && chance(0.8)) { out.push({ kind: 'cane', x: door.x - 18, y: door.y + door.h * 0.55 }); out.push({ kind: 'cane', x: door.x + door.w + 18, y: door.y + door.h * 0.55 }); }
     const extra = randInt(2, 5);
     for (let tries = 0; tries < 60 && out.length < 40 && extra > out.filter((o) => o.extra).length; tries++) {
       const x = rand(-200, 200), y = rand(shape.top, -10);
@@ -598,15 +600,15 @@ export class Game {
     snd('night-crickets', null, { vol: 0.3 });
     const n = this.n, rows = n <= 4 ? [[...Array(n).keys()]] : [[...Array(Math.floor(n / 2)).keys()], [...Array(n).keys()].slice(Math.floor(n / 2))];
     const front = rows[rows.length - 1].length;
-    const slotF = Math.min(n === 1 ? 900 : 600, (W - 160) / front);
-    const sF = Math.min(n === 1 ? 1.15 : 0.95, (slotF * 0.74) / BOARD_W);
+    const slotF = Math.min(n === 1 ? 900 : n === 2 ? 820 : 600, (W - 160) / front);
+    const sF = Math.min(n <= 2 ? 1.15 : 0.95, (slotF * 0.74) / BOARD_W);
     this.village = [];
     rows.forEach((row, ri) => {
       const back = rows.length > 1 && ri === 0;
       const slot = back ? Math.min(560, (W - 360) / row.length) : slotF, s = back ? sF * 0.78 : sF, gy = back ? VILLAGE_BACK : VILLAGE_FRONT;
       row.forEach((idx, j) => {
         const st = this.stations[idx];
-        const x = W / 2 + (j - (row.length - 1) / 2) * slot;
+        const x = W / 2 + (j - (row.length - 1) / 2) * slot + (back ? slot * 0.3 : 0);
         st.v = { x, y: gy, s, slot, back, lightAt: 1.8 + idx * Math.min(0.35, 2.4 / n), vz: 0, aiT: rand(0.5, 1.5), aiM: 0, nibCD: 0 };
         this.village.push(st);
       });
@@ -761,7 +763,7 @@ export class Game {
     const tab = TABS[st.tab].id;
     drawHouse(g, st.H, { t: this.t, ghost: !st.ready && tab === 'build' ? st.H.built : -1 });
     if (!st.ready && tab === 'candy' && st.hover) {
-      const c = st.hover, rr = CANDIES[CANDY[c.kind]].r + 8;
+      const c = st.hover, rr = CANDIES[CANDY[c.kind]].r * CANDY_S + 8;
       g.save(); g.globalAlpha = 0.6 + 0.3 * Math.sin(this.t * 8); g.setLineDash([7, 6]); g.lineWidth = 3;
       g.strokeStyle = p.color; g.beginPath(); g.arc(c.x, c.y, rr, 0, TAU); g.stroke(); g.restore();
     }
@@ -900,7 +902,7 @@ export class Game {
     switch (TABS[st.tab].id) {
       case 'build': return { title: 'House', sel: st.H.shape, items: SHAPES.map((s, i) => ({ name: s.name, icon: (g, x, y, sz) => drawShapeIcon(g, i, x, y, sz) })) };
       case 'icing': return { title: 'Icing', sel: st.icingSel, items: ICINGS.map((ic, i) => ({ name: ic.name, icon: (g, x, y, sz) => this.icingIcon(g, i, x, y, sz) })) };
-      case 'candy': return { title: 'Candy', sel: st.candySel, items: CANDIES.map((c, i) => ({ name: c.name, icon: (g, x, y, sz) => { g.save(); g.translate(x, y); const sc = sz / 46; g.scale(sc, sc); drawCandy(g, c.id, 0, c.id === 'lolli' ? 10 : 0, i); g.restore(); } })) };
+      case 'candy': return { title: 'Candy', sel: st.candySel, items: CANDIES.map((c, i) => ({ name: c.name, icon: (g, x, y, sz) => { g.save(); g.translate(x, y); const sc = sz / 46; g.scale(sc, sc); drawCandy(g, c.id, 0, c.id === 'lolli' ? 10 : 0, i, false, 1); g.restore(); } })) };
       default: return null;
     }
   }
@@ -938,7 +940,7 @@ export class Game {
       g.save(); g.translate(lr.x + lr.w / 2, sy + slotH / 2); g.scale(1 + bump, 1 + bump);
       const bw = lr.w - 16, bh = slotH - 6;
       ui.panel(g, -bw / 2, -bh / 2, bw, bh, { r: 14, fill: sel ? '#ffd23f' : '#ffffff', lineWidth: sel ? 4 : 2, stroke: sel ? NAVY : 'rgba(36,22,63,0.25)', shadow: false });
-      const isz = Math.min(bh * 0.92, named ? bh : bw * 0.8);
+      const isz = Math.min(bh * 0.92, named ? bw * 0.4 : bw * 0.8);
       const ix = named ? -bw / 2 + isz / 2 + 6 : 0;
       it.icon(g, ix, 0, isz);
       if (named) ui.text(g, it.name, ix + isz / 2 + 8, 2, { size: clamp(bh * 0.3, 16, 30), color: NAVY, stroke: false, align: 'left', weight: 700, maxWidth: bw - isz - 20 });

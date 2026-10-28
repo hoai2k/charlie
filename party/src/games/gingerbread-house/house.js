@@ -12,6 +12,7 @@ export const NAVY = '#24163f';
 const GB = '#c98345', GB_ROOF = '#b9713a', GB_EDGE = 'rgba(120,56,20,0.45)';
 export const BOX = { x: -240, y: -440, w: 480, h: 440 };
 export const BOARD_W = 540;
+export const CANDY_S = 1.5;   // candies are drawn this much bigger than their units below
 const STEP = 7;   // icing samples along an edge, in units
 
 // --- geometry -----------------------------------------------------------------------------
@@ -274,7 +275,7 @@ function atlasCell(g, cell, x, y, s) {
 }
 
 /** One candy centred on (x, y); `v` picks its colour; `flip` mirrors it (candy canes). */
-export function drawCandy(g, kind, x, y, v = 0, flip = false, s = 1) {
+export function drawCandy(g, kind, x, y, v = 0, flip = false, s = CANDY_S) {
   const def = CANDIES[CANDY[kind]];
   g.save(); g.translate(x, y); g.scale(s * (flip ? -1 : 1), s);
   g.lineWidth = 2.4; g.strokeStyle = NAVY; g.lineJoin = 'round';

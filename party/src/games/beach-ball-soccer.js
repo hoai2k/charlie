@@ -33,7 +33,7 @@ export { meta };
 // --- layout (screen px; the pitch is seen from a high three-quarter view) ------------
 const P = { x0: 150, x1: 1770, y0: 420, y1: 1010 };   // goal lines and sidelines
 const CX = 960, CY = 715;                             // centre spot
-const MOUTH = 120;                                    // half the goal mouth (y)
+const MOUTH = 150;                                    // half the goal mouth (y): a big, kid-sized goal
 const DEPTH = 100;                                    // how far the net goes back
 const BAR = 150;                                      // crossbar height
 const LEAN = 14;                                      // posts lean back a little (reads as 3D)
@@ -43,7 +43,7 @@ const BR = 44;                // footprint radius on the sand (collisions)
 const GRAV = 1250;            // floaty
 const MAX_V = 1500;
 // --- players ---------------------------------------------------------------------------
-const WALK = 360, Y_K = 0.82; // run speed; up/down is a touch slower (it's depth)
+const WALK = 400, Y_K = 0.82; // run speed; up/down is a touch slower (it's depth)
 const KICK_CD = 0.3, CHARGE_T = 0.75, BUFFER = 0.3;
 // --- match -----------------------------------------------------------------------------
 const MATCH = 90, GOLDEN = 30;
@@ -296,7 +296,7 @@ export class Game {
     if (c.held('a')) { m.want = Math.max(m.want, 0.05); m.charge = Math.min(1, m.charge + dt / CHARGE_T); }
     else { m.want -= dt; if (m.want <= 0) m.charge = 0; }
     if (m.want > 0 && m.kickCd <= 0 && this.inReach(m)) {
-      this.kick(m, m.charge >= 0.25 ? m.charge : 0);
+      this.kick(m, m.p.isAI ? m.kickCharge || 0 : m.charge >= 0.25 ? m.charge : 0);
       m.want = 0; m.charge = 0;
     }
   }
@@ -317,9 +317,9 @@ export class Game {
     const away = Math.atan2(b.y - m.y, b.x - m.x);
     const back = Math.cos(ang - away);
     if (back < -0.2) ang = away + Math.atan2(Math.sin(ang - away), Math.cos(ang - away)) * 0.4;
-    const power = 700 + 650 * charge;
+    const power = 940 + 600 * charge;
     b.vx = Math.cos(ang) * power; b.vy = Math.sin(ang) * power * 0.85;
-    b.vz = 230 + 420 * charge;
+    b.vz = 300 + 380 * charge;
     b.z = Math.max(b.z, 4);
     b.last = m; m.touches++;
     m.kickCd = KICK_CD;
@@ -362,7 +362,7 @@ export class Game {
         }
       } else b.vz = 0;
     }
-    const drag = Math.exp(-(b.z > 2 ? 0.35 : 0.95) * dt);
+    const drag = Math.exp(-(b.z > 2 ? 0.3 : 0.8) * dt);
     b.vx *= drag; b.vy *= drag;
     const sp = Math.hypot(b.vx, b.vy);
     if (sp > MAX_V) { b.vx *= MAX_V / sp; b.vy *= MAX_V / sp; }
@@ -453,7 +453,7 @@ export class Game {
       }
       // bounce off the body (the ball is light: it springs away)
       const rel = vn - pvn;
-      if (rel < 0) { b.vx -= 1.5 * rel * nx; b.vy -= 1.5 * rel * ny; }
+      if (rel < 0) { b.vx -= 1.35 * rel * nx; b.vy -= 1.35 * rel * ny; }
       // a runner pushes it along ahead of them (dribbling)
       const want = pvn * 1.25 + 40;
       const now = b.vx * nx + b.vy * ny;
@@ -586,14 +586,20 @@ export class Game {
       m.brain.wait(rand(...prof.reaction) * 0.5);
       const lead = [0.05, 0.15, 0.25][lvl];
       m.seen = { x: b.x + b.vx * lead, y: b.y + b.vy * lead };
+      // where to shoot: the corner away from their keeper (Easy CPUs aim more at the middle)
+      const theirK = this.members.find((o) => o.team !== m.team && o.keeper);
+      const side = theirK ? (theirK.y > CY ? -1 : 1) : (m.p.index % 2 ? 1 : -1);
+      m.shotY = CY + side * (MOUTH - 40) * [0.45, 0.8, 1][lvl];
+      if (m.clearY == null || chance(0.1)) m.clearY = CY + rand(-200, 200);
     }
     const sb = m.seen;
-    let tx, ty, speed = prof.speed * [0.85, 0.92, 1][lvl];
+    let tx, ty, speed = prof.speed;
     let chase = false;
     if (m.keeper) {
-      const danger = (sb.x - gx) * d < 380 && !b.hidden;
-      if (danger) { chase = true; speed *= 0.95; }
-      else { tx = gx + d * 120; ty = clamp(sb.y, CY - MOUTH + 25, CY + MOUTH - 25); }
+      // keepers only come out for a ball right in front of goal, and not too fast (they're beatable)
+      const danger = (sb.x - gx) * d < [220, 260, 320][lvl] && Math.abs(sb.y - CY) < MOUTH + 140 && !b.hidden;
+      if (danger) { chase = true; speed *= [0.75, 0.85, 0.95][lvl]; }
+      else { tx = gx + d * 110; ty = CY + clamp(sb.y - CY, -MOUTH, MOUTH) * [0.45, 0.55, 0.7][lvl]; speed *= 0.85; }
     } else {
       // the team's nearest outfield CPU goes for the ball, unless a kid on the team is closer
       const mates = this.members.filter((o) => o.team === m.team && !o.keeper);
@@ -613,7 +619,7 @@ export class Game {
     m.aim = null;
     if (chase) {
       // line up behind the ball, facing the goal we attack (keepers just clear it upfield)
-      const G = { x: goalX(1 - m.team), y: CY + (m.keeper ? rand(-200, 200) : 0) };
+      const G = { x: goalX(1 - m.team), y: m.keeper ? m.clearY : m.shotY ?? CY };
       let ux = G.x - sb.x, uy = G.y - sb.y;
       const ul = Math.hypot(ux, uy) || 1; ux /= ul; uy /= ul;
       const behind = BR + m.pr + 6;
@@ -626,11 +632,13 @@ export class Game {
       }
       if (this.inReach(m) && m.kickCd <= 0) {
         const lined = ((b.x - m.x) * ux + (b.y - m.y) * uy) / (Math.hypot(b.x - m.x, b.y - m.y) || 1);
-        if (lined > 0.25) {
-          if (m.kickAt < 0) m.kickAt = this.t + reactionTime(p) * [0.9, 0.55, 0.3][lvl];
+        const byWall = b.y < P.y0 + 120 || b.y > P.y1 - 110 || Math.abs(b.x - CX) > 700;
+        if (lined > (byWall ? -0.35 : [0.35, 0.1, 0][lvl])) {
+          if (m.kickAt < 0) m.kickAt = this.t + reactionTime(p) * [0.6, 0.25, 0.1][lvl];
           if (this.t >= m.kickAt) {
-            const err = (makesMistake(p) ? 2.2 : 1) * prof.aimError * rand(-1, 1) * [1.3, 0.9, 0.6][lvl];
+            const err = (makesMistake(p) ? 2.2 : 1) * prof.aimError * rand(-1, 1) * [1.0, 0.6, 0.4][lvl];
             m.aim = m.kickAim = Math.atan2(uy, ux) + err;
+            m.kickCharge = rand(...[[0, 0.3], [0, 0.55], [0.2, 0.85]][lvl]);
             p.ctrl.press('a');
             m.kickAt = -1;
           }
@@ -723,10 +731,10 @@ export class Game {
       if (part !== 'back') return;
       g.save();
       if (team === 1) { g.translate(W, 0); g.scale(-1, 1); }
-      // goal box (pink end): x 0-160, y 415-845; the blue end is its mirror image
+      // goal box (pink end): x 0-160, y 445-875 (posts at (150, 565) and (150, 865)); the blue end is its mirror image
       const sxw = 1 + Math.max(0, w) * 0.004;
-      g.translate(160, 845); g.scale(sxw, 1); g.translate(-160, -845);
-      g.drawImage(img, 0, 415, 160, 430);
+      g.translate(160, 875); g.scale(sxw, 1); g.translate(-160, -875);
+      g.drawImage(img, 0, 445, 160, 430);
       g.restore();
       return;
     }
