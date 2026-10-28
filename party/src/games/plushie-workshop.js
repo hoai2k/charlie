@@ -656,6 +656,15 @@ export class Game {
         if (chance(dt * 1.6)) this.addHeart(a.x + rand(-40, 40), a.y - a.z - a.height * 0.6, st.p.color);
         a.update(dt);
       }
+      // keep everyone a little apart (no one walks through a friend and their plush)
+      const as = this.stations.map((st) => st.actor);
+      for (let i = 0; i < as.length; i++) for (let j = i + 1; j < as.length; j++) {
+        const p = as[i], q = as[j], gap = Math.max(200, (p.height + q.height) * 0.42), d = q.x - p.x;   // wide enough for the name tags
+        if (Math.abs(d) < gap) {
+          const push = (gap - Math.abs(d)) * Math.min(1, dt * 10) * 0.5 * (d >= 0 ? 1 : -1);
+          p.x = clamp(p.x - push, 70, W - 70); q.x = clamp(q.x + push, 70, W - 70);
+        }
+      }
       if (this.phaseT > 0.4 && !this.hugCheer) { this.hugCheer = true; sfx('giggle'); }
       if (this.phaseT > (this.cpuOnly ? HUG_T : HUG_T_PLAY)) this.startShelf();
     } else if (this.phase === 'shelf') {

@@ -4,7 +4,7 @@
 import { W, H } from '../../engine/canvas.js';
 import { art } from '../../engine/art.js';
 import * as ui from '../../engine/ui.js';
-import { TAU, clamp, rand } from '../../engine/util.js';
+import { TAU, rand } from '../../engine/util.js';
 
 export const NAVY = '#24163f';
 // leaf colours (rows of prop/llp-leaves): red, orange, gold, brown
@@ -380,4 +380,3 @@ export function drawCollar(g, x, y, w, seed, t) {
     drawLeaf(g, s, x + u * w * 0.5, y + 4 - Math.abs(u) * -6 + Math.sin(t * 3 + i) * 1.5, 40 + (i % 3) * 6, u * 1.2 + seed);
   }
 }
-export { clamp };
