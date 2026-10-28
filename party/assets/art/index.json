@@ -1312,6 +1312,13 @@
     "prop/oballet-teacher-moonwalk": "prop/oballet-teacher-moonwalk.webp"
   },
   "groups": {
+    "beach-ball-soccer": [
+      "bg/beach-ball-soccer",
+      "bg/sandcastle-beach",
+      "prop/bbs-goal-pink",
+      "prop/bbs-goal-blue",
+      "prop/bbs-beach-ball"
+    ],
     "puppet-theater": [
       "bg/puppet-theater",
       "prop/pt-booth",
