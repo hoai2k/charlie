@@ -1,16 +1,19 @@
 // Gingerbread House (Play Studio). Every player builds a gingerbread house at their own
-// station on the kitchen table, in three steps (LB / RB; the last tab is Done):
-//   Build  - pick a shape (cottage, tall house, castle) and press X to drop each piece into
-//            place (it lands with a squish of icing glue). A drops the rest and goes on.
-//   Icing  - hold X to pipe: the bag snaps to the nearest roof edge / window / door and, with
-//            the stick let go, the icing runs along that edge by itself. A pipes the edge
-//            under the bag (if X didn't pipe yet) and goes on. B undoes one stroke.
-//   Candy  - the D-pad (keyboard: LT / RT) picks a candy, the stick moves the hand, X sticks one
-//            on and stays (hold X: sprinkles), A sticks one on (unless X did) and goes on.
-//            The candy in the hand is drawn exactly where it will stick. B takes one off.
+// station on the kitchen table, in three steps (LB / RB move between them; the last tab is Done).
+// It's a design game, so A does each step's action and stays on the step (like X):
+//   Build  - pick a shape (cottage, tall house, castle; the whole house shows as a dashed ghost)
+//            and press A (or X) to drop each piece into place (it lands with a squish of icing glue).
+//   Icing  - the edge / window / door the bag will ice glows in the icing colour. A ices all of it;
+//            hold X to pipe by hand (with the stick let go the icing runs along the edge by
+//            itself). Held above the house, the icing drips down onto the top below. B undoes.
+//   Candy  - the D-pad (keyboard: LT / RT) picks a candy, the stick moves the hand, A or X sticks
+//            one on (hold: sprinkles). Over the house it sticks where it's drawn; held above the
+//            house it drops onto the first roof / ledge / top below (bounce, squash, settle); only
+//            with no house below it goes down to the board. B takes one off.
 // Finale: night falls, everyone's house moves into a snowy gingerbread village, the windows
 // light up, a gingerbread person peeks out of each door and the players walk about the
-// village (A jumps, X nibbles a candy off your own house). It ends on the village (gallery).
+// village (A jumps, X nibbles your own house: candy first, a bite mark and then gone, else a
+// bite out of the gingerbread). It ends on the village (gallery).
 import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
@@ -928,6 +931,8 @@ export class Game {
       g.save(); g.globalAlpha = 0.6 + 0.3 * Math.sin(this.t * 8); g.setLineDash([7, 6]); g.lineWidth = 3;
       g.strokeStyle = p.color; g.beginPath(); g.arc(c.x, c.y, rr, 0, TAU); g.stroke(); g.restore();
     }
+    if (!st.ready && tab === 'icing' && !p.isAI) this.drawIceTarget(g, st);
+    this.drawDrips(g, st);
     g.restore();
     if (this.phase === 'build') st.actor.draw(g, { ring: p.color });
     if (!st.ready && (tab === 'icing' || tab === 'candy')) this.drawCursor(g, st, tab);
@@ -972,7 +977,7 @@ export class Game {
     g.strokeStyle = NAVY; g.lineWidth = 3; g.beginPath(); g.moveTo(r.x, ty); g.lineTo(r.x + r.w, ty); g.stroke();
   }
 
-  /** Build: "X Place" over the next piece's spot (or the finished house). */
+  /** Build: "A Place" over the next piece's spot (or the finished house). */
   drawBuildPrompt(g, st) {
     if (st.p.isAI) return;
     const shape = this.shape(st), n = shape.pieces.length, k = st.L.k;
@@ -982,8 +987,47 @@ export class Game {
     const w = gsz + 10 + ui.measure(g, label, fs, 800) + 22, h = gsz * 1.5, bob = Math.sin(this.t * 6) * 4;
     const x = clamp(s.x, st.L.ca.x + w / 2 + 6, st.L.ca.x + st.L.ca.w - w / 2 - 6), y = Math.max(st.L.ca.y + h / 2 + 4, s.y) + bob;
     ui.panel(g, x - w / 2, y - h / 2, w, h, { r: h / 2, fill: '#ffd23f', lineWidth: 3, shadow: false });
-    ui.glyph(g, 'x', x - w / 2 + 8 + gsz / 2, y, gsz, { pulse: true });
+    ui.glyph(g, 'a', x - w / 2 + 8 + gsz / 2, y, gsz, { pulse: true });
     ui.text(g, label, x - w / 2 + 14 + gsz, y + 1, { size: fs, color: NAVY, stroke: false, align: 'left', weight: 800 });
+  }
+
+  /** Icing: softly glow the exact edge / window / door the bag will ice (in the icing colour), and
+   * above the house the drip line down to the top it will drip onto. In house units. */
+  drawIceTarget(g, st) {
+    const shape = this.shape(st), P = st.pipe;
+    const tg = P && P.snap ? { t: 'edge', e: P.snap.e, j: Math.round(P.snap.u) } : this.iceTarget(st);
+    if (!tg) return;
+    const col = icingColor(st.icingSel, Math.floor(this.t * 6)), pulse = 0.5 + 0.5 * Math.sin(this.t * 5);
+    g.save(); g.lineCap = 'round'; g.lineJoin = 'round';
+    if (tg.e !== undefined) {
+      const e = shape.edges[tg.e];
+      const path = () => { g.beginPath(); e.pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); if (e.closed) g.closePath(); };
+      path(); g.globalAlpha = 0.18 + 0.12 * pulse; g.lineWidth = 26; g.strokeStyle = col; g.stroke();
+      path(); g.globalAlpha = 0.35 + 0.2 * pulse; g.lineWidth = 14; g.stroke();
+      g.globalAlpha = 0.7; g.setLineDash([9, 9]); g.lineDashOffset = -this.t * 30;
+      path(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
+      g.setLineDash([]);
+      const [px, py] = e.pts[clamp(tg.j, 0, e.pts.length - 1)];
+      g.globalAlpha = 0.9; g.beginPath(); g.arc(px, py, 7 + pulse * 2, 0, TAU); g.fillStyle = col; g.fill(); g.lineWidth = 2.5; g.strokeStyle = NAVY; g.stroke();
+    }
+    if (tg.t === 'drip' || tg.t === 'dot') {
+      const cur = st.cursor;
+      if (tg.t === 'drip') {
+        g.globalAlpha = 0.6; g.setLineDash([4, 9]); g.lineDashOffset = -this.t * 40; g.lineWidth = 4; g.strokeStyle = col;
+        g.beginPath(); g.moveTo(cur.x, cur.y + 8); g.lineTo(tg.x, tg.y - 6); g.stroke();
+        g.lineWidth = 1.5; g.strokeStyle = NAVY; g.stroke(); g.setLineDash([]);
+      }
+      g.globalAlpha = 0.85; g.beginPath(); g.arc(tg.x, tg.y, 8, 0, TAU); g.fillStyle = col; g.fill();
+      g.setLineDash([4, 4]); g.lineWidth = 2.5; g.strokeStyle = NAVY; g.stroke();
+    }
+    g.restore();
+  }
+  /** Drops of icing on their way down (house units). */
+  drawDrips(g, st) {
+    for (const d of st.drips) {
+      g.beginPath(); g.moveTo(d.x, d.y - 9); g.quadraticCurveTo(d.x + 6, d.y, d.x, d.y + 5); g.quadraticCurveTo(d.x - 6, d.y, d.x, d.y - 9);
+      g.fillStyle = icingColor(d.k, Math.round(d.y)); g.fill(); g.lineWidth = 1.6; g.strokeStyle = 'rgba(36,22,63,0.6)'; g.stroke();
+    }
   }
 
   drawCursor(g, st, tab) {
@@ -991,7 +1035,7 @@ export class Game {
     if (tab === 'icing') {
       // the piping bag, its nozzle tip on the icing spot
       const shape = this.shape(st), ne = nearestEdge(shape, st.H.built, cur.x, cur.y, SNAP_R);
-      if (ne && !st.pipe) {
+      if (ne && !st.pipe && st.p.isAI) {
         const pt = shape.edges[ne.e].pts[ne.j], q = this.toScreen(st, pt[0], pt[1]);
         g.save(); g.globalAlpha = 0.5 + 0.3 * Math.sin(this.t * 8); g.beginPath(); g.arc(q.x, q.y, 9 * k + 4, 0, TAU);
         g.lineWidth = 3; g.strokeStyle = st.p.color; g.stroke(); g.restore();
@@ -1130,9 +1174,9 @@ export class Game {
     const tab = TABS[st.tab].id, pad = p.ctrl.kind === 'pad';
     let items;
     if (st.ready) items = [['b', 'Change']];
-    else if (tab === 'build') items = st.H.built < this.shape(st).pieces.length ? [['x', 'Place'], [pad ? 'dpad' : 'stick', 'Shape'], ['a', 'Build it all'], ['b', 'Take off']] : [['x', 'Wiggle'], ['a', 'OK!'], ['b', 'Take off']];
-    else if (tab === 'icing') items = [['stick', 'Move'], ['x', 'Hold: pipe'], [pad ? 'dpad' : 'rt', 'Icing'], ['a', 'OK!'], ['b', 'Undo']];
-    else if (tab === 'candy') items = [['stick', 'Move'], ['x', CANDIES[st.candySel].spray ? 'Shake!' : 'Stick on'], [pad ? 'dpad' : 'rt', 'Candy'], ['a', 'OK!'], ['b', st.hover ? 'Take off' : 'Undo']];
+    else if (tab === 'build') items = st.H.built < this.shape(st).pieces.length ? [['a', 'Place'], [pad ? 'dpad' : 'stick', 'Shape'], ['b', 'Take off'], ['rb', 'Next step']] : [['a', 'Wiggle'], ['b', 'Take off'], ['rb', 'Next step']];
+    else if (tab === 'icing') items = [['stick', 'Move'], ['a', 'Ice it'], ['x', 'Hold: pipe'], [pad ? 'dpad' : 'rt', 'Icing'], ['b', 'Undo']];
+    else if (tab === 'candy') items = [['stick', 'Move'], ['a', CANDIES[st.candySel].spray ? 'Hold: shake!' : 'Stick on'], [pad ? 'dpad' : 'rt', 'Candy'], ['b', st.hover ? 'Take off' : 'Undo']];
     else items = [['lb', 'Change'], ['a', "I'm ready!"]];
     const avail = r.x + r.w - 16 - x, lab = sz * 0.62;
     let need = 0;
