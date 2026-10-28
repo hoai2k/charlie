@@ -1312,6 +1312,25 @@
     "prop/oballet-teacher-moonwalk": "prop/oballet-teacher-moonwalk.webp"
   },
   "groups": {
+    "plushie-workshop": [
+      "bg/plushie-workshop",
+      "bg/plushie-shelf",
+      "thumb/plushie-workshop",
+      "prop/plushie-body-bear",
+      "prop/plushie-body-bunny",
+      "prop/plushie-body-unicorn",
+      "prop/plushie-body-kitty",
+      "prop/plushie-body-puppy",
+      "prop/plushie-body-dragon",
+      "prop/plushie-face",
+      "prop/plushie-patches",
+      "prop/plushie-clothes",
+      "prop/plushie-stuffing",
+      "prop/plushie-stuffer",
+      "prop/plushie-needle",
+      "prop/plushie-tag",
+      "prop/snowman-bowtie"
+    ],
     "gingerbread-house": [
       "bg/gingerbread-house",
       "bg/gingerbread-house-night",
