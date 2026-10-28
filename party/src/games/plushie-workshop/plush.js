@@ -5,7 +5,7 @@
 import { art } from '../../engine/art.js';
 import { RAINBOW } from '../../engine/particles.js';
 import { clamp, ease, TAU } from '../../engine/util.js';
-import { NAVY, CW, CH, F, FLAT, squashAt, BODIES, FABRICS, SEW_ROWS, DRESS_ROWS } from './data.js';
+import { NAVY, CW, CH, F, FLAT, squashAt, BODIES, FABRICS, SEW_ROWS, DRESS_ROWS, bowHome, bowTilt } from './data.js';
 
 const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
 function hex(c) { const v = parseInt(c.slice(1), 16); return [(v >> 16) & 255, (v >> 8) & 255, v & 255]; }
@@ -314,6 +314,40 @@ export function drawPiece(g, row, i, x, y, { alpha = 1, k = 1 } = {}) {
   if (R.id === 'eyes') { one(F.eyeDX * k, false); one(-F.eyeDX * k, true); } else one(0, false);
   g.restore();
 }
+/**
+ * The needle's trip round a piece as it's sewn on (frame px): points round its edge, the
+ * last back at the first. Eyes go round one eye, hop across (`jump`: no thread there) and
+ * round the other.
+ */
+export function stitchPath(row, x, y) {
+  const R = SEW_ROWS[row], pts = [], jump = new Set();
+  const loop = (cx, cy, r, n, a0) => { for (let k = 0; k <= n; k++) { const a = a0 + (k / n) * TAU; pts.push({ x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r }); } };
+  if (R.id === 'eyes') {
+    loop(x - F.eyeDX, y, R.size * 0.52, 6, -Math.PI / 2);
+    jump.add(pts.length - 1);
+    loop(x + F.eyeDX, y, R.size * 0.52, 6, -Math.PI / 2);
+  } else if (R.id === 'mouth') {
+    const n = 6; for (let k = 0; k <= n; k++) { const a = -Math.PI / 2 + (k / n) * TAU; pts.push({ x: x + Math.cos(a) * R.size * 0.55, y: y + Math.sin(a) * R.size * 0.3 }); }
+  } else loop(x, y, pieceRadius(row) * 0.82, 7, -Math.PI / 2);
+  return { pts, jump };
+}
+
+/** The thread sewn so far: a running stitch along the path (frame px), `u` = 0..1 of the trip. */
+function drawThread(g, path, u, alpha = 1) {
+  const { pts, jump } = path, n = pts.length - 1, done = Math.min(n, Math.floor(u * n + 1e-4));
+  g.save(); g.globalAlpha *= alpha; g.lineCap = 'round';
+  for (let k = 0; k < done; k++) {
+    if (jump.has(k)) continue;
+    const a = pts[k], b = pts[k + 1];
+    const x0 = a.x + (b.x - a.x) * 0.16, y0 = a.y + (b.y - a.y) * 0.16, x1 = a.x + (b.x - a.x) * 0.84, y1 = a.y + (b.y - a.y) * 0.84;
+    g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1);
+    g.lineWidth = 7.5; g.strokeStyle = NAVY; g.stroke();
+    g.lineWidth = 4.5; g.strokeStyle = '#ff5fa2'; g.stroke();
+  }
+  for (let k = 0; k <= done; k++) { if (k && jump.has(k - 1) && k === done) continue; const p = pts[k]; g.fillStyle = NAVY; g.beginPath(); g.arc(p.x, p.y, 3.2, 0, TAU); g.fill(); }
+  g.restore();
+}
+
 /** Half-size of a piece (for "something already sewn here?" and the stitch ring). */
 export function pieceRadius(row) { const R = SEW_ROWS[row]; return R.id === 'eyes' ? F.eyeDX + R.size * 0.5 : R.size * 0.55; }
 
@@ -405,40 +439,136 @@ function drawClothesProc(g, kind, c, c2, w, t) {
   }
 }
 
-/** One clothes item (row, item) in frame px. */
-export function drawClothes(g, row, idx, t = 0) {
+/**
+ * A worn scarf from the clothes atlas. The generated scarves are a ring seen a little from
+ * above (the back of the neck shows as a rim over the front band), so they read as lying
+ * flat. Drawn in thin vertical strips: the whole scarf behind the body (its ends wrap round
+ * the sides), then over the body only below the rim (an outline closes the cut), with the
+ * band sagging into a smile so it hugs the round neck.
+ */
+const SCARF_CUT = 82, SCARF_SAG = 12;
+function scarfCut(x) { return SCARF_CUT * smooth(36, 62, x) * (1 - smooth(186, 206, x)); }
+function scarfSag(x) { const u = (x - 128) / 128; return SCARF_SAG * Math.max(0, 1 - u * u); }
+function drawScarfArt(g, img, cw, ch, col, arow, front) {
+  const dw = 295, k = dw / 256, ax = 128, ay = 96, at = F.neck;
+  const sx0 = col * cw, sy0 = arow * ch, q = cw / 256;
+  const step = 4;
+  for (let x = 0; x < 256; x += step) {
+    const cut = front ? scarfCut(x + step / 2) : 0, dy = scarfSag(x + step / 2);
+    g.drawImage(img, sx0 + x * q, sy0 + cut * q, step * q + 0.5, (256 - cut) * q,
+      at.x + (x - ax) * k - 0.25, at.y + (cut + dy - ay) * k, step * k + 0.5, (256 - cut) * k);
+  }
+  if (front) {   // close the cut with the art's own outline
+    g.beginPath();
+    for (let x = 58; x <= 190; x += 4) { const px = at.x + (x - ax) * k, py = at.y + (scarfCut(x) + scarfSag(x) - ay) * k + 1; if (x === 58) g.moveTo(px, py); else g.lineTo(px, py); }
+    g.lineWidth = 4.5; g.lineCap = 'round'; g.strokeStyle = NAVY; g.stroke();
+  }
+}
+
+/**
+ * A cape flared out behind the seated plush: the art is split down the middle and each half
+ * swings out from its shoulder (with a little billow), widening towards the hem, so the cape
+ * shows at both sides of a front-facing plush (the generated capes hang straight down and
+ * hid behind the body).
+ */
+function drawCape(g, img, top, t) {
+  const iw = img.width, ih = img.height, n = 24;
+  const h = 300, w = 400;
+  for (const s of [-1, 1]) {
+    const px = F.cx + s * 46, py = top + 18;
+    const ang = -s * (0.52 + Math.sin(t * 1.7 + (s > 0 ? 0 : 1.3)) * 0.04);
+    g.save(); g.translate(px, py); g.rotate(ang);
+    // strips: the inner edge stays at the pivot, the outer edge fans out
+    for (let j = 0; j < n; j++) {
+      const u0 = j / n, u1 = (j + 1) / n, um = (u0 + u1) / 2;
+      const hw = (w / 2) * (0.55 + 0.45 * um);
+      const sx = s < 0 ? 0 : iw / 2;
+      const dx = s < 0 ? -hw : 0;
+      g.drawImage(img, sx, u0 * ih, iw / 2, (u1 - u0) * ih + 0.5, dx, u0 * h - 18, hw, (u1 - u0) * h + 0.6);
+    }
+    g.restore();
+  }
+}
+
+/** A puffy stitched heart pillow (the Hug row's stand-in until its art lands). */
+function drawPillow(g, c, w) {
+  const r = w / 2;
+  const p = heartPath(new Path2D(), 0, -r * 0.05, r * 0.86);
+  g.fillStyle = c; g.fill(p);
+  const gr = g.createRadialGradient(-r * 0.3, -r * 0.35, r * 0.05, 0, 0, r);
+  gr.addColorStop(0, 'rgba(255,255,255,0.55)'); gr.addColorStop(0.45, 'rgba(255,255,255,0)'); gr.addColorStop(1, 'rgba(36,22,63,0.2)');
+  g.fillStyle = gr; g.fill(p);
+  outline(g, p, 5);
+  stitchRing(g, heartPath(new Path2D(), 0, -r * 0.03, r * 0.68));
+}
+
+/** A little paw (the plush's own fabric) holding a Hug item: a round mitten with toe seams. */
+function drawPaw(g, fab, x, y) {
+  const p = ell(x, y, 30, 25, 0);
+  g.fillStyle = fab.c; g.fill(p);
+  const tile = tileFor(fab);
+  if (tile) { g.fillStyle = g.createPattern(tile, 'repeat'); g.fill(p); }
+  const sh = g.createRadialGradient(x - 10, y - 10, 2, x, y, 32);
+  sh.addColorStop(0, 'rgba(255,255,255,0.45)'); sh.addColorStop(0.5, 'rgba(255,255,255,0.05)'); sh.addColorStop(1, 'rgba(36,22,63,0.28)');
+  g.fillStyle = sh; g.fill(p);
+  g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke(p);
+  g.save(); g.strokeStyle = 'rgba(36,22,63,0.55)'; g.lineWidth = 3; g.lineCap = 'round';
+  for (const dx of [-10, 0, 10]) { g.beginPath(); g.moveTo(x + dx, y + 24); g.lineTo(x + dx * 0.9, y + 12); g.stroke(); }
+  g.restore();
+}
+
+/** Where a movable head item (a bow) sits: P.bow, or the item's own spot. */
+export function bowAt(P, it) { return (P && P.bow) || bowHome(it); }
+
+/** One clothes item (row, item) in frame px. P (optional): the plush (bow spot, paws' fabric). */
+export function drawClothes(g, row, idx, t = 0, P = null) {
   const it = DRESS_ROWS[row].items[idx];
   if (!it || !it.name || idx === 0) return;
   if (it.atlas) {
     const [key, cols, rows, col, arow] = it.atlas;
     const img = art(key);
-    const scarf = arow === 0;
     if (img) {
       const cw = img.width / cols, ch = img.height / rows;
-      const dw = scarf ? 295 : 320, k = dw / 256;
-      const ax = 128, ay = scarf ? 96 : 80, at = scarf ? F.neck : F.waist;
-      g.drawImage(img, col * cw, arow * ch, cw, ch, at.x - ax * k, at.y - ay * k, 256 * k, 256 * k);
+      drawScarfArt(g, img, cw, ch, col, arow, true);
       return;
     }
-    g.save(); g.translate(scarf ? F.neck.x : F.waist.x, scarf ? F.neck.y : F.waist.y);
-    drawClothesProc(g, it.pd[0], it.pd[1], it.pd[2], scarf ? 240 : 300, t); g.restore();
+    g.save(); g.translate(F.neck.x, F.neck.y);
+    drawClothesProc(g, it.pd[0], it.pd[1], it.pd[2], 240, t); g.restore();
     return;
   }
-  const img = art(it.key);
-  const [bx, by, bw] = it.box;
+  const img = it.key ? art(it.key) : null;
+  if (it.flare && img) { drawCape(g, img, it.top, t); return; }
+  let [bx, by, bw] = it.box, rot = it.rot || 0;
+  if (it.move) { const b = bowAt(P, it); bx = b.x; by = b.y; rot = bowTilt(it, bx); }
   g.save();
   if (img) {
     const k = bw / img.width, h = img.height * k;
-    const cy = it.bottom != null ? it.bottom - h / 2 : it.top != null ? it.top + h / 2 : by;
-    g.translate(bx, cy); if (it.rot) g.rotate(it.rot);
-    g.drawImage(img, -bw / 2, -h / 2, bw, h);
+    if (it.grip) {   // held by a paw: the grip lands on it, tilted about it
+      const [gx, gy] = it.paws[0];
+      g.translate(gx, gy); if (rot) g.rotate(rot);
+      g.drawImage(img, -it.grip[0] * bw, -it.grip[1] * h, bw, h);
+    } else {
+      const cy = it.bottom != null ? it.bottom - h / 2 : it.top != null ? it.top + h / 2 : by;
+      g.translate(bx, cy); if (rot) g.rotate(rot);
+      g.drawImage(img, -bw / 2, -h / 2, bw, h);
+    }
   } else {
     const [kind, c, c2] = it.pd;
     const y = it.bottom != null ? it.bottom : it.top != null ? it.top : by;
-    g.translate(bx, y); if (it.rot) g.rotate(it.rot);
-    drawClothesProc(g, kind, c, c2, bw * (kind === 'bow' ? 0.9 : kind === 'cape' ? 1 : kind === 'wings' || kind === 'bat' ? 0.9 : 1), t);
+    g.translate(bx, y); if (rot) g.rotate(rot);
+    if (kind === 'pillow') drawPillow(g, c, bw);
+    else drawClothesProc(g, kind, c, c2, bw * (kind === 'bow' ? 0.9 : kind === 'cape' ? 1 : kind === 'wings' || kind === 'bat' ? 0.9 : 1), t);
   }
   g.restore();
+  if (it.paws && P) { const fab = FABRICS[P.fabric]; for (const [x, y] of it.paws) drawPaw(g, fab, x, y); }
+}
+
+/** The part of a worn item drawn behind the body (scarves' back strand). */
+function drawClothesBehind(g, row, idx) {
+  const it = DRESS_ROWS[row].items[idx];
+  if (!it || !idx || !it.atlas) return;
+  const [key, cols, rows, col, arow] = it.atlas, img = art(key);
+  if (img) drawScarfArt(g, img, img.width / cols, img.height / rows, col, arow, false);
 }
 
 // ---------------------------------------------------------------------------
@@ -459,26 +589,28 @@ export function drawPlush(g, P, x, y, size, opts = {}) {
   if (opts.tilt) { g.translate(F.cx, F.seat); g.rotate(opts.tilt); g.translate(-F.cx, -F.seat); }
   const dress = P.dress || [0, 0, 0, 0];
   const inSquash = (fn) => { g.save(); g.translate(F.cx, F.seat); g.scale(S.sx, S.sy); g.translate(-F.cx, -F.seat); fn(); g.restore(); };
-  // behind: capes and wings
-  if (dress[3]) inSquash(() => drawClothes(g, 3, dress[3], t));
+  // behind: capes and wings, and the back of a scarf
+  if (dress[3]) inSquash(() => drawClothes(g, 3, dress[3], t, P));
+  if (dress[1]) inSquash(() => drawClothesBehind(g, 1, dress[1]));
   drawBody(g, body, fab, p, t);
   inSquash(() => {
     for (const pc of P.pieces || []) {
-      const st = pc.st ?? 9;
-      const pop = st < 0.35 ? 1 + 0.3 * (1 - ease.outBack(st / 0.35)) : 1;
-      g.save(); g.translate(pc.x, pc.y); g.scale(pop, pop); g.translate(-pc.x, -pc.y);
-      drawPiece(g, pc.row, pc.i, pc.x, pc.y);
+      const st = pc.st ?? 9, sew = pc.sew || 0;
+      // While it's being sewn on it sits held in place (a touch big and see-through), the thread
+      // going on stitch by stitch; then it settles with a little pop and the thread tucks in.
+      const s2 = st - sew;
+      const k = s2 < 0 ? 1.06 : s2 < 0.32 ? 1 + 0.22 * Math.sin((s2 / 0.32) * Math.PI) * (1 - s2 / 0.32 * 0.5) : 1;
+      g.save(); g.translate(pc.x, pc.y); g.scale(k, k); g.translate(-pc.x, -pc.y);
+      drawPiece(g, pc.row, pc.i, pc.x, pc.y, { alpha: s2 < 0 ? 0.82 : 1 });
       g.restore();
-      if (st < 0.9) {   // the thread going round as it's stitched on
-        const rr = pieceRadius(pc.row), prog = clamp(st / 0.6, 0, 1), fade = st > 0.6 ? 1 - (st - 0.6) / 0.3 : 1;
-        g.save(); g.globalAlpha *= fade; g.setLineDash([10, 9]); g.lineWidth = 4; g.strokeStyle = '#ff5fa2';
-        g.beginPath(); g.ellipse(pc.x, pc.y, rr, SEW_ROWS[pc.row].id === 'eyes' ? rr * 0.5 : rr, 0, -Math.PI / 2, -Math.PI / 2 + prog * TAU); g.stroke();
-        g.restore();
+      if (sew && s2 < 0.45) {
+        if (!pc._path) pc._path = stitchPath(pc.row, pc.x, pc.y);
+        drawThread(g, pc._path, clamp(st / sew, 0, 1), s2 > 0.15 ? 1 - (s2 - 0.15) / 0.3 : 1);
       }
     }
-    if (dress[2]) drawClothes(g, 2, dress[2], t);
-    if (dress[1]) drawClothes(g, 1, dress[1], t);
-    if (dress[0]) drawClothes(g, 0, dress[0], t);
+    if (dress[1]) drawClothes(g, 1, dress[1], t, P);
+    if (dress[2]) drawClothes(g, 2, dress[2], t, P);
+    if (dress[0]) drawClothes(g, 0, dress[0], t, P);
     if (opts.extra) opts.extra(g);
   });
   g.restore();

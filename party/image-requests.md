@@ -1207,3 +1207,90 @@ ladder), `laugh` (heads poking out at the end), `giggle`, `surprised`, `cheer`,
 rungs) would read better on the ladder one day, but `carry` works.
 
 All Play Studio, Molly, grown-up reaction, October16 audit, October27 Dance Studio, nail-hand and Charlie Sister action image requests are delivered and checked. Add new requests or regeneration feedback above; delivery details are in image-requests-history.md and reference/IMAGE-WORK-QUEUE.md.
+
+
+### New Molly Party game: dino-dig
+
+### dino-dig — Dino Dig   (requested by the dino-dig agent, 2026-10-28, priority: nice-to-have)
+
+Sister Party (ages 4-5), everyone on one team. A big sandbox dig site full of bumpy
+sand mounds (some with a sparkle or a bone tip poking out). A digs with a little spade:
+sand sprays, the hole gets deeper, and after a few digs a bone pops out, flies over and
+**clacks into place on one giant, silly dinosaur skeleton** standing on a wooden display
+platform at the back. Some digs find silly surprises instead: a rubber duck (becomes the
+dino's head in some games), a teapot (the tip of its tail in some games), a sock (on a
+front foot), a toy crown (on its head) and a teacup (sitting on its back like a saddle).
+At the end the finished dino **comes to life**, wobbles, dances (the code rotates the
+pieces around their joints), then does a giant sneeze-roar that blows everyone's
+explorer hats off. Every key below has a procedural stand-in that ships today, and the
+code already asks for every key: it drops in as soon as it is in
+`assets/art/index.json`; add each new key to the `dino-dig` group there. House style:
+navy `#24163f` outlines, soft cel shading, bright friendly colours, **no text**, no baked-in
+shadows, sparkles, dust or motion lines (the code draws them).
+
+**Reuses (keep alive):** `prop/sand-spade` (the spade in every player's hand),
+`prop/sand-hole` (the dug hole), `prop/rubber-duck` (the duck head, facing right),
+`prop/fhs-teapot` (the teapot tail tip, drawn mirrored), `prop/beach-sock`,
+`prop/treasure-crown`. They are listed in the `dino-dig` group. Character poses are the
+existing `dig` (falls back to `crouch` on the fairies, which reads well), `cheer`,
+`surprised`, `laugh`, `dance*`, `celebrate`. **No new poses needed.**
+
+**Screen layout (the bg must match):** sky and far desert hills/mesas in the top band
+(keep the top 130 px calm: clock and score chips). A low **wooden display platform** for
+the skeleton across the back: its top surface (where the dino's feet stand) at
+**y ≈ 462**, from x ≈ 470 to x ≈ 1450; its plain front face from y ≈ 462 to ≈ 515 (the
+code draws the "bones found" pips on it, so keep that face plain wood). The dino itself
+is NOT in the bg. Below that, the **sandbox dig site** from y ≈ 545 to the bottom, framed by
+chunky wooden planks at the left, right and back edges; inside it plain, soft, low-contrast
+sand (the code draws the mounds and holes at x 150-1770, y 590-1010). Dig-site touches
+(a bucket, brushes, little flag stakes, a rope fence, a sieve) only outside the sandbox or
+in its far corners.
+
+**The skeleton (pieces that assemble).** All pieces share one **template canvas of
+1200×520 px** (origin top-left), dinosaur in side view **facing right**, a friendly,
+chubby long-necked "brontosaurus" with a big round goofy skull, smiling. The ground line
+(bottoms of the feet) is y = 480. The code draws the template at 0.8 scale with template
+point (600, 480) at screen (960, 462). **Paint the whole skeleton once on that template,
+then cut each piece out as its own transparent image of exactly its box size** (box =
+[x0, y0, x1, y1] in template px; the image is (x1-x0)×(y1-y0) and is drawn at that box, so
+nothing needs re-measuring). Where pieces overlap, paint each piece complete (its own
+layer), not cut away. Bones are warm cream/ivory (`#f6ecd2`, shade `#d9c7a0`) with a navy
+outline, chunky and rounded, toy-like, never scary. **Joints (the code rotates pieces
+around these points while the dino dances): end every bone that meets a joint in a round
+knob centred on the joint**, so a rotation never opens a gap.
+
+Joints: back hip J1 = (440, 285); front shoulder J2 = (730, 285); neck base J3 = (760,
+255); mid neck J4 = (845, 165); head J5 = (905, 100); tail base J6 = (410, 268); tail joints
+J7 = (285, 312) and J8 = (165, 360); tail tip at (45, 410). The back is an arch along
+(400, 262) → (585, 228) → (760, 262).
+
+| Key | Box [x0, y0, x1, y1] | What the piece is |
+| --- | --- | --- |
+| `prop/dino-leg-back` | [380, 255, 520, 485] | Near hind leg: round hip knob on J1, thigh bone down-forward to the knee (≈470, 380), shin back to the ankle (≈445, 455), three stubby toe bones pointing right, resting on y = 480. The code also draws it a second time, darker, offset (+38, −6) behind the body as the far hind leg |
+| `prop/dino-leg-front` | [670, 255, 800, 485] | Near front leg: knob on J2, upper arm down to the elbow (≈715, 375), forearm to the wrist (≈740, 450), three toe bones pointing right on y = 480. Also reused darker, offset (+38, −6), as the far front leg |
+| `prop/dino-hips` | [365, 225, 515, 335] | The pelvis: a rounded butterfly-shaped hip plate centred on J1 |
+| `prop/dino-spine-1` | [395, 225, 535, 285] | Back vertebrae (3 knobbly blocks, each with a small rounded plate on top) along the arch from (400, 262) to (530, 236) |
+| `prop/dino-spine-2` | [520, 200, 660, 260] | The same, from (525, 236) over the top of the arch to (655, 234) |
+| `prop/dino-spine-3` | [645, 210, 785, 285] | The same, from (650, 234) down to the shoulders at (770, 262) |
+| `prop/dino-rib-1` … `prop/dino-rib-4` | rib-1 [520, 235, 580, 375]; rib-2 [575, 228, 640, 395]; rib-3 [635, 230, 700, 395]; rib-4 [690, 240, 750, 370] | Four curved ribs hanging from the spine (tops at (545, 240), (600, 232), (660, 236), (715, 246)), curving down and slightly back; the middle two longest, together a round barrel tummy |
+| `prop/dino-neck-1` | [735, 150, 870, 285] | Neck vertebrae chain (3 rounded blocks) from J3 up to J4 |
+| `prop/dino-neck-2` | [820, 70, 935, 190] | Neck vertebrae chain (3 smaller blocks) from J4 up to J5 |
+| `prop/dino-skull` | [870, 20, 1090, 175] | The skull: back of the skull on J5, big round head with a huge round eye socket around (965, 75) with a friendly dot pupil, a little nostril hole, a long smiling jaw to the right with a row of rounded blunt teeth: goofy and cute |
+| `prop/dino-skull-sneeze` | same box | The same skull mid-sneeze: eye socket squeezed shut into a happy arc, jaw thrown wide open, the head tipped back a little (keep the knob on J5) |
+| `prop/dino-tail-1` | [270, 240, 440, 335] | Tail vertebrae chain from J6 to J7 (4 blocks, getting smaller) |
+| `prop/dino-tail-2` | [145, 285, 305, 385] | From J7 to J8 (4 smaller blocks) |
+| `prop/dino-tail-3` | [25, 335, 185, 430] | From J8 to the tip at (45, 410) (4 tiny blocks, the last one a little round bead) |
+
+Silly parts on the finished dino (code-placed, existing art): the rubber duck replaces the
+skull in some games (centre ≈ (975, 95), 190 px wide), the teapot replaces the tail tip in
+some games (mirrored so its spout points left, its handle meeting J8), the sock goes on the
+near front foot, the crown sits on the head and a teacup on top of the arch.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/dino-dig` | 1920×1080, opaque | Full screen, layout above | A sunny fossil dig site in a friendly desert valley, seen from slightly above: soft blue sky, a few puffy clouds, far-off rounded orange mesas and a couple of cacti; across the back a long low wooden display platform (empty); in front of it a huge wooden-framed sandbox of smooth golden sand with gentle ripples. Little dig-site details only at the edges: a striped tent corner, a bucket and brushes, small red flag stakes, a rope fence. No dinosaur, no bones, no characters |
+| `thumb/dino-dig` | 800×500, opaque | Shelf card and how-to screen | A little garden fairy (not a Charlie Party roster character) wearing a khaki explorer hat, digging in golden sand with a blue toy spade, sand spraying up and a bone popping out of the hole; behind her a giant, goofy cream-coloured dinosaur skeleton with a yellow rubber duck for a head and a teapot on the end of its tail, wearing a sock on one foot. Subject centred, cheerful |
+| `prop/dino-bones` | 1024×512 atlas, transparent, **4 columns × 2 rows of 256 px cells on an exact even grid** (run `tools/sprites/repack_atlas.py prop/dino-bones.webp --cols 4 --rows 2`) | The bone that pops out of the hole and flies to the skeleton (drawn 70-110 px, spun **in the plane**), and the bone tip poking out of a mound (the code shows the top 40% of a cell). One bone per cell, centred, ~80% of the cell, lying horizontally | Cartoon dinosaur bones in the skeleton's cream colour with navy outlines: 1 a long leg bone with knobby ends, 2 a chunky vertebra with a little plate, 3 a curved rib, 4 a classic dog-biscuit bone, 5 three little toe bones together, 6 a small tail vertebra, 7 a big chunky thigh bone, 8 a smiling jaw bone with blunt teeth |
+| `prop/dino-mound` | 320×180, transparent | A bumpy sand mound on the sand, bottom-centre anchor, drawn ~170 px wide; the code sinks it as the hole deepens and adds the hint (a sparkle or a bone tip) | A low, soft, bumpy heap of golden sand with a few pebbles, seen from slightly above, edges fading softly into flat sand |
+| `prop/dino-teacup` | 200×160, transparent | Sits on the dino's back (bottom-centre anchor, drawn ~85 px wide) and is the flying surprise | A dainty white china teacup with pink roses and a gold rim, on its saucer, side view |
+| `prop/dino-explorer-hat` | 240×160, transparent | Every player wears one (head slot, bottom-centre on the top of the head, drawn ~1.25 × head width, side view **facing right**, mirrored with the character); the sneeze blows them off and they spin in the plane and land in the sand | A child's khaki pith helmet / explorer hat: rounded dome, wide brim, a little red band, side view |

@@ -2,7 +2,7 @@
 // clothes and names. Everything is in "plush frame" units: one 512 x 560 cell
 // (image-requests.md, plushie-workshop), the same for every body, so sewn pieces
 // and clothes line up on all of them.
-import { shuffle, pick } from '../../engine/util.js';
+import { shuffle, pick, clamp } from '../../engine/util.js';
 
 export const NAVY = '#24163f';
 
@@ -69,6 +69,8 @@ export const SEW_ROWS = [
 ];
 export const SEW_IDX = Object.fromEntries(SEW_ROWS.map((r, i) => [r.id, i]));
 export const MAX_PIECES = 16;
+/** How long sewing one piece on takes (the needle's trip round its edge, s). */
+export const SEW_T = 0.7;
 
 // --- clothes ---------------------------------------------------------------------
 // Each item: art key (or atlas cell) + where it goes in the frame. `box`: [cx, cy, w]
@@ -77,10 +79,10 @@ export const MAX_PIECES = 16;
 export const DRESS_ROWS = [
   { id: 'head', name: 'Head', items: [
     { name: 'Nothing' },
-    { name: 'Pink bow', key: 'prop/bow-pink', box: [322, 104, 128], rot: 0.28, pd: ['bow', '#ff8ec4'] },
-    { name: 'Blue bow', key: 'prop/bow-blue', box: [322, 104, 128], rot: 0.28, pd: ['bow', '#6fb6ff'] },
-    { name: 'Purple bow', key: 'prop/pet-bow-purple', box: [322, 104, 116], rot: 0.28, pd: ['bow', '#a77bff'] },
-    { name: 'Big red bow', key: 'prop/bow-back', box: [256, 92, 170], pd: ['bow', '#ff4d6d'] },
+    { name: 'Pink bow', move: true, key: 'prop/bow-pink', box: [322, 104, 128], rot: 0.28, pd: ['bow', '#ff8ec4'] },
+    { name: 'Blue bow', move: true, key: 'prop/bow-blue', box: [322, 104, 128], rot: 0.28, pd: ['bow', '#6fb6ff'] },
+    { name: 'Purple bow', move: true, key: 'prop/pet-bow-purple', box: [322, 104, 116], rot: 0.28, pd: ['bow', '#a77bff'] },
+    { name: 'Big red bow', move: true, key: 'prop/bow-back', box: [256, 92, 170], pd: ['bow', '#ff4d6d'] },
     { name: 'Top hat', key: 'prop/hat-top', bottom: 106, box: [256, 0, 150], pd: ['tophat', '#3a3150'] },
     { name: 'Party hat', key: 'prop/hat-party', bottom: 102, box: [262, 0, 104], rot: 0.12, pd: ['party', '#ffd23f'] },
     { name: 'Witch hat', key: 'prop/hat-witch', bottom: 108, box: [256, 0, 200], pd: ['witch', '#8a5cff'] },
@@ -97,24 +99,42 @@ export const DRESS_ROWS = [
     { name: 'Bow tie', key: 'prop/snowman-bowtie', box: [256, 330, 130], pd: ['bowtie', '#ff4d6d'] },
     { name: 'Heart necklace', key: 'prop/necklace-heart', box: [256, 352, 150], pd: ['necklace', '#ffd23f'] },
   ] },
-  { id: 'waist', name: 'Tutu', items: [
+  // Something to hug, held against the tummy (the plushie's paws are drawn over it).
+  // The plush frame's arms end at the tummy on every body, so this works for all six
+  // (the old tutus floated under the seated plush: image-requests-history.md).
+  // `paws`: frame points where a paw holds it (the art's arms end at about (210, 420) and
+  // (300, 420) on every body); `grip`: the art's held point (fraction of its size), which
+  // lands on the first paw, the item tilted `rot` about it (sticks, stems, strings).
+  { id: 'hug', name: 'Hug', items: [
     { name: 'Nothing' },
-    { name: 'Pink tutu', atlas: ['prop/plushie-clothes', 4, 2, 0, 1], pd: ['tutu', '#ffa6d2'] },
-    { name: 'Sparkle tutu', atlas: ['prop/plushie-clothes', 4, 2, 1, 1], pd: ['tutu', '#cdb2ff'] },
-    { name: 'Star tutu', atlas: ['prop/plushie-clothes', 4, 2, 2, 1], pd: ['tutu', '#9ff0cf'] },
-    { name: 'Rainbow tutu', atlas: ['prop/plushie-clothes', 4, 2, 3, 1], pd: ['tutu', 'rainbow'] },
+    { name: 'Heart pillow', box: [256, 396, 168], pd: ['pillow', '#ff6f9f'], paws: [[206, 418], [306, 418]] },
+    { name: 'Tiny teddy', key: 'prop/room-teddy', box: [256, 394, 124], paws: [[204, 420], [308, 420]] },
+    { name: 'Present', key: 'prop/present', box: [256, 404, 128], paws: [[204, 424], [308, 424]] },
+    { name: 'Rose', key: 'prop/plant-rose-bloom', box: [0, 0, 104], grip: [0.52, 0.86], rot: 0.18, paws: [[300, 424]] },
+    { name: 'Star wand', key: 'prop/wand-star', box: [0, 0, 82], grip: [0.6, 0.8], rot: 0.26, paws: [[300, 424]] },
+    { name: 'Lollipop', key: 'prop/lollipop-swirl', box: [0, 0, 78], grip: [0.5, 0.8], rot: 0.22, paws: [[300, 424]] },
+    { name: 'Star balloon', key: 'prop/balloon-star', box: [0, 0, 140], grip: [0.49, 0.93], rot: 0.46, paws: [[300, 424]] },
   ] },
   { id: 'back', name: 'Back', behind: true, items: [
     { name: 'Nothing' },
-    { name: 'Royal cape', key: 'prop/cape-royal', top: 300, box: [256, 0, 330], pd: ['cape', '#e8334a'] },
-    { name: 'Starry cape', key: 'prop/cape-starry', top: 300, box: [256, 0, 330], pd: ['cape', '#2e3f8f'] },
-    { name: 'Rainbow cape', key: 'prop/cape-rainbow', top: 300, box: [256, 0, 330], pd: ['cape', 'rainbow'] },
+    // Capes are drawn flared out wide behind the seated plush (plush.js, drawCape), so they show at the sides.
+    { name: 'Royal cape', key: 'prop/cape-royal', flare: true, top: 292, box: [256, 0, 330], pd: ['cape', '#e8334a'] },
+    { name: 'Starry cape', key: 'prop/cape-starry', flare: true, top: 292, box: [256, 0, 330], pd: ['cape', '#2e3f8f'] },
+    { name: 'Rainbow cape', key: 'prop/cape-rainbow', flare: true, top: 292, box: [256, 0, 330], pd: ['cape', 'rainbow'] },
+    { name: 'Star cape', key: 'prop/cape-star', flare: true, top: 292, box: [256, 0, 330], pd: ['cape', '#b9a2ff'] },
     { name: 'Fairy wings', key: 'prop/wings-fairy', box: [256, 360, 420], pd: ['wings', '#ffb3e6'] },
     { name: 'Butterfly wings', key: 'prop/wings-butterfly', box: [256, 360, 420], pd: ['wings', '#ffa94d'] },
     { name: 'Dragon wings', key: 'prop/wings-dragon', box: [256, 352, 440], pd: ['bat', '#8fe0b8'] },
   ] },
 ];
 export const DRESS_IDX = Object.fromEntries(DRESS_ROWS.map((r, i) => [r.id, i]));
+
+// A movable head item (bows) sits where the player puts it: P.bow = { x, y } (frame px,
+// its centre), kept on the head or ears (onPlush, above BOW_MAX_Y).
+export const BOW_MIN_Y = 24, BOW_MAX_Y = 236;
+export const bowHome = (it) => ({ x: it.box[0], y: it.box[1] });
+/** The bow's tilt: leaning out the way it sits (the art's default tilt on the right, mirrored on the left). */
+export const bowTilt = (it, x) => (it.rot ? clamp((x - F.cx) / 66, -1, 1) * it.rot : clamp((x - F.cx) / 110, -1, 1) * 0.3);
 
 // --- names -----------------------------------------------------------------------
 const NAMES = ['Bubbles', 'Buttons', 'Snuggles', 'Pudding', 'Marshmallow', 'Biscuit', 'Cupcake', 'Peaches', 'Pickle', 'Noodle',

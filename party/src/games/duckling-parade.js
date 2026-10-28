@@ -6,13 +6,15 @@
 // nearby ducklings to you and makes your line hop). Running through someone
 // else's line steals... er, borrows a confused duckling. A golden duckling
 // zooms around now and then (worth 3). Last 12 s: Duckling Rush! Finale:
-// mama leads every duckling in a parade around the pond.
+// mama leads every duckling in a parade around the pond. Everyone runs round
+// the pond, except characters with wings (the fairies): they fly straight
+// over it, hovering above the water, and their line swims along behind.
 //
 // Art hooks (all optional, procedural fallbacks ship today):
 //   bg/duckling-parade  prop/duckling  prop/duckling-quack  prop/mama-duck
 //   prop/duck-nest  prop/lily-pad  prop/reeds  prop/rubber-boot  prop/flower-bush
 import { W, H } from '../engine/canvas.js';
-import { Actor } from '../engine/sprites.js';
+import { Actor, getSpriteSet } from '../engine/sprites.js';
 import { depthScale } from '../engine/camera.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
@@ -65,6 +67,7 @@ const SPOTS = [
 const PARADE_RX = POND.rx + 125, PARADE_RY = POND.ry + 95;
 const LOOP_SPEED = 0.75;   // Molly Easy: walking speed on an A-A errand (stick units)
 const MAMA_HOME = { x: NEST.x + 205, y: NEST.y + 22 };
+const HOVER = 34;             // how high a winged player hovers over the pond (px at scale 1)
 // prop/duck-nest: the front straw edge of the bowl, left to right (art px of the 400x220 image)
 const NEST_RIM = [[0, 100], [75, 100], [90, 115], [100, 122], [125, 132], [150, 140], [175, 146], [200, 149],
   [225, 147], [250, 141], [275, 133], [300, 125], [320, 115], [333, 105], [340, 98], [400, 98]];
@@ -110,8 +113,10 @@ export class Game {
       // tiny avatars (e.g. garden fairies) are drawn bigger so they read next to the ducklings
       const sizeK = clamp(120 / a.leader.h, 1, 2.4);
       a.facing = x < W / 2 ? 1 : -1; a.snap();
+      // characters with wings of their own (data/characters.js `wings`) fly over the pond
+      const flier = !!a.leader.wings;
       return {
-        p, a, i, x, y, sizeK, vx: 0, vy: 0, line: [], trail: [{ x, y }], delivered: 0, delT: 0, batch: 0,
+        p, a, i, x, y, sizeK, flier, hover: 0, vx: 0, vy: 0, line: [], trail: [{ x, y }], delivered: 0, delT: 0, batch: 0,
         callCd: 0, swapCd: 0, callFx: 0, dash: new Dash(), brain: new Brain(p), target: null, goal: randInt(3, 6), wander: 0, wx: x, wy: y,
         cheerCd: 0, tx: x, ty: y,
         ezNear: 0,
@@ -253,6 +258,13 @@ export class Game {
         const ox = d.x;
         d.x = damp(d.x, tp.x, 13, dt) + d.kx * dt; d.y = damp(d.y, tp.y, 13, dt) + d.ky * dt;
         const moved = Math.abs(d.x - ox) + Math.abs(d.y - (tp.y));
+        // following a fairy over the pond: her line paddles across behind her (plop in, hop out)
+        const wet = inPond(d.x, d.y, 0.95);
+        if (wet !== !!d.wet) {
+          d.wet = wet;
+          if (wet) { particles.burst(d.x, d.y, { type: 'drop', count: 4, colors: ['#bfeaff', '#ffffff'], speed: [40, 120] }); particles.ring(d.x, d.y, '#ffffff', 40, 0.4); }
+          else d.vz = Math.max(d.vz, 240);
+        }
         d.hop += dt * (Math.abs(d.x - ox) > 0.3 ? 18 : 4);
         if (moved && chance(dt * 0.35)) this.quackSound(d, 0.22);
         break;
@@ -393,7 +405,7 @@ export class Game {
       this.movePlayer(e, dt);
     }
     this.separate(dt);
-    for (const e of this.ents) this.pushOut(e, 1, 44, 34);
+    for (const e of this.ents) if (!e.flier) this.pushOut(e, 1, 44, 34);
     if (this.phase === 'play') { this.pickups(); this.swaps(); this.deliveries(dt); }
     for (const d of this.ducks) this.updateDuck(d, dt);
     this.updateMama(dt);
@@ -414,7 +426,7 @@ export class Game {
 
   syncActor(e) {
     const a = e.a;
-    a.x = e.x; a.y = e.y;
+    a.x = e.x; a.y = e.y; a.z = this.hoverZ(e);
     a.scale = this.baseScale * e.sizeK * depthScale(e.y, { top: 260, near: 1000, far: 0.84, nearScale: 1.04 });
   }
 
@@ -450,9 +462,12 @@ export class Game {
     e.vx = damp(e.vx, ix * sp, 11, dt); e.vy = damp(e.vy, iy * sp * 0.82, 11, dt);
     const dd = e.dash.update(dt, c, { x: e.x, y: e.y, actor: a, ok: this.phase !== 'done' && !p.isAI });   // B: a short dash
     e.x = clamp(e.x + e.vx * dt + dd.x, BOUNDS.x0, BOUNDS.x1); e.y = clamp(e.y + e.vy * dt + dd.y, BOUNDS.y0, BOUNDS.y1);
-    // run around the pond, not through it (sea folk splash along its edge)
-    this.pushOut(e, 1, 44, 34);
-    if (inPond(e.x, e.y, 1.14) && Math.hypot(e.vx, e.vy) > 200 && chance(dt * 10)) particles.burst(e.x, e.y, { type: 'drop', count: 2, colors: ['#bfeaff', '#fff'], speed: [40, 120] });
+    if (e.flier) this.hoverOver(e, dt);   // wings: straight over the water
+    else {
+      // run around the pond, not through it (sea folk splash along its edge)
+      this.pushOut(e, 1, 44, 34);
+      if (inPond(e.x, e.y, 1.14) && Math.hypot(e.vx, e.vy) > 200 && chance(dt * 10)) particles.burst(e.x, e.y, { type: 'drop', count: 2, colors: ['#bfeaff', '#fff'], speed: [40, 120] });
+    }
     this.pushTrail(e, e.line.length);
     if (c.pressed('a') && e.callCd <= 0 && this.phase !== 'done') {
       // Molly Easy: A with no duckling in range quacks where she is; A again (no steering,
@@ -470,6 +485,22 @@ export class Game {
     if (this.phase === 'parade' && p.isAI) { if (!a._once && a.pose !== 'dance') a.setPose('dance'); if (moving > 30) a.moveAnim(e.vx, e.vy, sp, { run: true }); }
     else if (this.done && moving < 40) { if (!a._once && a.pose !== 'celebrate') a.setPose('celebrate'); }
     else a.moveAnim(e.vx, e.vy, sp, { run: moving > sp * 0.6 });
+    // over the water a winged player flies (her fly pose) instead of walking
+    if (e.hover > 0.4 && !a._once && !(this.done && moving < 40)) a.setPose(getSpriteSet(a.leader.asset)?.poses.fly ? 'fly' : 'float');
+  }
+
+  /** A winged player over the pond: rise into a soft hover (sparkles and ripples below her). */
+  hoverOver(e, dt) {
+    const over = inPond(e.x, e.y, 1.02);
+    e.hover = damp(e.hover, over ? 1 : 0, over ? 5 : 8, dt);
+    if (!over || e.hover < 0.5) return;
+    if (chance(dt * 1.6)) particles.ring(e.x, e.y, 'rgba(255,255,255,0.75)', 56 * e.a.scale, 0.7);
+    if (chance(dt * 7)) particles.burst(e.x + rand(-26, 26), e.y - this.hoverZ(e) * 0.6, { type: 'sparkle', count: 1, colors: ['#fff6a8', '#ffffff', e.p.color], speed: [10, 50], size: [8, 14] });
+  }
+
+  /** How high she hovers right now (0 on land): a soft bob. */
+  hoverZ(e) {
+    return e.hover * (HOVER + Math.sin(this.t * 3.2 + e.i) * 7) * Math.min(1.3, e.a.scale);
   }
 
   /** Molly Easy: the stick for a human (or an A-A errand walking her). */
@@ -484,7 +515,7 @@ export class Game {
     if (this.phase !== 'play') return [0, 0];
     if (st.manual && !go) return [st.x, st.y];
     if (go) {
-      const wp = this.aroundPond(e.x, e.y, go.x, go.y);   // round the pond, not into it
+      const wp = this.aroundPond(e.x, e.y, go.x, go.y, e.flier);   // round the pond, not into it (fliers: straight over)
       const wx = wp.x - e.x, wy = wp.y - e.y, wd = Math.hypot(wx, wy) || 1, k = LOOP_SPEED * 1.15;
       return [wx / wd * k, wy / wd * k];
     }
@@ -503,7 +534,7 @@ export class Game {
     a.playOnce('wave', 0.35); a.squash(0.2);
     snd('dp-call', 'fish-duck', { vol: 0.7, rate: 0.85 });
     particles.ring(e.x, e.y - 40, '#ffffff', CALL_R, 0.45);
-    particles.burst(e.x, e.y - a.height * 0.9, { type: 'note', count: 3, colors: ['#ffd23f', '#ff8fc7', '#7fd3ff'], speed: [80, 160] });
+    particles.burst(e.x, e.y - a.z - a.height * 0.9, { type: 'note', count: 3, colors: ['#ffd23f', '#ff8fc7', '#7fd3ff'], speed: [80, 160] });
     // the line hops in a wave and quacks back
     e.line.forEach((d, k) => { later(() => { if (d.state === 'follow') { d.vz = 360; d.quack = 0.25; } }, k * 55); });
     if (e.line.length) this.quackSound(e.line[0], 0.4);
@@ -701,13 +732,14 @@ export class Game {
       tx = e.target.x; ty = e.target.y;
       if (dist(e.x, e.y, tx, ty) < CALL_R * 0.8 && chance(dt * (0.6 + (p.aiLevel || 0) * 0.5))) c.press('a');
     } else if (e.target) e.target = null;
-    // walk around the pond, not into it
-    const wp = this.aroundPond(e.x, e.y, tx, ty);
+    // walk around the pond, not into it (fliers: straight over)
+    const wp = this.aroundPond(e.x, e.y, tx, ty, e.flier);
     const d = steer(p, e.x, e.y, wp.x, wp.y, { arrive: 50 });
     if (d < 8) c.move(0, 0);
   }
 
-  aroundPond(x, y, tx, ty) {
+  aroundPond(x, y, tx, ty, fly = false) {
+    if (fly) return { x: tx, y: ty };   // wings: straight across
     let blocked = false;
     for (let k = 1; k < 8; k++) { const f = k / 8; if (inPond(lerp(x, tx, f), lerp(y, ty, f), 1.12)) { blocked = true; break; } }
     if (!blocked) return { x: tx, y: ty };
@@ -760,7 +792,7 @@ export class Game {
     // tags + home arrows
     for (const e of this.ents) {
       const a = e.a;
-      if ((this.t < 6 || !e.p.isAI) && !this.api.ended?.()) ui.playerTag(g, e.p, e.x, e.y - a.height - 22 - (a.emotes.length ? 50 : 0));
+      if ((this.t < 6 || !e.p.isAI) && !this.api.ended?.()) ui.playerTag(g, e.p, e.x, e.y - a.z - a.height - 22 - (a.emotes.length ? 50 : 0));
       if (this.phase === 'play' && e.line.length >= 3 && dist(e.x, e.y, NEST.x, NEST.y) > NEST_R + 60) this.drawHomeArrow(g, e);
     }
     if (this.easy && this.phase === 'play') {
@@ -775,7 +807,7 @@ export class Game {
           g.save(); g.translate(d.x, d.y - 78 - b); g.fillStyle = e.p.color; g.strokeStyle = NAVY; g.lineWidth = 4;
           g.beginPath(); g.moveTo(-18, -22); g.lineTo(18, -22); g.lineTo(0, 4); g.closePath(); g.fill(); g.stroke(); g.restore();
         }
-        if (e.callCd <= 0) easyPrompt(g, e.p, { target: near ? { x: near.x, y: near.y - 60 } : null, child: { x: e.x, y: e.y - e.a.height } });
+        if (e.callCd <= 0) easyPrompt(g, e.p, { target: near ? { x: near.x, y: near.y - 60 } : null, child: { x: e.x, y: e.y - e.a.z - e.a.height } });
       }
     }
   }
@@ -786,6 +818,12 @@ export class Game {
       const k = 1 - e.callFx / 0.5;
       g.save(); g.globalAlpha = (1 - k) * 0.5; g.strokeStyle = e.p.color; g.lineWidth = 8;
       g.beginPath(); g.ellipse(e.x, e.y, 60 + k * CALL_R, (60 + k * CALL_R) * 0.45, 0, 0, TAU); g.stroke(); g.restore();
+    }
+    if (e.hover > 0.05) {
+      // hovering over the pond: a soft glint on the water under her (her shadow is drawn by the actor)
+      const k = e.hover, r = 64 * a.scale * (1 + Math.sin(this.t * 3.2 + e.i) * 0.06);
+      g.save(); g.globalAlpha = 0.35 * k; g.strokeStyle = '#ffffff'; g.lineWidth = 3;
+      g.beginPath(); g.ellipse(e.x, e.y + 2, r, r * 0.28, 0, 0, TAU); g.stroke(); g.restore();
     }
     a.draw(g, { ring: e.p.color });
   }
