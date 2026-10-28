@@ -41260,6 +41260,213 @@
       "tool": "built-in imagegen",
       "runtime": "party/assets/art/thumb/leaf-pile-leap.webp",
       "intake": "party/reference/pending/OCT28-LEAF-CHAR-GENERATIONS.json"
+    },
+    {
+      "key": "bg/dino-dig",
+      "prompt": "Use case: illustration-story. Asset type: opaque1920x1080 game background bg/dino-dig. Image1 is EXACT LAYOUT GUIDE: preserve geometry and placement of its platform and sandbox exactly while illustrating surfaces and environment. Image2 is approved house style reference only; do NOT add teapot. Sunny friendly fossil dig site seen slightly from above in a desert valley, blue sky, a few puffy clouds, far rounded orange mesas and a couple of cacti. Top130px calm pale blue sky for HUD. The empty low wooden display platform MUST have its straight FRONT TOP EDGE exactly at design y462, running x470 through1450; plain uninterrupted front face from y462 to515, no legs visible below, no objects on it. Shallow top plane lies y425..462. Keep its entire x470..1450 geometry as layoutguide. Giant sandbox starts with back wooden rail at y545, spans x65..1855, left/right frame at outeredges; inner sand starts y567 and extends to bottom. All sand in playable region x150..1770,y590..1010 MUST be plain smooth lowcontrast golden sand with only gentle broad ripples, no obstacles or props or specks. Dig-site details limited outside sandbox or extreme farcorners: striped tent corner, bucket/brushes, redflagstakes, ropefence. No dinosaur, no skeleton, no bones, no characters, no mounds, no holes. House style2D smooth bold navy #24163f outlines, clean soft cel shading, bright friendly colours, NO3D/no photorealism. No text, no sparkles/dust/motionlines or baked shadows. Exact wide16:9 composition.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-813052b4-15fe-46ea-ac27-33ca7bc37089.png",
+      "archive": "party/reference/sources/oct28-dino-extras/background-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/bg/dino-dig.webp",
+      "intake": "party/reference/pending/OCT28-DINO-EXTRAS-DELIVERY.json"
+    },
+    {
+      "key": "thumb/dino-dig",
+      "prompt": "Use case: illustration-story. Asset type: opaque800x500 shelf thumbnail for Dino Dig. Image1 is approved existing pink garden fairy identity (brown bob, green eyes, pink petal dress, translucent pink wings); image2 dinosaur skeleton style and shape; image3 approved yellow rubber duck; image4 approved rose china teapot; image5 approved bright striped sock. Create cheerful sunny desert sandbox scene with that little garden fairy wearing khaki explorer hat with red band, crouched digging golden sand with a BLUE toy spade, a chunky ivory bone popping out of hole and small sand spray. Main fairy and digging action centred foreground, face delighted. Behind her a giant GOOFY CREAM IVORY LONG-NECKED DINOSAUR SKELETON, sideview FACING RIGHT, toy-like rounded bones navy outline, huge YELLOW RUBBER DUCK replacing its head at top of the neck, ROSE CHINA TEAPOT replacing end of its tail on LEFT with spout pointing LEFT, and colourful STRIPED SOCK on one front foot. Skeleton ivory#f6ecd2 shade#d9c7a0 and friendly, never scary; four legs, round ribcage. Dinosaur stands on a low wooden display platform in back, sunny rounded desert mesas/cacti and blue sky. Entire fairy, duck head and teapot tail clearly visible with margins; easy to read at small shelf size. House style2D smooth bold navy #24163f outlines, clean soft cel shading matching supplied references, bright friendly colours. No3D/no photorealism, no text/numbers/logos, no extra children/rostercharacters. Existing garden fairy only.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-9aad3eb8-824e-4d61-b1b0-0a282049ae9d.png",
+      "archive": "party/reference/sources/oct28-dino-extras/thumbnail-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/thumb/dino-dig.webp",
+      "intake": "party/reference/pending/OCT28-DINO-EXTRAS-DELIVERY.json"
+    },
+    {
+      "key": "prop/dino-bones",
+      "prompt": "Use case: illustration-story. Asset type: transparent game atlas prop/dino-bones,1024x512 final, EXACT4columns\u00d72rows grid of square256pxcells,8items. Reference is approved dinosaur skeleton: copy its chunky rounded toy-like ivory bones #f6ecd2 with shade #d9c7a0, smooth bold navy #24163f outline and clean soft cel shading,2D no3D. Create exactly ONE bone design centred in EACH equal square cell, full designs inside cell with generous margins, filling roughly80% of cell, each lies HORIZONTALLY. Ordered LEFT TO RIGHT, TOP ROW:1 long leg bone with round knobby ends;2 chunky vertebra with a little rounded plate on top;3 single curved rib turned sideways horizontally;4 classic dog-biscuit bone with double rounded knobs on both ends. BOTTOM ROW:5 THREE small toe bones TOUCHING together as one connected cluster, horizontal;6 single small tail vertebra with rounded knobs;7 big chunky thick thigh bone horizontal with knobby ends, clearly thicker than bone1;8 smiling jaw bone horizontal with blunt round teeth. All bone colour matches reference. True transparent background between designs and in jaw holes. No skeleton, no text, no labels, no numbered cells, no gridlines, no shadows, sparkles,dust,motionlines, no scenery. Eight clearly distinct designs only; single connected object percell including3 touchingtoe bones.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-2558a641-32d7-4d2a-a102-7c4ccd67a120.png",
+      "archive": "party/reference/sources/oct28-dino-extras/bones-atlas-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-bones.webp",
+      "intake": "party/reference/pending/OCT28-DINO-EXTRAS-DELIVERY.json"
+    },
+    {
+      "key": "prop/dino-mound",
+      "prompt": "Use case: illustration-story. Asset type: single transparent game prop/dino-mound,320x180 final. Create one low, soft, bumpy heap of GOLDEN SAND with a few tiny warm pebbles embedded in its surface, seen from slightly above. Wide shallow rounded undulating silhouette, bottom-centre ground anchor. Its sand colour matches the supplied desert sandbox background: golden yellow/beige, soft lowcontrast shading. Softly fading sand edge into transparency right at ground contact, smooth navy #24163f outline on upper silhouette, clean soft cel shading. House style2D childfriendly, no3D/no photorealism. Entire mound inside landscape frame with margin. No bones, no holes, no tools, no other props, no people, no text, no baked-in shadows/sparkles/dust or motionlines. True transparent background.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-396a1b53-d9a5-432b-abce-8cc1da8ec260.png",
+      "archive": "party/reference/sources/oct28-dino-extras/sand-mound-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-mound.webp",
+      "intake": "party/reference/pending/OCT28-DINO-EXTRAS-DELIVERY.json"
+    },
+    {
+      "key": "prop/dino-teacup",
+      "prompt": "Use case: precise-object-edit. Edit supplied rose china teacup-on-saucer image ONLY to reveal the FULL outer curve of its RIGHT handle, which currently touches/crops at the right image border, and add clear transparent margin all around the whole cup/saucer. Slightly reduce entire object's scale inside same landscape5:4 composition so it occupies85% width and has at least7% transparent margin at left and right. Preserve exact same cup design, pink roses/green leaves, goldrim/saucer, navy#24163f smooth outlines, clean soft cel shading,2D. Full right handle must be complete and clearly separated from canvasborder. True transparent background, no extraobjects/text/effects or shadows. Nothing else changes.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-b6f9b7ef-c7f2-4088-8dda-d4eef1a1bd85.png",
+      "archive": "party/reference/sources/oct28-dino-extras/rose-teacup-margin-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-teacup.webp",
+      "intake": "party/reference/pending/OCT28-DINO-EXTRAS-DELIVERY.json"
+    },
+    {
+      "key": "prop/dino-explorer-hat",
+      "prompt": "Use case: illustration-story. Asset type: single transparent game wearable prop/dino-explorer-hat,240x160 final. One child's KHAKI PITH HELMET / EXPLORER HAT in SIDE VIEW FACING RIGHT: rounded khaki dome with little top button, wide gently curved brim extending farther forward to the RIGHT, narrow cheerful RED hatband round the base of dome. Opening/underside visible subtly under brim, to sit on top of a character's head; bottom-centre of brim underside is attachment point. Entire hat visible, occupies80-90% frame width with margin, no head/mannequin/people. House style exactly2D smooth navy #24163f outlines and clean soft cel shading matching supplied approved toyspade style reference; khaki tan/cream with warm soft celshadows. No3D/no photorealism. True transparent background, no text/logos, no baked groundshadow, sparkles,dust,motionlines or extra props.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-17ecfbf7-303d-4ca8-9c52-c86e9d9f6f8a.png",
+      "archive": "party/reference/sources/oct28-dino-extras/explorer-hat-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-explorer-hat.webp",
+      "intake": "party/reference/pending/OCT28-DINO-EXTRAS-DELIVERY.json"
+    },
+    {
+      "key": "prop/dino-hips",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local150x110 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-hips. One rounded butterfly-shaped pelvis hip plate only, symmetrical chubby upper wings with two softly rounded lobes, central round joint knob centred at (75,60). Ivory plate with simple rounded internal holes if natural, no sharp edges. Complete entire plate. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-dcb6cce8-698a-4a68-8a44-0d0176c22b86.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-hips-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-hips.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-hips.json"
+    },
+    {
+      "key": "prop/dino-leg-back",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local140x230 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-leg-back. One complete hind leg only: round hip knob centred at (60,30), thigh down-right to knee (90,125), shin down-left to ankle (65,200), three stubby toe bones extending RIGHT and resting on y225. All bones complete, connected and rounded, nothing cut away. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-c5477464-23e4-4327-aeee-d1ba3b56deba.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-leg-back-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-leg-back.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-leg-back.json"
+    },
+    {
+      "key": "prop/dino-leg-front",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local130x230 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-leg-front. One complete front leg only: round shoulder knob centred at (60,30), upper arm down-left to elbow (45,120), forearm down-right to wrist (70,195), three stubby toe bones extending RIGHT and resting on y225. All bones complete, connected and rounded, nothing cut away. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-1c63c800-84e0-40e0-a805-266ef31e8aec.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-leg-front-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-leg-front.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-leg-front.json"
+    },
+    {
+      "key": "prop/dino-neck-1",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local135x135 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-neck-1. Only ONE diagonal chain of exactly THREE chunky rounded neck vertebra blocks, climbing UP-RIGHT from big round lower-left endpoint joint(25,105) to round upper-right endpoint joint(110,15). Both endpoint knobs complete circular balls. No skull or body attached. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-a98d710d-1a77-4248-bbf6-697f67dcff90.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-neck-1-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-neck-1.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-neck-1.json"
+    },
+    {
+      "key": "prop/dino-neck-2",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local115x120 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-neck-2. Only ONE diagonal chain of exactly THREE slightly smaller rounded neck vertebra blocks, climbing UP-RIGHT from round lower-left endpoint joint(25,95) to round upper-right endpoint joint(85,30). Both endpoint knobs complete circular balls. No skull or body attached. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-55922af1-97a1-484b-9d43-bd473ab8a451.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-neck-2-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-neck-2.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-neck-2.json"
+    },
+    {
+      "key": "prop/dino-rib-1",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local60x140 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-rib-1. Only ONE long smooth curved rib, not multiple ribs: top joint at(25,5), convex belly curves to the RIGHT through(42,65), then ends back LEFT near(25,130) in a rounded point. A graceful single C-shaped crescent ivory bone. Top round knob must overlap spine. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-0257a96d-744e-4bcc-b69e-f393bb1802f4.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-rib-1-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-rib-1.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-rib-1.json"
+    },
+    {
+      "key": "prop/dino-rib-2",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local65x167 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-rib-2. Only ONE long smooth curved rib, not multiple ribs: top joint at(25,4), convex belly curves to the RIGHT through(49,82), then ends back LEFT near(25,157) in a rounded point. A graceful single C-shaped crescent ivory bone, one of the longest barrel tummy ribs. Top round knob overlaps spine. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines. Critical endpoint detail: the round top knob is TINY, radius3 local pixels, only about1/50 of the rib height. No oversized lollipop ball. The shaft narrows at top then fattens along the middle of the crescent.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-c915abef-41e5-4da9-818f-5e6e502641ba.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-rib-2-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-rib-2.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-rib-2.json"
+    },
+    {
+      "key": "prop/dino-rib-3",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local65x165 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-rib-3. Only ONE long smooth curved rib, not multiple ribs: top joint at(25,6), convex belly curves to the RIGHT through(49,82), then ends back LEFT near(25,155) in a rounded point. A graceful single C-shaped crescent ivory bone, one of the longest barrel tummy ribs. Top round knob overlaps spine. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines. Critical endpoint detail: the round top knob is TINY, radius3 local pixels, only about1/50 of the rib height. No oversized lollipop ball. The shaft narrows at top then fattens along the middle of the crescent.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-aabf7cb7-494a-456a-9191-9f7ae7e26bf5.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-rib-3-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-rib-3.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-rib-3.json"
+    },
+    {
+      "key": "prop/dino-rib-4",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local60x130 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-rib-4. Only ONE long smooth curved rib, not multiple ribs: top joint at(25,6), convex belly curves to the RIGHT through(42,60), then ends back LEFT near(25,120) in a rounded point. A graceful single C-shaped crescent ivory bone. Top round knob overlaps spine. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines. Critical endpoint detail: the round top knob is TINY, radius3 local pixels, only about1/50 of the rib height. No oversized lollipop ball. The shaft narrows at top then fattens along the middle of the crescent.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-c108fe76-9fab-4e29-8c30-1585ec73ab32.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-rib-4-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-rib-4.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-rib-4.json"
+    },
+    {
+      "key": "prop/dino-skull-sneeze",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved NORMAL SKULL IDENTITY reference; match its exact ivory skull shape, pair of rounded back attachment knobs, nose, outline and blunt teeth. Change only the expression and jaw position. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local220x155 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-skull-sneeze. Only the complete friendly brontosaurus SKULL facing RIGHT, SAME skull as reference but MID-SNEEZE: eye socket squeezed closed into a happy arc, jaw wide open, head tipped back slightly while back round joint knob remains centred(35,80). Warm ivory complete head and open lower jaw with rounded blunt teeth. Funny not scary, no particles or effects, no neck or body. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-ef326a35-c362-4ddf-8f1a-6bb9d6e1068f.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-skull-sneeze-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-skull-sneeze.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-skull-sneeze.json"
+    },
+    {
+      "key": "prop/dino-skull",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local220x155 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-skull. Only the complete friendly brontosaurus SKULL facing RIGHT. Back round joint knob centred(35,80); big round goofy head with huge round eye socket centred(95,55), friendly dot pupil in eye socket; little nostril hole at right; long smiling jaw extending right with a row of rounded blunt teeth. Complete jaw and head, warm ivory, no neck or body. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-fe5004cc-8f79-4dc6-b559-3be216f59208.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-skull-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-skull.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-skull.json"
+    },
+    {
+      "key": "prop/dino-spine-1",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local140x60 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-spine-1. Only ONE chain of exactly THREE knobbly vertebra blocks, each with a small rounded plate on top, arranged on a gently rising line LEFT to RIGHT from (5,37) to (135,11). Warm ivory toy bones, complete separate piece of back spine, no ribs or attached legs. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-93c1d329-7ac8-46b5-8615-22c803f171dd.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-spine-1-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-spine-1.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-spine-1.json"
+    },
+    {
+      "key": "prop/dino-spine-2",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local140x60 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-spine-2. Only ONE chain of exactly THREE knobbly vertebra blocks, each with a small rounded plate on top, arranged on the shallow TOP ARCH of the back, gently rising from left (5,36) over centre(70,28) then falling slightly to right(135,34). No ribs or attached legs. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-744f9916-fb0c-4357-bad1-7f1db1f341a5.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-spine-2-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-spine-2.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-spine-2.json"
+    },
+    {
+      "key": "prop/dino-spine-3",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local140x75 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-spine-3. Only ONE chain of exactly THREE knobbly vertebra blocks, each with a small rounded plate on top, arranged on a gently falling line LEFT to RIGHT from (5,24) to (125,52), leading to shoulders. No ribs or attached legs. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-09eecbf6-b5b0-4a6d-bef4-b0f438681be4.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-spine-3-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-spine-3.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-spine-3.json"
+    },
+    {
+      "key": "prop/dino-tail-1",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local170x95 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-tail-1. Only ONE diagonal tapering tail chain of exactly FOUR rounded vertebra blocks, from big round upper-right endpoint knob(140,28) down-LEFT to smaller round lower-left endpoint knob(15,72). Largest block at upper right, successively smaller to lower left. Complete circular knobs at both ends, no body or other tail sections. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-a5eb3537-0937-463b-b1cf-07d92cbd06cc.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-tail-1-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-tail-1.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-tail-1.json"
+    },
+    {
+      "key": "prop/dino-tail-2",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local160x100 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-tail-2. Only ONE diagonal tapering tail chain of exactly FOUR smaller rounded vertebra blocks, from round upper-right endpoint knob(140,27) down-LEFT to smaller round lower-left endpoint knob(20,75). Successively smaller toward left. Complete circular knobs at both ends, no body or other tail sections. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-7541af30-bb09-4e4c-901c-2874ead8741f.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-tail-2-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-tail-2.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-tail-2.json"
+    },
+    {
+      "key": "prop/dino-tail-3",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local160x95 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-tail-3. Only ONE diagonal tapering tail-tip chain of exactly FOUR tiny rounded vertebra blocks, from round upper-right joint knob(140,25) down-LEFT to tiny round bead tip(20,75). Successively smaller toward left, last one a little round bead. Complete knob at upper right and complete round tip bead at lower left, no other tail sections. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-9f85d49c-7f33-4c5c-b81a-4ba64757545e.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-tail-3-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-tail-3.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-tail-3.json"
     }
   ]
 }

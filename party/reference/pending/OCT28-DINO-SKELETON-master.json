@@ -1,0 +1,16 @@
+{
+  "purpose": "whole skeleton design/style canonical, no NPC approval required",
+  "prompt": "Use case: stylized-concept. Asset type: canonical design master for a friendly toy dinosaur skeleton assembled in a children's 2D game. Input image1 is a GEOMETRIC LAYOUT GUIDE only: preserve the joint positions, curved back, feet baseline and overall silhouette. Input image2 is an approved illustration STYLE reference.\nDraw one complete friendly chubby long-necked brontosaurus SKELETON in side view FACING RIGHT, full body tail-to-skull visible. Final template1200x520, feet groundline y480. Hind hip(440,285), front shoulder(730,285), arch back from(400,262) over(585,228) to(760,262). Long diagonal neck climbs from(760,255) through(845,165) to skull joint(905,100). Big round goofy skull to right of joint, large friendly round eye socket around(965,75) with dot pupil, little nostril and smiling long jaw with blunt rounded teeth. Four curved ribs form round barrel tummy beneath spine. Two chunky bent legs with stubby three toe feet at y480, hind hip440285 knee470380 ankle445455, front shoulder730285 elbow715375 wrist740450. Long segmented tapering tail curves down LEFT from(410,268) through(285,312),(165,360) to tiny bead tip(45,410). Skeleton bones warm cream ivory #f6ecd2 with shade #d9c7a0, bold navy #24163f outlines, rounded chubby toy bones with prominent round joint knobs. Clean soft cel shading, FLAT2D illustrated cartoon matching style reference, not3D, not scary, no realism. Entire body complete, no broken or missing bones. True transparent alpha, no guide lines or dots, no labels, no text, no background or platform, no cast shadow, no dust or motion effects.",
+  "mode": "built-in imagegen",
+  "status": "style-canonical-reviewed-not-runtime",
+  "guide": "reference/sources/oct28-dino-skeleton/master-layout-guide.png",
+  "styleReference": "assets/art/prop/room-teddy.webp",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-f31d48fe-8efb-4acd-8c6d-73b50b0bdca0.png",
+  "nativeSize": [
+    1905,
+    826
+  ],
+  "source": "reference/sources/oct28-dino-skeleton/master-native.webp",
+  "reference": "reference/sources/oct28-dino-skeleton/master-template.webp",
+  "review": "Friendly complete ivory toy skeleton, matching navy outlines and soft cel shading, goofy round skull and rounded joint knobs. Master is style reference; individual parts will be registered to exact consumer joints."
+}

@@ -1,0 +1,149 @@
+{
+  "key": "prop/dino-skull",
+  "box": [
+    870,
+    20,
+    1090,
+    175
+  ],
+  "size": [
+    220,
+    155
+  ],
+  "templatePoints": [
+    [
+      905,
+      100
+    ],
+    [
+      965,
+      75
+    ],
+    [
+      1065,
+      120
+    ]
+  ],
+  "localPoints": [
+    [
+      35,
+      80
+    ],
+    [
+      95,
+      55
+    ],
+    [
+      195,
+      100
+    ]
+  ],
+  "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local220x155 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-skull. Only the complete friendly brontosaurus SKULL facing RIGHT. Back round joint knob centred(35,80); big round goofy head with huge round eye socket centred(95,55), friendly dot pupil in eye socket; little nostril hole at right; long smiling jaw extending right with a row of rounded blunt teeth. Complete jaw and head, warm ivory, no neck or body. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+  "mode": "built-in imagegen",
+  "status": "intaken-and-static-assembled-reviewed-pending-consumer-check",
+  "styleReference": "reference/sources/oct28-dino-skeleton/master-template.webp",
+  "guide": "reference/sources/oct28-dino-skeleton/dino-skull-guide.png",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-fe5004cc-8f79-4dc6-b559-3be216f59208.png",
+  "nativeSize": [
+    1493,
+    1053
+  ],
+  "source": "reference/sources/oct28-dino-skeleton/dino-skull-native.webp",
+  "runtime": "assets/art/prop/dino-skull.webp",
+  "outputSize": [
+    220,
+    155
+  ],
+  "registration": {
+    "sourcePoints": [
+      [
+        259.0,
+        590.0
+      ],
+      [
+        1390.0,
+        600.0
+      ]
+    ],
+    "targetPoints": [
+      [
+        35.0,
+        80.0
+      ],
+      [
+        208.0,
+        95.0
+      ]
+    ],
+    "sourceToLocal": [
+      [
+        0.15306727868667927,
+        -0.011909219463424587,
+        2.382014303570571
+      ],
+      [
+        0.011909219463424587,
+        0.15306727868667927,
+        -13.394182266167746
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localToSource": [
+      [
+        6.493765337931949,
+        0.5052397691848511,
+        -8.700968362406268
+      ],
+      [
+        -0.505239769184851,
+        6.493765337931949,
+        88.18216488691392
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "alphaBounds": [
+      18,
+      20,
+      210,
+      142
+    ],
+    "registrationError": 1.4210854715202004e-14,
+    "unclippedAlphaBounds": [
+      18,
+      20,
+      210,
+      142
+    ],
+    "clippedSignificantPixels": 0,
+    "renderOffset": [
+      0,
+      0
+    ],
+    "sourceAlphaBounds": [
+      149,
+      159,
+      1406,
+      928
+    ]
+  },
+  "processing": "Native RGBA archived lossless WebP exact=True, verified byte-identical. Measured whole-part geometric registration only; no creative pixels painted. Bicubic affine transform into exact requested box canvas.",
+  "runtimeSha256": "53d3fb353aa9ba47acf8bdbbff6c95ea44e1f6a9f6b162dca51d8e184b9e7976",
+  "runtimeBytes": 22216,
+  "decodedBytes": 136400,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "nativeArchivePixelsIdentical": true,
+  "runtimePixelsReproducedExactly": true,
+  "review": "Native and runtime inspected. Complete sourcepart registered geometrically and reviewed in assembled normal/sneeze templates.",
+  "assembledReview": "reference/pending/OCT28-DINO-SKELETON-contact-review.jpg"
+}

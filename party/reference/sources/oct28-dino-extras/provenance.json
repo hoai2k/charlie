@@ -1,0 +1,412 @@
+{
+  "assets": [
+    {
+      "id": "bg",
+      "prompt": "Use case: illustration-story. Asset type: opaque1920x1080 game background bg/dino-dig. Image1 is EXACT LAYOUT GUIDE: preserve geometry and placement of its platform and sandbox exactly while illustrating surfaces and environment. Image2 is approved house style reference only; do NOT add teapot. Sunny friendly fossil dig site seen slightly from above in a desert valley, blue sky, a few puffy clouds, far rounded orange mesas and a couple of cacti. Top130px calm pale blue sky for HUD. The empty low wooden display platform MUST have its straight FRONT TOP EDGE exactly at design y462, running x470 through1450; plain uninterrupted front face from y462 to515, no legs visible below, no objects on it. Shallow top plane lies y425..462. Keep its entire x470..1450 geometry as layoutguide. Giant sandbox starts with back wooden rail at y545, spans x65..1855, left/right frame at outeredges; inner sand starts y567 and extends to bottom. All sand in playable region x150..1770,y590..1010 MUST be plain smooth lowcontrast golden sand with only gentle broad ripples, no obstacles or props or specks. Dig-site details limited outside sandbox or extreme farcorners: striped tent corner, bucket/brushes, redflagstakes, ropefence. No dinosaur, no skeleton, no bones, no characters, no mounds, no holes. House style2D smooth bold navy #24163f outlines, clean soft cel shading, bright friendly colours, NO3D/no photorealism. No text, no sparkles/dust/motionlines or baked shadows. Exact wide16:9 composition.",
+      "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-813052b4-15fe-46ea-ac27-33ca7bc37089.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-813052b4-15fe-46ea-ac27-33ca7bc37089.png",
+      "source": "party/reference/sources/oct28-dino-extras/background-native.webp",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "native_rgba_exact_verified": true,
+      "tool": "image_gen.imagegen",
+      "key": "bg/dino-dig",
+      "file": "party/assets/art/bg/dino-dig.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "anchor": null,
+      "runtimeTranslation": [
+        0,
+        0
+      ],
+      "operation": "Full-canvas proportional resize",
+      "runtime_rgba_exact_verified": true,
+      "runtimeBytes": 1365942,
+      "decodedBytes": 8294400,
+      "meaningfulAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sourceSha256": "09e5167f297d965ebc45ef733d755dda4d91acb078363035839770d49348c775",
+      "runtimeSha256": "83a5851b3e1440012decdd9709563491a1e46bf71034ef0403918076fed16de2",
+      "references": [
+        "party/reference/sources/oct28-dino-extras/background-layout-guide.png",
+        "party/assets/art/prop/fhs-teapot.webp"
+      ],
+      "status": "Native and final runtime visually reviewed; actual game consumer review pending integrator",
+      "encoding": "lossless WebP exact=True method6",
+      "review": "Approved2D navy outlines/softcel style. Full native RGBA archive decoded byte equality verified. Runtime dimensions checked.",
+      "measuredGeometry": {
+        "platformFrontTopEdge": [
+          470,
+          462,
+          1451,
+          462
+        ],
+        "platformFrontFace": [
+          470,
+          462,
+          1451,
+          516
+        ],
+        "sandboxBackRailY": 545,
+        "sandboxInnerSandTopY": 567,
+        "playableSandClear": [
+          150,
+          590,
+          1770,
+          1010
+        ]
+      }
+    },
+    {
+      "id": "thumb",
+      "prompt": "Use case: illustration-story. Asset type: opaque800x500 shelf thumbnail for Dino Dig. Image1 is approved existing pink garden fairy identity (brown bob, green eyes, pink petal dress, translucent pink wings); image2 dinosaur skeleton style and shape; image3 approved yellow rubber duck; image4 approved rose china teapot; image5 approved bright striped sock. Create cheerful sunny desert sandbox scene with that little garden fairy wearing khaki explorer hat with red band, crouched digging golden sand with a BLUE toy spade, a chunky ivory bone popping out of hole and small sand spray. Main fairy and digging action centred foreground, face delighted. Behind her a giant GOOFY CREAM IVORY LONG-NECKED DINOSAUR SKELETON, sideview FACING RIGHT, toy-like rounded bones navy outline, huge YELLOW RUBBER DUCK replacing its head at top of the neck, ROSE CHINA TEAPOT replacing end of its tail on LEFT with spout pointing LEFT, and colourful STRIPED SOCK on one front foot. Skeleton ivory#f6ecd2 shade#d9c7a0 and friendly, never scary; four legs, round ribcage. Dinosaur stands on a low wooden display platform in back, sunny rounded desert mesas/cacti and blue sky. Entire fairy, duck head and teapot tail clearly visible with margins; easy to read at small shelf size. House style2D smooth bold navy #24163f outlines, clean soft cel shading matching supplied references, bright friendly colours. No3D/no photorealism, no text/numbers/logos, no extra children/rostercharacters. Existing garden fairy only.",
+      "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-9aad3eb8-824e-4d61-b1b0-0a282049ae9d.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-9aad3eb8-824e-4d61-b1b0-0a282049ae9d.png",
+      "source": "party/reference/sources/oct28-dino-extras/thumbnail-native.webp",
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "native_rgba_exact_verified": true,
+      "tool": "image_gen.imagegen",
+      "key": "thumb/dino-dig",
+      "file": "party/assets/art/thumb/dino-dig.webp",
+      "size": [
+        800,
+        500
+      ],
+      "anchor": null,
+      "runtimeTranslation": [
+        0,
+        0
+      ],
+      "operation": "Full-canvas proportional resize",
+      "runtime_rgba_exact_verified": true,
+      "runtimeBytes": 535604,
+      "decodedBytes": 1600000,
+      "meaningfulAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sourceSha256": "8aaf46ee6ae8b94caf315ed578cd14a916eb583bd369f13eb284fe192eb46c4e",
+      "runtimeSha256": "bbac4e2c559c9712155e859391d1f9801b699619a0cf3c48bea8780fec37f99d",
+      "references": [
+        "party/reference/canonical/garden-fairy-pink.webp",
+        "party/reference/sources/oct28-dino-skeleton/master-template.webp",
+        "party/assets/art/prop/rubber-duck.webp",
+        "party/assets/art/prop/fhs-teapot.webp",
+        "party/assets/art/prop/beach-sock.webp"
+      ],
+      "status": "Native and final runtime visually reviewed; actual game consumer review pending integrator",
+      "encoding": "lossless WebP exact=True method6",
+      "review": "Approved2D navy outlines/softcel style. Full native RGBA archive decoded byte equality verified. Runtime dimensions checked."
+    },
+    {
+      "id": "bones",
+      "prompt": "Use case: illustration-story. Asset type: transparent game atlas prop/dino-bones,1024x512 final, EXACT4columns\u00d72rows grid of square256pxcells,8items. Reference is approved dinosaur skeleton: copy its chunky rounded toy-like ivory bones #f6ecd2 with shade #d9c7a0, smooth bold navy #24163f outline and clean soft cel shading,2D no3D. Create exactly ONE bone design centred in EACH equal square cell, full designs inside cell with generous margins, filling roughly80% of cell, each lies HORIZONTALLY. Ordered LEFT TO RIGHT, TOP ROW:1 long leg bone with round knobby ends;2 chunky vertebra with a little rounded plate on top;3 single curved rib turned sideways horizontally;4 classic dog-biscuit bone with double rounded knobs on both ends. BOTTOM ROW:5 THREE small toe bones TOUCHING together as one connected cluster, horizontal;6 single small tail vertebra with rounded knobs;7 big chunky thick thigh bone horizontal with knobby ends, clearly thicker than bone1;8 smiling jaw bone horizontal with blunt round teeth. All bone colour matches reference. True transparent background between designs and in jaw holes. No skeleton, no text, no labels, no numbered cells, no gridlines, no shadows, sparkles,dust,motionlines, no scenery. Eight clearly distinct designs only; single connected object percell including3 touchingtoe bones.",
+      "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-2558a641-32d7-4d2a-a102-7c4ccd67a120.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-2558a641-32d7-4d2a-a102-7c4ccd67a120.png",
+      "source": "party/reference/sources/oct28-dino-extras/bones-atlas-native.webp",
+      "sourceSize": [
+        1774,
+        887
+      ],
+      "native_rgba_exact_verified": true,
+      "tool": "image_gen.imagegen",
+      "key": "prop/dino-bones",
+      "file": "party/assets/art/prop/dino-bones.webp",
+      "size": [
+        1024,
+        512
+      ],
+      "anchor": [
+        512.0,
+        512
+      ],
+      "runtimeTranslation": [
+        0,
+        0
+      ],
+      "operation": "Full source1774x887 resized to1024x512, then repack_atlas.py --cols4 --rows2 (8components, common scale0.911), final re-encoded exact=True; no generated artwork repainted",
+      "runtime_rgba_exact_verified": true,
+      "runtimeBytes": 159168,
+      "decodedBytes": 2097152,
+      "meaningfulAlphaBBox": [
+        28,
+        67,
+        999,
+        447
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sourceSha256": "f305d02dfdd5d62ef5dfa685e9471a8c0c7e5f53926e78b23c75eccab88ead6b",
+      "runtimeSha256": "af3a68fbfd2ef4b6ef23955244b996f7eec8598ae0a9c28fae7a199511474053",
+      "references": [
+        "party/reference/sources/oct28-dino-skeleton/master-template.webp"
+      ],
+      "status": "Native and final runtime visually reviewed; actual game consumer review pending integrator",
+      "encoding": "lossless WebP exact=True method6",
+      "review": "Approved2D navy outlines/softcel style. Full native RGBA archive decoded byte equality verified. Runtime dimensions checked.",
+      "grid": {
+        "columns": 4,
+        "rows": 2,
+        "cellSize": [
+          256,
+          256
+        ],
+        "order": [
+          "long leg bone",
+          "vertebra with plate",
+          "curved rib",
+          "dog-biscuit bone",
+          "three touching toe bones",
+          "small tail vertebra",
+          "chunky thigh bone",
+          "smiling jaw"
+        ]
+      },
+      "cellBounds": [
+        [
+          28,
+          84,
+          228,
+          171
+        ],
+        [
+          38,
+          67,
+          218,
+          189
+        ],
+        [
+          30,
+          77,
+          226,
+          179
+        ],
+        [
+          32,
+          82,
+          224,
+          173
+        ],
+        [
+          32,
+          91,
+          225,
+          165
+        ],
+        [
+          50,
+          86,
+          206,
+          169
+        ],
+        [
+          20,
+          65,
+          235,
+          191
+        ],
+        [
+          26,
+          74,
+          231,
+          183
+        ]
+      ]
+    },
+    {
+      "id": "mound",
+      "prompt": "Use case: illustration-story. Asset type: single transparent game prop/dino-mound,320x180 final. Create one low, soft, bumpy heap of GOLDEN SAND with a few tiny warm pebbles embedded in its surface, seen from slightly above. Wide shallow rounded undulating silhouette, bottom-centre ground anchor. Its sand colour matches the supplied desert sandbox background: golden yellow/beige, soft lowcontrast shading. Softly fading sand edge into transparency right at ground contact, smooth navy #24163f outline on upper silhouette, clean soft cel shading. House style2D childfriendly, no3D/no photorealism. Entire mound inside landscape frame with margin. No bones, no holes, no tools, no other props, no people, no text, no baked-in shadows/sparkles/dust or motionlines. True transparent background.",
+      "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-396a1b53-d9a5-432b-abce-8cc1da8ec260.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-396a1b53-d9a5-432b-abce-8cc1da8ec260.png",
+      "source": "party/reference/sources/oct28-dino-extras/sand-mound-native.webp",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "native_rgba_exact_verified": true,
+      "tool": "image_gen.imagegen",
+      "key": "prop/dino-mound",
+      "file": "party/assets/art/prop/dino-mound.webp",
+      "size": [
+        320,
+        180
+      ],
+      "anchor": [
+        160.0,
+        180
+      ],
+      "runtimeTranslation": [
+        0,
+        39
+      ],
+      "operation": "Full-canvas proportional resize, then translated down39px to measured support baseline",
+      "runtime_rgba_exact_verified": true,
+      "runtimeBytes": 22340,
+      "decodedBytes": 230400,
+      "meaningfulAlphaBBox": [
+        9,
+        100,
+        311,
+        180
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sourceSha256": "f6105c879184b37c2a9b2f88913e3799fce3f6c85c263454356fe5942794158f",
+      "runtimeSha256": "528f7351a6aa07bacefd85c35f4089cf71935b0114043b11dc2ebdf56d7c7c69",
+      "references": [
+        "party/reference/sources/oct28-dino-extras/background-native.webp"
+      ],
+      "status": "Native and final runtime visually reviewed; actual game consumer review pending integrator",
+      "encoding": "lossless WebP exact=True method6",
+      "review": "Approved2D navy outlines/softcel style. Full native RGBA archive decoded byte equality verified. Runtime dimensions checked.",
+      "measuredSupportPoints": [
+        [
+          160,
+          180
+        ]
+      ]
+    },
+    {
+      "id": "teacup-clean",
+      "prompt": "Use case: precise-object-edit. Edit supplied rose china teacup-on-saucer image ONLY to reveal the FULL outer curve of its RIGHT handle, which currently touches/crops at the right image border, and add clear transparent margin all around the whole cup/saucer. Slightly reduce entire object's scale inside same landscape5:4 composition so it occupies85% width and has at least7% transparent margin at left and right. Preserve exact same cup design, pink roses/green leaves, goldrim/saucer, navy#24163f smooth outlines, clean soft cel shading,2D. Full right handle must be complete and clearly separated from canvasborder. True transparent background, no extraobjects/text/effects or shadows. Nothing else changes.",
+      "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-b6f9b7ef-c7f2-4088-8dda-d4eef1a1bd85.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "editTarget": "party/reference/sources/oct28-dino-extras/rose-teacup-native.webp",
+      "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-b6f9b7ef-c7f2-4088-8dda-d4eef1a1bd85.png",
+      "source": "party/reference/sources/oct28-dino-extras/rose-teacup-margin-native.webp",
+      "sourceSize": [
+        1402,
+        1122
+      ],
+      "native_rgba_exact_verified": true,
+      "tool": "image_gen.imagegen",
+      "key": "prop/dino-teacup",
+      "file": "party/assets/art/prop/dino-teacup.webp",
+      "size": [
+        200,
+        160
+      ],
+      "anchor": [
+        100.0,
+        160
+      ],
+      "runtimeTranslation": [
+        0,
+        11
+      ],
+      "operation": "Full-canvas proportional resize, then translated down11px to measured support baseline",
+      "runtime_rgba_exact_verified": true,
+      "runtimeBytes": 42984,
+      "decodedBytes": 128000,
+      "meaningfulAlphaBBox": [
+        7,
+        27,
+        197,
+        160
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sourceSha256": "8d37312491ad1467764e000ab23a0bacf78b6d802284fefc1096eff65c1610d7",
+      "runtimeSha256": "68561f0ed8a3769de42ab02afe57ebe9db3971340ca6b37550fe05e6100f9dfc",
+      "references": [
+        "party/reference/sources/oct28-dino-extras/rose-teacup-native.webp"
+      ],
+      "status": "Native and final runtime visually reviewed; actual game consumer review pending integrator",
+      "encoding": "lossless WebP exact=True method6",
+      "review": "Approved2D navy outlines/softcel style. Full native RGBA archive decoded byte equality verified. Runtime dimensions checked. Initial handle touched right canvas edge; targeted margin edit restores complete curve, final source has clear rightmargin.",
+      "measuredSupportPoints": [
+        [
+          100,
+          160
+        ]
+      ],
+      "history": [
+        "party/reference/pending/OCT28-DINO-EXTRAS-TEACUP.json"
+      ]
+    },
+    {
+      "id": "hat",
+      "prompt": "Use case: illustration-story. Asset type: single transparent game wearable prop/dino-explorer-hat,240x160 final. One child's KHAKI PITH HELMET / EXPLORER HAT in SIDE VIEW FACING RIGHT: rounded khaki dome with little top button, wide gently curved brim extending farther forward to the RIGHT, narrow cheerful RED hatband round the base of dome. Opening/underside visible subtly under brim, to sit on top of a character's head; bottom-centre of brim underside is attachment point. Entire hat visible, occupies80-90% frame width with margin, no head/mannequin/people. House style exactly2D smooth navy #24163f outlines and clean soft cel shading matching supplied approved toyspade style reference; khaki tan/cream with warm soft celshadows. No3D/no photorealism. True transparent background, no text/logos, no baked groundshadow, sparkles,dust,motionlines or extra props.",
+      "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-17ecfbf7-303d-4ca8-9c52-c86e9d9f6f8a.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-17ecfbf7-303d-4ca8-9c52-c86e9d9f6f8a.png",
+      "source": "party/reference/sources/oct28-dino-extras/explorer-hat-native.webp",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "native_rgba_exact_verified": true,
+      "tool": "image_gen.imagegen",
+      "key": "prop/dino-explorer-hat",
+      "file": "party/assets/art/prop/dino-explorer-hat.webp",
+      "size": [
+        240,
+        160
+      ],
+      "anchor": [
+        120.0,
+        160
+      ],
+      "runtimeTranslation": [
+        0,
+        0
+      ],
+      "operation": "Full-canvas proportional resize",
+      "runtime_rgba_exact_verified": true,
+      "runtimeBytes": 26742,
+      "decodedBytes": 153600,
+      "meaningfulAlphaBBox": [
+        3,
+        16,
+        238,
+        145
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sourceSha256": "dffa9e5c15cf389abf8a6833dedbbfdc0cb498eb80073ff52fedee8599174588",
+      "runtimeSha256": "2c1eb4b0a2836ecd225f304c382820ddfa8dfbb6c6dd61c0bc0214a59270e4a2",
+      "references": [
+        "party/assets/art/prop/sand-spade.webp"
+      ],
+      "status": "Native and final runtime visually reviewed; actual game consumer review pending integrator",
+      "encoding": "lossless WebP exact=True method6",
+      "review": "Approved2D navy outlines/softcel style. Full native RGBA archive decoded byte equality verified. Runtime dimensions checked.",
+      "measuredHeadSeatPoint": [
+        120,
+        134
+      ],
+      "consumerNote": "Hat brim is naturally tilted up toward facing-right front. Use measuredHeadSeatPoint for fitting to head; logical canvas bottom-centre remains120,160. Do not alpha-normalize or clip brim to force head seat to bottom."
+    }
+  ],
+  "runtimeTotalBytes": 2152780,
+  "decodedBytes": 12503552,
+  "decodedMiB": 11.92431640625,
+  "review": "All6 native/runtime outputs reviewed; no sharedfiles changed. Integrator owns in-game attachment/geometry check."
+}

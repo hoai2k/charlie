@@ -1,0 +1,55 @@
+{
+  "id": "mound",
+  "prompt": "Use case: illustration-story. Asset type: single transparent game prop/dino-mound,320x180 final. Create one low, soft, bumpy heap of GOLDEN SAND with a few tiny warm pebbles embedded in its surface, seen from slightly above. Wide shallow rounded undulating silhouette, bottom-centre ground anchor. Its sand colour matches the supplied desert sandbox background: golden yellow/beige, soft lowcontrast shading. Softly fading sand edge into transparency right at ground contact, smooth navy #24163f outline on upper silhouette, clean soft cel shading. House style2D childfriendly, no3D/no photorealism. Entire mound inside landscape frame with margin. No bones, no holes, no tools, no other props, no people, no text, no baked-in shadows/sparkles/dust or motionlines. True transparent background.",
+  "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-396a1b53-d9a5-432b-abce-8cc1da8ec260.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+  "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-396a1b53-d9a5-432b-abce-8cc1da8ec260.png",
+  "source": "party/reference/sources/oct28-dino-extras/sand-mound-native.webp",
+  "sourceSize": [
+    1672,
+    941
+  ],
+  "native_rgba_exact_verified": true,
+  "tool": "image_gen.imagegen",
+  "key": "prop/dino-mound",
+  "file": "party/assets/art/prop/dino-mound.webp",
+  "size": [
+    320,
+    180
+  ],
+  "anchor": [
+    160.0,
+    180
+  ],
+  "runtimeTranslation": [
+    0,
+    39
+  ],
+  "operation": "Full-canvas proportional resize, then translated down39px to measured support baseline",
+  "runtime_rgba_exact_verified": true,
+  "runtimeBytes": 22340,
+  "decodedBytes": 230400,
+  "meaningfulAlphaBBox": [
+    9,
+    100,
+    311,
+    180
+  ],
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "sourceSha256": "f6105c879184b37c2a9b2f88913e3799fce3f6c85c263454356fe5942794158f",
+  "runtimeSha256": "528f7351a6aa07bacefd85c35f4089cf71935b0114043b11dc2ebdf56d7c7c69",
+  "references": [
+    "party/reference/sources/oct28-dino-extras/background-native.webp"
+  ],
+  "status": "Native and final runtime visually reviewed; actual game consumer review pending integrator",
+  "encoding": "lossless WebP exact=True method6",
+  "review": "Approved2D navy outlines/softcel style. Full native RGBA archive decoded byte equality verified. Runtime dimensions checked.",
+  "measuredSupportPoints": [
+    [
+      160,
+      180
+    ]
+  ]
+}

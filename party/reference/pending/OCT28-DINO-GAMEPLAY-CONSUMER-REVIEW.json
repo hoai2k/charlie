@@ -1,0 +1,71 @@
+{
+  "source": "Actual main3508ca5c working checkout with all23Dino images registered; no HTTP response/source overrides",
+  "artConsumerFile": "party/src/games/dino-dig/art.js",
+  "changes": [
+    "Painted rib draw offsets [0,-8],[6,-3],[15,-3],[2,-2] applied only when generated images exist, inside original joint transforms; original joint pivots, template boxes and fallback drawings unchanged",
+    "Hat central brim underside134/160 maps to attachment origin, same image scale",
+    "Mound bone/sparkle hints use authored visible80/320height; fallback retains0.36height",
+    "Finale head/crown bounds follow actual rig transforms. Upper-body lift/tilt reduces only when needed to preserve12px viewport margin; forward nod handles downward sneeze camera punch. DINO scale/platform/feetbaseline, leg/tail dance, camera settings and hats unchanged."
+  ],
+  "naturalRuns": [
+    {
+      "players": 1,
+      "passed": true,
+      "elapsedSeconds": 28.313,
+      "head": "skull",
+      "tail": "teapot",
+      "captures": 10,
+      "allHatsLanded": true,
+      "pageConsoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "players": 8,
+      "passed": true,
+      "elapsedSeconds": 30.897,
+      "head": "skull",
+      "tail": "teapot",
+      "captures": 10,
+      "allHatsLanded": true,
+      "pageConsoleErrors": [],
+      "failedRequests": []
+    }
+  ],
+  "visualReview": [
+    "Authored platform/feet align at logicalY462; sandmounds/hints sit on sandbox and hole shrinking reads correctly",
+    "All8atlas cells are visible in gameplay finds/mound hints; no atlas neighbour clipping",
+    "Rose teacup seats on spine and follows body sway; hat mirrored automatically with Actor forwardspace",
+    "Normal/sneeze and six actualrenderer extreme joint poses reviewed; complete roundcaps stay connected at original pivots",
+    "Natural1/8CPU build,dance,sneeze,hatflight,hatlanding andgallery all captured anderrorfree"
+  ],
+  "jointProof": "party/reference/pending/OCT28-DINO-GAMEPLAY-joint-rotation.jpg",
+  "jointProofLoadedAllSkeletonImages": true,
+  "checks": [
+    "node --test party/tools/dino-dig-art.test.mjs:2passed",
+    "git diff --check on2Dino sourcefiles andfocusedtest passed",
+    "Actualmain natural1CPU+8CPU fullbuild/dance/sneeze/hatflight/hatlanding/gallery afterallchanges passed;zero page/console/requesterrors",
+    "Repository smoke: node --import /tmp/oct28-playwright-runtime.mjs party/tools/smoke.mjs dino-dig --players8 --mollyeasy --port8602 --no-serve --timeout150:1/1passed,36sec,GameSelectScene. ShimselectsbundledPlaywright/installedChrome only;HTTPsourceunmodified",
+    "Root owns importmapstamp/fullaffectedtest suite"
+  ],
+  "authoritativeNaturalRunRecord": "party/reference/pending/OCT28-DINO-GAMEPLAY-complete-review.json",
+  "crownClippingResolution": {
+    "status": "fixed and actual-renderer stress verified",
+    "samples": 1440,
+    "testedCameraZooms": [
+      1,
+      1.1,
+      1.06
+    ],
+    "includesSneezeCameraFocusY700": true,
+    "minimumActualCrownRectangleY": 11.999997220998566,
+    "tolerancePx": 0.001,
+    "passed": true,
+    "proof": "party/reference/pending/OCT28-DINO-GAMEPLAY-crown-max-hop.jpg"
+  },
+  "files": {
+    "party/src/games/dino-dig.js": "17c5b7581a917866b69d5b686a67d3923ae2e428f610ac847f4c87c42154f855",
+    "party/src/games/dino-dig/art.js": "03061673794058ebde7c5a319fd29753baf807acfb6156bd0493706531647b2b",
+    "party/tools/dino-dig-art.test.mjs": "d90d1d4ac8cf36c8b4a88b518e570bb8d8f18f004859104c96be5113078c1773"
+  },
+  "remainingKnownVisualIssues": []
+}

@@ -1,0 +1,149 @@
+{
+  "key": "prop/dino-skull-sneeze",
+  "box": [
+    870,
+    20,
+    1090,
+    175
+  ],
+  "size": [
+    220,
+    155
+  ],
+  "templatePoints": [
+    [
+      905,
+      100
+    ],
+    [
+      965,
+      75
+    ],
+    [
+      1065,
+      120
+    ]
+  ],
+  "localPoints": [
+    [
+      35,
+      80
+    ],
+    [
+      95,
+      55
+    ],
+    [
+      195,
+      100
+    ]
+  ],
+  "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved NORMAL SKULL IDENTITY reference; match its exact ivory skull shape, pair of rounded back attachment knobs, nose, outline and blunt teeth. Change only the expression and jaw position. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local220x155 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-skull-sneeze. Only the complete friendly brontosaurus SKULL facing RIGHT, SAME skull as reference but MID-SNEEZE: eye socket squeezed closed into a happy arc, jaw wide open, head tipped back slightly while back round joint knob remains centred(35,80). Warm ivory complete head and open lower jaw with rounded blunt teeth. Funny not scary, no particles or effects, no neck or body. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+  "mode": "built-in imagegen",
+  "status": "intaken-and-static-assembled-reviewed-pending-consumer-check",
+  "styleReference": "reference/sources/oct28-dino-skeleton/dino-skull-native.webp",
+  "guide": "reference/sources/oct28-dino-skeleton/dino-skull-sneeze-guide.png",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-ef326a35-c362-4ddf-8f1a-6bb9d6e1068f.png",
+  "nativeSize": [
+    1493,
+    1054
+  ],
+  "source": "reference/sources/oct28-dino-skeleton/dino-skull-sneeze-native.webp",
+  "runtime": "assets/art/prop/dino-skull-sneeze.webp",
+  "outputSize": [
+    220,
+    155
+  ],
+  "registration": {
+    "sourcePoints": [
+      [
+        254.0,
+        612.0
+      ],
+      [
+        1254.0,
+        612.0
+      ]
+    ],
+    "targetPoints": [
+      [
+        35.0,
+        80.0
+      ],
+      [
+        183.05,
+        91.5
+      ]
+    ],
+    "sourceToLocal": [
+      [
+        0.14805,
+        -0.0115,
+        4.433300000000006
+      ],
+      [
+        0.0115,
+        0.14805,
+        -13.527599999999993
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localToSource": [
+      [
+        6.7139652404346695,
+        0.521517056838897,
+        -22.710147962325202
+      ],
+      [
+        -0.521517056838897,
+        6.7139652404346695,
+        93.13587775458787
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "alphaBounds": [
+      17,
+      9,
+      214,
+      147
+    ],
+    "registrationError": 2.842170943040401e-14,
+    "unclippedAlphaBounds": [
+      17,
+      9,
+      214,
+      147
+    ],
+    "clippedSignificantPixels": 0,
+    "renderOffset": [
+      0,
+      0
+    ],
+    "sourceAlphaBounds": [
+      136,
+      92,
+      1451,
+      996
+    ]
+  },
+  "processing": "Native RGBA archived lossless WebP exact=True, verified byte-identical. Measured whole-part geometric registration only; no creative pixels painted. Bicubic affine transform into exact requested box canvas.",
+  "runtimeSha256": "eb39b7ba9c50b138cd8eea61147383f4f0b3f3d05a2b507733268a791dc7be93",
+  "runtimeBytes": 23854,
+  "decodedBytes": 136400,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "nativeArchivePixelsIdentical": true,
+  "runtimePixelsReproducedExactly": true,
+  "review": "Native and runtime inspected. Complete sourcepart registered geometrically and reviewed in assembled normal/sneeze templates.",
+  "assembledReview": "reference/pending/OCT28-DINO-SKELETON-contact-review.jpg"
+}

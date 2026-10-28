@@ -1,0 +1,59 @@
+{
+  "images": {
+    "prop/dino-hips": "prop/dino-hips.webp",
+    "prop/dino-leg-back": "prop/dino-leg-back.webp",
+    "prop/dino-leg-front": "prop/dino-leg-front.webp",
+    "prop/dino-neck-1": "prop/dino-neck-1.webp",
+    "prop/dino-neck-2": "prop/dino-neck-2.webp",
+    "prop/dino-rib-1": "prop/dino-rib-1.webp",
+    "prop/dino-rib-2": "prop/dino-rib-2.webp",
+    "prop/dino-rib-3": "prop/dino-rib-3.webp",
+    "prop/dino-rib-4": "prop/dino-rib-4.webp",
+    "prop/dino-skull-sneeze": "prop/dino-skull-sneeze.webp",
+    "prop/dino-skull": "prop/dino-skull.webp",
+    "prop/dino-spine-1": "prop/dino-spine-1.webp",
+    "prop/dino-spine-2": "prop/dino-spine-2.webp",
+    "prop/dino-spine-3": "prop/dino-spine-3.webp",
+    "prop/dino-tail-1": "prop/dino-tail-1.webp",
+    "prop/dino-tail-2": "prop/dino-tail-2.webp",
+    "prop/dino-tail-3": "prop/dino-tail-3.webp"
+  },
+  "group": "dino-dig",
+  "keys": [
+    "prop/dino-hips",
+    "prop/dino-leg-back",
+    "prop/dino-leg-front",
+    "prop/dino-neck-1",
+    "prop/dino-neck-2",
+    "prop/dino-rib-1",
+    "prop/dino-rib-2",
+    "prop/dino-rib-3",
+    "prop/dino-rib-4",
+    "prop/dino-skull-sneeze",
+    "prop/dino-skull",
+    "prop/dino-spine-1",
+    "prop/dino-spine-2",
+    "prop/dino-spine-3",
+    "prop/dino-tail-1",
+    "prop/dino-tail-2",
+    "prop/dino-tail-3"
+  ],
+  "renderOffsets": {
+    "prop/dino-rib-1": [
+      0,
+      -8
+    ],
+    "prop/dino-rib-2": [
+      6,
+      -3
+    ],
+    "prop/dino-rib-3": [
+      15,
+      -3
+    ],
+    "prop/dino-rib-4": [
+      2,
+      -2
+    ]
+  }
+}
