@@ -1320,7 +1320,25 @@
     "prop/bbs-beach-ball": "prop/bbs-beach-ball.webp",
     "prop/bbs-goal-blue": "prop/bbs-goal-blue.webp",
     "thumb/beach-ball-soccer": "thumb/beach-ball-soccer.webp",
-    "bg/beach-ball-soccer": "bg/beach-ball-soccer.webp"
+    "bg/beach-ball-soccer": "bg/beach-ball-soccer.webp",
+    "bg/gingerbread-house": "bg/gingerbread-house-compact.webp",
+    "bg/gingerbread-house-night": "bg/gingerbread-house-night-compact.webp",
+    "thumb/gingerbread-house": "thumb/gingerbread-house.webp",
+    "prop/gh-cottage-wall": "prop/gh-cottage-wall-compact.webp",
+    "prop/gh-tall-wall": "prop/gh-tall-wall-compact.webp",
+    "prop/gh-cottage-roof-left": "prop/gh-cottage-roof-left-compact.webp",
+    "prop/gh-cottage-roof-right": "prop/gh-cottage-roof-right-compact.webp",
+    "prop/gh-tall-roof-left": "prop/gh-tall-roof-left-compact.webp",
+    "prop/gh-tall-roof-right": "prop/gh-tall-roof-right-compact.webp",
+    "prop/gh-cottage-chimney": "prop/gh-cottage-chimney-compact.webp",
+    "prop/gh-tall-porch": "prop/gh-tall-porch-compact.webp",
+    "prop/gh-castle-tower-left": "prop/gh-castle-tower-left-compact.webp",
+    "prop/gh-castle-tower-right": "prop/gh-castle-tower-right-compact.webp",
+    "prop/gh-castle-keep": "prop/gh-castle-keep-compact.webp",
+    "prop/gh-castle-cone-left": "prop/gh-castle-cone-left-compact.webp",
+    "prop/gh-castle-cone-right": "prop/gh-castle-cone-right-compact.webp",
+    "prop/gh-candy": "prop/gh-candy.webp",
+    "prop/gh-gingerbread-person": "prop/gh-gingerbread-person.webp"
   },
   "groups": {
     "plushie-workshop": [

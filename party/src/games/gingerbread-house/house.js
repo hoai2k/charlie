@@ -71,6 +71,11 @@ function cottage() {
 }
 function tall() {
   const [rl, rr] = roofPair([-105, -300], [0, -410], 30, 28);
+  // Keep the entire roof inside the shared 960x880 art canvas (top = -440).
+  // Apply the same correction to collision, glue seams and icing paths.
+  for (const roof of [rl, rr]) for (const field of ['poly', 'top', 'seam']) {
+    roof[field] = roof[field].map(([x, y]) => [x, y + 13]);
+  }
   return {
     id: 'tall', name: 'Tall House',
     pieces: [

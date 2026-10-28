@@ -1,0 +1,42 @@
+<!doctype html><meta charset="utf-8"><base href="../../"><title>Gingerbread renderer review</title><link rel="icon" href="data:,">
+<style>body{background:#181324;color:#fff;font:16px system-ui;margin:20px}canvas{width:min(100%,1600px);display:block;border:1px solid #786390}button{font:inherit;margin:8px;padding:8px}p{max-width:1200px}</style>
+<p>Gingerbread House — actual house.js renderer, all three authored house shapes. Full source canvases by default; add ?compact=1 to review the shipping index. Buttons change final light, icing and source geometry overlays.</p>
+<button id="light">Day / night</button><button id="icing">Bare / decorated</button><button id="outline">Geometry overlay</button><span id="status">Loading…</span><canvas width="1920" height="1080"></canvas>
+<script type="module">
+const full=!new URLSearchParams(location.search).has('compact');
+const originalFetch=window.fetch.bind(window);
+if(full){
+ const additions=await(await originalFetch('reference/pending/OCT28-GINGERBREAD-index-additions.json')).json();
+ window.fetch=async(url,...args)=>String(url).endsWith('assets/art/index.json')?new Response(JSON.stringify({images:additions.images,groups:{'gingerbread-house':additions.keys}}),{headers:{'content-type':'application/json'}}):originalFetch(url,...args);
+}
+const {loadArt,art}=await import('./src/engine/art.js');
+const {SHAPES,newIcing,drawHouse,drawGlow}=await import('./src/games/gingerbread-house/house.js');
+// The first brief put the tall roof21px beyond its880px canvas. Match the
+// authorized13unit correction for old consumer revisions only.
+const tall=SHAPES[1];
+if(tall.top< -440){
+ for(const pc of tall.pieces.filter(p=>p.roof)){
+  pc.poly=pc.poly.map(([x,y])=>[x,y+13]);pc.seam=pc.seam?.map(([x,y])=>[x,y+13]);
+  pc.edges=pc.edges.map(e=>({...e,pts:e.pts.map(([x,y])=>[x,y+13])}));pc.bb.y0+=13;pc.bb.y1+=13;
+ }
+ for(const e of tall.edges.filter(e=>e.roof))e.pts=e.pts.map(([x,y])=>[x,y+13]);
+ tall.top+=13;
+}
+await loadArt({only:key=>key.includes('gingerbread-house')||key.startsWith('prop/gh-')});
+const canvas=document.querySelector('canvas'),g=canvas.getContext('2d');let night=false,decorated=false,overlay=false;
+const homes=SHAPES.map((s,i)=>({shape:i,built:s.pieces.length,drop:[],seamT:s.pieces.map(()=>1),icing:newIcing(s),dots:[],sprinkles:[],candies:[],lit:0,doorOpen:0,person:{up:1,t:1},wobble:0}));
+function draw(){
+ const bg=art(night?'bg/gingerbread-house-night':'bg/gingerbread-house');g.drawImage(bg,0,0,1920,1080);
+ for(let i=0;i<3;i++){
+  const H=homes[i],s=SHAPES[i];H.lit=night?1:0;H.doorOpen=night?1:0;
+  H.icing.forEach(row=>row.fill(decorated?1:0));
+  H.candies=decorated?Array.from({length:8},(_,j)=>({kind:j<4?'gumdrop':j<6?'peppermint':j===6?'button':'heart',x:(j%4-1.5)*36,y:-55-Math.floor(j/4)*75,v:j<4?j:j<6?j-4:0,flip:false})):[];
+  g.save();g.translate(330+i*630,900);g.scale(1.15,1.15);if(night)drawGlow(g,H);drawHouse(g,H,{t:1});
+  if(overlay){g.strokeStyle='#00ffff';g.lineWidth=1;for(const pc of s.pieces){g.beginPath();pc.poly.forEach(([x,y],j)=>j?g.lineTo(x,y):g.moveTo(x,y));g.closePath();g.stroke();}}
+  g.restore();
+ }
+ document.querySelector('#status').textContent=`Ready: ${full?'full960×880 originals':'shipping index'}; ${night?'night':'day'}; ${decorated?'icing + candy':'bare'}${overlay?'; geometry cyan':''}`;
+ window.reviewReady=true;
+}
+document.querySelector('#light').onclick=()=>{night=!night;draw()};document.querySelector('#icing').onclick=()=>{decorated=!decorated;draw()};document.querySelector('#outline').onclick=()=>{overlay=!overlay;draw()};draw();
+</script>

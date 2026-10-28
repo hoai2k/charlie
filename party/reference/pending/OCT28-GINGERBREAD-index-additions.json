@@ -1,0 +1,43 @@
+{
+  "images": {
+    "bg/gingerbread-house": "bg/gingerbread-house.webp",
+    "bg/gingerbread-house-night": "bg/gingerbread-house-night.webp",
+    "thumb/gingerbread-house": "thumb/gingerbread-house.webp",
+    "prop/gh-cottage-wall": "prop/gh-cottage-wall.webp",
+    "prop/gh-tall-wall": "prop/gh-tall-wall.webp",
+    "prop/gh-cottage-roof-left": "prop/gh-cottage-roof-left.webp",
+    "prop/gh-cottage-roof-right": "prop/gh-cottage-roof-right.webp",
+    "prop/gh-tall-roof-left": "prop/gh-tall-roof-left.webp",
+    "prop/gh-tall-roof-right": "prop/gh-tall-roof-right.webp",
+    "prop/gh-cottage-chimney": "prop/gh-cottage-chimney.webp",
+    "prop/gh-tall-porch": "prop/gh-tall-porch.webp",
+    "prop/gh-castle-tower-left": "prop/gh-castle-tower-left.webp",
+    "prop/gh-castle-tower-right": "prop/gh-castle-tower-right.webp",
+    "prop/gh-castle-keep": "prop/gh-castle-keep.webp",
+    "prop/gh-castle-cone-left": "prop/gh-castle-cone-left.webp",
+    "prop/gh-castle-cone-right": "prop/gh-castle-cone-right.webp",
+    "prop/gh-candy": "prop/gh-candy.webp",
+    "prop/gh-gingerbread-person": "prop/gh-gingerbread-person.webp"
+  },
+  "group": "gingerbread-house",
+  "keys": [
+    "bg/gingerbread-house",
+    "bg/gingerbread-house-night",
+    "thumb/gingerbread-house",
+    "prop/gh-cottage-wall",
+    "prop/gh-tall-wall",
+    "prop/gh-cottage-roof-left",
+    "prop/gh-cottage-roof-right",
+    "prop/gh-tall-roof-left",
+    "prop/gh-tall-roof-right",
+    "prop/gh-cottage-chimney",
+    "prop/gh-tall-porch",
+    "prop/gh-castle-tower-left",
+    "prop/gh-castle-tower-right",
+    "prop/gh-castle-keep",
+    "prop/gh-castle-cone-left",
+    "prop/gh-castle-cone-right",
+    "prop/gh-candy",
+    "prop/gh-gingerbread-person"
+  ]
+}

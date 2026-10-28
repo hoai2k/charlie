@@ -40662,6 +40662,204 @@
       "tool": "built-in imagegen",
       "bytes": 103852,
       "intake": "party/reference/pending/OCT28-BEACH-BALL-SOCCER.json"
+    },
+    {
+      "key": "bg/gingerbread-house",
+      "prompt": "Use case: illustration-story. Asset type: opaque game backdrop, 1920x1080 landscape 16:9. Draw a cosy farmhouse kitchen at Christmas time, FLAT FRONT VIEW, in polished children's cartoon game art, smooth dark navy #24163f outlines, soft cel shading, slightly desaturated warm cream and gingerbread browns. Warm cream wall, frosty window showing gentle snowfall in UPPER LEFT ONLY, shelf with jars of sweets and rolling pin at upper right, string of paper snowflakes and little garland across top. Crucial game composition: central wall x500\u20131420 y150\u2013760 must stay calm plain and largely EMPTY because a house is built there. Table top has red-and-white checked cloth starting at y760 (70.37% from top) extending to bottom. Straight horizontal table/wall seam at y760. No big objects on table or centre. Soft warm light. No characters, no houses, no text, no labels, no UI, no watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-746ee752-7186-4795-8ff9-a5353b691ebc.png",
+      "archive": "party/reference/sources/oct28-gingerbread/bg-gingerbread-house-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 74516,
+      "runtime": "party/assets/art/bg/gingerbread-house-compact.webp",
+      "fullRuntime": "party/assets/art/bg/gingerbread-house.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "bg/gingerbread-house-night",
+      "prompt": "Use case: illustration-story. Asset type: opaque 1920x1080 landscape 16:9 cartoon game background. Magical snowy Christmas night, deep navy-to-violet sky with small twinkling stars and a big soft full moon toward upper right. Distant snowy hills with TINY pine trees. Smooth moonlit snowy EMPTY village square from y620 (57% down) to bottom, soft blue shading. One lamppost at FAR left and one at FAR right, bunting of tiny lights stretches between them HIGH near y180. Crucial composition: keep middle across x160\u20131760 from y300\u2013960 free of big objects because player-created houses and characters will stand there, row bases y880 and y640. No houses! Top140 pixels calm for title. Children's polished cartoon navy #24163f outlines, soft cel shading, winter blue violet cream lights, clean readable game art. No people, no text, no UI, no watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-7bc6f4ad-7421-4a63-a7fd-101709ce583f.png",
+      "archive": "party/reference/sources/oct28-gingerbread/bg-gingerbread-house-night-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 100596,
+      "runtime": "party/assets/art/bg/gingerbread-house-night-compact.webp",
+      "fullRuntime": "party/assets/art/bg/gingerbread-house-night.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "thumb/gingerbread-house",
+      "prompt": "Use case: illustration-story. Asset type: opaque landscape 800x500 game shelf thumbnail. A cute gingerbread cottage centred and filling picture, covered in thick white icing drips, bright red green purple gumdrops, white/red peppermints, candy canes and a lollipop by the door, warm yellow light in windows, a cute little gingerbread person waving from open door. A pink piping bag floats at upper right squeezing white icing on roof edge (no visible human hand). Gentle snow falling, cosy snowy violet twilight backdrop. Polished children's cartoon game art, strong smooth dark navy #24163f outlines, soft cel shading, warm golden-brown cookie and bright candy colours. No text, no letters, no numbers, no UI, no watermark. All subject inside frame.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-82204dd2-7c1f-4474-9ed3-6955105396d8.png",
+      "archive": "party/reference/sources/oct28-gingerbread/thumb-gingerbread-house-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 636538,
+      "runtime": "party/assets/art/thumb/gingerbread-house.webp",
+      "fullRuntime": "party/assets/art/thumb/gingerbread-house.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-cottage-wall",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated modular gingerbread house front WALL ONLY, transparent RGBA. Flat front orthographic view, no perspective. Smooth dark navy #24163f outline, warm golden-brown biscuit, subtle darker baked edge, soft simple cel shading, a few tiny dough dimples. NO roof slabs, icing, candy, snow, glow, shadow or scenery. The single house-shaped pentagon wall has vertical sides and a triangular top gable. Its width300 height300, gable height130 (so upright side height170). FOUR real transparent cut-outs: open-bottom arched door centred, width72 height112 with half-circle top radius36; TWO SQUARE window holes width52 height54, centres at x-92/+92 relative to centre ; their bottom96 above base and top150 above base. Round attic hole radius24 centred218 above base. Exact layout in a960x880canvas: wall vertices (180,880),(780,880),(780,540),(480,280),(180,540). Door opening x408\u2013552 y656\u2013880 arch centre(480,728) radius72. Square window holes x244\u2013348 and612\u2013716 y580\u2013688. Attic round hole centre(480,444) radius48. All holes show genuine transparency, NO glass, door, fill, bars or crossbars. Keep whole wall in frame, bottom touches canvas bottom. Everything else fully transparent. Crisp clean cartoon game sprite, no text, no labels, no watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-5e094ed1-2fe6-4265-8fd8-51d60073e563.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-cottage-wall-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 24372,
+      "runtime": "party/assets/art/prop/gh-cottage-wall-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-cottage-wall.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-tall-wall",
+      "prompt": "Use case: precise-object-edit. Image1 is the EDIT TARGET: geometric tall-house wall stencil. Image2 is STYLE REFERENCE only: generated gingerbread cookie wall. Change ONLY the plain tan wall material in Image1 into the warm golden-brown gingerbread material of Image2, with subtle darker baked edge, tiny dough dimples and soft cel shading. Preserve Image1's EXACT silhouette proportions, all four rectangular window positions/sizes, round attic hole position/size and arched door position/size. Especially keep Image1's generous wall space between the lower window bottoms and top of doorway. Preserve geometry and transparent surrounding canvas and all SIX transparent holes precisely. No door, window glass, bars, roof pieces, icing, candy, snow, shadows, glow, extra openings or text. Keep dark navy #24163f smooth outlines. Match original960x880canvas ratio and unchanged framing, do not enlarge/reframe the wall. This is a modular game wall, geometry is essential. Genuine RGBA transparency.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-b207e46d-80b9-477a-b38d-3662d0f5b58d.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-tall-wall-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 24582,
+      "runtime": "party/assets/art/prop/gh-tall-wall-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-tall-wall.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-cottage-roof-left",
+      "prompt": "Use case: illustration-story. Asset type: COTTAGE LEFT ROOF PLANK, one isolated long THIN gingerbread biscuit plank, model artwork for a modular cartoon game. Image1 STYLE reference only; match golden cookie material, subtle baked darker edge and dark navy #24163f outline. Draw the single plank HORIZONTALLY across centre of transparent canvas, its long straight sides parallel and horizontal. Ratio length to thickness about9:1. Front orthographic view, not a 3D block, no perspective. Bare golden-brown gingerbread with a few tiny dough dimples, soft cel shading; upper long outer edge gently scalloped like a biscuit, other long edge straight. Ends squared. Full plank inside frame, generous transparent margins. NO icing, candy, roof tiles, snow, shadow, glow, scenery, other pieces, text or watermark. True transparent RGBA. This plank will be geometrically rotated into the cottage left roof plank in intake.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-b5247c42-a9b3-4738-9ca2-afc095fe7c39.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-cottage-roof-left-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 11032,
+      "runtime": "party/assets/art/prop/gh-cottage-roof-left-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-cottage-roof-left.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-cottage-roof-right",
+      "prompt": "Use case: illustration-story. Asset type: COTTAGE RIGHT ROOF PLANK, one isolated long THIN gingerbread biscuit plank, model artwork for a modular cartoon game. Image1 STYLE reference only; match golden cookie material, subtle baked darker edge and dark navy #24163f outline. Draw the single plank HORIZONTALLY across centre of transparent canvas, its long straight sides parallel and horizontal. Ratio length to thickness about9:1. Front orthographic view, not a 3D block, no perspective. Bare golden-brown gingerbread with a few tiny dough dimples, soft cel shading; upper long outer edge gently scalloped like a biscuit, other long edge straight. Ends squared. Full plank inside frame, generous transparent margins. NO icing, candy, roof tiles, snow, shadow, glow, scenery, other pieces, text or watermark. True transparent RGBA. This plank will be geometrically rotated into the cottage right roof plank in intake.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-2fb983bd-aba9-41d2-92fa-0f39d549862d.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-cottage-roof-right-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 10804,
+      "runtime": "party/assets/art/prop/gh-cottage-roof-right-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-cottage-roof-right.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-tall-roof-left",
+      "prompt": "Use case: illustration-story. Asset: TALL HOUSE LEFT ROOF PLANK. Image1 STYLE reference only: same warm golden-brown cookie, dark navy #24163f outline, subtle baked edge, a few tiny dimples, soft cel shading. One single long THIN bare gingerbread biscuit plank, HORIZONTAL straight rectangle, length:thickness7.5:1. Upper long edge gently scalloped like biscuit, bottom long edge straight, squared ends. Flat front orthographic view, no perspective or side faces. Centre plank on generous transparent RGBA canvas, no clipping. NO icing, candy, roof tiles, snow, shadow, glow, scenery, extra objects, text or watermark. This model-generated plank will be affinely rotated into a steep roof slope during intake; draw horizontal for clean crop.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-0e0a07a0-47a0-479b-b269-1c284e1fdb0b.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-tall-roof-left-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 8556,
+      "runtime": "party/assets/art/prop/gh-tall-roof-left-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-tall-roof-left.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-tall-roof-right",
+      "prompt": "Use case: illustration-story. Asset: TALL HOUSE RIGHT ROOF PLANK. Image1 STYLE reference only: same warm golden-brown cookie, dark navy #24163f outline, subtle baked edge, a few tiny dimples, soft cel shading. One single long THIN bare gingerbread biscuit plank, HORIZONTAL straight rectangle, length:thickness7.5:1. Upper long edge gently scalloped like biscuit, bottom long edge straight, squared ends. Flat front orthographic view, no perspective or side faces. Centre plank on generous transparent RGBA canvas, no clipping. NO icing, candy, roof tiles, snow, shadow, glow, scenery, extra objects, text or watermark. This model-generated plank will be affinely rotated into a steep roof slope during intake; draw horizontal for clean crop.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-0a85ec7c-2aae-4baa-82e5-5675623375b8.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-tall-roof-right-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 8150,
+      "runtime": "party/assets/art/prop/gh-tall-roof-right-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-tall-roof-right.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-cottage-chimney",
+      "prompt": "Use case: illustration-story. Asset: isolated modular gingerbread house piece. Image1 STYLE reference only; match golden-brown cookie colour, subtle darker baked edge, clean dark navy #24163f outline, a few tiny dimples and soft cel shading. New piece: ONE narrow upright gingerbread CHIMNEY, rectangle width42 height118, flat front view, four straight edges. A few pressed-in brick-line grooves in dough (brown, NOT icing), sparse staggered horizontal mortar-like lines. No top hole, no perspective, no side walls, no cap. Whole rectangular piece visible centred with transparent margin. NO icing, candy, snow, shadow, glow, scenery, extra objects, text or watermark. True transparent RGBA.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-bac7d722-1bbf-4879-9ac4-e3300767eea5.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-cottage-chimney-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 3966,
+      "runtime": "party/assets/art/prop/gh-cottage-chimney-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-cottage-chimney.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-tall-porch",
+      "prompt": "Use case: illustration-story. Asset: isolated modular gingerbread house piece. Image1 STYLE reference only; match golden-brown cookie colour, subtle darker baked edge, clean dark navy #24163f outline, a few tiny dimples and soft cel shading. New piece: ONE short horizontal FLAT rectangular gingerbread plank, a porch canopy. Width100 height18 (ratio5.56:1). Perfectly horizontal flat FRONT orthographic view, straight edges and squared ends, not scalloped, not 3D, no support columns. Full piece centred in transparent canvas with generous margins. NO icing, candy, snow, shadow, glow, scenery, extra objects, text or watermark. True transparent RGBA.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-24763be8-4de3-4631-9eb4-3b196871179e.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-tall-porch-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 2164,
+      "runtime": "party/assets/art/prop/gh-tall-porch-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-tall-porch.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-castle-tower-left",
+      "prompt": "Use case: illustration-story. Asset: ONE modular gingerbread CASTLE LEFT TOWER WALL slab, no roof. Image1 STYLE reference only: match golden cookie colour, darker baked edge, tiny dough dimples, clean dark navy #24163f outline and soft cel shading. Flat FRONT ORTHOGRAPHIC, no perspective or side wall. Plain upright rectangle width88 height290 (ratio0.3034), straight sides, straight flat top and bottom, no crenellations. ONE narrow arched window slit, genuine transparent hole near TOP CENTRE: width20 height54, top40below tower top, centreX44from left. Semicircle top arch radius10. Hole has navy outline but absolutely NO glass, bars or glow. Full tower rectangle inside canvas with generous transparent margins. No other pieces, no roofs, no icing, candy, snow, shadow, glow, scenery, text or watermark. True transparent RGBA.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-94ece370-dc3c-4987-8905-3f56e55e9c0d.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-castle-tower-left-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 10036,
+      "runtime": "party/assets/art/prop/gh-castle-tower-left-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-castle-tower-left.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-castle-tower-right",
+      "prompt": "Use case: illustration-story. Asset: ONE modular gingerbread CASTLE RIGHT TOWER WALL slab, no roof. Image1 STYLE reference only: match golden cookie colour, darker baked edge, tiny dough dimples, clean dark navy #24163f outline and soft cel shading. Flat FRONT ORTHOGRAPHIC, no perspective or side wall. Plain upright rectangle width88 height290 (ratio0.3034), straight sides, straight flat top and bottom, no crenellations. ONE narrow arched window slit, genuine transparent hole near TOP CENTRE: width20 height54, top40below tower top, centreX44from left. Semicircle top arch radius10. Hole has navy outline but absolutely NO glass, bars or glow. Full tower rectangle inside canvas with generous transparent margins. No other pieces, no roofs, no icing, candy, snow, shadow, glow, scenery, text or watermark. True transparent RGBA.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-44289bfc-7316-451c-9274-38d0a67388ca.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-castle-tower-right-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 10398,
+      "runtime": "party/assets/art/prop/gh-castle-tower-right-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-castle-tower-right.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-castle-keep",
+      "prompt": "Use case: illustration-story. Asset: ONE modular gingerbread CASTLE KEEP front wall slab, no towers or roofs. Image1 STYLE reference only; match golden-brown cookie, subtle darker baked edge, tiny dough dimples, dark navy #24163f outline and soft cel shading. Flat front orthographic view no perspective. Wide rectangle wall width252 height200. Along its top EXACTLY FIVE square battlement teeth, each30wide28tall, centred at x26,76,126,176,226 from left edge. Three genuine transparent openings outlined navy: central open-bottom arched door width80 height128 with semicircle radius40 at88above base; TWO SMALL arched window holes width30 height52, centred37and215from left, top170above base/bottom118above base. Full keep piece visible centred with transparent margins. Entire door/window holes fully transparent, no bars, glass or glow. NO towers, roof, icing, candy, snow, shadow, scenery, extra objects, text or watermark. True transparent RGBA.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-e8e146b1-d9f5-4f4b-9350-d99cc3a7e6d0.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-castle-keep-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 17600,
+      "runtime": "party/assets/art/prop/gh-castle-keep-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-castle-keep.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-castle-cone-left",
+      "prompt": "Use case: illustration-story. Asset: ONE modular gingerbread castle LEFT pointed tower roof. Image1 STYLE reference only; match warm golden-brown cookie with darker baked edge, dark navy #24163f outline, tiny dough dimples, soft cel shading. A single flat isosceles TRIANGLE cookie, horizontal base width120, height138 (height1.15times base), apex at top centre. Full front orthographic view, absolutely no perspective or 3D cone ellipsoid bottom. Two sloping edges gently scalloped like biscuit, horizontal base straight. Whole triangle centred in transparent canvas with generous margins. NO tower wall, icing, candy, tiles, snow, shadow, glow, scenery, extra objects, text or watermark. True transparent RGBA.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-9729f958-1f84-41dc-a697-66cccc553777.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-castle-cone-left-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 7312,
+      "runtime": "party/assets/art/prop/gh-castle-cone-left-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-castle-cone-left.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-castle-cone-right",
+      "prompt": "Use case: illustration-story. Asset: ONE modular gingerbread castle RIGHT pointed tower roof. Image1 STYLE reference only; match warm golden-brown cookie with darker baked edge, dark navy #24163f outline, tiny dough dimples, soft cel shading. A single flat isosceles TRIANGLE cookie, horizontal base width120, height138 (height1.15times base), apex at top centre. Full front orthographic view, absolutely no perspective or 3D cone ellipsoid bottom. Two sloping edges gently scalloped like biscuit, horizontal base straight. Whole triangle centred in transparent canvas with generous margins. NO tower wall, icing, candy, tiles, snow, shadow, glow, scenery, extra objects, text or watermark. True transparent RGBA.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-a700db1b-3454-4c35-a3c9-0b5339f176bf.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-castle-cone-right-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 7580,
+      "runtime": "party/assets/art/prop/gh-castle-cone-right-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-castle-cone-right.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-candy",
+      "prompt": "Use case: illustration-story. Asset: transparent CANDY SPRITE ATLAS for a children's gingerbread game, landscape640x320, EXACT4columns x2rows equally sized160x160cells. Exactly EIGHT separate candy sprites, one per cell, orderly even grid, no overlap, generous transparent gutters. ORDER left to right top row:1 red gumdrop,2 green gumdrop,3 yellow gumdrop,4 purple gumdrop. Bottom row:5 round WHITE and RED peppermint swirl pinwheel candy flat front,6 round WHITE and GREEN peppermint swirl pinwheel candy flat front,7 round flat milk-chocolate BUTTON (plain smooth round disc),8 little PINK sugar candy HEART. Gumdrops are domed with sparkly granular sugar TEXTURE on their surfaces (no detached sparkles). Each sprite centred fills80%of its cell. Polished cartoon game art, clean dark navy #24163f outlines, soft cel shading, flat lighting upper left. No wrappers, no ground, no shadows, no floating particles, no duplicate candy, no text, no labels, no gridlines, no watermark. Genuinely TRANSPARENT RGBA background including gutters.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-baf833d0-2ae5-499c-9e8e-db8dea7df9e8.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-candy-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 192638,
+      "runtime": "party/assets/art/prop/gh-candy.webp",
+      "fullRuntime": "party/assets/art/prop/gh-candy.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-gingerbread-person",
+      "prompt": "Use case: illustration-story. Asset: single cheerful GINGERBREAD PERSON toy character sprite, transparent RGBA, front view, whole body in frame. Image1 STYLE reference only for warm golden-brown gingerbread cookie, navy #24163f outlines and baked edge; make a cute little person waving ONE arm up high, other arm down sideways, round head, plump short limbs, happy friendly face. White icing squiggles at wrists and ankles, two white icing dot eyes, a big white icing smile, round rosy pink cheeks, EXACTLY three gumdrop buttons down torso in RED, GREEN, YELLOW order. No hat, no bowtie, no other accessories. Feet level bottom-centred: final240x320canvas, feet meet bottom edge, body centre x120. Fully visible raised hand and both feet, generous transparent margin above and beside. Polished cartoon game art, soft cel shading. No ground, shadow, snow, detached sparkles, glow, scenery, other characters, text or watermark. True transparent background.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-f7781fe8-66f4-498e-b4ce-f6781c8ed053.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-gingerbread-person-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 67746,
+      "runtime": "party/assets/art/prop/gh-gingerbread-person.webp",
+      "fullRuntime": "party/assets/art/prop/gh-gingerbread-person.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
     }
   ]
 }
