@@ -11,6 +11,9 @@
 // When the pile is huge (or the clock runs out), a stepladder pops up beside it:
 // everyone climbs it in turn and CANNONBALLS in (mash A for a bigger splash) with a giant
 // leaf explosion, and the game ends on everyone's heads poking out of the leaves.
+// In the pile (and on in the gallery) a kid can wade about (stick, leaves puffing up; B
+// dashes), and jump right out and plop back in with a leaf splash (A; in the gallery,
+// where A goes on, X).
 // No losers: finishTogether, a gallery ending, everyone gets a star.
 //
 // Sister Party Easy: A alone plays the whole game. One press rakes where you are; pressing A
@@ -277,7 +280,7 @@ export class Game {
   placeActor(e) {
     const a = e.a;
     a.x = e.x; a.y = e.y;
-    if (e.fin && (e.fin.state === 'leap' || e.fin.state === 'in' || e.fin.state === 'head')) return;
+    if (e.fin && (e.fin.state === 'leap' || e.fin.state === 'in' || e.fin.state === 'head' || e.fin.state === 'hop')) return;
     a.scale = e.base * depthScale(e.y, { top: 400, near: 1000, far: 0.86, nearScale: 1.04 });
   }
 
@@ -686,14 +689,14 @@ export class Game {
     }
     for (const e of this.ents) this.finaleStep(e, dt);
     // everyone in: heads up, leaves rain, then the gallery
-    if (this.phase === 'finale' && this.ents.every((e) => e.fin && e.fin.state === 'head' && e.fin.t > 0.6)) {
+    if (this.phase === 'finale' && this.ents.every((e) => e.fin && (e.fin.state === 'head' || e.fin.state === 'hop') && e.fin.t > 0.6)) {
       this.phase = 'heads'; this.ht = 0;
       this.banner = { text: 'Leaf pile pals!', t: 0, d: 2.6 };
       sfx('cheer', { vol: 0.6 });
       particles.confettiRain(W, 60);
     }
     if (this.phase === 'finale' && this.ft > 9 + this.n * 1.1) {   // safety: nobody waits forever
-      for (const e of this.ents) if (e.fin.state !== 'head') { e.fin.state = 'head'; e.fin.t = 1; e.a.z = 0; e.rot = 0; e.a.setPose('laugh'); }
+      for (const e of this.ents) if (e.fin.state !== 'head' && e.fin.state !== 'hop') { e.fin.state = 'head'; e.fin.t = 1; e.a.z = 0; e.rot = 0; e.a.setPose('laugh'); }
     }
     if (this.phase === 'heads') {
       this.ht += dt;
@@ -706,8 +709,11 @@ export class Game {
     const F = e.fin, a = e.a, c = e.p.ctrl;
     if (!F) return;
     F.t += dt;
+    // a human in the pile wades about and jumps out (A before the gallery; X always)
+    const wader = !e.p.isAI && (F.state === 'head' || F.state === 'hop');
+    if (wader) this.wade(e, dt);
     // mashing A anytime in the finale: a bigger splash (and a little leaf puff now)
-    if (e.p.isAI ? Math.random() < dt * [2, 3, 4][clamp(e.p.aiLevel ?? 0, 0, 2)] : c.pressed('a')) {
+    if (e.p.isAI ? Math.random() < dt * [2, 3, 4][clamp(e.p.aiLevel ?? 0, 0, 2)] : c.pressed('a') && !(wader && !this.api.ended?.())) {
       F.power = Math.min(1.6, F.power + 0.14);
       if (F.state === 'head') {
         this.burst(F.slot.x, F.slot.y - 10, 4, { speed: [160, 320], size: [22, 34] });
@@ -759,12 +765,60 @@ export class Game {
       case 'in':
         if (F.t > 0.4) { F.state = 'head'; F.t = 0; a.setPose('laugh'); a.squash(-0.3); snd(['llp-plop', 'pop'], { vol: 0.4, rate: 1.2 }); }
         break;
-      case 'head':
+      case 'head': case 'hop':
         a.scale = e.base * HEAD_SCALE;   // a little bigger: the stars of the last picture
-        e.x = F.slot.x; e.y = F.slot.y + e.neckK * a.scale - a.height * 0.16 + Math.sin(this.t * 3 + e.i) * 3;
-        e.headK = Math.min(1, F.t / 0.25);
+        e.x = F.slot.x; e.y = F.slot.y + e.neckK * a.scale - a.height * 0.16 + (F.state === 'hop' ? 0 : Math.sin(this.t * 3 + e.i) * 3);
+        e.headK = F.state === 'hop' ? 1 : Math.min(1, F.t / 0.25);
+        a.z = F.state === 'hop' ? F.hz : 0;
         break;
       default: break;
+    }
+  }
+
+  /**
+   * A human in the pile: the stick wades her about inside it (leaves puff up as she goes, B
+   * dashes), A (X in the gallery, where A goes on) jumps her right out of the leaves and she
+   * plops back in with a leaf splash. Idle, she's a head poking out like everyone else.
+   */
+  wade(e, dt) {
+    const F = e.fin, a = e.a, c = e.p.ctrl, w = PILE_FULL_W, h = pileH(w);
+    if (F.u == null) { F.u = (F.slot.x - PILE.x) / (w * 0.5); F.yk = clamp((PILE.y - F.slot.y) / Math.max(1, domeTop(F.u) * h), 0.3, 0.8); }
+    const sx = Math.abs(c.x) > 0.2 ? c.x : 0, sy = Math.abs(c.y) > 0.2 ? c.y : 0;
+    const d = e.dash.update(dt, c, { x: F.slot.x, y: F.slot.y, actor: a });
+    F.u = clamp(F.u + (sx * 0.62 * dt) + d.x / (w * 0.5), -0.8, 0.8);
+    F.yk = clamp(F.yk - sy * 0.75 * dt - d.y / h, 0.3, 0.8);
+    F.slot.x = PILE.x + F.u * w * 0.5;
+    F.slot.y = PILE.y - domeTop(F.u) * h * F.yk;
+    if (Math.abs(sx) > 0.15) a.facing = sx > 0 ? 1 : -1;
+    const moving = Math.hypot(sx, sy) > 0.2 || d.x || d.y;
+    F.puffT = (F.puffT || 0) - dt;
+    if (moving && F.state === 'head' && F.puffT <= 0) {
+      F.puffT = 0.12;
+      this.burst(F.slot.x - a.facing * 30, F.slot.y - 4, 2, { speed: [120, 260], size: [22, 34], life: [0.6, 1] });
+      this.pileWob = Math.max(this.pileWob, 0.12);
+      if (this.crunchGate <= 0) { this.crunchGate = 0.16; snd(['llp-crunch', 'crumble'], { vol: 0.16, rate: rand(1.2, 1.6) }); }
+    }
+    const jumpBtn = c.pressed('x') || (!this.api.ended?.() && c.pressed('a'));
+    if (F.state === 'head' && jumpBtn && e.headK >= 1) {
+      // high enough to clear the leaves: her whole body pops out
+      F.state = 'hop'; F.t = 0; F.hz = 0; F.vz = Math.sqrt(2 * 2600 * (a.height * 1.05 + 50));
+      a.setPose('jump'); a.squash(-0.25);
+      this.burst(F.slot.x, F.slot.y, 10, { speed: [220, 460], size: [26, 42] });
+      snd(['llp-boing', 'jump'], { vol: 0.45 });
+    }
+    if (F.state === 'hop') {
+      F.vz -= 2600 * dt; F.hz = Math.max(0, F.hz + F.vz * dt);
+      if (F.hz <= 0 && F.vz < 0) {
+        F.state = 'head'; F.t = 1; F.vz = 0; a.setPose('laugh'); a.squash(0.3);
+        const x = F.slot.x, y = F.slot.y;
+        this.burst(x, y, 18, { speed: [260, 560], size: [28, 46], life: [0.9, 1.5] });
+        particles.ring(x, y, '#fff2c0', 180, 0.35);
+        if (chance(0.5)) particles.popText(x, y - a.height - 40, pick(['Plop!', 'Floomp!', 'Wheee!']), pick(['#ff7a2e', '#ffd23f']), 48);
+        this.pileSq = Math.max(this.pileSq, 0.3); this.pileWob = Math.max(this.pileWob, 0.5);
+        snd(['llp-plop', 'pop'], { vol: 0.45, rate: rand(1, 1.3) });
+        snd(['llp-crunch', 'crumble'], { vol: 0.3 });
+        c.rumble?.(0.3, 90);
+      }
     }
   }
 
@@ -817,7 +871,7 @@ export class Game {
     for (const s of this.squirrels) if (s.state !== 'in') items.push({ y: s.y, fn: () => this.drawSquirrelNow(g, s) });
     for (const e of this.ents) {
       const F = e.fin;
-      if (F && (F.state === 'in' || F.state === 'head')) continue;           // drawn with the pile
+      if (F && (F.state === 'in' || F.state === 'head' || F.state === 'hop')) continue;   // drawn with the pile
       if (e.jump && e.jump.phase === 'in') { items.push({ y: GP.y + 1, fn: () => this.drawHead(g, e, GP.x, GP.y - 45, 70) }); continue; }
       const y = F && F.state === 'leap' ? PILE.y + 5 : F && (F.state === 'climb' || F.state === 'top') ? LAD.y + 1 : e.y;
       items.push({ y, fn: () => this.drawPlayer(g, e) });
@@ -862,8 +916,8 @@ export class Game {
     }
     drawPile(g, PILE.x, PILE.y, w, this.shown, this.pileSq, this.pileWob);
     // heads poking out (back row first)
-    const heads = this.ents.filter((e) => e.fin && (e.fin.state === 'head' || e.fin.state === 'in')).sort((a, b) => a.fin.slot.y - b.fin.slot.y);
-    for (const e of heads) if (e.fin.state === 'head') this.drawHead(g, e, e.fin.slot.x, e.fin.slot.y, 90);
+    const heads = this.ents.filter((e) => e.fin && (e.fin.state === 'head' || e.fin.state === 'hop')).sort((a, b) => a.fin.slot.y - b.fin.slot.y);
+    for (const e of heads) this.drawHead(g, e, e.fin.slot.x, e.fin.slot.y, 90);
     // squirrel tail poking out while it's in the pile
     for (const s of this.squirrels) if (s.state === 'in') {
       g.save(); g.translate(PILE.x + Math.sin(s.t * 20) * 30, PILE.y - pileH(w) * 0.5);
@@ -881,7 +935,7 @@ export class Game {
     g.beginPath(); g.ellipse(x, y + 2, collarW * 0.55, 14, 0, 0, TAU); g.fill();
     g.restore();
     g.save();
-    g.beginPath(); g.rect(x - 220, y - 500, 440, 506); g.clip();
+    g.beginPath(); g.rect(x - 260, y - 900, 520, 906); g.clip();   // (tall: a jump out clears the leaves)
     g.translate(0, (1 - k) * 80);
     a.draw(g, { shadow: false });
     g.restore();
@@ -958,7 +1012,9 @@ export class Game {
       ui.text(g, this.easy ? 'Press A to rake the leaves onto the big pile!' : 'Run to the leaves and press A to rake!', W / 2, H - 60, { size: 40, color: '#ffffff', weight: 800, stroke: NAVY });
       g.restore();
     }
-    if (this.phase === 'finale' && this.ft > 1.6 && this.ft < 6 && this.players.some((p) => !p.isAI)) {
+    const wading = this.ents.some((e) => !e.p.isAI && e.fin && (e.fin.state === 'head' || e.fin.state === 'hop'));
+    if (wading && this.phase !== 'play') ui.hints(g, [['stick', 'Wade'], ['a', 'Jump out!']], W / 2, H - 60, { size: 38 });
+    else if (this.phase === 'finale' && this.ft > 1.6 && this.ft < 6 && this.players.some((p) => !p.isAI)) {
       ui.text(g, 'Press A lots for a GIANT splash!', W / 2, H - 60, { size: 44, color: '#ffffff', weight: 800, stroke: NAVY });
     }
     if (this.banner) {
