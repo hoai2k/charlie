@@ -800,8 +800,8 @@ export class Game {
     }
     const jumpBtn = c.pressed('x') || (!this.api.ended?.() && c.pressed('a'));
     if (F.state === 'head' && jumpBtn && e.headK >= 1) {
-      // high enough to clear the leaves: her whole body pops out
-      F.state = 'hop'; F.t = 0; F.hz = 0; F.vz = Math.sqrt(2 * 2600 * (a.height * 1.05 + 50));
+      // just high enough for her feet to clear the leaves (not off the top of the screen)
+      F.state = 'hop'; F.t = 0; F.hz = 0; F.vz = Math.sqrt(2 * 2600 * (a.height * 0.72 + 30));
       a.setPose('jump'); a.squash(-0.25);
       this.burst(F.slot.x, F.slot.y, 10, { speed: [220, 460], size: [26, 42] });
       snd(['llp-boing', 'jump'], { vol: 0.45 });
