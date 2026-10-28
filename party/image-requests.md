@@ -1148,3 +1148,44 @@ area x < 150 and x > 1770 between y 430 and 870 plain sand).
 Player poses used: `run`, `walk`, `idle`, `dash` (B), `push` (the kick, A),
 `windup` (charging a kick), `cheer`, `celebrate`, `pout`, `surprised`. No new
 poses needed.
+
+### gopher-garden — Gopher Gardens   (requested by the gopher-garden agent, 2026-10-28, priority: nice-to-have)
+
+A sunny whack-a-mole party game (Charlie Party, 1–8 players, 60 s): everyone
+runs around **one shared garden** full of dirt-mound holes and bops the cheeky
+gophers that pop up with a soft squeaky toy mallet (A; B dashes). A bopped
+gopher ducks down dazed and happy-silly (+1). Sometimes a garden fairy pops
+up instead (don't bop her: she goes dizzy, you lose a point), and now and then
+the Troll pops up and grabs your mallet for a tug-of-war. Every key below has
+a procedural fallback that ships today, and the code already asks for each
+one (it drops in as soon as it is in `assets/art/index.json`; add it to a
+`gopher-garden` group). House style: navy `#24163f` outlines, soft cel
+shading, bright candy colours, **no text**. No baked-in shadows, sparkles,
+stars, motion lines or dust (the code draws them).
+
+**Reused, no art needed:** the garden fairy sprite sets
+(`garden-fairy-*`: `idle`/`float` popping up, `dizzy` when bopped), the troll
+sprite set (`laugh` popping up, `grab` holding the mallet), and the players'
+own `swing` (the bop), `pull` (tugging the mallet back from the troll),
+`surprised` (bopped a fairy), `dash`, `run`, `cheer`, `celebrate`, `pout`.
+No new poses.
+
+**Layout (screen px on the 1920×1080 canvas, high three-quarter view looking
+down at the lawn):** a garden hedge, flower beds and sky in the top band
+(y 0 to ≈330; keep the top 130 px calm for the clock); the lawn from y ≈340
+to the bottom. The code draws the 18 holes itself in 4 staggered rows:
+y ≈ 445 (4 holes), 595 (5), 750 (4), 905 (5), x ≈ 300–1620, 330 px apart.
+Holes are drawn 230 px wide at the front row and ≈190 px at the back row.
+The score chips sit along the bottom (y ≈ 990).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/gopher-garden` | 1920×1080, opaque | Full screen, under everything. Keep the lawn y 380–1040 plain, even, low-contrast mown grass (the holes, critters and players go there); detail only in the top band and the extreme left/right edges | A cheerful sunny back garden from a high three-quarter view: soft blue sky with two puffy clouds, a neat green hedge across the back with a white picket gate, flower beds of tulips and daisies, a little red wheelbarrow and a watering can at the far left, a birdbath and a sunflower patch at the far right, then a wide, smooth, gently striped mown lawn filling the lower two-thirds. No holes, no animals, no characters |
+| `prop/gopher-hole` | 320×160, transparent | The **back** of a hole, drawn centred on the hole point (x, y), 230 px wide at depth 1. Its dark opening must be an ellipse centred at (160, 78) in the image, about 170×64 px; critters rise out of it | A small round dirt mound with a dark open burrow hole in its middle, seen from a high three-quarter view: crumbly warm brown soil, a few pebbles and two tiny grass tufts on the far side, the hole's inside a deep soft brown-black |
+| `prop/gopher-hole-front` | 320×160, transparent | Same canvas and placement as `prop/gopher-hole`, drawn **over** the critter so it looks like it pops out from behind the lip. Only the near (bottom) half of the mound: everything above the opening's centre line (y < 78) fully transparent; its top edge follows the lower arc of the opening exactly | Just the front lip of the same dirt mound: the crumbly brown soil rim curving round the front of the hole, a pebble and a grass tuft, matching `prop/gopher-hole` pixel for pixel where they overlap |
+| `prop/gopher-up`, `prop/gopher-up-2` | 320×320 each, transparent | Bottom-centre anchor at the hole's opening, drawn 160 px wide at depth 1 (cut off below the hole's front lip by the code). The body runs off the bottom edge of the canvas, cut flat (that part is hidden in the hole). Facing the viewer | A cute chubby gopher popping up out of a burrow, from the tummy up: warm caramel-brown fur, cream muzzle and tummy, two big buck teeth, round black shiny eyes, little pink nose, small round ears, tiny paws. (1) cheeky grin, paws up by its cheeks as if saying "peekaboo!"; (2) a teasing wink with its tongue poking out. Round, soft, friendly, never scary |
+| `prop/gopher-bonked` | 320×320, transparent | Same anchor and size as `prop/gopher-up`; shown after a bop while it wobbles and sinks back down (the code adds circling stars, a squash and a small bump) | The same gopher just bopped, dazed and happy-silly: squished down a little, eyes turned into dizzy swirls, a goofy lopsided grin with the tongue lolling out, a little round pink bump on top of its head, cheeks rosy. Clearly giggly, not hurt |
+| `prop/gopher-mallet` | 480×200, transparent | Held in each player's hand and swung overhead; drawn about 0.65× the player's height long, rotated about the grip. Horizontal, **handle on the left**, the hand's grip point at (96, 100); the head at the right end, centred on y = 100 | A soft squeaky toy mallet for a kids' game, lying horizontal: a short striped candy-pink-and-white wooden handle with a round yellow knob on its left end, and on the right a big chunky barrel-shaped head made of squishy pastel-pink rubber with white rounded end caps and a small yellow star on its side. Bouncy and harmless-looking, not a real hammer |
+| `prop/gopher-troll-up` (optional) | 400×400, transparent | Bottom-centre anchor at the hole's opening, drawn 260 px wide at depth 1 (cut off below the hole's front lip). Today the code uses the troll sprite's `laugh` frame clipped in the hole | The game's Troll (attach the troll canonical `reference/canonical/troll.webp`: olive-green spotted skin, long shaggy brown hair, brown ragged tunic) popping up out of a burrow from the waist up, both big hands on the hole's rim, a huge mischievous toothy grin, eyebrows waggling. Cheeky, never scary |
+| `prop/gopher-troll-tug` (optional) | 400×400, transparent | Same anchor and size as `prop/gopher-troll-up`; the code draws the player's mallet in his hands with its head at the grip point **(300, 170)** and wobbles him side to side. Today the code uses the troll sprite's `grab` frame | The same Troll from the waist up, leaning back and clutching something with both fists held together forward and to the right, at about (300, 170) in the image (no mallet in the art), grinning cheekily with his tongue poking out, as if winning a playful tug-of-war |
+| `thumb/gopher-garden` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A sunny garden lawn with three dirt-mound holes: a cheeky gopher popping up from the middle one with a pink squeaky mallet bopping down on it (only the mallet, no player), a little pink flower fairy peeking out of the left hole, and the troll's big green hand reaching out of the right one. Subject centred |
