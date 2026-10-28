@@ -20,7 +20,7 @@ import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, voice, hasSound, music, audioRunning } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
-import { drawArt } from '../engine/art.js';
+import { art, drawArt } from '../engine/art.js';
 import { outfitItem } from '../engine/outfits.js';
 import { aiProfile } from '../engine/ai.js';
 import { easyPrompt } from '../engine/easy.js';
@@ -79,10 +79,8 @@ function moveSound(M, vol = 0.45) {
   }
 }
 
-/** A move's card picture: the ballet pirouette for the twirl (it reads better in a ballet
- *  class than the hoop-like dance-move-twirl), Dance Studio's move pictograms for the rest. */
+/** A move's card picture: Dance Studio's move pictograms (the twirl's is a pirouette). */
 function drawCallPicto(g, M, x, y, s, t) {
-  if (M.id === 'twirl' && drawArt(g, 'prop/ballet-move-twirl', x, y, s, s)) return;
   drawMovePicto(g, M, x, y, s, t, true);
 }
 
@@ -684,13 +682,15 @@ export class Game {
       const T = TEACH[dm.M.id], u = clamp(dm.t / dm.dur, 0, 1), s = Math.sin(u * Math.PI), h = TEACHER.h;
       pose = T.pose; k = T.pose === 'side' || T.pose === 'plie' || T.pose === 'up' ? clamp(u * 1.6, 0, 0.5) : u; side = dm.side;
       artKey = 'prop/oballet-teacher-' + (T.art || dm.M.id);
+      const own = !!art(artKey);   // her own art for the move: no stand-in offsets (plie dip, side step)
+      if (own) { pose = dm.M.id; k = u; }
       if (T.hop) z = s * h * T.hop;
       if (T.lean) rot = s * T.lean * side;
       if (T.spin) { rot = ease.inOutQuad(u) * TAU * side; z = s * h * 0.1; }
       if (T.kick) side = u < 0.5 ? side : -side;
       if (T.sway) { const w = Math.sin(u * TAU * 2); rot += w * T.sway; dx += w * h * 0.06; }
       if (T.glide) dx = -s * h * 0.25 * side;   // moonwalk: sliding back while facing forward
-      if (T.drop) { z = -s * h * T.drop; sy = 1 - s * 0.06; }
+      if (T.drop && !own) { z = -s * h * T.drop; sy = 1 - s * 0.06; }
     } else if (this.phase !== 'bow') z = Math.abs(Math.sin(this.beat * Math.PI)) * 8;   // a little groove on the beat
     const R = this.react;
     if (R) { pose = null; artKey = null; rot = 0; }

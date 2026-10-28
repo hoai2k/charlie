@@ -1,0 +1,223 @@
+{
+  "generator": "built-in imagegen, one call per pose",
+  "reference": "party/assets/art/prop/ballet-teacher.webp",
+  "assets": [
+    {
+      "key": "prop/oballet-teacher-disco",
+      "prompt": "Use case: identity-preserve. Image1 is the approved Madame Papillon reference. Reproduce this exact character: warm brown skin, lilac tall bun, pink flower and gold tiara, rainbow pink/peach/teal butterfly wings with navy edges and yellow dots, pink petal tutu/leotard and pink pointe shoes. Same appealing mature graceful teacher proportions, same face and palette. Bold smooth navy #24163f outlines, clean soft cel shading, bright candy colors, 2D, no 3D. Single entire character, no text, no shadow, no motion lines, no sparkles, no extra objects or characters. True transparent background. Portrait 4:5 composition, full body and wings inside with small safe margins. Intended runtime512x640, ground line y=632, upright bun near y=20, same body scale as reference; pose can lower head or invert body naturally. Mostly screen-right three-quarter facing. POSE: Disco point: right arm pointing straight up-and-out to the top-right corner, left hand on hip, hips pushed to one side, one knee bent with that toe tapping, big grin.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-b94f3189-6f44-49c3-9072-a7d562fe276b.png",
+      "source": "party/reference/sources/dance-along/disco-native.webp",
+      "runtimeFile": "party/assets/art/prop/oballet-teacher-disco.webp",
+      "nativeSize": [
+        1122,
+        1402
+      ],
+      "runtimeSize": [
+        512,
+        640
+      ],
+      "sourcePixelExact": true,
+      "sourceCrop": [
+        42,
+        13,
+        1102,
+        1381
+      ],
+      "scale": 0.44206773618538325,
+      "placement": [
+        21,
+        27
+      ],
+      "groundLine": 632,
+      "supportLine": 632,
+      "runtimeBytes": 68074,
+      "sha256": "82411d8dcc5d624435cc61dd58237db5b0d4687809ae24fb89b2c0d3a7f8be5b"
+    },
+    {
+      "key": "prop/oballet-teacher-starfish",
+      "prompt": "Use case: identity-preserve. Image1 is the approved Madame Papillon reference. Reproduce this exact character: warm brown skin, lilac tall bun, pink flower and gold tiara, rainbow pink/peach/teal butterfly wings with navy edges and yellow dots, pink petal tutu/leotard and pink pointe shoes. Same appealing mature graceful teacher proportions, same face and palette. Bold smooth navy #24163f outlines, clean soft cel shading, bright candy colors, 2D, no 3D. Single entire character, no text, no shadow, no motion lines, no sparkles, no extra objects or characters. True transparent background. Portrait 4:5 composition, full body and wings inside with small safe margins. Intended runtime512x640, ground line y=632, upright bun near y=20, same body scale as reference; pose can lower head or invert body naturally. Mostly screen-right three-quarter facing. POSE: Star jump: airborne 10% of her standing height above the ground line, arms and legs flung wide in an X, wings spread, delighted open-mouth smile. Maintain head/body size versus standing, leave transparent gap under feet.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-f0b82c63-1308-4929-94ef-33e89aebfee9.png",
+      "source": "party/reference/sources/dance-along/starfish-native.webp",
+      "runtimeFile": "party/assets/art/prop/oballet-teacher-starfish.webp",
+      "nativeSize": [
+        1122,
+        1402
+      ],
+      "runtimeSize": [
+        512,
+        640
+      ],
+      "sourcePixelExact": true,
+      "sourceCrop": [
+        50,
+        7,
+        1097,
+        1338
+      ],
+      "scale": 0.4192336589030804,
+      "placement": [
+        36,
+        10
+      ],
+      "groundLine": 632,
+      "supportLine": 568,
+      "runtimeBytes": 70982,
+      "sha256": "a76b2255a54174c108ef4384ece6b9e9569c425efa78e957c9a8a0565e65576f"
+    },
+    {
+      "key": "prop/oballet-teacher-hula",
+      "prompt": "Use case: identity-preserve. Image1 is the approved Madame Papillon reference. Reproduce this exact character: warm brown skin, lilac tall bun, pink flower and gold tiara, rainbow pink/peach/teal butterfly wings with navy edges and yellow dots, pink petal tutu/leotard and pink pointe shoes. Same appealing mature graceful teacher proportions, same face and palette. Bold smooth navy #24163f outlines, clean soft cel shading, bright candy colors, 2D, no 3D. Single entire character, no text, no shadow, no motion lines, no sparkles, no extra objects or characters. True transparent background. Portrait 4:5 composition, full body and wings inside with small safe margins. Intended runtime512x640, ground line y=632, upright bun near y=20, same body scale as reference; pose can lower head or invert body naturally. Mostly screen-right three-quarter facing. POSE: Hula dance: hips swung to one side, BOTH arms flowing together toward the same side in soft waves at shoulder height, knees softly bent, eyes happily closed. Empty hands.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-a4333b4a-fafa-4c5d-8172-800d8b545042.png",
+      "source": "party/reference/sources/dance-along/hula-native.webp",
+      "runtimeFile": "party/assets/art/prop/oballet-teacher-hula.webp",
+      "nativeSize": [
+        1122,
+        1402
+      ],
+      "runtimeSize": [
+        512,
+        640
+      ],
+      "sourcePixelExact": true,
+      "sourceCrop": [
+        19,
+        25,
+        1096,
+        1388
+      ],
+      "scale": 0.44206773618538325,
+      "placement": [
+        18,
+        29
+      ],
+      "groundLine": 632,
+      "supportLine": 632,
+      "runtimeBytes": 73990,
+      "sha256": "75e3e46b41a5f060bfe8144bcf522563ca1a886956e599e0976d96adec62261b"
+    },
+    {
+      "key": "prop/oballet-teacher-cartwheel",
+      "prompt": "Use case: identity-preserve. Image1 is the approved Madame Papillon reference. Reproduce this exact character: warm brown skin, lilac tall bun, pink flower and gold tiara, rainbow pink/peach/teal butterfly wings with navy edges and yellow dots, pink petal tutu/leotard and pink pointe shoes. Same appealing mature graceful teacher proportions, same face and palette. Bold smooth navy #24163f outlines, clean soft cel shading, bright candy colors, 2D, no 3D. Single entire character, no text, no shadow, no motion lines, no sparkles, no extra objects or characters. True transparent background. Portrait 4:5 composition, full body and wings inside with small safe margins. Intended runtime512x640, ground line y=632, upright bun near y=20, same body scale as reference; pose can lower head or invert body naturally. Mostly screen-right three-quarter facing. POSE: Mid-cartwheel UPSIDE DOWN: both hands flat on ground line y=632, straight supporting arms, head inverted above hands, legs straight UP in wide V, ballet slippers at top. Pink tutu stays neatly covering her hips, pink tights; butterfly wings spread behind. Cheerful laughing. Entire inverted body fits canvas. No standing feet at bottom.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-179568e8-276b-446d-bdf8-9fd51eddb489.png",
+      "source": "party/reference/sources/dance-along/cartwheel-native.webp",
+      "runtimeFile": "party/assets/art/prop/oballet-teacher-cartwheel.webp",
+      "nativeSize": [
+        1122,
+        1402
+      ],
+      "runtimeSize": [
+        512,
+        640
+      ],
+      "sourcePixelExact": true,
+      "sourceCrop": [
+        46,
+        15,
+        1105,
+        1358
+      ],
+      "scale": 0.44206773618538325,
+      "placement": [
+        22,
+        38
+      ],
+      "groundLine": 632,
+      "supportLine": 632,
+      "runtimeBytes": 76612,
+      "sha256": "27b3601cb1595b3b0bef3b4bdc1dc54425a3993e49399031c76a679dcd64efbf"
+    },
+    {
+      "key": "prop/oballet-teacher-cancan",
+      "prompt": "Use case: identity-preserve. Image1 is the approved Madame Papillon reference. Reproduce this exact character: warm brown skin, lilac tall bun, pink flower and gold tiara, rainbow pink/peach/teal butterfly wings with navy edges and yellow dots, pink petal tutu/leotard and pink pointe shoes. Same appealing mature graceful teacher proportions, same face and palette. Bold smooth navy #24163f outlines, clean soft cel shading, bright candy colors, 2D, no 3D. Single entire character, no text, no shadow, no motion lines, no sparkles, no extra objects or characters. True transparent background. Portrait 4:5 composition, full body and wings inside with small safe margins. Intended runtime512x640, ground line y=632, upright bun near y=20, same body scale as reference; pose can lower head or invert body naturally. Mostly screen-right three-quarter facing. POSE: Can-can: facing screen-right, one leg kicked high forward to the RIGHT, pink pointe toe at head height, balancing on other pointe on ground y=632. BOTH hands hold tutu edge out, cheeky wink, wings behind. Keep pink tights and full petal tutu.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-a9ba4936-378d-4bf4-afc1-14c8a9a18129.png",
+      "source": "party/reference/sources/dance-along/cancan-native.webp",
+      "runtimeFile": "party/assets/art/prop/oballet-teacher-cancan.webp",
+      "nativeSize": [
+        1122,
+        1402
+      ],
+      "runtimeSize": [
+        512,
+        640
+      ],
+      "sourcePixelExact": true,
+      "sourceCrop": [
+        21,
+        17,
+        1105,
+        1393
+      ],
+      "scale": 0.44206773618538325,
+      "placement": [
+        16,
+        24
+      ],
+      "groundLine": 632,
+      "supportLine": 632,
+      "runtimeBytes": 68650,
+      "sha256": "884b43a4deab44348fba55116cbb4497e4fe976284efb2a0516322615afa4a23"
+    },
+    {
+      "key": "prop/oballet-teacher-splits",
+      "prompt": "Use case: identity-preserve. Image1 is the approved Madame Papillon reference. Reproduce this exact character: warm brown skin, lilac tall bun, pink flower and gold tiara, rainbow pink/peach/teal butterfly wings with navy edges and yellow dots, pink petal tutu/leotard and pink pointe shoes. Same appealing mature graceful teacher proportions, same face and palette. Bold smooth navy #24163f outlines, clean soft cel shading, bright candy colors, 2D, no 3D. Single entire character, no text, no shadow, no motion lines, no sparkles, no extra objects or characters. True transparent background. Portrait 4:5 composition, full body and wings inside with small safe margins. Intended runtime512x640, ground line y=632, upright bun near y=20, same body scale as reference; pose can lower head or invert body naturally. Mostly screen-right three-quarter facing. POSE: Front splits resting ON the ground line y=632: one straight leg extended forward to RIGHT, other extended back to LEFT, legs flat horizontal and ballet shoes visible. Torso upright, arms raised in graceful V, proud smile. Her seated head is LOWER in canvas than standing. Preserve actual head and torso size, don't enlarge seated body to fill canvas; generous clear area above her.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-3f621f5d-b88e-47aa-a529-49f557c7051b.png",
+      "source": "party/reference/sources/dance-along/splits-native.webp",
+      "runtimeFile": "party/assets/art/prop/oballet-teacher-splits.webp",
+      "nativeSize": [
+        1122,
+        1402
+      ],
+      "runtimeSize": [
+        512,
+        640
+      ],
+      "sourcePixelExact": true,
+      "sourceCrop": [
+        8,
+        484,
+        1116,
+        1267
+      ],
+      "scale": 0.44206773618538325,
+      "placement": [
+        11,
+        286
+      ],
+      "groundLine": 632,
+      "supportLine": 632,
+      "runtimeBytes": 55110,
+      "sha256": "ed796f9bad6c4f5c549960ccbbc70faf88f7d98e247b435ae39f430c1166ee05"
+    },
+    {
+      "key": "prop/oballet-teacher-moonwalk",
+      "prompt": "Use case: identity-preserve. Image1 is the approved Madame Papillon reference. Reproduce this exact character: warm brown skin, lilac tall bun, pink flower and gold tiara, rainbow pink/peach/teal butterfly wings with navy edges and yellow dots, pink petal tutu/leotard and pink pointe shoes. Same appealing mature graceful teacher proportions, same face and palette. Bold smooth navy #24163f outlines, clean soft cel shading, bright candy colors, 2D, no 3D. Single entire character, no text, no shadow, no motion lines, no sparkles, no extra objects or characters. True transparent background. Portrait 4:5 composition, full body and wings inside with small safe margins. Intended runtime512x640, ground line y=632, upright bun near y=20, same body scale as reference; pose can lower head or invert body naturally. Mostly screen-right three-quarter facing. POSE: Moonwalk facing screen-right: leaning back toward LEFT slightly, one foot flat and sliding backward LEFT, other foot up on toe to RIGHT, one empty hand raised by tiara as if tipping imaginary hat, other hand at hip, cool smug smile. No actual hat. Same head and torso size as reference, feet on ground y=632.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-db95715d-f6f2-4349-83c0-41e68c7a04c1.png",
+      "source": "party/reference/sources/dance-along/moonwalk-native.webp",
+      "runtimeFile": "party/assets/art/prop/oballet-teacher-moonwalk.webp",
+      "nativeSize": [
+        1122,
+        1402
+      ],
+      "runtimeSize": [
+        512,
+        640
+      ],
+      "sourcePixelExact": true,
+      "sourceCrop": [
+        50,
+        9,
+        1079,
+        1384
+      ],
+      "scale": 0.44206773618538325,
+      "placement": [
+        28,
+        24
+      ],
+      "groundLine": 632,
+      "supportLine": 632,
+      "runtimeBytes": 73668,
+      "sha256": "8efd55c23019569c598be1cd63a7e65e46f188501379adeec1bfc30c4c4a30c4"
+    }
+  ]
+}
