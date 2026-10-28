@@ -689,9 +689,9 @@ export class Game {
 
   drawChargeRing(g, m) {
     if (m.charge <= 0.05) return;
-    const rx = m.r * 1.15, ry = rx * 0.42;
+    const rx = Math.max(64, m.r * 1.7), ry = rx * 0.38;   // wider than the team ring, so it shows round the feet
     g.save(); g.translate(m.x, m.y + 2);
-    g.lineWidth = 8; g.lineCap = 'round';
+    g.lineWidth = 10; g.lineCap = 'round';
     g.strokeStyle = 'rgba(255,255,255,0.55)'; g.beginPath(); g.ellipse(0, 0, rx, ry, 0, 0, TAU); g.stroke();
     g.strokeStyle = m.charge >= 1 ? '#ffd23f' : TEAMS[m.team].color;
     g.beginPath(); g.ellipse(0, 0, rx, ry, 0, -Math.PI / 2, -Math.PI / 2 + m.charge * TAU); g.stroke();

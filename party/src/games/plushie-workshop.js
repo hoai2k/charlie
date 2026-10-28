@@ -495,7 +495,7 @@ export class Game {
   shelfLayout() {
     const n = this.n, rows = n <= 4 ? [n] : [Math.ceil(n / 2), Math.floor(n / 2)];
     const boards = n <= 4 ? [760] : [430, 760];
-    const size = n === 1 ? 420 : n <= 4 ? 330 : 300;
+    const size = n === 1 ? 420 : n <= 4 ? 330 : 280;
     const out = [];
     rows.forEach((cnt, ri) => {
       const sp = 1260 / cnt;
@@ -1035,7 +1035,10 @@ export class Game {
       if (!f.landed) { const e = ease.outCubic(q); x = lerp(f.fromX, f.x, e); y = lerp(f.fromY, f.y, e) - Math.sin(e * Math.PI) * 260; }
       const bob = f.landed ? Math.sin(this.t * 2 + st.i) * 0.02 : 0;
       drawPlush(g, st.plush, x, y, f.size, { t: this.t + st.i, wob: st.wob, tilt: bob });
-      if (f.landed) {
+    }
+    for (const st of this.stations) {   // the name tags on top (the row below may reach up past a shelf's lip)
+      const f = st.fly;
+      if (f && f.landed) {
         const tk = ease.outBack(Math.min(1, f.landT / 0.4));
         g.save(); g.translate(f.x, f.y + 52); g.scale(tk, tk);
         this.drawNameTag(g, 0, 0, f.tagW, st.plush.name, st.p.color);
