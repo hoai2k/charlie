@@ -73,8 +73,6 @@ export class Game {
     this.t = 0; this.timeLeft = DURATION; this.started = false;
     this.phase = 'play'; this.ft = 0; this.finished = false;
     api.limit(() => (this.phase === 'play' ? this.timeLeft : null), { showAt: Infinity });
-    this.goal = Math.round(105 + 22 * n);
-    this.pileN = Math.round(this.goal * 0.06); this.shown = this.pileN / this.goal;
     this.stage = 0; this.pileSq = 0; this.pileWob = 0; this.pileHi = 0;
     this.leaves = []; this.bits = []; this.squirrels = [];
     this.squirrelT = 7; this.driftT = 0;
@@ -95,6 +93,11 @@ export class Game {
       for (let i = 0; i < m; i++) { const a = rand(TAU), r = Math.sqrt(Math.random()) * 120; this.addLeaf(cx + Math.cos(a) * r, cy + Math.sin(a) * r * 0.6); }
     }
     for (let i = 0; i < 16; i++) { const x = rand(120, W - 160), y = rand(450, 1000); if (free(x, y)) this.addLeaf(x, y); }
+    // the goal follows the supply: the leaves here now plus ~40 s of drifting ones, so a
+    // busy team fills the pile at about 45-55 s (the clock ends it at 62 s anyway)
+    this.driftRate = (1 + 0.35 * (n - 1)) / 0.55;
+    this.goal = Math.round(this.leaves.length * 0.9 + this.driftRate * 40);
+    this.pileN = Math.round(this.goal * 0.06); this.shown = this.pileN / this.goal;
     this.ents = this.players.map((p, i) => {
       const a = new Actor(p, { scale: this.scale });
       const minH = 140 * this.scale;
@@ -113,7 +116,7 @@ export class Game {
 
   // ---------------------------------------------------------------- leaves
   addLeaf(x, y, o = {}) {
-    const L = { x: clamp(x, 40, W - 40), y: clamp(y, Y_MIN + 10, H - 30), z: 0, state: 'ground', kind: leafKind(), size: rand(34, 48), rot: rand(TAU), spin: 0, t: 0, ph: rand(TAU), ...o };
+    const L = { x: clamp(x, 40, W - 40), y: clamp(y, Y_MIN + 10, H - 30), z: 0, state: 'ground', kind: leafKind(), size: rand(48, 64), rot: rand(TAU), spin: 0, t: 0, ph: rand(TAU), ...o };
     this.leaves.push(L);
     return L;
   }
@@ -177,7 +180,7 @@ export class Game {
   }
 
   /** Leaf confetti (drawn leaves, spun in the plane). */
-  burst(x, y, count, { speed = [200, 520], up = true, spread = Math.PI * 0.9, angle = -Math.PI / 2, size = [26, 44], life = [0.9, 1.5], g = 520, drag = 1.2 } = {}) {
+  burst(x, y, count, { speed = [200, 520], up = true, spread = Math.PI * 0.9, angle = -Math.PI / 2, size = [32, 52], life = [0.9, 1.5], g = 520, drag = 1.2 } = {}) {
     for (let i = 0; i < count && this.bits.length < 420; i++) {
       const a = (up ? angle : rand(TAU)) + rand(-spread / 2, spread / 2), v = rand(...speed);
       this.bits.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, g, drag, rot: rand(TAU), spin: rand(-12, 12), kind: leafKind(), size: rand(...size), t: 0, life: rand(...life), sway: 90, ph: rand(TAU) });
@@ -195,10 +198,10 @@ export class Game {
   /** Leaves drifting down from the trees all game. */
   drift(dt) {
     const onLawn = this.leaves.filter((L) => L.state === 'ground' || L.state === 'fall').length;
-    const cap = 55 + 9 * this.n;
+    const cap = 50 + 8 * this.n;
     this.driftT -= dt;
     if (this.driftT > 0 || onLawn >= cap) return;
-    this.driftT = rand(0.18, 0.32) / (1 + 0.18 * (this.n - 1));
+    this.driftT = rand(0.7, 1.3) / this.driftRate;
     let x, y, tries = 0;
     do { x = rand(90, W - 160); y = rand(450, 1010); } while ((this.inPile(x, y, 40) || Math.hypot(x - GP.x, (y - GP.y) * 1.4) < 120) && ++tries < 12);
     const sy = rand(60, 260);

@@ -60,6 +60,7 @@ function leafCanvas(kind) {
   leafPath(g, kind & 3, r);
   g.fillStyle = fill; g.fill();
   g.save(); g.clip(); g.fillStyle = light; g.globalAlpha = 0.55; g.beginPath(); g.ellipse(-r * 0.25, -r * 0.3, r * 0.45, r * 0.6, -0.4, 0, TAU); g.fill(); g.restore();
+  leafPath(g, kind & 3, r);
   g.lineWidth = 3.2; g.strokeStyle = NAVY; g.stroke();
   // veins
   g.strokeStyle = light; g.lineWidth = 2.2; g.beginPath(); g.moveTo(0, r * 0.6); g.lineTo(0, -r * 0.7);
@@ -99,12 +100,12 @@ function buildPile() {
   g.fillStyle = grd; g.fill(); g.lineWidth = 6; g.strokeStyle = NAVY; g.stroke();
   // leaves all over it (back to front), plus a ragged ring on the grass
   const spots = [];
-  for (let i = 0; i < 300; i++) {
+  for (let i = 0; i < 190; i++) {
     const u = rand(-1, 1), top = domeTop(u) * hh;
-    spots.push({ x: u * hw * 0.98, y: -rand(0, top) + 6, k: leafKind(), s: rand(40, 60), r: rand(TAU) });
+    spots.push({ x: u * hw * 0.96, y: -rand(0, top - 20) + 4, k: leafKind(), s: rand(64, 88), r: rand(TAU) });
   }
-  for (let i = 0; i < 46; i++) { const u = -1 + (i / 45) * 2; spots.push({ x: u * hw * 0.99, y: -domeTop(u) * hh + rand(-4, 10), k: leafKind(), s: rand(44, 60), r: rand(TAU) }); }
-  for (let i = 0; i < 40; i++) spots.push({ x: rand(-hw - 20, hw + 20), y: rand(-6, 16), k: leafKind(), s: rand(40, 54), r: rand(TAU) });
+  for (let i = 0; i < 30; i++) { const u = -1 + (i / 29) * 2; spots.push({ x: u * hw * 0.97, y: -domeTop(u) * hh + rand(4, 16), k: leafKind(), s: rand(66, 86), r: rand(TAU) }); }
+  for (let i = 0; i < 26; i++) spots.push({ x: rand(-hw - 10, hw + 10), y: rand(-4, 14), k: leafKind(), s: rand(60, 76), r: rand(TAU) });
   spots.sort((a, b) => a.y - b.y);
   for (const s of spots) drawLeaf(g, s.k, s.x, s.y, s.s, s.r);
   // a soft light on the top-left
@@ -361,7 +362,7 @@ function buildBg() {
   // a few painted leaves near the edges
   for (let i = 0; i < 26; i++) {
     const x = i % 2 ? rand(20, 260) : rand(W - 260, W - 20), y = rand(560, 1060);
-    drawLeaf(g, leafKind(), x, y, rand(24, 34), rand(TAU), 0.75);
+    drawLeaf(g, leafKind(), x, y, rand(38, 48), rand(TAU), 0.75);
   }
   bgCanvas = c;
 }
