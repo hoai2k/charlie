@@ -1111,4 +1111,45 @@ file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
 fine; the code uses one of each pair.
 
 
+### plushie-workshop — worn scarves and a heart pillow   (requested by the plushie-workshop agent, 2026-10-28, priority: nice-to-have)
+
+Owner review of Plushie Workshop. The game draws the plush in a 512 × 560 **plush frame**
+(`src/games/plushie-workshop/data.js`, `F`): head centre (256, 200) r 115 (the chin at
+y ≈ 315), **neck point (256, 322)**, shoulders about x 140–372 at y 330, tummy (256, 425),
+the arms' paws at about (210, 420) and (300, 420), seat line y = 540. The same landmarks hold
+for all six bodies (bear, bunny, unicorn, kitty, puppy, dragon).
+
+- Key: `prop/plushie-scarves` (new key; replaces row 1 of `prop/plushie-clothes`, whose
+  scarves are rings seen a little from above: the back of the neck shows as a rim over the
+  band, so in game they read as a scarf lying flat, not one being worn).
+  - What: 1024 × 256 atlas, transparent, **4 columns × 1 row of 256 × 256 cells on an exact
+    even grid**. Each cell is one chunky knitted scarf **seen straight from the front, being
+    worn**: wrapped round an invisible neck, showing only the **front** of the wrap as a soft
+    band that dips in a gentle smile curve (no back-of-neck rim, no inside of the ring
+    showing, no neck or body drawn), with a knot just right of centre and **two tails hanging
+    straight down the front** over the chest. Same order and colours as before: red-and-white
+    stripes; blue knit with two pompoms on the tail ends; pink with white polka dots;
+    rainbow stripes.
+  - Anchor: the code draws a cell **295 px wide** (scale 1.15) with **cell (128, 96) on the
+    neck point (256, 322)**. So: the band's top edge at cell y ≈ 78 in the middle (lands
+    just over the chin), its lower edge at y ≈ 122 in the middle; the band's ends round off
+    at x ≈ 18 and x ≈ 238 (the shoulders), curling slightly back as if going round the
+    neck; the knot centred near (150, 108); the tails hanging from the knot between
+    x ≈ 132 and 200, down to y ≈ 236 at most. Generous transparent margin otherwise.
+  - Where it's used: Dress → Neck row. Today the code cuts the old art's back rim off, draws
+    it behind the head and bends the band into a curve (`drawScarfArt` in
+    `plushie-workshop/plush.js`), which helps but still looks flat. When this lands, add the
+    key to the `plushie-workshop` group, point the four scarf items at it, and draw it whole
+    (no cut, no bend).
+- Key: `prop/plushie-heart-pillow`
+  - What: 256 × 256, transparent: a small puffy stitched felt **heart pillow** (pink, white
+    running-stitch border, soft cel shading, front view), filling about 85% of the canvas,
+    centred. No paws or arms.
+  - Where it's used: Dress → Hug row ("Heart pillow"): drawn 168 px wide centred at
+    (256, 396) of the plush frame, with the plush's own fabric paws drawn over its lower
+    corners. Today it is a procedural heart (`drawPillow` in `plush.js`). The other Hug
+    items reuse existing art (`prop/room-teddy`, `prop/present`, `prop/plant-rose-bloom`,
+    `prop/wand-star`, `prop/lollipop-swirl`, `prop/balloon-star`), which reads well.
+
+
 All Play Studio, Molly, grown-up reaction, October16 audit, October27 Dance Studio, nail-hand and Charlie Sister action image requests are delivered and checked. Add new requests or regeneration feedback above; delivery details are in image-requests-history.md and reference/IMAGE-WORK-QUEUE.md.
