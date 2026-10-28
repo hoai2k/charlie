@@ -1,16 +1,19 @@
 // Gingerbread House (Play Studio). Every player builds a gingerbread house at their own
-// station on the kitchen table, in three steps (LB / RB; the last tab is Done):
-//   Build  - pick a shape (cottage, tall house, castle) and press X to drop each piece into
-//            place (it lands with a squish of icing glue). A drops the rest and goes on.
-//   Icing  - hold X to pipe: the bag snaps to the nearest roof edge / window / door and, with
-//            the stick let go, the icing runs along that edge by itself. A pipes the edge
-//            under the bag (if X didn't pipe yet) and goes on. B undoes one stroke.
-//   Candy  - the D-pad (keyboard: LT / RT) picks a candy, the stick moves the hand, X sticks one
-//            on and stays (hold X: sprinkles), A sticks one on (unless X did) and goes on.
-//            The candy in the hand is drawn exactly where it will stick. B takes one off.
+// station on the kitchen table, in three steps (LB / RB move between them; the last tab is Done).
+// It's a design game, so A does each step's action and stays on the step (like X):
+//   Build  - pick a shape (cottage, tall house, castle; the whole house shows as a dashed ghost)
+//            and press A (or X) to drop each piece into place (it lands with a squish of icing glue).
+//   Icing  - the edge / window / door the bag will ice glows in the icing colour. A ices all of it;
+//            hold X to pipe by hand (with the stick let go the icing runs along the edge by
+//            itself). Held above the house, the icing drips down onto the top below. B undoes.
+//   Candy  - the D-pad (keyboard: LT / RT) picks a candy, the stick moves the hand, A or X sticks
+//            one on (hold: sprinkles). Over the house it sticks where it's drawn; held above the
+//            house it drops onto the first roof / ledge / top below (bounce, squash, settle); only
+//            with no house below it goes down to the board. B takes one off.
 // Finale: night falls, everyone's house moves into a snowy gingerbread village, the windows
 // light up, a gingerbread person peeks out of each door and the players walk about the
-// village (A jumps, X nibbles a candy off your own house). It ends on the village (gallery).
+// village (A jumps, X nibbles your own house: candy first, a bite mark and then gone, else a
+// bite out of the gingerbread). It ends on the village (gallery).
 import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
@@ -21,8 +24,8 @@ import { aiProfile, steer } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 import { drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
 import {
-  NAVY, SHAPES, ICINGS, CANDIES, CANDY, BOARD_W, CANDY_S, onHouse, landing, nearestEdge, newIcing, icingColor,
-  drawHouse, drawGlow, drawCandy, drawShapeIcon, drawGingerPerson, sprinkleColor,
+  NAVY, SHAPES, ICINGS, CANDIES, CANDY, BOARD_W, CANDY_S, onHouse, landing, surfaceBelow, candyLift, inBite, inOutline, nearestEdge,
+  newIcing, icingColor, drawHouse, drawGlow, drawCandy, drawShapeIcon, drawGingerPerson, sprinkleColor,
 } from './gingerbread-house/house.js';
 import { meta } from './gingerbread-house.meta.js';
 
@@ -107,9 +110,9 @@ export class Game {
       p, i, r, L, actor: a, tab: 0, icingSel: 0, candySel: 0, didAct: false,
       cursor: { x: 0, y: -250 }, ready: false, readyT: 0, history: [], pipe: null, hover: null,
       listBump: 0, tabBump: 0, cheerCD: 0, aiStick: 0, ai: null, candyCount: 0, squishT: 0,
-      H: null, icings: SHAPES.map((s) => newIcing(s)), dv: [], wait: [], nibbles: 0,
+      H: null, icings: SHAPES.map((s) => newIcing(s)), dv: [], wait: [], nibbles: 0, drips: [],
     };
-    st.H = { shape: 0, built: 0, drop: [], seamT: [], icing: st.icings[0], dots: [], sprinkles: [], candies: [], lit: 0, doorOpen: 0, person: null, wobble: 0 };
+    st.H = { shape: 0, built: 0, drop: [], seamT: [], icing: st.icings[0], dots: [], sprinkles: [], candies: [], lit: 0, doorOpen: 0, person: null, wobble: 0, bites: [], crumbs: [] };
     if (p.isAI) this.planAI(st);
     return st;
   }
@@ -183,18 +186,36 @@ export class Game {
     sfx('back');
     this.resettle(st);
   }
-  /** Things no longer on the house (shape changed, a piece came off) drop to the board. */
+  /** Things no longer held up by the house (shape changed, a piece came off) drop to whatever is
+   * below them now: a lower part of the house, else the board. */
   resettle(st) {
     const Hs = st.H, shape = this.shape(st);
-    for (const c of Hs.candies) if (!onHouse(shape, Hs.built, c.x, c.y) && c.y < 10) c.fall = { vy: 0, ty: 10 + rand(0, 8) };
-    for (const s of Hs.sprinkles) if (!onHouse(shape, Hs.built, s.x, s.y) && s.y < 10) s.fall = { vy: 0, ty: rand(4, 26) };
+    const drop = (c, lift, board) => {
+      if (c.y >= 10 || onHouse(shape, Hs.built, c.x, c.sy ?? c.y)) return;
+      const ld = landing(shape, Hs.built, c.x, c.y, lift);
+      c.sy = ld.sy; c.fall = { vy: 0, ty: ld.on === 'board' ? board() : ld.y, b: 0 };
+    };
+    for (const c of Hs.candies) drop(c, candyLift(c.kind), () => 10 + rand(0, 8));
+    for (const s of Hs.sprinkles) drop(s, 1, () => rand(4, 26));
     Hs.dots = Hs.dots.filter((d) => onHouse(shape, Hs.built, d.x, d.y));
   }
-  updateFalls(st, dt) {
-    for (const list of [st.H.candies, st.H.sprinkles]) for (const c of list) {
+  /** Falling candy, sprinkles and crumbs: gravity, then (candy) a little bounce and a squash. */
+  updateFalls(st, dt, scr = (x, y) => this.toScreen(st, x, y)) {
+    for (const list of [st.H.candies, st.H.sprinkles, st.H.crumbs]) for (const c of list) {
+      if (c.sq > 0) c.sq = Math.max(0, c.sq - dt * 3.2);
       if (!c.fall) continue;
-      c.fall.vy += 1800 * dt; c.y += c.fall.vy * dt;
-      if (c.y >= c.fall.ty) { c.y = c.fall.ty; c.fall = null; }
+      c.fall.vy += 2200 * dt; c.y += c.fall.vy * dt;
+      if (c.y < c.fall.ty) continue;
+      c.y = c.fall.ty;
+      if (c.kind && c.fall.vy > 240 && c.fall.b < 2) {
+        // a candy bounces up a little, squashes and settles
+        if (!c.fall.b) {
+          const s = scr(c.x, c.y);
+          snd('tot-candy', 'pop', { vol: 0.35 });
+          particles.burst(s.x, s.y + 8, { type: 'sparkle', count: 4, colors: ['#fff', st.p.color, '#ffd23f'] });
+        }
+        c.sq = Math.min(1, c.fall.vy / 700); c.fall.vy = -c.fall.vy * 0.26; c.fall.b++;
+      } else { if (c.kind && c.fall.vy > 120) c.sq = Math.max(c.sq || 0, 0.4); c.fall = null; }
     }
   }
 
@@ -224,16 +245,61 @@ export class Game {
     return 1;
   }
   startPipe(st) {
-    st.pipe = { entry: { t: 'ice', shape: st.H.shape, cells: [], dots: [] }, snap: null, last: null, run: 0 };
+    st.pipe = { entry: { t: 'ice', shape: st.H.shape, cells: [], dots: [] }, snap: null, last: null, run: 0, dripT: 0 };
     st.didAct = true;
   }
   endPipe(st) {
     const P = st.pipe; st.pipe = null;
     if (!P) return;
-    if (P.entry.cells.length || P.entry.dots.length) {
+    if (P.entry.cells.length || P.entry.dots.length || st.drips.some((d) => d.entry === P.entry)) {
       st.history.push(P.entry);
       if (P.entry.cells.length > 20) this.cheer(st);
     }
+  }
+
+  /**
+   * What the bag would ice right now: { t: 'edge', e, j } at an edge / window / door (snapped),
+   * { t: 'drip', e, j, x, y } above the house (it drips onto the top surface below: x, y), or
+   * { t: 'dot', x, y } on the face of the house; null in the air beside it.
+   */
+  iceTarget(st) {
+    const shape = this.shape(st), b = st.H.built, cur = st.cursor;
+    const ne = nearestEdge(shape, b, cur.x, cur.y, SNAP_R);
+    if (ne) return { t: 'edge', e: ne.e, j: ne.j };
+    if (onHouse(shape, b, cur.x, cur.y)) return { t: 'dot', x: cur.x, y: cur.y };
+    const top = surfaceBelow(shape, b, cur.x, cur.y);
+    if (!top) return null;
+    const te = nearestEdge(shape, b, top.x, top.y, SNAP_R);
+    return te ? { t: 'drip', e: te.e, j: te.j, x: top.x, y: top.y } : { t: 'drip', x: top.x, y: top.y };
+  }
+  /** A drop of icing falls from the bag onto the top below; when it lands it ices around j
+   * (or the whole edge), or leaves a dot where there is no edge. */
+  addDrip(st, tg, entry, whole = false) {
+    st.drips.push({ x: st.cursor.x + rand(-1.5, 1.5), y: st.cursor.y + 4, vy: 60, ty: tg.y, e: tg.e, j: tg.j, k: st.icingSel, entry, whole, ice: st.icings[st.H.shape], shape: st.H.shape });
+  }
+  updateDrips(st, dt) {
+    if (!st.drips.length) return;
+    const shape = this.shape(st);
+    for (const d of st.drips) {
+      d.vy += 1500 * dt; d.y += d.vy * dt;
+      if (d.y < d.ty) continue;
+      d.done = true;
+      if (d.shape !== st.H.shape) continue;
+      let n = 0;
+      if (d.e !== undefined && d.e < shape.edges.length && shape.edges[d.e].piece < st.H.built) {
+        const last = shape.edges[d.e].pts.length - 1, sel = st.icingSel;
+        st.icingSel = d.k;
+        n = d.whole ? this.iceRange(st, d.entry, d.e, 0, last) : this.iceRange(st, d.entry, d.e, d.j - 2, d.j + 2);
+        st.icingSel = sel;
+      } else if (st.H.dots.length < MAX_DOTS && onHouse(shape, st.H.built, d.x, d.ty + 4)) {
+        const dot = { x: d.x, y: d.ty + 4, k: d.k, j: st.H.dots.length };
+        st.H.dots.push(dot); d.entry.dots.push(dot); n = 1;
+      }
+      const s = this.toScreen(st, d.x, d.ty);
+      particles.burst(s.x, s.y, { type: 'drop', count: 3, colors: [icingColor(d.k)], speed: [40, 110] });
+      if (n || d.whole) snd('topping-squish', 'pop', { vol: d.whole ? 0.45 : 0.25 });
+    }
+    st.drips = st.drips.filter((d) => !d.done);
   }
   updatePipe(st, dt, mx, my) {
     const P = st.pipe, Hs = st.H, shape = this.shape(st), cur = st.cursor;
@@ -272,45 +338,83 @@ export class Game {
       } else {
         P.snap = null;
         // off the edges: dots of icing wherever it touches the house
-        if (onHouse(shape, Hs.built, cur.x, cur.y) && (!P.last || Math.hypot(cur.x - P.last.x, cur.y - P.last.y) > 9) && Hs.dots.length < MAX_DOTS) {
-          const d = { x: cur.x, y: cur.y, k: st.icingSel, j: Hs.dots.length };
-          Hs.dots.push(d); P.entry.dots.push(d); P.last = { x: cur.x, y: cur.y }; added++;
+        if (onHouse(shape, Hs.built, cur.x, cur.y)) {
+          if ((!P.last || Math.hypot(cur.x - P.last.x, cur.y - P.last.y) > 9) && Hs.dots.length < MAX_DOTS) {
+            const d = { x: cur.x, y: cur.y, k: st.icingSel, j: Hs.dots.length };
+            Hs.dots.push(d); P.entry.dots.push(d); P.last = { x: cur.x, y: cur.y }; added++;
+          }
+        } else {
+          // above the house: the icing drips down onto the top below
+          P.dripT -= dt;
+          const tg = P.dripT <= 0 && this.iceTarget(st);
+          if (tg && tg.t === 'drip') { this.addDrip(st, tg, P.entry); P.dripT = 0.14; }
         }
       }
     }
     st.squishT -= dt;
     if (added && st.squishT <= 0) { snd('topping-squish', 'pop', { vol: 0.22 }); st.squishT = 0.22; }
   }
-  /** A on Icing (X hasn't piped yet this time): the whole edge under the bag. */
-  iceWholeEdge(st) {
-    const shape = this.shape(st), ne = nearestEdge(shape, st.H.built, st.cursor.x, st.cursor.y, SNAP_R * 1.6);
-    if (!ne) return false;
+  /** A on Icing: ice what the bag shows (the whole highlighted edge; above the house it pours
+   * down onto the top below and runs along that edge; on the face, one dot). Stays on Icing. */
+  iceAction(st) {
+    const tg = this.iceTarget(st), shape = this.shape(st);
+    if (!tg) {
+      sfx('blip', { vol: 0.5 });
+      const s = this.toScreen(st, st.cursor.x, st.cursor.y);
+      particles.popText(s.x, s.y - 50 * st.L.k, 'Over the house!', st.p.color, 26);
+      return false;
+    }
     const entry = { t: 'ice', shape: st.H.shape, cells: [], dots: [] };
-    this.iceRange(st, entry, ne.e, 0, shape.edges[ne.e].pts.length - 1);
-    if (entry.cells.length) { st.history.push(entry); snd('topping-squish', 'pop', { vol: 0.4 }); }
+    st.history.push(entry); st.didAct = true;
+    if (tg.t === 'edge') {
+      this.iceRange(st, entry, tg.e, 0, shape.edges[tg.e].pts.length - 1);
+      snd('topping-squish', 'pop', { vol: 0.45 });
+      const pts = shape.edges[tg.e].pts;
+      for (let j = 0; j < pts.length; j += Math.max(1, Math.floor(pts.length / 6))) {
+        const s = this.toScreen(st, pts[j][0], pts[j][1]);
+        particles.burst(s.x, s.y, { type: 'sparkle', count: 1, colors: ['#ffffff', icingColor(st.icingSel, j)] });
+      }
+    } else if (tg.t === 'drip') {
+      for (let i = 0; i < 3; i++) this.addDrip(st, tg, entry, i === 0 && tg.e !== undefined);
+      st.drips.slice(-3).forEach((d, i) => { d.y -= i * 14; d.vy = 60 - i * 40; });
+      snd('drip', 'whoosh', { vol: 0.25 });
+    } else {
+      const d = { x: tg.x, y: tg.y, k: st.icingSel, j: st.H.dots.length };
+      if (st.H.dots.length < MAX_DOTS) { st.H.dots.push(d); entry.dots.push(d); }
+      snd('topping-squish', 'pop', { vol: 0.3 });
+    }
+    st.actor.playOnce('action', 0.3, 'idle');
+    if (entry.cells.length > 20) this.cheer(st);
     return true;
   }
 
   // --- candy ------------------------------------------------------------------------------
   candyKind(st) { return CANDIES[st.candySel].id; }
+  /** A candy let go of at (x, y): stuck there on the house, else it falls onto the first surface
+   * below it (or the board), bounces a little and settles (updateFalls). */
   addCandy(st, kind, x, y, group) {
-    const Hs = st.H, ld = landing(this.shape(st), Hs.built, x, y);
-    const c = { kind, x: ld.x, y: ld.y, v: st.candyCount, flip: kind === 'cane' && st.candyCount % 2 === 1 };
+    const Hs = st.H, ld = landing(this.shape(st), Hs.built, x, y, candyLift(kind));
+    const c = { kind, x: ld.x, y, sy: ld.sy, v: st.candyCount, flip: kind === 'cane' && st.candyCount % 2 === 1, sq: 0 };
+    if (ld.y - y > 2) c.fall = { vy: 0, ty: ld.y, b: 0 };
+    else c.y = ld.y;
     st.candyCount++;
     Hs.candies.push(c); group.push(c);
     if (Hs.candies.length > MAX_CANDY) {
       const old = Hs.candies.shift();
       for (const h of st.history) if (h.items) h.items = h.items.filter((d) => d !== old);
     }
-    const s = this.toScreen(st, c.x, c.y);
-    particles.burst(s.x, s.y, { type: 'sparkle', count: 5, colors: ['#fff', st.p.color, '#ffd23f'] });
+    if (!c.fall) {
+      const s = this.toScreen(st, c.x, c.y);
+      particles.burst(s.x, s.y, { type: 'sparkle', count: 5, colors: ['#fff', st.p.color, '#ffd23f'] });
+    }
     return c;
   }
   addSprinkles(st, x, y, count, group) {
     const Hs = st.H, shape = this.shape(st);
     for (let j = 0; j < count; j++) {
-      const ld = landing(shape, Hs.built, x + rand(-18, 18), y + rand(-14, 14));
-      const s = { x: ld.x, y: ld.y, rot: rand(TAU), c: sprinkleColor() };
+      const sx = x + rand(-18, 18), sy = y + rand(-14, 14), ld = landing(shape, Hs.built, sx, sy, 1);
+      const s = { x: ld.x, y: sy, sy: ld.sy, rot: rand(TAU), c: sprinkleColor() };
+      if (ld.y - sy > 2) s.fall = { vy: rand(0, 80), ty: ld.y, b: 0 }; else s.y = ld.y;
       Hs.sprinkles.push(s); group.push(s);
     }
     if (Hs.sprinkles.length > MAX_SPRINKLES) Hs.sprinkles.splice(0, Hs.sprinkles.length - MAX_SPRINKLES);
@@ -323,9 +427,9 @@ export class Game {
       st.history.push({ t: 'spr', items: grp }); sfx('brush');
       return grp;
     }
-    const grp = []; this.addCandy(st, kind, st.cursor.x, st.cursor.y, grp);
+    const grp = []; const c = this.addCandy(st, kind, st.cursor.x, st.cursor.y, grp);
     st.history.push({ t: 'candy', items: grp });
-    snd('tot-candy', 'pop', { vol: 0.55 });
+    if (!c.fall) snd('tot-candy', 'pop', { vol: 0.55 });
     st.actor.playOnce('action', 0.3, 'idle');
     if (chance(0.25)) this.cheer(st);
     return grp;
@@ -352,6 +456,7 @@ export class Game {
     if (!h) { sfx('blip'); return; }
     const Hs = st.H;
     if (h.t === 'ice') {
+      st.drips = st.drips.filter((d) => d.entry !== h);
       const arrs = st.icings[h.shape];
       for (let j = h.cells.length - 1; j >= 0; j--) { const [ei, jj, prev] = h.cells[j]; arrs[ei][jj] = prev; }
       const set = new Set(h.dots); Hs.dots = Hs.dots.filter((d) => !set.has(d));
@@ -450,8 +555,8 @@ export class Game {
     switch (tab) {
       case 'build': {
         if (Hs.shape !== ai.shape && Hs.built === 0) { c.move(0, 1); st.aiStick = 0.05; break; }
-        if (Hs.built < this.shape(st).pieces.length) { c.press(chance(0.85) ? 'x' : 'a'); ai.t = rand(0.5, 0.9) / sp; break; }
-        c.press('a'); break;
+        if (Hs.built < this.shape(st).pieces.length) { c.press(chance(0.5) ? 'x' : 'a'); ai.t = rand(0.5, 0.9) / sp; break; }
+        c.press('rb'); break;
       }
       case 'icing': {
         if (!ai.edges) { ai.edges = this.buildIcingPlan(st); ai.ei = 0; }
@@ -465,7 +570,7 @@ export class Game {
       case 'candy': {
         if (!ai.candies) { ai.candies = this.buildCandyPlan(st); ai.ci = 0; }
         const g = ai.candies[ai.ci];
-        if (!g) { c.press('a'); break; }
+        if (!g) { c.press('rb'); break; }
         const want = CANDY[g.kind];
         if (st.candySel !== want) { c.press('rt'); ai.t *= 0.5; break; }
         ai.goal = g; ai.mode = 'move';
@@ -498,6 +603,7 @@ export class Game {
       st.cheerCD -= dt; st.readyT += dt;
       this.updatePieces(st, dt);
       this.updateFalls(st, dt);
+      this.updateDrips(st, dt);
       a.update(dt);
       if (st.ready) { if (c.pressed('b')) this.setReady(st, false); continue; }
       // LB / RB: the steps (the last one is Done)
@@ -518,15 +624,13 @@ export class Game {
   updateBuildTab(st) {
     const c = st.p.ctrl, Hs = st.H, n = this.shape(st).pieces.length;
     if (c.nav.y) this.setShape(st, c.nav.y);
-    if (c.pressed('x')) {
-      if (!this.placePiece(st)) {   // all up: give it a wiggle - it holds!
+    // A (or X) drops the next piece in and stays on Build; RB goes on
+    if (c.pressed('a') || c.pressed('x')) {
+      if (Hs.built >= n || !this.placePiece(st)) {   // all up: give it a wiggle - it holds!
         Hs.wobble = 0.5; snd('boing', 'pop', { vol: 0.4 });
         const s = this.toScreen(st, 0, this.shape(st).top - 30);
         particles.popText(s.x, s.y, 'Sturdy!', st.p.color, 34);
       }
-    } else if (c.pressed('a')) {
-      if (Hs.built < n) this.completeBuild(st);
-      this.setTab(st, TAB.icing); sfx('select');
     } else if (c.pressed('b')) this.removePiece(st);
   }
 
@@ -553,16 +657,14 @@ export class Game {
     const pad = c.kind === 'pad';
     const mx = (pad ? c.sx : c.x) + c.rx, my = (pad ? c.sy : c.y) + c.ry;
     if (!(st.pipe && st.pipe.snap && Math.hypot(mx, my) < 0.2)) this.moveCursor(st, dt);
-    if (c.pressed('x')) this.startPipe(st);
+    // A: ice what's highlighted (stays on Icing); hold X: pipe by hand
+    if (c.pressed('a') && !st.pipe) this.iceAction(st);
+    else if (c.pressed('x')) this.startPipe(st);
     if (st.pipe) {
       if (c.held('x')) this.updatePipe(st, dt, mx, my);
       else this.endPipe(st);
     }
-    if (c.pressed('a')) {
-      if (st.pipe) this.endPipe(st);
-      if (!st.didAct) this.iceWholeEdge(st);
-      this.setTab(st, TAB.candy); sfx('select');
-    } else if (c.pressed('b') && !st.pipe) this.undo(st);
+    if (c.pressed('b') && !st.pipe) this.undo(st);
   }
 
   updateCandyTab(st, dt) {
@@ -572,21 +674,19 @@ export class Game {
     this.moveCursor(st, dt);
     const spray = CANDIES[st.candySel].spray;
     st.hover = st.p.isAI ? null : this.candyAt(st);
-    if (c.pressed('x')) {
+    // A or X sticks one on and stays on Candy (hold either with sprinkles to shake)
+    const held = c.held('x') || c.held('a');
+    if (c.pressed('x') || c.pressed('a')) {
       st.didAct = true;
       const grp = this.putCandy(st);
       if (spray) { st.shake = grp; st.shakeT = 0; }
-    } else if (spray && st.shake && c.held('x')) {
+    } else if (spray && st.shake && held) {
       st.shakeT += dt;
       if (st.shakeT > 0.07) { st.shakeT = 0; this.addSprinkles(st, st.cursor.x, st.cursor.y, 4, st.shake); }
       if (Math.floor(this.t * 7) !== Math.floor((this.t - dt) * 7)) sfx('brush', { vol: 0.5 });
     }
-    if (!c.held('x')) st.shake = null;
-    if (c.pressed('a')) {
-      if (!st.didAct) this.putCandy(st);
-      st.shake = null;
-      this.setTab(st, TAB.done); sfx('select');
-    } else if (c.pressed('b')) {
+    if (!held) st.shake = null;
+    if (c.pressed('b')) {
       if (st.hover) { this.removeCandy(st, st.hover); st.hover = null; } else this.undo(st);
     }
   }
@@ -615,6 +715,8 @@ export class Game {
     });
     for (const st of this.stations) {
       if (st.pipe) this.endPipe(st);
+      for (const d of st.drips) d.y = d.ty;
+      this.updateDrips(st, 0);
       st.ready = true; st.hover = null; st.shake = null;
       this.completeBuild(st, true);
       for (let i = 0; i < st.H.built; i++) { st.H.drop[i] = 0; st.H.seamT[i] = 1; }
@@ -642,7 +744,7 @@ export class Game {
       }
       if (t >= V.lightAt + 1.1 && !Hs.doorOpen) { Hs.doorOpen = 1; Hs.person = { up: 0, t: 0 }; snd('tot-door', 'pop', { vol: 0.45 }); }
       if (Hs.person) { Hs.person.t += dt; Hs.person.up = Math.min(1, Hs.person.up + dt / 0.5); }
-      this.updateFalls(st, dt);
+      this.updateFalls(st, dt, (x, y) => this.vScreen(st, x, y));
       this.walk(st, dt, ended);
       st.actor.update(dt);
     }
@@ -686,27 +788,89 @@ export class Game {
     else if (!a._once && (a.pose === 'walk' || a.pose === 'jump' || a.pose === 'run')) a.setPose('idle');
   }
 
-  /** X in the village: nibble the candy on your own house nearest your mouth (if it's in reach). */
+  /**
+   * X in the village: a bite of your own house, nearest your mouth (if it's in reach). A candy takes
+   * two bites (the first leaves a bite mark, the second eats it up); with no candy in reach the bite
+   * comes out of the gingerbread itself: a notch out of a wall or roof edge, with crumbs.
+   */
   nibble(st) {
-    const a = st.actor, V = st.v, Hs = st.H;
-    const mouthY = a.y - a.z - a.height * 0.75;
+    const a = st.actor, V = st.v, Hs = st.H, shape = this.shape(st);
+    const mouthY = a.y - a.z - a.height * 0.75, reachX = 90 * Math.max(0.6, V.s) + a.width * 0.3;
     let best = null, bd = Infinity;
     for (const c of Hs.candies) {
+      if (c.fall) continue;
       const s = this.vScreen(st, c.x, c.y);
       const dx = Math.abs(s.x - a.x), dy = Math.abs(s.y - mouthY);
-      if (dx > 90 * Math.max(0.6, V.s) + a.width * 0.3 || dy > a.height * 0.6) continue;
+      if (dx > reachX || dy > a.height * 0.6) continue;
       const d = dx + dy * 0.6;
       if (d < bd) { bd = d; best = c; }
     }
-    a.playOnce('eat', 0.4, 'idle');
-    if (!best) { sfx('blip', { vol: 0.5 }); return; }
-    Hs.candies = Hs.candies.filter((c) => c !== best);
+    let at = null, crumbs = ['#c98345', '#a9652f', '#e0a265'];
+    if (best) {
+      at = this.vScreen(st, best.x, best.y);
+      if (!best.bite) {
+        // the first bite: a bite mark out of the side facing you
+        const r = CANDIES[CANDY[best.kind]].r;
+        best.bite = { dx: (at.x >= a.x ? -1 : 1) * r * 0.95, dy: -r * 0.25, r: r * 0.62 };
+        best.sq = 0.6;
+      } else {
+        Hs.candies = Hs.candies.filter((c) => c !== best);
+        for (const h of st.history) if (h.items) h.items = h.items.filter((d) => d !== best);
+      }
+      const def = CANDIES[CANDY[best.kind]];
+      crumbs = def.colors ? [def.colors[best.v % def.colors.length], '#ffffff'] : ['#ffffff', '#e8213f'];
+    } else {
+      const b = this.biteSpot(st, mouthY, reachX * 1.3, a.height * 0.75);
+      if (b) {
+        Hs.bites.push(b);
+        if (Hs.bites.length > 60) Hs.bites.shift();
+        // candy and icing dots in the bite go with it
+        Hs.candies = Hs.candies.filter((c) => !(c.y < 8 && Math.hypot(c.x - b.x, c.y - b.y) < b.r));
+        Hs.dots = Hs.dots.filter((d) => Math.hypot(d.x - b.x, d.y - b.y) >= b.r);
+        Hs.sprinkles = Hs.sprinkles.filter((d) => d.y >= 8 || Math.hypot(d.x - b.x, d.y - b.y) >= b.r);
+        // crumbs tumble down onto the board
+        for (let i = 0; i < 5; i++) {
+          const ld = landing(shape, Hs.built, b.x + rand(-b.r, b.r), b.y, 1);
+          const cy = ld.on === 'board' ? rand(3, 22) : ld.y;
+          Hs.crumbs.push({ x: b.x + rand(-b.r, b.r), y: b.y + rand(-4, 4), r: rand(1.8, 3.6), c: pick(crumbs), fall: { vy: rand(-120, 0), ty: cy, b: 0 } });
+        }
+        if (Hs.crumbs.length > 120) Hs.crumbs.splice(0, Hs.crumbs.length - 120);
+        at = this.vScreen(st, b.x, b.y);
+      }
+    }
+    a.playOnce('eat', 0.6, 'idle'); a.squash(0.12);
+    if (!at) { sfx('blip', { vol: 0.5 }); particles.popText(a.x, a.y - a.z - a.height * 1.1, 'Get closer!', st.p.color, 28); return; }
     st.nibbles++;
-    const s = this.vScreen(st, best.x, best.y);
-    a.facing = s.x >= a.x ? 1 : -1;
+    a.facing = at.x >= a.x ? 1 : -1;
     snd('munch', 'pop', { vol: 0.6 });
-    particles.burst(s.x, s.y, { type: 'shard', count: 7, colors: ['#c98345', '#ffffff', '#ff6fb1'], speed: [100, 240] });
-    particles.popText(a.x, a.y - a.z - a.height * 1.1, pick(['Nom!', 'Yum!', 'Crunch!']), st.p.color, 34);
+    particles.burst(at.x, at.y, { type: 'shard', count: 9, colors: crumbs, speed: [90, 230] });
+    particles.burst(at.x, at.y, { type: 'dust', count: 4, speed: [30, 90] });
+    particles.popText(a.x, a.y - a.z - a.height * 1.1, pick(['Nom!', 'Yum!', 'Crunch!', 'Munch!']), st.p.color, 34);
+  }
+
+  /** Where a bite of gingerbread comes from: the point on the house's outline (its edges, or the
+   * edge of an earlier bite) nearest the mouth and in reach. { x, y, r, a } in house units. */
+  biteSpot(st, mouthY, reachX, reachY) {
+    const a = st.actor, Hs = st.H, shape = this.shape(st), b = Hs.built, G = 7;
+    const solid = (x, y) => onHouse(shape, b, x, y) && !inBite(Hs.bites, x, y);
+    const outside = (x, y) => !inOutline(shape, b, x, y) || inBite(Hs.bites, x, y);
+    let best = null, bd = Infinity;
+    for (let y = shape.top; y <= -14; y += G) {
+      for (let x = -BOARD_W / 2; x <= BOARD_W / 2; x += G) {
+        if (!solid(x, y)) continue;
+        let ox = 0, oy = 0, edge = false;
+        for (const [dx, dy] of [[G, 0], [-G, 0], [0, G], [0, -G], [G, -G], [-G, -G]]) if (outside(x + dx, y + dy)) { edge = true; ox += dx; oy += dy; }
+        if (!edge) continue;
+        const s = this.vScreen(st, x, y), dx = Math.abs(s.x - a.x), dy = Math.abs(s.y - mouthY);
+        if (dx > reachX || dy > reachY) continue;
+        const d = dx + dy * 0.7;
+        if (d < bd) { bd = d; best = { x, y, a: Math.atan2(oy, ox) || -Math.PI / 2 }; }
+      }
+    }
+    if (!best) return null;
+    const r = 18 + rand(0, 5);
+    // the bite's middle sits a little outside the edge, so it takes a round notch out of it
+    return { x: best.x + Math.cos(best.a) * r * 0.35, y: best.y + Math.sin(best.a) * r * 0.35, r, a: best.a + Math.PI };
   }
 
   finishGame() {
@@ -767,6 +931,8 @@ export class Game {
       g.save(); g.globalAlpha = 0.6 + 0.3 * Math.sin(this.t * 8); g.setLineDash([7, 6]); g.lineWidth = 3;
       g.strokeStyle = p.color; g.beginPath(); g.arc(c.x, c.y, rr, 0, TAU); g.stroke(); g.restore();
     }
+    if (!st.ready && tab === 'icing' && !p.isAI) this.drawIceTarget(g, st);
+    this.drawDrips(g, st);
     g.restore();
     if (this.phase === 'build') st.actor.draw(g, { ring: p.color });
     if (!st.ready && (tab === 'icing' || tab === 'candy')) this.drawCursor(g, st, tab);
@@ -811,7 +977,7 @@ export class Game {
     g.strokeStyle = NAVY; g.lineWidth = 3; g.beginPath(); g.moveTo(r.x, ty); g.lineTo(r.x + r.w, ty); g.stroke();
   }
 
-  /** Build: "X Place" over the next piece's spot (or the finished house). */
+  /** Build: "A Place" over the next piece's spot (or the finished house). */
   drawBuildPrompt(g, st) {
     if (st.p.isAI) return;
     const shape = this.shape(st), n = shape.pieces.length, k = st.L.k;
@@ -821,8 +987,49 @@ export class Game {
     const w = gsz + 10 + ui.measure(g, label, fs, 800) + 22, h = gsz * 1.5, bob = Math.sin(this.t * 6) * 4;
     const x = clamp(s.x, st.L.ca.x + w / 2 + 6, st.L.ca.x + st.L.ca.w - w / 2 - 6), y = Math.max(st.L.ca.y + h / 2 + 4, s.y) + bob;
     ui.panel(g, x - w / 2, y - h / 2, w, h, { r: h / 2, fill: '#ffd23f', lineWidth: 3, shadow: false });
-    ui.glyph(g, 'x', x - w / 2 + 8 + gsz / 2, y, gsz, { pulse: true });
+    ui.glyph(g, 'a', x - w / 2 + 8 + gsz / 2, y, gsz, { pulse: true });
     ui.text(g, label, x - w / 2 + 14 + gsz, y + 1, { size: fs, color: NAVY, stroke: false, align: 'left', weight: 800 });
+  }
+
+  /** Icing: softly glow the exact edge / window / door the bag will ice (in the icing colour), and
+   * above the house the drip line down to the top it will drip onto. In house units. */
+  drawIceTarget(g, st) {
+    const shape = this.shape(st), P = st.pipe;
+    const tg = P && P.snap ? { t: 'edge', e: P.snap.e, j: Math.round(P.snap.u) } : this.iceTarget(st);
+    if (!tg) return;
+    const col = icingColor(st.icingSel, Math.floor(this.t * 6)), pulse = 0.5 + 0.5 * Math.sin(this.t * 5);
+    g.save(); g.lineCap = 'round'; g.lineJoin = 'round';
+    if (tg.e !== undefined) {
+      const e = shape.edges[tg.e];
+      const path = () => { g.beginPath(); e.pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); if (e.closed) g.closePath(); };
+      path(); g.globalAlpha = 0.14; g.lineWidth = 22; g.strokeStyle = NAVY; g.stroke();
+      path(); g.globalAlpha = 0.25 + 0.15 * pulse; g.lineWidth = 32; g.strokeStyle = col; g.stroke();
+      path(); g.globalAlpha = 0.55 + 0.25 * pulse; g.lineWidth = 15; g.stroke();
+      g.globalAlpha = 0.8; g.setLineDash([10, 9]); g.lineDashOffset = -this.t * 30;
+      path(); g.lineWidth = 3.5; g.strokeStyle = NAVY; g.stroke();
+      g.setLineDash([]);
+      const [px, py] = e.pts[clamp(tg.j, 0, e.pts.length - 1)];
+      g.globalAlpha = 0.9; g.beginPath(); g.arc(px, py, 7 + pulse * 2, 0, TAU); g.fillStyle = col; g.fill(); g.lineWidth = 2.5; g.strokeStyle = NAVY; g.stroke();
+    }
+    if (tg.t === 'drip' || tg.t === 'dot') {
+      const cur = st.cursor;
+      if (tg.t === 'drip') {
+        g.globalAlpha = 0.6; g.setLineDash([4, 9]); g.lineDashOffset = -this.t * 40; g.lineWidth = 4; g.strokeStyle = col;
+        g.beginPath(); g.moveTo(cur.x, cur.y + 8); g.lineTo(tg.x, tg.y - 6); g.stroke();
+        g.lineWidth = 1.5; g.strokeStyle = NAVY; g.stroke(); g.setLineDash([]);
+      }
+      g.globalAlpha = 0.85; g.beginPath(); g.arc(tg.x, tg.y, 8, 0, TAU); g.fillStyle = col; g.fill();
+      g.setLineDash([4, 4]); g.lineWidth = 2.5; g.strokeStyle = NAVY; g.stroke();
+    }
+    g.restore();
+  }
+  /** Drops of icing on their way down (house units). */
+  drawDrips(g, st) {
+    for (const d of st.drips) {
+      g.beginPath(); g.moveTo(d.x, d.y - 15); g.bezierCurveTo(d.x + 3, d.y - 8, d.x + 8, d.y - 3, d.x + 8, d.y + 2); g.arc(d.x, d.y + 2, 8, 0, Math.PI); g.bezierCurveTo(d.x - 8, d.y - 3, d.x - 3, d.y - 8, d.x, d.y - 15);
+      g.fillStyle = icingColor(d.k, Math.round(d.y)); g.fill(); g.lineWidth = 2; g.strokeStyle = 'rgba(36,22,63,0.7)'; g.stroke();
+      g.beginPath(); g.arc(d.x - 3, d.y, 2.2, 0, TAU); g.fillStyle = 'rgba(255,255,255,0.8)'; g.fill();
+    }
   }
 
   drawCursor(g, st, tab) {
@@ -830,7 +1037,7 @@ export class Game {
     if (tab === 'icing') {
       // the piping bag, its nozzle tip on the icing spot
       const shape = this.shape(st), ne = nearestEdge(shape, st.H.built, cur.x, cur.y, SNAP_R);
-      if (ne && !st.pipe) {
+      if (ne && !st.pipe && st.p.isAI) {
         const pt = shape.edges[ne.e].pts[ne.j], q = this.toScreen(st, pt[0], pt[1]);
         g.save(); g.globalAlpha = 0.5 + 0.3 * Math.sin(this.t * 8); g.beginPath(); g.arc(q.x, q.y, 9 * k + 4, 0, TAU);
         g.lineWidth = 3; g.strokeStyle = st.p.color; g.stroke(); g.restore();
@@ -969,9 +1176,9 @@ export class Game {
     const tab = TABS[st.tab].id, pad = p.ctrl.kind === 'pad';
     let items;
     if (st.ready) items = [['b', 'Change']];
-    else if (tab === 'build') items = st.H.built < this.shape(st).pieces.length ? [['x', 'Place'], [pad ? 'dpad' : 'stick', 'Shape'], ['a', 'Build it all'], ['b', 'Take off']] : [['x', 'Wiggle'], ['a', 'OK!'], ['b', 'Take off']];
-    else if (tab === 'icing') items = [['stick', 'Move'], ['x', 'Hold: pipe'], [pad ? 'dpad' : 'rt', 'Icing'], ['a', 'OK!'], ['b', 'Undo']];
-    else if (tab === 'candy') items = [['stick', 'Move'], ['x', CANDIES[st.candySel].spray ? 'Shake!' : 'Stick on'], [pad ? 'dpad' : 'rt', 'Candy'], ['a', 'OK!'], ['b', st.hover ? 'Take off' : 'Undo']];
+    else if (tab === 'build') items = st.H.built < this.shape(st).pieces.length ? [['a', 'Place'], [pad ? 'dpad' : 'stick', 'Shape'], ['b', 'Take off'], ['rb', 'Next step']] : [['a', 'Wiggle'], ['b', 'Take off'], ['rb', 'Next step']];
+    else if (tab === 'icing') items = [['stick', 'Move'], ['a', 'Ice it'], ['x', 'Hold: pipe'], [pad ? 'dpad' : 'rt', 'Icing'], ['b', 'Undo']];
+    else if (tab === 'candy') items = [['stick', 'Move'], ['a', CANDIES[st.candySel].spray ? 'Hold: shake!' : 'Stick on'], [pad ? 'dpad' : 'rt', 'Candy'], ['b', st.hover ? 'Take off' : 'Undo']];
     else items = [['lb', 'Change'], ['a', "I'm ready!"]];
     const avail = r.x + r.w - 16 - x, lab = sz * 0.62;
     let need = 0;
