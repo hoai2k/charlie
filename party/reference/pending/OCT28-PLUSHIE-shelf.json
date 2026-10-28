@@ -1,0 +1,79 @@
+{
+  "key": "bg/plushie-shelf",
+  "prompt": "Use case: stylized-concept. Asset type: opaque 2D game background1920x1080. Big friendly wooden toy shelf bookcase fills screen FRONT VIEW. Warm cream-painted wood rounded corners, soft mint wallpaper tiny very faint stars. EXACTLY TWO long EMPTY SHELVES with straight horizontal support top surfaces at y430 and y760 on1080high image. Each shelf board spans at least x200..1720, front lip40px high directly below support line. Plush toys will sit x330..1590: leave these stretches entirely EMPTY, wall above empty calm. A few picturebooks and wooden toyblock on upper shelf FAR LEFT x<300; yarn basket and little toy drum lower shelf FAR RIGHT x>1640 only. Cozy rug and floorboards below. Keep top170px calm for title and bottomy900..1080 calm for UI. Bold smooth navy #24163f outlines, rounded appealing forms, simple clean CELshading, soft slightly desaturated candy colors. No3D, no photorealism, no plush toys, no characters, no people, no text, no extra shelves.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-96026624-d63c-4c1a-965c-bab4065df508.png",
+  "status": "delivered-and-reviewed-in-game",
+  "mode": "built-in imagegen",
+  "source": "reference/sources/oct28-plushie/shelf-native.webp",
+  "runtime": "assets/art/bg/plushie-shelf-v1.webp",
+  "nativeSize": [
+    1672,
+    941
+  ],
+  "outputSize": [
+    1920,
+    1080
+  ],
+  "geometry": {
+    "xCorrespondences": [
+      [
+        0,
+        0
+      ],
+      [
+        330,
+        330
+      ],
+      [
+        1300,
+        1590
+      ],
+      [
+        1672,
+        1920
+      ]
+    ],
+    "yCorrespondences": [
+      [
+        0,
+        0
+      ],
+      [
+        414,
+        430
+      ],
+      [
+        642,
+        760
+      ],
+      [
+        941,
+        1080
+      ]
+    ],
+    "shelfSeatY": [
+      430,
+      760
+    ],
+    "clearShelfX": [
+      330,
+      1590
+    ]
+  },
+  "processing": "Whole authored background piecewise affine registration: front support edges y414/642 to430/760; ends compressed to keep books/yarn outside central display span. No pixels creatively painted.",
+  "decodedBytes": 8294400,
+  "review": "Native output and registered runtime inspected. All six body landmarks reviewed in common-frame contact sheet; tinted fabrics and exact trim registration checked. Atlas source order/whole pieces checked; tool points reviewed with crosshairs. Full-resolution and compact art reviewed in actual one/eight-player stations and shelf; compact tools and natural eight-CPU finale passed; see live review records.",
+  "runtimeSha256": "1f08aeb102e6a418c2cecbe503c09c6dd999700c9843884951e8e36423997903",
+  "runtimeBytes": 1508916,
+  "alphaExtrema": [
+    255,
+    255
+  ],
+  "activeRuntime": "assets/art/bg/plushie-shelf-v1-compact.webp",
+  "activeOutputSize": [
+    1024,
+    576
+  ],
+  "activeDecodedBytes": 2359296,
+  "styleReference": "assets/art/prop/room-teddy.webp"
+}

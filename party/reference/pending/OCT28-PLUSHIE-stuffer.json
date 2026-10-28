@@ -1,0 +1,44 @@
+{
+  "key": "prop/plushie-stuffer",
+  "prompt": "Use case: stylized-concept. Asset type:2D transparent384x384 game prop. Cute stuffingmachine for plush toy workshop. Round pastelpink tank, clear dome on top full white fluff, little crank handle on RIGHT, four stubby feet. Curved nozzle sticks out LOWER LEFT pointing leftwards and its exact leftmost opening TIP at image pixel40,300 (10.4% across,78% down). Entire machine visible with transparent border. Bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candycolor, simple clean soft CEL shading, flat2D front threequarter icon. No realism no3D. No text, no motionlines, no shadow, no separate stuffing puffs, no character. Genuine transparent alpha.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-d5c6bffc-0541-4bed-9cb6-ea79fdf9ccc8.png",
+  "status": "delivered-and-reviewed-in-game",
+  "mode": "built-in imagegen",
+  "source": "reference/sources/oct28-plushie/stuffer-native.webp",
+  "runtime": "assets/art/prop/plushie-stuffer-v1.webp",
+  "nativeSize": [
+    1254,
+    1254
+  ],
+  "outputSize": [
+    384,
+    384
+  ],
+  "geometry": {
+    "sourceNozzleTip": [
+      100,
+      945
+    ],
+    "nozzleTip": [
+      40,
+      300
+    ],
+    "scale": 0.28
+  },
+  "processing": "Whole source uniformly scaled and translated about measured nozzle opening center to requested anchor.",
+  "decodedBytes": 589824,
+  "review": "Native output and registered runtime inspected. All six body landmarks reviewed in common-frame contact sheet; tinted fabrics and exact trim registration checked. Atlas source order/whole pieces checked; tool points reviewed with crosshairs. Full-resolution and compact art reviewed in actual one/eight-player stations and shelf; compact tools and natural eight-CPU finale passed; see live review records.",
+  "runtimeSha256": "3c8466da8791baef8837d87cd0cb5eba6dc6bb4a1cd091754f7d230ef8cb3e7c",
+  "runtimeBytes": 87186,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "activeRuntime": "assets/art/prop/plushie-stuffer-v1.webp",
+  "activeOutputSize": [
+    384,
+    384
+  ],
+  "activeDecodedBytes": 589824,
+  "styleReference": "assets/art/prop/room-teddy.webp"
+}

@@ -1338,7 +1338,23 @@
     "prop/gh-castle-cone-left": "prop/gh-castle-cone-left-compact.webp",
     "prop/gh-castle-cone-right": "prop/gh-castle-cone-right-compact.webp",
     "prop/gh-candy": "prop/gh-candy.webp",
-    "prop/gh-gingerbread-person": "prop/gh-gingerbread-person.webp"
+    "prop/gh-gingerbread-person": "prop/gh-gingerbread-person.webp",
+    "prop/plushie-body-bear": "prop/plushie-body-bear-v1-compact.webp",
+    "prop/plushie-body-bunny": "prop/plushie-body-bunny-v1-compact.webp",
+    "prop/plushie-body-dragon": "prop/plushie-body-dragon-v1-compact.webp",
+    "prop/plushie-body-kitty": "prop/plushie-body-kitty-v1-compact.webp",
+    "prop/plushie-body-puppy": "prop/plushie-body-puppy-v1-compact.webp",
+    "prop/plushie-body-unicorn": "prop/plushie-body-unicorn-v1-compact.webp",
+    "prop/plushie-clothes": "prop/plushie-clothes-v1-compact.webp",
+    "prop/plushie-face": "prop/plushie-face-v1-compact.webp",
+    "prop/plushie-needle": "prop/plushie-needle-v1.webp",
+    "prop/plushie-patches": "prop/plushie-patches-v1-compact.webp",
+    "bg/plushie-shelf": "bg/plushie-shelf-v1-compact.webp",
+    "prop/plushie-stuffer": "prop/plushie-stuffer-v1.webp",
+    "prop/plushie-stuffing": "prop/plushie-stuffing-v1.webp",
+    "prop/plushie-tag": "prop/plushie-tag-v1.webp",
+    "thumb/plushie-workshop": "thumb/plushie-workshop-v1.webp",
+    "bg/plushie-workshop": "bg/plushie-workshop-v1-compact.webp"
   },
   "groups": {
     "plushie-workshop": [

@@ -40860,6 +40860,182 @@
       "runtime": "party/assets/art/prop/gh-gingerbread-person.webp",
       "fullRuntime": "party/assets/art/prop/gh-gingerbread-person.webp",
       "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/plushie-body-bear",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent game sprite sheet for Plushie Workshop. Use reference only for smooth bold navy #24163f outlines, rounded cute forms, clean soft CEL shading. NOT photorealistic, no 3D plush render. Draw a handmade seated TEDDY BEAR plush toy, white fabric, blank face NO eyes/nose/mouth, round ears and oval pale peach muzzle, pink inner ears and pink paw pads, tiny pink cheek ovals, visible simple stitched seams, short stubby arms at sides leaving tummy clear. No bow/clothes. Exact canvas 1024x1120, 2 columns x 2 rows; 512x560 each. TOP ROW: left an unstuffed limp skin squashed vertically, right a stuffed round toy. BOTTOM ROW: ONLY colored trim pieces from corresponding toy directly above, exactly in the same positions, otherwise transparent. Absolute cell-local landmarks for stuffed RIGHT: seat y540 centered x256; head top y88, circle head center256,200 radius115; eye placement y195 but no eyes; muzzle centered256,255; neck y322; shoulders y350; clear tummy256,425; waist y470; feet centered186,515 and326,515 bottom540. Ears above head to y35. LEFT flat is precisely same plush squashed around seat y540 to60% height and112% width (head top269, eye line333); floppy ears, loose seam opening and soft wrinkles. Top row fabric is white with lightgrey shading including colored trim; bottom row separate trim only includes muzzle, inner ears, cheeks and pads. Keep each piece within own cell; no grid lines, no labels/text, no shadows, no scenery, no effects. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-55babfd2-9e4b-46b0-8417-75db61bfc2ce.png",
+      "archive": "party/reference/sources/oct28-plushie/body-bear-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 67014,
+      "runtime": "party/assets/art/prop/plushie-body-bear-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-body-bear-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-body-bear.json"
+    },
+    {
+      "key": "prop/plushie-body-bunny",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent game sprite sheet for Plushie Workshop. Use reference only for smooth bold navy #24163f outlines, rounded cute forms, clean soft CEL shading. NOT photorealistic, no 3D plush render. Draw a handmade seated BUNNY plush toy, white fabric, blank face NO eyes/nose/mouth, two long upright ears one bent at tip, pink inner ears, pink paw pads, round cotton tail peeking to side, NO muzzle, tiny pink cheek ovals, visible simple stitched seams, short stubby arms at sides leaving tummy clear. No bow/clothes. Exact canvas 1024x1120, 2 columns x 2 rows; 512x560 each. TOP ROW: left an unstuffed limp skin squashed vertically, right a stuffed round toy. BOTTOM ROW: ONLY colored trim pieces from corresponding toy directly above, exactly in the same positions, otherwise transparent. Absolute cell-local landmarks for stuffed RIGHT: seat y540 centered x256; head top y88, circle head center256,200 radius115; eye placement y195 but no eyes; muzzle centered256,255; neck y322; shoulders y350; clear tummy256,425; waist y470; feet centered186,515 and326,515 bottom540. Long ears above head to y12; round head top y88, NOT top of ears. LEFT flat is precisely same plush squashed around seat y540 to60% height and112% width (head top269, eye line333); floppy ears, loose seam opening and soft wrinkles. Top row fabric is white with lightgrey shading including colored trim; bottom row separate trim only includes inner ears, cheeks, pads and cotton tail. Keep each piece within own cell; no grid lines, no labels/text, no shadows, no scenery, no effects. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-718bff05-3043-40a8-b610-dc9dc286ca86.png",
+      "archive": "party/reference/sources/oct28-plushie/body-bunny-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 73708,
+      "runtime": "party/assets/art/prop/plushie-body-bunny-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-body-bunny-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-body-bunny.json"
+    },
+    {
+      "key": "prop/plushie-body-dragon",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent game sprite sheet for Plushie Workshop. Use reference only for smooth bold navy #24163f outlines, rounded cute forms, clean soft CEL shading. NOT photorealistic, no 3D plush render. Draw a handmade seated DRAGON plush toy, white fabric, blank face NO eyes/nose/mouth, two little soft pale gold horns, soft pastel-lavender spikes over head and down back, tiny folded wings behind shoulders with pink membranes, white chubby dragon tail, pink paw pads, NO muzzle shape, tiny pink cheek ovals, visible simple stitched seams, short stubby arms at sides leaving tummy clear. No bow/clothes. Exact canvas 1024x1120, 2 columns x 2 rows; 512x560 each. TOP ROW: left an unstuffed limp skin squashed vertically, right a stuffed round toy. BOTTOM ROW: ONLY colored trim pieces from corresponding toy directly above, exactly in the same positions, otherwise transparent. Absolute cell-local landmarks for stuffed RIGHT: seat y540 centered x256; head top y88, circle head center256,200 radius115; eye placement y195 but no eyes; muzzle centered256,255; neck y322; shoulders y350; clear tummy256,425; waist y470; feet centered186,515 and326,515 bottom540. Small horns above head to y12. LEFT flat is precisely same plush squashed around seat y540 to60% height and112% width (head top269, eye line333); floppy ears, loose seam opening and soft wrinkles. Top row fabric is white with lightgrey shading including colored trim; bottom row separate trim only includes pale gold horns, lavender soft spikes, pink wing membranes, cheeks and pads. Keep each piece within own cell; no grid lines, no labels/text, no shadows, no scenery, no effects. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-02e42068-530e-4d36-bcb5-985c5c8cca75.png",
+      "archive": "party/reference/sources/oct28-plushie/body-dragon-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 78036,
+      "runtime": "party/assets/art/prop/plushie-body-dragon-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-body-dragon-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-body-dragon.json"
+    },
+    {
+      "key": "prop/plushie-body-kitty",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent game sprite sheet for Plushie Workshop. Use reference only for smooth bold navy #24163f outlines, rounded cute forms, clean soft CEL shading. NOT photorealistic, no 3D plush render. Draw a handmade seated KITTY plush toy, white fabric, blank face NO eyes/nose/mouth, pointed cat ears with pink insides, cheek fluff, long curled fabric tail beside the body, pink paw pads; NO muzzle shape, tiny pink cheek ovals, visible simple stitched seams, short stubby arms at sides leaving tummy clear. No bow/clothes. Exact canvas 1024x1120, 2 columns x 2 rows; 512x560 each. TOP ROW: left an unstuffed limp skin squashed vertically, right a stuffed round toy. BOTTOM ROW: ONLY colored trim pieces from corresponding toy directly above, exactly in the same positions, otherwise transparent. Absolute cell-local landmarks for stuffed RIGHT: seat y540 centered x256; head top y88, circle head center256,200 radius115; eye placement y195 but no eyes; muzzle centered256,255; neck y322; shoulders y350; clear tummy256,425; waist y470; feet centered186,515 and326,515 bottom540. Pointed ears above head to y22. LEFT flat is precisely same plush squashed around seat y540 to60% height and112% width (head top269, eye line333); floppy ears, loose seam opening and soft wrinkles. Top row fabric is white with lightgrey shading including colored trim; bottom row separate trim only includes inner ears, cheeks and pads. Keep each piece within own cell; no grid lines, no labels/text, no shadows, no scenery, no effects. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-1afe8899-f2e2-4e07-a0c5-04b7b99fdcd8.png",
+      "archive": "party/reference/sources/oct28-plushie/body-kitty-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 65474,
+      "runtime": "party/assets/art/prop/plushie-body-kitty-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-body-kitty-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-body-kitty.json"
+    },
+    {
+      "key": "prop/plushie-body-puppy",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent game sprite sheet for Plushie Workshop. Use reference only for smooth bold navy #24163f outlines, rounded cute forms, clean soft CEL shading. NOT photorealistic, no 3D plush render. Draw a handmade seated PUPPY plush toy, white fabric, blank face NO eyes/nose/mouth, long floppy white-fabric ears hanging down, round pale peach muzzle, pink ear-insides and pink paw pads, short white tail peeking beside the body, tiny pink cheek ovals, visible simple stitched seams, short stubby arms at sides leaving tummy clear. No bow/clothes. Exact canvas 1024x1120, 2 columns x 2 rows; 512x560 each. TOP ROW: left an unstuffed limp skin squashed vertically, right a stuffed round toy. BOTTOM ROW: ONLY colored trim pieces from corresponding toy directly above, exactly in the same positions, otherwise transparent. Absolute cell-local landmarks for stuffed RIGHT: seat y540 centered x256; head top y88, circle head center256,200 radius115; eye placement y195 but no eyes; muzzle centered256,255; neck y322; shoulders y350; clear tummy256,425; waist y470; feet centered186,515 and326,515 bottom540. Floppy ears hanging beside head; skull top at y88. LEFT flat is precisely same plush squashed around seat y540 to60% height and112% width (head top269, eye line333); floppy ears, loose seam opening and soft wrinkles. Top row fabric is white with lightgrey shading including colored trim; bottom row separate trim only includes muzzle, inner ears, cheeks and pads. Keep each piece within own cell; no grid lines, no labels/text, no shadows, no scenery, no effects. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-b0ed7055-8ddd-4df9-8389-a4e978432fa4.png",
+      "archive": "party/reference/sources/oct28-plushie/body-puppy-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 95410,
+      "runtime": "party/assets/art/prop/plushie-body-puppy-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-body-puppy-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-body-puppy.json"
+    },
+    {
+      "key": "prop/plushie-body-unicorn",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent game sprite sheet for Plushie Workshop. Use reference only for smooth bold navy #24163f outlines, rounded cute forms, clean soft CEL shading. NOT photorealistic, no 3D plush render. Draw a handmade seated UNICORN plush toy, white fabric, blank face NO eyes/nose/mouth, small pointed ears with pink insides, a golden spiral horn, short fluffy pastel rainbow mane and tail tuft, pink paw pads, tiny pink cheek ovals, visible simple stitched seams, short stubby arms at sides leaving tummy clear. No bow/clothes. Exact canvas 1024x1120, 2 columns x 2 rows; 512x560 each. TOP ROW: left an unstuffed limp skin squashed vertically, right a stuffed round toy. BOTTOM ROW: ONLY colored trim pieces from corresponding toy directly above, exactly in the same positions, otherwise transparent. Absolute cell-local landmarks for stuffed RIGHT: seat y540 centered x256; head top y88, circle head center256,200 radius115; eye placement y195 but no eyes; muzzle centered256,255; neck y322; shoulders y350; clear tummy256,425; waist y470; feet centered186,515 and326,515 bottom540. Ears and horn above head to y12. LEFT flat is precisely same plush squashed around seat y540 to60% height and112% width (head top269, eye line333); floppy ears, loose seam opening and soft wrinkles. Top row fabric is white with lightgrey shading including colored trim; bottom row separate trim only includes golden horn, pastel rainbow mane and tail, inner ears, cheeks and pads. Keep each piece within own cell; no grid lines, no labels/text, no shadows, no scenery, no effects. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-0dd6a5e1-928a-47a7-ba97-1b0ab231f657.png",
+      "archive": "party/reference/sources/oct28-plushie/body-unicorn-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 82890,
+      "runtime": "party/assets/art/prop/plushie-body-unicorn-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-body-unicorn-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-body-unicorn.json"
+    },
+    {
+      "key": "prop/plushie-clothes",
+      "prompt": "Use case: stylized-concept. Asset type: transparent 2D game atlas of8 doll-size clothes,4 columns x2rows. No body or neck. Final1024x512 each cell256square. Bold smooth dark navy #24163f outlines, clean soft cel shading, candy colors, flat FRONT view. No realism no3D. Row1 four cosy chunky knit SCARVES wrapped once around an invisible plush neck. Each knot centered at cell128,96; wrap spans x24..232; tails hang DOWN ON VIEWER'S RIGHT. Colors left-right: red-white striped knit; blue knit with pompoms; pink whitepolkadots; rainbow stripes. Row2 four fluffy layered tulle TUTUS seen front view; waistband CENTER128,80; waistband opening about60% overallwidth; skirt spansx8..248 flares down to y190. Colors left-right: pink; lavender with small sewn glitter details; mint with little sewn stars; rainbow layers. Generous transparent margins per cell, no overlapping cells or extra pieces, no scenery, no text/labels, no shadows or floating decorations. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-c15eab9a-6ecc-4992-ab21-4c5ab2ce2c33.png",
+      "archive": "party/reference/sources/oct28-plushie/clothes-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 65286,
+      "runtime": "party/assets/art/prop/plushie-clothes-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-clothes-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-clothes.json"
+    },
+    {
+      "key": "prop/plushie-face",
+      "prompt": "Use case: stylized-concept. Asset type: transparent 2D game atlas, sewn plush toy face pieces. EXACTLY 8 columns x3 rows, 24 pieces, each isolated in its own equal cell, generous transparent gutters. Final1024x384 (128px square cells). Use inspected teddy reference only for 2D bold smooth dark navy #24163f outlines and clean soft CEL shading; no realism, no3D. Tiny running-stitch edges. FLAT FRONT VIEW. Every piece centered filling75% cell. Row1 left to right ONE SINGLE VIEWER'S RIGHT EYE PER CELL (not pairs): black button eye two thread holes; big shiny black oval eye two white highlights; sleepy closed arc with lashes; pink heart eye; gold star eye; googly eye white with black pupil; big blue sparkly eye with lashes; embroidered happy arc ^. Row2 noses in order: rounded brown triangle; pink bunny Y nose; pink heart nose; round black button nose; small pink kitty triangle; big shiny black oval puppy nose; two tiny dark nostril dots together; red pompom nose. Row3 mouths in order: stitched smile single navy thread line; open happy mouth pink tongue; kitty w mouth; small o mouth; smile with two bunny buck teeth; silly tongue-out; little smile two tiny fangs; big grin. No heads, no faces, no bodies. No cell outlines, no labels/text, no scene, no shadows or particles. Genuine alpha transparency.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-66f03980-b295-4f61-b85b-e2d326fc864f.png",
+      "archive": "party/reference/sources/oct28-plushie/face-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 49230,
+      "runtime": "party/assets/art/prop/plushie-face-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-face-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-face.json"
+    },
+    {
+      "key": "prop/plushie-needle",
+      "prompt": "Use case: stylized-concept. Asset type:2D transparent256x256 game prop sewing cursor. One big friendly chunky shiny silver sewing needle diagonally bottomleft to topright. Exact sharp needlepoint at imagepixel28,228. Needleeye upperright near190,45 with loop pinkthread through eye curling away into upperright quadrant but kept within canvas. Bold smooth navy #24163f outline, clean soft CELshading, flat2D illustrated cartoon, no realism no3D. Entire needle and thread visible with margin, no hands no other objects, no scene, no text, no shadow or glow. Genuine alpha transparency.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-394efabd-373b-4ab0-b91e-8f4d01044b84.png",
+      "archive": "party/reference/sources/oct28-plushie/needle-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 16292,
+      "runtime": "party/assets/art/prop/plushie-needle-v1.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-needle-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-needle.json"
+    },
+    {
+      "key": "prop/plushie-patches",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent game atlas for felt appliqu\u00e9 plush toy patches. EXACTLY8 columns x2rows=16 isolated pieces, broad transparent gutters, no frame lines or text. Final1024x256 with128x128cells. Bold smooth dark navy #24163f outlines, bright candy colors, flat front view, clean soft cel shading, simple felt texture and white running-stitch edging. No3D, no photorealism. Each piece centered fills80% cell. Row1 exactly left-to-right: red felt heart; pink felt heart with white stitches; rainbow striped heart; pink heart-shaped button with two holes; lilac heart with tiny gold star; three tiny pink hearts in a cluster; gold glitter-texture heart (no floating glitter); patchwork heart made of four little fabric squares. Row2 exactly: yellow fivepoint star; white daisy yellow center; round blue patch crossstitch edge; red gingham square; yellow crescent moon; fluffy white cloud; rainbow arc; pink paw print. Transparent background genuine alpha. No scene, no shadows, no motionlines or detached sparkles.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-36189239-fea3-44f5-b6b3-7a5eade55efb.png",
+      "archive": "party/reference/sources/oct28-plushie/patches-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 54394,
+      "runtime": "party/assets/art/prop/plushie-patches-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-patches-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-patches.json"
+    },
+    {
+      "key": "bg/plushie-shelf",
+      "prompt": "Use case: stylized-concept. Asset type: opaque 2D game background1920x1080. Big friendly wooden toy shelf bookcase fills screen FRONT VIEW. Warm cream-painted wood rounded corners, soft mint wallpaper tiny very faint stars. EXACTLY TWO long EMPTY SHELVES with straight horizontal support top surfaces at y430 and y760 on1080high image. Each shelf board spans at least x200..1720, front lip40px high directly below support line. Plush toys will sit x330..1590: leave these stretches entirely EMPTY, wall above empty calm. A few picturebooks and wooden toyblock on upper shelf FAR LEFT x<300; yarn basket and little toy drum lower shelf FAR RIGHT x>1640 only. Cozy rug and floorboards below. Keep top170px calm for title and bottomy900..1080 calm for UI. Bold smooth navy #24163f outlines, rounded appealing forms, simple clean CELshading, soft slightly desaturated candy colors. No3D, no photorealism, no plush toys, no characters, no people, no text, no extra shelves.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-96026624-d63c-4c1a-965c-bab4065df508.png",
+      "archive": "party/reference/sources/oct28-plushie/shelf-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 35472,
+      "runtime": "party/assets/art/bg/plushie-shelf-v1-compact.webp",
+      "fullRuntime": "party/assets/art/bg/plushie-shelf-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-shelf.json"
+    },
+    {
+      "key": "prop/plushie-stuffer",
+      "prompt": "Use case: stylized-concept. Asset type:2D transparent384x384 game prop. Cute stuffingmachine for plush toy workshop. Round pastelpink tank, clear dome on top full white fluff, little crank handle on RIGHT, four stubby feet. Curved nozzle sticks out LOWER LEFT pointing leftwards and its exact leftmost opening TIP at image pixel40,300 (10.4% across,78% down). Entire machine visible with transparent border. Bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candycolor, simple clean soft CEL shading, flat2D front threequarter icon. No realism no3D. No text, no motionlines, no shadow, no separate stuffing puffs, no character. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-d5c6bffc-0541-4bed-9cb6-ea79fdf9ccc8.png",
+      "archive": "party/reference/sources/oct28-plushie/stuffer-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 87186,
+      "runtime": "party/assets/art/prop/plushie-stuffer-v1.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-stuffer-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-stuffer.json"
+    },
+    {
+      "key": "prop/plushie-stuffing",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent256x256 game prop. One centered fluffy tuft of white polyester toy stuffing like a small soft cotton cloud, organic wispy lobes, lightgrey CEL shading with subtle navy #24163f contours. Rounded friendly shapes and clean flat2D cartoon style. Fill80% of square with generous transparent border. No realism no3D, no shadow, no text, no other items, no particles separate from tuft. Genuine alpha transparency.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-36f84306-e310-41f3-84c9-82f30e440fd8.png",
+      "archive": "party/reference/sources/oct28-plushie/stuffing-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 30542,
+      "runtime": "party/assets/art/prop/plushie-stuffing-v1.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-stuffing-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-stuffing.json"
+    },
+    {
+      "key": "prop/plushie-tag",
+      "prompt": "Use case: stylized-concept. Asset type:2D transparent384x160 game prop. One blank CREAM paper luggage name tag, wide horizontal rounded rectangle with short tapered left shoulder. Punched round hole on left, loop pink ribbon through it curling just above-left. Thin stitched navy #24163f border. Blank clean writing area fromx80tox360 andy30toy130. Soft cream CELshading, bold smooth navy outlines, rounded appealing flat2D cartoon game style, no realism no3D. Entire tag and ribbon contained with generous transparent margins. NO TEXT or symbols, no shadows, no background, no extra items. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-67f8365b-8858-4168-a380-229e27278453.png",
+      "archive": "party/reference/sources/oct28-plushie/tag-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 39024,
+      "runtime": "party/assets/art/prop/plushie-tag-v1.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-tag-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-tag.json"
+    },
+    {
+      "key": "thumb/plushie-workshop",
+      "prompt": "Use case: stylized-concept. Asset type: opaque800x500 game select thumbnail. Centered freshly made cute plush bunny with pink bow and a sewn-on red felt heart patch sits on a sewing table; next to it a smaller teddy bear being stitched by a big silver sewing needle with pink thread through eye. Needle stitches button eye on bear. Fluffy white stuffing puffs flying. Colorful threadspools and pincushion around edge of sewingtable. Bold smooth darknavy #24163f outlines, rounded appealing toys, bright candy colors, clean soft CEL shading, simple sewn seams and felt texture. Same2D illustrated toy style as reference. No photorealism no3D. No humans or character NPCs, no text, no labels.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-19bda250-b051-4f8d-991c-8905ff3c4bff.png",
+      "archive": "party/reference/sources/oct28-plushie/thumb-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 501466,
+      "runtime": "party/assets/art/thumb/plushie-workshop-v1.webp",
+      "fullRuntime": "party/assets/art/thumb/plushie-workshop-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-thumb.json"
+    },
+    {
+      "key": "bg/plushie-workshop",
+      "prompt": "Use case: stylized-concept. Asset type: opaque2D game background1920x1080. Bold smooth navy #24163f outlines, rounded friendly forms, simple clean CELshading no realism no3D. A cosy sunny toy-maker sewing workshop FRONT VIEW. Pastel wall, pegboard of colorful thread spools and scissors, shelves folded fabric bolts in candy colors, big round window soft sky, fabric bunting across TOP, big pincushion at farLEFT and basket yarn at farRIGHT. Warm honeywood worktable top begins on a straight HORIZONTAL edge precisely y780 on1080high image and continues to bottom, measuring tape along front edge. Keep center x560..1360,y180..780 very calm lowcontrast blank wall: plush toys will be overlaid there. Put shelves/window/tools mostly near farleft and farright. Soft slightly desaturated cozy candy colors. No toys, no people, no characters, no readable text, no UI, no shadows in central toy area.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-4b41d01d-a9af-45a5-8db8-40192d47c974.png",
+      "archive": "party/reference/sources/oct28-plushie/workshop-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 92172,
+      "runtime": "party/assets/art/bg/plushie-workshop-v1-compact.webp",
+      "fullRuntime": "party/assets/art/bg/plushie-workshop-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-workshop.json"
     }
   ]
 }

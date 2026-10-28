@@ -1,0 +1,55 @@
+{
+  "key": "prop/plushie-tag",
+  "prompt": "Use case: stylized-concept. Asset type:2D transparent384x160 game prop. One blank CREAM paper luggage name tag, wide horizontal rounded rectangle with short tapered left shoulder. Punched round hole on left, loop pink ribbon through it curling just above-left. Thin stitched navy #24163f border. Blank clean writing area fromx80tox360 andy30toy130. Soft cream CELshading, bold smooth navy outlines, rounded appealing flat2D cartoon game style, no realism no3D. Entire tag and ribbon contained with generous transparent margins. NO TEXT or symbols, no shadows, no background, no extra items. Genuine transparent alpha.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-67f8365b-8858-4168-a380-229e27278453.png",
+  "status": "delivered-and-reviewed-in-game",
+  "mode": "built-in imagegen",
+  "source": "reference/sources/oct28-plushie/tag-native.webp",
+  "runtime": "assets/art/prop/plushie-tag-v1.webp",
+  "nativeSize": [
+    1942,
+    809
+  ],
+  "outputSize": [
+    384,
+    160
+  ],
+  "geometry": {
+    "writingArea": [
+      80,
+      30,
+      360,
+      130
+    ],
+    "xCorrespondences": [
+      [
+        0,
+        0
+      ],
+      [
+        600,
+        80
+      ],
+      [
+        1942,
+        384
+      ]
+    ]
+  },
+  "processing": "Whole image registered to requested384x160; left ribbon area compressed to keep blank paper clear fromx80 through360.",
+  "decodedBytes": 245760,
+  "review": "Native output and registered runtime inspected. All six body landmarks reviewed in common-frame contact sheet; tinted fabrics and exact trim registration checked. Atlas source order/whole pieces checked; tool points reviewed with crosshairs. Full-resolution and compact art reviewed in actual one/eight-player stations and shelf; compact tools and natural eight-CPU finale passed; see live review records.",
+  "runtimeSha256": "4857424d9d0b8c2fdb5a88e837e9f1b6e98a4b88c4d7478d2e42d9517672f5c6",
+  "runtimeBytes": 39024,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "activeRuntime": "assets/art/prop/plushie-tag-v1.webp",
+  "activeOutputSize": [
+    384,
+    160
+  ],
+  "activeDecodedBytes": 245760,
+  "styleReference": "assets/art/prop/room-teddy.webp"
+}

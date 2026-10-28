@@ -1,0 +1,39 @@
+{
+  "key": "thumb/plushie-workshop",
+  "prompt": "Use case: stylized-concept. Asset type: opaque800x500 game select thumbnail. Centered freshly made cute plush bunny with pink bow and a sewn-on red felt heart patch sits on a sewing table; next to it a smaller teddy bear being stitched by a big silver sewing needle with pink thread through eye. Needle stitches button eye on bear. Fluffy white stuffing puffs flying. Colorful threadspools and pincushion around edge of sewingtable. Bold smooth darknavy #24163f outlines, rounded appealing toys, bright candy colors, clean soft CEL shading, simple sewn seams and felt texture. Same2D illustrated toy style as reference. No photorealism no3D. No humans or character NPCs, no text, no labels.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-19bda250-b051-4f8d-991c-8905ff3c4bff.png",
+  "status": "delivered-and-reviewed-in-game",
+  "mode": "built-in imagegen",
+  "source": "reference/sources/oct28-plushie/thumb-native.webp",
+  "runtime": "assets/art/thumb/plushie-workshop-v1.webp",
+  "nativeSize": [
+    1586,
+    992
+  ],
+  "outputSize": [
+    800,
+    500
+  ],
+  "geometry": {
+    "size": [
+      800,
+      500
+    ]
+  },
+  "processing": "Whole image downsampled to requested thumbnail size.",
+  "decodedBytes": 1600000,
+  "review": "Native output and registered runtime inspected. All six body landmarks reviewed in common-frame contact sheet; tinted fabrics and exact trim registration checked. Atlas source order/whole pieces checked; tool points reviewed with crosshairs. Full-resolution and compact art reviewed in actual one/eight-player stations and shelf; compact tools and natural eight-CPU finale passed; see live review records.",
+  "runtimeSha256": "5a79ffc14380796e2234fa385bccac773d512337565a064b4deefe960d95b15e",
+  "runtimeBytes": 501466,
+  "alphaExtrema": [
+    255,
+    255
+  ],
+  "activeRuntime": "assets/art/thumb/plushie-workshop-v1.webp",
+  "activeOutputSize": [
+    800,
+    500
+  ],
+  "activeDecodedBytes": 1600000,
+  "styleReference": "assets/art/prop/room-teddy.webp"
+}

@@ -1,0 +1,91 @@
+{
+  "key": "prop/plushie-body-puppy",
+  "prompt": "Use case: stylized-concept. Asset type: 2D transparent game sprite sheet for Plushie Workshop. Use reference only for smooth bold navy #24163f outlines, rounded cute forms, clean soft CEL shading. NOT photorealistic, no 3D plush render. Draw a handmade seated PUPPY plush toy, white fabric, blank face NO eyes/nose/mouth, long floppy white-fabric ears hanging down, round pale peach muzzle, pink ear-insides and pink paw pads, short white tail peeking beside the body, tiny pink cheek ovals, visible simple stitched seams, short stubby arms at sides leaving tummy clear. No bow/clothes. Exact canvas 1024x1120, 2 columns x 2 rows; 512x560 each. TOP ROW: left an unstuffed limp skin squashed vertically, right a stuffed round toy. BOTTOM ROW: ONLY colored trim pieces from corresponding toy directly above, exactly in the same positions, otherwise transparent. Absolute cell-local landmarks for stuffed RIGHT: seat y540 centered x256; head top y88, circle head center256,200 radius115; eye placement y195 but no eyes; muzzle centered256,255; neck y322; shoulders y350; clear tummy256,425; waist y470; feet centered186,515 and326,515 bottom540. Floppy ears hanging beside head; skull top at y88. LEFT flat is precisely same plush squashed around seat y540 to60% height and112% width (head top269, eye line333); floppy ears, loose seam opening and soft wrinkles. Top row fabric is white with lightgrey shading including colored trim; bottom row separate trim only includes muzzle, inner ears, cheeks and pads. Keep each piece within own cell; no grid lines, no labels/text, no shadows, no scenery, no effects. Genuine transparent alpha.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-b0ed7055-8ddd-4df9-8389-a4e978432fa4.png",
+  "status": "delivered-and-reviewed-in-game",
+  "mode": "built-in imagegen",
+  "runtime": "assets/art/prop/plushie-body-puppy-v1.webp",
+  "source": "reference/sources/oct28-plushie/body-puppy-native.webp",
+  "nativeSize": [
+    1692,
+    929
+  ],
+  "geometry": {
+    "size": [
+      1692,
+      929
+    ],
+    "top": 625,
+    "split": 933,
+    "cols": [
+      {
+        "cx": 485,
+        "sx": 0.58,
+        "ys": [
+          [
+            0,
+            100
+          ],
+          [
+            178,
+            269
+          ],
+          [
+            413,
+            409
+          ],
+          [
+            601,
+            540
+          ],
+          [
+            625,
+            560
+          ]
+        ]
+      },
+      {
+        "cx": 1296,
+        "sx": 0.69,
+        "ys": [
+          [
+            0,
+            65
+          ],
+          [
+            32,
+            88
+          ],
+          [
+            326,
+            322
+          ],
+          [
+            617,
+            540
+          ],
+          [
+            625,
+            560
+          ]
+        ]
+      }
+    ]
+  },
+  "processing": "Top-row authored figures only. Piecewise affine crop maps measured skull, neck and seat lines to shared frame; colored source pixels and their two-pixel outline fringe extracted as trim; trim area neutralized in fabric. Identical transform and pixels guarantee registration. Generated bottom row unused.",
+  "decodedBytes": 4587520,
+  "review": "Native output and registered runtime inspected. All six body landmarks reviewed in common-frame contact sheet; tinted fabrics and exact trim registration checked. Atlas source order/whole pieces checked; tool points reviewed with crosshairs. Full-resolution and compact art reviewed in actual one/eight-player stations and shelf; compact tools and natural eight-CPU finale passed; see live review records.",
+  "runtimeSha256": "4fe4b118e6613a6546abd81fc5389eea838756ef42cd8a297bf40b5a53e48ae8",
+  "runtimeBytes": 593668,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "activeRuntime": "assets/art/prop/plushie-body-puppy-v1-compact.webp",
+  "activeOutputSize": [
+    640,
+    700
+  ],
+  "activeDecodedBytes": 1792000,
+  "styleReference": "assets/art/prop/room-teddy.webp"
+}

@@ -1,0 +1,41 @@
+{
+  "key": "prop/plushie-stuffing",
+  "prompt": "Use case: stylized-concept. Asset type: 2D transparent256x256 game prop. One centered fluffy tuft of white polyester toy stuffing like a small soft cotton cloud, organic wispy lobes, lightgrey CEL shading with subtle navy #24163f contours. Rounded friendly shapes and clean flat2D cartoon style. Fill80% of square with generous transparent border. No realism no3D, no shadow, no text, no other items, no particles separate from tuft. Genuine alpha transparency.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-36f84306-e310-41f3-84c9-82f30e440fd8.png",
+  "status": "delivered-and-reviewed-in-game",
+  "mode": "built-in imagegen",
+  "source": "reference/sources/oct28-plushie/stuffing-native.webp",
+  "runtime": "assets/art/prop/plushie-stuffing-v1.webp",
+  "nativeSize": [
+    1254,
+    1254
+  ],
+  "outputSize": [
+    256,
+    256
+  ],
+  "geometry": {
+    "sourceBounds": [
+      67,
+      163,
+      1189,
+      1119
+    ]
+  },
+  "processing": "Alpha-bound whole tuft fitted in210px square centered in256px canvas.",
+  "decodedBytes": 262144,
+  "review": "Native output and registered runtime inspected. All six body landmarks reviewed in common-frame contact sheet; tinted fabrics and exact trim registration checked. Atlas source order/whole pieces checked; tool points reviewed with crosshairs. Full-resolution and compact art reviewed in actual one/eight-player stations and shelf; compact tools and natural eight-CPU finale passed; see live review records.",
+  "runtimeSha256": "44597697013187e004d168185576bb2213514c27053891df626abb17424e3c38",
+  "runtimeBytes": 30542,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "activeRuntime": "assets/art/prop/plushie-stuffing-v1.webp",
+  "activeOutputSize": [
+    256,
+    256
+  ],
+  "activeDecodedBytes": 262144,
+  "styleReference": "assets/art/prop/room-teddy.webp"
+}
