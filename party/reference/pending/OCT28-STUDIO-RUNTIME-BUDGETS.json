@@ -1,0 +1,459 @@
+{
+  "runtimeDerivatives": [
+    {
+      "key": "prop/plushie-body-bear",
+      "full": "prop/plushie-body-bear-v1.webp",
+      "fullSize": [
+        1024,
+        1120
+      ],
+      "runtime": "prop/plushie-body-bear-v1-compact.webp",
+      "runtimeSize": [
+        640,
+        700
+      ]
+    },
+    {
+      "key": "prop/plushie-body-bunny",
+      "full": "prop/plushie-body-bunny-v1.webp",
+      "fullSize": [
+        1024,
+        1120
+      ],
+      "runtime": "prop/plushie-body-bunny-v1-compact.webp",
+      "runtimeSize": [
+        640,
+        700
+      ]
+    },
+    {
+      "key": "prop/plushie-body-dragon",
+      "full": "prop/plushie-body-dragon-v1.webp",
+      "fullSize": [
+        1024,
+        1120
+      ],
+      "runtime": "prop/plushie-body-dragon-v1-compact.webp",
+      "runtimeSize": [
+        640,
+        700
+      ]
+    },
+    {
+      "key": "prop/plushie-body-kitty",
+      "full": "prop/plushie-body-kitty-v1.webp",
+      "fullSize": [
+        1024,
+        1120
+      ],
+      "runtime": "prop/plushie-body-kitty-v1-compact.webp",
+      "runtimeSize": [
+        640,
+        700
+      ]
+    },
+    {
+      "key": "prop/plushie-body-puppy",
+      "full": "prop/plushie-body-puppy-v1.webp",
+      "fullSize": [
+        1024,
+        1120
+      ],
+      "runtime": "prop/plushie-body-puppy-v1-compact.webp",
+      "runtimeSize": [
+        640,
+        700
+      ]
+    },
+    {
+      "key": "prop/plushie-body-unicorn",
+      "full": "prop/plushie-body-unicorn-v1.webp",
+      "fullSize": [
+        1024,
+        1120
+      ],
+      "runtime": "prop/plushie-body-unicorn-v1-compact.webp",
+      "runtimeSize": [
+        640,
+        700
+      ]
+    },
+    {
+      "key": "prop/plushie-clothes",
+      "full": "prop/plushie-clothes-v1.webp",
+      "fullSize": [
+        1024,
+        512
+      ],
+      "runtime": "prop/plushie-clothes-v1-compact.webp",
+      "runtimeSize": [
+        768,
+        384
+      ]
+    },
+    {
+      "key": "prop/plushie-face",
+      "full": "prop/plushie-face-v1.webp",
+      "fullSize": [
+        1024,
+        384
+      ],
+      "runtime": "prop/plushie-face-v1-compact.webp",
+      "runtimeSize": [
+        768,
+        288
+      ]
+    },
+    {
+      "key": "prop/plushie-needle",
+      "full": "prop/plushie-needle-v1.webp",
+      "fullSize": [
+        256,
+        256
+      ],
+      "runtime": "prop/plushie-needle-v1.webp",
+      "runtimeSize": [
+        256,
+        256
+      ]
+    },
+    {
+      "key": "prop/plushie-patches",
+      "full": "prop/plushie-patches-v1.webp",
+      "fullSize": [
+        1024,
+        256
+      ],
+      "runtime": "prop/plushie-patches-v1-compact.webp",
+      "runtimeSize": [
+        768,
+        192
+      ]
+    },
+    {
+      "key": "bg/plushie-shelf",
+      "full": "bg/plushie-shelf-v1.webp",
+      "fullSize": [
+        1920,
+        1080
+      ],
+      "runtime": "bg/plushie-shelf-v1-compact.webp",
+      "runtimeSize": [
+        1024,
+        576
+      ]
+    },
+    {
+      "key": "prop/plushie-stuffer",
+      "full": "prop/plushie-stuffer-v1.webp",
+      "fullSize": [
+        384,
+        384
+      ],
+      "runtime": "prop/plushie-stuffer-v1.webp",
+      "runtimeSize": [
+        384,
+        384
+      ]
+    },
+    {
+      "key": "prop/plushie-stuffing",
+      "full": "prop/plushie-stuffing-v1.webp",
+      "fullSize": [
+        256,
+        256
+      ],
+      "runtime": "prop/plushie-stuffing-v1.webp",
+      "runtimeSize": [
+        256,
+        256
+      ]
+    },
+    {
+      "key": "prop/plushie-tag",
+      "full": "prop/plushie-tag-v1.webp",
+      "fullSize": [
+        384,
+        160
+      ],
+      "runtime": "prop/plushie-tag-v1.webp",
+      "runtimeSize": [
+        384,
+        160
+      ]
+    },
+    {
+      "key": "thumb/plushie-workshop",
+      "full": "thumb/plushie-workshop-v1.webp",
+      "fullSize": [
+        800,
+        500
+      ],
+      "runtime": "thumb/plushie-workshop-v1.webp",
+      "runtimeSize": [
+        800,
+        500
+      ]
+    },
+    {
+      "key": "bg/plushie-workshop",
+      "full": "bg/plushie-workshop-v1.webp",
+      "fullSize": [
+        1920,
+        1080
+      ],
+      "runtime": "bg/plushie-workshop-v1-compact.webp",
+      "runtimeSize": [
+        1024,
+        576
+      ]
+    },
+    {
+      "key": "bg/gingerbread-house",
+      "full": "bg/gingerbread-house.webp",
+      "fullSize": [
+        1920,
+        1080
+      ],
+      "runtime": "bg/gingerbread-house-compact.webp",
+      "runtimeSize": [
+        1024,
+        576
+      ]
+    },
+    {
+      "key": "bg/gingerbread-house-night",
+      "full": "bg/gingerbread-house-night.webp",
+      "fullSize": [
+        1920,
+        1080
+      ],
+      "runtime": "bg/gingerbread-house-night-compact.webp",
+      "runtimeSize": [
+        1024,
+        576
+      ]
+    },
+    {
+      "key": "thumb/gingerbread-house",
+      "full": "thumb/gingerbread-house.webp",
+      "fullSize": [
+        800,
+        500
+      ],
+      "runtime": "thumb/gingerbread-house.webp",
+      "runtimeSize": [
+        800,
+        500
+      ]
+    },
+    {
+      "key": "prop/gh-cottage-wall",
+      "full": "prop/gh-cottage-wall.webp",
+      "fullSize": [
+        960,
+        880
+      ],
+      "runtime": "prop/gh-cottage-wall-compact.webp",
+      "runtimeSize": [
+        600,
+        550
+      ]
+    },
+    {
+      "key": "prop/gh-tall-wall",
+      "full": "prop/gh-tall-wall.webp",
+      "fullSize": [
+        960,
+        880
+      ],
+      "runtime": "prop/gh-tall-wall-compact.webp",
+      "runtimeSize": [
+        600,
+        550
+      ]
+    },
+    {
+      "key": "prop/gh-cottage-roof-left",
+      "full": "prop/gh-cottage-roof-left.webp",
+      "fullSize": [
+        960,
+        880
+      ],
+      "runtime": "prop/gh-cottage-roof-left-compact.webp",
+      "runtimeSize": [
+        600,
+        550
+      ]
+    },
+    {
+      "key": "prop/gh-cottage-roof-right",
+      "full": "prop/gh-cottage-roof-right.webp",
+      "fullSize": [
+        960,
+        880
+      ],
+      "runtime": "prop/gh-cottage-roof-right-compact.webp",
+      "runtimeSize": [
+        600,
+        550
+      ]
+    },
+    {
+      "key": "prop/gh-tall-roof-left",
+      "full": "prop/gh-tall-roof-left.webp",
+      "fullSize": [
+        960,
+        880
+      ],
+      "runtime": "prop/gh-tall-roof-left-compact.webp",
+      "runtimeSize": [
+        600,
+        550
+      ]
+    },
+    {
+      "key": "prop/gh-tall-roof-right",
+      "full": "prop/gh-tall-roof-right.webp",
+      "fullSize": [
+        960,
+        880
+      ],
+      "runtime": "prop/gh-tall-roof-right-compact.webp",
+      "runtimeSize": [
+        600,
+        550
+      ]
+    },
+    {
+      "key": "prop/gh-cottage-chimney",
+      "full": "prop/gh-cottage-chimney.webp",
+      "fullSize": [
+        960,
+        880
+      ],
+      "runtime": "prop/gh-cottage-chimney-compact.webp",
+      "runtimeSize": [
+        600,
+        550
+      ]
+    },
+    {
+      "key": "prop/gh-tall-porch",
+      "full": "prop/gh-tall-porch.webp",
+      "fullSize": [
+        960,
+        880
+      ],
+      "runtime": "prop/gh-tall-porch-compact.webp",
+      "runtimeSize": [
+        600,
+        550
+      ]
+    },
+    {
+      "key": "prop/gh-castle-tower-left",
+      "full": "prop/gh-castle-tower-left.webp",
+      "fullSize": [
+        960,
+        880
+      ],
+      "runtime": "prop/gh-castle-tower-left-compact.webp",
+      "runtimeSize": [
+        600,
+        550
+      ]
+    },
+    {
+      "key": "prop/gh-castle-tower-right",
+      "full": "prop/gh-castle-tower-right.webp",
+      "fullSize": [
+        960,
+        880
+      ],
+      "runtime": "prop/gh-castle-tower-right-compact.webp",
+      "runtimeSize": [
+        600,
+        550
+      ]
+    },
+    {
+      "key": "prop/gh-castle-keep",
+      "full": "prop/gh-castle-keep.webp",
+      "fullSize": [
+        960,
+        880
+      ],
+      "runtime": "prop/gh-castle-keep-compact.webp",
+      "runtimeSize": [
+        600,
+        550
+      ]
+    },
+    {
+      "key": "prop/gh-castle-cone-left",
+      "full": "prop/gh-castle-cone-left.webp",
+      "fullSize": [
+        960,
+        880
+      ],
+      "runtime": "prop/gh-castle-cone-left-compact.webp",
+      "runtimeSize": [
+        600,
+        550
+      ]
+    },
+    {
+      "key": "prop/gh-castle-cone-right",
+      "full": "prop/gh-castle-cone-right.webp",
+      "fullSize": [
+        960,
+        880
+      ],
+      "runtime": "prop/gh-castle-cone-right-compact.webp",
+      "runtimeSize": [
+        600,
+        550
+      ]
+    },
+    {
+      "key": "prop/gh-candy",
+      "full": "prop/gh-candy.webp",
+      "fullSize": [
+        640,
+        320
+      ],
+      "runtime": "prop/gh-candy.webp",
+      "runtimeSize": [
+        640,
+        320
+      ]
+    },
+    {
+      "key": "prop/gh-gingerbread-person",
+      "full": "prop/gh-gingerbread-person.webp",
+      "fullSize": [
+        240,
+        320
+      ],
+      "runtime": "prop/gh-gingerbread-person.webp",
+      "runtimeSize": [
+        240,
+        320
+      ]
+    }
+  ],
+  "groups": {
+    "plushie-workshop": {
+      "decodedBytes": 21199872,
+      "decodedMiB": 20.2177734375,
+      "files": 17
+    },
+    "gingerbread-house": {
+      "decodedBytes": 24604992,
+      "decodedMiB": 23.46514892578125,
+      "files": 18
+    }
+  },
+  "policy": "Exact requested full canvases and pixel-exact native sources preserved; proportional compact runtime siblings retain logical landmarks and full-canvas framing."
+}
