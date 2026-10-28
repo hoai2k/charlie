@@ -1,0 +1,44 @@
+{
+  "key": "prop/plushie-needle",
+  "prompt": "Use case: stylized-concept. Asset type:2D transparent256x256 game prop sewing cursor. One big friendly chunky shiny silver sewing needle diagonally bottomleft to topright. Exact sharp needlepoint at imagepixel28,228. Needleeye upperright near190,45 with loop pinkthread through eye curling away into upperright quadrant but kept within canvas. Bold smooth navy #24163f outline, clean soft CELshading, flat2D illustrated cartoon, no realism no3D. Entire needle and thread visible with margin, no hands no other objects, no scene, no text, no shadow or glow. Genuine alpha transparency.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-394efabd-373b-4ab0-b91e-8f4d01044b84.png",
+  "status": "delivered-and-reviewed-in-game",
+  "mode": "built-in imagegen",
+  "source": "reference/sources/oct28-plushie/needle-native.webp",
+  "runtime": "assets/art/prop/plushie-needle-v1.webp",
+  "nativeSize": [
+    1254,
+    1254
+  ],
+  "outputSize": [
+    256,
+    256
+  ],
+  "geometry": {
+    "sourceNeedlePoint": [
+      91,
+      1166
+    ],
+    "needlePoint": [
+      28,
+      228
+    ],
+    "scale": 0.188
+  },
+  "processing": "Whole source uniformly scaled and translated about measured sharp point to requested anchor.",
+  "decodedBytes": 262144,
+  "review": "Native output and registered runtime inspected. All six body landmarks reviewed in common-frame contact sheet; tinted fabrics and exact trim registration checked. Atlas source order/whole pieces checked; tool points reviewed with crosshairs. Full-resolution and compact art reviewed in actual one/eight-player stations and shelf; compact tools and natural eight-CPU finale passed; see live review records.",
+  "runtimeSha256": "2db74b29dc7d0baa0c3c23839d46701c957c2b0618f52dd44d0a6e874d55f053",
+  "runtimeBytes": 16292,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "activeRuntime": "assets/art/prop/plushie-needle-v1.webp",
+  "activeOutputSize": [
+    256,
+    256
+  ],
+  "activeDecodedBytes": 262144,
+  "styleReference": "assets/art/prop/room-teddy.webp"
+}

@@ -1,0 +1,676 @@
+{
+  "status": "all18imagescomplete; nativeRGBAandfullcanvasverified; fullandcompactconsumerreviewpassed; natural1and8CPUgameplaypassed",
+  "assetCount": 18,
+  "fullDecodedMiB": 60.31494140625,
+  "encodedBytes": 6477862,
+  "notes": [
+    "All13housepiecesexact960x880; true transparent openings; exact native losslessRGBA archives including rejected tallwall.",
+    "Tallroofgeometry requires13house-unit downward translation in consumer (poly,top,seam).",
+    "Kitchen source table seam633/941 registered to runtime760/1080.",
+    "Candy repacked4x2 exact160px cells via required tool.",
+    "Sources and transformed runtime copies encoded lossless exact=True; no generated pixels painted procedurally."
+  ],
+  "assets": [
+    {
+      "key": "bg/gingerbread-house",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "decodedMiB": 7.91015625,
+      "encodedBytes": 1936622,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        0,
+        0,
+        1920,
+        1080
+      ]
+    },
+    {
+      "key": "bg/gingerbread-house-night",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "decodedMiB": 7.91015625,
+      "encodedBytes": 2077468,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        0,
+        0,
+        1920,
+        1080
+      ]
+    },
+    {
+      "key": "thumb/gingerbread-house",
+      "dimensions": [
+        800,
+        500
+      ],
+      "decodedMiB": 1.52587890625,
+      "encodedBytes": 636538,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        0,
+        0,
+        800,
+        500
+      ]
+    },
+    {
+      "key": "prop/gh-cottage-wall",
+      "dimensions": [
+        960,
+        880
+      ],
+      "decodedMiB": 3.22265625,
+      "encodedBytes": 332356,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        180,
+        280,
+        781,
+        880
+      ],
+      "closedTransparentOpenings": [
+        {
+          "bounds": [
+            432,
+            396,
+            528,
+            492
+          ],
+          "pixels": 7235
+        },
+        {
+          "bounds": [
+            244,
+            580,
+            348,
+            688
+          ],
+          "pixels": 11232
+        },
+        {
+          "bounds": [
+            612,
+            580,
+            716,
+            688
+          ],
+          "pixels": 11231
+        }
+      ],
+      "expectedOpeningCountIncludingOpenDoor": 4,
+      "largestUnplannedTransparentPatchPixels": 12
+    },
+    {
+      "key": "prop/gh-tall-wall",
+      "dimensions": [
+        960,
+        880
+      ],
+      "decodedMiB": 3.22265625,
+      "encodedBytes": 310864,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        270,
+        60,
+        691,
+        880
+      ],
+      "closedTransparentOpenings": [
+        {
+          "bounds": [
+            440,
+            164,
+            520,
+            244
+          ],
+          "pixels": 4975
+        },
+        {
+          "bounds": [
+            324,
+            320,
+            420,
+            424
+          ],
+          "pixels": 9983
+        },
+        {
+          "bounds": [
+            540,
+            320,
+            636,
+            424
+          ],
+          "pixels": 9984
+        },
+        {
+          "bounds": [
+            324,
+            488,
+            420,
+            600
+          ],
+          "pixels": 10751
+        },
+        {
+          "bounds": [
+            540,
+            488,
+            636,
+            600
+          ],
+          "pixels": 10751
+        }
+      ],
+      "expectedOpeningCountIncludingOpenDoor": 6,
+      "largestUnplannedTransparentPatchPixels": 10
+    },
+    {
+      "key": "prop/gh-cottage-roof-left",
+      "dimensions": [
+        960,
+        880
+      ],
+      "decodedMiB": 3.22265625,
+      "encodedBytes": 61510,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        92,
+        204,
+        517,
+        583
+      ]
+    },
+    {
+      "key": "prop/gh-cottage-roof-right",
+      "dimensions": [
+        960,
+        880
+      ],
+      "decodedMiB": 3.22265625,
+      "encodedBytes": 59266,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        443,
+        204,
+        868,
+        583
+      ]
+    },
+    {
+      "key": "prop/gh-tall-roof-left",
+      "dimensions": [
+        960,
+        880
+      ],
+      "decodedMiB": 3.22265625,
+      "encodedBytes": 43064,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        192,
+        9,
+        519,
+        347
+      ]
+    },
+    {
+      "key": "prop/gh-tall-roof-right",
+      "dimensions": [
+        960,
+        880
+      ],
+      "decodedMiB": 3.22265625,
+      "encodedBytes": 42294,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        441,
+        11,
+        766,
+        348
+      ]
+    },
+    {
+      "key": "prop/gh-cottage-chimney",
+      "dimensions": [
+        960,
+        880
+      ],
+      "decodedMiB": 3.22265625,
+      "encodedBytes": 36754,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        604,
+        244,
+        688,
+        480
+      ]
+    },
+    {
+      "key": "prop/gh-tall-porch",
+      "dimensions": [
+        960,
+        880
+      ],
+      "decodedMiB": 3.22265625,
+      "encodedBytes": 13208,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        380,
+        632,
+        580,
+        668
+      ]
+    },
+    {
+      "key": "prop/gh-castle-tower-left",
+      "dimensions": [
+        960,
+        880
+      ],
+      "decodedMiB": 3.22265625,
+      "encodedBytes": 144634,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        60,
+        300,
+        237,
+        880
+      ],
+      "closedTransparentOpenings": [
+        {
+          "bounds": [
+            128,
+            380,
+            168,
+            488
+          ],
+          "pixels": 4126
+        }
+      ],
+      "expectedOpeningCountIncludingOpenDoor": 1,
+      "largestUnplannedTransparentPatchPixels": 11
+    },
+    {
+      "key": "prop/gh-castle-tower-right",
+      "dimensions": [
+        960,
+        880
+      ],
+      "decodedMiB": 3.22265625,
+      "encodedBytes": 154280,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        724,
+        300,
+        901,
+        880
+      ],
+      "closedTransparentOpenings": [
+        {
+          "bounds": [
+            792,
+            380,
+            832,
+            488
+          ],
+          "pixels": 4125
+        }
+      ],
+      "expectedOpeningCountIncludingOpenDoor": 1,
+      "largestUnplannedTransparentPatchPixels": 8
+    },
+    {
+      "key": "prop/gh-castle-keep",
+      "dimensions": [
+        960,
+        880
+      ],
+      "decodedMiB": 3.22265625,
+      "encodedBytes": 257020,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        228,
+        424,
+        733,
+        880
+      ],
+      "closedTransparentOpenings": [
+        {
+          "bounds": [
+            272,
+            540,
+            332,
+            644
+          ],
+          "pixels": 5851
+        },
+        {
+          "bounds": [
+            628,
+            540,
+            688,
+            644
+          ],
+          "pixels": 5829
+        }
+      ],
+      "expectedOpeningCountIncludingOpenDoor": 3,
+      "largestUnplannedTransparentPatchPixels": 15
+    },
+    {
+      "key": "prop/gh-castle-cone-left",
+      "dimensions": [
+        960,
+        880
+      ],
+      "decodedMiB": 3.22265625,
+      "encodedBytes": 55822,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        28,
+        40,
+        268,
+        316
+      ]
+    },
+    {
+      "key": "prop/gh-castle-cone-right",
+      "dimensions": [
+        960,
+        880
+      ],
+      "decodedMiB": 3.22265625,
+      "encodedBytes": 55778,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        692,
+        40,
+        932,
+        316
+      ]
+    },
+    {
+      "key": "prop/gh-candy",
+      "dimensions": [
+        640,
+        320
+      ],
+      "decodedMiB": 0.78125,
+      "encodedBytes": 192638,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        17,
+        20,
+        623,
+        303
+      ]
+    },
+    {
+      "key": "prop/gh-gingerbread-person",
+      "dimensions": [
+        240,
+        320
+      ],
+      "decodedMiB": 0.29296875,
+      "encodedBytes": 67746,
+      "nativeSourcePixelExact": true,
+      "alphaBounds": [
+        2,
+        33,
+        224,
+        320
+      ]
+    }
+  ],
+  "rendererReview": {
+    "html": "party/reference/pending/OCT28-GINGERBREAD-REVIEW.html",
+    "browser": "installed Chrome via Playwright",
+    "browserErrors": [],
+    "states": [
+      "three assembled shapes, daylight, barecookie with game glass/doors/glueseams",
+      "three assembled shapes, night, all icing and all8atlas cells, open doors with authoredpeople",
+      "consumer polygon overlay matches registered piece edges"
+    ],
+    "screenshots": [
+      "/tmp/OCT28-GINGERBREAD-render-day.png",
+      "/tmp/OCT28-GINGERBREAD-render-night.png",
+      "/tmp/OCT28-GINGERBREAD-render-geometry.png"
+    ]
+  },
+  "compactRendererReview": {
+    "browserErrors": [],
+    "states": [
+      "daybare",
+      "nighticedwith8candiesandpeople",
+      "cyanpolygonalignment"
+    ],
+    "screenshots": [
+      "/tmp/OCT28-GINGERBREAD-compact-day.png",
+      "/tmp/OCT28-GINGERBREAD-compact-night.png",
+      "/tmp/OCT28-GINGERBREAD-compact-geometry.png"
+    ]
+  },
+  "shippingAssets": [
+    {
+      "key": "bg/gingerbread-house",
+      "file": "party/assets/art/bg/gingerbread-house-compact.webp",
+      "dimensions": [
+        1024,
+        576
+      ],
+      "decodedMiB": 2.25
+    },
+    {
+      "key": "bg/gingerbread-house-night",
+      "file": "party/assets/art/bg/gingerbread-house-night-compact.webp",
+      "dimensions": [
+        1024,
+        576
+      ],
+      "decodedMiB": 2.25
+    },
+    {
+      "key": "thumb/gingerbread-house",
+      "file": "party/assets/art/thumb/gingerbread-house.webp",
+      "dimensions": [
+        800,
+        500
+      ],
+      "decodedMiB": 1.52587890625
+    },
+    {
+      "key": "prop/gh-cottage-wall",
+      "file": "party/assets/art/prop/gh-cottage-wall-compact.webp",
+      "dimensions": [
+        600,
+        550
+      ],
+      "decodedMiB": 1.25885009765625
+    },
+    {
+      "key": "prop/gh-tall-wall",
+      "file": "party/assets/art/prop/gh-tall-wall-compact.webp",
+      "dimensions": [
+        600,
+        550
+      ],
+      "decodedMiB": 1.25885009765625
+    },
+    {
+      "key": "prop/gh-cottage-roof-left",
+      "file": "party/assets/art/prop/gh-cottage-roof-left-compact.webp",
+      "dimensions": [
+        600,
+        550
+      ],
+      "decodedMiB": 1.25885009765625
+    },
+    {
+      "key": "prop/gh-cottage-roof-right",
+      "file": "party/assets/art/prop/gh-cottage-roof-right-compact.webp",
+      "dimensions": [
+        600,
+        550
+      ],
+      "decodedMiB": 1.25885009765625
+    },
+    {
+      "key": "prop/gh-tall-roof-left",
+      "file": "party/assets/art/prop/gh-tall-roof-left-compact.webp",
+      "dimensions": [
+        600,
+        550
+      ],
+      "decodedMiB": 1.25885009765625
+    },
+    {
+      "key": "prop/gh-tall-roof-right",
+      "file": "party/assets/art/prop/gh-tall-roof-right-compact.webp",
+      "dimensions": [
+        600,
+        550
+      ],
+      "decodedMiB": 1.25885009765625
+    },
+    {
+      "key": "prop/gh-cottage-chimney",
+      "file": "party/assets/art/prop/gh-cottage-chimney-compact.webp",
+      "dimensions": [
+        600,
+        550
+      ],
+      "decodedMiB": 1.25885009765625
+    },
+    {
+      "key": "prop/gh-tall-porch",
+      "file": "party/assets/art/prop/gh-tall-porch-compact.webp",
+      "dimensions": [
+        600,
+        550
+      ],
+      "decodedMiB": 1.25885009765625
+    },
+    {
+      "key": "prop/gh-castle-tower-left",
+      "file": "party/assets/art/prop/gh-castle-tower-left-compact.webp",
+      "dimensions": [
+        600,
+        550
+      ],
+      "decodedMiB": 1.25885009765625
+    },
+    {
+      "key": "prop/gh-castle-tower-right",
+      "file": "party/assets/art/prop/gh-castle-tower-right-compact.webp",
+      "dimensions": [
+        600,
+        550
+      ],
+      "decodedMiB": 1.25885009765625
+    },
+    {
+      "key": "prop/gh-castle-keep",
+      "file": "party/assets/art/prop/gh-castle-keep-compact.webp",
+      "dimensions": [
+        600,
+        550
+      ],
+      "decodedMiB": 1.25885009765625
+    },
+    {
+      "key": "prop/gh-castle-cone-left",
+      "file": "party/assets/art/prop/gh-castle-cone-left-compact.webp",
+      "dimensions": [
+        600,
+        550
+      ],
+      "decodedMiB": 1.25885009765625
+    },
+    {
+      "key": "prop/gh-castle-cone-right",
+      "file": "party/assets/art/prop/gh-castle-cone-right-compact.webp",
+      "dimensions": [
+        600,
+        550
+      ],
+      "decodedMiB": 1.25885009765625
+    },
+    {
+      "key": "prop/gh-candy",
+      "file": "party/assets/art/prop/gh-candy.webp",
+      "dimensions": [
+        640,
+        320
+      ],
+      "decodedMiB": 0.78125
+    },
+    {
+      "key": "prop/gh-gingerbread-person",
+      "file": "party/assets/art/prop/gh-gingerbread-person.webp",
+      "dimensions": [
+        240,
+        320
+      ],
+      "decodedMiB": 0.29296875
+    }
+  ],
+  "shippingDecodedMiB": 23.46514892578125,
+  "gameplayReview": {
+    "browser": "installedChromeviaPlaywright, quietno-storelocalserver",
+    "speed": 3,
+    "runs": [
+      {
+        "players": 1,
+        "seconds": 25,
+        "shapes": [
+          "castle"
+        ],
+        "finished": "gallery",
+        "errors": [],
+        "warnings": []
+      },
+      {
+        "players": 8,
+        "seconds": 28,
+        "shapes": [
+          "castle",
+          "tall",
+          "cottage",
+          "cottage",
+          "cottage",
+          "cottage",
+          "tall",
+          "tall"
+        ],
+        "finished": "gallery",
+        "errors": [],
+        "warnings": []
+      }
+    ],
+    "screenshots": [
+      "/tmp/OCT28-GINGERBREAD-game-1-build.png",
+      "/tmp/OCT28-GINGERBREAD-game-1-finale.png",
+      "/tmp/OCT28-GINGERBREAD-game-8-build.png",
+      "/tmp/OCT28-GINGERBREAD-game-8-finale.png"
+    ],
+    "findings": [
+      "Kitchen logicalcanvas correction preserves authoredy760tableedge with compactsource; viewed1/8station layouts.",
+      "Allthree shapeart aligns consumer icing and game-created glowing glass/open doors.",
+      "Authoredperson fits and waves within doorclip in1/8finale.",
+      "Atlas candies readable at8playerfinalesize; 3shapes appear across2rows.",
+      "No browsererrors/warnings on reliablequietserver."
+    ]
+  },
+  "codeChange": {
+    "file": "party/src/games/gingerbread-house.js",
+    "function": "drawKitchen",
+    "reason": "Scale background in authored1920x1080coordinates, so y760anchor remains correct for compactruntime images.",
+    "verification": "actual1/8playerbuildscreenshotsandnaturalCPUcompletion"
+  }
+}

@@ -1309,7 +1309,52 @@
     "prop/oballet-teacher-cartwheel": "prop/oballet-teacher-cartwheel.webp",
     "prop/oballet-teacher-cancan": "prop/oballet-teacher-cancan.webp",
     "prop/oballet-teacher-splits": "prop/oballet-teacher-splits.webp",
-    "prop/oballet-teacher-moonwalk": "prop/oballet-teacher-moonwalk.webp"
+    "prop/oballet-teacher-moonwalk": "prop/oballet-teacher-moonwalk.webp",
+    "bg/gopher-garden": "bg/gopher-garden.webp",
+    "prop/gopher-hole": "prop/gopher-hole.webp",
+    "prop/gopher-hole-front": "prop/gopher-hole-front.webp",
+    "prop/gopher-mallet": "prop/gopher-mallet.webp",
+    "prop/gopher-troll-up": "prop/gopher-troll-up.webp",
+    "prop/gopher-troll-tug": "prop/gopher-troll-tug.webp",
+    "prop/bbs-goal-pink": "prop/bbs-goal-pink.webp",
+    "prop/bbs-beach-ball": "prop/bbs-beach-ball.webp",
+    "prop/bbs-goal-blue": "prop/bbs-goal-blue.webp",
+    "thumb/beach-ball-soccer": "thumb/beach-ball-soccer.webp",
+    "bg/beach-ball-soccer": "bg/beach-ball-soccer.webp",
+    "bg/gingerbread-house": "bg/gingerbread-house-compact.webp",
+    "bg/gingerbread-house-night": "bg/gingerbread-house-night-compact.webp",
+    "thumb/gingerbread-house": "thumb/gingerbread-house.webp",
+    "prop/gh-cottage-wall": "prop/gh-cottage-wall-compact.webp",
+    "prop/gh-tall-wall": "prop/gh-tall-wall-compact.webp",
+    "prop/gh-cottage-roof-left": "prop/gh-cottage-roof-left-compact.webp",
+    "prop/gh-cottage-roof-right": "prop/gh-cottage-roof-right-compact.webp",
+    "prop/gh-tall-roof-left": "prop/gh-tall-roof-left-compact.webp",
+    "prop/gh-tall-roof-right": "prop/gh-tall-roof-right-compact.webp",
+    "prop/gh-cottage-chimney": "prop/gh-cottage-chimney-compact.webp",
+    "prop/gh-tall-porch": "prop/gh-tall-porch-compact.webp",
+    "prop/gh-castle-tower-left": "prop/gh-castle-tower-left-compact.webp",
+    "prop/gh-castle-tower-right": "prop/gh-castle-tower-right-compact.webp",
+    "prop/gh-castle-keep": "prop/gh-castle-keep-compact.webp",
+    "prop/gh-castle-cone-left": "prop/gh-castle-cone-left-compact.webp",
+    "prop/gh-castle-cone-right": "prop/gh-castle-cone-right-compact.webp",
+    "prop/gh-candy": "prop/gh-candy.webp",
+    "prop/gh-gingerbread-person": "prop/gh-gingerbread-person.webp",
+    "prop/plushie-body-bear": "prop/plushie-body-bear-v1-compact.webp",
+    "prop/plushie-body-bunny": "prop/plushie-body-bunny-v1-compact.webp",
+    "prop/plushie-body-dragon": "prop/plushie-body-dragon-v1-compact.webp",
+    "prop/plushie-body-kitty": "prop/plushie-body-kitty-v1-compact.webp",
+    "prop/plushie-body-puppy": "prop/plushie-body-puppy-v1-compact.webp",
+    "prop/plushie-body-unicorn": "prop/plushie-body-unicorn-v1-compact.webp",
+    "prop/plushie-clothes": "prop/plushie-clothes-v1-compact.webp",
+    "prop/plushie-face": "prop/plushie-face-v1-compact.webp",
+    "prop/plushie-needle": "prop/plushie-needle-v1.webp",
+    "prop/plushie-patches": "prop/plushie-patches-v1-compact.webp",
+    "bg/plushie-shelf": "bg/plushie-shelf-v1-compact.webp",
+    "prop/plushie-stuffer": "prop/plushie-stuffer-v1.webp",
+    "prop/plushie-stuffing": "prop/plushie-stuffing-v1.webp",
+    "prop/plushie-tag": "prop/plushie-tag-v1.webp",
+    "thumb/plushie-workshop": "thumb/plushie-workshop-v1.webp",
+    "bg/plushie-workshop": "bg/plushie-workshop-v1-compact.webp"
   },
   "groups": {
     "plushie-workshop": [
@@ -1356,7 +1401,8 @@
       "bg/sandcastle-beach",
       "prop/bbs-goal-pink",
       "prop/bbs-goal-blue",
-      "prop/bbs-beach-ball"
+      "prop/bbs-beach-ball",
+      "thumb/beach-ball-soccer"
     ],
     "puppet-theater": [
       "bg/puppet-theater",
@@ -2168,6 +2214,14 @@
       "prop/whoopee-guest-pig-laugh",
       "prop/whoopee-guest-kitty-laugh",
       "prop/whoopee-duchess-laugh"
+    ],
+    "gopher-garden": [
+      "bg/gopher-garden",
+      "prop/gopher-hole",
+      "prop/gopher-hole-front",
+      "prop/gopher-mallet",
+      "prop/gopher-troll-up",
+      "prop/gopher-troll-tug"
     ]
   }
 }

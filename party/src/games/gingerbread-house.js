@@ -784,9 +784,10 @@ export class Game {
     const { r, L, p } = st;
     const bg = art('bg/gingerbread-house');
     if (bg) {
-      // image y 760 is the table edge
-      let s = Math.max(r.w / bg.width, (L.tableY - r.y) / 760, (r.y + r.h - L.tableY) / (bg.height - 760));
-      const dw = bg.width * s, dh = bg.height * s;
+      // These anchors use the 1920x1080 authored canvas, independent of a
+      // compact runtime image's pixel dimensions. Image y760 is the table edge.
+      const s = Math.max(r.w / 1920, (L.tableY - r.y) / 760, (r.y + r.h - L.tableY) / (1080 - 760));
+      const dw = 1920 * s, dh = 1080 * s;
       g.drawImage(bg, r.x + (r.w - dw) / 2, L.tableY - 760 * s, dw, dh);
       return;
     }

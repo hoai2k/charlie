@@ -1,0 +1,259 @@
+{
+  "key": "prop/plushie-clothes",
+  "prompt": "Use case: stylized-concept. Asset type: transparent 2D game atlas of8 doll-size clothes,4 columns x2rows. No body or neck. Final1024x512 each cell256square. Bold smooth dark navy #24163f outlines, clean soft cel shading, candy colors, flat FRONT view. No realism no3D. Row1 four cosy chunky knit SCARVES wrapped once around an invisible plush neck. Each knot centered at cell128,96; wrap spans x24..232; tails hang DOWN ON VIEWER'S RIGHT. Colors left-right: red-white striped knit; blue knit with pompoms; pink whitepolkadots; rainbow stripes. Row2 four fluffy layered tulle TUTUS seen front view; waistband CENTER128,80; waistband opening about60% overallwidth; skirt spansx8..248 flares down to y190. Colors left-right: pink; lavender with small sewn glitter details; mint with little sewn stars; rainbow layers. Generous transparent margins per cell, no overlapping cells or extra pieces, no scenery, no text/labels, no shadows or floating decorations. Genuine transparent alpha.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-c15eab9a-6ecc-4992-ab21-4c5ab2ce2c33.png",
+  "status": "delivered-and-reviewed-in-game",
+  "mode": "built-in imagegen",
+  "source": "reference/sources/oct28-plushie/clothes-native.webp",
+  "runtime": "assets/art/prop/plushie-clothes-v1.webp",
+  "nativeSize": [
+    1774,
+    887
+  ],
+  "outputSize": [
+    1024,
+    512
+  ],
+  "sourceRects": [
+    {
+      "cell": [
+        0,
+        0
+      ],
+      "crop": [
+        0,
+        0,
+        444,
+        470
+      ],
+      "alphaBounds": [
+        55,
+        79,
+        438,
+        421
+      ],
+      "outputPlacement": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        96
+      ]
+    },
+    {
+      "cell": [
+        1,
+        0
+      ],
+      "crop": [
+        444,
+        0,
+        887,
+        470
+      ],
+      "alphaBounds": [
+        50,
+        77,
+        429,
+        430
+      ],
+      "outputPlacement": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        96
+      ]
+    },
+    {
+      "cell": [
+        2,
+        0
+      ],
+      "crop": [
+        887,
+        0,
+        1330,
+        470
+      ],
+      "alphaBounds": [
+        53,
+        78,
+        433,
+        403
+      ],
+      "outputPlacement": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        96
+      ]
+    },
+    {
+      "cell": [
+        3,
+        0
+      ],
+      "crop": [
+        1330,
+        0,
+        1774,
+        470
+      ],
+      "alphaBounds": [
+        55,
+        77,
+        431,
+        426
+      ],
+      "outputPlacement": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        96
+      ]
+    },
+    {
+      "cell": [
+        0,
+        1
+      ],
+      "crop": [
+        0,
+        485,
+        444,
+        887
+      ],
+      "alphaBounds": [
+        4,
+        46,
+        443,
+        315
+      ],
+      "outputPlacement": [
+        8,
+        68,
+        240,
+        122
+      ],
+      "anchor": [
+        128,
+        80
+      ]
+    },
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "crop": [
+        444,
+        485,
+        887,
+        887
+      ],
+      "alphaBounds": [
+        6,
+        47,
+        441,
+        314
+      ],
+      "outputPlacement": [
+        8,
+        68,
+        240,
+        122
+      ],
+      "anchor": [
+        128,
+        80
+      ]
+    },
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "crop": [
+        887,
+        485,
+        1330,
+        887
+      ],
+      "alphaBounds": [
+        0,
+        47,
+        441,
+        320
+      ],
+      "outputPlacement": [
+        8,
+        68,
+        240,
+        122
+      ],
+      "anchor": [
+        128,
+        80
+      ]
+    },
+    {
+      "cell": [
+        3,
+        1
+      ],
+      "crop": [
+        1330,
+        485,
+        1774,
+        887
+      ],
+      "alphaBounds": [
+        2,
+        46,
+        442,
+        320
+      ],
+      "outputPlacement": [
+        8,
+        68,
+        240,
+        122
+      ],
+      "anchor": [
+        128,
+        80
+      ]
+    }
+  ],
+  "processing": "Separate whole-garment alpha crops on exact 4x2 grid. Scarves aligned at measured wrap center (128,96) with upper edge near70 and lower wrap128 to leave sewn mouth visible, tails viewer-right; tutu front waistband top midpoint (128,80), skirt ends y190. No recentering of attachment anchors; no art painted.",
+  "decodedBytes": 2097152,
+  "review": "Native output and registered runtime inspected. All six body landmarks reviewed in common-frame contact sheet; tinted fabrics and exact trim registration checked. Atlas source order/whole pieces checked; tool points reviewed with crosshairs. Full-resolution and compact art reviewed in actual one/eight-player stations and shelf; compact tools and natural eight-CPU finale passed; see live review records.",
+  "runtimeSha256": "285dfa6030feaee4c006f9a8d00aef5613a0797ba10f3831bc901d1e7a22c257",
+  "runtimeBytes": 315210,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "activeRuntime": "assets/art/prop/plushie-clothes-v1-compact.webp",
+  "activeOutputSize": [
+    768,
+    384
+  ],
+  "activeDecodedBytes": 1179648,
+  "styleReference": "assets/art/prop/room-teddy.webp"
+}

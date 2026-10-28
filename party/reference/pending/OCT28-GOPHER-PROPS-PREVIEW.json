@@ -1,0 +1,35 @@
+{
+  "previewTree": "/tmp/oct28-party-preview",
+  "previewUrl": "http://127.0.0.1:8374/party/?game=gopher-garden&players=4&auto=1&skipintro=1",
+  "sourceBranch": "origin/claude/busy-ptolemy-gjxlwj",
+  "sourceCommit": "00151c3c520a40d58c776076e96fc5f49822000d",
+  "sourceFiles": "git archive branch party/src party/index.html party/workbench/index.html extracted independently; assets/reference symlinked to shared repository",
+  "sourceEdits": "Only isolated preview source edited. Reusable unified diff OCT28-GOPHER-CONSUMER.patch. No main source mutations.",
+  "review": {
+    "generatedEnvironmentLoaded": true,
+    "generatedMalletLoaded": true,
+    "holeBackAndFrontLoaded": true,
+    "optionalTrollPropsLoaded": true,
+    "holeLipOcclusion": "Clean in gameplay and forced troll tug screenshots",
+    "trollTugHeadContact": "Mallet head visibly meets empty two-fist grip in forced scenario; uses same mirror and wobble transform as troll art",
+    "consoleAndPageErrors": [],
+    "gophers": "Procedural fallbacks; root owns canonical approval and variants"
+  },
+  "smoke8": {
+    "result": "ResultsScene",
+    "consoleAndPageErrors": [],
+    "manifest": "browser-local overlay of six new keys and matching group before root shared index was ready"
+  },
+  "smoke4": {
+    "result": "ResultsScene",
+    "manifest": "actual shared index; no browser overlay",
+    "consoleAndPageErrors": [],
+    "failedRequests": [],
+    "history": "Initial stock harness reached ResultsScene but reported3 transient socket/reset errors without URLs. One diagnostic rerun captured failed URL events and completed cleanly with no failed requests."
+  },
+  "screenshots": [
+    "party/reference/pending/OCT28-GOPHER-PROPS-GAMEPLAY-REVIEW.jpg",
+    "party/reference/pending/OCT28-GOPHER-PROPS-TUG-REVIEW.jpg"
+  ],
+  "patchValidation": "git apply --check --reverse succeeds against adapted isolated preview source"
+}

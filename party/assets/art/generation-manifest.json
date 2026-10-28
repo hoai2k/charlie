@@ -40565,6 +40565,477 @@
       "height": 640,
       "bytes": 73668,
       "intake": "party/reference/pending/OCT27-DANCE-ALONG.json"
+    },
+    {
+      "key": "bg/gopher-garden",
+      "prompt": "Use case: illustration-story. Asset type: opaque 1920x1080 background for Charlie Party Gopher Gardens. Style reference: attached rubber boot establishes smooth navy #24163f outlines, clean soft cel shading, bright candy colours, flat 2D game illustration. No 3D, no photorealism. A cheerful sunny back garden viewed from high three-quarter angle looking down at lawn: soft blue sky with two puffy clouds, neat green hedge across the back with a white picket gate, tulip and daisy beds, little red wheelbarrow and watering can at extreme far left, birdbath and sunflower patch at extreme far right. Layout: sky/hedge/flowers ONLY in upper band y0-330; keep top130 calm for clock. Wide smooth gently striped mown green lawn from y340 all the way to bottom, especially x200-1720 y380-1040 must be plain low contrast empty grass for gameplay. No holes, no animals, no characters. No text, shadows, sparkles, stars, motion lines, dust, UI, borders.",
+      "source": "/Users/hoai/.codex/generated_images/01a18324-1dcc-7670-89f8-38a41a38535b/exec-49771d99-3f27-46ba-a7c9-ee745076349c.png",
+      "archive": "party/reference/sources/oct28-gopher-props/bg-gopher-garden-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 120390,
+      "intake": "party/reference/pending/OCT28-GOPHER-PROPS.json"
+    },
+    {
+      "key": "prop/gopher-hole",
+      "prompt": "Use case: illustration-story. Asset type: ONE transparent 2D game prop, Gopher Gardens burrow mound. Style reference rubber boot: smooth navy #24163f outlines, clean soft cel shading, bright candy colours. No3D no photorealism. Wide 2:1 canvas nominal320x160 (higher resolution same proportions permitted). Small round warm brown crumbly dirt mound viewed high three-quarter, with dark deep soft brown-black oval opening at exact nominal centre(160,78), opening about170x64: left75,right245,top46,bottom110. Mound silhouette stays inside x8-312,y20-150. A few pebbles and two tiny grass tufts on the far side, restrained detail. The opening must have a clear elliptical edge so a matching foreground lip can be cropped exactly from this image. Completely genuine transparent background outside mound. No creatures, no text, no baked shadows, sparkles, stars, motion lines, dust, checkerboard or separate ground plane.",
+      "source": "/Users/hoai/.codex/generated_images/01a18324-1dcc-7670-89f8-38a41a38535b/exec-ccc6d79e-9329-46fc-b82d-490f3fdc2823.png",
+      "archive": "party/reference/sources/oct28-gopher-props/prop-gopher-hole-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 36422,
+      "intake": "party/reference/pending/OCT28-GOPHER-PROPS.json"
+    },
+    {
+      "key": "prop/gopher-mallet",
+      "prompt": "Use case: illustration-story. Asset type: single transparent horizontal soft squeaky toy mallet game prop for kids. Style reference attached rubber boot: flat 2D, smooth navy #24163f outlines, clean soft cel shading, candy colours; no3D, no photorealism. Wide 480x200 proportion canvas. Handle on LEFT along y100, yellow round knob near x30,y100. Short striped candy pink and white handle extends x40-350, hand grip at exactly nominal(96,100). Big chunky barrel-shaped squishy pastel pink rubber head at RIGHT centred around (390,100), white rounded end caps at top and bottom, a small yellow star emblem on side. Head approx x330-460,y22-178, complete silhouette with safe margins. Bouncy harmless toy, no real hammer. Transparent background. No hand, no character, no text, no baked cast shadow, sparkles, motion lines, dust or ground.",
+      "source": "/Users/hoai/.codex/generated_images/01a18324-1dcc-7670-89f8-38a41a38535b/exec-b13f5260-fae5-42f9-bf21-281441cc4566.png",
+      "archive": "party/reference/sources/oct28-gopher-props/prop-gopher-mallet-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 15578,
+      "intake": "party/reference/pending/OCT28-GOPHER-PROPS.json"
+    },
+    {
+      "key": "prop/gopher-troll-up",
+      "prompt": "Use case: illustration-story. Asset type: one transparent waist-up Gopher Gardens troll sprite, nominal400x400 square. Reference image is the approved Troll canonical: preserve his exact olive yellow green spotted skin, long shaggy dark brown hair, heavy dark eyebrows, yellow eyes, large broad nose, tusks, huge hands, brown ragged waist tunic. Change only pose and expression: popping up from a burrow waist up, facing viewer, both big hands low at left and right as if holding the hole rim (do NOT draw the hole or rim), huge mischievous toothy grin, eyebrows waggling, cheeky never scary. Body cut flat at canvas bottom, bottom centre anchor(200,400). Whole hair/head and hands within canvas; head centred x200. House style: flat 2D, smooth navy #24163f outlines, clean soft cel shading, no3D no photorealism. Transparent background. No mallet, no scenery, no text, no stars, sparkles, shadows, motion lines or effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a18324-1dcc-7670-89f8-38a41a38535b/exec-47970323-2585-4736-9f7a-0ea2dd8deb31.png",
+      "archive": "party/reference/sources/oct28-gopher-props/prop-gopher-troll-up-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 45586,
+      "intake": "party/reference/pending/OCT28-GOPHER-PROPS-TROLLS.json"
+    },
+    {
+      "key": "prop/gopher-troll-tug",
+      "prompt": "Use case: illustration-story. Asset type: one transparent Gopher Gardens troll waist-up sprite, 400x400 square nominal canvas. Reference image is approved Troll canonical. Preserve exact olive yellow green spotted skin, long shaggy dark brown hair, heavy dark eyebrows, yellow eyes, broad nose, tusks, huge hands, brown ragged tunic at waist. New pose: leaning backward toward image LEFT, facing three-quarter toward RIGHT, both arms reaching forward RIGHT, both closed fists together gripping an invisible mallet at nominal(300,170). Make combined fist grip centre exactly x300,y170 on400x400 canvas. Empty hands, NO mallet, NO object, NO hole. Cheeky playful grin tongue poking out, never scary. Head in upper-left around(150,105), torso descends to bottom-centre(200,400) and cut flat at canvas bottom; broad shoulders, arms and fists remain fully inside frame with safe margins. House style flat2D smooth navy #24163f outlines, clean soft cel shading; no3D no photorealism. Genuine transparent background. No text, no baked shadows, stars, sparkles, motion lines or effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a18324-1dcc-7670-89f8-38a41a38535b/exec-f5fe8aea-6b8b-4564-81e1-581572ff9c5f.png",
+      "archive": "party/reference/sources/oct28-gopher-props/prop-gopher-troll-tug-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 45088,
+      "intake": "party/reference/pending/OCT28-GOPHER-PROPS-TROLLS.json"
+    },
+    {
+      "key": "prop/gopher-hole-front",
+      "tool": "exact front-lip extraction of generated prop/gopher-hole; no repainting",
+      "source": "party/reference/sources/oct28-gopher-props/prop-gopher-hole-native.webp",
+      "intake": "party/reference/pending/OCT28-GOPHER-PROPS-LIP-TRACE.json",
+      "bytes": 35602
+    },
+    {
+      "key": "prop/bbs-goal-pink",
+      "prompt": "Use case: illustration-story. 2D cartoon game art in exactly the attached beach reference's style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colours, simple clean soft cel shading, no photorealism, no3D. No text, no watermark, no people, no animals. Single beach soccer goal, candy-PINK posts wrapped in white stripes, white soft diamond rope net, two pink pennants. TRUE transparent backdrop. Very tall narrow sprite composition aspect320:860, almost edge-on from high three-quarter view. Goal opens to RIGHT, net recedes LEFT. Match these image coordinates on final320x860canvas: front/near post foot(300,840), far/back post foot(300,240); post tops lean slightly left, near top(260,560), far top(260,30) staying inside. Long diagonal/near-vertical crossbar joins post tops along mouth; net roof and side extend LEFT to x20 behind the posts. The near and far post feet share x300, widely separated vertically600px, NOT a front-facing rectangular horizontal goal. Entire goal inside canvas, small margins; no sand patch, ground shadow, ball, text or extras. Smooth clear navy outlines, soft semitransparent white net strands and real transparent holes. Geometry important for end-line gameplay.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-77888146-3aa0-4552-a022-22be99bf4c3e.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/goal-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 77182,
+      "intake": "party/reference/pending/OCT28-BEACH-BALL-SOCCER.json"
+    },
+    {
+      "key": "prop/bbs-beach-ball",
+      "prompt": "Use case: illustration-story. 2D cartoon game art in exactly the attached beach reference's style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colours, simple clean soft cel shading, no photorealism, no3D. No text, no watermark, no people, no animals. Single isolated glossy inflatable BEACH BALL, straight-on round silhouette, centered on square true transparent background with margin. Six curved panels pink,white,skyblue,sunnyyellow,white,mint converging on small white cap at centre, soft white shine top-left. Fully visible round circle, no ground or shadow, no spin lines, no other objects. Runtime256x256.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-5a8ab149-f940-4b44-a13a-22612f344aac.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/ball-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 14956,
+      "intake": "party/reference/pending/OCT28-BEACH-BALL-SOCCER.json"
+    },
+    {
+      "key": "prop/bbs-goal-blue",
+      "prompt": "Precise-object-edit. Reproduce this EXACT soccer goal silhouette, perspective, net, both foot positions, canvas and all outlines. Change ONLY all candy-pink coloured post sections, pennants and knobs to bright sky BLUE #54bcf3, shaded with softer cyan and deeper blue. White stripes and white net completely unchanged, navy outlines unchanged. Preserve true transparent background and every empty net hole. No extra elements.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-85a973b7-59b0-46f3-b047-5d07bcf0b9c5.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/blue-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 82474,
+      "intake": "party/reference/pending/OCT28-BEACH-BALL-SOCCER.json"
+    },
+    {
+      "key": "thumb/beach-ball-soccer",
+      "prompt": "Use case: illustration-story. 2D cartoon game art in exactly the attached beach reference's style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colours, simple clean soft cel shading, no photorealism, no3D. No text, no watermark, no people, no animals. Game shelf thumbnail, wide8:5. A giant glossy pink-white-skyblue-yellow-mint beach ball flying into a candy-pink-and-white striped soccer goal, the white rope net bulging, colorful confetti bursting, sand spraying, calm turquoise sea and blue sky behind. Happy energetic composition centered, no characters, no animals, no text or letters. Entire ball and most goal visible. Opaque illustration.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-e936594d-7b0b-4e3c-a254-bbdc6ba58652.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/thumb-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 77704,
+      "intake": "party/reference/pending/OCT28-BEACH-BALL-SOCCER.json"
+    },
+    {
+      "key": "bg/beach-ball-soccer",
+      "prompt": "Precise-object-edit for game collision alignment. Image1 is the art target; image2 is EXACT layout guide only, not style. Preserve Image1's charming sunny beach illustration style and colors, sky, water and sand. Replace/reposition ONLY its pitch lines and ropes so they MATCH image2 exactly in normalized coordinates on final1920x1080: sidelines horizontal at y420 and1010, goal lines STRICTLY VERTICAL x150 and1770 (NO perspective taper/convergence), halfway x960, centre ellipse x810-1110,y610-820. Field is RECTANGULAR in screen pixels, NOT trapezoid. Move rope/stakes to these two horizontal sidelines. Keep everything else clear; move umbrella/bucket/towel outside field above y400. REMOVE the small extra beach ball at right completely, no ball anywhere. Retain16:9 composition, no goals, people, animals, letters, text. Opaque illustration. The second image gives only exact field geometry; reproduce the first image's illustrated beach art.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-a07b1760-43df-4e7a-9f99-53ca7e01fd44.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/background-revised-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 103852,
+      "intake": "party/reference/pending/OCT28-BEACH-BALL-SOCCER.json"
+    },
+    {
+      "key": "bg/gingerbread-house",
+      "prompt": "Use case: illustration-story. Asset type: opaque game backdrop, 1920x1080 landscape 16:9. Draw a cosy farmhouse kitchen at Christmas time, FLAT FRONT VIEW, in polished children's cartoon game art, smooth dark navy #24163f outlines, soft cel shading, slightly desaturated warm cream and gingerbread browns. Warm cream wall, frosty window showing gentle snowfall in UPPER LEFT ONLY, shelf with jars of sweets and rolling pin at upper right, string of paper snowflakes and little garland across top. Crucial game composition: central wall x500\u20131420 y150\u2013760 must stay calm plain and largely EMPTY because a house is built there. Table top has red-and-white checked cloth starting at y760 (70.37% from top) extending to bottom. Straight horizontal table/wall seam at y760. No big objects on table or centre. Soft warm light. No characters, no houses, no text, no labels, no UI, no watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-746ee752-7186-4795-8ff9-a5353b691ebc.png",
+      "archive": "party/reference/sources/oct28-gingerbread/bg-gingerbread-house-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 74516,
+      "runtime": "party/assets/art/bg/gingerbread-house-compact.webp",
+      "fullRuntime": "party/assets/art/bg/gingerbread-house.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "bg/gingerbread-house-night",
+      "prompt": "Use case: illustration-story. Asset type: opaque 1920x1080 landscape 16:9 cartoon game background. Magical snowy Christmas night, deep navy-to-violet sky with small twinkling stars and a big soft full moon toward upper right. Distant snowy hills with TINY pine trees. Smooth moonlit snowy EMPTY village square from y620 (57% down) to bottom, soft blue shading. One lamppost at FAR left and one at FAR right, bunting of tiny lights stretches between them HIGH near y180. Crucial composition: keep middle across x160\u20131760 from y300\u2013960 free of big objects because player-created houses and characters will stand there, row bases y880 and y640. No houses! Top140 pixels calm for title. Children's polished cartoon navy #24163f outlines, soft cel shading, winter blue violet cream lights, clean readable game art. No people, no text, no UI, no watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-7bc6f4ad-7421-4a63-a7fd-101709ce583f.png",
+      "archive": "party/reference/sources/oct28-gingerbread/bg-gingerbread-house-night-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 100596,
+      "runtime": "party/assets/art/bg/gingerbread-house-night-compact.webp",
+      "fullRuntime": "party/assets/art/bg/gingerbread-house-night.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "thumb/gingerbread-house",
+      "prompt": "Use case: illustration-story. Asset type: opaque landscape 800x500 game shelf thumbnail. A cute gingerbread cottage centred and filling picture, covered in thick white icing drips, bright red green purple gumdrops, white/red peppermints, candy canes and a lollipop by the door, warm yellow light in windows, a cute little gingerbread person waving from open door. A pink piping bag floats at upper right squeezing white icing on roof edge (no visible human hand). Gentle snow falling, cosy snowy violet twilight backdrop. Polished children's cartoon game art, strong smooth dark navy #24163f outlines, soft cel shading, warm golden-brown cookie and bright candy colours. No text, no letters, no numbers, no UI, no watermark. All subject inside frame.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-82204dd2-7c1f-4474-9ed3-6955105396d8.png",
+      "archive": "party/reference/sources/oct28-gingerbread/thumb-gingerbread-house-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 636538,
+      "runtime": "party/assets/art/thumb/gingerbread-house.webp",
+      "fullRuntime": "party/assets/art/thumb/gingerbread-house.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-cottage-wall",
+      "prompt": "Use case: illustration-story. Asset type: ONE isolated modular gingerbread house front WALL ONLY, transparent RGBA. Flat front orthographic view, no perspective. Smooth dark navy #24163f outline, warm golden-brown biscuit, subtle darker baked edge, soft simple cel shading, a few tiny dough dimples. NO roof slabs, icing, candy, snow, glow, shadow or scenery. The single house-shaped pentagon wall has vertical sides and a triangular top gable. Its width300 height300, gable height130 (so upright side height170). FOUR real transparent cut-outs: open-bottom arched door centred, width72 height112 with half-circle top radius36; TWO SQUARE window holes width52 height54, centres at x-92/+92 relative to centre ; their bottom96 above base and top150 above base. Round attic hole radius24 centred218 above base. Exact layout in a960x880canvas: wall vertices (180,880),(780,880),(780,540),(480,280),(180,540). Door opening x408\u2013552 y656\u2013880 arch centre(480,728) radius72. Square window holes x244\u2013348 and612\u2013716 y580\u2013688. Attic round hole centre(480,444) radius48. All holes show genuine transparency, NO glass, door, fill, bars or crossbars. Keep whole wall in frame, bottom touches canvas bottom. Everything else fully transparent. Crisp clean cartoon game sprite, no text, no labels, no watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-5e094ed1-2fe6-4265-8fd8-51d60073e563.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-cottage-wall-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 24372,
+      "runtime": "party/assets/art/prop/gh-cottage-wall-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-cottage-wall.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-tall-wall",
+      "prompt": "Use case: precise-object-edit. Image1 is the EDIT TARGET: geometric tall-house wall stencil. Image2 is STYLE REFERENCE only: generated gingerbread cookie wall. Change ONLY the plain tan wall material in Image1 into the warm golden-brown gingerbread material of Image2, with subtle darker baked edge, tiny dough dimples and soft cel shading. Preserve Image1's EXACT silhouette proportions, all four rectangular window positions/sizes, round attic hole position/size and arched door position/size. Especially keep Image1's generous wall space between the lower window bottoms and top of doorway. Preserve geometry and transparent surrounding canvas and all SIX transparent holes precisely. No door, window glass, bars, roof pieces, icing, candy, snow, shadows, glow, extra openings or text. Keep dark navy #24163f smooth outlines. Match original960x880canvas ratio and unchanged framing, do not enlarge/reframe the wall. This is a modular game wall, geometry is essential. Genuine RGBA transparency.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-b207e46d-80b9-477a-b38d-3662d0f5b58d.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-tall-wall-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 24582,
+      "runtime": "party/assets/art/prop/gh-tall-wall-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-tall-wall.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-cottage-roof-left",
+      "prompt": "Use case: illustration-story. Asset type: COTTAGE LEFT ROOF PLANK, one isolated long THIN gingerbread biscuit plank, model artwork for a modular cartoon game. Image1 STYLE reference only; match golden cookie material, subtle baked darker edge and dark navy #24163f outline. Draw the single plank HORIZONTALLY across centre of transparent canvas, its long straight sides parallel and horizontal. Ratio length to thickness about9:1. Front orthographic view, not a 3D block, no perspective. Bare golden-brown gingerbread with a few tiny dough dimples, soft cel shading; upper long outer edge gently scalloped like a biscuit, other long edge straight. Ends squared. Full plank inside frame, generous transparent margins. NO icing, candy, roof tiles, snow, shadow, glow, scenery, other pieces, text or watermark. True transparent RGBA. This plank will be geometrically rotated into the cottage left roof plank in intake.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-b5247c42-a9b3-4738-9ca2-afc095fe7c39.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-cottage-roof-left-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 11032,
+      "runtime": "party/assets/art/prop/gh-cottage-roof-left-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-cottage-roof-left.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-cottage-roof-right",
+      "prompt": "Use case: illustration-story. Asset type: COTTAGE RIGHT ROOF PLANK, one isolated long THIN gingerbread biscuit plank, model artwork for a modular cartoon game. Image1 STYLE reference only; match golden cookie material, subtle baked darker edge and dark navy #24163f outline. Draw the single plank HORIZONTALLY across centre of transparent canvas, its long straight sides parallel and horizontal. Ratio length to thickness about9:1. Front orthographic view, not a 3D block, no perspective. Bare golden-brown gingerbread with a few tiny dough dimples, soft cel shading; upper long outer edge gently scalloped like a biscuit, other long edge straight. Ends squared. Full plank inside frame, generous transparent margins. NO icing, candy, roof tiles, snow, shadow, glow, scenery, other pieces, text or watermark. True transparent RGBA. This plank will be geometrically rotated into the cottage right roof plank in intake.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-2fb983bd-aba9-41d2-92fa-0f39d549862d.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-cottage-roof-right-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 10804,
+      "runtime": "party/assets/art/prop/gh-cottage-roof-right-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-cottage-roof-right.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-tall-roof-left",
+      "prompt": "Use case: illustration-story. Asset: TALL HOUSE LEFT ROOF PLANK. Image1 STYLE reference only: same warm golden-brown cookie, dark navy #24163f outline, subtle baked edge, a few tiny dimples, soft cel shading. One single long THIN bare gingerbread biscuit plank, HORIZONTAL straight rectangle, length:thickness7.5:1. Upper long edge gently scalloped like biscuit, bottom long edge straight, squared ends. Flat front orthographic view, no perspective or side faces. Centre plank on generous transparent RGBA canvas, no clipping. NO icing, candy, roof tiles, snow, shadow, glow, scenery, extra objects, text or watermark. This model-generated plank will be affinely rotated into a steep roof slope during intake; draw horizontal for clean crop.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-0e0a07a0-47a0-479b-b269-1c284e1fdb0b.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-tall-roof-left-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 8556,
+      "runtime": "party/assets/art/prop/gh-tall-roof-left-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-tall-roof-left.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-tall-roof-right",
+      "prompt": "Use case: illustration-story. Asset: TALL HOUSE RIGHT ROOF PLANK. Image1 STYLE reference only: same warm golden-brown cookie, dark navy #24163f outline, subtle baked edge, a few tiny dimples, soft cel shading. One single long THIN bare gingerbread biscuit plank, HORIZONTAL straight rectangle, length:thickness7.5:1. Upper long edge gently scalloped like biscuit, bottom long edge straight, squared ends. Flat front orthographic view, no perspective or side faces. Centre plank on generous transparent RGBA canvas, no clipping. NO icing, candy, roof tiles, snow, shadow, glow, scenery, extra objects, text or watermark. This model-generated plank will be affinely rotated into a steep roof slope during intake; draw horizontal for clean crop.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-0a85ec7c-2aae-4baa-82e5-5675623375b8.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-tall-roof-right-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 8150,
+      "runtime": "party/assets/art/prop/gh-tall-roof-right-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-tall-roof-right.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-cottage-chimney",
+      "prompt": "Use case: illustration-story. Asset: isolated modular gingerbread house piece. Image1 STYLE reference only; match golden-brown cookie colour, subtle darker baked edge, clean dark navy #24163f outline, a few tiny dimples and soft cel shading. New piece: ONE narrow upright gingerbread CHIMNEY, rectangle width42 height118, flat front view, four straight edges. A few pressed-in brick-line grooves in dough (brown, NOT icing), sparse staggered horizontal mortar-like lines. No top hole, no perspective, no side walls, no cap. Whole rectangular piece visible centred with transparent margin. NO icing, candy, snow, shadow, glow, scenery, extra objects, text or watermark. True transparent RGBA.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-bac7d722-1bbf-4879-9ac4-e3300767eea5.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-cottage-chimney-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 3966,
+      "runtime": "party/assets/art/prop/gh-cottage-chimney-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-cottage-chimney.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-tall-porch",
+      "prompt": "Use case: illustration-story. Asset: isolated modular gingerbread house piece. Image1 STYLE reference only; match golden-brown cookie colour, subtle darker baked edge, clean dark navy #24163f outline, a few tiny dimples and soft cel shading. New piece: ONE short horizontal FLAT rectangular gingerbread plank, a porch canopy. Width100 height18 (ratio5.56:1). Perfectly horizontal flat FRONT orthographic view, straight edges and squared ends, not scalloped, not 3D, no support columns. Full piece centred in transparent canvas with generous margins. NO icing, candy, snow, shadow, glow, scenery, extra objects, text or watermark. True transparent RGBA.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-24763be8-4de3-4631-9eb4-3b196871179e.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-tall-porch-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 2164,
+      "runtime": "party/assets/art/prop/gh-tall-porch-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-tall-porch.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-castle-tower-left",
+      "prompt": "Use case: illustration-story. Asset: ONE modular gingerbread CASTLE LEFT TOWER WALL slab, no roof. Image1 STYLE reference only: match golden cookie colour, darker baked edge, tiny dough dimples, clean dark navy #24163f outline and soft cel shading. Flat FRONT ORTHOGRAPHIC, no perspective or side wall. Plain upright rectangle width88 height290 (ratio0.3034), straight sides, straight flat top and bottom, no crenellations. ONE narrow arched window slit, genuine transparent hole near TOP CENTRE: width20 height54, top40below tower top, centreX44from left. Semicircle top arch radius10. Hole has navy outline but absolutely NO glass, bars or glow. Full tower rectangle inside canvas with generous transparent margins. No other pieces, no roofs, no icing, candy, snow, shadow, glow, scenery, text or watermark. True transparent RGBA.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-94ece370-dc3c-4987-8905-3f56e55e9c0d.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-castle-tower-left-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 10036,
+      "runtime": "party/assets/art/prop/gh-castle-tower-left-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-castle-tower-left.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-castle-tower-right",
+      "prompt": "Use case: illustration-story. Asset: ONE modular gingerbread CASTLE RIGHT TOWER WALL slab, no roof. Image1 STYLE reference only: match golden cookie colour, darker baked edge, tiny dough dimples, clean dark navy #24163f outline and soft cel shading. Flat FRONT ORTHOGRAPHIC, no perspective or side wall. Plain upright rectangle width88 height290 (ratio0.3034), straight sides, straight flat top and bottom, no crenellations. ONE narrow arched window slit, genuine transparent hole near TOP CENTRE: width20 height54, top40below tower top, centreX44from left. Semicircle top arch radius10. Hole has navy outline but absolutely NO glass, bars or glow. Full tower rectangle inside canvas with generous transparent margins. No other pieces, no roofs, no icing, candy, snow, shadow, glow, scenery, text or watermark. True transparent RGBA.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-44289bfc-7316-451c-9274-38d0a67388ca.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-castle-tower-right-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 10398,
+      "runtime": "party/assets/art/prop/gh-castle-tower-right-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-castle-tower-right.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-castle-keep",
+      "prompt": "Use case: illustration-story. Asset: ONE modular gingerbread CASTLE KEEP front wall slab, no towers or roofs. Image1 STYLE reference only; match golden-brown cookie, subtle darker baked edge, tiny dough dimples, dark navy #24163f outline and soft cel shading. Flat front orthographic view no perspective. Wide rectangle wall width252 height200. Along its top EXACTLY FIVE square battlement teeth, each30wide28tall, centred at x26,76,126,176,226 from left edge. Three genuine transparent openings outlined navy: central open-bottom arched door width80 height128 with semicircle radius40 at88above base; TWO SMALL arched window holes width30 height52, centred37and215from left, top170above base/bottom118above base. Full keep piece visible centred with transparent margins. Entire door/window holes fully transparent, no bars, glass or glow. NO towers, roof, icing, candy, snow, shadow, scenery, extra objects, text or watermark. True transparent RGBA.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-e8e146b1-d9f5-4f4b-9350-d99cc3a7e6d0.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-castle-keep-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 17600,
+      "runtime": "party/assets/art/prop/gh-castle-keep-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-castle-keep.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-castle-cone-left",
+      "prompt": "Use case: illustration-story. Asset: ONE modular gingerbread castle LEFT pointed tower roof. Image1 STYLE reference only; match warm golden-brown cookie with darker baked edge, dark navy #24163f outline, tiny dough dimples, soft cel shading. A single flat isosceles TRIANGLE cookie, horizontal base width120, height138 (height1.15times base), apex at top centre. Full front orthographic view, absolutely no perspective or 3D cone ellipsoid bottom. Two sloping edges gently scalloped like biscuit, horizontal base straight. Whole triangle centred in transparent canvas with generous margins. NO tower wall, icing, candy, tiles, snow, shadow, glow, scenery, extra objects, text or watermark. True transparent RGBA.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-9729f958-1f84-41dc-a697-66cccc553777.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-castle-cone-left-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 7312,
+      "runtime": "party/assets/art/prop/gh-castle-cone-left-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-castle-cone-left.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-castle-cone-right",
+      "prompt": "Use case: illustration-story. Asset: ONE modular gingerbread castle RIGHT pointed tower roof. Image1 STYLE reference only; match warm golden-brown cookie with darker baked edge, dark navy #24163f outline, tiny dough dimples, soft cel shading. A single flat isosceles TRIANGLE cookie, horizontal base width120, height138 (height1.15times base), apex at top centre. Full front orthographic view, absolutely no perspective or 3D cone ellipsoid bottom. Two sloping edges gently scalloped like biscuit, horizontal base straight. Whole triangle centred in transparent canvas with generous margins. NO tower wall, icing, candy, tiles, snow, shadow, glow, scenery, extra objects, text or watermark. True transparent RGBA.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-a700db1b-3454-4c35-a3c9-0b5339f176bf.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-castle-cone-right-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 7580,
+      "runtime": "party/assets/art/prop/gh-castle-cone-right-compact.webp",
+      "fullRuntime": "party/assets/art/prop/gh-castle-cone-right.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-candy",
+      "prompt": "Use case: illustration-story. Asset: transparent CANDY SPRITE ATLAS for a children's gingerbread game, landscape640x320, EXACT4columns x2rows equally sized160x160cells. Exactly EIGHT separate candy sprites, one per cell, orderly even grid, no overlap, generous transparent gutters. ORDER left to right top row:1 red gumdrop,2 green gumdrop,3 yellow gumdrop,4 purple gumdrop. Bottom row:5 round WHITE and RED peppermint swirl pinwheel candy flat front,6 round WHITE and GREEN peppermint swirl pinwheel candy flat front,7 round flat milk-chocolate BUTTON (plain smooth round disc),8 little PINK sugar candy HEART. Gumdrops are domed with sparkly granular sugar TEXTURE on their surfaces (no detached sparkles). Each sprite centred fills80%of its cell. Polished cartoon game art, clean dark navy #24163f outlines, soft cel shading, flat lighting upper left. No wrappers, no ground, no shadows, no floating particles, no duplicate candy, no text, no labels, no gridlines, no watermark. Genuinely TRANSPARENT RGBA background including gutters.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-baf833d0-2ae5-499c-9e8e-db8dea7df9e8.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-candy-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 192638,
+      "runtime": "party/assets/art/prop/gh-candy.webp",
+      "fullRuntime": "party/assets/art/prop/gh-candy.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/gh-gingerbread-person",
+      "prompt": "Use case: illustration-story. Asset: single cheerful GINGERBREAD PERSON toy character sprite, transparent RGBA, front view, whole body in frame. Image1 STYLE reference only for warm golden-brown gingerbread cookie, navy #24163f outlines and baked edge; make a cute little person waving ONE arm up high, other arm down sideways, round head, plump short limbs, happy friendly face. White icing squiggles at wrists and ankles, two white icing dot eyes, a big white icing smile, round rosy pink cheeks, EXACTLY three gumdrop buttons down torso in RED, GREEN, YELLOW order. No hat, no bowtie, no other accessories. Feet level bottom-centred: final240x320canvas, feet meet bottom edge, body centre x120. Fully visible raised hand and both feet, generous transparent margin above and beside. Polished cartoon game art, soft cel shading. No ground, shadow, snow, detached sparkles, glow, scenery, other characters, text or watermark. True transparent background.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-86bf-7981-87eb-ac84d8fd010a/exec-f7781fe8-66f4-498e-b4ce-f6781c8ed053.png",
+      "archive": "party/reference/sources/oct28-gingerbread/prop-gh-gingerbread-person-source.webp",
+      "tool": "built-in imagegen",
+      "bytes": 67746,
+      "runtime": "party/assets/art/prop/gh-gingerbread-person.webp",
+      "fullRuntime": "party/assets/art/prop/gh-gingerbread-person.webp",
+      "intake": "party/reference/pending/OCT28-GINGERBREAD.json"
+    },
+    {
+      "key": "prop/plushie-body-bear",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent game sprite sheet for Plushie Workshop. Use reference only for smooth bold navy #24163f outlines, rounded cute forms, clean soft CEL shading. NOT photorealistic, no 3D plush render. Draw a handmade seated TEDDY BEAR plush toy, white fabric, blank face NO eyes/nose/mouth, round ears and oval pale peach muzzle, pink inner ears and pink paw pads, tiny pink cheek ovals, visible simple stitched seams, short stubby arms at sides leaving tummy clear. No bow/clothes. Exact canvas 1024x1120, 2 columns x 2 rows; 512x560 each. TOP ROW: left an unstuffed limp skin squashed vertically, right a stuffed round toy. BOTTOM ROW: ONLY colored trim pieces from corresponding toy directly above, exactly in the same positions, otherwise transparent. Absolute cell-local landmarks for stuffed RIGHT: seat y540 centered x256; head top y88, circle head center256,200 radius115; eye placement y195 but no eyes; muzzle centered256,255; neck y322; shoulders y350; clear tummy256,425; waist y470; feet centered186,515 and326,515 bottom540. Ears above head to y35. LEFT flat is precisely same plush squashed around seat y540 to60% height and112% width (head top269, eye line333); floppy ears, loose seam opening and soft wrinkles. Top row fabric is white with lightgrey shading including colored trim; bottom row separate trim only includes muzzle, inner ears, cheeks and pads. Keep each piece within own cell; no grid lines, no labels/text, no shadows, no scenery, no effects. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-55babfd2-9e4b-46b0-8417-75db61bfc2ce.png",
+      "archive": "party/reference/sources/oct28-plushie/body-bear-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 67014,
+      "runtime": "party/assets/art/prop/plushie-body-bear-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-body-bear-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-body-bear.json"
+    },
+    {
+      "key": "prop/plushie-body-bunny",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent game sprite sheet for Plushie Workshop. Use reference only for smooth bold navy #24163f outlines, rounded cute forms, clean soft CEL shading. NOT photorealistic, no 3D plush render. Draw a handmade seated BUNNY plush toy, white fabric, blank face NO eyes/nose/mouth, two long upright ears one bent at tip, pink inner ears, pink paw pads, round cotton tail peeking to side, NO muzzle, tiny pink cheek ovals, visible simple stitched seams, short stubby arms at sides leaving tummy clear. No bow/clothes. Exact canvas 1024x1120, 2 columns x 2 rows; 512x560 each. TOP ROW: left an unstuffed limp skin squashed vertically, right a stuffed round toy. BOTTOM ROW: ONLY colored trim pieces from corresponding toy directly above, exactly in the same positions, otherwise transparent. Absolute cell-local landmarks for stuffed RIGHT: seat y540 centered x256; head top y88, circle head center256,200 radius115; eye placement y195 but no eyes; muzzle centered256,255; neck y322; shoulders y350; clear tummy256,425; waist y470; feet centered186,515 and326,515 bottom540. Long ears above head to y12; round head top y88, NOT top of ears. LEFT flat is precisely same plush squashed around seat y540 to60% height and112% width (head top269, eye line333); floppy ears, loose seam opening and soft wrinkles. Top row fabric is white with lightgrey shading including colored trim; bottom row separate trim only includes inner ears, cheeks, pads and cotton tail. Keep each piece within own cell; no grid lines, no labels/text, no shadows, no scenery, no effects. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-718bff05-3043-40a8-b610-dc9dc286ca86.png",
+      "archive": "party/reference/sources/oct28-plushie/body-bunny-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 73708,
+      "runtime": "party/assets/art/prop/plushie-body-bunny-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-body-bunny-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-body-bunny.json"
+    },
+    {
+      "key": "prop/plushie-body-dragon",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent game sprite sheet for Plushie Workshop. Use reference only for smooth bold navy #24163f outlines, rounded cute forms, clean soft CEL shading. NOT photorealistic, no 3D plush render. Draw a handmade seated DRAGON plush toy, white fabric, blank face NO eyes/nose/mouth, two little soft pale gold horns, soft pastel-lavender spikes over head and down back, tiny folded wings behind shoulders with pink membranes, white chubby dragon tail, pink paw pads, NO muzzle shape, tiny pink cheek ovals, visible simple stitched seams, short stubby arms at sides leaving tummy clear. No bow/clothes. Exact canvas 1024x1120, 2 columns x 2 rows; 512x560 each. TOP ROW: left an unstuffed limp skin squashed vertically, right a stuffed round toy. BOTTOM ROW: ONLY colored trim pieces from corresponding toy directly above, exactly in the same positions, otherwise transparent. Absolute cell-local landmarks for stuffed RIGHT: seat y540 centered x256; head top y88, circle head center256,200 radius115; eye placement y195 but no eyes; muzzle centered256,255; neck y322; shoulders y350; clear tummy256,425; waist y470; feet centered186,515 and326,515 bottom540. Small horns above head to y12. LEFT flat is precisely same plush squashed around seat y540 to60% height and112% width (head top269, eye line333); floppy ears, loose seam opening and soft wrinkles. Top row fabric is white with lightgrey shading including colored trim; bottom row separate trim only includes pale gold horns, lavender soft spikes, pink wing membranes, cheeks and pads. Keep each piece within own cell; no grid lines, no labels/text, no shadows, no scenery, no effects. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-02e42068-530e-4d36-bcb5-985c5c8cca75.png",
+      "archive": "party/reference/sources/oct28-plushie/body-dragon-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 78036,
+      "runtime": "party/assets/art/prop/plushie-body-dragon-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-body-dragon-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-body-dragon.json"
+    },
+    {
+      "key": "prop/plushie-body-kitty",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent game sprite sheet for Plushie Workshop. Use reference only for smooth bold navy #24163f outlines, rounded cute forms, clean soft CEL shading. NOT photorealistic, no 3D plush render. Draw a handmade seated KITTY plush toy, white fabric, blank face NO eyes/nose/mouth, pointed cat ears with pink insides, cheek fluff, long curled fabric tail beside the body, pink paw pads; NO muzzle shape, tiny pink cheek ovals, visible simple stitched seams, short stubby arms at sides leaving tummy clear. No bow/clothes. Exact canvas 1024x1120, 2 columns x 2 rows; 512x560 each. TOP ROW: left an unstuffed limp skin squashed vertically, right a stuffed round toy. BOTTOM ROW: ONLY colored trim pieces from corresponding toy directly above, exactly in the same positions, otherwise transparent. Absolute cell-local landmarks for stuffed RIGHT: seat y540 centered x256; head top y88, circle head center256,200 radius115; eye placement y195 but no eyes; muzzle centered256,255; neck y322; shoulders y350; clear tummy256,425; waist y470; feet centered186,515 and326,515 bottom540. Pointed ears above head to y22. LEFT flat is precisely same plush squashed around seat y540 to60% height and112% width (head top269, eye line333); floppy ears, loose seam opening and soft wrinkles. Top row fabric is white with lightgrey shading including colored trim; bottom row separate trim only includes inner ears, cheeks and pads. Keep each piece within own cell; no grid lines, no labels/text, no shadows, no scenery, no effects. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-1afe8899-f2e2-4e07-a0c5-04b7b99fdcd8.png",
+      "archive": "party/reference/sources/oct28-plushie/body-kitty-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 65474,
+      "runtime": "party/assets/art/prop/plushie-body-kitty-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-body-kitty-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-body-kitty.json"
+    },
+    {
+      "key": "prop/plushie-body-puppy",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent game sprite sheet for Plushie Workshop. Use reference only for smooth bold navy #24163f outlines, rounded cute forms, clean soft CEL shading. NOT photorealistic, no 3D plush render. Draw a handmade seated PUPPY plush toy, white fabric, blank face NO eyes/nose/mouth, long floppy white-fabric ears hanging down, round pale peach muzzle, pink ear-insides and pink paw pads, short white tail peeking beside the body, tiny pink cheek ovals, visible simple stitched seams, short stubby arms at sides leaving tummy clear. No bow/clothes. Exact canvas 1024x1120, 2 columns x 2 rows; 512x560 each. TOP ROW: left an unstuffed limp skin squashed vertically, right a stuffed round toy. BOTTOM ROW: ONLY colored trim pieces from corresponding toy directly above, exactly in the same positions, otherwise transparent. Absolute cell-local landmarks for stuffed RIGHT: seat y540 centered x256; head top y88, circle head center256,200 radius115; eye placement y195 but no eyes; muzzle centered256,255; neck y322; shoulders y350; clear tummy256,425; waist y470; feet centered186,515 and326,515 bottom540. Floppy ears hanging beside head; skull top at y88. LEFT flat is precisely same plush squashed around seat y540 to60% height and112% width (head top269, eye line333); floppy ears, loose seam opening and soft wrinkles. Top row fabric is white with lightgrey shading including colored trim; bottom row separate trim only includes muzzle, inner ears, cheeks and pads. Keep each piece within own cell; no grid lines, no labels/text, no shadows, no scenery, no effects. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-b0ed7055-8ddd-4df9-8389-a4e978432fa4.png",
+      "archive": "party/reference/sources/oct28-plushie/body-puppy-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 95410,
+      "runtime": "party/assets/art/prop/plushie-body-puppy-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-body-puppy-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-body-puppy.json"
+    },
+    {
+      "key": "prop/plushie-body-unicorn",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent game sprite sheet for Plushie Workshop. Use reference only for smooth bold navy #24163f outlines, rounded cute forms, clean soft CEL shading. NOT photorealistic, no 3D plush render. Draw a handmade seated UNICORN plush toy, white fabric, blank face NO eyes/nose/mouth, small pointed ears with pink insides, a golden spiral horn, short fluffy pastel rainbow mane and tail tuft, pink paw pads, tiny pink cheek ovals, visible simple stitched seams, short stubby arms at sides leaving tummy clear. No bow/clothes. Exact canvas 1024x1120, 2 columns x 2 rows; 512x560 each. TOP ROW: left an unstuffed limp skin squashed vertically, right a stuffed round toy. BOTTOM ROW: ONLY colored trim pieces from corresponding toy directly above, exactly in the same positions, otherwise transparent. Absolute cell-local landmarks for stuffed RIGHT: seat y540 centered x256; head top y88, circle head center256,200 radius115; eye placement y195 but no eyes; muzzle centered256,255; neck y322; shoulders y350; clear tummy256,425; waist y470; feet centered186,515 and326,515 bottom540. Ears and horn above head to y12. LEFT flat is precisely same plush squashed around seat y540 to60% height and112% width (head top269, eye line333); floppy ears, loose seam opening and soft wrinkles. Top row fabric is white with lightgrey shading including colored trim; bottom row separate trim only includes golden horn, pastel rainbow mane and tail, inner ears, cheeks and pads. Keep each piece within own cell; no grid lines, no labels/text, no shadows, no scenery, no effects. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-0dd6a5e1-928a-47a7-ba97-1b0ab231f657.png",
+      "archive": "party/reference/sources/oct28-plushie/body-unicorn-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 82890,
+      "runtime": "party/assets/art/prop/plushie-body-unicorn-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-body-unicorn-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-body-unicorn.json"
+    },
+    {
+      "key": "prop/plushie-clothes",
+      "prompt": "Use case: stylized-concept. Asset type: transparent 2D game atlas of8 doll-size clothes,4 columns x2rows. No body or neck. Final1024x512 each cell256square. Bold smooth dark navy #24163f outlines, clean soft cel shading, candy colors, flat FRONT view. No realism no3D. Row1 four cosy chunky knit SCARVES wrapped once around an invisible plush neck. Each knot centered at cell128,96; wrap spans x24..232; tails hang DOWN ON VIEWER'S RIGHT. Colors left-right: red-white striped knit; blue knit with pompoms; pink whitepolkadots; rainbow stripes. Row2 four fluffy layered tulle TUTUS seen front view; waistband CENTER128,80; waistband opening about60% overallwidth; skirt spansx8..248 flares down to y190. Colors left-right: pink; lavender with small sewn glitter details; mint with little sewn stars; rainbow layers. Generous transparent margins per cell, no overlapping cells or extra pieces, no scenery, no text/labels, no shadows or floating decorations. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-c15eab9a-6ecc-4992-ab21-4c5ab2ce2c33.png",
+      "archive": "party/reference/sources/oct28-plushie/clothes-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 65286,
+      "runtime": "party/assets/art/prop/plushie-clothes-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-clothes-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-clothes.json"
+    },
+    {
+      "key": "prop/plushie-face",
+      "prompt": "Use case: stylized-concept. Asset type: transparent 2D game atlas, sewn plush toy face pieces. EXACTLY 8 columns x3 rows, 24 pieces, each isolated in its own equal cell, generous transparent gutters. Final1024x384 (128px square cells). Use inspected teddy reference only for 2D bold smooth dark navy #24163f outlines and clean soft CEL shading; no realism, no3D. Tiny running-stitch edges. FLAT FRONT VIEW. Every piece centered filling75% cell. Row1 left to right ONE SINGLE VIEWER'S RIGHT EYE PER CELL (not pairs): black button eye two thread holes; big shiny black oval eye two white highlights; sleepy closed arc with lashes; pink heart eye; gold star eye; googly eye white with black pupil; big blue sparkly eye with lashes; embroidered happy arc ^. Row2 noses in order: rounded brown triangle; pink bunny Y nose; pink heart nose; round black button nose; small pink kitty triangle; big shiny black oval puppy nose; two tiny dark nostril dots together; red pompom nose. Row3 mouths in order: stitched smile single navy thread line; open happy mouth pink tongue; kitty w mouth; small o mouth; smile with two bunny buck teeth; silly tongue-out; little smile two tiny fangs; big grin. No heads, no faces, no bodies. No cell outlines, no labels/text, no scene, no shadows or particles. Genuine alpha transparency.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-66f03980-b295-4f61-b85b-e2d326fc864f.png",
+      "archive": "party/reference/sources/oct28-plushie/face-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 49230,
+      "runtime": "party/assets/art/prop/plushie-face-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-face-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-face.json"
+    },
+    {
+      "key": "prop/plushie-needle",
+      "prompt": "Use case: stylized-concept. Asset type:2D transparent256x256 game prop sewing cursor. One big friendly chunky shiny silver sewing needle diagonally bottomleft to topright. Exact sharp needlepoint at imagepixel28,228. Needleeye upperright near190,45 with loop pinkthread through eye curling away into upperright quadrant but kept within canvas. Bold smooth navy #24163f outline, clean soft CELshading, flat2D illustrated cartoon, no realism no3D. Entire needle and thread visible with margin, no hands no other objects, no scene, no text, no shadow or glow. Genuine alpha transparency.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-394efabd-373b-4ab0-b91e-8f4d01044b84.png",
+      "archive": "party/reference/sources/oct28-plushie/needle-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 16292,
+      "runtime": "party/assets/art/prop/plushie-needle-v1.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-needle-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-needle.json"
+    },
+    {
+      "key": "prop/plushie-patches",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent game atlas for felt appliqu\u00e9 plush toy patches. EXACTLY8 columns x2rows=16 isolated pieces, broad transparent gutters, no frame lines or text. Final1024x256 with128x128cells. Bold smooth dark navy #24163f outlines, bright candy colors, flat front view, clean soft cel shading, simple felt texture and white running-stitch edging. No3D, no photorealism. Each piece centered fills80% cell. Row1 exactly left-to-right: red felt heart; pink felt heart with white stitches; rainbow striped heart; pink heart-shaped button with two holes; lilac heart with tiny gold star; three tiny pink hearts in a cluster; gold glitter-texture heart (no floating glitter); patchwork heart made of four little fabric squares. Row2 exactly: yellow fivepoint star; white daisy yellow center; round blue patch crossstitch edge; red gingham square; yellow crescent moon; fluffy white cloud; rainbow arc; pink paw print. Transparent background genuine alpha. No scene, no shadows, no motionlines or detached sparkles.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-36189239-fea3-44f5-b6b3-7a5eade55efb.png",
+      "archive": "party/reference/sources/oct28-plushie/patches-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 54394,
+      "runtime": "party/assets/art/prop/plushie-patches-v1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-patches-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-patches.json"
+    },
+    {
+      "key": "bg/plushie-shelf",
+      "prompt": "Use case: stylized-concept. Asset type: opaque 2D game background1920x1080. Big friendly wooden toy shelf bookcase fills screen FRONT VIEW. Warm cream-painted wood rounded corners, soft mint wallpaper tiny very faint stars. EXACTLY TWO long EMPTY SHELVES with straight horizontal support top surfaces at y430 and y760 on1080high image. Each shelf board spans at least x200..1720, front lip40px high directly below support line. Plush toys will sit x330..1590: leave these stretches entirely EMPTY, wall above empty calm. A few picturebooks and wooden toyblock on upper shelf FAR LEFT x<300; yarn basket and little toy drum lower shelf FAR RIGHT x>1640 only. Cozy rug and floorboards below. Keep top170px calm for title and bottomy900..1080 calm for UI. Bold smooth navy #24163f outlines, rounded appealing forms, simple clean CELshading, soft slightly desaturated candy colors. No3D, no photorealism, no plush toys, no characters, no people, no text, no extra shelves.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-96026624-d63c-4c1a-965c-bab4065df508.png",
+      "archive": "party/reference/sources/oct28-plushie/shelf-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 35472,
+      "runtime": "party/assets/art/bg/plushie-shelf-v1-compact.webp",
+      "fullRuntime": "party/assets/art/bg/plushie-shelf-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-shelf.json"
+    },
+    {
+      "key": "prop/plushie-stuffer",
+      "prompt": "Use case: stylized-concept. Asset type:2D transparent384x384 game prop. Cute stuffingmachine for plush toy workshop. Round pastelpink tank, clear dome on top full white fluff, little crank handle on RIGHT, four stubby feet. Curved nozzle sticks out LOWER LEFT pointing leftwards and its exact leftmost opening TIP at image pixel40,300 (10.4% across,78% down). Entire machine visible with transparent border. Bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candycolor, simple clean soft CEL shading, flat2D front threequarter icon. No realism no3D. No text, no motionlines, no shadow, no separate stuffing puffs, no character. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-d5c6bffc-0541-4bed-9cb6-ea79fdf9ccc8.png",
+      "archive": "party/reference/sources/oct28-plushie/stuffer-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 87186,
+      "runtime": "party/assets/art/prop/plushie-stuffer-v1.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-stuffer-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-stuffer.json"
+    },
+    {
+      "key": "prop/plushie-stuffing",
+      "prompt": "Use case: stylized-concept. Asset type: 2D transparent256x256 game prop. One centered fluffy tuft of white polyester toy stuffing like a small soft cotton cloud, organic wispy lobes, lightgrey CEL shading with subtle navy #24163f contours. Rounded friendly shapes and clean flat2D cartoon style. Fill80% of square with generous transparent border. No realism no3D, no shadow, no text, no other items, no particles separate from tuft. Genuine alpha transparency.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-36f84306-e310-41f3-84c9-82f30e440fd8.png",
+      "archive": "party/reference/sources/oct28-plushie/stuffing-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 30542,
+      "runtime": "party/assets/art/prop/plushie-stuffing-v1.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-stuffing-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-stuffing.json"
+    },
+    {
+      "key": "prop/plushie-tag",
+      "prompt": "Use case: stylized-concept. Asset type:2D transparent384x160 game prop. One blank CREAM paper luggage name tag, wide horizontal rounded rectangle with short tapered left shoulder. Punched round hole on left, loop pink ribbon through it curling just above-left. Thin stitched navy #24163f border. Blank clean writing area fromx80tox360 andy30toy130. Soft cream CELshading, bold smooth navy outlines, rounded appealing flat2D cartoon game style, no realism no3D. Entire tag and ribbon contained with generous transparent margins. NO TEXT or symbols, no shadows, no background, no extra items. Genuine transparent alpha.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-67f8365b-8858-4168-a380-229e27278453.png",
+      "archive": "party/reference/sources/oct28-plushie/tag-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 39024,
+      "runtime": "party/assets/art/prop/plushie-tag-v1.webp",
+      "fullRuntime": "party/assets/art/prop/plushie-tag-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-tag.json"
+    },
+    {
+      "key": "thumb/plushie-workshop",
+      "prompt": "Use case: stylized-concept. Asset type: opaque800x500 game select thumbnail. Centered freshly made cute plush bunny with pink bow and a sewn-on red felt heart patch sits on a sewing table; next to it a smaller teddy bear being stitched by a big silver sewing needle with pink thread through eye. Needle stitches button eye on bear. Fluffy white stuffing puffs flying. Colorful threadspools and pincushion around edge of sewingtable. Bold smooth darknavy #24163f outlines, rounded appealing toys, bright candy colors, clean soft CEL shading, simple sewn seams and felt texture. Same2D illustrated toy style as reference. No photorealism no3D. No humans or character NPCs, no text, no labels.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-19bda250-b051-4f8d-991c-8905ff3c4bff.png",
+      "archive": "party/reference/sources/oct28-plushie/thumb-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 501466,
+      "runtime": "party/assets/art/thumb/plushie-workshop-v1.webp",
+      "fullRuntime": "party/assets/art/thumb/plushie-workshop-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-thumb.json"
+    },
+    {
+      "key": "bg/plushie-workshop",
+      "prompt": "Use case: stylized-concept. Asset type: opaque2D game background1920x1080. Bold smooth navy #24163f outlines, rounded friendly forms, simple clean CELshading no realism no3D. A cosy sunny toy-maker sewing workshop FRONT VIEW. Pastel wall, pegboard of colorful thread spools and scissors, shelves folded fabric bolts in candy colors, big round window soft sky, fabric bunting across TOP, big pincushion at farLEFT and basket yarn at farRIGHT. Warm honeywood worktable top begins on a straight HORIZONTAL edge precisely y780 on1080high image and continues to bottom, measuring tape along front edge. Keep center x560..1360,y180..780 very calm lowcontrast blank wall: plush toys will be overlaid there. Put shelves/window/tools mostly near farleft and farright. Soft slightly desaturated cozy candy colors. No toys, no people, no characters, no readable text, no UI, no shadows in central toy area.",
+      "source": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-4b41d01d-a9af-45a5-8db8-40192d47c974.png",
+      "archive": "party/reference/sources/oct28-plushie/workshop-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 92172,
+      "runtime": "party/assets/art/bg/plushie-workshop-v1-compact.webp",
+      "fullRuntime": "party/assets/art/bg/plushie-workshop-v1.webp",
+      "intake": "party/reference/pending/OCT28-PLUSHIE-workshop.json"
     }
   ]
 }

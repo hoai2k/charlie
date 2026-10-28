@@ -158,7 +158,7 @@ function bodyCell(img, fab, col) {
   g.globalCompositeOperation = 'destination-in'; g.drawImage(img, col * cw, 0, cw, ch, 0, 0, cw, ch);
   g.globalCompositeOperation = 'source-over'; g.drawImage(img, col * cw, ch, cw, ch, 0, 0, cw, ch);   // trim
   tinted.set(key, c);
-  if (tinted.size > 80) tinted.delete(tinted.keys().next().value);
+  if (tinted.size > 32) tinted.delete(tinted.keys().next().value);
   return c;
 }
 
@@ -185,6 +185,13 @@ function drawBody(g, body, fab, p, t) {
 // ---------------------------------------------------------------------------
 // Hit mask: is a frame point on the (stuffed) plush?
 const masks = new Map();
+/** Release game-owned canvases when the workshop leaves the screen. */
+export function clearPlushCaches() {
+  tinted.clear();
+  masks.clear();
+  tiles.clear();
+}
+
 export function onPlush(bodyIdx, x, y) {
   const body = BODIES[bodyIdx];
   const hasArt = !!art(`prop/plushie-body-${body.id}`);

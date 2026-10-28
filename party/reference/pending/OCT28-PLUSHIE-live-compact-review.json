@@ -1,0 +1,20 @@
+{
+  "mode": "compact",
+  "errors": [],
+  "failedRequests": [],
+  "shots": [
+    "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-PLUSHIE-live-compact-1-stations.jpg",
+    "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-PLUSHIE-live-compact-stuffer.jpg",
+    "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-PLUSHIE-live-compact-needle.jpg",
+    "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-PLUSHIE-live-compact-1-shelf.jpg",
+    "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-PLUSHIE-live-compact-8-stations.jpg",
+    "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-PLUSHIE-live-compact-8-shelf.jpg"
+  ],
+  "cacheChecks": [
+    {
+      "warmCanvasAllocations": 0,
+      "afterDestroyCanvasAllocations": 1,
+      "passed": true
+    }
+  ]
+}

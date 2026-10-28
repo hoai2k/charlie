@@ -1,0 +1,151 @@
+{
+  "previewTree": "/tmp/oct28-party-preview",
+  "sourceBranch": "origin/claude/busy-ptolemy-gjxlwj",
+  "consumerPatch": "party/reference/pending/OCT28-BEACH-CONSUMER.patch",
+  "scope": "Only isolated preview consumer was edited; shared main source/index untouched.",
+  "affine": {
+    "a": 0.5,
+    "b": 0,
+    "c": 0.023148148148148147,
+    "d": 0.5555555555555556,
+    "e": 21.194444444444446,
+    "f": 401.66666666666663,
+    "sourceNearFoot": [
+      219,
+      834
+    ],
+    "sourceFarFoot": [
+      244,
+      294
+    ],
+    "targetNearFoot": [
+      150,
+      865
+    ],
+    "targetFarFoot": [
+      150,
+      565
+    ],
+    "rightGoal": "Mirrored around1920 gives x1770",
+    "wobble": "Existing consumer wobble retained outside affine"
+  },
+  "visualReview": {
+    "goalFeet": "Front feet visually meet pitch goal lines and scoring-mouth y565/y865",
+    "goalDepth": "Net extends outside pitch; edge-on depth reads clearly",
+    "ball": "Round silhouette; alpha>16 bbox1,2,255,255 on256square, no extra whitespace",
+    "pitch": "Lines visually registered to x150/1770,y420/1010; halfway x960 and centre715",
+    "naturalGoal": "Four-player screenshot captures naturally scored goal; no forced game state",
+    "screenshots": [
+      "party/reference/pending/OCT28-BEACH-4PLAYER-REVIEW.jpg",
+      "party/reference/pending/OCT28-BEACH-8PLAYER-REVIEW.jpg"
+    ]
+  },
+  "manifest": "Final4/8natural smoke used actual shared index with all5new keys and beach-ball-soccer group, no browser overlay. Earlier renderer screenshots/overlay smoke retained as review history.",
+  "server": "Quiet HTTP1.1 threaded server/request_queue_size256 on8374, session49176",
+  "patchValidation": "Reverse apply check passes against adapted isolated source",
+  "overlaySmoke": [
+    {
+      "players": 4,
+      "scene": "ResultsScene",
+      "errors": [],
+      "failed": [],
+      "screenshot": "/tmp/oct28-beach-4player.png",
+      "assets": [
+        [
+          "bg/beach-ball-soccer",
+          true
+        ],
+        [
+          "prop/bbs-beach-ball",
+          true
+        ],
+        [
+          "prop/bbs-goal-pink",
+          true
+        ],
+        [
+          "prop/bbs-goal-blue",
+          true
+        ]
+      ]
+    },
+    {
+      "players": 8,
+      "scene": "ResultsScene",
+      "errors": [],
+      "failed": [],
+      "screenshot": "/tmp/oct28-beach-8player.png",
+      "assets": [
+        [
+          "bg/beach-ball-soccer",
+          true
+        ],
+        [
+          "prop/bbs-beach-ball",
+          true
+        ],
+        [
+          "prop/bbs-goal-pink",
+          true
+        ],
+        [
+          "prop/bbs-goal-blue",
+          true
+        ]
+      ]
+    }
+  ],
+  "smoke": [
+    {
+      "players": 4,
+      "scene": "ResultsScene",
+      "errors": [],
+      "failed": [],
+      "screenshot": "/tmp/oct28-beach-4player.png",
+      "assets": [
+        [
+          "bg/beach-ball-soccer",
+          true
+        ],
+        [
+          "prop/bbs-beach-ball",
+          true
+        ],
+        [
+          "prop/bbs-goal-pink",
+          true
+        ],
+        [
+          "prop/bbs-goal-blue",
+          true
+        ]
+      ]
+    },
+    {
+      "players": 8,
+      "scene": "ResultsScene",
+      "errors": [],
+      "failed": [],
+      "screenshot": "/tmp/oct28-beach-8player.png",
+      "assets": [
+        [
+          "bg/beach-ball-soccer",
+          true
+        ],
+        [
+          "prop/bbs-beach-ball",
+          true
+        ],
+        [
+          "prop/bbs-goal-pink",
+          true
+        ],
+        [
+          "prop/bbs-goal-blue",
+          true
+        ]
+      ]
+    }
+  ],
+  "registrationVerified": true
+}

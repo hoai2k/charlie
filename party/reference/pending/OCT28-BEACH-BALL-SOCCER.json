@@ -1,0 +1,187 @@
+{
+  "generator": "built-in imagegen, one call per asset plus targeted background layout edit",
+  "sources": [
+    {
+      "name": "background",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-89fffd22-3238-4e89-b859-561e62696b91.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/background-native.webp",
+      "prompt": "Use case: illustration-story. 2D cartoon game art in exactly the attached beach reference's style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colours, simple clean soft cel shading, no photorealism, no3D. No text, no watermark, no people, no animals. Asset: full-screen Beach Ball Soccer BACKGROUND, wide16:9 canvas. Reference image style only. Sunny beach high three-quarter view looking down. At final1920x1080: blue sky+two clouds y0-160, turquoise sea y160-330, white foam line y330, wet sand to400, plain low-contrast golden sand y400-1080. EXACT beach soccer rectangular field with vertical goal lines at x150 and1770, far horizontal sideline y420, near sideline y1010. Halfway vertical line x960 between420and1010. Centre ellipse centred(960,715), width300height210. All lines pale raked white sand. Low white rope with little wooden stakes runs along far and near sidelines ONLY; no ropes across goal lines. Plain open goal areas at x0-150 and1770-1920,y400-900. Umbrella and bucket top-left OFF pitch above420; rolled towel and a few shells top-right above420. No goals, no balls. Calm top150 for HUD. No perspective convergence: goal lines are vertical and sidelines horizontal in screen coordinates, per game arena. Keep field exact, unobstructed.",
+      "nativeSize": [
+        1672,
+        941
+      ],
+      "pixelExact": true
+    },
+    {
+      "name": "goal",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-77888146-3aa0-4552-a022-22be99bf4c3e.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/goal-native.webp",
+      "prompt": "Use case: illustration-story. 2D cartoon game art in exactly the attached beach reference's style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colours, simple clean soft cel shading, no photorealism, no3D. No text, no watermark, no people, no animals. Single beach soccer goal, candy-PINK posts wrapped in white stripes, white soft diamond rope net, two pink pennants. TRUE transparent backdrop. Very tall narrow sprite composition aspect320:860, almost edge-on from high three-quarter view. Goal opens to RIGHT, net recedes LEFT. Match these image coordinates on final320x860canvas: front/near post foot(300,840), far/back post foot(300,240); post tops lean slightly left, near top(260,560), far top(260,30) staying inside. Long diagonal/near-vertical crossbar joins post tops along mouth; net roof and side extend LEFT to x20 behind the posts. The near and far post feet share x300, widely separated vertically600px, NOT a front-facing rectangular horizontal goal. Entire goal inside canvas, small margins; no sand patch, ground shadow, ball, text or extras. Smooth clear navy outlines, soft semitransparent white net strands and real transparent holes. Geometry important for end-line gameplay.",
+      "nativeSize": [
+        764,
+        2057
+      ],
+      "pixelExact": true
+    },
+    {
+      "name": "ball",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-5a8ab149-f940-4b44-a13a-22612f344aac.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/ball-native.webp",
+      "prompt": "Use case: illustration-story. 2D cartoon game art in exactly the attached beach reference's style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colours, simple clean soft cel shading, no photorealism, no3D. No text, no watermark, no people, no animals. Single isolated glossy inflatable BEACH BALL, straight-on round silhouette, centered on square true transparent background with margin. Six curved panels pink,white,skyblue,sunnyyellow,white,mint converging on small white cap at centre, soft white shine top-left. Fully visible round circle, no ground or shadow, no spin lines, no other objects. Runtime256x256.",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "pixelExact": true
+    },
+    {
+      "name": "blue",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-85a973b7-59b0-46f3-b047-5d07bcf0b9c5.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/blue-native.webp",
+      "prompt": "Precise-object-edit. Reproduce this EXACT soccer goal silhouette, perspective, net, both foot positions, canvas and all outlines. Change ONLY all candy-pink coloured post sections, pennants and knobs to bright sky BLUE #54bcf3, shaded with softer cyan and deeper blue. White stripes and white net completely unchanged, navy outlines unchanged. Preserve true transparent background and every empty net hole. No extra elements.",
+      "nativeSize": [
+        764,
+        2057
+      ],
+      "pixelExact": true
+    },
+    {
+      "name": "thumb",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-e936594d-7b0b-4e3c-a254-bbdc6ba58652.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/thumb-native.webp",
+      "prompt": "Use case: illustration-story. 2D cartoon game art in exactly the attached beach reference's style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colours, simple clean soft cel shading, no photorealism, no3D. No text, no watermark, no people, no animals. Game shelf thumbnail, wide8:5. A giant glossy pink-white-skyblue-yellow-mint beach ball flying into a candy-pink-and-white striped soccer goal, the white rope net bulging, colorful confetti bursting, sand spraying, calm turquoise sea and blue sky behind. Happy energetic composition centered, no characters, no animals, no text or letters. Entire ball and most goal visible. Opaque illustration.",
+      "nativeSize": [
+        1586,
+        992
+      ],
+      "pixelExact": true
+    },
+    {
+      "name": "background-revised",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-a07b1760-43df-4e7a-9f99-53ca7e01fd44.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/background-revised-native.webp",
+      "prompt": "Precise-object-edit for game collision alignment. Image1 is the art target; image2 is EXACT layout guide only, not style. Preserve Image1's charming sunny beach illustration style and colors, sky, water and sand. Replace/reposition ONLY its pitch lines and ropes so they MATCH image2 exactly in normalized coordinates on final1920x1080: sidelines horizontal at y420 and1010, goal lines STRICTLY VERTICAL x150 and1770 (NO perspective taper/convergence), halfway x960, centre ellipse x810-1110,y610-820. Field is RECTANGULAR in screen pixels, NOT trapezoid. Move rope/stakes to these two horizontal sidelines. Keep everything else clear; move umbrella/bucket/towel outside field above y400. REMOVE the small extra beach ball at right completely, no ball anywhere. Retain16:9 composition, no goals, people, animals, letters, text. Opaque illustration. The second image gives only exact field geometry; reproduce the first image's illustrated beach art.",
+      "nativeSize": [
+        1672,
+        941
+      ],
+      "pixelExact": true
+    }
+  ],
+  "entries": [
+    {
+      "key": "prop/bbs-goal-pink",
+      "runtimeFile": "party/assets/art/prop/bbs-goal-pink.webp",
+      "runtimeSize": [
+        320,
+        860
+      ],
+      "encodedBytes": 77182,
+      "sha256": "4d6ba358a7be501fa4c2f7c97213704c7054db63398b7a3ec8294f12f19f8dee",
+      "source": "party/reference/sources/oct28-beach-ball-soccer/goal-native.webp",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-77888146-3aa0-4552-a022-22be99bf4c3e.png",
+      "prompt": "Use case: illustration-story. 2D cartoon game art in exactly the attached beach reference's style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colours, simple clean soft cel shading, no photorealism, no3D. No text, no watermark, no people, no animals. Single beach soccer goal, candy-PINK posts wrapped in white stripes, white soft diamond rope net, two pink pennants. TRUE transparent backdrop. Very tall narrow sprite composition aspect320:860, almost edge-on from high three-quarter view. Goal opens to RIGHT, net recedes LEFT. Match these image coordinates on final320x860canvas: front/near post foot(300,840), far/back post foot(300,240); post tops lean slightly left, near top(260,560), far top(260,30) staying inside. Long diagonal/near-vertical crossbar joins post tops along mouth; net roof and side extend LEFT to x20 behind the posts. The near and far post feet share x300, widely separated vertically600px, NOT a front-facing rectangular horizontal goal. Entire goal inside canvas, small margins; no sand patch, ground shadow, ball, text or extras. Smooth clear navy outlines, soft semitransparent white net strands and real transparent holes. Geometry important for end-line gameplay.",
+      "crop": null
+    },
+    {
+      "key": "prop/bbs-beach-ball",
+      "runtimeFile": "party/assets/art/prop/bbs-beach-ball.webp",
+      "runtimeSize": [
+        256,
+        256
+      ],
+      "encodedBytes": 14956,
+      "sha256": "8a740fdb78e53ed4c235193f12177865a3e2fa6322b3b1d117083c13899f50f1",
+      "source": "party/reference/sources/oct28-beach-ball-soccer/ball-native.webp",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-5a8ab149-f940-4b44-a13a-22612f344aac.png",
+      "prompt": "Use case: illustration-story. 2D cartoon game art in exactly the attached beach reference's style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colours, simple clean soft cel shading, no photorealism, no3D. No text, no watermark, no people, no animals. Single isolated glossy inflatable BEACH BALL, straight-on round silhouette, centered on square true transparent background with margin. Six curved panels pink,white,skyblue,sunnyyellow,white,mint converging on small white cap at centre, soft white shine top-left. Fully visible round circle, no ground or shadow, no spin lines, no other objects. Runtime256x256.",
+      "crop": [
+        72,
+        79,
+        1182,
+        1182
+      ]
+    },
+    {
+      "key": "prop/bbs-goal-blue",
+      "runtimeFile": "party/assets/art/prop/bbs-goal-blue.webp",
+      "runtimeSize": [
+        320,
+        860
+      ],
+      "encodedBytes": 82474,
+      "sha256": "cbdfc340ce8547aa0ff5003d0f884d683b927a8430dda79cca1f3bd754e7e3ec",
+      "source": "party/reference/sources/oct28-beach-ball-soccer/blue-native.webp",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-85a973b7-59b0-46f3-b047-5d07bcf0b9c5.png",
+      "prompt": "Precise-object-edit. Reproduce this EXACT soccer goal silhouette, perspective, net, both foot positions, canvas and all outlines. Change ONLY all candy-pink coloured post sections, pennants and knobs to bright sky BLUE #54bcf3, shaded with softer cyan and deeper blue. White stripes and white net completely unchanged, navy outlines unchanged. Preserve true transparent background and every empty net hole. No extra elements.",
+      "crop": null
+    },
+    {
+      "key": "thumb/beach-ball-soccer",
+      "runtimeFile": "party/assets/art/thumb/beach-ball-soccer.webp",
+      "runtimeSize": [
+        800,
+        500
+      ],
+      "encodedBytes": 77704,
+      "sha256": "1ae94965823db85d08b1f1ae11bd8f258dbebd37ab158be1f276f1feed66fb31",
+      "source": "party/reference/sources/oct28-beach-ball-soccer/thumb-native.webp",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-e936594d-7b0b-4e3c-a254-bbdc6ba58652.png",
+      "prompt": "Use case: illustration-story. 2D cartoon game art in exactly the attached beach reference's style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colours, simple clean soft cel shading, no photorealism, no3D. No text, no watermark, no people, no animals. Game shelf thumbnail, wide8:5. A giant glossy pink-white-skyblue-yellow-mint beach ball flying into a candy-pink-and-white striped soccer goal, the white rope net bulging, colorful confetti bursting, sand spraying, calm turquoise sea and blue sky behind. Happy energetic composition centered, no characters, no animals, no text or letters. Entire ball and most goal visible. Opaque illustration.",
+      "crop": null
+    },
+    {
+      "key": "bg/beach-ball-soccer",
+      "runtimeFile": "party/assets/art/bg/beach-ball-soccer.webp",
+      "runtimeSize": [
+        1920,
+        1080
+      ],
+      "encodedBytes": 103852,
+      "sha256": "d58052b593c079fdcd07a2626cc922266eb3beee8b271923d1b6dbadc12a446e",
+      "source": "party/reference/sources/oct28-beach-ball-soccer/background-revised-native.webp",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-a07b1760-43df-4e7a-9f99-53ca7e01fd44.png",
+      "prompt": "Precise-object-edit for game collision alignment. Image1 is the art target; image2 is EXACT layout guide only, not style. Preserve Image1's charming sunny beach illustration style and colors, sky, water and sand. Replace/reposition ONLY its pitch lines and ropes so they MATCH image2 exactly in normalized coordinates on final1920x1080: sidelines horizontal at y420 and1010, goal lines STRICTLY VERTICAL x150 and1770 (NO perspective taper/convergence), halfway x960, centre ellipse x810-1110,y610-820. Field is RECTANGULAR in screen pixels, NOT trapezoid. Move rope/stakes to these two horizontal sidelines. Keep everything else clear; move umbrella/bucket/towel outside field above y400. REMOVE the small extra beach ball at right completely, no ball anywhere. Retain16:9 composition, no goals, people, animals, letters, text. Opaque illustration. The second image gives only exact field geometry; reproduce the first image's illustrated beach art.",
+      "crop": [
+        22.87037037037039,
+        18.288135593220325,
+        1650.1296296296296,
+        884.1186440677967
+      ]
+    }
+  ],
+  "measurements": {
+    "pitchRect": [
+      150,
+      420,
+      1770,
+      1010
+    ],
+    "pitchCentre": [
+      960,
+      715
+    ],
+    "goals": {
+      "pink": {
+        "nearFoot": [
+          219,
+          834
+        ],
+        "farFoot": [
+          244,
+          294
+        ]
+      },
+      "blue": {
+        "nearFoot": [
+          219,
+          834
+        ],
+        "farFoot": [
+          244,
+          294
+        ]
+      }
+    }
+  }
+}

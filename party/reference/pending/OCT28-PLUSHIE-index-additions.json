@@ -1,0 +1,251 @@
+{
+  "images": {
+    "prop/plushie-body-bear": "prop/plushie-body-bear-v1.webp",
+    "prop/plushie-body-bunny": "prop/plushie-body-bunny-v1.webp",
+    "prop/plushie-body-dragon": "prop/plushie-body-dragon-v1.webp",
+    "prop/plushie-body-kitty": "prop/plushie-body-kitty-v1.webp",
+    "prop/plushie-body-puppy": "prop/plushie-body-puppy-v1.webp",
+    "prop/plushie-body-unicorn": "prop/plushie-body-unicorn-v1.webp",
+    "prop/plushie-clothes": "prop/plushie-clothes-v1.webp",
+    "prop/plushie-face": "prop/plushie-face-v1.webp",
+    "prop/plushie-needle": "prop/plushie-needle-v1.webp",
+    "prop/plushie-patches": "prop/plushie-patches-v1.webp",
+    "bg/plushie-shelf": "bg/plushie-shelf-v1.webp",
+    "prop/plushie-stuffer": "prop/plushie-stuffer-v1.webp",
+    "prop/plushie-stuffing": "prop/plushie-stuffing-v1.webp",
+    "prop/plushie-tag": "prop/plushie-tag-v1.webp",
+    "thumb/plushie-workshop": "thumb/plushie-workshop-v1.webp",
+    "bg/plushie-workshop": "bg/plushie-workshop-v1.webp"
+  },
+  "group": "plushie-workshop",
+  "groupKeys": [
+    "prop/plushie-body-bear",
+    "prop/plushie-body-bunny",
+    "prop/plushie-body-dragon",
+    "prop/plushie-body-kitty",
+    "prop/plushie-body-puppy",
+    "prop/plushie-body-unicorn",
+    "prop/plushie-clothes",
+    "prop/plushie-face",
+    "prop/plushie-needle",
+    "prop/plushie-patches",
+    "bg/plushie-shelf",
+    "prop/plushie-stuffer",
+    "prop/plushie-stuffing",
+    "prop/plushie-tag",
+    "bg/plushie-workshop"
+  ],
+  "assets": [
+    {
+      "key": "prop/plushie-body-bear",
+      "size": [
+        1024,
+        1120
+      ],
+      "encodedBytes": 438916,
+      "decodedBytes": 4587520,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-body-bear.json"
+    },
+    {
+      "key": "prop/plushie-body-bunny",
+      "size": [
+        1024,
+        1120
+      ],
+      "encodedBytes": 494880,
+      "decodedBytes": 4587520,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-body-bunny.json"
+    },
+    {
+      "key": "prop/plushie-body-dragon",
+      "size": [
+        1024,
+        1120
+      ],
+      "encodedBytes": 472368,
+      "decodedBytes": 4587520,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-body-dragon.json"
+    },
+    {
+      "key": "prop/plushie-body-kitty",
+      "size": [
+        1024,
+        1120
+      ],
+      "encodedBytes": 436054,
+      "decodedBytes": 4587520,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-body-kitty.json"
+    },
+    {
+      "key": "prop/plushie-body-puppy",
+      "size": [
+        1024,
+        1120
+      ],
+      "encodedBytes": 593668,
+      "decodedBytes": 4587520,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-body-puppy.json"
+    },
+    {
+      "key": "prop/plushie-body-unicorn",
+      "size": [
+        1024,
+        1120
+      ],
+      "encodedBytes": 531342,
+      "decodedBytes": 4587520,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-body-unicorn.json"
+    },
+    {
+      "key": "prop/plushie-clothes",
+      "size": [
+        1024,
+        512
+      ],
+      "encodedBytes": 315210,
+      "decodedBytes": 2097152,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-clothes.json"
+    },
+    {
+      "key": "prop/plushie-face",
+      "size": [
+        1024,
+        384
+      ],
+      "encodedBytes": 188150,
+      "decodedBytes": 1572864,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-face.json"
+    },
+    {
+      "key": "prop/plushie-needle",
+      "size": [
+        256,
+        256
+      ],
+      "encodedBytes": 16292,
+      "decodedBytes": 262144,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-needle.json"
+    },
+    {
+      "key": "prop/plushie-patches",
+      "size": [
+        1024,
+        256
+      ],
+      "encodedBytes": 235322,
+      "decodedBytes": 1048576,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-patches.json"
+    },
+    {
+      "key": "bg/plushie-shelf",
+      "size": [
+        1920,
+        1080
+      ],
+      "encodedBytes": 1508916,
+      "decodedBytes": 8294400,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-shelf.json"
+    },
+    {
+      "key": "prop/plushie-stuffer",
+      "size": [
+        384,
+        384
+      ],
+      "encodedBytes": 87186,
+      "decodedBytes": 589824,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-stuffer.json"
+    },
+    {
+      "key": "prop/plushie-stuffing",
+      "size": [
+        256,
+        256
+      ],
+      "encodedBytes": 30542,
+      "decodedBytes": 262144,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-stuffing.json"
+    },
+    {
+      "key": "prop/plushie-tag",
+      "size": [
+        384,
+        160
+      ],
+      "encodedBytes": 39024,
+      "decodedBytes": 245760,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-tag.json"
+    },
+    {
+      "key": "thumb/plushie-workshop",
+      "size": [
+        800,
+        500
+      ],
+      "encodedBytes": 501466,
+      "decodedBytes": 1600000,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-thumb.json"
+    },
+    {
+      "key": "bg/plushie-workshop",
+      "size": [
+        1920,
+        1080
+      ],
+      "encodedBytes": 1914868,
+      "decodedBytes": 8294400,
+      "promptRecord": "reference/pending/OCT28-PLUSHIE-workshop.json"
+    }
+  ],
+  "encodedBytes": 7804204,
+  "decodedBytes": 51792384,
+  "decodedMiB": 49.39306640625,
+  "bodyDecodedMiB": 26.25,
+  "reviewArtifacts": [
+    "reference/pending/OCT28-PLUSHIE-contact-review.jpg",
+    "reference/pending/OCT28-PLUSHIE-tools-review.jpg"
+  ],
+  "notes": [
+    "All16 requested native images generated with built-in imagegen; original paths and exact prompts in per-asset JSON. Native source archives byte-exact RGBA lossless WebP exact=True.",
+    "Body geometry uses authored pixels with measured piecewise affine registration, no recentering. Bottom trim row extracted from corresponding top-row source, so every colored trim pixel exactly registers with fabric.",
+    "All requested runtime dimensions retained; total decoded budget requires game budget exception or focused loading.",
+    "No shared index/manifest/map/request files changed. Source/repack scripts included for reproducibility; pending records are metadata, not ship manifests."
+  ],
+  "activeImages": {
+    "prop/plushie-body-bear": "prop/plushie-body-bear-v1-compact.webp",
+    "prop/plushie-body-bunny": "prop/plushie-body-bunny-v1-compact.webp",
+    "prop/plushie-body-dragon": "prop/plushie-body-dragon-v1-compact.webp",
+    "prop/plushie-body-kitty": "prop/plushie-body-kitty-v1-compact.webp",
+    "prop/plushie-body-puppy": "prop/plushie-body-puppy-v1-compact.webp",
+    "prop/plushie-body-unicorn": "prop/plushie-body-unicorn-v1-compact.webp",
+    "prop/plushie-clothes": "prop/plushie-clothes-v1-compact.webp",
+    "prop/plushie-face": "prop/plushie-face-v1-compact.webp",
+    "prop/plushie-needle": "prop/plushie-needle-v1.webp",
+    "prop/plushie-patches": "prop/plushie-patches-v1-compact.webp",
+    "bg/plushie-shelf": "bg/plushie-shelf-v1-compact.webp",
+    "prop/plushie-stuffer": "prop/plushie-stuffer-v1.webp",
+    "prop/plushie-stuffing": "prop/plushie-stuffing-v1.webp",
+    "prop/plushie-tag": "prop/plushie-tag-v1.webp",
+    "thumb/plushie-workshop": "thumb/plushie-workshop-v1.webp",
+    "bg/plushie-workshop": "bg/plushie-workshop-v1-compact.webp"
+  },
+  "activeGroupDecodedMiB": 20.2177734375,
+  "integrationFixes": [
+    "drawRoom renders in authored1920x1080 coordinates so compact background preserves center960/table780.",
+    "Generated stuffer mirrored about source outlet40,300 to face plush fromleft station; outletheight derives support370 so machine stands ontable; puff emission uses sameworldpoint.",
+    "Tinted body cache capped32; clearPlushCaches clears tinted/masks/tiles from Game.destroy."
+  ],
+  "checks": [
+    "All16 native archives compared pixel-for-pixel against original generated PNGs; exact=True lossless RGBA.",
+    "All16 requested full outputdimensions and alpha validated.",
+    "Actualgame full1/8stations and1/8shelf visually reviewed.",
+    "Actualgame compact1/8stations and1/8shelf plus needle/stuffer visually reviewed; zero consoleerrors/failedrequests after finalfixes.",
+    "Natural8CPU compactgame reached gallery/shelf with noerrors; hugs captured.",
+    "Cache test: warm redraw0canvasallocations; redraw after Game.destroy allocates1newcanvas.",
+    "art-loading.test.mjs andart-groups.test.mjs passed; gitdiff--check passed."
+  ],
+  "liveReviewRecords": [
+    "reference/pending/OCT28-PLUSHIE-live-compact-review.json",
+    "reference/pending/OCT28-PLUSHIE-live-natural-review.json"
+  ]
+}

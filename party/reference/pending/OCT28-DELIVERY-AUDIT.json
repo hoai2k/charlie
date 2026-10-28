@@ -1,0 +1,718 @@
+{
+  "status": "45 delivered;4 gopher-dependent images await canonical approval",
+  "assets": [
+    {
+      "key": "bg/gopher-garden",
+      "runtime": "party/assets/art/bg/gopher-garden.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "decodedBytes": 8294400,
+      "bytes": 120390,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sha256": "f423949c0d786805ae3ff91f297765c062255a276abaf4d7b1ce5013ab9a68fe"
+    },
+    {
+      "key": "prop/gopher-hole",
+      "runtime": "party/assets/art/prop/gopher-hole.webp",
+      "size": [
+        320,
+        160
+      ],
+      "decodedBytes": 204800,
+      "bytes": 36422,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "4402ddf1d5c112d7d9b25c20bde7ea90e103ea8d8111f0002a8913b32a35d918"
+    },
+    {
+      "key": "prop/gopher-hole-front",
+      "runtime": "party/assets/art/prop/gopher-hole-front.webp",
+      "size": [
+        320,
+        160
+      ],
+      "decodedBytes": 204800,
+      "bytes": 35602,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "d6ed787b461030a59a965031c3564f4819436b46bf2db159678314f6e6bfa16e"
+    },
+    {
+      "key": "prop/gopher-mallet",
+      "runtime": "party/assets/art/prop/gopher-mallet.webp",
+      "size": [
+        480,
+        200
+      ],
+      "decodedBytes": 384000,
+      "bytes": 15578,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "91a4261ca23165fc5b241a5936570b4d3eb03839646dbaf2e68581408d5ce155"
+    },
+    {
+      "key": "prop/gopher-troll-up",
+      "runtime": "party/assets/art/prop/gopher-troll-up.webp",
+      "size": [
+        400,
+        400
+      ],
+      "decodedBytes": 640000,
+      "bytes": 45586,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "31202df168af8311c0b98e7303b92c5191a421e9ccb413e2800cfa362f9616a8"
+    },
+    {
+      "key": "prop/gopher-troll-tug",
+      "runtime": "party/assets/art/prop/gopher-troll-tug.webp",
+      "size": [
+        400,
+        400
+      ],
+      "decodedBytes": 640000,
+      "bytes": 45088,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "eca5bbf4f4676989d1df5f57d1d93e872835f2c9059f10137cc068ed196c63be"
+    },
+    {
+      "key": "prop/bbs-goal-pink",
+      "runtime": "party/assets/art/prop/bbs-goal-pink.webp",
+      "size": [
+        320,
+        860
+      ],
+      "decodedBytes": 1100800,
+      "bytes": 77182,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "4d6ba358a7be501fa4c2f7c97213704c7054db63398b7a3ec8294f12f19f8dee"
+    },
+    {
+      "key": "prop/bbs-beach-ball",
+      "runtime": "party/assets/art/prop/bbs-beach-ball.webp",
+      "size": [
+        256,
+        256
+      ],
+      "decodedBytes": 262144,
+      "bytes": 14956,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "8a740fdb78e53ed4c235193f12177865a3e2fa6322b3b1d117083c13899f50f1"
+    },
+    {
+      "key": "prop/bbs-goal-blue",
+      "runtime": "party/assets/art/prop/bbs-goal-blue.webp",
+      "size": [
+        320,
+        860
+      ],
+      "decodedBytes": 1100800,
+      "bytes": 82474,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "cbdfc340ce8547aa0ff5003d0f884d683b927a8430dda79cca1f3bd754e7e3ec"
+    },
+    {
+      "key": "thumb/beach-ball-soccer",
+      "runtime": "party/assets/art/thumb/beach-ball-soccer.webp",
+      "size": [
+        800,
+        500
+      ],
+      "decodedBytes": 1600000,
+      "bytes": 77704,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sha256": "1ae94965823db85d08b1f1ae11bd8f258dbebd37ab158be1f276f1feed66fb31"
+    },
+    {
+      "key": "bg/beach-ball-soccer",
+      "runtime": "party/assets/art/bg/beach-ball-soccer.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "decodedBytes": 8294400,
+      "bytes": 103852,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sha256": "d58052b593c079fdcd07a2626cc922266eb3beee8b271923d1b6dbadc12a446e"
+    },
+    {
+      "key": "bg/gingerbread-house",
+      "runtime": "party/assets/art/bg/gingerbread-house-compact.webp",
+      "size": [
+        1024,
+        576
+      ],
+      "decodedBytes": 2359296,
+      "bytes": 74516,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sha256": "45cc2d582634433eb6f1d4fbcbb1cc84393652e8874ec2706123d3df0cb21634"
+    },
+    {
+      "key": "bg/gingerbread-house-night",
+      "runtime": "party/assets/art/bg/gingerbread-house-night-compact.webp",
+      "size": [
+        1024,
+        576
+      ],
+      "decodedBytes": 2359296,
+      "bytes": 100596,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sha256": "eab753ac9c005363e33499815e53d9f6d900181c4d93385d40fa104e2487aa4e"
+    },
+    {
+      "key": "thumb/gingerbread-house",
+      "runtime": "party/assets/art/thumb/gingerbread-house.webp",
+      "size": [
+        800,
+        500
+      ],
+      "decodedBytes": 1600000,
+      "bytes": 636538,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sha256": "17e33edb1e1a0fc271a58aa8ca65b25d0f357895cb9ace40911a14920977723c"
+    },
+    {
+      "key": "prop/gh-cottage-wall",
+      "runtime": "party/assets/art/prop/gh-cottage-wall-compact.webp",
+      "size": [
+        600,
+        550
+      ],
+      "decodedBytes": 1320000,
+      "bytes": 24372,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "769418ed68ebfaf3c557719ac31347b8d3935537ca6e6b4fade4b9a567ebb7fc"
+    },
+    {
+      "key": "prop/gh-tall-wall",
+      "runtime": "party/assets/art/prop/gh-tall-wall-compact.webp",
+      "size": [
+        600,
+        550
+      ],
+      "decodedBytes": 1320000,
+      "bytes": 24582,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "0db6de58cefa92ece942aba50916970e78d9926300016409eed2503eaad64129"
+    },
+    {
+      "key": "prop/gh-cottage-roof-left",
+      "runtime": "party/assets/art/prop/gh-cottage-roof-left-compact.webp",
+      "size": [
+        600,
+        550
+      ],
+      "decodedBytes": 1320000,
+      "bytes": 11032,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "fb028f3bafd74f99b7c58cb9a6970e21becfb2b43029f9bc67b2fce20eb8e7bf"
+    },
+    {
+      "key": "prop/gh-cottage-roof-right",
+      "runtime": "party/assets/art/prop/gh-cottage-roof-right-compact.webp",
+      "size": [
+        600,
+        550
+      ],
+      "decodedBytes": 1320000,
+      "bytes": 10804,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "1872c5f370ef955f7a857acd218ae58150954f4a3e61431660da2a1282cb1857"
+    },
+    {
+      "key": "prop/gh-tall-roof-left",
+      "runtime": "party/assets/art/prop/gh-tall-roof-left-compact.webp",
+      "size": [
+        600,
+        550
+      ],
+      "decodedBytes": 1320000,
+      "bytes": 8556,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "86e2409c725fe72b7fc7c596e9e54cc19f2885ab18e686803b6c18a645295fdb"
+    },
+    {
+      "key": "prop/gh-tall-roof-right",
+      "runtime": "party/assets/art/prop/gh-tall-roof-right-compact.webp",
+      "size": [
+        600,
+        550
+      ],
+      "decodedBytes": 1320000,
+      "bytes": 8150,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "50e4cd266e6f800be3370af91401551f7b4475d333637e17cc1dc857264339f9"
+    },
+    {
+      "key": "prop/gh-cottage-chimney",
+      "runtime": "party/assets/art/prop/gh-cottage-chimney-compact.webp",
+      "size": [
+        600,
+        550
+      ],
+      "decodedBytes": 1320000,
+      "bytes": 3966,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "1e7838a9a99209c2edde2443284656e90ef209640265e2350b99ba94243e3562"
+    },
+    {
+      "key": "prop/gh-tall-porch",
+      "runtime": "party/assets/art/prop/gh-tall-porch-compact.webp",
+      "size": [
+        600,
+        550
+      ],
+      "decodedBytes": 1320000,
+      "bytes": 2164,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "3af024239f8ebd5d1f3388c96c4e4b7cc6385063fd73a569a8353277df4db2d7"
+    },
+    {
+      "key": "prop/gh-castle-tower-left",
+      "runtime": "party/assets/art/prop/gh-castle-tower-left-compact.webp",
+      "size": [
+        600,
+        550
+      ],
+      "decodedBytes": 1320000,
+      "bytes": 10036,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "4cc4ea5e40d706dd2b1621ec053f6f747387e533698ec9f77a0802d700d68094"
+    },
+    {
+      "key": "prop/gh-castle-tower-right",
+      "runtime": "party/assets/art/prop/gh-castle-tower-right-compact.webp",
+      "size": [
+        600,
+        550
+      ],
+      "decodedBytes": 1320000,
+      "bytes": 10398,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "37d816eebbbaa2f19a67d64b5f12f903f0399e84f12d651171b1e0bada66a4d9"
+    },
+    {
+      "key": "prop/gh-castle-keep",
+      "runtime": "party/assets/art/prop/gh-castle-keep-compact.webp",
+      "size": [
+        600,
+        550
+      ],
+      "decodedBytes": 1320000,
+      "bytes": 17600,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "64a77630f65608f40431c782f9e44a3cc23b7a50dce3d63699473266d01c735a"
+    },
+    {
+      "key": "prop/gh-castle-cone-left",
+      "runtime": "party/assets/art/prop/gh-castle-cone-left-compact.webp",
+      "size": [
+        600,
+        550
+      ],
+      "decodedBytes": 1320000,
+      "bytes": 7312,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "3d03f5848cf005ee55b571bcdd03cb2a4f2ace2c326e26b4c0df095cde88df1e"
+    },
+    {
+      "key": "prop/gh-castle-cone-right",
+      "runtime": "party/assets/art/prop/gh-castle-cone-right-compact.webp",
+      "size": [
+        600,
+        550
+      ],
+      "decodedBytes": 1320000,
+      "bytes": 7580,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "44395b172564467734d970d4d2afe94411ee649424df636138a65df7741f6be5"
+    },
+    {
+      "key": "prop/gh-candy",
+      "runtime": "party/assets/art/prop/gh-candy.webp",
+      "size": [
+        640,
+        320
+      ],
+      "decodedBytes": 819200,
+      "bytes": 192638,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "737fd4b7ac4bf76efbb2b26410c8acfe832e6ee9d2d166e4cb28d51f8caebf75"
+    },
+    {
+      "key": "prop/gh-gingerbread-person",
+      "runtime": "party/assets/art/prop/gh-gingerbread-person.webp",
+      "size": [
+        240,
+        320
+      ],
+      "decodedBytes": 307200,
+      "bytes": 67746,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "eb073134e390271f214a1d0ffd47922c01ced1274bc64021ff80539e07af45e1"
+    },
+    {
+      "key": "prop/plushie-body-bear",
+      "runtime": "party/assets/art/prop/plushie-body-bear-v1-compact.webp",
+      "size": [
+        640,
+        700
+      ],
+      "decodedBytes": 1792000,
+      "bytes": 67014,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "40a707e07c94d8cc4b45d63abbf91249a5ab281d76553da32c3d5577f2bbfa20"
+    },
+    {
+      "key": "prop/plushie-body-bunny",
+      "runtime": "party/assets/art/prop/plushie-body-bunny-v1-compact.webp",
+      "size": [
+        640,
+        700
+      ],
+      "decodedBytes": 1792000,
+      "bytes": 73708,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "857b7b7f1ec3dfc0cd7c71b44dfeadc51b95d95162b24aa02919795b9fa40af0"
+    },
+    {
+      "key": "prop/plushie-body-dragon",
+      "runtime": "party/assets/art/prop/plushie-body-dragon-v1-compact.webp",
+      "size": [
+        640,
+        700
+      ],
+      "decodedBytes": 1792000,
+      "bytes": 78036,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "5dce63c02d543249230fd3c678a3a37b751bfa61972f7fc5fc92d7ad7301b4a7"
+    },
+    {
+      "key": "prop/plushie-body-kitty",
+      "runtime": "party/assets/art/prop/plushie-body-kitty-v1-compact.webp",
+      "size": [
+        640,
+        700
+      ],
+      "decodedBytes": 1792000,
+      "bytes": 65474,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "d18ac20a31c3ebe4dc03fc946ae957ef20a914501ac000c5f6fc49dcb9787fcf"
+    },
+    {
+      "key": "prop/plushie-body-puppy",
+      "runtime": "party/assets/art/prop/plushie-body-puppy-v1-compact.webp",
+      "size": [
+        640,
+        700
+      ],
+      "decodedBytes": 1792000,
+      "bytes": 95410,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "95a77b9f11de9e9e8346ef0b5037e9832f5edc0ce8d3bf7d065eedfc7a9a668d"
+    },
+    {
+      "key": "prop/plushie-body-unicorn",
+      "runtime": "party/assets/art/prop/plushie-body-unicorn-v1-compact.webp",
+      "size": [
+        640,
+        700
+      ],
+      "decodedBytes": 1792000,
+      "bytes": 82890,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "40ec5df4c4296a42dce94eee04a1d71d870ee8cf9ca2413928d3638185300bf4"
+    },
+    {
+      "key": "prop/plushie-clothes",
+      "runtime": "party/assets/art/prop/plushie-clothes-v1-compact.webp",
+      "size": [
+        768,
+        384
+      ],
+      "decodedBytes": 1179648,
+      "bytes": 65286,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "a9b7df71d553c12cea0efb2a8d1fb350ce14393108c88c428c3919908791261e"
+    },
+    {
+      "key": "prop/plushie-face",
+      "runtime": "party/assets/art/prop/plushie-face-v1-compact.webp",
+      "size": [
+        768,
+        288
+      ],
+      "decodedBytes": 884736,
+      "bytes": 49230,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "3d3c40fa78115eb001abffdea0c663e4cd558ebcbbbfade69245a37f699d8092"
+    },
+    {
+      "key": "prop/plushie-needle",
+      "runtime": "party/assets/art/prop/plushie-needle-v1.webp",
+      "size": [
+        256,
+        256
+      ],
+      "decodedBytes": 262144,
+      "bytes": 16292,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "2db74b29dc7d0baa0c3c23839d46701c957c2b0618f52dd44d0a6e874d55f053"
+    },
+    {
+      "key": "prop/plushie-patches",
+      "runtime": "party/assets/art/prop/plushie-patches-v1-compact.webp",
+      "size": [
+        768,
+        192
+      ],
+      "decodedBytes": 589824,
+      "bytes": 54394,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "7bf52968d9f92ac8bee90254fa0104daa277e5f7a5a006ba0d72d5a01a27728e"
+    },
+    {
+      "key": "bg/plushie-shelf",
+      "runtime": "party/assets/art/bg/plushie-shelf-v1-compact.webp",
+      "size": [
+        1024,
+        576
+      ],
+      "decodedBytes": 2359296,
+      "bytes": 35472,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sha256": "b1d85866aa2289e1b7b0fcb063db911a575815a3447e5d8fd0959b307ff271f5"
+    },
+    {
+      "key": "prop/plushie-stuffer",
+      "runtime": "party/assets/art/prop/plushie-stuffer-v1.webp",
+      "size": [
+        384,
+        384
+      ],
+      "decodedBytes": 589824,
+      "bytes": 87186,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "3c8466da8791baef8837d87cd0cb5eba6dc6bb4a1cd091754f7d230ef8cb3e7c"
+    },
+    {
+      "key": "prop/plushie-stuffing",
+      "runtime": "party/assets/art/prop/plushie-stuffing-v1.webp",
+      "size": [
+        256,
+        256
+      ],
+      "decodedBytes": 262144,
+      "bytes": 30542,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "44597697013187e004d168185576bb2213514c27053891df626abb17424e3c38"
+    },
+    {
+      "key": "prop/plushie-tag",
+      "runtime": "party/assets/art/prop/plushie-tag-v1.webp",
+      "size": [
+        384,
+        160
+      ],
+      "decodedBytes": 245760,
+      "bytes": 39024,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "4857424d9d0b8c2fdb5a88e837e9f1b6e98a4b88c4d7478d2e42d9517672f5c6"
+    },
+    {
+      "key": "thumb/plushie-workshop",
+      "runtime": "party/assets/art/thumb/plushie-workshop-v1.webp",
+      "size": [
+        800,
+        500
+      ],
+      "decodedBytes": 1600000,
+      "bytes": 501466,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sha256": "5a79ffc14380796e2234fa385bccac773d512337565a064b4deefe960d95b15e"
+    },
+    {
+      "key": "bg/plushie-workshop",
+      "runtime": "party/assets/art/bg/plushie-workshop-v1-compact.webp",
+      "size": [
+        1024,
+        576
+      ],
+      "decodedBytes": 2359296,
+      "bytes": 92172,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sha256": "51cba924c4fede9f7cff2c11d875658fc9c1135fdacf37338585cdd5a59101b9"
+    }
+  ],
+  "groups": {
+    "beach-ball-soccer": {
+      "decodedBytes": 20652544,
+      "decodedMiB": 19.69580078125,
+      "includesReusedArt": true
+    },
+    "gopher-garden": {
+      "decodedBytes": 10368000,
+      "decodedMiB": 9.8876953125,
+      "includesReusedArt": true
+    },
+    "gingerbread-house": {
+      "decodedBytes": 24604992,
+      "decodedMiB": 23.46514892578125,
+      "includesReusedArt": true
+    },
+    "plushie-workshop": {
+      "decodedBytes": 21199872,
+      "decodedMiB": 20.2177734375,
+      "includesReusedArt": true
+    }
+  },
+  "nativeArchiveRechecks": 40,
+  "otherNativeValidation": "Five gopher native sources verified byte-exact in OCT28-GOPHER-PROPS-INTAKE.json; front lip is exact extracted alpha from hole source.",
+  "checks": [
+    "17 Party Node test files passed",
+    "Beach Ball Soccer4/8CPUResultsScene, no errors",
+    "Gopher Gardens4/8CPUResultsScene; measured authoredTroll tug review",
+    "Gingerbread House1/8CPUbuild/night/gallery, no errors",
+    "Plushie Workshop1/8layouts/tools/shelf, natural8CPUgallery, no errors; cache cleanup test passed"
+  ],
+  "pending": [
+    "prop/gopher-up",
+    "prop/gopher-up-2",
+    "prop/gopher-bonked",
+    "thumb/gopher-garden"
+  ],
+  "canonical": "party/reference/pending/OCT28-GOPHER-CANONICAL.webp"
+}

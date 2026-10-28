@@ -1,0 +1,60 @@
+{
+  "key": "bg/plushie-workshop",
+  "prompt": "Use case: stylized-concept. Asset type: opaque2D game background1920x1080. Bold smooth navy #24163f outlines, rounded friendly forms, simple clean CELshading no realism no3D. A cosy sunny toy-maker sewing workshop FRONT VIEW. Pastel wall, pegboard of colorful thread spools and scissors, shelves folded fabric bolts in candy colors, big round window soft sky, fabric bunting across TOP, big pincushion at farLEFT and basket yarn at farRIGHT. Warm honeywood worktable top begins on a straight HORIZONTAL edge precisely y780 on1080high image and continues to bottom, measuring tape along front edge. Keep center x560..1360,y180..780 very calm lowcontrast blank wall: plush toys will be overlaid there. Put shelves/window/tools mostly near farleft and farright. Soft slightly desaturated cozy candy colors. No toys, no people, no characters, no readable text, no UI, no shadows in central toy area.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-4b41d01d-a9af-45a5-8db8-40192d47c974.png",
+  "status": "delivered-and-reviewed-in-game",
+  "mode": "built-in imagegen",
+  "source": "reference/sources/oct28-plushie/workshop-native.webp",
+  "runtime": "assets/art/bg/plushie-workshop-v1.webp",
+  "nativeSize": [
+    1672,
+    941
+  ],
+  "outputSize": [
+    1920,
+    1080
+  ],
+  "geometry": {
+    "xCorrespondences": [
+      [
+        0,
+        0
+      ],
+      [
+        1672,
+        1920
+      ]
+    ],
+    "yCorrespondences": [
+      [
+        0,
+        0
+      ],
+      [
+        695,
+        780
+      ],
+      [
+        941,
+        1080
+      ]
+    ],
+    "tableEdge": 780
+  },
+  "processing": "Authored background resampled to exact output; measured table rear edge y695 maps to y780.",
+  "decodedBytes": 8294400,
+  "review": "Native output and registered runtime inspected. All six body landmarks reviewed in common-frame contact sheet; tinted fabrics and exact trim registration checked. Atlas source order/whole pieces checked; tool points reviewed with crosshairs. Full-resolution and compact art reviewed in actual one/eight-player stations and shelf; compact tools and natural eight-CPU finale passed; see live review records.",
+  "runtimeSha256": "e3ead33826c0928c306dd857150040f3056ee0b6739cb332846e990afa410cfc",
+  "runtimeBytes": 1914868,
+  "alphaExtrema": [
+    255,
+    255
+  ],
+  "activeRuntime": "assets/art/bg/plushie-workshop-v1-compact.webp",
+  "activeOutputSize": [
+    1024,
+    576
+  ],
+  "activeDecodedBytes": 2359296,
+  "styleReference": "assets/art/prop/room-teddy.webp"
+}

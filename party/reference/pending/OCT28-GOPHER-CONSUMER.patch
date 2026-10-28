@@ -1,0 +1,99 @@
+--- a/party/src/games/gopher-garden.js
++++ b/party/src/games/gopher-garden.js
+@@ -49,7 +49,8 @@
+ const FAIRIES = ['pink', 'blue', 'yellow', 'green', 'purple'];
+ const FAIRY_GLOW = { pink: '#ff9ad5', blue: '#8fd3ff', yellow: '#ffe066', green: '#9be37a', purple: '#c9a6ff' };
+ // prop/gopher-troll-tug (400x400): the mallet head sits at his grip point
+-const TUG_GRIP = [300, 170];
++const TUG_GRIP = [350, 174];
++const TROLL_WAIST = { up: [200, 353], tug: [190, 383] };
+ 
+ // Tiny avatars (e.g. the 54 px garden fairies) are drawn bigger so they read next to the holes.
+ const sizeFix = (a) => Math.max(1, 120 / (a.char.members[0].h || 120));
+@@ -551,6 +552,15 @@
+ 
+   holeW(h) { return HOLE_W * DS(h.y); }
+ 
++  opening(h) {
++    const O = holeOpening(h.x, h.y, this.holeW(h));
++    if (art('prop/gopher-hole')) {
++      O.rx = 84 * this.holeW(h) / 320;
++      O.ry = 26 * this.holeW(h) / 320;
++    }
++    return O;
++  }
++
+   drawHoleBackAt(g, h) {
+     const w = this.holeW(h);
+     if (drawArt(g, 'prop/gopher-hole', h.x, h.y, w, w / 2)) return;
+@@ -565,7 +575,7 @@
+ 
+   /** Clip to everything above the opening's front arc (the critter's buried part is hidden). */
+   clipHole(g, h) {
+-    const w = this.holeW(h), O = holeOpening(h.x, h.y, w);
++    const w = this.holeW(h), O = this.opening(h);
+     g.beginPath();
+     g.moveTo(h.x - w * 2, O.cy - 900); g.lineTo(h.x + w * 2, O.cy - 900); g.lineTo(h.x + w * 2, O.cy);
+     g.lineTo(O.cx + O.rx, O.cy);
+@@ -594,7 +604,7 @@
+ 
+   drawGopherAt(g, c) {
+     const h = c.h, s = DS(h.y), w = 150 * s;
+-    const O = holeOpening(h.x, h.y, this.holeW(h));
++    const O = this.opening(h);
+     const baseY = O.cy + 14 * s + (1 - clamp(c.rise, -0.2, 1.3)) * w * 1.35;
+     g.save(); g.translate(h.x, baseY); g.rotate(c.wob); g.scale(1 + c.sq * 0.3, 1 - c.sq * 0.3);
+     const key = c.mood === 'bonked' ? 'prop/gopher-bonked' : c.mood === 'wink' || c.mood === 'tease' ? 'prop/gopher-up-2' : 'prop/gopher-up';
+@@ -604,7 +614,7 @@
+ 
+   drawFairyAt(g, c) {
+     const h = c.h, s = DS(h.y), a = c.actor;
+-    const O = holeOpening(h.x, h.y, this.holeW(h));
++    const O = this.opening(h);
+     const tall = a.height;
+     const bob = c.phase === 'up' ? Math.sin(this.t * 3 + c.seed) * 6 * s : 0;
+     a.x = h.x; a.y = O.cy - 4 * s + bob + (1 - clamp(c.rise, -0.2, 1.3)) * tall * 1.1;
+@@ -623,9 +633,13 @@
+   trollGrip(c) {
+     const h = c.h, a = c.actor;
+     if (art('prop/gopher-troll-tug')) {
+-      const w = 260 * DS(h.y), k = w / 400, O = holeOpening(h.x, h.y, this.holeW(h));
++      const w = 260 * DS(h.y), k = w / 400, O = this.opening(h);
+       const f = a.facing;
+-      return { x: h.x + (TUG_GRIP[0] - 200) * k * f, y: this.trollBase(c, O) + (TUG_GRIP[1] - 400) * k };
++      const waist = TROLL_WAIST.tug;
++      const dx = (TUG_GRIP[0] - waist[0]) * k * f;
++      const dy = (TUG_GRIP[1] - waist[1]) * k;
++      return { x: h.x + dx * Math.cos(c.wob) - dy * Math.sin(c.wob),
++        y: this.trollBase(c, O) + dx * Math.sin(c.wob) + dy * Math.cos(c.wob) };
+     }
+     return a.anchor('hand');
+   }
+@@ -637,14 +651,15 @@
+ 
+   drawTrollAt(g, c) {
+     const h = c.h, s = DS(h.y), a = c.actor;
+-    const O = holeOpening(h.x, h.y, this.holeW(h));
++    const O = this.opening(h);
+     const holding = c.phase === 'tug';
+     const key = holding ? 'prop/gopher-troll-tug' : 'prop/gopher-troll-up';
+     const w = 260 * s;
+     const baseArt = this.trollBase(c, O);
+     if (art(key)) {
+       g.save(); g.translate(h.x, baseArt); g.rotate(c.wob); g.scale(a.facing, 1);
+-      drawArt(g, key, 0, 0, w, w, { anchor: 'bottom' });
++      const waist = holding ? TROLL_WAIST.tug : TROLL_WAIST.up;
++      drawArt(g, key, (200 - waist[0]) * w / 400, (400 - waist[1]) * w / 400, w, w, { anchor: 'bottom' });
+       g.restore();
+       return;
+     }
+@@ -661,7 +676,8 @@
+     const ang = Math.atan2(tg.y - hd.y, tg.x - hd.x) + Math.sin(this.t * 22) * 0.05;
+     const L = this.malletLen(e);
+     // the head in his fists, the handle pointing back at the player's hands
+-    g.save(); g.translate(tg.x - Math.cos(ang) * L * 0.84, tg.y - Math.sin(ang) * L * 0.84); g.rotate(ang);
++    const head = art('prop/gopher-mallet') ? (399 - 96) / 400 : 0.84;
++    g.save(); g.translate(tg.x - Math.cos(ang) * L * head, tg.y - Math.sin(ang) * L * head); g.rotate(ang);
+     this.drawMalletShape(g, L, e.p.color);
+     g.restore();
+   }

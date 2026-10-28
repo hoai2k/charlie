@@ -33,7 +33,7 @@ import { aiProfile } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 import { drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
 import { NAVY, CW, CH, F, BODIES, FABRICS, FABRIC_IDX, SEW_ROWS, SEW_IDX, MAX_PIECES, DRESS_ROWS, nameIdeas } from './plushie-workshop/data.js';
-import { drawPlush, drawPiece, drawClothes, drawFluff, drawNeedle, onPlush, pieceRadius, toScreen, heartPath, starPath, mix, drawSwatch } from './plushie-workshop/plush.js';
+import { drawPlush, drawPiece, drawClothes, drawFluff, drawNeedle, onPlush, pieceRadius, toScreen, heartPath, starPath, mix, drawSwatch, clearPlushCaches } from './plushie-workshop/plush.js';
 import { meta } from './plushie-workshop.meta.js';
 
 export { meta };
@@ -186,7 +186,10 @@ export class Game {
 
   nozzle(st) {
     const s = this.seatPos(st), k = st.L.size / CH;
-    return { x: s.x - 230 * k, y: s.y - 84 * k, k: k * 0.56 };
+    // The generated machine's foot support is y370, 70 source pixels below
+    // its outlet. Keep it on the table at the same scale used by drawStuffer.
+    const y = art('prop/plushie-stuffer') ? st.L.tableY - 70 * k * 0.56 * 0.9 : s.y - 84 * k;
+    return { x: s.x - 230 * k, y, k: k * 0.56 };
   }
 
   updateStuff(st, c, dt) {
@@ -565,6 +568,10 @@ export class Game {
     else this.finishGame();
   }
 
+  destroy() {
+    clearPlushCaches();
+  }
+
   postUpdate(dt) {
     this.t += dt; this.phaseT += dt;
     for (const st of this.stations) { st.wob = Math.max(0, st.wob - dt * 2); if (st.fly && st.fly.landed) st.fly.landT += dt; }
@@ -599,8 +606,10 @@ export class Game {
     const { r, L } = st;
     const bg = art('bg/plushie-workshop');
     if (bg) {
-      const s = L.seat, k = Math.max((L.tableY - r.y) / 780, (r.y + r.h - L.tableY) / 300, 2 * Math.max(r.x + r.w - s.x, s.x - r.x) / bg.width);
-      g.drawImage(bg, s.x - 960 * k, L.tableY - 780 * k, bg.width * k, bg.height * k);
+      // The table and plush anchors use the authored 1920 x 1080 frame,
+      // including when the loader supplies a smaller runtime image.
+      const s = L.seat, k = Math.max((L.tableY - r.y) / 780, (r.y + r.h - L.tableY) / 300, 2 * Math.max(r.x + r.w - s.x, s.x - r.x) / 1920);
+      g.drawImage(bg, s.x - 960 * k, L.tableY - 780 * k, 1920 * k, 1080 * k);
       return;
     }
     const wg = g.createLinearGradient(0, r.y, 0, L.tableY);
@@ -640,7 +649,14 @@ export class Game {
     const nz = this.nozzle(st), k = nz.k;
     const img = art('prop/plushie-stuffer');
     const crank = Math.sin(st.crankT) * 0.5;
-    if (img) { const s = 384 * k * 0.9; g.drawImage(img, nz.x - 40 * s / 384, nz.y - 300 * s / 384, s, s); return; }
+    if (img) {
+      const s = 384 * k * 0.9;
+      // The authored nozzle faces left; the station puts its tank on the
+      // plushie's left, so mirror about the outlet without moving the puffs.
+      g.save(); g.translate(nz.x, nz.y); g.scale(-1, 1);
+      g.drawImage(img, -40 * s / 384, -300 * s / 384, s, s);
+      g.restore(); return;
+    }
     g.save(); g.translate(nz.x, nz.y); g.scale(k, k);
     // tank, dome, crank, nozzle (the tip is at 0, 0; the table is about 150 below it)
     g.lineWidth = 6; g.strokeStyle = NAVY; g.lineJoin = 'round'; g.lineCap = 'round';

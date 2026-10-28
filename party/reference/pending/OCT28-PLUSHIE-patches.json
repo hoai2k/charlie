@@ -1,0 +1,339 @@
+{
+  "key": "prop/plushie-patches",
+  "prompt": "Use case: stylized-concept. Asset type: 2D transparent game atlas for felt appliqu\u00e9 plush toy patches. EXACTLY8 columns x2rows=16 isolated pieces, broad transparent gutters, no frame lines or text. Final1024x256 with128x128cells. Bold smooth dark navy #24163f outlines, bright candy colors, flat front view, clean soft cel shading, simple felt texture and white running-stitch edging. No3D, no photorealism. Each piece centered fills80% cell. Row1 exactly left-to-right: red felt heart; pink felt heart with white stitches; rainbow striped heart; pink heart-shaped button with two holes; lilac heart with tiny gold star; three tiny pink hearts in a cluster; gold glitter-texture heart (no floating glitter); patchwork heart made of four little fabric squares. Row2 exactly: yellow fivepoint star; white daisy yellow center; round blue patch crossstitch edge; red gingham square; yellow crescent moon; fluffy white cloud; rainbow arc; pink paw print. Transparent background genuine alpha. No scene, no shadows, no motionlines or detached sparkles.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-36189239-fea3-44f5-b6b3-7a5eade55efb.png",
+  "status": "delivered-and-reviewed-in-game",
+  "mode": "built-in imagegen",
+  "source": "reference/sources/oct28-plushie/patches-native.webp",
+  "runtime": "assets/art/prop/plushie-patches-v1.webp",
+  "nativeSize": [
+    1983,
+    793
+  ],
+  "outputSize": [
+    1024,
+    256
+  ],
+  "sourceRects": [
+    {
+      "cell": [
+        0,
+        0
+      ],
+      "crop": [
+        0,
+        0,
+        248,
+        390
+      ],
+      "alphaBounds": [
+        11,
+        106,
+        248,
+        321
+      ],
+      "scale": 0.4320675105485232
+    },
+    {
+      "cell": [
+        1,
+        0
+      ],
+      "crop": [
+        248,
+        0,
+        496,
+        390
+      ],
+      "alphaBounds": [
+        13,
+        111,
+        248,
+        321
+      ],
+      "scale": 0.4357446808510639
+    },
+    {
+      "cell": [
+        2,
+        0
+      ],
+      "crop": [
+        496,
+        0,
+        744,
+        390
+      ],
+      "alphaBounds": [
+        10,
+        102,
+        244,
+        321
+      ],
+      "scale": 0.4376068376068376
+    },
+    {
+      "cell": [
+        3,
+        0
+      ],
+      "crop": [
+        744,
+        0,
+        992,
+        390
+      ],
+      "alphaBounds": [
+        7,
+        108,
+        243,
+        321
+      ],
+      "scale": 0.4338983050847458
+    },
+    {
+      "cell": [
+        4,
+        0
+      ],
+      "crop": [
+        992,
+        0,
+        1239,
+        390
+      ],
+      "alphaBounds": [
+        4,
+        104,
+        245,
+        322
+      ],
+      "scale": 0.424896265560166
+    },
+    {
+      "cell": [
+        5,
+        0
+      ],
+      "crop": [
+        1239,
+        0,
+        1487,
+        390
+      ],
+      "alphaBounds": [
+        6,
+        95,
+        241,
+        324
+      ],
+      "scale": 0.4357446808510639
+    },
+    {
+      "cell": [
+        6,
+        0
+      ],
+      "crop": [
+        1487,
+        0,
+        1735,
+        390
+      ],
+      "alphaBounds": [
+        7,
+        103,
+        242,
+        322
+      ],
+      "scale": 0.4357446808510639
+    },
+    {
+      "cell": [
+        7,
+        0
+      ],
+      "crop": [
+        1735,
+        0,
+        1983,
+        390
+      ],
+      "alphaBounds": [
+        5,
+        103,
+        241,
+        322
+      ],
+      "scale": 0.4338983050847458
+    },
+    {
+      "cell": [
+        0,
+        1
+      ],
+      "crop": [
+        0,
+        390,
+        248,
+        793
+      ],
+      "alphaBounds": [
+        10,
+        65,
+        239,
+        290
+      ],
+      "scale": 0.44716157205240176
+    },
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "crop": [
+        248,
+        390,
+        496,
+        793
+      ],
+      "alphaBounds": [
+        2,
+        55,
+        247,
+        301
+      ],
+      "scale": 0.416260162601626
+    },
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "crop": [
+        496,
+        390,
+        744,
+        793
+      ],
+      "alphaBounds": [
+        9,
+        57,
+        246,
+        297
+      ],
+      "scale": 0.4266666666666667
+    },
+    {
+      "cell": [
+        3,
+        1
+      ],
+      "crop": [
+        744,
+        390,
+        992,
+        793
+      ],
+      "alphaBounds": [
+        18,
+        65,
+        233,
+        282
+      ],
+      "scale": 0.471889400921659
+    },
+    {
+      "cell": [
+        4,
+        1
+      ],
+      "crop": [
+        992,
+        390,
+        1239,
+        793
+      ],
+      "alphaBounds": [
+        13,
+        52,
+        227,
+        298
+      ],
+      "scale": 0.416260162601626
+    },
+    {
+      "cell": [
+        5,
+        1
+      ],
+      "crop": [
+        1239,
+        390,
+        1487,
+        793
+      ],
+      "alphaBounds": [
+        0,
+        88,
+        242,
+        269
+      ],
+      "scale": 0.42314049586776864
+    },
+    {
+      "cell": [
+        6,
+        1
+      ],
+      "crop": [
+        1487,
+        390,
+        1735,
+        793
+      ],
+      "alphaBounds": [
+        0,
+        73,
+        248,
+        257
+      ],
+      "scale": 0.4129032258064516
+    },
+    {
+      "cell": [
+        7,
+        1
+      ],
+      "crop": [
+        1735,
+        390,
+        1983,
+        793
+      ],
+      "alphaBounds": [
+        8,
+        62,
+        238,
+        283
+      ],
+      "scale": 0.44521739130434784
+    }
+  ],
+  "processing": "Manually checked row boundaries and fixed nominal column regions; alpha-bound crop retains every disconnected part in its source cell; each whole item fitted and centered into exact runtime grid. No art painted.",
+  "decodedBytes": 1048576,
+  "review": "Native output and registered runtime inspected. All six body landmarks reviewed in common-frame contact sheet; tinted fabrics and exact trim registration checked. Atlas source order/whole pieces checked; tool points reviewed with crosshairs. Full-resolution and compact art reviewed in actual one/eight-player stations and shelf; compact tools and natural eight-CPU finale passed; see live review records.",
+  "runtimeSha256": "cf0933b94c9e54c63945e89d18a535a0b9b4d4da4247902a110bc811d4244191",
+  "runtimeBytes": 235322,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "activeRuntime": "assets/art/prop/plushie-patches-v1-compact.webp",
+  "activeOutputSize": [
+    768,
+    192
+  ],
+  "activeDecodedBytes": 589824,
+  "styleReference": "assets/art/prop/room-teddy.webp"
+}

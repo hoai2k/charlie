@@ -1,0 +1,491 @@
+{
+  "key": "prop/plushie-face",
+  "prompt": "Use case: stylized-concept. Asset type: transparent 2D game atlas, sewn plush toy face pieces. EXACTLY 8 columns x3 rows, 24 pieces, each isolated in its own equal cell, generous transparent gutters. Final1024x384 (128px square cells). Use inspected teddy reference only for 2D bold smooth dark navy #24163f outlines and clean soft CEL shading; no realism, no3D. Tiny running-stitch edges. FLAT FRONT VIEW. Every piece centered filling75% cell. Row1 left to right ONE SINGLE VIEWER'S RIGHT EYE PER CELL (not pairs): black button eye two thread holes; big shiny black oval eye two white highlights; sleepy closed arc with lashes; pink heart eye; gold star eye; googly eye white with black pupil; big blue sparkly eye with lashes; embroidered happy arc ^. Row2 noses in order: rounded brown triangle; pink bunny Y nose; pink heart nose; round black button nose; small pink kitty triangle; big shiny black oval puppy nose; two tiny dark nostril dots together; red pompom nose. Row3 mouths in order: stitched smile single navy thread line; open happy mouth pink tongue; kitty w mouth; small o mouth; smile with two bunny buck teeth; silly tongue-out; little smile two tiny fangs; big grin. No heads, no faces, no bodies. No cell outlines, no labels/text, no scene, no shadows or particles. Genuine alpha transparency.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18323-d0ce-7531-8269-0459804718b4/exec-66f03980-b295-4f61-b85b-e2d326fc864f.png",
+  "status": "delivered-and-reviewed-in-game",
+  "mode": "built-in imagegen",
+  "source": "reference/sources/oct28-plushie/face-native.webp",
+  "runtime": "assets/art/prop/plushie-face-v1.webp",
+  "nativeSize": [
+    2048,
+    768
+  ],
+  "outputSize": [
+    1024,
+    384
+  ],
+  "sourceRects": [
+    {
+      "cell": [
+        0,
+        0
+      ],
+      "crop": [
+        0,
+        0,
+        256,
+        320
+      ],
+      "alphaBounds": [
+        54,
+        117,
+        244,
+        303
+      ],
+      "scale": 0.512
+    },
+    {
+      "cell": [
+        1,
+        0
+      ],
+      "crop": [
+        256,
+        0,
+        512,
+        320
+      ],
+      "alphaBounds": [
+        54,
+        109,
+        219,
+        305
+      ],
+      "scale": 0.4963265306122449
+    },
+    {
+      "cell": [
+        2,
+        0
+      ],
+      "crop": [
+        512,
+        0,
+        768,
+        320
+      ],
+      "alphaBounds": [
+        23,
+        169,
+        237,
+        278
+      ],
+      "scale": 0.45457943925233646
+    },
+    {
+      "cell": [
+        3,
+        0
+      ],
+      "crop": [
+        768,
+        0,
+        1024,
+        320
+      ],
+      "alphaBounds": [
+        17,
+        124,
+        233,
+        297
+      ],
+      "scale": 0.45037037037037037
+    },
+    {
+      "cell": [
+        4,
+        0
+      ],
+      "crop": [
+        1024,
+        0,
+        1280,
+        320
+      ],
+      "alphaBounds": [
+        11,
+        90,
+        238,
+        303
+      ],
+      "scale": 0.4285462555066079
+    },
+    {
+      "cell": [
+        5,
+        0
+      ],
+      "crop": [
+        1280,
+        0,
+        1536,
+        320
+      ],
+      "alphaBounds": [
+        28,
+        125,
+        214,
+        304
+      ],
+      "scale": 0.5230107526881721
+    },
+    {
+      "cell": [
+        6,
+        0
+      ],
+      "crop": [
+        1536,
+        0,
+        1792,
+        320
+      ],
+      "alphaBounds": [
+        18,
+        109,
+        224,
+        304
+      ],
+      "scale": 0.4722330097087379
+    },
+    {
+      "cell": [
+        7,
+        0
+      ],
+      "crop": [
+        1792,
+        0,
+        2048,
+        320
+      ],
+      "alphaBounds": [
+        19,
+        148,
+        204,
+        252
+      ],
+      "scale": 0.5258378378378379
+    },
+    {
+      "cell": [
+        0,
+        1
+      ],
+      "crop": [
+        0,
+        320,
+        256,
+        540
+      ],
+      "alphaBounds": [
+        48,
+        43,
+        242,
+        186
+      ],
+      "scale": 0.5014432989690721
+    },
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "crop": [
+        256,
+        320,
+        512,
+        540
+      ],
+      "alphaBounds": [
+        60,
+        40,
+        234,
+        184
+      ],
+      "scale": 0.559080459770115
+    },
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "crop": [
+        512,
+        320,
+        768,
+        540
+      ],
+      "alphaBounds": [
+        54,
+        40,
+        228,
+        184
+      ],
+      "scale": 0.559080459770115
+    },
+    {
+      "cell": [
+        3,
+        1
+      ],
+      "crop": [
+        768,
+        320,
+        1024,
+        540
+      ],
+      "alphaBounds": [
+        54,
+        40,
+        213,
+        187
+      ],
+      "scale": 0.6118238993710692
+    },
+    {
+      "cell": [
+        4,
+        1
+      ],
+      "crop": [
+        1024,
+        320,
+        1280,
+        540
+      ],
+      "alphaBounds": [
+        48,
+        69,
+        199,
+        176
+      ],
+      "scale": 0.6442384105960265
+    },
+    {
+      "cell": [
+        5,
+        1
+      ],
+      "crop": [
+        1280,
+        320,
+        1536,
+        540
+      ],
+      "alphaBounds": [
+        19,
+        44,
+        235,
+        187
+      ],
+      "scale": 0.45037037037037037
+    },
+    {
+      "cell": [
+        6,
+        1
+      ],
+      "crop": [
+        1536,
+        320,
+        1792,
+        540
+      ],
+      "alphaBounds": [
+        58,
+        78,
+        195,
+        156
+      ],
+      "scale": 0.71007299270073
+    },
+    {
+      "cell": [
+        7,
+        1
+      ],
+      "crop": [
+        1792,
+        320,
+        2048,
+        540
+      ],
+      "alphaBounds": [
+        17,
+        20,
+        212,
+        205
+      ],
+      "scale": 0.4988717948717949
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "crop": [
+        0,
+        540,
+        256,
+        768
+      ],
+      "alphaBounds": [
+        35,
+        42,
+        249,
+        119
+      ],
+      "scale": 0.45457943925233646
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "crop": [
+        256,
+        540,
+        512,
+        768
+      ],
+      "alphaBounds": [
+        35,
+        17,
+        248,
+        162
+      ],
+      "scale": 0.4567136150234742
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "crop": [
+        512,
+        540,
+        768,
+        768
+      ],
+      "alphaBounds": [
+        48,
+        62,
+        249,
+        124
+      ],
+      "scale": 0.48398009950248755
+    },
+    {
+      "cell": [
+        3,
+        2
+      ],
+      "crop": [
+        768,
+        540,
+        1024,
+        768
+      ],
+      "alphaBounds": [
+        88,
+        31,
+        172,
+        145
+      ],
+      "scale": 0.8533333333333334
+    },
+    {
+      "cell": [
+        4,
+        2
+      ],
+      "crop": [
+        1024,
+        540,
+        1280,
+        768
+      ],
+      "alphaBounds": [
+        21,
+        36,
+        215,
+        149
+      ],
+      "scale": 0.5014432989690721
+    },
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "crop": [
+        1280,
+        540,
+        1536,
+        768
+      ],
+      "alphaBounds": [
+        13,
+        30,
+        233,
+        162
+      ],
+      "scale": 0.4421818181818182
+    },
+    {
+      "cell": [
+        6,
+        2
+      ],
+      "crop": [
+        1536,
+        540,
+        1792,
+        768
+      ],
+      "alphaBounds": [
+        28,
+        53,
+        227,
+        129
+      ],
+      "scale": 0.48884422110552767
+    },
+    {
+      "cell": [
+        7,
+        2
+      ],
+      "crop": [
+        1792,
+        540,
+        2048,
+        768
+      ],
+      "alphaBounds": [
+        7,
+        35,
+        224,
+        152
+      ],
+      "scale": 0.44829493087557604
+    }
+  ],
+  "processing": "Manually checked row boundaries and fixed nominal column regions; alpha-bound crop retains every disconnected part in its source cell; each whole item fitted and centered into exact runtime grid. No art painted.",
+  "decodedBytes": 1572864,
+  "review": "Native output and registered runtime inspected. All six body landmarks reviewed in common-frame contact sheet; tinted fabrics and exact trim registration checked. Atlas source order/whole pieces checked; tool points reviewed with crosshairs. Full-resolution and compact art reviewed in actual one/eight-player stations and shelf; compact tools and natural eight-CPU finale passed; see live review records.",
+  "runtimeSha256": "4029e3ce6989a1081824fd5f152af9b79dfd4ba7db0878eb299c0a2ec1dd8946",
+  "runtimeBytes": 188150,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "activeRuntime": "assets/art/prop/plushie-face-v1-compact.webp",
+  "activeOutputSize": [
+    768,
+    288
+  ],
+  "activeDecodedBytes": 884736,
+  "styleReference": "assets/art/prop/room-teddy.webp"
+}

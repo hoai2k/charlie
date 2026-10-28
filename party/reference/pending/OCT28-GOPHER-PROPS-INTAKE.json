@@ -1,0 +1,236 @@
+{
+  "status": "reviewed-assets-ready-for-root-integration",
+  "entries": [
+    {
+      "key": "bg/gopher-garden",
+      "path": "party/assets/art/bg/gopher-garden.webp",
+      "runtimeSize": [
+        1920,
+        1080
+      ],
+      "encodedBytes": 120390,
+      "decodedBytes": 8294400,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "runtimeSha256": "f423949c0d786805ae3ff91f297765c062255a276abaf4d7b1ce5013ab9a68fe"
+    },
+    {
+      "key": "prop/gopher-hole",
+      "path": "party/assets/art/prop/gopher-hole.webp",
+      "runtimeSize": [
+        320,
+        160
+      ],
+      "encodedBytes": 36422,
+      "decodedBytes": 204800,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeSha256": "4402ddf1d5c112d7d9b25c20bde7ea90e103ea8d8111f0002a8913b32a35d918"
+    },
+    {
+      "key": "prop/gopher-hole-front",
+      "path": "party/assets/art/prop/gopher-hole-front.webp",
+      "runtimeSize": [
+        320,
+        160
+      ],
+      "encodedBytes": 35602,
+      "decodedBytes": 204800,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeSha256": "d6ed787b461030a59a965031c3564f4819436b46bf2db159678314f6e6bfa16e"
+    },
+    {
+      "key": "prop/gopher-mallet",
+      "path": "party/assets/art/prop/gopher-mallet.webp",
+      "runtimeSize": [
+        480,
+        200
+      ],
+      "encodedBytes": 15578,
+      "decodedBytes": 384000,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeSha256": "91a4261ca23165fc5b241a5936570b4d3eb03839646dbaf2e68581408d5ce155"
+    },
+    {
+      "key": "prop/gopher-troll-up",
+      "path": "party/assets/art/prop/gopher-troll-up.webp",
+      "runtimeSize": [
+        400,
+        400
+      ],
+      "encodedBytes": 45586,
+      "decodedBytes": 640000,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeSha256": "31202df168af8311c0b98e7303b92c5191a421e9ccb413e2800cfa362f9616a8"
+    },
+    {
+      "key": "prop/gopher-troll-tug",
+      "path": "party/assets/art/prop/gopher-troll-tug.webp",
+      "runtimeSize": [
+        400,
+        400
+      ],
+      "encodedBytes": 45088,
+      "decodedBytes": 640000,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeSha256": "eca5bbf4f4676989d1df5f57d1d93e872835f2c9059f10137cc068ed196c63be"
+    }
+  ],
+  "measurements": {
+    "holeOpening": {
+      "nominalCanvas": [
+        320,
+        160
+      ],
+      "centre": [
+        160,
+        78
+      ],
+      "approxRadii": [
+        84,
+        26
+      ],
+      "note": "Master opening is slightly flatter than brief ry32. Actual native dark opening x~425..1350,y290..570; front traces exact native soil edge. Consumer should use measured ry26 on authored image, preserving fallback32."
+    },
+    "mallet": {
+      "canvas": [
+        480,
+        200
+      ],
+      "grip": [
+        96,
+        100
+      ],
+      "headCentre": [
+        399,
+        100
+      ],
+      "note": "Grip lies on actual handle centreline. Head actual centre approx399,100."
+    },
+    "trollUp": {
+      "canvas": [
+        400,
+        400
+      ],
+      "waistAnchor": [
+        200,
+        353
+      ],
+      "handBoundsY": [
+        300,
+        370
+      ],
+      "note": "Author waist cut y353; consumer must align that anchor to opening instead of canvas bottom."
+    },
+    "trollTug": {
+      "canvas": [
+        400,
+        400
+      ],
+      "waistAnchor": [
+        190,
+        383
+      ],
+      "grip": [
+        350,
+        174
+      ],
+      "note": "Contact is empty gap between fists at right. Use measured point when authored art loaded. Requested300,170 was not met."
+    }
+  },
+  "totalDecodedBytes": 10368000,
+  "sourceArchivePolicy": "Native RGBA lossless WebP exact=True, preserving hidden RGB. Original generated PNGs remain in default output folder.",
+  "foregroundPolicy": "Front extracted from source RGB without painting. Runtime front shares exact RGB of runtime back at every pixel. Alpha only cropped along trace. Both320x160 canvases preserved.",
+  "sources": [
+    {
+      "path": "party/reference/sources/oct28-gopher-props/bg-gopher-garden-native.webp",
+      "nativeSize": [
+        1672,
+        941
+      ],
+      "rgbaSha256": "3e3df5cb31d1de543edbada423ada92795ee4e0c80de581de97bab78e06cf060",
+      "archiveSha256": "3b913ab0067504e96341774cc6174c880bd1466df361ec5e2eb18a10919e38c1",
+      "exact": true,
+      "exactRgbaMatchesOriginalPng": true
+    },
+    {
+      "path": "party/reference/sources/oct28-gopher-props/prop-gopher-hole-front-extracted-native.webp",
+      "nativeSize": [
+        1774,
+        887
+      ],
+      "rgbaSha256": "d41f37bdf040a681f76f0ee36e2baca3e33041780994ad366916ecc39a8170f5",
+      "archiveSha256": "b9d3dc1e08410da091484279892855c68b943cf3b4b6228abb68568ee491ba5c",
+      "exact": true
+    },
+    {
+      "path": "party/reference/sources/oct28-gopher-props/prop-gopher-hole-native.webp",
+      "nativeSize": [
+        1774,
+        887
+      ],
+      "rgbaSha256": "de850be3f2768e502a95a63776c4347e652049f56bc4500508fd05194ad6a3a2",
+      "archiveSha256": "050b8c6f6862840ac51a659e874262a46b7834e2bf02fe262a430f896ae6db56",
+      "exact": true,
+      "exactRgbaMatchesOriginalPng": true
+    },
+    {
+      "path": "party/reference/sources/oct28-gopher-props/prop-gopher-mallet-native.webp",
+      "nativeSize": [
+        1942,
+        809
+      ],
+      "rgbaSha256": "e9b5ed89c4c5da071c014b73bfdb288b25994ebdc3c6e539722999842da3c9fd",
+      "archiveSha256": "d2d022b2c67e953e7629c27f18b3a0e93da12cf52ddd5bd05745204d211cd24e",
+      "exact": true,
+      "exactRgbaMatchesOriginalPng": true
+    },
+    {
+      "path": "party/reference/sources/oct28-gopher-props/prop-gopher-troll-tug-native.webp",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "rgbaSha256": "d83bd287cc2e6beaae37b9f8c1605d9f300686373171cbeee08fcf9bfabb30de",
+      "archiveSha256": "8289b0d217654bfde87fecb01509f4a83c269ce6553f28683da2d5f56fc3d3f2",
+      "exact": true,
+      "exactRgbaMatchesOriginalPng": true
+    },
+    {
+      "path": "party/reference/sources/oct28-gopher-props/prop-gopher-troll-up-native.webp",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "rgbaSha256": "3990599ed8e68496b834564014ce0581e0497ffad47dc671c7289d98bebe3b25",
+      "archiveSha256": "abacc2ae15075a6759f63ce5bf21a2e6a9e22790a445578284a17f315e9183a6",
+      "exact": true,
+      "exactRgbaMatchesOriginalPng": true
+    }
+  ],
+  "validation": {
+    "exactRuntimeCanvases": true,
+    "allPropsTrueAlpha": true,
+    "backgroundOpaque": true,
+    "frontAboveY78Transparent": true,
+    "frontRGBEqualsBackAtEveryPixel": true,
+    "consumerReview": "Not performed: consumer code is remote-only and not merged into main. Root owns integration.",
+    "allFiveNativeArchivesExactlyMatchGeneratedRGBA": true
+  }
+}
