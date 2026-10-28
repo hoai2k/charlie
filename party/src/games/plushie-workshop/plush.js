@@ -442,7 +442,7 @@ function drawCape(g, img, top, t) {
   const h = 300, w = 400;
   for (const s of [-1, 1]) {
     const px = F.cx + s * 46, py = top + 18;
-    const ang = -s * (0.62 + Math.sin(t * 1.7 + (s > 0 ? 0 : 1.3)) * 0.04);
+    const ang = -s * (0.52 + Math.sin(t * 1.7 + (s > 0 ? 0 : 1.3)) * 0.04);
     g.save(); g.translate(px, py); g.rotate(ang);
     // strips: the inner edge stays at the pivot, the outer edge fans out
     for (let j = 0; j < n; j++) {
@@ -471,7 +471,7 @@ function drawPillow(g, c, w) {
 
 /** A little paw (the plush's own fabric) holding a Hug item. */
 function drawPaw(g, fab, x, y) {
-  const p = ell(x, y, 30, 24, 0);
+  const p = ell(x, y, 27, 22, 0);
   fabricPart(g, fab, p, 'rgba(36,22,63,0.08)', 5);
   g.save(); g.strokeStyle = 'rgba(36,22,63,0.45)'; g.lineWidth = 3; g.lineCap = 'round';
   for (const dx of [-9, 0, 9]) { g.beginPath(); g.moveTo(x + dx, y - 16); g.lineTo(x + dx * 1.1, y - 7); g.stroke(); }
@@ -504,9 +504,15 @@ export function drawClothes(g, row, idx, t = 0, P = null) {
   g.save();
   if (img) {
     const k = bw / img.width, h = img.height * k;
-    const cy = it.bottom != null ? it.bottom - h / 2 : it.top != null ? it.top + h / 2 : by;
-    g.translate(bx, cy); if (rot) g.rotate(rot);
-    g.drawImage(img, -bw / 2, -h / 2, bw, h);
+    if (it.grip) {   // held by a paw: the grip lands on it, tilted about it
+      const [gx, gy] = it.paws[0];
+      g.translate(gx, gy); if (rot) g.rotate(rot);
+      g.drawImage(img, -it.grip[0] * bw, -it.grip[1] * h, bw, h);
+    } else {
+      const cy = it.bottom != null ? it.bottom - h / 2 : it.top != null ? it.top + h / 2 : by;
+      g.translate(bx, cy); if (rot) g.rotate(rot);
+      g.drawImage(img, -bw / 2, -h / 2, bw, h);
+    }
   } else {
     const [kind, c, c2] = it.pd;
     const y = it.bottom != null ? it.bottom : it.top != null ? it.top : by;

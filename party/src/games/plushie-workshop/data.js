@@ -100,16 +100,18 @@ export const DRESS_ROWS = [
   // Something to hug, held against the tummy (the plushie's paws are drawn over it).
   // The plush frame's arms end at the tummy on every body, so this works for all six
   // (the old tutus floated under the seated plush: image-requests-history.md).
-  // `paws`: frame points where a paw holds it; `hand`: art px of the grip (stick items).
+  // `paws`: frame points where a paw holds it (the art's arms end at about (210, 420) and
+  // (300, 420) on every body); `grip`: the art's held point (fraction of its size), which
+  // lands on the first paw, the item tilted `rot` about it (sticks, stems, strings).
   { id: 'hug', name: 'Hug', items: [
     { name: 'Nothing' },
-    { name: 'Heart pillow', box: [256, 446, 150], pd: ['pillow', '#ff6f9f'], paws: [[196, 452], [316, 452]] },
-    { name: 'Tiny teddy', key: 'prop/room-teddy', box: [256, 440, 128], paws: [[190, 456], [322, 456]] },
-    { name: 'Present', key: 'prop/present', box: [256, 452, 132], paws: [[192, 462], [320, 462]] },
-    { name: 'Rose', key: 'prop/plant-rose-bloom', box: [278, 392, 112], rot: 0.22, paws: [[262, 460]] },
-    { name: 'Star wand', key: 'prop/wand-star', box: [286, 388, 84], rot: 0.32, paws: [[262, 458]] },
-    { name: 'Lollipop', key: 'prop/lollipop-swirl', box: [284, 392, 80], rot: 0.26, paws: [[262, 460]] },
-    { name: 'Star balloon', key: 'prop/balloon-star', box: [350, 300, 96], rot: 0.34, paws: [[262, 460]] },
+    { name: 'Heart pillow', box: [256, 398, 150], pd: ['pillow', '#ff6f9f'], paws: [[206, 418], [306, 418]] },
+    { name: 'Tiny teddy', key: 'prop/room-teddy', box: [256, 394, 124], paws: [[204, 420], [308, 420]] },
+    { name: 'Present', key: 'prop/present', box: [256, 404, 128], paws: [[204, 424], [308, 424]] },
+    { name: 'Rose', key: 'prop/plant-rose-bloom', box: [0, 0, 104], grip: [0.52, 0.86], rot: 0.18, paws: [[300, 424]] },
+    { name: 'Star wand', key: 'prop/wand-star', box: [0, 0, 82], grip: [0.6, 0.8], rot: 0.26, paws: [[300, 424]] },
+    { name: 'Lollipop', key: 'prop/lollipop-swirl', box: [0, 0, 78], grip: [0.5, 0.8], rot: 0.22, paws: [[300, 424]] },
+    { name: 'Star balloon', key: 'prop/balloon-star', box: [0, 0, 96], grip: [0.49, 0.93], rot: 0.3, paws: [[300, 424]] },
   ] },
   { id: 'back', name: 'Back', behind: true, items: [
     { name: 'Nothing' },
