@@ -1,0 +1,71 @@
+{
+  "key": "prop/dino-scorpion",
+  "tool": "built-in image_gen.imagegen",
+  "prompt": "Use case: stylized-concept. Asset type: transparent four-frame game creature sprite atlas for Charlie Party, a cheerful hand-drawn 2D cartoon game. Create ONE cute coral-orange SCORPION with peach belly, round body, shiny expressive eyes, dark navy #24163f thick clean outlines, soft cel shading and rounded forms. Side view facing RIGHT in all frames. Chunky rounded mitten-like pincers; curly segmented tail with a clearly SOFT ROUND BULB at the tip, absolutely no sharp stinger. Funny surprised character, never threatening. Four complete separate poses arranged LEFT TO RIGHT in one horizontal strip, equal square cells, final intended canvas1024x256; generous transparent gutters. Consistent body/head size and ground line across frames, body centred at cellx128 feet at celly224. Frame1: popped up with pincers flung upward, tail curled up, huge surprised eyes and small round o mouth. Frame2: same character with pincers waving the other way, eyes even wider; different pose. Frame3: scuttling low along ground with alternating legs mid-step, pincers forward, wide eyes and nervous sheepish grin. Frame4: opposite step, other legs forward and pincers slightly changed. Keep same side profile and size, distinct poses, every entire tail and pincer visible in each cell, plenty of transparent margin. Actual transparent background. No ground, sand, shadow, text, numbers, grid lines, motion lines, sparkles, effects or extra characters.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a184eb-911f-7d63-80e3-7132b6277022/exec-33017811-df37-497e-98ea-7c5879d0ed7b.png",
+  "source": "party/reference/sources/oct28-dino-critters/scorpion-native.webp",
+  "sourceSize": [
+    2172,
+    724
+  ],
+  "sourceArchiveRGBAExact": true,
+  "runtime": "party/assets/art/prop/dino-scorpion.webp",
+  "runtimeSize": [
+    1024,
+    256
+  ],
+  "cellSize": [
+    256,
+    256
+  ],
+  "anchor": [
+    128,
+    224
+  ],
+  "bounds": [
+    [
+      27,
+      16,
+      229,
+      224
+    ],
+    [
+      26,
+      17,
+      230,
+      224
+    ],
+    [
+      25,
+      46,
+      231,
+      224
+    ],
+    [
+      27,
+      46,
+      229,
+      224
+    ]
+  ],
+  "scale": 0.45614035087719296,
+  "sourceSHA256": "5196ddf47495588512c2ae41028fb845bdb89d05ed3ef20b060ccdb0e3785f0e",
+  "runtimeSHA256": "07b4ce3860a62ea54495192759fbf6d3f6c1e5e114fb1856ae20ac5126ea3bc5",
+  "review": "party/reference/pending/OCT28-DINO-SCORPION-REVIEW.jpg",
+  "poseOrder": [
+    "surprised-pincers-up",
+    "surprised-other-pincer-wave",
+    "scuttle-step-a",
+    "scuttle-step-b"
+  ],
+  "checks": {
+    "alpha": [
+      0,
+      255
+    ],
+    "sharedGroundExclusiveBottom": 224,
+    "unclipped": true,
+    "authoredDistinctFrames": 4
+  },
+  "intake": "Run repack_atlas.py on native with --cols4 --rows1, then this script. One common scaling preserves relative authored proportions; align full-alpha bounds to ground224 and horizontal centre128. No limb/body repainting."
+}

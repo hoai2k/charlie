@@ -1,0 +1,21 @@
+{
+  "key": "prop/dino-dug-sand",
+  "tool": "built-in imagegen",
+  "prompt": "Use case: stylized-concept. Asset type: seamless game ground material texture. Generate a square opaque512x512 seamless tileable texture of freshly dug damp turned-over sand for a friendly bright cartoon dinosaur dig sandbox. Top-down orthographic view, evenly lit, no directional gradient. Warm muted medium tan brown, range about #c99a58 to #b4864a, a few shades darker and browner than golden playground sand. Very low contrast soft rounded clumps, subtle little scoop marks, a few tiny rounded pebbles, gentle hand-painted cel-game feel but NO outlines. Fine small-scale detail evenly spread, no central focal point. Seamlessly repeating on BOTH horizontal and vertical edges. No holes, no objects, no plants, no bones, no characters, no tools, no text, no shadows, no highlights or vignette. Fill entire canvas completely opaque.",
+  "native": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-698522d7-a98f-4056-977d-1ca9e2bd1ba2.png",
+  "archive": "party/reference/sources/oct28-dino-critters/sand-native.webp",
+  "runtime": "party/assets/art/prop/dino-dug-sand.webp",
+  "sha256": "c0080c0f609add5faff4b34c937e6c6963380766dff1746566499c43c7ca3f0a",
+  "size": [
+    512,
+    512
+  ],
+  "intakeScript": "party/reference/sources/oct28-dino-critters/intake-snake-sand.py",
+  "periodicIntake": "2x2 mirrored periodic extension of256x256 native derivative; no synthesized art or painting; requested lossy quality82",
+  "seams": {
+    "leftRightMeanAbs": 3.0384114583333335,
+    "topBottomMeanAbs": 2.892578125,
+    "leftRightMax": 18,
+    "topBottomMax": 15
+  }
+}

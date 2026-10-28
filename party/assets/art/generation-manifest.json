@@ -41467,6 +41467,33 @@
       "tool": "built-in imagegen",
       "runtime": "party/assets/art/prop/dino-tail-3.webp",
       "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-tail-3.json"
+    },
+    {
+      "asset": "prop/dino-snake",
+      "prompt": "Edit only the RIGHTMOST (fourth) snake in this four-pose transparent sprite sheet. Keep first THREE snakes pixel-for-pixel unchanged. Keep fourth snake's mint green colour, pale yellow belly, lilac spots, cute head, eye size, smile, navy outlines, shading, facing RIGHT, overall width and head height unchanged. Redraw ONLY its long low middle body wave to be the OPPOSITE slither phase from snake3: where snake3 has its middle back arched UP into a hill, snake4 must dip DOWN in a rounded valley, with rear body higher then valley then rising into the neck. Keep body thick and connected, same apparent mass. Give fourth tail the opposite curl direction too. Complete body without cropping. No other changes, no text or new effects, retain real transparent background. Four separate complete snakes still in same left-to-right order.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-365af13a-a181-4431-ada8-144f7a72c001.png",
+      "archive": "party/reference/sources/oct28-dino-critters/snake-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-snake.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SNAKE.json"
+    },
+    {
+      "asset": "prop/dino-scorpion",
+      "prompt": "Use case: stylized-concept. Asset type: transparent four-frame game creature sprite atlas for Charlie Party, a cheerful hand-drawn 2D cartoon game. Create ONE cute coral-orange SCORPION with peach belly, round body, shiny expressive eyes, dark navy #24163f thick clean outlines, soft cel shading and rounded forms. Side view facing RIGHT in all frames. Chunky rounded mitten-like pincers; curly segmented tail with a clearly SOFT ROUND BULB at the tip, absolutely no sharp stinger. Funny surprised character, never threatening. Four complete separate poses arranged LEFT TO RIGHT in one horizontal strip, equal square cells, final intended canvas1024x256; generous transparent gutters. Consistent body/head size and ground line across frames, body centred at cellx128 feet at celly224. Frame1: popped up with pincers flung upward, tail curled up, huge surprised eyes and small round o mouth. Frame2: same character with pincers waving the other way, eyes even wider; different pose. Frame3: scuttling low along ground with alternating legs mid-step, pincers forward, wide eyes and nervous sheepish grin. Frame4: opposite step, other legs forward and pincers slightly changed. Keep same side profile and size, distinct poses, every entire tail and pincer visible in each cell, plenty of transparent margin. Actual transparent background. No ground, sand, shadow, text, numbers, grid lines, motion lines, sparkles, effects or extra characters.",
+      "source": "/Users/hoai/.codex/generated_images/01a184eb-911f-7d63-80e3-7132b6277022/exec-33017811-df37-497e-98ea-7c5879d0ed7b.png",
+      "archive": "party/reference/sources/oct28-dino-critters/scorpion-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-scorpion.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SCORPION.json"
+    },
+    {
+      "asset": "prop/dino-dug-sand",
+      "prompt": "Use case: stylized-concept. Asset type: seamless game ground material texture. Generate a square opaque512x512 seamless tileable texture of freshly dug damp turned-over sand for a friendly bright cartoon dinosaur dig sandbox. Top-down orthographic view, evenly lit, no directional gradient. Warm muted medium tan brown, range about #c99a58 to #b4864a, a few shades darker and browner than golden playground sand. Very low contrast soft rounded clumps, subtle little scoop marks, a few tiny rounded pebbles, gentle hand-painted cel-game feel but NO outlines. Fine small-scale detail evenly spread, no central focal point. Seamlessly repeating on BOTH horizontal and vertical edges. No holes, no objects, no plants, no bones, no characters, no tools, no text, no shadows, no highlights or vignette. Fill entire canvas completely opaque.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-698522d7-a98f-4056-977d-1ca9e2bd1ba2.png",
+      "archive": "party/reference/sources/oct28-dino-critters/sand-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-dug-sand.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SAND.json"
     }
   ]
 }

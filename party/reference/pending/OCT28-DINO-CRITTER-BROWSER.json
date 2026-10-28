@@ -1,0 +1,395 @@
+{
+  "records": [
+    {
+      "type": "scorpion",
+      "atlas": [
+        1024,
+        256
+      ],
+      "samples": [
+        {
+          "frame": 0,
+          "facing": "right",
+          "anchor": [
+            320,
+            770
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 190
+        },
+        {
+          "frame": 1,
+          "facing": "right",
+          "anchor": [
+            740,
+            770
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 190
+        },
+        {
+          "frame": 2,
+          "facing": "right",
+          "anchor": [
+            1160,
+            770
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 190
+        },
+        {
+          "frame": 3,
+          "facing": "right",
+          "anchor": [
+            1580,
+            770
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 190
+        },
+        {
+          "frame": 0,
+          "facing": "left",
+          "anchor": [
+            320,
+            1010
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 190
+        },
+        {
+          "frame": 1,
+          "facing": "left",
+          "anchor": [
+            740,
+            1010
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 190
+        },
+        {
+          "frame": 2,
+          "facing": "left",
+          "anchor": [
+            1160,
+            1010
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 190
+        },
+        {
+          "frame": 3,
+          "facing": "left",
+          "anchor": [
+            1580,
+            1010
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 190
+        }
+      ],
+      "consumer": "Isolated exact requested draw formula; dig-anywhere code absent from published refs",
+      "source": "actual bg/dino-dig"
+    },
+    {
+      "type": "snake",
+      "atlas": [
+        1024,
+        256
+      ],
+      "samples": [
+        {
+          "frame": 0,
+          "facing": "right",
+          "anchor": [
+            320,
+            770
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 170
+        },
+        {
+          "frame": 1,
+          "facing": "right",
+          "anchor": [
+            740,
+            770
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 170
+        },
+        {
+          "frame": 2,
+          "facing": "right",
+          "anchor": [
+            1160,
+            770
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 170
+        },
+        {
+          "frame": 3,
+          "facing": "right",
+          "anchor": [
+            1580,
+            770
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 170
+        },
+        {
+          "frame": 0,
+          "facing": "left",
+          "anchor": [
+            320,
+            1010
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 170
+        },
+        {
+          "frame": 1,
+          "facing": "left",
+          "anchor": [
+            740,
+            1010
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 170
+        },
+        {
+          "frame": 2,
+          "facing": "left",
+          "anchor": [
+            1160,
+            1010
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 170
+        },
+        {
+          "frame": 3,
+          "facing": "left",
+          "anchor": [
+            1580,
+            1010
+          ],
+          "sourceAnchor": [
+            128,
+            224
+          ],
+          "cell": [
+            256,
+            256
+          ],
+          "drawWidth": 170
+        }
+      ],
+      "consumer": "Isolated exact requested draw formula; dig-anywhere code absent from published refs",
+      "source": "actual bg/dino-dig"
+    }
+  ],
+  "errors": [],
+  "review": "Isolated browser atlas/anchor/mirroring proof against actual game background; not a claim of dig-anywhere gameplay validation.",
+  "frameAudits": {
+    "scorpion": {
+      "decodedSize": [
+        1024,
+        256
+      ],
+      "decodedBytes": 1048576,
+      "alphaBounds": [
+        [
+          27,
+          16,
+          229,
+          224
+        ],
+        [
+          26,
+          17,
+          230,
+          224
+        ],
+        [
+          25,
+          46,
+          231,
+          224
+        ],
+        [
+          27,
+          46,
+          229,
+          224
+        ]
+      ],
+      "sharedGround": true,
+      "groundLine": 224,
+      "anchor": [
+        128,
+        224
+      ],
+      "distinctPairPixelCounts": [
+        28742,
+        21566
+      ],
+      "unclipped": true
+    },
+    "snake": {
+      "decodedSize": [
+        1024,
+        256
+      ],
+      "decodedBytes": 1048576,
+      "alphaBounds": [
+        [
+          58,
+          33,
+          198,
+          224
+        ],
+        [
+          64,
+          43,
+          192,
+          224
+        ],
+        [
+          16,
+          122,
+          240,
+          224
+        ],
+        [
+          27,
+          114,
+          229,
+          224
+        ]
+      ],
+      "sharedGround": true,
+      "groundLine": 224,
+      "anchor": [
+        128,
+        224
+      ],
+      "distinctPairPixelCounts": [
+        17925,
+        14029
+      ],
+      "unclipped": true
+    }
+  },
+  "refsAudited": {
+    "origin/main": "b48bcd27",
+    "origin/claude/busy-ptolemy-gjxlwj": "318f688e"
+  },
+  "gameplayBlocker": "Promised dig-anywhere consumers absent from both current published refs; image-only isolated browser review complete."
+}

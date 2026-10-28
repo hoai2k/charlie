@@ -1109,33 +1109,3 @@ Engine-side notes from the same review: several keys are aliases of one
 file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
 `prop/gem` = `prop/gem-red`, `prop/cookie-tile` = `prop/cookie-1`). That's
 fine; the code uses one of each pair.
-
-### dino-dig — Dig anywhere: a snake, a scorpion and dug sand   (requested by the dino-dig agent, 2026-10-28, priority: nice-to-have)
-
-Dino Dig (Sister Party, ages 4-5) no longer has sand mounds: the sandbox is **one open
-sandy area where you dig anywhere**. Bones, silly surprises and now and then a **critter**
-are hidden at random under the sand with nothing on the surface. A few digs on one spot
-and you find a bone (flies to the skeleton), nothing (a little puff), a surprise, or a
-critter: a snake or a scorpion pops up out of the sand, **surprised** (wide eyes, a
-little jump), then slithers / scuttles away off the screen. It must be **funny and cute,
-never scary**: the kids should squeal-giggle, nobody gets hurt and it costs no points.
-Procedural stand-ins ship today; the code already asks for these keys and uses each as
-soon as it is in `assets/art/index.json` (add it to the `dino-dig` group there).
-House style: navy `#24163f` outlines, soft cel shading, bright friendly colours, big
-shiny cartoon eyes, rounded shapes, **no text**, no baked-in shadows, sand, dust,
-sparkles or motion lines (the code draws them). Side view **facing right**; the code
-turns them to face left instantly (a mirror, never squashed through a flip). Every frame
-the same size and position in its cell, standing on the same ground line, so the frames
-swap without jitter. Atlases must be on an exact even grid (run
-`tools/sprites/repack_atlas.py <file> --cols 4 --rows 1`, then check the ground line
-is still shared).
-
-| Key | Size / format | How the code uses it | What |
-| --- | --- | --- | --- |
-| `prop/dino-snake` | 1024×256 atlas, transparent, **4 columns × 1 row of 256 px cells**; ground line at **y = 224** in every cell, body centred on x = 128 | Drawn ~170 px wide (a cell) with the **anchor at the cell's (128, 224)** on the spot it came out of. Frames 1-2 alternate (0.12 s each) while it pops up and looks surprised (the code also bounces it up out of the sand and adds a "!" and sand spray); frames 3-4 alternate while it slithers away fast along the ground | A cute cartoon snake, mint green with a pale yellow belly and soft lilac spots, a round friendly head, no fangs: **1** popped up, the front half rearing up in a tall S, huge surprised eyes, little round "o" mouth; **2** the same with the head pulled back a little more, eyes even wider, tiny tongue flick (pink, forked but soft); **3** slithering: body low along the ground in a wave, head forward, eyes wide, a sheepish "eek" grin; **4** the same with the wave the other way |
-| `prop/dino-scorpion` | 1024×256 atlas, transparent, **4 columns × 1 row of 256 px cells**; feet on **y = 224** in every cell, body centred on x = 128 | Drawn ~150 px wide (a cell ~190 px) with the **anchor at (128, 224)**. Frames 1-2 alternate as it pops up surprised; frames 3-4 alternate as it scuttles away sideways | A cute cartoon scorpion, soft coral-orange with a peach belly, round body, big shiny eyes, chunky round pincers like mittens, and a curly tail ending in a **soft round bulb (no sharp stinger)**: **1** popped up: pincers flung up in the air, tail curled up, huge surprised eyes, "o" mouth; **2** the same with the pincers waving the other way, eyes even wider; **3** scuttling: low, legs mid-step, pincers forward, eyes wide, a nervous grin; **4** the same with the other legs forward |
-| `prop/dino-dug-sand` (optional) | 512×512, **opaque, seamlessly tileable** on both axes, WebP quality 82 | Tiled as a pattern and drawn only where players have dug (a soft-edged mask grows as they dig), over the golden sandbox of `bg/dino-dig`, at ~0.85 opacity | Top-down texture of freshly dug, damp, turned-over sand: a few shades darker and browner than the sandbox's golden sand (about `#c99a58` to `#b4864a`), with soft clumps, little scoop marks and a few tiny pebbles; low contrast, no outlines, no holes, no objects, evenly lit with no shading gradient |
-
-**Not needed any more:** `prop/dino-mound` (delivered; the game no longer draws mounds;
-the file stays in the index). **`bg/dino-dig` still works**: its sandbox is plain open
-sand with no mounds or holes painted in, so no regeneration is needed.

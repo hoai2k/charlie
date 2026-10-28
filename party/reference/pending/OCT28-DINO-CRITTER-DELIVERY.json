@@ -1,0 +1,55 @@
+{
+  "assets": [
+    {
+      "key": "prop/dino-snake",
+      "runtime": "party/assets/art/prop/dino-snake.webp",
+      "size": [
+        1024,
+        256
+      ],
+      "decodedBytes": 1048576,
+      "sourceRGBAExact": true,
+      "sha256": "f6e533896ae03bf90d8c095f4f8da8d17696e16c01e654b365d5c0d878d9a4e8"
+    },
+    {
+      "key": "prop/dino-scorpion",
+      "runtime": "party/assets/art/prop/dino-scorpion.webp",
+      "size": [
+        1024,
+        256
+      ],
+      "decodedBytes": 1048576,
+      "sourceRGBAExact": true,
+      "sha256": "07b4ce3860a62ea54495192759fbf6d3f6c1e5e114fb1856ae20ac5126ea3bc5"
+    },
+    {
+      "key": "prop/dino-dug-sand",
+      "runtime": "party/assets/art/prop/dino-dug-sand.webp",
+      "size": [
+        512,
+        512
+      ],
+      "decodedBytes": 1048576,
+      "sourceRGBAExact": true,
+      "sha256": "c0080c0f609add5faff4b34c937e6c6963380766dff1746566499c43c7ca3f0a"
+    }
+  ],
+  "decodedBytesIncludingReused": 17987420,
+  "decodedMiBIncludingReused": 17.15414047241211,
+  "status": "Art complete and registered; isolated browser review passes. Dig-anywhere consumer absent from main e6da7616; gameplay hookup belongs to feature owner.",
+  "proof": "OCT28-DINO-CRITTER-BROWSER.json",
+  "validation": {
+    "partyTests": {
+      "passed": 24,
+      "failed": 0
+    },
+    "currentMainSmoke": {
+      "players": 8,
+      "game": "dino-dig",
+      "passed": true,
+      "seconds": 40,
+      "ended": "GameSelectScene",
+      "scope": "Existing mound-based gameplay and expanded group loading; new dig-anywhere feature absent from main"
+    }
+  }
+}
