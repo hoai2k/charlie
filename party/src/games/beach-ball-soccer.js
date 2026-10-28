@@ -224,7 +224,7 @@ export class Game {
     // a ball in the net pushes it back so the net holds it (springs back when the ball is gone)
     for (let team = 0; team < 2; team++) {
       const b = this.ball, past = (b.x - goalX(team)) * -atk(team);
-      const want = !b.hidden && past > -BALL_R ? clamp((past + BALL_R + 18) / Math.max(60, NET_ROOM - b.z * 0.5), 1, 2.4)   // the net is shallower up high : 1;
+      const want = !b.hidden && past > -BALL_R ? clamp((past + BALL_R + 18) / Math.max(60, NET_ROOM - b.z * 0.5), 1, 2.4) : 1;   // the net is shallower up high
       this.netStretch[team] += (want - this.netStretch[team]) * Math.min(1, dt * (want > this.netStretch[team] ? 18 : 5));
     }
     if (this.banner) { this.banner.t += dt; if (this.banner.t > (this.banner.dur || 2)) this.banner = null; }

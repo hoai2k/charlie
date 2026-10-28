@@ -21,8 +21,8 @@ import { aiProfile, steer } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 import { drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
 import {
-  NAVY, SHAPES, ICINGS, CANDIES, CANDY, BOARD_W, CANDY_S, onHouse, landing, nearestEdge, newIcing, icingColor,
-  drawHouse, drawGlow, drawCandy, drawShapeIcon, drawGingerPerson, sprinkleColor,
+  NAVY, SHAPES, ICINGS, CANDIES, CANDY, BOARD_W, CANDY_S, onHouse, landing, surfaceBelow, candyLift, inBite, nearestEdge,
+  newIcing, icingColor, drawHouse, drawGlow, drawCandy, drawShapeIcon, drawGingerPerson, sprinkleColor,
 } from './gingerbread-house/house.js';
 import { meta } from './gingerbread-house.meta.js';
 
@@ -107,9 +107,9 @@ export class Game {
       p, i, r, L, actor: a, tab: 0, icingSel: 0, candySel: 0, didAct: false,
       cursor: { x: 0, y: -250 }, ready: false, readyT: 0, history: [], pipe: null, hover: null,
       listBump: 0, tabBump: 0, cheerCD: 0, aiStick: 0, ai: null, candyCount: 0, squishT: 0,
-      H: null, icings: SHAPES.map((s) => newIcing(s)), dv: [], wait: [], nibbles: 0,
+      H: null, icings: SHAPES.map((s) => newIcing(s)), dv: [], wait: [], nibbles: 0, drips: [],
     };
-    st.H = { shape: 0, built: 0, drop: [], seamT: [], icing: st.icings[0], dots: [], sprinkles: [], candies: [], lit: 0, doorOpen: 0, person: null, wobble: 0 };
+    st.H = { shape: 0, built: 0, drop: [], seamT: [], icing: st.icings[0], dots: [], sprinkles: [], candies: [], lit: 0, doorOpen: 0, person: null, wobble: 0, bites: [], crumbs: [] };
     if (p.isAI) this.planAI(st);
     return st;
   }
@@ -183,18 +183,36 @@ export class Game {
     sfx('back');
     this.resettle(st);
   }
-  /** Things no longer on the house (shape changed, a piece came off) drop to the board. */
+  /** Things no longer held up by the house (shape changed, a piece came off) drop to whatever is
+   * below them now: a lower part of the house, else the board. */
   resettle(st) {
     const Hs = st.H, shape = this.shape(st);
-    for (const c of Hs.candies) if (!onHouse(shape, Hs.built, c.x, c.y) && c.y < 10) c.fall = { vy: 0, ty: 10 + rand(0, 8) };
-    for (const s of Hs.sprinkles) if (!onHouse(shape, Hs.built, s.x, s.y) && s.y < 10) s.fall = { vy: 0, ty: rand(4, 26) };
+    const drop = (c, lift, board) => {
+      if (c.y >= 10 || onHouse(shape, Hs.built, c.x, c.sy ?? c.y)) return;
+      const ld = landing(shape, Hs.built, c.x, c.y, lift);
+      c.sy = ld.sy; c.fall = { vy: 0, ty: ld.on === 'board' ? board() : ld.y, b: 0 };
+    };
+    for (const c of Hs.candies) drop(c, candyLift(c.kind), () => 10 + rand(0, 8));
+    for (const s of Hs.sprinkles) drop(s, 1, () => rand(4, 26));
     Hs.dots = Hs.dots.filter((d) => onHouse(shape, Hs.built, d.x, d.y));
   }
-  updateFalls(st, dt) {
-    for (const list of [st.H.candies, st.H.sprinkles]) for (const c of list) {
+  /** Falling candy, sprinkles and crumbs: gravity, then (candy) a little bounce and a squash. */
+  updateFalls(st, dt, scr = (x, y) => this.toScreen(st, x, y)) {
+    for (const list of [st.H.candies, st.H.sprinkles, st.H.crumbs]) for (const c of list) {
+      if (c.sq > 0) c.sq = Math.max(0, c.sq - dt * 3.2);
       if (!c.fall) continue;
-      c.fall.vy += 1800 * dt; c.y += c.fall.vy * dt;
-      if (c.y >= c.fall.ty) { c.y = c.fall.ty; c.fall = null; }
+      c.fall.vy += 2200 * dt; c.y += c.fall.vy * dt;
+      if (c.y < c.fall.ty) continue;
+      c.y = c.fall.ty;
+      if (c.kind && c.fall.vy > 240 && c.fall.b < 2) {
+        // a candy bounces up a little, squashes and settles
+        if (!c.fall.b) {
+          const s = scr(c.x, c.y);
+          snd('tot-candy', 'pop', { vol: 0.35 });
+          particles.burst(s.x, s.y + 8, { type: 'sparkle', count: 4, colors: ['#fff', st.p.color, '#ffd23f'] });
+        }
+        c.sq = Math.min(1, c.fall.vy / 700); c.fall.vy = -c.fall.vy * 0.26; c.fall.b++;
+      } else { if (c.kind && c.fall.vy > 120) c.sq = Math.max(c.sq || 0, 0.4); c.fall = null; }
     }
   }
 
@@ -224,16 +242,61 @@ export class Game {
     return 1;
   }
   startPipe(st) {
-    st.pipe = { entry: { t: 'ice', shape: st.H.shape, cells: [], dots: [] }, snap: null, last: null, run: 0 };
+    st.pipe = { entry: { t: 'ice', shape: st.H.shape, cells: [], dots: [] }, snap: null, last: null, run: 0, dripT: 0 };
     st.didAct = true;
   }
   endPipe(st) {
     const P = st.pipe; st.pipe = null;
     if (!P) return;
-    if (P.entry.cells.length || P.entry.dots.length) {
+    if (P.entry.cells.length || P.entry.dots.length || st.drips.some((d) => d.entry === P.entry)) {
       st.history.push(P.entry);
       if (P.entry.cells.length > 20) this.cheer(st);
     }
+  }
+
+  /**
+   * What the bag would ice right now: { t: 'edge', e, j } at an edge / window / door (snapped),
+   * { t: 'drip', e, j, x, y } above the house (it drips onto the top surface below: x, y), or
+   * { t: 'dot', x, y } on the face of the house; null in the air beside it.
+   */
+  iceTarget(st) {
+    const shape = this.shape(st), b = st.H.built, cur = st.cursor;
+    const ne = nearestEdge(shape, b, cur.x, cur.y, SNAP_R);
+    if (ne) return { t: 'edge', e: ne.e, j: ne.j };
+    if (onHouse(shape, b, cur.x, cur.y)) return { t: 'dot', x: cur.x, y: cur.y };
+    const top = surfaceBelow(shape, b, cur.x, cur.y);
+    if (!top) return null;
+    const te = nearestEdge(shape, b, top.x, top.y, SNAP_R);
+    return te ? { t: 'drip', e: te.e, j: te.j, x: top.x, y: top.y } : { t: 'drip', x: top.x, y: top.y };
+  }
+  /** A drop of icing falls from the bag onto the top below; when it lands it ices around j
+   * (or the whole edge), or leaves a dot where there is no edge. */
+  addDrip(st, tg, entry, whole = false) {
+    st.drips.push({ x: st.cursor.x + rand(-1.5, 1.5), y: st.cursor.y + 4, vy: 60, ty: tg.y, e: tg.e, j: tg.j, k: st.icingSel, entry, whole, ice: st.icings[st.H.shape], shape: st.H.shape });
+  }
+  updateDrips(st, dt) {
+    if (!st.drips.length) return;
+    const shape = this.shape(st);
+    for (const d of st.drips) {
+      d.vy += 1500 * dt; d.y += d.vy * dt;
+      if (d.y < d.ty) continue;
+      d.done = true;
+      if (d.shape !== st.H.shape) continue;
+      let n = 0;
+      if (d.e !== undefined && d.e < shape.edges.length && shape.edges[d.e].piece < st.H.built) {
+        const last = shape.edges[d.e].pts.length - 1, sel = st.icingSel;
+        st.icingSel = d.k;
+        n = d.whole ? this.iceRange(st, d.entry, d.e, 0, last) : this.iceRange(st, d.entry, d.e, d.j - 2, d.j + 2);
+        st.icingSel = sel;
+      } else if (st.H.dots.length < MAX_DOTS && onHouse(shape, st.H.built, d.x, d.ty + 4)) {
+        const dot = { x: d.x, y: d.ty + 4, k: d.k, j: st.H.dots.length };
+        st.H.dots.push(dot); d.entry.dots.push(dot); n = 1;
+      }
+      const s = this.toScreen(st, d.x, d.ty);
+      particles.burst(s.x, s.y, { type: 'drop', count: 3, colors: [icingColor(d.k)], speed: [40, 110] });
+      if (n || d.whole) snd('topping-squish', 'pop', { vol: d.whole ? 0.45 : 0.25 });
+    }
+    st.drips = st.drips.filter((d) => !d.done);
   }
   updatePipe(st, dt, mx, my) {
     const P = st.pipe, Hs = st.H, shape = this.shape(st), cur = st.cursor;
@@ -272,22 +335,53 @@ export class Game {
       } else {
         P.snap = null;
         // off the edges: dots of icing wherever it touches the house
-        if (onHouse(shape, Hs.built, cur.x, cur.y) && (!P.last || Math.hypot(cur.x - P.last.x, cur.y - P.last.y) > 9) && Hs.dots.length < MAX_DOTS) {
-          const d = { x: cur.x, y: cur.y, k: st.icingSel, j: Hs.dots.length };
-          Hs.dots.push(d); P.entry.dots.push(d); P.last = { x: cur.x, y: cur.y }; added++;
+        if (onHouse(shape, Hs.built, cur.x, cur.y)) {
+          if ((!P.last || Math.hypot(cur.x - P.last.x, cur.y - P.last.y) > 9) && Hs.dots.length < MAX_DOTS) {
+            const d = { x: cur.x, y: cur.y, k: st.icingSel, j: Hs.dots.length };
+            Hs.dots.push(d); P.entry.dots.push(d); P.last = { x: cur.x, y: cur.y }; added++;
+          }
+        } else {
+          // above the house: the icing drips down onto the top below
+          P.dripT -= dt;
+          const tg = P.dripT <= 0 && this.iceTarget(st);
+          if (tg && tg.t === 'drip') { this.addDrip(st, tg, P.entry); P.dripT = 0.1; }
         }
       }
     }
     st.squishT -= dt;
     if (added && st.squishT <= 0) { snd('topping-squish', 'pop', { vol: 0.22 }); st.squishT = 0.22; }
   }
-  /** A on Icing (X hasn't piped yet this time): the whole edge under the bag. */
-  iceWholeEdge(st) {
-    const shape = this.shape(st), ne = nearestEdge(shape, st.H.built, st.cursor.x, st.cursor.y, SNAP_R * 1.6);
-    if (!ne) return false;
+  /** A on Icing: ice what the bag shows (the whole highlighted edge; above the house it pours
+   * down onto the top below and runs along that edge; on the face, one dot). Stays on Icing. */
+  iceAction(st) {
+    const tg = this.iceTarget(st), shape = this.shape(st);
+    if (!tg) {
+      sfx('blip', { vol: 0.5 });
+      const s = this.toScreen(st, st.cursor.x, st.cursor.y);
+      particles.popText(s.x, s.y - 50 * st.L.k, 'Over the house!', st.p.color, 26);
+      return false;
+    }
     const entry = { t: 'ice', shape: st.H.shape, cells: [], dots: [] };
-    this.iceRange(st, entry, ne.e, 0, shape.edges[ne.e].pts.length - 1);
-    if (entry.cells.length) { st.history.push(entry); snd('topping-squish', 'pop', { vol: 0.4 }); }
+    st.history.push(entry); st.didAct = true;
+    if (tg.t === 'edge') {
+      this.iceRange(st, entry, tg.e, 0, shape.edges[tg.e].pts.length - 1);
+      snd('topping-squish', 'pop', { vol: 0.45 });
+      const pts = shape.edges[tg.e].pts;
+      for (let j = 0; j < pts.length; j += Math.max(1, Math.floor(pts.length / 6))) {
+        const s = this.toScreen(st, pts[j][0], pts[j][1]);
+        particles.burst(s.x, s.y, { type: 'sparkle', count: 1, colors: ['#ffffff', icingColor(st.icingSel, j)] });
+      }
+    } else if (tg.t === 'drip') {
+      for (let i = 0; i < 3; i++) this.addDrip(st, tg, entry, i === 0 && tg.e !== undefined);
+      st.drips.slice(-3).forEach((d, i) => { d.y -= i * 14; d.vy = 60 - i * 40; });
+      sfx('drip', { vol: 0.4 });
+    } else {
+      const d = { x: tg.x, y: tg.y, k: st.icingSel, j: st.H.dots.length };
+      if (st.H.dots.length < MAX_DOTS) { st.H.dots.push(d); entry.dots.push(d); }
+      snd('topping-squish', 'pop', { vol: 0.3 });
+    }
+    st.actor.playOnce('action', 0.3, 'idle');
+    if (entry.cells.length > 20) this.cheer(st);
     return true;
   }
 

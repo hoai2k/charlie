@@ -168,10 +168,30 @@ export function onHouse(shape, built, x, y) {
   }
   return hit;
 }
-/** Where something let go of at (x, y) ends up: stuck where it is on the house, else down on the board. */
-export function landing(shape, built, x, y) {
-  if (onHouse(shape, built, x, y)) return { x, y, stuck: true };
-  return { x, y: Math.max(y, 10), stuck: y >= 10 };
+/** The first top surface of the house straight below (x, y) (a roof, a wall's ledge, a tower or
+ * chimney top, a window sill): { x, y } just inside it, or null when nothing of the house is below. */
+export function surfaceBelow(shape, built, x, y) {
+  let yy = y;
+  for (; yy <= 0; yy += 3) if (onHouse(shape, built, x, yy)) break;
+  if (yy > 0) return null;
+  while (yy - 0.5 >= y && onHouse(shape, built, x, yy - 0.5)) yy -= 0.5;
+  return { x, y: yy };
+}
+/** How far above a top surface a candy's middle sits when it rests on it (house units). */
+export function candyLift(kind) {
+  const def = CANDIES[CANDY[kind]];
+  return def.spray ? 1 : def.h ? def.h * CANDY_S * 0.42 : def.r * CANDY_S * 0.62;
+}
+/**
+ * Where something let go of at (x, y) ends up: stuck where it is when it's on the house; held above
+ * the house it drops onto the first surface below (resting `lift` above it); only with nothing of
+ * the house below does it go down to the board. `sy` is the house point holding it up.
+ */
+export function landing(shape, built, x, y, lift = 0) {
+  if (onHouse(shape, built, x, y)) return { x, y, stuck: true, sy: y, on: 'face' };
+  const s = surfaceBelow(shape, built, x, y);
+  if (s) return { x, y: s.y - lift, stuck: true, sy: s.y + 1, on: 'top' };
+  return { x, y: Math.max(y, 10), stuck: y >= 10, sy: null, on: 'board' };
 }
 
 /** The nearest icing edge point to (x, y) within r: { e, j, d }. */
@@ -279,10 +299,15 @@ function atlasCell(g, cell, x, y, s) {
   return true;
 }
 
-/** One candy centred on (x, y); `v` picks its colour; `flip` mirrors it (candy canes). */
-export function drawCandy(g, kind, x, y, v = 0, flip = false, s = CANDY_S) {
+/** One candy centred on (x, y); `v` picks its colour; `flip` mirrors it (candy canes).
+ * `bite` ({ dx, dy, r } in candy units, from its middle): a bite taken out of it. */
+export function drawCandy(g, kind, x, y, v = 0, flip = false, s = CANDY_S, bite = null) {
   const def = CANDIES[CANDY[kind]];
   g.save(); g.translate(x, y); g.scale(s * (flip ? -1 : 1), s);
+  if (bite) {
+    const bx = bite.dx * (flip ? -1 : 1);
+    g.beginPath(); g.rect(-80, -80, 160, 160); g.moveTo(bx + bite.r, bite.dy); g.arc(bx, bite.dy, bite.r, 0, TAU); g.clip('evenodd');
+  }
   g.lineWidth = 2.4; g.strokeStyle = NAVY; g.lineJoin = 'round';
   const col = def.colors ? def.colors[v % def.colors.length] : null;
   switch (kind) {
@@ -485,17 +510,75 @@ export function drawBoard(g) {
  * The whole house in house units. H: { shape, built, drop: [dy per piece], seamT: [], icing, dots,
  * sprinkles, candies, lit (0..1), doorOpen, person, wobble }.
  */
-export function drawHouse(g, H, { board = true, ghost = -1, t = 0 } = {}) {
+export function drawHouse(g, H, opts = {}) {
+  if (opts.board !== false) drawBoard(g);
+  if (H.crumbs?.length) drawCrumbs(g, H.crumbs);
+  if (H.bites?.length) withBites(g, H.bites, (c) => drawHouseBody(c, H, opts));
+  else drawHouseBody(g, H, opts);
+}
+
+/** The bites nibbled out of a house: one scallop-edged bite (three round tooth marks). */
+function bitePath(g, b) {
+  const tx = Math.cos(b.a + Math.PI / 2), ty = Math.sin(b.a + Math.PI / 2), nx = Math.cos(b.a), ny = Math.sin(b.a);
+  g.moveTo(b.x + b.r, b.y); g.arc(b.x, b.y, b.r, 0, TAU);
+  for (const k of [-1, 1]) {
+    const cx = b.x + tx * b.r * 0.78 * k + nx * b.r * 0.28, cy = b.y + ty * b.r * 0.78 * k + ny * b.r * 0.28, r = b.r * 0.62;
+    g.moveTo(cx + r, cy); g.arc(cx, cy, r, 0, TAU);
+  }
+}
+export function inBite(bites, x, y) {
+  return !!bites && bites.some((b) => Math.hypot(x - b.x, y - b.y) < b.r * 1.05);
+}
+let biteLayer = null;
+/** Draws the house through an offscreen layer and takes the bites out of it (a baked rim inside). */
+function withBites(g, bites, draw) {
+  const m = g.getTransform(), s = Math.max(0.05, Math.hypot(m.a, m.b));
+  const x0 = -BOARD_W / 2 - 40, y0 = BOX.y - 60, w = BOARD_W + 80, h = -y0 + 70;
+  const cw = Math.ceil(w * s), ch = Math.ceil(h * s);
+  if (typeof document === 'undefined' || cw < 2 || ch < 2) { draw(g); return; }
+  biteLayer ||= document.createElement('canvas');
+  if (biteLayer.width < cw || biteLayer.height < ch) { biteLayer.width = Math.max(biteLayer.width, cw); biteLayer.height = Math.max(biteLayer.height, ch); }
+  const c = biteLayer.getContext('2d');
+  c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, cw + 2, ch + 2);
+  c.setTransform(s, 0, 0, s, -x0 * s, -y0 * s);
+  draw(c);
+  // a darker baked rim just inside each bite, then the bite itself
+  c.save(); c.globalCompositeOperation = 'source-atop';
+  c.beginPath(); for (const b of bites) bitePath(c, { ...b, r: b.r + 4 }); c.fillStyle = 'rgba(122,62,24,0.85)'; c.fill();
+  c.restore();
+  c.save(); c.globalCompositeOperation = 'destination-out';
+  c.beginPath(); for (const b of bites) bitePath(c, b); c.fill();
+  c.restore();
+  g.drawImage(biteLayer, 0, 0, cw, ch, x0, y0, cw / s, ch / s);
+}
+function drawCrumbs(g, crumbs) {
+  for (const c of crumbs) {
+    g.beginPath(); g.arc(c.x, c.y, c.r, 0, TAU); g.fillStyle = c.c; g.fill();
+    g.lineWidth = 1; g.strokeStyle = 'rgba(36,22,63,0.45)'; g.stroke();
+  }
+}
+
+function drawHouseBody(g, H, { ghost = -1, t = 0 } = {}) {
   const shape = SHAPES[H.shape];
-  if (board) drawBoard(g);
   const wob = H.wobble || 0;
   g.save();
   if (wob > 0) { g.rotate(Math.sin(t * 40) * wob * 0.06); }
-  // the next piece's spot: a dashed outline where it will land
+  // the whole house still to come as a faint dashed ghost (its full size), the next piece's spot
+  // (where it will land) a little stronger
   if (ghost >= 0 && ghost < shape.pieces.length) {
-    const pc = shape.pieces[ghost];
-    g.save(); piecePath(g, pc); g.fillStyle = 'rgba(255,255,255,0.35)'; g.fill();
-    g.setLineDash([10, 8]); g.lineWidth = 3; g.strokeStyle = 'rgba(36,22,63,0.6)'; g.stroke(); g.restore();
+    g.save();
+    for (const pc of shape.order) {
+      if (pc.index < ghost) continue;
+      const next = pc.index === ghost;
+      piecePath(g, pc); g.fillStyle = next ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.16)'; g.fill();
+    }
+    g.setLineDash([10, 8]);
+    for (const pc of shape.order) {
+      if (pc.index <= ghost) continue;
+      piecePath(g, pc); g.lineWidth = 2.5; g.strokeStyle = 'rgba(36,22,63,0.32)'; g.stroke();
+    }
+    piecePath(g, shape.pieces[ghost]); g.lineWidth = 3.5; g.strokeStyle = 'rgba(36,22,63,0.7)'; g.stroke();
+    g.restore();
   }
   const nWin = shape.windows.length;
   for (const pc of shape.order) {
@@ -513,7 +596,15 @@ export function drawHouse(g, H, { board = true, ghost = -1, t = 0 } = {}) {
   drawIcing(g, shape, H.built, H.icing);
   drawDots(g, H.dots);
   drawSprinkles(g, H.sprinkles);
-  for (const c of H.candies) drawCandy(g, c.kind, c.x, c.y, c.v, c.flip);
+  for (const c of H.candies) {
+    if (c.sq > 0) {
+      // landing squash: wider and lower about its bottom, springing back
+      const q = Math.sin(c.sq * Math.PI * 1.5) * c.sq * 0.32, by = c.y + CANDIES[CANDY[c.kind]].r * CANDY_S * 0.6;
+      g.save(); g.translate(c.x, by); g.scale(1 + q, 1 - q); g.translate(-c.x, -by);
+      drawCandy(g, c.kind, c.x, c.y, c.v, c.flip, CANDY_S, c.bite);
+      g.restore();
+    } else drawCandy(g, c.kind, c.x, c.y, c.v, c.flip, CANDY_S, c.bite);
+  }
   g.restore();
 }
 
