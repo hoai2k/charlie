@@ -44,7 +44,7 @@ export { meta };
 // --- tuning -----------------------------------------------------------------
 const DURATION = 72;        // digging time; then everyone helps finish the dino
 const SPEED = 520;
-const DIGS = 3;             // digs to get a bone out of a mound
+const DIGS_SMALL = 4, DIGS_BIG = 3;   // digs to get a bone out of a mound (1-2 players dig a little longer)
 const REACH = 105;          // dig a mound this close (y counts 1.5x)
 const DIG_GAP = 0.17;       // fastest digging (mashing)
 const HOLD_GAP = 0.38;      // holding A digs this often
@@ -71,7 +71,7 @@ export class Game {
     let duck = chance(0.5), teapot = chance(0.5);
     if (!duck && !teapot) (chance(0.5) ? (duck = true) : (teapot = true));
     this.headKind = duck ? 'duck' : 'skull'; this.tailKind = teapot ? 'teapot' : 'tail';
-    const quota = n;   // bones per piece: everyone's bones go into one dino
+    const quota = n === 1 ? 1 : Math.round(n * 1.4);   // bones per piece: everyone's bones go into one dino
     this.slots = ORDER.map((id) => {
       const kind = id === 'head' && duck ? 'duck' : id === 'tail-3' && teapot ? 'teapot' : 'bone';
       return { id, kind, quota: kind === 'bone' ? quota : 1, have: 0, pend: 0, pop: 0 };
@@ -82,6 +82,7 @@ export class Game {
     this.bounce = 0; this.energy = 0; this.danceT = 0; this.hop = 0; this.hopV = 0;
     this.found = 0; this.total = this.slots.reduce((s, sl) => s + sl.quota, 0);
     this.ents = this.players.map((p, i) => this.makeEnt(p, i));
+    this.digs = n <= 2 ? DIGS_SMALL : DIGS_BIG;
     this.moundCount = clamp(n + 3, 5, 10);
     for (let i = 0; i < this.moundCount; i++) this.spawnMound(true);
   }
@@ -223,8 +224,8 @@ export class Game {
     snd('td-dig', 'brush', { vol: m ? 0.55 : 0.35, rate: rand(0.9, 1.15) });
     if (!e.p.isAI) e.p.ctrl.rumble(0.15, 40);
     if (!m) return;
-    m.digs++; m.sq = 1; m.dug = m.digs / DIGS;
-    if (m.digs >= DIGS) this.unearth(e, m);
+    m.digs++; m.sq = 1; m.dug = m.digs / this.digs;
+    if (m.digs >= this.digs) this.unearth(e, m);
   }
 
   tossSand(e) {
@@ -421,10 +422,10 @@ export class Game {
     snd('pt-achoo', 'gg-achoo', { vol: 1 }); snd('roar', null, { vol: 0.5, rate: 1.2 });
     fx.shake(18, 0.5); fx.flash('#fff8e0', 0.2);
     this.api.camera && this.api.camera.punch(W / 2, 700, 1.06, 0.5);
-    particles.popText(h.x + 30, h.y - 40, 'ACHOO!', '#ff7ac6', 110);
+    particles.popText(h.x - 120, h.y + 70, 'ACHOO!', '#ff7ac6', 110);
     // a gust of sand blows out across the dig site
-    for (let i = 0; i < 4; i++) particles.burst(h.x + 40, h.y + 20, { type: 'drop', count: 30, colors: SAND, speed: [500, 1100], angle: 2.0 - i * 0.18, spread: 0.45, size: [7, 14], gravity: 500, life: [0.7, 1.2] });
-    particles.burst(h.x + 40, h.y + 20, { type: 'smoke', count: 16, color: '#f7e2b5', speed: [300, 700], angle: 1.9, spread: 0.8, size: [30, 60] });
+    for (let i = 0; i < 4; i++) particles.burst(h.x + 20, h.y + 30, { type: 'drop', count: 30, colors: SAND, speed: [700, 1400], angle: 2.15 + i * 0.16, spread: 0.3, size: [7, 14], gravity: 380, life: [0.8, 1.3] });
+    particles.burst(h.x + 20, h.y + 30, { type: 'smoke', count: 18, color: '#f7e2b5', speed: [400, 900], angle: 2.4, spread: 0.5, size: [30, 60] });
     this.gusts.push({ t: 0 });
     // hats off!
     let laughs = 0;
@@ -432,10 +433,12 @@ export class Game {
       const a = e.a;
       if (e.hat) {
         e.hat = false;
-        const top = a.anchor('head'), S = a.height * 0.36;
-        const dir = e.x >= h.x - 200 ? 1 : -1;
-        // x/y on the sand, z = height above it (it leaves from the top of the head)
-        this.hats.push({ x: top.x, y: e.y, z: e.y - top.y, vx: dir * rand(250, 520) + (e.x - h.x) * 0.2, vy: rand(30, 110), vz: rand(650, 900), rot: 0, spin: dir * rand(6, 11), S, landed: false });
+        // one hat per member; x/y on the sand, z = height above it (it leaves from the top of the head)
+        a.members.forEach((m, mi) => {
+          const top = mi === 0 ? a.anchor('head') : { x: m.x, y: m.y - m.def.h * a.scale * (m.def.top ?? 1) };
+          const S = m.def.h * a.scale * 0.36, dir = top.x >= h.x - 200 ? 1 : -1;
+          this.hats.push({ x: top.x, y: m.y, z: m.y - top.y, vx: dir * rand(250, 520) + (top.x - h.x) * 0.2, vy: rand(30, 110), vz: rand(650, 900), rot: 0, spin: dir * rand(6, 11), S, landed: false });
+        });
       }
       a.playOnce('surprised', 0.6, 'laugh'); a.squash(0.4);
       e.x += (e.x >= h.x ? 1 : -1) * 30;
@@ -636,7 +639,7 @@ export class Game {
       if (f.t < 0) continue;
       g.save(); g.translate(f.x, f.y); g.rotate(f.rot);
       const size = f.t < POP_T ? 60 + 40 * Math.min(1, f.t / 0.2) : 100;
-      if (f.silly) drawSillyItem(g, f.silly, size * 1.05); else drawBone(g, f.bone, size);
+      if (f.silly) drawSillyItem(g, f.silly, size * 1.3); else drawBone(g, f.bone, size);
       g.restore();
       if (f.t < POP_T && Math.random() < 0.3) particles.burst(f.x, f.y, { type: 'sparkle', count: 1, colors: ['#fff6a8', '#ffffff'] });
     }

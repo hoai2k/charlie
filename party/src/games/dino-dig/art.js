@@ -515,6 +515,10 @@ function paintSite(g) {
   };
   mesa(-40, 380, 250, '#f0a978'); mesa(1500, 1960, 230, '#f0a978'); mesa(300, 640, 300, '#e9b48c'); mesa(1250, 1620, 290, '#e9b48c');
   g.fillStyle = '#f2c99a'; g.fillRect(0, 380, W, 60);
+  // the desert floor behind the plinth, down to the sandbox
+  const floor = g.createLinearGradient(0, 430, 0, 560);
+  floor.addColorStop(0, '#f0c48e'); floor.addColorStop(1, '#e5b47a');
+  g.fillStyle = floor; g.fillRect(0, 430, W, 140);
   // cacti
   const cactus = (x, y, s) => {
     g.fillStyle = '#6cc47a'; g.strokeStyle = NAVY; g.lineWidth = 4;
@@ -533,7 +537,7 @@ function paintSite(g) {
   // the sandbox
   const sand = g.createLinearGradient(0, 540, 0, H);
   sand.addColorStop(0, '#efcd8d'); sand.addColorStop(1, '#f6dca6');
-  g.fillStyle = sand; g.fillRect(60, 540, W - 120, H - 540);
+  g.fillStyle = sand; g.fillRect(0, 540, W, H - 540);
   g.strokeStyle = 'rgba(190,140,80,0.28)'; g.lineWidth = 3;
   for (let i = 0; i < 26; i++) {
     const y = 580 + i * 19 + (i % 3) * 3, x = 120 + ((i * 397) % 1500);

@@ -39,7 +39,7 @@ import { clamp, approach, lerp, rand, pick, chance, TAU, ease } from '../engine/
 import { sayFor, drawShock, drawSteam, drawShout } from '../engine/fluster.js';
 import { Dash } from '../engine/dash.js';
 import {
-  NAVY, leafKind, leafColor, drawLeaf, drawPile, domeTop, PILE_FULL_W, drawNeatPile, drawRake, drawSquirrel,
+  NAVY, leafKind, drawLeaf, drawPile, domeTop, PILE_FULL_W, drawNeatPile, drawRake, drawSquirrel,
   drawLadder, LADDER_H, drawGranny, drawBackground, drawCollar,
 } from './leaf-pile-leap/art.js';
 import { meta } from './leaf-pile-leap.meta.js';
@@ -63,6 +63,7 @@ const RAKE_CD = 0.17;
 const GP_REACH = 175;
 const pileW = (f) => 250 + (PILE_FULL_W - 250) * f;
 const pileH = (w) => w * 0.55;
+const HEAD_SCALE = 1.22;
 
 export class Game {
   constructor(api) {
@@ -85,7 +86,7 @@ export class Game {
     this.cells = new Map();
     // leaves to start: a few leafy patches plus singles
     const free = (x, y) => !this.inPile(x, y, 50) && Math.hypot(x - GP.x, (y - GP.y) * 1.4) > 150 && Math.hypot(x - GRANNY.x, y - GRANNY.y) > 120;
-    const patches = 6 + Math.min(4, n);
+    const patches = 4 + Math.min(4, n);
     for (let k = 0; k < patches; k++) {
       let cx, cy, tries = 0;
       do { cx = rand(160, W - 220); cy = rand(470, 990); } while (!free(cx, cy) && ++tries < 30);
@@ -93,10 +94,10 @@ export class Game {
       for (let i = 0; i < m; i++) { const a = rand(TAU), r = Math.sqrt(Math.random()) * 120; this.addLeaf(cx + Math.cos(a) * r, cy + Math.sin(a) * r * 0.6); }
     }
     for (let i = 0; i < 16; i++) { const x = rand(120, W - 160), y = rand(450, 1000); if (free(x, y)) this.addLeaf(x, y); }
-    // the goal follows the supply: the leaves here now plus ~40 s of drifting ones, so a
-    // busy team fills the pile at about 45-55 s (the clock ends it at 62 s anyway)
-    this.driftRate = (1 + 0.35 * (n - 1)) / 0.55;
-    this.goal = Math.round(this.leaves.length * 0.9 + this.driftRate * 40);
+    // the goal follows the supply: the leaves here now plus ~64 s of drifting ones (and a few from
+    // Granny's pile), so a busy team fills the pile at about 50-55 s (else the clock ends it at 62 s)
+    this.driftRate = (1 + 0.35 * (n - 1)) / 0.4;
+    this.goal = Math.round(this.leaves.length * 0.95 + this.driftRate * 64);
     this.pileN = Math.round(this.goal * 0.06); this.shown = this.pileN / this.goal;
     this.ents = this.players.map((p, i) => {
       const a = new Actor(p, { scale: this.scale });
@@ -107,7 +108,7 @@ export class Game {
       a.x = x; a.y = y; a.facing = x < PILE.x ? 1 : -1;
       const e = { p, a, i, x, y, vx: 0, vy: 0, base: a.scale, dash: new Dash({ color: '#ffd7a0' }), brain: new Brain(p),
         raked: 0, shoo: 0, cheeky: 0, sweep: 0, rakeCd: 0, jump: null, fin: null, rot: 0, tgt: null, aiA: 0, wantJump: false,
-        cheekyCd: rand(8, 16), popT: 0, popN: 0, stepGate: 0, neckD: a.height * 0.7, headK: 0 };
+        cheekyCd: rand(8, 16), popT: 0, popN: 0, stepGate: 0, neckK: a.height * 0.7 / a.scale, headK: 0 };
       a.attach((g, info) => this.drawHeld(g, info, e));
       if (this.easy && !p.isAI) e.ez = { n: 0 };
       return e;
@@ -391,10 +392,10 @@ export class Game {
       if (k >= 1) this.splashGP(e);
     } else if (J.phase === 'in') {
       e.headK = Math.min(1, J.t / 0.25);
-      e.x = GP.x; e.y = GP.y - 45 + e.neckD - a.height * 0.1;
+      e.x = GP.x; e.y = GP.y - 45 + e.neckK * a.scale - a.height * 0.1;
       if (J.t > 1.0) {
         this.gp.fill = 0; this.gp.sq = 0.4;
-        for (let i = 0; i < 6; i++) this.kick(GP.x, GP.y - 30, GP.x + rand(-260, 200), GP.y + rand(40, 220), rand(120, 220));
+        for (let i = 0; i < 4; i++) this.kick(GP.x, GP.y - 30, GP.x + rand(-260, 200), GP.y + rand(40, 220), rand(120, 220));
         e.y = GP.y; J.phase = 'out'; J.t = 0; J.sx = e.x; J.sy = e.y; J.tx = GP.x - 150; J.ty = clamp(GP.y + 90, Y_MIN, Y_MAX); a.setPose('jump'); snd(['llp-boing', 'bounce'], { vol: 0.35 }); }
     } else {
       const k = Math.min(1, J.t / 0.42);
@@ -411,11 +412,11 @@ export class Game {
     e.cheeky++;
     this.gp.fill = 0.55; this.gp.sq = 0.6;
     a.setPose('laugh');
-    for (let i = 0; i < 16; i++) { const ang = rand(Math.PI * 0.85, Math.PI * 2.15), r = rand(120, 330); this.kick(GP.x, GP.y - 40, GP.x + Math.cos(ang) * r, GP.y + 40 + Math.abs(Math.sin(ang)) * r * 0.6, rand(160, 300)); }
+    for (let i = 0; i < 10; i++) { const ang = rand(Math.PI * 0.85, Math.PI * 2.15), r = rand(120, 330); this.kick(GP.x, GP.y - 40, GP.x + Math.cos(ang) * r, GP.y + 40 + Math.abs(Math.sin(ang)) * r * 0.6, rand(160, 300)); }
     this.burst(GP.x, GP.y - 40, 22, { speed: [260, 560] });
     particles.burst(GP.x, GP.y - 80, { type: 'sparkle', count: 14, colors: RAINBOW, speed: [120, 320] });
     particles.ring(GP.x, GP.y - 20, '#fff2c0', 200, 0.4);
-    particles.popText(GP.x - 40, GP.y - 220, 'Hee hee!', '#ff6fd0', 56);
+    particles.popText(GP.x - 190, GP.y - 150, 'Hee hee!', '#ff6fd0', 56);
     this.pop(e, '+3 ✦', '#ffd23f', 44);
     snd(['llp-crunch', 'crumble'], { vol: 0.6 });
     snd(['llp-whoosh', 'whoosh'], { vol: 0.4 });
@@ -696,7 +697,7 @@ export class Game {
     }
     if (this.phase === 'heads') {
       this.ht += dt;
-      if (Math.random() < dt * 26) this.bits.push({ x: rand(0, W), y: -30, vx: rand(-40, 40), vy: rand(80, 160), g: 30, drag: 0.2, rot: rand(TAU), spin: rand(-4, 4), kind: leafKind(), size: rand(28, 44), t: 0, life: 7, sway: 70, ph: rand(TAU) });
+      if (Math.random() < dt * 12) this.bits.push({ x: rand(0, W), y: -30, vx: rand(-40, 40), vy: rand(80, 160), g: 30, drag: 0.2, rot: rand(TAU), spin: rand(-4, 4), kind: leafKind(), size: rand(28, 44), t: 0, life: 7, sway: 70, ph: rand(TAU), rain: true });
       if (!this.finished && this.ht > 1.8) this.finish();
     }
   }
@@ -749,7 +750,7 @@ export class Game {
       case 'leap': {
         const k = Math.min(1, F.t / F.T);
         e.x = lerp(F.sx, F.slot.x, k);
-        e.y = lerp(F.sy, F.slot.y + 40, ease.inQuad(k)) - Math.sin(k * Math.PI) * 170;
+        e.y = lerp(F.sy, F.slot.y + 40, ease.inQuad(k)) - Math.sin(k * Math.PI) * 90;
         e.rot = k > 0.2 ? (k - 0.2) / 0.8 * TAU * 1.5 : 0;
         a.scale = e.base * (1 + Math.sin(k * Math.PI) * 0.1);
         if (k >= 1) this.cannonball(e);
@@ -759,7 +760,8 @@ export class Game {
         if (F.t > 0.4) { F.state = 'head'; F.t = 0; a.setPose('laugh'); a.squash(-0.3); snd(['llp-plop', 'pop'], { vol: 0.4, rate: 1.2 }); }
         break;
       case 'head':
-        e.x = F.slot.x; e.y = F.slot.y + e.neckD - a.height * 0.1 + Math.sin(this.t * 3 + e.i) * 3;
+        a.scale = e.base * HEAD_SCALE;   // a little bigger: the stars of the last picture
+        e.x = F.slot.x; e.y = F.slot.y + e.neckK * a.scale - a.height * 0.16 + Math.sin(this.t * 3 + e.i) * 3;
         e.headK = Math.min(1, F.t / 0.25);
         break;
       default: break;
@@ -821,6 +823,8 @@ export class Game {
       items.push({ y, fn: () => this.drawPlayer(g, e) });
     }
     items.sort((a, b) => a.y - b.y);
+    // the closing leaf rain falls behind the pile, so the faces stay clear
+    for (const b of this.bits) if (b.rain) drawLeaf(g, b.kind, b.x, b.y, b.size, b.rot, clamp((b.life - b.t) / 0.4, 0, 1));
     for (const it of items) it.fn();
     // leaves in the air
     for (const L of this.leaves) {
@@ -828,7 +832,7 @@ export class Game {
       else if ((L.state === 'fly' || L.state === 'kick') && L.t >= 0) drawLeaf(g, L.kind, L.x, L.y, L.size, L.rot);
       else if (L.state === 'fly' || L.state === 'kick') drawLeaf(g, L.kind, L.sx, L.sy, L.size, L.rot);
     }
-    for (const b of this.bits) drawLeaf(g, b.kind, b.x, b.y, b.size, b.rot, clamp((b.life - b.t) / 0.4, 0, 1));
+    for (const b of this.bits) if (!b.rain) drawLeaf(g, b.kind, b.x, b.y, b.size, b.rot, clamp((b.life - b.t) / 0.4, 0, 1));
     // names and the Easy A
     const showTags = (!this.started || this.t - this.startT < 5) && !this.api.ended?.();
     for (const e of this.ents) {
@@ -853,7 +857,7 @@ export class Game {
     const w = this.pileW;
     // glow while leaves land
     if (this.pileHi > 0.05 && this.phase === 'play') {
-      g.save(); g.globalAlpha = this.pileHi * 0.35; g.fillStyle = '#fff2b0';
+      g.save(); g.globalAlpha = this.pileHi * 0.16; g.fillStyle = '#fff2b0';
       g.beginPath(); g.ellipse(PILE.x, PILE.y - pileH(w) * 0.45, w * 0.56, pileH(w) * 0.62, 0, 0, TAU); g.fill(); g.restore();
     }
     drawPile(g, PILE.x, PILE.y, w, this.shown, this.pileSq, this.pileWob);
@@ -873,6 +877,10 @@ export class Game {
     const a = e.a, k = ease.outBack(clamp(e.headK, 0, 1));
     if (k <= 0) return;
     g.save();
+    g.globalAlpha = 0.45 * Math.min(1, k); g.fillStyle = '#6a2a12';   // the hole she popped out of
+    g.beginPath(); g.ellipse(x, y + 2, collarW * 0.55, 14, 0, 0, TAU); g.fill();
+    g.restore();
+    g.save();
     g.beginPath(); g.rect(x - 220, y - 500, 440, 506); g.clip();
     g.translate(0, (1 - k) * 80);
     a.draw(g, { shadow: false });
@@ -883,7 +891,7 @@ export class Game {
   drawPlayer(g, e) {
     const a = e.a;
     // the neck depth for heads poking out (measured from the art, standing up)
-    if (!e.fin || e.fin.state === 'walk' || e.fin.state === 'wait') { const nk = a.anchor('neck'); const d = a.y - a.z - nk.y; if (d > 10) e.neckD = d; }
+    if (!e.jump && (!e.fin || e.fin.state === 'walk' || e.fin.state === 'wait')) { const nk = a.anchor('neck'); const d = a.y - a.z - nk.y; if (d > 10) e.neckK = d / a.scale; }
     const spin = e.rot && (e.jump || (e.fin && e.fin.state === 'leap'));
     if (spin) {
       // tuck tumble: spun in the plane round the middle of the body
@@ -922,7 +930,7 @@ export class Game {
     }
     if (G.state === 'gasp') drawShock(g, hx, hy, 70, this.t, G.k);
     if (G.state === 'huff') drawSteam(g, hx, top - 6, 60, this.t);
-    if (G.say && G.sayT < 1.6) drawShout(g, G.say, GRANNY.x - 120, top - 46, 40, G.sayT, Math.min(1, G.sayT * 6));
+    if (G.say && G.sayT < 1.6) drawShout(g, G.say, GRANNY.x - 60, top - 34, 38, G.sayT, Math.min(1, G.sayT * 6));
   }
 
   drawSquirrelNow(g, s) {
@@ -957,7 +965,7 @@ export class Game {
     if (this.banner) {
       const b = this.banner;
       g.save(); g.globalAlpha = clamp(Math.min(b.t * 4, (b.d - b.t) * 3), 0, 1);
-      ui.banner(g, b.text, b.t, { y: 250, size: 110, color: '#ffffff' });
+      ui.banner(g, b.text, b.t, { y: 830, size: 110, color: '#ffffff' });
       g.restore();
     }
   }
