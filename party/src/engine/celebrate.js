@@ -11,7 +11,8 @@
 // landing, the jump pose in the air). The jump is A while the game is still on (`ended`
 // false) and X always: in the play scene's 'gallery' state A leaves the game, so there only
 // X jumps (Gingerbread House's village: A jumps only before the gallery). When she stops,
-// she goes back to the pose she had before she set off (cheer, dance, wave...).
+// she goes back to `o.rest` (the game's celebrating pose) or else the pose she had before she
+// set off (cheer, dance, wave...).
 // CPUs: don't call it; they keep their own bounce / dance.
 // It moves `pos` (default the actor itself: pass the game's per-player object when the game
 // copies e.x / e.y onto the actor each frame). It owns a.z while it runs: a game that sets
@@ -30,7 +31,8 @@ const MOVE_POSES = new Set(['walk', 'run', 'jump', 'fall', 'dash']);
  * @param bounds  { x0, x1, y0, y1 } the floor she may walk on
  * @param o       { ended, speed = 380, ySpeed = 0.7 (of speed), jumpV = 780, gravity = 2600,
  *                  scale = 1 (speeds and jump height), pos = a, jump = ['a'?, 'x'] buttons,
- *                  dash = true, dust = '#ffffff', ok = true (false: stand still this frame) }
+ *                  dash = true, dust = '#ffffff', ok = true (false: stand still this frame),
+ *                  rest (the pose when standing still) }
  * @returns { moving, jumped, landed, air, x, y } (x, y: where she stands)
  */
 export function celebrateWalk(a, ctrl, dt, bounds = {}, o = {}) {
@@ -66,9 +68,31 @@ export function celebrateWalk(a, ctrl, dt, bounds = {}, o = {}) {
   if (Math.abs(mx) > 0.15) a.facing = mx > 0 ? 1 : -1;   // turn at once (no paper flips)
   if (air) { if (!a._once && a.pose !== 'jump') a.setPose('jump'); }
   else if (moving) a.moveAnim(mx * speed, my * ySpeed, speed);
-  else if (!a._once && MOVE_POSES.has(a.pose) && (S.rest || a.pose !== 'idle')) { a.setPose(S.rest || 'idle'); }
+  else if (o.rest) a.setPose(o.rest);   // (setPose keeps a one-shot playing and doesn't restart a pose)
+  else if (!a._once && MOVE_POSES.has(a.pose)) a.setPose(S.rest || 'idle');
   return { moving, jumped, landed, air, x: pos.x, y: pos.y };
 }
 
 /** True while this actor is mid-celebration-jump (or dashing): a game's own idle bounce should wait. */
 export function celebrating(a) { return !!(a._cel && (a.z > 0 || a._cel.vz > 0 || (a._cel.dash && a._cel.dash.active))); }
+
+/**
+ * Just the jump, for a game whose finale already walks the kids about (its own a.z, e.g. a
+ * flier's hover, stays the game's): call per frame with whether the jump button went down,
+ * and add the returned z on top of the game's own a.z. Sets the jump pose in the air and
+ * squashes on take-off and landing.
+ *   const h = celebrateHop(a, !p.isAI && ctrl.pressed('x'), dt);   a.z = myZ + h.z;
+ */
+export function celebrateHop(a, jump, dt, o = {}) {
+  const S = a._hop || (a._hop = { z: 0, vz: 0 });
+  const k = o.scale ?? 1;
+  let jumped = false, landed = false;
+  if (jump && S.z <= 0 && S.vz <= 0) { S.vz = (o.jumpV ?? 780) * Math.sqrt(k); a.squash(-0.22); sfx('jump', { vol: 0.35 }); jumped = true; }
+  if (S.z > 0 || S.vz > 0) {
+    S.vz -= (o.gravity ?? 2600) * dt;
+    S.z = Math.max(0, S.z + S.vz * dt);
+    if (S.z <= 0) { if (S.vz < -200) a.squash(0.18); S.vz = 0; landed = true; }
+  }
+  if (S.z > 0 && !a._once && a.pose !== 'jump') a.setPose('jump');
+  return { z: S.z, air: S.z > 0, jumped, landed };
+}

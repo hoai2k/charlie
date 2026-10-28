@@ -836,7 +836,8 @@ export class Game {
   }
   postUpdate(dt) {
     this.t += dt;
-    for (const st of this.stations) st.actor.update(dt);
+    // the gallery: the kids still wander the beach, jump (X: A goes on) and pose
+    for (const st of this.stations) { if (this.finale && !st.p.isAI) this.finaleMove(st, dt, true); else st.actor.update(dt); }
     this.updatePieces(dt);
   }
 
@@ -1101,11 +1102,12 @@ export class Game {
       return;
     }
   }
-  finaleMove(st, dt) {
+  finaleMove(st, dt, ended = false) {
     const c = st.p.ctrl, a = st.actor, k = this.k;
     st.poseCD -= dt;
     let { x: mx, y: my } = photoMove(c);
-    let jump = c.pressed('a'), pose = photoPosePressed(c);
+    let jump = c.pressed(ended ? 'x' : 'a'), pose = photoPosePressed(c);
+    if (ended && pose && pose.btn === 'x') pose = null;   // in the gallery X is the jump
     const F = this.finale;
     if (st.p.isAI) {
       st.aiT = (st.aiT ?? rand(0.5, 1.5)) - dt;
@@ -1129,7 +1131,7 @@ export class Game {
       if (st.jz <= 0) { st.jz = 0; st.jvz = 0; a.squash(0.18); }
     }
     a.z = st.jz;
-    if (pose && st.poseCD <= 0 && !(F.stage === 'photo' && F.shot)) { st.poseCD = 0.35; strikePhotoPose(a, pose); }
+    if (pose && st.poseCD <= 0 && (ended || !(F.stage === 'photo' && F.shot))) { st.poseCD = 0.35; strikePhotoPose(a, pose); }
     a.update(dt);
   }
 

@@ -24,6 +24,7 @@ import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, dist } from '../engine/util.js';
 import { Dash } from '../engine/dash.js';
+import { celebrateWalk } from '../engine/celebrate.js';
 import { ARENA, BIG, FRIEND, NAVY, drawFlake, drawSnowball, drawPenguin, drawFriend, drawBigSnowman, drawMeadow, drawSnowJar, JAR, friendHand } from './snowflake-catch/art.js';
 
 import { meta } from './snowflake-catch.meta.js';
@@ -137,7 +138,14 @@ export class Game {
 
   postUpdate(dt) {
     this.t += dt;
-    for (const e of this.ents) { e.a.update(dt); }
+    for (const e of this.ents) {
+      // the gallery: a kid can still run and jump about the meadow (X jumps: A goes on)
+      if (!e.p.isAI) {
+        celebrateWalk(e.a, e.p.ctrl, dt, { x0: ARENA.x0, x1: ARENA.x1, y0: ARENA.y0, y1: ARENA.y1 }, { pos: e, ended: true, rest: 'celebrate', scale: this.base, speed: 440 });
+        e.a.x = e.x; e.a.y = e.y; e.a.scale = this.base * e.boost * depthScale(e.y, { top: 380, near: 1020 });
+      }
+      e.a.update(dt);
+    }
     this.updateFlakes(dt, true);
     this.updateMotes(dt);
     this.bounce = approach(this.bounce, 0, dt * 2.5);

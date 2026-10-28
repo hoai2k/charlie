@@ -28,6 +28,7 @@ import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, approach, rand, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
 import { drawSparkleShape } from '../engine/emotes.js';
 import { Dash } from '../engine/dash.js';
+import { celebrateWalk } from '../engine/celebrate.js';
 import {
   KINDS, drawDirt, drawSeed, drawSprout, drawBud, drawSunflower, drawCarrot, drawStrawberryBush, drawStrawberry,
   drawPumpkin, drawVine, drawSneezy, drawCan, drawButterfly, drawRainCloud,
@@ -202,6 +203,8 @@ export class Game {
     if (e.stun > 0) e.dash.cancel();
     e.x = clamp(e.x + (e.vx + e.pvx) * dt + dd.x, X_MIN, X_MAX);
     e.y = clamp(e.y + (e.vy + e.pvy) * dt + dd.y, Y_MIN, Y_MAX);
+    // the garden party (and the gallery after it): a kid walks and jumps about, dancing when she stops
+    if (this.phase === 'party' && !e.p.isAI) { celebrateWalk(a, c, dt, { x0: X_MIN, x1: X_MAX, y0: Y_MIN, y1: Y_MAX }, { pos: e, ended: this.api.ended(), speed: 460, rest: e.i % 2 ? 'dance' : 'celebrate', dust: '#e8d6a8' }); return; }
     if (this.phase === 'party') { if (!a._once) a.setPose(e.i % 2 ? 'dance' : 'celebrate'); return; }
     if (e.stun > 0) { if (!a._once) a.setPose('dizzy'); return; }
     if (e.watering) {
