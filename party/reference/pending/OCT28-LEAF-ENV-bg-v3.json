@@ -1,0 +1,34 @@
+{
+  "key": "bg/leaf-pile-leap",
+  "prompt": "Use case: precise-object-edit. Edit this 2D illustrated autumn garden background. Preserve the style and all other art. The flower bed is still too high and too far left. MOVE THE WHOLE FLOWER BED DOWN so it is halfway down the right side of the image, standing in front of the fence and separated below it by some visible lawn. Its bottom is 48% of image height and its top is33% of image height. The flowerbed occupies ONLY THE RIGHTMOST8% of the image width. Clear away the old high flowerbed and replace that old region with white fence and lawn. Move the gate to88% of image width. Keep the white fence bottom at31% of image height. Keep central and lower lawn empty and keep same autumn trees, navy outlines and clean soft cel shading. No characters, no animals, no objects on lawn except the few existing edge leaves. Opaque16:9 landscape image. Flowerbed MUST be lowered substantially by about one full flowerbed height from where it is now.",
+  "status": "intaken-and-visually-reviewed-pending-consumer-check",
+  "mode": "built-in imagegen",
+  "editTarget": "assets/art/bg/leaf-pile-leap-v2.webp",
+  "reason": "V2 corrected fence height but retained high flowerbed; focused follow-up for flowerbed positioning.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-ed49cce2-3c87-4b2b-bffa-f5fd5dbfea05.png",
+  "nativeSize": [
+    1672,
+    941
+  ],
+  "source": "reference/sources/oct28-leaf-environment/bg-v3-native.webp",
+  "runtime": "assets/art/bg/leaf-pile-leap-v3.webp",
+  "outputSize": [
+    1920,
+    1080
+  ],
+  "geometry": {
+    "designSpace": [
+      1920,
+      1080
+    ]
+  },
+  "processing": "Native RGBA lossless WebP exact=True archive; resized to requested opaque design canvas.",
+  "runtimeSha256": "79b676652c4f98ccf0cf5c5ab6a0627337b097532a91b943e2d777aabe75c851",
+  "runtimeBytes": 199328,
+  "decodedBytes": 8294400,
+  "alphaExtrema": [
+    255,
+    255
+  ],
+  "review": "Targeted editing preserved autumn style. Fence baseline about350, gate centre1640, flowerbed roughlyx1720..1920 y320..450. Much closer to requested positions but consumer watering target still needs measured alignment; centre/lower lawn clear."
+}

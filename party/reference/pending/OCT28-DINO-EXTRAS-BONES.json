@@ -1,0 +1,117 @@
+{
+  "id": "bones",
+  "prompt": "Use case: illustration-story. Asset type: transparent game atlas prop/dino-bones,1024x512 final, EXACT4columns\u00d72rows grid of square256pxcells,8items. Reference is approved dinosaur skeleton: copy its chunky rounded toy-like ivory bones #f6ecd2 with shade #d9c7a0, smooth bold navy #24163f outline and clean soft cel shading,2D no3D. Create exactly ONE bone design centred in EACH equal square cell, full designs inside cell with generous margins, filling roughly80% of cell, each lies HORIZONTALLY. Ordered LEFT TO RIGHT, TOP ROW:1 long leg bone with round knobby ends;2 chunky vertebra with a little rounded plate on top;3 single curved rib turned sideways horizontally;4 classic dog-biscuit bone with double rounded knobs on both ends. BOTTOM ROW:5 THREE small toe bones TOUCHING together as one connected cluster, horizontal;6 single small tail vertebra with rounded knobs;7 big chunky thick thigh bone horizontal with knobby ends, clearly thicker than bone1;8 smiling jaw bone horizontal with blunt round teeth. All bone colour matches reference. True transparent background between designs and in jaw holes. No skeleton, no text, no labels, no numbered cells, no gridlines, no shadows, sparkles,dust,motionlines, no scenery. Eight clearly distinct designs only; single connected object percell including3 touchingtoe bones.",
+  "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-2558a641-32d7-4d2a-a102-7c4ccd67a120.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+  "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-2558a641-32d7-4d2a-a102-7c4ccd67a120.png",
+  "source": "party/reference/sources/oct28-dino-extras/bones-atlas-native.webp",
+  "sourceSize": [
+    1774,
+    887
+  ],
+  "native_rgba_exact_verified": true,
+  "tool": "image_gen.imagegen",
+  "key": "prop/dino-bones",
+  "file": "party/assets/art/prop/dino-bones.webp",
+  "size": [
+    1024,
+    512
+  ],
+  "anchor": [
+    512.0,
+    512
+  ],
+  "runtimeTranslation": [
+    0,
+    0
+  ],
+  "operation": "Full source1774x887 resized to1024x512, then repack_atlas.py --cols4 --rows2 (8components, common scale0.911), final re-encoded exact=True; no generated artwork repainted",
+  "runtime_rgba_exact_verified": true,
+  "runtimeBytes": 159168,
+  "decodedBytes": 2097152,
+  "meaningfulAlphaBBox": [
+    28,
+    67,
+    999,
+    447
+  ],
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "sourceSha256": "f305d02dfdd5d62ef5dfa685e9471a8c0c7e5f53926e78b23c75eccab88ead6b",
+  "runtimeSha256": "af3a68fbfd2ef4b6ef23955244b996f7eec8598ae0a9c28fae7a199511474053",
+  "references": [
+    "party/reference/sources/oct28-dino-skeleton/master-template.webp"
+  ],
+  "status": "Native and final runtime visually reviewed; actual game consumer review pending integrator",
+  "encoding": "lossless WebP exact=True method6",
+  "review": "Approved2D navy outlines/softcel style. Full native RGBA archive decoded byte equality verified. Runtime dimensions checked.",
+  "grid": {
+    "columns": 4,
+    "rows": 2,
+    "cellSize": [
+      256,
+      256
+    ],
+    "order": [
+      "long leg bone",
+      "vertebra with plate",
+      "curved rib",
+      "dog-biscuit bone",
+      "three touching toe bones",
+      "small tail vertebra",
+      "chunky thigh bone",
+      "smiling jaw"
+    ]
+  },
+  "cellBounds": [
+    [
+      28,
+      84,
+      228,
+      171
+    ],
+    [
+      38,
+      67,
+      218,
+      189
+    ],
+    [
+      30,
+      77,
+      226,
+      179
+    ],
+    [
+      32,
+      82,
+      224,
+      173
+    ],
+    [
+      32,
+      91,
+      225,
+      165
+    ],
+    [
+      50,
+      86,
+      206,
+      169
+    ],
+    [
+      20,
+      65,
+      235,
+      191
+    ],
+    [
+      26,
+      74,
+      231,
+      183
+    ]
+  ]
+}

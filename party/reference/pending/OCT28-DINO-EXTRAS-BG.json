@@ -1,0 +1,69 @@
+{
+  "id": "bg",
+  "prompt": "Use case: illustration-story. Asset type: opaque1920x1080 game background bg/dino-dig. Image1 is EXACT LAYOUT GUIDE: preserve geometry and placement of its platform and sandbox exactly while illustrating surfaces and environment. Image2 is approved house style reference only; do NOT add teapot. Sunny friendly fossil dig site seen slightly from above in a desert valley, blue sky, a few puffy clouds, far rounded orange mesas and a couple of cacti. Top130px calm pale blue sky for HUD. The empty low wooden display platform MUST have its straight FRONT TOP EDGE exactly at design y462, running x470 through1450; plain uninterrupted front face from y462 to515, no legs visible below, no objects on it. Shallow top plane lies y425..462. Keep its entire x470..1450 geometry as layoutguide. Giant sandbox starts with back wooden rail at y545, spans x65..1855, left/right frame at outeredges; inner sand starts y567 and extends to bottom. All sand in playable region x150..1770,y590..1010 MUST be plain smooth lowcontrast golden sand with only gentle broad ripples, no obstacles or props or specks. Dig-site details limited outside sandbox or extreme farcorners: striped tent corner, bucket/brushes, redflagstakes, ropefence. No dinosaur, no skeleton, no bones, no characters, no mounds, no holes. House style2D smooth bold navy #24163f outlines, clean soft cel shading, bright friendly colours, NO3D/no photorealism. No text, no sparkles/dust/motionlines or baked shadows. Exact wide16:9 composition.",
+  "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-813052b4-15fe-46ea-ac27-33ca7bc37089.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+  "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-813052b4-15fe-46ea-ac27-33ca7bc37089.png",
+  "source": "party/reference/sources/oct28-dino-extras/background-native.webp",
+  "sourceSize": [
+    1672,
+    941
+  ],
+  "native_rgba_exact_verified": true,
+  "tool": "image_gen.imagegen",
+  "key": "bg/dino-dig",
+  "file": "party/assets/art/bg/dino-dig.webp",
+  "size": [
+    1920,
+    1080
+  ],
+  "anchor": null,
+  "runtimeTranslation": [
+    0,
+    0
+  ],
+  "operation": "Full-canvas proportional resize",
+  "runtime_rgba_exact_verified": true,
+  "runtimeBytes": 1365942,
+  "decodedBytes": 8294400,
+  "meaningfulAlphaBBox": [
+    0,
+    0,
+    1920,
+    1080
+  ],
+  "alphaExtrema": [
+    255,
+    255
+  ],
+  "sourceSha256": "09e5167f297d965ebc45ef733d755dda4d91acb078363035839770d49348c775",
+  "runtimeSha256": "83a5851b3e1440012decdd9709563491a1e46bf71034ef0403918076fed16de2",
+  "references": [
+    "party/reference/sources/oct28-dino-extras/background-layout-guide.png",
+    "party/assets/art/prop/fhs-teapot.webp"
+  ],
+  "status": "Native and final runtime visually reviewed; actual game consumer review pending integrator",
+  "encoding": "lossless WebP exact=True method6",
+  "review": "Approved2D navy outlines/softcel style. Full native RGBA archive decoded byte equality verified. Runtime dimensions checked.",
+  "measuredGeometry": {
+    "platformFrontTopEdge": [
+      470,
+      462,
+      1451,
+      462
+    ],
+    "platformFrontFace": [
+      470,
+      462,
+      1451,
+      516
+    ],
+    "sandboxBackRailY": 545,
+    "sandboxInnerSandTopY": 567,
+    "playableSandClear": [
+      150,
+      590,
+      1770,
+      1010
+    ]
+  }
+}

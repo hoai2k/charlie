@@ -1,0 +1,44 @@
+{
+  "id": "thumb",
+  "prompt": "Use case: illustration-story. Asset type: opaque800x500 shelf thumbnail for Leaf Pile Leap, no text. References: image1 is approved little pink garden fairy identity; image2 is Granny Goose identity; image3 is red squirrel identity; image4 is approved leaf heap style. Make one lively cheerful garden scene: the same little brown-bob-haired pink garden fairy with petal cap, petal dress, pink translucent wings and green eyes is CANNONBALLING from top of a sturdy red-orange wooden A-frame stepladder with six rounded rungs and a flower stencil on top step into an ENORMOUS round dome pile of vivid red, orange, golden yellow and a few brown autumn leaves. Fairy centred above mound, knees tucked and joyful laughing face, clearly flying downward toward leaves, leaves explode upward around her. Ladder visibly stands open beside the pile. The cheeky red squirrel with cream muzzle/belly and huge bushy tail peeks out of pile edge grinning. In background at garden gate, approved cream-white Granny Goose laughs, lavender floral-pocket apron, pink curlers under crisscross hairnet, round gold spectacles and pearls, no hose. Bright autumn garden lawn, white picket gate and flowering border. Main action centred and easily readable at small shelf size. Match supplied art: true 2D smooth bold navy #24163f outlines, clean soft cel shading, vivid cheerful colours. No3D, no photorealism, no text, no lettering, no logos, no border. Use the existing fairy exactly, no Charlie Party roster character or extra child.",
+  "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a as /Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-255416f7-d703-4bdc-b14b-92f3318e94ea.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+  "tool": "image_gen.imagegen",
+  "review": "Native and final runtime visually inspected. Exact RGBA source archive verified pixel-for-pixel; exact lossless runtime re-decode verified. Granny neutral/laugh/doze compared at same230px canvas height; original foot baseline and head/body scales retained. Squirrel distinct locomotion and delighted startled expressions checked at120px width. Actual game consumer review remains with integrator.",
+  "native_path": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-255416f7-d703-4bdc-b14b-92f3318e94ea.png",
+  "source": "party/reference/sources/oct28-leaf-characters/leaf-pile-leap-thumbnail-native.webp",
+  "source_size": [
+    1586,
+    992
+  ],
+  "native_rgba_exact_verified": true,
+  "key": "thumb/leaf-pile-leap",
+  "file": "party/assets/art/thumb/leaf-pile-leap.webp",
+  "size": [
+    800,
+    500
+  ],
+  "width": 800,
+  "height": 500,
+  "runtimeBytes": 673956,
+  "alphaExtrema": [
+    255,
+    255
+  ],
+  "meaningfulAlphaBBox": [
+    0,
+    0,
+    800,
+    500
+  ],
+  "anchor": null,
+  "status": "native and runtime visually reviewed; actual game consumer review pending integrator",
+  "operation": "full-canvas proportional resize, no alpha trim or normalization",
+  "runtime_rgba_exact_verified": true,
+  "references": [
+    "party/reference/canonical/garden-fairy-pink.webp",
+    "party/reference/sources/oct28-leaf-characters/llp-granny-laugh-native.webp",
+    "party/reference/sources/oct28-leaf-characters/llp-squirrel-run-1-native.webp",
+    "party/assets/art/prop/llp-pile-2.webp"
+  ],
+  "anchorMeaning": "opaque shelf card, full canvas"
+}

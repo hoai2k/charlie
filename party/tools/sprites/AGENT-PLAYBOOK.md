@@ -430,3 +430,13 @@ During concurrent main updates, review available game-branch code in an isolated
 ### Mole Madness: make the peek depend on visible pixels
 
 A320px transparent frame can contain only206px of character. Moving it underground by a procedural character's1.35×width hid the entire low-peek pose. Compute authored emergence travel from the visible content height and draw scale, keeping the original travel for fallback art. The approved mole uses a0.6s rise with a short0.52-height hold: verify the eyes and nose actually clear the lip at both back and front rows. Move bonk stars to the authored head height too. Check an actual cropped renderer animation, not just easing curves. Align each source's bottom torso centre before intake so a long snout changing sides does not drag the body across the hole.
+
+### October28 late delivery: measured attachments and articulated pieces
+
+A worn scarf needs a front band rather than a ring: preserve the atlas cell attachment (128,96), render the whole band unbent, and inspect all six dyed bodies so mouths remain clear. Draw each plush's own fabric paws over the heart pillow.
+
+Adding old props to a new deferred art group removes them from common boot loading. Preserve previously common keys when other games rely on them; still count their decoded memory in the new game's complete budget.
+
+Small skeleton boxes can conflict with complete rounded joint caps. Preserve the full part, record a measured art-only draw offset inside the existing logical rotation, and keep gameplay pivots stable. Validate connected joints in multiple poses. Source dimensions and design coordinates are independent: measure ladder top steps, rake grips and platform supports from actual pixels. Crown/hat bounds must include camera focus and punch at maximum hop, not only the static rig.
+
+Review actual merged main or a coherent immutable preview. Mixing partial feature files from different revisions can manufacture missing-method errors. Archive exact sources/prompts and retain full requested canvases when runtime images need smaller derivatives.

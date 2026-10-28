@@ -1,0 +1,157 @@
+{
+  "key": "prop/dino-leg-back",
+  "box": [
+    380,
+    255,
+    520,
+    485
+  ],
+  "size": [
+    140,
+    230
+  ],
+  "templatePoints": [
+    [
+      440,
+      285
+    ],
+    [
+      470,
+      380
+    ],
+    [
+      445,
+      455
+    ],
+    [
+      488,
+      480
+    ]
+  ],
+  "localPoints": [
+    [
+      60,
+      30
+    ],
+    [
+      90,
+      125
+    ],
+    [
+      65,
+      200
+    ],
+    [
+      108,
+      225
+    ]
+  ],
+  "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local140x230 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-leg-back. One complete hind leg only: round hip knob centred at (60,30), thigh down-right to knee (90,125), shin down-left to ankle (65,200), three stubby toe bones extending RIGHT and resting on y225. All bones complete, connected and rounded, nothing cut away. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+  "mode": "built-in imagegen",
+  "status": "intaken-and-static-assembled-reviewed-pending-consumer-check",
+  "styleReference": "reference/sources/oct28-dino-skeleton/master-template.webp",
+  "guide": "reference/sources/oct28-dino-skeleton/dino-leg-back-guide.png",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-c5477464-23e4-4327-aeee-d1ba3b56deba.png",
+  "nativeSize": [
+    978,
+    1608
+  ],
+  "source": "reference/sources/oct28-dino-skeleton/dino-leg-back-native.webp",
+  "runtime": "assets/art/prop/dino-leg-back.webp",
+  "outputSize": [
+    140,
+    230
+  ],
+  "registration": {
+    "sourcePoints": [
+      [
+        335.0,
+        224.0
+      ],
+      [
+        640.0,
+        1545.0
+      ]
+    ],
+    "targetPoints": [
+      [
+        60.0,
+        30.0
+      ],
+      [
+        95.0,
+        224.0
+      ]
+    ],
+    "sourceToLocal": [
+      [
+        0.14523363143652077,
+        -0.007037288106085418,
+        12.923086004528678
+      ],
+      [
+        0.007037288106085418,
+        0.14523363143652077,
+        -4.889824957319263
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localToSource": [
+      [
+        6.869329147474333,
+        0.33285298885772374,
+        -87.14533851419165
+      ],
+      [
+        -0.33285298885772374,
+        6.869329147474332,
+        37.89130490723343
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "alphaBounds": [
+      39,
+      12,
+      131,
+      225
+    ],
+    "registrationError": 0.0,
+    "unclippedAlphaBounds": [
+      39,
+      12,
+      131,
+      225
+    ],
+    "clippedSignificantPixels": 0,
+    "renderOffset": [
+      0,
+      0
+    ],
+    "sourceAlphaBounds": [
+      189,
+      97,
+      884,
+      1545
+    ]
+  },
+  "processing": "Native RGBA archived lossless WebP exact=True, verified byte-identical. Measured whole-part geometric registration only; no creative pixels painted. Bicubic affine transform into exact requested box canvas.",
+  "runtimeSha256": "af04b7d52951b705a70abaa09d60a1e53ca0126a7498516e7b8f1f03d7862b87",
+  "runtimeBytes": 13670,
+  "decodedBytes": 128800,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "nativeArchivePixelsIdentical": true,
+  "runtimePixelsReproducedExactly": true,
+  "review": "Native and runtime inspected. Complete sourcepart registered geometrically and reviewed in assembled normal/sneeze templates.",
+  "assembledReview": "reference/pending/OCT28-DINO-SKELETON-contact-review.jpg"
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><base href="../../"><title>Leaf Pile Leap — source assembly review</title><link rel="icon" href="favicon.png">
+<style>body{margin:0;background:#24163f;color:#fff;font:18px system-ui}canvas{display:block;width:min(100%,1920px);height:auto;margin:auto}p{margin:12px auto;max-width:1100px}</style></head>
+<body><p>Source assembly review using the actual art loader. This is an anchor/layout test, not gameplay. All 15 new keys are shown; the unpublished game is reviewed separately in an isolated checkout.</p><canvas id="review" width="1920" height="1420"></canvas>
+<script type="module">
+import {loadArt,ensureGameArt,art} from './src/engine/art.js';
+const c=document.querySelector('#review'),g=c.getContext('2d'),navy='#24163f';
+await loadArt({only:()=>false}); await ensureGameArt('leaf-pile-leap');
+const idx=await(await fetch('assets/art/index.json')).json();
+const keys=idx.groups['leaf-pile-leap'];
+const missing=keys.filter(k=>!art(k));
+const label=(s,x,y,size=24,color=navy)=>{g.font=`700 ${size}px system-ui`;g.fillStyle=color;g.fillText(s,x,y)};
+const dot=(x,y,color='#15bfc1')=>{g.strokeStyle=navy;g.fillStyle=color;g.lineWidth=2;g.beginPath();g.arc(x,y,6,0,Math.PI*2);g.fill();g.stroke();g.beginPath();g.moveTo(x-12,y);g.lineTo(x+12,y);g.moveTo(x,y-12);g.lineTo(x,y+12);g.stroke()};
+const bottom=(key,x,y,w)=>{const a=art(key);if(a)g.drawImage(a,x-w/2,y-w*a.height/a.width,w,w*a.height/a.width)};
+const byHeight=(key,x,y,h)=>{const a=art(key);if(a)bottom(key,x,y,h*a.width/a.height)};
+g.fillStyle='#fff5de';g.fillRect(0,0,1920,1420);g.drawImage(art('bg/leaf-pile-leap'),0,0,1920,1080);
+g.fillStyle='rgba(255,255,255,.94)';g.fillRect(15,12,1510,86);label('LEAF PILE LEAP — SOURCE ASSEMBLY / ANCHOR REVIEW',32,47,30);label('Actual engine loader; shared runtime art. Main garden coordinates in logical 1920 × 1080 space.',32,80,21);
+// Main assembly uses the requested design coordinates, independently of gameplay.
+bottom('prop/llp-pile-4',900,610,680);bottom('prop/llp-granny-pile',1580,520,200);
+byHeight('prop/mm-granny',1790,500,230);byHeight('prop/llp-ladder',520,610,440);
+const top={x:520+(151-150)*440/640,y:610-(640-78)*440/640};
+dot(520,610,'#ffcf3d');dot(top.x,top.y,'#5fe879');g.fillStyle='rgba(255,255,255,.94)';g.fillRect(18,143,417,144);label('Ladder front top step (151,78)',30,173,23);label(`Screen (${top.x.toFixed(1)}, ${top.y.toFixed(1)})`,30,206,23);label('386.375 px above the foot baseline',30,239,22);label('A climber’s feet must finish here.',30,271,22);g.strokeStyle=navy;g.lineWidth=2;g.beginPath();g.moveTo(435,218);g.lineTo(top.x,top.y);g.stroke();
+dot(1840,385,'#ffe447');const nozzle={x:1790+(370-200)*230/520,y:500-(520-177)*230/520};dot(nozzle.x,nozzle.y);g.setLineDash([5,5]);g.strokeStyle='#13a6bb';g.beginPath();g.moveTo(nozzle.x,nozzle.y);g.lineTo(1840,385);g.stroke();g.setLineDash([]);label('Flower target',1595,320,23);label('(1840,385)',1630,350,22);label('Granny: (1790,500), 230 px tall',1480,560,21);
+label('Stage 4 — 680 px wide / base (900,610)',650,655,23);label('Her neat pile — 200 px',1455,593,22);
+// Other growth stages are drawn at their actual requested widths on the foreground lawn.
+for(const [n,x,w]of [[1,200,300],[2,675,430],[3,1210,560]]){bottom('prop/llp-pile-'+n,x,1040,w);dot(x,1040,'#ffcf3d');label(`Stage ${n} — ${w} px wide`,x-w/2,1070,23)}
+byHeight('prop/llp-granny-laugh',1600,1040,230);byHeight('prop/llp-granny-doze',1800,1040,230);label('Laugh / doze — 230 px',1515,1070,22);
+for(const [key,x]of [['prop/llp-squirrel-run-1',1160],['prop/llp-squirrel-run-2',1320],['prop/llp-squirrel-scared',1480]]){bottom(key,x,720,120);label(key.split('/')[1].replace('llp-squirrel-',''),x-57,751,20)}
+g.fillStyle='#fff5de';g.fillRect(0,1090,1920,330);g.strokeStyle=navy;g.lineWidth=4;g.beginPath();g.moveTo(0,1090);g.lineTo(1920,1090);g.stroke();
+g.drawImage(art('thumb/leaf-pile-leap'),28,1130,352,220);label('Shelf thumbnail',30,1390,23);
+const leaves=art('prop/llp-leaves');g.drawImage(leaves,425,1120,256,256);label('4×4 leaves — exact even grid',410,1390,21);
+const rake=art('prop/llp-rake'),rx=770,ry=1190,rw=300,rk=rw/360;g.drawImage(rake,rx,ry,rw,rw*140/360);const grip={x:rx+35*rk,y:ry+68*rk};dot(grip.x,grip.y,'#5fe879');label('Rake grip: source (35,68)',740,1155,23);label('Place this green marker on the hand.',740,1355,21);label('Game draw length ≈ 150 px',740,1390,21);
+const unique=[...new Set(keys.map(k=>idx.images[k]))];const decoded=unique.reduce((s,f)=>{const a=art(keys.find(k=>idx.images[k]===f));return s+(a?a.width*a.height*4:0)},0);
+label(`Art group: ${(decoded/1048576).toFixed(3)} MiB decoded`,1130,1155,26);label(`${keys.length} keys / ${unique.length} distinct files; all 15 new keys shown`,1130,1194,22);label(missing.length?'MISSING: '+missing.join(', '):'No missing art keys.',1130,1233,23,missing.length?'#d82745':'#147243');label('Hose marker is a guide; current game draws no water stream.',1130,1285,21);label('Keep the authored pile art; do not paint a replacement front dome.',1130,1324,21);label('Game/CPU finale evidence is in OCT28-LEAF-GAME-reviewed-*.',1130,1363,21);
+window.review={ready:true,kind:'source assembly — not gameplay',missing,keys,decodedBytes:decoded,decodedMiB:decoded/1048576,ladder:{canvas:[300,640],drawHeight:440,base:[520,610],frontTopStep:[151,78],screenTopStep:[top.x,top.y],rise:386.375},rake:{canvas:[360,140],grip:[35,68]},watering:{grannyFeet:[1790,500],height:230,nozzleSourceEstimate:[370,177],nozzleScreen:nozzle,flowerTarget:[1840,385],note:'No water stream in current game; nozzle is slightly right/above centre, within the flower bed.'}};
+</script></body></html>

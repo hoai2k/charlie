@@ -35,7 +35,7 @@ import { Dash } from '../engine/dash.js';
 import { outfitAttach, outfitItem } from '../engine/outfits.js';
 import {
   NAVY, SAND, ARENA, DINO, J, ORDER, SILLY_HOST, toScreen, pieceTarget, sillyTarget,
-  drawSite, drawDino, drawPips, drawMound, drawHole, drawBone, drawSillyItem, drawHat, drawSpade,
+  drawSite, drawDino, drawPips, drawMound, drawHole, drawBone, drawSillyItem, drawHat, drawSpade, fitDinoHead,
 } from './dino-dig/art.js';
 
 import { meta } from './dino-dig.meta.js';
@@ -518,7 +518,9 @@ export class Game {
       pose.neck = -0.28 * smooth(u); pose.head = -0.22 * smooth(u); pose.lean = 0.05 * u;
       pose.bob = Math.sin(ft * 30) * 2 * u;
     }
-    return pose;
+    // A crowned duck is taller than the skull: keep its high hops inside the view.
+    const top = this.api.camera?.toWorld(0, 12).y ?? 12;
+    return fitDinoHead(pose, this.headKind, this.extras.crown.show > 0, top);
   }
 
   dinoFace() {

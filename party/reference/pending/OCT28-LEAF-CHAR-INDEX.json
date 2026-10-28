@@ -1,0 +1,133 @@
+{
+  "images": {
+    "prop/llp-squirrel-run-1": "prop/llp-squirrel-run-1.webp",
+    "prop/llp-squirrel-run-2": "prop/llp-squirrel-run-2.webp",
+    "prop/llp-squirrel-scared": "prop/llp-squirrel-scared.webp",
+    "prop/llp-granny-laugh": "prop/llp-granny-laugh.webp",
+    "prop/llp-granny-doze": "prop/llp-granny-doze.webp",
+    "thumb/leaf-pile-leap": "thumb/leaf-pile-leap.webp"
+  },
+  "geometry": [
+    {
+      "key": "prop/llp-squirrel-run-1",
+      "size": [
+        260,
+        200
+      ],
+      "anchor": [
+        130.0,
+        200
+      ],
+      "meaningfulAlphaBBox": [
+        4,
+        20,
+        256,
+        174
+      ],
+      "operation": "full-canvas proportional resize, no alpha trim or normalization"
+    },
+    {
+      "key": "prop/llp-squirrel-run-2",
+      "size": [
+        260,
+        200
+      ],
+      "anchor": [
+        130.0,
+        200
+      ],
+      "meaningfulAlphaBBox": [
+        16,
+        27,
+        241,
+        200
+      ],
+      "operation": "full source resized by same260/1430 squirrel scale; translated vertically +14px only to put bunched paws on200px ground baseline; no horizontal recenter or rescale",
+      "measuredSupportPoints": [
+        [
+          176,
+          200
+        ]
+      ]
+    },
+    {
+      "key": "prop/llp-squirrel-scared",
+      "size": [
+        260,
+        220
+      ],
+      "anchor": [
+        130.0,
+        220
+      ],
+      "meaningfulAlphaBBox": [
+        10,
+        15,
+        250,
+        212
+      ],
+      "operation": "shared squirrel260/1430 scale, full source centered into260x220; no alpha trim"
+    },
+    {
+      "key": "prop/llp-granny-laugh",
+      "size": [
+        400,
+        520
+      ],
+      "anchor": [
+        200.0,
+        520
+      ],
+      "meaningfulAlphaBBox": [
+        16,
+        27,
+        241,
+        200
+      ],
+      "operation": "full-canvas proportional resize, no alpha trim or normalization",
+      "measuredSupportPoints": [
+        [
+          124,
+          520
+        ],
+        [
+          233,
+          515
+        ]
+      ]
+    },
+    {
+      "key": "prop/llp-granny-doze",
+      "size": [
+        400,
+        520
+      ],
+      "anchor": [
+        200.0,
+        520
+      ],
+      "meaningfulAlphaBBox": [
+        13,
+        1,
+        345,
+        519
+      ],
+      "operation": "full-canvas proportional resize, no alpha trim or normalization"
+    },
+    {
+      "key": "thumb/leaf-pile-leap",
+      "size": [
+        800,
+        500
+      ],
+      "anchor": null,
+      "meaningfulAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "operation": "full-canvas proportional resize, no alpha trim or normalization"
+    }
+  ]
+}

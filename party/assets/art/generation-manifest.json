@@ -41116,6 +41116,357 @@
       "archive": "party/reference/sources/oct28-plushie-revision/heart-pillow-native.webp",
       "tool": "built-in imagegen",
       "intake": "party/reference/pending/OCT28-PLUSHIE-REVISION.json"
+    },
+    {
+      "key": "bg/leaf-pile-leap",
+      "prompt": "Use case: precise-object-edit. Edit this 2D illustrated autumn garden background. Preserve the style and all other art. The flower bed is still too high and too far left. MOVE THE WHOLE FLOWER BED DOWN so it is halfway down the right side of the image, standing in front of the fence and separated below it by some visible lawn. Its bottom is 48% of image height and its top is33% of image height. The flowerbed occupies ONLY THE RIGHTMOST8% of the image width. Clear away the old high flowerbed and replace that old region with white fence and lawn. Move the gate to88% of image width. Keep the white fence bottom at31% of image height. Keep central and lower lawn empty and keep same autumn trees, navy outlines and clean soft cel shading. No characters, no animals, no objects on lawn except the few existing edge leaves. Opaque16:9 landscape image. Flowerbed MUST be lowered substantially by about one full flowerbed height from where it is now.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-ed49cce2-3c87-4b2b-bffa-f5fd5dbfea05.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/bg-v3-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/bg/leaf-pile-leap-v3-compact.webp",
+      "fullRuntime": "party/assets/art/bg/leaf-pile-leap-v3.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-ENV-bg-v3.json"
+    },
+    {
+      "key": "prop/llp-leaves",
+      "prompt": "Use case: stylized-concept. Asset type: transparent 2D cartoon game leaf atlas. Produce EXACTLY 16 separate leaves in an evenly spaced 4-column by 4-row grid, no extra leaves. All leaves flat and seen from above, stem pointing straight down, complete with generous clear gutters, no shadows.\nExact column identities in EVERY row, left to right: 1 maple leaf with sharp five lobes; 2 oak leaf with rounded finger-like lobes along a long centre; 3 round broad birch leaf with softly serrated edge and pointed tip; 4 long very slim willow leaf. Exact rows from top to bottom: row1 red; row2 orange; row3 gold yellow; row4 warm brown. Color is the leaf body, not merely the vein. Each leaf has bold navy #24163f outline, lighter centre vein and a few simple clean cel shaded panels. Match viewed approved cartoon prop reference: flat hand-drawn 2D illustration, warm bright clean style, not 3D, no realism, no bevels. Each leaf fills about 80% of its cell's height, narrow willow leaves remain narrow. Output square canvas, true transparent alpha background, no text, no labels, no gridlines, no scenery, no cast shadow, no detached decor or highlights outside leaf silhouettes.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-e9c4a468-b53c-4027-8544-7e17fb08a9e4.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-leaves-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/llp-leaves.webp",
+      "fullRuntime": "party/assets/art/prop/llp-leaves.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-ENV-llp-leaves.json"
+    },
+    {
+      "key": "prop/llp-pile-1",
+      "prompt": "Use case: stylized-concept. Asset type: transparent 2D cartoon game prop, growth stage ONE of four autumn leaf piles. A small knee-high low broad heap of fallen autumn leaves, red orange gold with a few warm brown, front view from slightly above, soft ragged oval ring of flat leaves around base. Friendly and inviting. Distinct low shallow dome, about FOUR TIMES wider than tall; not a tall mound. Individual maple, oak, birch and willow leaves readable around edges and top; use big simple overlapping leaf shapes rather than thousands of tiny lines. Match attached approved 2D prop style: bold navy #24163f outlines, clean soft cel shading, warm bright autumn colors, flat hand-painted cartoon no 3D no realism. Wide landscape composition. This is one pile, centred in the frame, fully visible. Its bottom base at bottom centre. True transparent alpha, no grass, no ground plane, no baked cast shadow, no glow, no characters, no text or decorations.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-9cd1f660-b1ba-4e52-86a1-10fdf22817cd.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-pile-1-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/llp-pile-1-compact.webp",
+      "fullRuntime": "party/assets/art/prop/llp-pile-1.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-ENV-llp-pile-1.json"
+    },
+    {
+      "key": "prop/llp-pile-2",
+      "prompt": "Use case: stylized-concept. Asset type: transparent 2D cartoon game prop, growth stage TWO of four autumn leaf piles. Match the attached stage-one leaf pile's EXACT illustration language, leaf anatomy, navy #24163f outline weight and red orange gold brown palette. Draw a NEW larger waist-high mound of fallen autumn leaves, clearly fuller and taller than the low shallow stage one: smooth broad rounded dome about 2.6 TIMES wider than tall. More overlapping leaves and a higher centre, front view from slightly above, with a soft ragged oval ring of flat leaves at base. Individual maple oak birch willow leaves readable at edges and on top. Big simple clean cel shaded leaf shapes, warm bright friendly illustrated children's game style, flat 2D no 3D no realism. One pile only, wide landscape composition, centred, fully visible, base at bottom centre. True transparent alpha background; no cast shadow, no grass or ground plane, no text, no characters, no decorations.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-f935f19b-4a8d-42ea-96c9-dac03884a689.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-pile-2-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/llp-pile-2-compact.webp",
+      "fullRuntime": "party/assets/art/prop/llp-pile-2.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-ENV-llp-pile-2.json"
+    },
+    {
+      "key": "prop/llp-pile-3",
+      "prompt": "Use case: stylized-concept. Asset type: transparent 2D cartoon game prop, growth stage THREE of four autumn leaf piles. Use attached first-stage pile as style reference only. Match navy #24163f outline, clean soft cel shading, bright red orange gold with occasional warm brown leaves. Draw a much BIGGER ROUND HEAP of fallen leaves with a tall round dome about TWICE wider than tall. Several layers of readable maple oak birch willow leaves climb up into a rounded peak; more leaf layers and a taller middle than the shallow reference. Fluffy, puffy, inviting, good for children to jump into. Front view from slightly above, soft ragged oval ring of leaves lying flat at its base. Big simple overlapping illustrated leaf shapes, no tiny fussy lines. Flat hand-painted 2D children's game style, no 3D no realism. One pile only, fully visible with margins, base at bottom centre. True alpha transparent background; no grass, no ground plane, no cast shadow, no glow, no text, no people or animals.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-f64b9d54-727f-4e6e-84d6-5e378ea7ad97.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-pile-3-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/llp-pile-3-compact.webp",
+      "fullRuntime": "party/assets/art/prop/llp-pile-3.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-ENV-llp-pile-3.json"
+    },
+    {
+      "key": "prop/llp-pile-4",
+      "prompt": "Use case: stylized-concept. Asset type: transparent 2D cartoon game prop, final growth stage FOUR of four autumn leaf piles. Use attached first-stage pile only as exact STYLE and LEAF DESIGN reference, not its shallow silhouette. Final pile is ENORMOUS and GLORIOUSLY TALL, a huge high rounded dome, only 1.7 TIMES wider than tall, with many more overlapping layers of leaves climbing steeply to a fluffy rounded crown. Top peak about 60% of entire pile width above the bottom. A few leaves balanced on the very top. Red, orange, gold, a few warm brown fallen maple/oak/birch/willow leaves, individual leaves clearly readable at edges and on top. Soft ragged oval ring of flat leaves at base, front view from slightly above. Inviting and puffy, enormous enough for many children to jump into, no children shown. Bold navy #24163f outlines, clean simple soft cel shading, warm bright flat 2D illustrated children's game art, no 3D, no realism. One tall pile centred, fully visible with margin, bottom centre base. True transparent alpha, no ground, no grass, no cast shadow, no glow, no text, no animals or characters.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-8a5d4606-b6a7-4aa9-8f97-8b39ee53bd3c.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-pile-4-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/llp-pile-4-compact.webp",
+      "fullRuntime": "party/assets/art/prop/llp-pile-4.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-ENV-llp-pile-4.json"
+    },
+    {
+      "key": "prop/llp-granny-pile",
+      "prompt": "Use case: stylized-concept. Asset type: transparent 2D cartoon game prop, Granny Goose's small neat leaf pile, landscape 400x260 aspect ratio. Match attached autumn pile reference's flat illustrated leaf designs, warm red orange gold and occasional brown, bold navy #24163f outlines and clean soft cel shading. One SMALL VERY NEAT perfectly ROUND little heap of autumn leaves, tidy as a cake, a low domed symmetrical oval with a carefully arranged clean circular edge, front view from slightly above. Much tidier and smaller than children's messy giant pile. One tiny wooden garden label stake on the RIGHT beside the heap, with a neat pink bow tied below its blank cream label. Absolutely no writing on label. Complete pile and stake fully visible. Base at bottom centre, actual leaf pile about 1.8 times wider than tall. Charming cheerful bright 2D children's game illustration, no 3D no realism, no characters. True transparent alpha background, including around stake; no grass, no ground, no cast shadow, no glow, no extra objects or leaves flying.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-54a1ccfa-0a16-47e0-92b7-0700220ac1b5.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-granny-pile-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/llp-granny-pile.webp",
+      "fullRuntime": "party/assets/art/prop/llp-granny-pile.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-ENV-llp-granny-pile.json"
+    },
+    {
+      "key": "prop/llp-rake",
+      "prompt": "Use case: stylized-concept. Asset type: transparent 2D cartoon child-sized leaf rake game prop, wide horizontal 360x140 aspect ratio.\nPrimary request: one cheerful wooden-handled leaf rake lying horizontally. Little yellow grip at the far LEFT handle end. Long slim warm wood shaft runs LEFT to RIGHT across the canvas, then springy bright RED fan-shaped rake head at the far RIGHT; fan tines spread and point diagonally DOWN-RIGHT. Tines must be individually separated with transparent spaces. Entire tool fully visible with margin. Grip easy to hold, handle uninterrupted, cute rounded safe shapes. Match attached approved prop illustration style: bold navy #24163f outlines, clean soft cel shading, bright warm 2D children's game art, no 3D no photorealism. Genuine transparent alpha background, no ground, no cast shadow, no glow, no leaves caught in tines, no hands or people, no text or logos.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-6cd7d903-1774-4519-943b-796533af94ea.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-rake-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/llp-rake.webp",
+      "fullRuntime": "party/assets/art/prop/llp-rake.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-ENV-llp-rake.json"
+    },
+    {
+      "key": "prop/llp-ladder",
+      "prompt": "Use case: stylized-concept. Asset type: transparent 2D cartoon stepladder game prop, portrait 300x640 aspect ratio.\nOne sturdy tall wooden A-frame stepladder standing OPEN, viewed from side-front (front climbing face clearly visible). Painted warm RED-ORANGE, rounded safe edges, exactly SIX clearly visible rounded horizontal climbing rungs on the FRONT face, evenly spaced bottom to top, including a broad top step with a tiny yellow-and-white flower stencil on it. Count six front rungs; do not add extra front rungs. Open rear support legs recede right and have no climbing rungs, simple side brace. Tall narrow ladder, feet spread at bottom, top platform easily visible for a fairy to leap from. Full ladder visible with clean transparent space around all legs. Match viewed approved children's game prop style: bold navy #24163f outlines, clean soft cel shading, flat hand-painted 2D bright cheerful cartoon, no realism, no 3D. Bottom centre anchor is middle between grounded feet. Genuine transparent alpha background including gaps between rungs and legs, no grass or ground, no baked cast shadow, no text, no characters, no extra objects.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-6c8a9e43-e21d-4a9b-a44c-a67b7d7a68f2.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-ladder-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/llp-ladder.webp",
+      "fullRuntime": "party/assets/art/prop/llp-ladder.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-ENV-llp-ladder.json"
+    },
+    {
+      "key": "prop/llp-squirrel-run-1",
+      "prompt": "Use case: illustration-story. Asset type: single transparent game sprite prop/llp-squirrel-run-1 for Leaf Pile Leap. Create one cheeky little red squirrel bounding toward RIGHT, clear full side view. Phase 1 is stretched long mid-leap, forepaws reaching forward, hind paws stretched backward, huge fluffy tail streaming backward to the LEFT. Warm russet red fur, cream muzzle and belly, tiny round dark nose, expressive shiny dark eyes, small tufted ears, mischievous grin; cute welcoming child-friendly personality. House style exactly 2D smooth bold navy #24163f outlines and clean soft cel shading matching the supplied existing Granny style reference, no 3D, no photorealism. Transparent background, no ground shadow, no text, no props, no scenery. Horizontal composition designed for a260x200 canvas; entire ears, paws and tail inside with clear margins. Consistent anatomy: four paws, one tail. This establishes the squirrel identity for subsequent running and funny-startled poses.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-a311932b-fc31-4c24-8dfa-358bff46c907.png",
+      "archive": "party/reference/sources/oct28-leaf-characters/llp-squirrel-run-1-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/llp-squirrel-run-1.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-CHAR-GENERATIONS.json"
+    },
+    {
+      "key": "prop/llp-squirrel-run-2",
+      "prompt": "Use case: identity-preserve. Asset type: single transparent game sprite prop/llp-squirrel-run-2. Edit the supplied squirrel, preserving EXACT identity: same russet red fur and cream muzzle/belly/tail underside, same tufted ears, shiny dark eyes, round dark nose, mischievous grin, same head/body proportions and navy #24163f outline weight. Change only locomotion phase: still full side view facing RIGHT, now bunched into a compact bounding contact/pass phase, four paws tucked closely together under the chest/belly, back arched, huge fluffy tail curled UP behind. The head must remain the same physical scale as in input; compact pose naturally narrower. Full body completely visible with margin. True transparent background. House style2D smooth navy outlines clean soft cel shading, no3D or photorealism. No ground, shadow, text, motion marks, extra objects or scenery. Designed for260x200 horizontal canvas.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-562cf699-dd7d-48d7-baa5-f4b4eadf0aae.png",
+      "archive": "party/reference/sources/oct28-leaf-characters/llp-squirrel-run-2-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/llp-squirrel-run-2.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-CHAR-GENERATIONS.json"
+    },
+    {
+      "key": "prop/llp-squirrel-scared",
+      "prompt": "Use case: identity-preserve. Asset type: single transparent game sprite prop/llp-squirrel-scared. Edit supplied squirrel preserving exact character identity and head proportions: russet red fur, cream muzzle, belly and tail underside, round dark nose, brown shiny eyes, tufted ears and cheeky smile. Pose: the squirrel has been gently shooed and is hopping STRAIGHT UP in a funny tickled surprise. Body upright, all four paws popped outward, enormous bushy tail fluffed, eyes wide with delight, giggly open-mouth grin. It must read playful startled laughter, never fear or distress. Face toward RIGHT in same side/threequarter side view as supplied. True transparent background, entire tail/paws/ears visible with margins. House style 2D smooth navy #24163f outlines and clean soft cel shading, no3D/no photorealism. No ground shadow, no scenery, no text, no motion/emote marks, no tools. Designed for260x220 canvas.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-1a860cf1-9671-4924-b0df-b762206b8471.png",
+      "archive": "party/reference/sources/oct28-leaf-characters/llp-squirrel-scared-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/llp-squirrel-scared.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-CHAR-GENERATIONS.json"
+    },
+    {
+      "key": "prop/llp-granny-laugh",
+      "prompt": "Use case: precise-object-edit. Edit target: supplied approved Granny Goose laughing sprite. Change ONLY this: remove ALL detached navy curved motion lines around her raised waving wing (small arcs at left of wing, above wing tip and outside/right of wing). Those motion marks must become truly transparent empty background. Preserve every part of Granny herself unchanged: exact same full-frame position,400x520 logical canvas proportions, identical head/curlers/hairnet, laughing closed eyes and open beak, round gold spectacles, pearls, lavender apron/floral pocket/scalloped trim, feathers, waving wing pose and tummy wing, orange webbed feet, exact physical scale and feet baseline. No redraw, no reframe, no cropping, no rescaling. Full image stays same portrait framing as input. Smooth bold navy #24163f outlines, clean soft cel shading,2D. True transparency, no background/ground/shadows, no text, no effects, no additional objects.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-5c75c696-6ec3-4c1f-bbb3-ad7676612244.png",
+      "archive": "party/reference/sources/oct28-leaf-characters/llp-granny-laugh-clean-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/llp-granny-laugh.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-CHAR-GENERATIONS.json"
+    },
+    {
+      "key": "prop/llp-granny-doze",
+      "prompt": "Use case: identity-preserve. Asset type: transparent reaction game prop/llp-granny-doze. EDIT TARGET is supplied existing Granny Goose. Preserve her EXACT approved identity and costume: cream-white feathered goose, same long neck, orange beak and orange webbed feet, lavender apron with scalloped white-lavender trim and same small floral embroidered front pocket, pink curlers beneath same crisscross hairnet, gold round spectacles, round cream pearls, same proportions and smooth navy #24163f outlines with clean soft cel shading. Change only pose: Granny is DOZING STANDING ON HER FEET, eyes softly shut, head nodding forward, contented little closed-beak smile. Her two wings folded over her apron holding ONE SMALL GREEN WATERING CAN that tips slightly forward as she naps. Remove all garden hose and spray nozzle. This watering can is the only added prop. FULL BODY facing right. Preserve entire400x520 reference frame registration: feet sit on same bottom baseline, head/curlers and torso same physical size; don't enlarge or recenter figure to fill vacated hose space, keep source padding. True transparent background. No ground or cast shadow, no zzz or text or symbols, no scenery, no water spray, no extra objects. 2D, no3D/no photorealism.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-e621f3c7-fe78-4417-8647-6f8d4cddd017.png",
+      "archive": "party/reference/sources/oct28-leaf-characters/llp-granny-doze-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/llp-granny-doze.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-CHAR-GENERATIONS.json"
+    },
+    {
+      "key": "thumb/leaf-pile-leap",
+      "prompt": "Use case: illustration-story. Asset type: opaque800x500 shelf thumbnail for Leaf Pile Leap, no text. References: image1 is approved little pink garden fairy identity; image2 is Granny Goose identity; image3 is red squirrel identity; image4 is approved leaf heap style. Make one lively cheerful garden scene: the same little brown-bob-haired pink garden fairy with petal cap, petal dress, pink translucent wings and green eyes is CANNONBALLING from top of a sturdy red-orange wooden A-frame stepladder with six rounded rungs and a flower stencil on top step into an ENORMOUS round dome pile of vivid red, orange, golden yellow and a few brown autumn leaves. Fairy centred above mound, knees tucked and joyful laughing face, clearly flying downward toward leaves, leaves explode upward around her. Ladder visibly stands open beside the pile. The cheeky red squirrel with cream muzzle/belly and huge bushy tail peeks out of pile edge grinning. In background at garden gate, approved cream-white Granny Goose laughs, lavender floral-pocket apron, pink curlers under crisscross hairnet, round gold spectacles and pearls, no hose. Bright autumn garden lawn, white picket gate and flowering border. Main action centred and easily readable at small shelf size. Match supplied art: true 2D smooth bold navy #24163f outlines, clean soft cel shading, vivid cheerful colours. No3D, no photorealism, no text, no lettering, no logos, no border. Use the existing fairy exactly, no Charlie Party roster character or extra child.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-255416f7-d703-4bdc-b14b-92f3318e94ea.png",
+      "archive": "party/reference/sources/oct28-leaf-characters/leaf-pile-leap-thumbnail-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/thumb/leaf-pile-leap.webp",
+      "intake": "party/reference/pending/OCT28-LEAF-CHAR-GENERATIONS.json"
+    },
+    {
+      "key": "bg/dino-dig",
+      "prompt": "Use case: illustration-story. Asset type: opaque1920x1080 game background bg/dino-dig. Image1 is EXACT LAYOUT GUIDE: preserve geometry and placement of its platform and sandbox exactly while illustrating surfaces and environment. Image2 is approved house style reference only; do NOT add teapot. Sunny friendly fossil dig site seen slightly from above in a desert valley, blue sky, a few puffy clouds, far rounded orange mesas and a couple of cacti. Top130px calm pale blue sky for HUD. The empty low wooden display platform MUST have its straight FRONT TOP EDGE exactly at design y462, running x470 through1450; plain uninterrupted front face from y462 to515, no legs visible below, no objects on it. Shallow top plane lies y425..462. Keep its entire x470..1450 geometry as layoutguide. Giant sandbox starts with back wooden rail at y545, spans x65..1855, left/right frame at outeredges; inner sand starts y567 and extends to bottom. All sand in playable region x150..1770,y590..1010 MUST be plain smooth lowcontrast golden sand with only gentle broad ripples, no obstacles or props or specks. Dig-site details limited outside sandbox or extreme farcorners: striped tent corner, bucket/brushes, redflagstakes, ropefence. No dinosaur, no skeleton, no bones, no characters, no mounds, no holes. House style2D smooth bold navy #24163f outlines, clean soft cel shading, bright friendly colours, NO3D/no photorealism. No text, no sparkles/dust/motionlines or baked shadows. Exact wide16:9 composition.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-813052b4-15fe-46ea-ac27-33ca7bc37089.png",
+      "archive": "party/reference/sources/oct28-dino-extras/background-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/bg/dino-dig.webp",
+      "intake": "party/reference/pending/OCT28-DINO-EXTRAS-DELIVERY.json"
+    },
+    {
+      "key": "thumb/dino-dig",
+      "prompt": "Use case: illustration-story. Asset type: opaque800x500 shelf thumbnail for Dino Dig. Image1 is approved existing pink garden fairy identity (brown bob, green eyes, pink petal dress, translucent pink wings); image2 dinosaur skeleton style and shape; image3 approved yellow rubber duck; image4 approved rose china teapot; image5 approved bright striped sock. Create cheerful sunny desert sandbox scene with that little garden fairy wearing khaki explorer hat with red band, crouched digging golden sand with a BLUE toy spade, a chunky ivory bone popping out of hole and small sand spray. Main fairy and digging action centred foreground, face delighted. Behind her a giant GOOFY CREAM IVORY LONG-NECKED DINOSAUR SKELETON, sideview FACING RIGHT, toy-like rounded bones navy outline, huge YELLOW RUBBER DUCK replacing its head at top of the neck, ROSE CHINA TEAPOT replacing end of its tail on LEFT with spout pointing LEFT, and colourful STRIPED SOCK on one front foot. Skeleton ivory#f6ecd2 shade#d9c7a0 and friendly, never scary; four legs, round ribcage. Dinosaur stands on a low wooden display platform in back, sunny rounded desert mesas/cacti and blue sky. Entire fairy, duck head and teapot tail clearly visible with margins; easy to read at small shelf size. House style2D smooth bold navy #24163f outlines, clean soft cel shading matching supplied references, bright friendly colours. No3D/no photorealism, no text/numbers/logos, no extra children/rostercharacters. Existing garden fairy only.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-9aad3eb8-824e-4d61-b1b0-0a282049ae9d.png",
+      "archive": "party/reference/sources/oct28-dino-extras/thumbnail-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/thumb/dino-dig.webp",
+      "intake": "party/reference/pending/OCT28-DINO-EXTRAS-DELIVERY.json"
+    },
+    {
+      "key": "prop/dino-bones",
+      "prompt": "Use case: illustration-story. Asset type: transparent game atlas prop/dino-bones,1024x512 final, EXACT4columns\u00d72rows grid of square256pxcells,8items. Reference is approved dinosaur skeleton: copy its chunky rounded toy-like ivory bones #f6ecd2 with shade #d9c7a0, smooth bold navy #24163f outline and clean soft cel shading,2D no3D. Create exactly ONE bone design centred in EACH equal square cell, full designs inside cell with generous margins, filling roughly80% of cell, each lies HORIZONTALLY. Ordered LEFT TO RIGHT, TOP ROW:1 long leg bone with round knobby ends;2 chunky vertebra with a little rounded plate on top;3 single curved rib turned sideways horizontally;4 classic dog-biscuit bone with double rounded knobs on both ends. BOTTOM ROW:5 THREE small toe bones TOUCHING together as one connected cluster, horizontal;6 single small tail vertebra with rounded knobs;7 big chunky thick thigh bone horizontal with knobby ends, clearly thicker than bone1;8 smiling jaw bone horizontal with blunt round teeth. All bone colour matches reference. True transparent background between designs and in jaw holes. No skeleton, no text, no labels, no numbered cells, no gridlines, no shadows, sparkles,dust,motionlines, no scenery. Eight clearly distinct designs only; single connected object percell including3 touchingtoe bones.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-2558a641-32d7-4d2a-a102-7c4ccd67a120.png",
+      "archive": "party/reference/sources/oct28-dino-extras/bones-atlas-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-bones.webp",
+      "intake": "party/reference/pending/OCT28-DINO-EXTRAS-DELIVERY.json"
+    },
+    {
+      "key": "prop/dino-mound",
+      "prompt": "Use case: illustration-story. Asset type: single transparent game prop/dino-mound,320x180 final. Create one low, soft, bumpy heap of GOLDEN SAND with a few tiny warm pebbles embedded in its surface, seen from slightly above. Wide shallow rounded undulating silhouette, bottom-centre ground anchor. Its sand colour matches the supplied desert sandbox background: golden yellow/beige, soft lowcontrast shading. Softly fading sand edge into transparency right at ground contact, smooth navy #24163f outline on upper silhouette, clean soft cel shading. House style2D childfriendly, no3D/no photorealism. Entire mound inside landscape frame with margin. No bones, no holes, no tools, no other props, no people, no text, no baked-in shadows/sparkles/dust or motionlines. True transparent background.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-396a1b53-d9a5-432b-abce-8cc1da8ec260.png",
+      "archive": "party/reference/sources/oct28-dino-extras/sand-mound-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-mound.webp",
+      "intake": "party/reference/pending/OCT28-DINO-EXTRAS-DELIVERY.json"
+    },
+    {
+      "key": "prop/dino-teacup",
+      "prompt": "Use case: precise-object-edit. Edit supplied rose china teacup-on-saucer image ONLY to reveal the FULL outer curve of its RIGHT handle, which currently touches/crops at the right image border, and add clear transparent margin all around the whole cup/saucer. Slightly reduce entire object's scale inside same landscape5:4 composition so it occupies85% width and has at least7% transparent margin at left and right. Preserve exact same cup design, pink roses/green leaves, goldrim/saucer, navy#24163f smooth outlines, clean soft cel shading,2D. Full right handle must be complete and clearly separated from canvasborder. True transparent background, no extraobjects/text/effects or shadows. Nothing else changes.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-b6f9b7ef-c7f2-4088-8dda-d4eef1a1bd85.png",
+      "archive": "party/reference/sources/oct28-dino-extras/rose-teacup-margin-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-teacup.webp",
+      "intake": "party/reference/pending/OCT28-DINO-EXTRAS-DELIVERY.json"
+    },
+    {
+      "key": "prop/dino-explorer-hat",
+      "prompt": "Use case: illustration-story. Asset type: single transparent game wearable prop/dino-explorer-hat,240x160 final. One child's KHAKI PITH HELMET / EXPLORER HAT in SIDE VIEW FACING RIGHT: rounded khaki dome with little top button, wide gently curved brim extending farther forward to the RIGHT, narrow cheerful RED hatband round the base of dome. Opening/underside visible subtly under brim, to sit on top of a character's head; bottom-centre of brim underside is attachment point. Entire hat visible, occupies80-90% frame width with margin, no head/mannequin/people. House style exactly2D smooth navy #24163f outlines and clean soft cel shading matching supplied approved toyspade style reference; khaki tan/cream with warm soft celshadows. No3D/no photorealism. True transparent background, no text/logos, no baked groundshadow, sparkles,dust,motionlines or extra props.",
+      "source": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-17ecfbf7-303d-4ca8-9c52-c86e9d9f6f8a.png",
+      "archive": "party/reference/sources/oct28-dino-extras/explorer-hat-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-explorer-hat.webp",
+      "intake": "party/reference/pending/OCT28-DINO-EXTRAS-DELIVERY.json"
+    },
+    {
+      "key": "prop/dino-hips",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local150x110 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-hips. One rounded butterfly-shaped pelvis hip plate only, symmetrical chubby upper wings with two softly rounded lobes, central round joint knob centred at (75,60). Ivory plate with simple rounded internal holes if natural, no sharp edges. Complete entire plate. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-dcb6cce8-698a-4a68-8a44-0d0176c22b86.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-hips-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-hips.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-hips.json"
+    },
+    {
+      "key": "prop/dino-leg-back",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local140x230 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-leg-back. One complete hind leg only: round hip knob centred at (60,30), thigh down-right to knee (90,125), shin down-left to ankle (65,200), three stubby toe bones extending RIGHT and resting on y225. All bones complete, connected and rounded, nothing cut away. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-c5477464-23e4-4327-aeee-d1ba3b56deba.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-leg-back-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-leg-back.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-leg-back.json"
+    },
+    {
+      "key": "prop/dino-leg-front",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local130x230 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-leg-front. One complete front leg only: round shoulder knob centred at (60,30), upper arm down-left to elbow (45,120), forearm down-right to wrist (70,195), three stubby toe bones extending RIGHT and resting on y225. All bones complete, connected and rounded, nothing cut away. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-1c63c800-84e0-40e0-a805-266ef31e8aec.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-leg-front-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-leg-front.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-leg-front.json"
+    },
+    {
+      "key": "prop/dino-neck-1",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local135x135 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-neck-1. Only ONE diagonal chain of exactly THREE chunky rounded neck vertebra blocks, climbing UP-RIGHT from big round lower-left endpoint joint(25,105) to round upper-right endpoint joint(110,15). Both endpoint knobs complete circular balls. No skull or body attached. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-a98d710d-1a77-4248-bbf6-697f67dcff90.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-neck-1-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-neck-1.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-neck-1.json"
+    },
+    {
+      "key": "prop/dino-neck-2",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local115x120 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-neck-2. Only ONE diagonal chain of exactly THREE slightly smaller rounded neck vertebra blocks, climbing UP-RIGHT from round lower-left endpoint joint(25,95) to round upper-right endpoint joint(85,30). Both endpoint knobs complete circular balls. No skull or body attached. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-55922af1-97a1-484b-9d43-bd473ab8a451.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-neck-2-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-neck-2.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-neck-2.json"
+    },
+    {
+      "key": "prop/dino-rib-1",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local60x140 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-rib-1. Only ONE long smooth curved rib, not multiple ribs: top joint at(25,5), convex belly curves to the RIGHT through(42,65), then ends back LEFT near(25,130) in a rounded point. A graceful single C-shaped crescent ivory bone. Top round knob must overlap spine. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-0257a96d-744e-4bcc-b69e-f393bb1802f4.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-rib-1-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-rib-1.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-rib-1.json"
+    },
+    {
+      "key": "prop/dino-rib-2",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local65x167 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-rib-2. Only ONE long smooth curved rib, not multiple ribs: top joint at(25,4), convex belly curves to the RIGHT through(49,82), then ends back LEFT near(25,157) in a rounded point. A graceful single C-shaped crescent ivory bone, one of the longest barrel tummy ribs. Top round knob overlaps spine. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines. Critical endpoint detail: the round top knob is TINY, radius3 local pixels, only about1/50 of the rib height. No oversized lollipop ball. The shaft narrows at top then fattens along the middle of the crescent.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-c915abef-41e5-4da9-818f-5e6e502641ba.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-rib-2-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-rib-2.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-rib-2.json"
+    },
+    {
+      "key": "prop/dino-rib-3",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local65x165 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-rib-3. Only ONE long smooth curved rib, not multiple ribs: top joint at(25,6), convex belly curves to the RIGHT through(49,82), then ends back LEFT near(25,155) in a rounded point. A graceful single C-shaped crescent ivory bone, one of the longest barrel tummy ribs. Top round knob overlaps spine. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines. Critical endpoint detail: the round top knob is TINY, radius3 local pixels, only about1/50 of the rib height. No oversized lollipop ball. The shaft narrows at top then fattens along the middle of the crescent.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-aabf7cb7-494a-456a-9191-9f7ae7e26bf5.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-rib-3-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-rib-3.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-rib-3.json"
+    },
+    {
+      "key": "prop/dino-rib-4",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local60x130 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-rib-4. Only ONE long smooth curved rib, not multiple ribs: top joint at(25,6), convex belly curves to the RIGHT through(42,60), then ends back LEFT near(25,120) in a rounded point. A graceful single C-shaped crescent ivory bone. Top round knob overlaps spine. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines. Critical endpoint detail: the round top knob is TINY, radius3 local pixels, only about1/50 of the rib height. No oversized lollipop ball. The shaft narrows at top then fattens along the middle of the crescent.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-c108fe76-9fab-4e29-8c30-1585ec73ab32.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-rib-4-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-rib-4.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-rib-4.json"
+    },
+    {
+      "key": "prop/dino-skull-sneeze",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved NORMAL SKULL IDENTITY reference; match its exact ivory skull shape, pair of rounded back attachment knobs, nose, outline and blunt teeth. Change only the expression and jaw position. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local220x155 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-skull-sneeze. Only the complete friendly brontosaurus SKULL facing RIGHT, SAME skull as reference but MID-SNEEZE: eye socket squeezed closed into a happy arc, jaw wide open, head tipped back slightly while back round joint knob remains centred(35,80). Warm ivory complete head and open lower jaw with rounded blunt teeth. Funny not scary, no particles or effects, no neck or body. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-ef326a35-c362-4ddf-8f1a-6bb9d6e1068f.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-skull-sneeze-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-skull-sneeze.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-skull-sneeze.json"
+    },
+    {
+      "key": "prop/dino-skull",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local220x155 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-skull. Only the complete friendly brontosaurus SKULL facing RIGHT. Back round joint knob centred(35,80); big round goofy head with huge round eye socket centred(95,55), friendly dot pupil in eye socket; little nostril hole at right; long smiling jaw extending right with a row of rounded blunt teeth. Complete jaw and head, warm ivory, no neck or body. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-fe5004cc-8f79-4dc6-b559-3be216f59208.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-skull-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-skull.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-skull.json"
+    },
+    {
+      "key": "prop/dino-spine-1",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local140x60 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-spine-1. Only ONE chain of exactly THREE knobbly vertebra blocks, each with a small rounded plate on top, arranged on a gently rising line LEFT to RIGHT from (5,37) to (135,11). Warm ivory toy bones, complete separate piece of back spine, no ribs or attached legs. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-93c1d329-7ac8-46b5-8615-22c803f171dd.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-spine-1-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-spine-1.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-spine-1.json"
+    },
+    {
+      "key": "prop/dino-spine-2",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local140x60 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-spine-2. Only ONE chain of exactly THREE knobbly vertebra blocks, each with a small rounded plate on top, arranged on the shallow TOP ARCH of the back, gently rising from left (5,36) over centre(70,28) then falling slightly to right(135,34). No ribs or attached legs. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-744f9916-fb0c-4357-bad1-7f1db1f341a5.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-spine-2-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-spine-2.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-spine-2.json"
+    },
+    {
+      "key": "prop/dino-spine-3",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local140x75 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-spine-3. Only ONE chain of exactly THREE knobbly vertebra blocks, each with a small rounded plate on top, arranged on a gently falling line LEFT to RIGHT from (5,24) to (125,52), leading to shoulders. No ribs or attached legs. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-09eecbf6-b5b0-4a6d-bef4-b0f438681be4.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-spine-3-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-spine-3.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-spine-3.json"
+    },
+    {
+      "key": "prop/dino-tail-1",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local170x95 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-tail-1. Only ONE diagonal tapering tail chain of exactly FOUR rounded vertebra blocks, from big round upper-right endpoint knob(140,28) down-LEFT to smaller round lower-left endpoint knob(15,72). Largest block at upper right, successively smaller to lower left. Complete circular knobs at both ends, no body or other tail sections. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-a5eb3537-0937-463b-b1cf-07d92cbd06cc.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-tail-1-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-tail-1.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-tail-1.json"
+    },
+    {
+      "key": "prop/dino-tail-2",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local160x100 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-tail-2. Only ONE diagonal tapering tail chain of exactly FOUR smaller rounded vertebra blocks, from round upper-right endpoint knob(140,27) down-LEFT to smaller round lower-left endpoint knob(20,75). Successively smaller toward left. Complete circular knobs at both ends, no body or other tail sections. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-7541af30-bb09-4e4c-901c-2874ead8741f.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-tail-2-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-tail-2.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-tail-2.json"
+    },
+    {
+      "key": "prop/dino-tail-3",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local160x95 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-tail-3. Only ONE diagonal tapering tail-tip chain of exactly FOUR tiny rounded vertebra blocks, from round upper-right joint knob(140,25) down-LEFT to tiny round bead tip(20,75). Successively smaller toward left, last one a little round bead. Complete knob at upper right and complete round tip bead at lower left, no other tail sections. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+      "source": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-9f85d49c-7f33-4c5c-b81a-4ba64757545e.png",
+      "archive": "party/reference/sources/oct28-dino-skeleton/dino-tail-3-native.webp",
+      "tool": "built-in imagegen",
+      "runtime": "party/assets/art/prop/dino-tail-3.webp",
+      "intake": "party/reference/pending/OCT28-DINO-SKELETON-dino-tail-3.json"
     }
   ]
 }

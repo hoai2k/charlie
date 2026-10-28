@@ -1,0 +1,34 @@
+{
+  "status": "sources-intake-and-static-assembly-reviewed-pending-real-consumer-check",
+  "count": 17,
+  "nativeArchives": "All17 native RGBA archives pixel-identical to generatedPNG",
+  "runtimeReproducibility": "All17 runtimeRGBA rasters reproduced exactly from source and recorded affine matrices",
+  "clipping": "Zero pixels alpha>16 outside all17 requestedboxcanvases in64px padded transformproof",
+  "feetBaseline": 480,
+  "renderOffsets": {
+    "prop/dino-rib-1": [
+      0,
+      -8
+    ],
+    "prop/dino-rib-2": [
+      6,
+      -3
+    ],
+    "prop/dino-rib-3": [
+      15,
+      -3
+    ],
+    "prop/dino-rib-4": [
+      2,
+      -2
+    ]
+  },
+  "reviewFiles": [
+    "reference/pending/OCT28-DINO-SKELETON-assembled-normal.png",
+    "reference/pending/OCT28-DINO-SKELETON-assembled-sneeze.png",
+    "reference/pending/OCT28-DINO-SKELETON-joint-review.png",
+    "reference/pending/OCT28-DINO-SKELETON-contact-review.jpg"
+  ],
+  "consumerCheck": "Root/extras agent handles real game dance/sneeze review; no shared code edits by skeletonworker.",
+  "visualReview": "Normal and sneeze assembled1200x520 templates inspected with farlegs at(+38,-6), all17 completepart layers and rib art-only offsets. Joined hip/shoulder/neck/head/tail caps, clearroundbarrel ribs, friendly matching skull expressions, groundline480. Joint-centre marker proof inspected."
+}

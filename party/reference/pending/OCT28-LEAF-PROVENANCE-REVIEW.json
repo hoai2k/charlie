@@ -1,0 +1,580 @@
+{
+  "scope": "All15newLeafassets, all19groupkeys including4reuses; source/archive verification and sharedruntime budget",
+  "newAssetCount": 15,
+  "groupKeyCount": 19,
+  "distinctRuntimeFiles": 19,
+  "decodedBytes": 25796416,
+  "decodedMiB": 24.60137939453125,
+  "budgetMiB": 25,
+  "underBudget": true,
+  "allNativeRGBAExact": true,
+  "allPromptsPresent": true,
+  "checks": [
+    {
+      "key": "bg/leaf-pile-leap",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-ed49cce2-3c87-4b2b-bffa-f5fd5dbfea05.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/bg-v3-native.webp",
+      "nativeSize": [
+        1672,
+        941
+      ],
+      "archiveSize": [
+        1672,
+        941
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "d8aedce10bdc49dd7f768e09a76099f645f9783fcea81f929af4f179b1a069bc",
+      "runtime": "party/assets/art/bg/leaf-pile-leap-v3-compact.webp",
+      "runtimeSize": [
+        1280,
+        720
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "runtimeBytes": 106658
+    },
+    {
+      "key": "prop/llp-leaves",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-e9c4a468-b53c-4027-8544-7e17fb08a9e4.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-leaves-native.webp",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "archiveSize": [
+        1254,
+        1254
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "af3ff195465d5cdb5c08fee4c1ed7b93bbe8e0f4bd7641d4ff744a43b8456710",
+      "runtime": "party/assets/art/prop/llp-leaves.webp",
+      "runtimeSize": [
+        512,
+        512
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeBytes": 147462
+    },
+    {
+      "key": "prop/llp-pile-1",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-9cd1f660-b1ba-4e52-86a1-10fdf22817cd.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-pile-1-native.webp",
+      "nativeSize": [
+        1774,
+        887
+      ],
+      "archiveSize": [
+        1774,
+        887
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "cb7533ea92afc7e9fff668d307072af6e9f7a1f9fd7a36557e87c124ae2b2bd9",
+      "runtime": "party/assets/art/prop/llp-pile-1-compact.webp",
+      "runtimeSize": [
+        720,
+        432
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeBytes": 41248
+    },
+    {
+      "key": "prop/llp-pile-2",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-f935f19b-4a8d-42ea-96c9-dac03884a689.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-pile-2-native.webp",
+      "nativeSize": [
+        1620,
+        971
+      ],
+      "archiveSize": [
+        1620,
+        971
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "3a6f6f8f569f4f9e57cd159b22f83f6bcd3e41bf3ff833e8c6501f6eba05cd7c",
+      "runtime": "party/assets/art/prop/llp-pile-2-compact.webp",
+      "runtimeSize": [
+        720,
+        432
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeBytes": 51632
+    },
+    {
+      "key": "prop/llp-pile-3",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-f64b9d54-727f-4e6e-84d6-5e378ea7ad97.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-pile-3-native.webp",
+      "nativeSize": [
+        1620,
+        971
+      ],
+      "archiveSize": [
+        1620,
+        971
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "1d8060a5ac7350f957314433b7e59a39115a864a95669b15e133717fb0860613",
+      "runtime": "party/assets/art/prop/llp-pile-3-compact.webp",
+      "runtimeSize": [
+        720,
+        432
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeBytes": 60554
+    },
+    {
+      "key": "prop/llp-pile-4",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-8a5d4606-b6a7-4aa9-8f97-8b39ee53bd3c.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-pile-4-native.webp",
+      "nativeSize": [
+        1620,
+        971
+      ],
+      "archiveSize": [
+        1620,
+        971
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "b3c7247dfe637ad2ca83d4cfebdeb1176586db540610bd2e29ea2b30df8361dd",
+      "runtime": "party/assets/art/prop/llp-pile-4-compact.webp",
+      "runtimeSize": [
+        720,
+        432
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeBytes": 79080
+    },
+    {
+      "key": "prop/llp-granny-pile",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-54a1ccfa-0a16-47e0-92b7-0700220ac1b5.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-granny-pile-native.webp",
+      "nativeSize": [
+        1555,
+        1011
+      ],
+      "archiveSize": [
+        1555,
+        1011
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "e839f5172dc8911ec138f17e469021e6857676650c7a6f1d5f1fb1aa1a3e17f6",
+      "runtime": "party/assets/art/prop/llp-granny-pile.webp",
+      "runtimeSize": [
+        400,
+        260
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeBytes": 27084
+    },
+    {
+      "key": "prop/llp-rake",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-6cd7d903-1774-4519-943b-796533af94ea.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-rake-native.webp",
+      "nativeSize": [
+        2009,
+        783
+      ],
+      "archiveSize": [
+        2009,
+        783
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "63db5dcc3d74ce4f4799c4f65be75e7c989554c33c7a601c2d8727dee98aa88b",
+      "runtime": "party/assets/art/prop/llp-rake.webp",
+      "runtimeSize": [
+        360,
+        140
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeBytes": 9772
+    },
+    {
+      "key": "prop/llp-ladder",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-6c8a9e43-e21d-4a9b-a44c-a67b7d7a68f2.png",
+      "archive": "party/reference/sources/oct28-leaf-environment/llp-ladder-native.webp",
+      "nativeSize": [
+        859,
+        1831
+      ],
+      "archiveSize": [
+        859,
+        1831
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "0190c9d74932993e16823e15a5b41d043df7e55fda9b85c4e5aa5444eea1c75b",
+      "runtime": "party/assets/art/prop/llp-ladder.webp",
+      "runtimeSize": [
+        300,
+        640
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeBytes": 45472
+    },
+    {
+      "key": "prop/llp-squirrel-run-1",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-a311932b-fc31-4c24-8dfa-358bff46c907.png",
+      "archive": "party/reference/sources/oct28-leaf-characters/llp-squirrel-run-1-native.webp",
+      "nativeSize": [
+        1430,
+        1100
+      ],
+      "archiveSize": [
+        1430,
+        1100
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "4df10d61391ebf565ac6acf1874dd8cdb52f35f8807ef0cd3fc8129721c03562",
+      "runtime": "party/assets/art/prop/llp-squirrel-run-1.webp",
+      "runtimeSize": [
+        260,
+        200
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeBytes": 40290
+    },
+    {
+      "key": "prop/llp-squirrel-run-2",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-562cf699-dd7d-48d7-baa5-f4b4eadf0aae.png",
+      "archive": "party/reference/sources/oct28-leaf-characters/llp-squirrel-run-2-native.webp",
+      "nativeSize": [
+        1430,
+        1100
+      ],
+      "archiveSize": [
+        1430,
+        1100
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "894c471591fbfeb6bfaef2ee0a9decf5ced553871089737b416d189e51f2faac",
+      "runtime": "party/assets/art/prop/llp-squirrel-run-2.webp",
+      "runtimeSize": [
+        260,
+        200
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeBytes": 39356
+    },
+    {
+      "key": "prop/llp-squirrel-scared",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-1a860cf1-9671-4924-b0df-b762206b8471.png",
+      "archive": "party/reference/sources/oct28-leaf-characters/llp-squirrel-scared-native.webp",
+      "nativeSize": [
+        1364,
+        1153
+      ],
+      "archiveSize": [
+        1364,
+        1153
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "c8b3bb9eecc9a4268cca246b5f7ce2c1ce8584a0297cef82839d305ca73c4e24",
+      "runtime": "party/assets/art/prop/llp-squirrel-scared.webp",
+      "runtimeSize": [
+        260,
+        220
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeBytes": 52128
+    },
+    {
+      "key": "prop/llp-granny-laugh",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-5c75c696-6ec3-4c1f-bbb3-ad7676612244.png",
+      "archive": "party/reference/sources/oct28-leaf-characters/llp-granny-laugh-clean-native.webp",
+      "nativeSize": [
+        1100,
+        1430
+      ],
+      "archiveSize": [
+        1100,
+        1430
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "b25782d9090d488e2ba75a82eada713f9de3f8c82765f2eb321220afbb8c5ada",
+      "runtime": "party/assets/art/prop/llp-granny-laugh.webp",
+      "runtimeSize": [
+        400,
+        520
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeBytes": 152888
+    },
+    {
+      "key": "prop/llp-granny-doze",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-e621f3c7-fe78-4417-8647-6f8d4cddd017.png",
+      "archive": "party/reference/sources/oct28-leaf-characters/llp-granny-doze-native.webp",
+      "nativeSize": [
+        1100,
+        1430
+      ],
+      "archiveSize": [
+        1100,
+        1430
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "48b6689381af9f37fb901776d77b41453484bd6ea1d64b17b40e3eb32bf134f7",
+      "runtime": "party/assets/art/prop/llp-granny-doze.webp",
+      "runtimeSize": [
+        400,
+        520
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeBytes": 139412
+    },
+    {
+      "key": "thumb/leaf-pile-leap",
+      "promptRecorded": true,
+      "nativePath": "/Users/hoai/.codex/generated_images/01a18498-102e-7681-861f-86243d187f3a/exec-255416f7-d703-4bdc-b14b-92f3318e94ea.png",
+      "archive": "party/reference/sources/oct28-leaf-characters/leaf-pile-leap-thumbnail-native.webp",
+      "nativeSize": [
+        1586,
+        992
+      ],
+      "archiveSize": [
+        1586,
+        992
+      ],
+      "nativeRGBAExact": true,
+      "archiveRGBAsha256": "7eb726251c3d9be82e48bd5aa1d7360a52fda840452107eca23d893e29ebfa18",
+      "runtime": "party/assets/art/thumb/leaf-pile-leap.webp",
+      "runtimeSize": [
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "runtimeBytes": 673956
+    }
+  ],
+  "runtime": [
+    {
+      "file": "bg/fairy-hide-seek.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "decodedBytes": 8294400,
+      "encodedBytes": 183052
+    },
+    {
+      "file": "bg/leaf-pile-leap-v3-compact.webp",
+      "size": [
+        1280,
+        720
+      ],
+      "decodedBytes": 3686400,
+      "encodedBytes": 106658
+    },
+    {
+      "file": "prop/llp-granny-doze.webp",
+      "size": [
+        400,
+        520
+      ],
+      "decodedBytes": 832000,
+      "encodedBytes": 139412
+    },
+    {
+      "file": "prop/llp-granny-laugh.webp",
+      "size": [
+        400,
+        520
+      ],
+      "decodedBytes": 832000,
+      "encodedBytes": 152888
+    },
+    {
+      "file": "prop/llp-granny-pile.webp",
+      "size": [
+        400,
+        260
+      ],
+      "decodedBytes": 416000,
+      "encodedBytes": 27084
+    },
+    {
+      "file": "prop/llp-ladder.webp",
+      "size": [
+        300,
+        640
+      ],
+      "decodedBytes": 768000,
+      "encodedBytes": 45472
+    },
+    {
+      "file": "prop/llp-leaves.webp",
+      "size": [
+        512,
+        512
+      ],
+      "decodedBytes": 1048576,
+      "encodedBytes": 147462
+    },
+    {
+      "file": "prop/llp-pile-1-compact.webp",
+      "size": [
+        720,
+        432
+      ],
+      "decodedBytes": 1244160,
+      "encodedBytes": 41248
+    },
+    {
+      "file": "prop/llp-pile-2-compact.webp",
+      "size": [
+        720,
+        432
+      ],
+      "decodedBytes": 1244160,
+      "encodedBytes": 51632
+    },
+    {
+      "file": "prop/llp-pile-3-compact.webp",
+      "size": [
+        720,
+        432
+      ],
+      "decodedBytes": 1244160,
+      "encodedBytes": 60554
+    },
+    {
+      "file": "prop/llp-pile-4-compact.webp",
+      "size": [
+        720,
+        432
+      ],
+      "decodedBytes": 1244160,
+      "encodedBytes": 79080
+    },
+    {
+      "file": "prop/llp-rake.webp",
+      "size": [
+        360,
+        140
+      ],
+      "decodedBytes": 201600,
+      "encodedBytes": 9772
+    },
+    {
+      "file": "prop/llp-squirrel-run-1.webp",
+      "size": [
+        260,
+        200
+      ],
+      "decodedBytes": 208000,
+      "encodedBytes": 40290
+    },
+    {
+      "file": "prop/llp-squirrel-run-2.webp",
+      "size": [
+        260,
+        200
+      ],
+      "decodedBytes": 208000,
+      "encodedBytes": 39356
+    },
+    {
+      "file": "prop/llp-squirrel-scared.webp",
+      "size": [
+        260,
+        220
+      ],
+      "decodedBytes": 228800,
+      "encodedBytes": 52128
+    },
+    {
+      "file": "prop/mm-granny-gasp.webp",
+      "size": [
+        400,
+        520
+      ],
+      "decodedBytes": 832000,
+      "encodedBytes": 51444
+    },
+    {
+      "file": "prop/mm-granny-huff.webp",
+      "size": [
+        400,
+        520
+      ],
+      "decodedBytes": 832000,
+      "encodedBytes": 41972
+    },
+    {
+      "file": "prop/mm-granny.webp",
+      "size": [
+        400,
+        520
+      ],
+      "decodedBytes": 832000,
+      "encodedBytes": 50004
+    },
+    {
+      "file": "thumb/leaf-pile-leap.webp",
+      "size": [
+        800,
+        500
+      ],
+      "decodedBytes": 1600000,
+      "encodedBytes": 673956
+    }
+  ],
+  "isolatedConsumerBranch": "origin/claude/busy-ptolemy-gjxlwj",
+  "isolatedConsumerCommit": "e15c116af3c899d2aea1dfbb3a05bc765cc11b6d",
+  "mainGameFilePresent": false
+}

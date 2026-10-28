@@ -1,0 +1,141 @@
+{
+  "key": "prop/dino-neck-2",
+  "box": [
+    820,
+    70,
+    935,
+    190
+  ],
+  "size": [
+    115,
+    120
+  ],
+  "templatePoints": [
+    [
+      845,
+      165
+    ],
+    [
+      905,
+      100
+    ]
+  ],
+  "localPoints": [
+    [
+      25,
+      95
+    ],
+    [
+      85,
+      30
+    ]
+  ],
+  "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local115x120 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-neck-2. Only ONE diagonal chain of exactly THREE slightly smaller rounded neck vertebra blocks, climbing UP-RIGHT from round lower-left endpoint joint(25,95) to round upper-right endpoint joint(85,30). Both endpoint knobs complete circular balls. No skull or body attached. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+  "mode": "built-in imagegen",
+  "status": "intaken-and-static-assembled-reviewed-pending-consumer-check",
+  "styleReference": "reference/sources/oct28-dino-skeleton/master-template.webp",
+  "guide": "reference/sources/oct28-dino-skeleton/dino-neck-2-guide.png",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-55922af1-97a1-484b-9d43-bd473ab8a451.png",
+  "nativeSize": [
+    1227,
+    1281
+  ],
+  "source": "reference/sources/oct28-dino-skeleton/dino-neck-2-native.webp",
+  "runtime": "assets/art/prop/dino-neck-2.webp",
+  "outputSize": [
+    115,
+    120
+  ],
+  "registration": {
+    "sourcePoints": [
+      [
+        184.0,
+        1106.0
+      ],
+      [
+        1066.0,
+        204.0
+      ]
+    ],
+    "targetPoints": [
+      [
+        25.0,
+        95.0
+      ],
+      [
+        85.0,
+        30.0
+      ]
+    ],
+    "sourceToLocal": [
+      [
+        0.07008987589285265,
+        0.002016929642456809,
+        9.872738651157883
+      ],
+      [
+        -0.002016929642456809,
+        0.07008987589285265,
+        17.851712316717027
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localToSource": [
+      [
+        14.2555910543131,
+        -0.41022364217252405,
+        -133.41853035143774
+      ],
+      [
+        0.41022364217252405,
+        14.2555910543131,
+        -258.5367412140577
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "alphaBounds": [
+      18,
+      23,
+      92,
+      102
+    ],
+    "registrationError": 7.105427357601002e-15,
+    "unclippedAlphaBounds": [
+      18,
+      23,
+      92,
+      102
+    ],
+    "clippedSignificantPixels": 0,
+    "renderOffset": [
+      0,
+      0
+    ],
+    "sourceAlphaBounds": [
+      91,
+      99,
+      1172,
+      1200
+    ]
+  },
+  "processing": "Native RGBA archived lossless WebP exact=True, verified byte-identical. Measured whole-part geometric registration only; no creative pixels painted. Bicubic affine transform into exact requested box canvas.",
+  "runtimeSha256": "3b97b33fbb02465219c7a787998defbc425d52f9ccd0a0a18c862ce9cb38430d",
+  "runtimeBytes": 2718,
+  "decodedBytes": 55200,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "nativeArchivePixelsIdentical": true,
+  "runtimePixelsReproducedExactly": true,
+  "review": "Native and runtime inspected. Complete sourcepart registered geometrically and reviewed in assembled normal/sneeze templates.",
+  "assembledReview": "reference/pending/OCT28-DINO-SKELETON-contact-review.jpg"
+}

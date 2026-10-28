@@ -1,0 +1,161 @@
+{
+  "key": "prop/dino-rib-4",
+  "box": [
+    690,
+    240,
+    750,
+    370
+  ],
+  "size": [
+    60,
+    130
+  ],
+  "templatePoints": [
+    [
+      715,
+      246
+    ],
+    [
+      732,
+      300
+    ],
+    [
+      715,
+      360
+    ]
+  ],
+  "localPoints": [
+    [
+      25,
+      6
+    ],
+    [
+      42,
+      60
+    ],
+    [
+      25,
+      120
+    ]
+  ],
+  "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local60x130 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-rib-4. Only ONE long smooth curved rib, not multiple ribs: top joint at(25,6), convex belly curves to the RIGHT through(42,60), then ends back LEFT near(25,120) in a rounded point. A graceful single C-shaped crescent ivory bone. Top round knob overlaps spine. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines. Critical endpoint detail: the round top knob is TINY, radius3 local pixels, only about1/50 of the rib height. No oversized lollipop ball. The shaft narrows at top then fattens along the middle of the crescent.",
+  "mode": "built-in imagegen",
+  "status": "intaken-and-static-assembled-reviewed-pending-consumer-check",
+  "styleReference": "reference/sources/oct28-dino-skeleton/master-template.webp",
+  "guide": "reference/sources/oct28-dino-skeleton/dino-rib-4-guide.png",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-c108fe76-9fab-4e29-8c30-1585ec73ab32.png",
+  "nativeSize": [
+    852,
+    1847
+  ],
+  "source": "reference/sources/oct28-dino-skeleton/dino-rib-4-native.webp",
+  "runtime": "assets/art/prop/dino-rib-4.webp",
+  "outputSize": [
+    60,
+    130
+  ],
+  "registration": {
+    "sourcePoints": [
+      [
+        272.0,
+        208.0
+      ],
+      [
+        279.0,
+        1664.0
+      ]
+    ],
+    "targetPoints": [
+      [
+        23.0,
+        8.0
+      ],
+      [
+        23.0,
+        120.0
+      ]
+    ],
+    "sourceToLocal": [
+      [
+        0.07692129897145498,
+        -0.00036981393736276437,
+        2.154327978735701
+      ],
+      [
+        0.00036981393736276437,
+        0.07692129897145498,
+        -8.10021957702531
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localToSource": [
+      [
+        13.0,
+        0.0625,
+        -27.500000000000032
+      ],
+      [
+        -0.0625,
+        13.0,
+        105.4375
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "alphaBounds": [
+      17,
+      2,
+      59,
+      124
+    ],
+    "registrationError": 0.0,
+    "unclippedAlphaBounds": [
+      17,
+      2,
+      59,
+      124
+    ],
+    "clippedSignificantPixels": 0,
+    "renderOffset": [
+      2,
+      -2
+    ],
+    "sourceAlphaBounds": [
+      195,
+      133,
+      742,
+      1718
+    ],
+    "actualKnobCentre": [
+      23.0,
+      8.0
+    ],
+    "logicalPivot": [
+      25,
+      6
+    ],
+    "alignedKnobCentre": [
+      25.0,
+      6.0
+    ]
+  },
+  "processing": "Native RGBA archived lossless WebP exact=True, verified byte-identical. Measured whole-part geometric registration only; no creative pixels painted. Bicubic affine transform into exact requested box canvas.",
+  "runtimeSha256": "15e751a8d73251be3c5cd053d17abf1945daa525d155024fdeea1103ff2c67e8",
+  "runtimeBytes": 3872,
+  "decodedBytes": 31200,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "review": "Complete curved rib and round endpoint cap preserved, whole-part similarity registration. Art-only renderOffset aligns actual knob centre exactly to original logical pivot before joint rotation; original consumer joint remains unchanged.",
+  "nativeArchivePixelsIdentical": true,
+  "runtimePixelsReproducedExactly": true,
+  "assembledReview": "reference/pending/OCT28-DINO-SKELETON-contact-review.jpg"
+}

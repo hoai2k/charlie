@@ -1,0 +1,626 @@
+{
+  "status": "Complete; all40 active images independently decoded and matched to current runtime index",
+  "utc": "2026-10-28T23:27:35.380679+00:00",
+  "deliveryRevision": "826429fb8adc99f3401a26abf283d4dd30162b98",
+  "assets": [
+    {
+      "key": "prop/plushie-scarves",
+      "file": "party/assets/art/prop/plushie-scarves-v1.webp",
+      "size": [
+        1024,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 1048576,
+      "sha256": "b1fdbb289e2b75429a1ab09d3b3fd2ab64dc7baac80ea8a3c147d23cbf7f8996",
+      "intakeRecord": "OCT28-PLUSHIE-REVISION-index-additions.json"
+    },
+    {
+      "key": "prop/plushie-heart-pillow",
+      "file": "party/assets/art/prop/plushie-heart-pillow-v1.webp",
+      "size": [
+        256,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 262144,
+      "sha256": "bba9627a1b9afe6c002de436e96d8bdb03bf51f8c714680d8b303c8969a3c441",
+      "intakeRecord": "OCT28-PLUSHIE-REVISION-index-additions.json"
+    },
+    {
+      "key": "bg/leaf-pile-leap",
+      "file": "party/assets/art/bg/leaf-pile-leap-v3-compact.webp",
+      "size": [
+        1280,
+        720
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "decodedBytes": 3686400,
+      "sha256": "c18ad172e538c67dd2b15217f20c106ed6b9af248e74ada9dd365392c229ad5b",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "prop/llp-leaves",
+      "file": "party/assets/art/prop/llp-leaves.webp",
+      "size": [
+        512,
+        512
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 1048576,
+      "sha256": "a8cc5b4d50565027e7600094f0128e71d3562541e5e801157d4e3e6e9f4637c5",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "prop/llp-pile-1",
+      "file": "party/assets/art/prop/llp-pile-1-compact.webp",
+      "size": [
+        720,
+        432
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 1244160,
+      "sha256": "8323c08112886e03aefb77b84f47b9374ac0dcf77f1015a8642c42fe54694721",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "prop/llp-pile-2",
+      "file": "party/assets/art/prop/llp-pile-2-compact.webp",
+      "size": [
+        720,
+        432
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 1244160,
+      "sha256": "c32960f77221707f8a860fca910932eb921e4e298c79c59a993a64793b2894b4",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "prop/llp-pile-3",
+      "file": "party/assets/art/prop/llp-pile-3-compact.webp",
+      "size": [
+        720,
+        432
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 1244160,
+      "sha256": "e610acad1a8af5cc5bdbf5b2565f7affe022c7fa69d142e4f57b2e782b66a628",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "prop/llp-pile-4",
+      "file": "party/assets/art/prop/llp-pile-4-compact.webp",
+      "size": [
+        720,
+        432
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 1244160,
+      "sha256": "52544618379c5ae94a66477a22749bf011842b8269b8b1c65463f479da95ba0f",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "prop/llp-granny-pile",
+      "file": "party/assets/art/prop/llp-granny-pile.webp",
+      "size": [
+        400,
+        260
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 416000,
+      "sha256": "95456fe8fd45cae832bb7c6e754750dd3fd6370088647a3565eaab89d41f7151",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "prop/llp-rake",
+      "file": "party/assets/art/prop/llp-rake.webp",
+      "size": [
+        360,
+        140
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 201600,
+      "sha256": "51061e8938783e54dabb7c2dbf0c3ace99fdb0adc0f5df27a7315897bf47dcee",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "prop/llp-ladder",
+      "file": "party/assets/art/prop/llp-ladder.webp",
+      "size": [
+        300,
+        640
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 768000,
+      "sha256": "71f754bbd4b9497966c35c014f7c1cfe788250133d14b37d40aea53f99225198",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "prop/llp-squirrel-run-1",
+      "file": "party/assets/art/prop/llp-squirrel-run-1.webp",
+      "size": [
+        260,
+        200
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 208000,
+      "sha256": "90b3351dc3e8cb5b545b040deb4f5993f91d3eb41fed219142c5ba421ca4e852",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "prop/llp-squirrel-run-2",
+      "file": "party/assets/art/prop/llp-squirrel-run-2.webp",
+      "size": [
+        260,
+        200
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 208000,
+      "sha256": "be1f3b3b9b87c562d8bc19ad3907465b8facbc1b36babb2ef91d38a34cdd730f",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "prop/llp-squirrel-scared",
+      "file": "party/assets/art/prop/llp-squirrel-scared.webp",
+      "size": [
+        260,
+        220
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 228800,
+      "sha256": "ebdb74a1f6d63cb08cd8ddba177a1d552f782ba548e9b107cc94d27deb8cfa58",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "prop/llp-granny-laugh",
+      "file": "party/assets/art/prop/llp-granny-laugh.webp",
+      "size": [
+        400,
+        520
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 832000,
+      "sha256": "fb691c65e65a6bd2f2301726782b5e3cbdd84a32120f2afaaba87da38c8598d7",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "prop/llp-granny-doze",
+      "file": "party/assets/art/prop/llp-granny-doze.webp",
+      "size": [
+        400,
+        520
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 832000,
+      "sha256": "b82c28fa9daba8b9e94c41e46996386cd4d7b27b18c3587000bd7659a94614e0",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "thumb/leaf-pile-leap",
+      "file": "party/assets/art/thumb/leaf-pile-leap.webp",
+      "size": [
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "decodedBytes": 1600000,
+      "sha256": "f137b94367e1b9a9d94668d75221a6b6e1dad298a1260e157c65c9f69ce3eead",
+      "intakeRecord": "OCT28-LEAF-RUNTIME.json"
+    },
+    {
+      "key": "bg/dino-dig",
+      "file": "party/assets/art/bg/dino-dig.webp",
+      "size": [
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "decodedBytes": 8294400,
+      "sha256": "83a5851b3e1440012decdd9709563491a1e46bf71034ef0403918076fed16de2",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "thumb/dino-dig",
+      "file": "party/assets/art/thumb/dino-dig.webp",
+      "size": [
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "decodedBytes": 1600000,
+      "sha256": "bbac4e2c559c9712155e859391d1f9801b699619a0cf3c48bea8780fec37f99d",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-bones",
+      "file": "party/assets/art/prop/dino-bones.webp",
+      "size": [
+        1024,
+        512
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 2097152,
+      "sha256": "af3a68fbfd2ef4b6ef23955244b996f7eec8598ae0a9c28fae7a199511474053",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-mound",
+      "file": "party/assets/art/prop/dino-mound.webp",
+      "size": [
+        320,
+        180
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 230400,
+      "sha256": "528f7351a6aa07bacefd85c35f4089cf71935b0114043b11dc2ebdf56d7c7c69",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-teacup",
+      "file": "party/assets/art/prop/dino-teacup.webp",
+      "size": [
+        200,
+        160
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 128000,
+      "sha256": "68561f0ed8a3769de42ab02afe57ebe9db3971340ca6b37550fe05e6100f9dfc",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-explorer-hat",
+      "file": "party/assets/art/prop/dino-explorer-hat.webp",
+      "size": [
+        240,
+        160
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 153600,
+      "sha256": "2c1eb4b0a2836ecd225f304c382820ddfa8dfbb6c6dd61c0bc0214a59270e4a2",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-hips",
+      "file": "party/assets/art/prop/dino-hips.webp",
+      "size": [
+        150,
+        110
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 66000,
+      "sha256": "db47117c7c80a7c4adae447018f234f5b4a27411791d5cd0b33e86890f0f76dd",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-leg-back",
+      "file": "party/assets/art/prop/dino-leg-back.webp",
+      "size": [
+        140,
+        230
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 128800,
+      "sha256": "af04b7d52951b705a70abaa09d60a1e53ca0126a7498516e7b8f1f03d7862b87",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-leg-front",
+      "file": "party/assets/art/prop/dino-leg-front.webp",
+      "size": [
+        130,
+        230
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 119600,
+      "sha256": "443e9b2401db8439d880a24cbf5742970190b03c4c2419632ff894c0236d6b92",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-neck-1",
+      "file": "party/assets/art/prop/dino-neck-1.webp",
+      "size": [
+        135,
+        135
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 72900,
+      "sha256": "cdd26f4d21eaeb086238c399d73b58b8b9b63127bf5e901fa9419dd18929f682",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-neck-2",
+      "file": "party/assets/art/prop/dino-neck-2.webp",
+      "size": [
+        115,
+        120
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 55200,
+      "sha256": "3b97b33fbb02465219c7a787998defbc425d52f9ccd0a0a18c862ce9cb38430d",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-rib-1",
+      "file": "party/assets/art/prop/dino-rib-1.webp",
+      "size": [
+        60,
+        140
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 33600,
+      "sha256": "c7b58b5142d85fc59f98833e24cb4ea03f61fb49b4462b3c0acda9db69dd8b67",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-rib-2",
+      "file": "party/assets/art/prop/dino-rib-2.webp",
+      "size": [
+        65,
+        167
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 43420,
+      "sha256": "f0dc004ce73503e136ee4d470f1a33011714d810546397fefc8f609059957b60",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-rib-3",
+      "file": "party/assets/art/prop/dino-rib-3.webp",
+      "size": [
+        65,
+        165
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 42900,
+      "sha256": "6cff079a8fb87fa9e565e21b8ab0ef6d4465575b45581444fbafc711a8f63961",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-rib-4",
+      "file": "party/assets/art/prop/dino-rib-4.webp",
+      "size": [
+        60,
+        130
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 31200,
+      "sha256": "15e751a8d73251be3c5cd053d17abf1945daa525d155024fdeea1103ff2c67e8",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-skull-sneeze",
+      "file": "party/assets/art/prop/dino-skull-sneeze.webp",
+      "size": [
+        220,
+        155
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 136400,
+      "sha256": "eb39b7ba9c50b138cd8eea61147383f4f0b3f3d05a2b507733268a791dc7be93",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-skull",
+      "file": "party/assets/art/prop/dino-skull.webp",
+      "size": [
+        220,
+        155
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 136400,
+      "sha256": "53d3fb353aa9ba47acf8bdbbff6c95ea44e1f6a9f6b162dca51d8e184b9e7976",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-spine-1",
+      "file": "party/assets/art/prop/dino-spine-1.webp",
+      "size": [
+        140,
+        60
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 33600,
+      "sha256": "741947665721f2bc7f8b9d10cfe18273cd8b8327f12d8353a3c8751fc5ffaeaf",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-spine-2",
+      "file": "party/assets/art/prop/dino-spine-2.webp",
+      "size": [
+        140,
+        60
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 33600,
+      "sha256": "1ce6e8dfabafae8fe371c1b3cfe2e65278b621319405503ad3883cc7dbc2fac8",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-spine-3",
+      "file": "party/assets/art/prop/dino-spine-3.webp",
+      "size": [
+        140,
+        75
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 42000,
+      "sha256": "584ae848f25c1d7cd10e6ef4a47aadba8e3561f198e263f8e1b06202c1c8449f",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-tail-1",
+      "file": "party/assets/art/prop/dino-tail-1.webp",
+      "size": [
+        170,
+        95
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 64600,
+      "sha256": "c42c60677ce40678f7b1b4f5da5603eb32267f7f70f4a197f9a1546f221fd6e0",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-tail-2",
+      "file": "party/assets/art/prop/dino-tail-2.webp",
+      "size": [
+        160,
+        100
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 64000,
+      "sha256": "703c59089e486fa93dfc7c3e59600f9c830421b517ae7697eb11b69412d83553",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    },
+    {
+      "key": "prop/dino-tail-3",
+      "file": "party/assets/art/prop/dino-tail-3.webp",
+      "size": [
+        160,
+        95
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "decodedBytes": 60800,
+      "sha256": "05321b5ed40f9bd59ac6aa9e5ede74e0d87f318070b1ad7dc321cccbe70e1056",
+      "intakeRecord": "OCT28-DINO-RUNTIME.json"
+    }
+  ],
+  "gameDecodedMiBIncludingReuse": {
+    "plushie-workshop": 22.196472,
+    "leaf-pile-leap": 24.601379,
+    "dino-dig": 14.15414
+  },
+  "tests": {
+    "passed": 24,
+    "failed": 0,
+    "log": "/tmp/oct28-dino-shipping-tests.txt"
+  },
+  "gameplay": "Actual merged-main one/eight-player runs, natural completion, all plush bodies, Leaf anchors0px error and Dino1440 camera/maximum-hop crown stress cases reviewed",
+  "proofRecords": [
+    "OCT28-PLUSHIE-REVISION.json",
+    "OCT28-LEAF-CONSUMER-REVIEW.json",
+    "OCT28-LEAF-PROVENANCE-REVIEW.json",
+    "OCT28-DINO-SKELETON-QA.json",
+    "OCT28-DINO-GAMEPLAY-CONSUMER-REVIEW.json"
+  ],
+  "openRequests": 0
+}

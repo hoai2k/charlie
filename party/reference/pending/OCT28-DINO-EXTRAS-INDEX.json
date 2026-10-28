@@ -1,0 +1,217 @@
+{
+  "images": {
+    "bg/dino-dig": "bg/dino-dig.webp",
+    "thumb/dino-dig": "thumb/dino-dig.webp",
+    "prop/dino-bones": "prop/dino-bones.webp",
+    "prop/dino-mound": "prop/dino-mound.webp",
+    "prop/dino-teacup": "prop/dino-teacup.webp",
+    "prop/dino-explorer-hat": "prop/dino-explorer-hat.webp"
+  },
+  "geometry": [
+    {
+      "key": "bg/dino-dig",
+      "size": [
+        1920,
+        1080
+      ],
+      "anchor": null,
+      "meaningfulAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "measuredGeometry": {
+        "platformFrontTopEdge": [
+          470,
+          462,
+          1451,
+          462
+        ],
+        "platformFrontFace": [
+          470,
+          462,
+          1451,
+          516
+        ],
+        "sandboxBackRailY": 545,
+        "sandboxInnerSandTopY": 567,
+        "playableSandClear": [
+          150,
+          590,
+          1770,
+          1010
+        ]
+      }
+    },
+    {
+      "key": "thumb/dino-dig",
+      "size": [
+        800,
+        500
+      ],
+      "anchor": null,
+      "meaningfulAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ]
+    },
+    {
+      "key": "prop/dino-bones",
+      "size": [
+        1024,
+        512
+      ],
+      "anchor": [
+        512.0,
+        512
+      ],
+      "meaningfulAlphaBBox": [
+        28,
+        67,
+        999,
+        447
+      ],
+      "grid": {
+        "columns": 4,
+        "rows": 2,
+        "cellSize": [
+          256,
+          256
+        ],
+        "order": [
+          "long leg bone",
+          "vertebra with plate",
+          "curved rib",
+          "dog-biscuit bone",
+          "three touching toe bones",
+          "small tail vertebra",
+          "chunky thigh bone",
+          "smiling jaw"
+        ]
+      },
+      "cellBounds": [
+        [
+          28,
+          84,
+          228,
+          171
+        ],
+        [
+          38,
+          67,
+          218,
+          189
+        ],
+        [
+          30,
+          77,
+          226,
+          179
+        ],
+        [
+          32,
+          82,
+          224,
+          173
+        ],
+        [
+          32,
+          91,
+          225,
+          165
+        ],
+        [
+          50,
+          86,
+          206,
+          169
+        ],
+        [
+          20,
+          65,
+          235,
+          191
+        ],
+        [
+          26,
+          74,
+          231,
+          183
+        ]
+      ]
+    },
+    {
+      "key": "prop/dino-mound",
+      "size": [
+        320,
+        180
+      ],
+      "anchor": [
+        160.0,
+        180
+      ],
+      "meaningfulAlphaBBox": [
+        9,
+        100,
+        311,
+        180
+      ],
+      "measuredSupportPoints": [
+        [
+          160,
+          180
+        ]
+      ]
+    },
+    {
+      "key": "prop/dino-teacup",
+      "size": [
+        200,
+        160
+      ],
+      "anchor": [
+        100.0,
+        160
+      ],
+      "meaningfulAlphaBBox": [
+        7,
+        27,
+        197,
+        160
+      ],
+      "measuredSupportPoints": [
+        [
+          100,
+          160
+        ]
+      ]
+    },
+    {
+      "key": "prop/dino-explorer-hat",
+      "size": [
+        240,
+        160
+      ],
+      "anchor": [
+        120.0,
+        160
+      ],
+      "meaningfulAlphaBBox": [
+        3,
+        16,
+        238,
+        145
+      ],
+      "measuredHeadSeatPoint": [
+        120,
+        134
+      ],
+      "consumerNote": "Hat brim is naturally tilted up toward facing-right front. Use measuredHeadSeatPoint for fitting to head; logical canvas bottom-centre remains120,160. Do not alpha-normalize or clip brim to force head seat to bottom."
+    }
+  ],
+  "decodedBytes": 12503552,
+  "decodedMiB": 11.92431640625
+}

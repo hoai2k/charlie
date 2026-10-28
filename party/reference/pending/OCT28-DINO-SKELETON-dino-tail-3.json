@@ -1,0 +1,141 @@
+{
+  "key": "prop/dino-tail-3",
+  "box": [
+    25,
+    335,
+    185,
+    430
+  ],
+  "size": [
+    160,
+    95
+  ],
+  "templatePoints": [
+    [
+      165,
+      360
+    ],
+    [
+      45,
+      410
+    ]
+  ],
+  "localPoints": [
+    [
+      140,
+      25
+    ],
+    [
+      20,
+      75
+    ]
+  ],
+  "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local160x95 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-tail-3. Only ONE diagonal tapering tail-tip chain of exactly FOUR tiny rounded vertebra blocks, from round upper-right joint knob(140,25) down-LEFT to tiny round bead tip(20,75). Successively smaller toward left, last one a little round bead. Complete knob at upper right and complete round tip bead at lower left, no other tail sections. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+  "mode": "built-in imagegen",
+  "status": "intaken-and-static-assembled-reviewed-pending-consumer-check",
+  "styleReference": "reference/sources/oct28-dino-skeleton/master-template.webp",
+  "guide": "reference/sources/oct28-dino-skeleton/dino-tail-3-guide.png",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-9f85d49c-7f33-4c5c-b81a-4ba64757545e.png",
+  "nativeSize": [
+    1627,
+    967
+  ],
+  "source": "reference/sources/oct28-dino-skeleton/dino-tail-3-native.webp",
+  "runtime": "assets/art/prop/dino-tail-3.webp",
+  "outputSize": [
+    160,
+    95
+  ],
+  "registration": {
+    "sourcePoints": [
+      [
+        1439.0,
+        253.0
+      ],
+      [
+        326.0,
+        726.0
+      ]
+    ],
+    "targetPoints": [
+      [
+        140.0,
+        25.0
+      ],
+      [
+        20.0,
+        75.0
+      ]
+    ],
+    "sourceToLocal": [
+      [
+        0.10749416409458337,
+        -0.0007589753968894316,
+        -14.492081356692438
+      ],
+      [
+        0.0007589753968894316,
+        0.10749416409458337,
+        -3.288189112053484
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localToSource": [
+      [
+        9.302366863905327,
+        0.06568047337278109,
+        135.02662721893478
+      ],
+      [
+        -0.06568047337278109,
+        9.302366863905327,
+        29.636094674556194
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "alphaBounds": [
+      12,
+      14,
+      150,
+      81
+    ],
+    "registrationError": 1.4210854715202004e-14,
+    "unclippedAlphaBounds": [
+      12,
+      14,
+      150,
+      81
+    ],
+    "clippedSignificantPixels": 0,
+    "renderOffset": [
+      0,
+      0
+    ],
+    "sourceAlphaBounds": [
+      253,
+      151,
+      1530,
+      782
+    ]
+  },
+  "processing": "Native RGBA archived lossless WebP exact=True, verified byte-identical. Measured whole-part geometric registration only; no creative pixels painted. Bicubic affine transform into exact requested box canvas.",
+  "runtimeSha256": "05321b5ed40f9bd59ac6aa9e5ede74e0d87f318070b1ad7dc321cccbe70e1056",
+  "runtimeBytes": 4844,
+  "decodedBytes": 60800,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "nativeArchivePixelsIdentical": true,
+  "runtimePixelsReproducedExactly": true,
+  "review": "Native and runtime inspected. Complete sourcepart registered geometrically and reviewed in assembled normal/sneeze templates.",
+  "assembledReview": "reference/pending/OCT28-DINO-SKELETON-contact-review.jpg"
+}

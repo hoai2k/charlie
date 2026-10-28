@@ -1,0 +1,139 @@
+{
+  "loaded": [
+    {
+      "key": "prop/dino-leg-back",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-leg-front",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-hips",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-spine-1",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-spine-2",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-spine-3",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-rib-1",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-rib-2",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-rib-3",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-rib-4",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-neck-1",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-neck-2",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-skull",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-tail-1",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-tail-2",
+      "loaded": true
+    },
+    {
+      "key": "prop/dino-tail-3",
+      "loaded": true
+    }
+  ],
+  "poses": [
+    {
+      "name": "Normal, original joints",
+      "face": "alive",
+      "pose": {}
+    },
+    {
+      "name": "Sneeze skull, original head pivot",
+      "face": "sneeze",
+      "pose": {
+        "neck": -0.2,
+        "head": -0.22,
+        "lean": 0.05
+      }
+    },
+    {
+      "name": "Dance positive peak",
+      "face": "alive",
+      "pose": {
+        "sway": 0.12,
+        "legs": [
+          0.5,
+          -0.5,
+          -0.55,
+          0.55
+        ],
+        "neck": 0.36,
+        "head": 0.27,
+        "tail": 0.65,
+        "bob": 30
+      }
+    },
+    {
+      "name": "Dance negative peak",
+      "face": "alive",
+      "pose": {
+        "sway": -0.12,
+        "legs": [
+          -0.5,
+          0.5,
+          0.55,
+          -0.55
+        ],
+        "neck": -0.36,
+        "head": -0.27,
+        "tail": -0.65,
+        "bob": 30
+      }
+    },
+    {
+      "name": "Sneeze, positive tail bend",
+      "face": "sneeze",
+      "pose": {
+        "sway": 0.06,
+        "neck": 0.18,
+        "head": 0.04,
+        "tail": 0.4
+      }
+    },
+    {
+      "name": "Sneeze, negative tail bend",
+      "face": "sneeze",
+      "pose": {
+        "sway": -0.06,
+        "neck": -0.18,
+        "head": -0.04,
+        "tail": -0.4
+      }
+    }
+  ],
+  "errors": []
+}

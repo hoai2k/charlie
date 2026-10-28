@@ -1,0 +1,220 @@
+{
+  "images": {
+    "bg/leaf-pile-leap": "bg/leaf-pile-leap-v3-compact.webp",
+    "prop/llp-leaves": "prop/llp-leaves.webp",
+    "prop/llp-pile-1": "prop/llp-pile-1-compact.webp",
+    "prop/llp-pile-2": "prop/llp-pile-2-compact.webp",
+    "prop/llp-pile-3": "prop/llp-pile-3-compact.webp",
+    "prop/llp-pile-4": "prop/llp-pile-4-compact.webp",
+    "prop/llp-granny-pile": "prop/llp-granny-pile.webp",
+    "prop/llp-rake": "prop/llp-rake.webp",
+    "prop/llp-ladder": "prop/llp-ladder.webp",
+    "prop/llp-squirrel-run-1": "prop/llp-squirrel-run-1.webp",
+    "prop/llp-squirrel-run-2": "prop/llp-squirrel-run-2.webp",
+    "prop/llp-squirrel-scared": "prop/llp-squirrel-scared.webp",
+    "prop/llp-granny-laugh": "prop/llp-granny-laugh.webp",
+    "prop/llp-granny-doze": "prop/llp-granny-doze.webp",
+    "thumb/leaf-pile-leap": "thumb/leaf-pile-leap.webp"
+  },
+  "group": "leaf-pile-leap",
+  "runtimeDerivatives": [
+    {
+      "key": "bg/leaf-pile-leap",
+      "full": "bg/leaf-pile-leap-v3.webp",
+      "fullSize": [
+        1920,
+        1080
+      ],
+      "runtime": "bg/leaf-pile-leap-v3-compact.webp",
+      "runtimeSize": [
+        1280,
+        720
+      ]
+    },
+    {
+      "key": "prop/llp-leaves",
+      "full": "prop/llp-leaves.webp",
+      "fullSize": [
+        512,
+        512
+      ],
+      "runtime": "prop/llp-leaves.webp",
+      "runtimeSize": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "prop/llp-pile-1",
+      "full": "prop/llp-pile-1.webp",
+      "fullSize": [
+        900,
+        540
+      ],
+      "runtime": "prop/llp-pile-1-compact.webp",
+      "runtimeSize": [
+        720,
+        432
+      ]
+    },
+    {
+      "key": "prop/llp-pile-2",
+      "full": "prop/llp-pile-2.webp",
+      "fullSize": [
+        900,
+        540
+      ],
+      "runtime": "prop/llp-pile-2-compact.webp",
+      "runtimeSize": [
+        720,
+        432
+      ]
+    },
+    {
+      "key": "prop/llp-pile-3",
+      "full": "prop/llp-pile-3.webp",
+      "fullSize": [
+        900,
+        540
+      ],
+      "runtime": "prop/llp-pile-3-compact.webp",
+      "runtimeSize": [
+        720,
+        432
+      ]
+    },
+    {
+      "key": "prop/llp-pile-4",
+      "full": "prop/llp-pile-4.webp",
+      "fullSize": [
+        900,
+        540
+      ],
+      "runtime": "prop/llp-pile-4-compact.webp",
+      "runtimeSize": [
+        720,
+        432
+      ]
+    },
+    {
+      "key": "prop/llp-granny-pile",
+      "full": "prop/llp-granny-pile.webp",
+      "fullSize": [
+        400,
+        260
+      ],
+      "runtime": "prop/llp-granny-pile.webp",
+      "runtimeSize": [
+        400,
+        260
+      ]
+    },
+    {
+      "key": "prop/llp-rake",
+      "full": "prop/llp-rake.webp",
+      "fullSize": [
+        360,
+        140
+      ],
+      "runtime": "prop/llp-rake.webp",
+      "runtimeSize": [
+        360,
+        140
+      ]
+    },
+    {
+      "key": "prop/llp-ladder",
+      "full": "prop/llp-ladder.webp",
+      "fullSize": [
+        300,
+        640
+      ],
+      "runtime": "prop/llp-ladder.webp",
+      "runtimeSize": [
+        300,
+        640
+      ]
+    },
+    {
+      "key": "prop/llp-squirrel-run-1",
+      "full": "prop/llp-squirrel-run-1.webp",
+      "fullSize": [
+        260,
+        200
+      ],
+      "runtime": "prop/llp-squirrel-run-1.webp",
+      "runtimeSize": [
+        260,
+        200
+      ]
+    },
+    {
+      "key": "prop/llp-squirrel-run-2",
+      "full": "prop/llp-squirrel-run-2.webp",
+      "fullSize": [
+        260,
+        200
+      ],
+      "runtime": "prop/llp-squirrel-run-2.webp",
+      "runtimeSize": [
+        260,
+        200
+      ]
+    },
+    {
+      "key": "prop/llp-squirrel-scared",
+      "full": "prop/llp-squirrel-scared.webp",
+      "fullSize": [
+        260,
+        220
+      ],
+      "runtime": "prop/llp-squirrel-scared.webp",
+      "runtimeSize": [
+        260,
+        220
+      ]
+    },
+    {
+      "key": "prop/llp-granny-laugh",
+      "full": "prop/llp-granny-laugh.webp",
+      "fullSize": [
+        400,
+        520
+      ],
+      "runtime": "prop/llp-granny-laugh.webp",
+      "runtimeSize": [
+        400,
+        520
+      ]
+    },
+    {
+      "key": "prop/llp-granny-doze",
+      "full": "prop/llp-granny-doze.webp",
+      "fullSize": [
+        400,
+        520
+      ],
+      "runtime": "prop/llp-granny-doze.webp",
+      "runtimeSize": [
+        400,
+        520
+      ]
+    },
+    {
+      "key": "thumb/leaf-pile-leap",
+      "full": "thumb/leaf-pile-leap.webp",
+      "fullSize": [
+        800,
+        500
+      ],
+      "runtime": "thumb/leaf-pile-leap.webp",
+      "runtimeSize": [
+        800,
+        500
+      ]
+    }
+  ],
+  "decodedBytes": 25796416,
+  "decodedMiB": 24.60137939453125,
+  "includesReusedArt": true
+}

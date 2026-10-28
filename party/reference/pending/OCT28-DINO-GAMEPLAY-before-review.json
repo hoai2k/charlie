@@ -1,0 +1,485 @@
+[
+  {
+    "n": 1,
+    "tag": "before",
+    "source": "actual main working checkout; natural CPU simulation; no state mutation except temporarily freeze update during capture",
+    "state": {
+      "scene": "PlayScene",
+      "state": "gallery",
+      "phase": "finale",
+      "stage": "done",
+      "found": 21,
+      "total": 18,
+      "fT": 10.2326,
+      "head": "duck",
+      "tail": "teapot",
+      "hats": [
+        {
+          "x": 469.7463608596715,
+          "y": 769.5479494439738,
+          "z": 0,
+          "landed": true
+        }
+      ],
+      "ents": [
+        {
+          "x": 937.1398283997229,
+          "y": 702.6535489972955,
+          "pose": "celebrate",
+          "hat": false
+        }
+      ],
+      "extras": {
+        "sock": {
+          "found": true,
+          "pend": false,
+          "show": 1
+        },
+        "teacup": {
+          "found": true,
+          "pend": false,
+          "show": 1
+        },
+        "crown": {
+          "found": true,
+          "pend": false,
+          "show": 1
+        }
+      },
+      "flights": 0
+    },
+    "elapsedSeconds": 27.065,
+    "errors": [],
+    "failed": [],
+    "shots": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-before-1-dig.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-before-1-bone-pop.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-before-1-half-build.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-before-1-wake.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-before-1-dance.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-before-1-ahh.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-before-1-hat-flight.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-before-1-laugh.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-before-1-hat-landed.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-before-1-gallery.jpg"
+    ],
+    "states": [
+      {
+        "label": "dig",
+        "scene": "PlayScene",
+        "state": "countdown",
+        "phase": "dig",
+        "found": 0,
+        "total": 18,
+        "fT": 0,
+        "head": "duck",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 960,
+            "y": 800,
+            "pose": "idle",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          },
+          "teacup": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          },
+          "crown": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "bone-pop",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "dig",
+        "found": 0,
+        "total": 18,
+        "fT": 0,
+        "head": "duck",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 1106.596171454794,
+            "y": 663.4857794767721,
+            "pose": "cheer",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          },
+          "teacup": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          },
+          "crown": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          }
+        },
+        "flights": 1
+      },
+      {
+        "label": "half-build",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "dig",
+        "found": 9,
+        "total": 18,
+        "fT": 0,
+        "head": "duck",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 621.2788626251272,
+            "y": 770.0874376053505,
+            "pose": "walk",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 0.08399999999999273
+          },
+          "crown": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "wake",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "wake",
+        "found": 21,
+        "total": 18,
+        "fT": 0.08330000000000655,
+        "head": "duck",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 1116.415219573494,
+            "y": 758.132412408837,
+            "pose": "cheer",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "dance",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "dance",
+        "found": 21,
+        "total": 18,
+        "fT": 1.6331000000000138,
+        "head": "duck",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 967.1398283997229,
+            "y": 702.6535489972955,
+            "pose": "clap",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "ahh",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "ahh",
+        "found": 21,
+        "total": 18,
+        "fT": 6.432800000000043,
+        "head": "duck",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 967.1398283997229,
+            "y": 702.6535489972955,
+            "pose": "idle",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "hat-flight",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "laugh",
+        "found": 21,
+        "total": 18,
+        "fT": 7.732700000000046,
+        "head": "duck",
+        "tail": "teapot",
+        "hats": [
+          {
+            "x": 945.2440529557605,
+            "y": 704.0134743508131,
+            "z": 128.3430139327481,
+            "landed": false
+          }
+        ],
+        "ents": [
+          {
+            "x": 937.1398283997229,
+            "y": 702.6535489972955,
+            "pose": "surprised",
+            "hat": false
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "laugh",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "laugh",
+        "found": 21,
+        "total": 18,
+        "fT": 7.832900000000028,
+        "head": "duck",
+        "tail": "teapot",
+        "hats": [
+          {
+            "x": 894.5076370522717,
+            "y": 708.1178273755856,
+            "z": 187.36854675551342,
+            "landed": false
+          }
+        ],
+        "ents": [
+          {
+            "x": 937.1398283997229,
+            "y": 702.6535489972955,
+            "pose": "surprised",
+            "hat": false
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "hat-landed",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "laugh",
+        "found": 21,
+        "total": 18,
+        "fT": 9.332600000000008,
+        "head": "duck",
+        "tail": "teapot",
+        "hats": [
+          {
+            "x": 469.7463608596715,
+            "y": 769.5479494439738,
+            "z": 0,
+            "landed": true
+          }
+        ],
+        "ents": [
+          {
+            "x": 937.1398283997229,
+            "y": 702.6535489972955,
+            "pose": "laugh",
+            "hat": false
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "gallery",
+        "scene": "PlayScene",
+        "state": "gallery",
+        "phase": "finale",
+        "stage": "done",
+        "found": 21,
+        "total": 18,
+        "fT": 10.2326,
+        "head": "duck",
+        "tail": "teapot",
+        "hats": [
+          {
+            "x": 469.7463608596715,
+            "y": 769.5479494439738,
+            "z": 0,
+            "landed": true
+          }
+        ],
+        "ents": [
+          {
+            "x": 937.1398283997229,
+            "y": 702.6535489972955,
+            "pose": "celebrate",
+            "hat": false
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      }
+    ],
+    "passed": true
+  }
+]

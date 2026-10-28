@@ -1,0 +1,1640 @@
+[
+  {
+    "n": 1,
+    "tag": "complete",
+    "source": "actual main working checkout; natural CPU simulation; no state mutation except temporarily freeze update during capture",
+    "state": {
+      "scene": "PlayScene",
+      "state": "gallery",
+      "phase": "finale",
+      "stage": "done",
+      "found": 21,
+      "total": 18,
+      "fT": 10.299300000000015,
+      "head": "skull",
+      "tail": "teapot",
+      "hats": [
+        {
+          "x": 612.9436354463782,
+          "y": 828.2525588861457,
+          "z": 0,
+          "landed": true
+        }
+      ],
+      "ents": [
+        {
+          "x": 937.0844655910582,
+          "y": 703.4246045793907,
+          "pose": "celebrate",
+          "hat": false
+        }
+      ],
+      "extras": {
+        "sock": {
+          "found": true,
+          "pend": false,
+          "show": 1
+        },
+        "teacup": {
+          "found": true,
+          "pend": false,
+          "show": 1
+        },
+        "crown": {
+          "found": true,
+          "pend": false,
+          "show": 1
+        }
+      },
+      "flights": 0
+    },
+    "elapsedSeconds": 28.313,
+    "errors": [],
+    "failed": [],
+    "shots": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-1-dig.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-1-bone-pop.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-1-half-build.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-1-wake.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-1-dance.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-1-ahh.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-1-hat-flight.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-1-laugh.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-1-hat-landed.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-1-gallery.jpg"
+    ],
+    "states": [
+      {
+        "label": "dig",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "dig",
+        "found": 0,
+        "total": 18,
+        "fT": 0,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 960,
+            "y": 800,
+            "pose": "idle",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          },
+          "teacup": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          },
+          "crown": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "bone-pop",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "dig",
+        "found": 0,
+        "total": 18,
+        "fT": 0,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 927.5936206530672,
+            "y": 769.3084587830762,
+            "pose": "cheer",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          },
+          "teacup": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          },
+          "crown": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          }
+        },
+        "flights": 1
+      },
+      {
+        "label": "half-build",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "dig",
+        "found": 9,
+        "total": 18,
+        "fT": 0,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 972.8267965831868,
+            "y": 920.9149759033731,
+            "pose": "idle",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 0.16775000000001092
+          },
+          "crown": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "wake",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "wake",
+        "found": 21,
+        "total": 18,
+        "fT": 0,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 1434.2310692930612,
+            "y": 929.2415526218692,
+            "pose": "cheer",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "dance",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "dance",
+        "found": 21,
+        "total": 18,
+        "fT": 1.6497000000000048,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 967.0844655910582,
+            "y": 703.4246045793907,
+            "pose": "clap",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "ahh",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "ahh",
+        "found": 21,
+        "total": 18,
+        "fT": 6.449700000000025,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 967.0844655910582,
+            "y": 703.4246045793907,
+            "pose": "idle",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "hat-flight",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "laugh",
+        "found": 21,
+        "total": 18,
+        "fT": 7.799700000000041,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [
+          {
+            "x": 927.8305639088956,
+            "y": 710.2892487692196,
+            "z": 179.2386024375623,
+            "landed": false
+          }
+        ],
+        "ents": [
+          {
+            "x": 937.0844655910582,
+            "y": 703.4246045793907,
+            "pose": "surprised",
+            "hat": false
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "laugh",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "laugh",
+        "found": 21,
+        "total": 18,
+        "fT": 7.899600000000051,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [
+          {
+            "x": 895.4416724193937,
+            "y": 717.1538929590499,
+            "z": 238.0000875056567,
+            "landed": false
+          }
+        ],
+        "ents": [
+          {
+            "x": 937.0844655910582,
+            "y": 703.4246045793907,
+            "pose": "surprised",
+            "hat": false
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "hat-landed",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "laugh",
+        "found": 21,
+        "total": 18,
+        "fT": 9.54960000000002,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [
+          {
+            "x": 612.9436354463782,
+            "y": 828.2525588861457,
+            "z": 0,
+            "landed": true
+          }
+        ],
+        "ents": [
+          {
+            "x": 937.0844655910582,
+            "y": 703.4246045793907,
+            "pose": "laugh",
+            "hat": false
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "gallery",
+        "scene": "PlayScene",
+        "state": "gallery",
+        "phase": "finale",
+        "stage": "done",
+        "found": 21,
+        "total": 18,
+        "fT": 10.299300000000015,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [
+          {
+            "x": 612.9436354463782,
+            "y": 828.2525588861457,
+            "z": 0,
+            "landed": true
+          }
+        ],
+        "ents": [
+          {
+            "x": 937.0844655910582,
+            "y": 703.4246045793907,
+            "pose": "celebrate",
+            "hat": false
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      }
+    ],
+    "passed": true
+  },
+  {
+    "n": 8,
+    "tag": "complete",
+    "source": "actual main working checkout; natural CPU simulation; no state mutation except temporarily freeze update during capture",
+    "state": {
+      "scene": "PlayScene",
+      "state": "gallery",
+      "phase": "finale",
+      "stage": "done",
+      "found": 197,
+      "total": 188,
+      "fT": 10.282100000000007,
+      "head": "skull",
+      "tail": "teapot",
+      "hats": [
+        {
+          "x": 70,
+          "y": 773.617537682467,
+          "z": 0,
+          "landed": true
+        },
+        {
+          "x": 489.2585393952126,
+          "y": 766.8005893298167,
+          "z": 0,
+          "landed": true
+        },
+        {
+          "x": 1519.9405620288505,
+          "y": 815.9185978750452,
+          "z": 0,
+          "landed": true
+        },
+        {
+          "x": 1807.9657363489541,
+          "y": 731.0589403881235,
+          "z": 0,
+          "landed": true
+        },
+        {
+          "x": 147.55157221625888,
+          "y": 875.074511656493,
+          "z": 0,
+          "landed": true
+        },
+        {
+          "x": 513.6262828388672,
+          "y": 947.9814460832214,
+          "z": 0,
+          "landed": true
+        },
+        {
+          "x": 1396.8292971899862,
+          "y": 957.9852247483434,
+          "z": 0,
+          "landed": true
+        },
+        {
+          "x": 1796.7649902941682,
+          "y": 952.5981825719264,
+          "z": 0,
+          "landed": true
+        }
+      ],
+      "ents": [
+        {
+          "x": 562.0984045817108,
+          "y": 662.1500149795945,
+          "pose": "celebrate",
+          "hat": false
+        },
+        {
+          "x": 809.8853106649118,
+          "y": 666.177756295299,
+          "pose": "celebrate",
+          "hat": false
+        },
+        {
+          "x": 1062.531082540994,
+          "y": 662.5530940431777,
+          "pose": "celebrate",
+          "hat": false
+        },
+        {
+          "x": 1364.9193378414434,
+          "y": 667.930151914608,
+          "pose": "celebrate",
+          "hat": false
+        },
+        {
+          "x": 548.8368263882244,
+          "y": 814.7903916773346,
+          "pose": "celebrate",
+          "hat": false
+        },
+        {
+          "x": 812.450947757401,
+          "y": 811.0718007959446,
+          "pose": "celebrate",
+          "hat": false
+        },
+        {
+          "x": 1061.9035752300629,
+          "y": 809.9668718869408,
+          "pose": "celebrate",
+          "hat": false
+        },
+        {
+          "x": 1357.5627795306307,
+          "y": 809.1244828475756,
+          "pose": "celebrate",
+          "hat": false
+        }
+      ],
+      "extras": {
+        "sock": {
+          "found": true,
+          "pend": false,
+          "show": 1
+        },
+        "teacup": {
+          "found": true,
+          "pend": false,
+          "show": 1
+        },
+        "crown": {
+          "found": true,
+          "pend": false,
+          "show": 1
+        }
+      },
+      "flights": 0
+    },
+    "elapsedSeconds": 30.897,
+    "errors": [],
+    "failed": [],
+    "shots": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-8-dig.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-8-bone-pop.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-8-half-build.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-8-wake.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-8-dance.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-8-ahh.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-8-hat-flight.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-8-laugh.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-8-hat-landed.jpg",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT28-DINO-GAMEPLAY-complete-8-gallery.jpg"
+    ],
+    "states": [
+      {
+        "label": "dig",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "dig",
+        "found": 0,
+        "total": 188,
+        "fT": 0,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 510,
+            "y": 720,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 810,
+            "y": 720,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 1110,
+            "y": 720,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 1410,
+            "y": 720,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 510,
+            "y": 890,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 810,
+            "y": 890,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 1110,
+            "y": 890,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 1410,
+            "y": 890,
+            "pose": "idle",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          },
+          "teacup": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          },
+          "crown": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "bone-pop",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "dig",
+        "found": 0,
+        "total": 188,
+        "fT": 0,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 561.5432702802146,
+            "y": 695.9837565494599,
+            "pose": "dig",
+            "hat": true
+          },
+          {
+            "x": 516.042817971549,
+            "y": 669.6409848695346,
+            "pose": "run",
+            "hat": true
+          },
+          {
+            "x": 1012.5757261165205,
+            "y": 774.1547555228201,
+            "pose": "dig",
+            "hat": true
+          },
+          {
+            "x": 1326.2770956286702,
+            "y": 764.9758211365062,
+            "pose": "dig",
+            "hat": true
+          },
+          {
+            "x": 491.30075999999946,
+            "y": 874.4834363976754,
+            "pose": "dig",
+            "hat": true
+          },
+          {
+            "x": 808.828662,
+            "y": 890.2229845914659,
+            "pose": "cheer",
+            "hat": true
+          },
+          {
+            "x": 1036.3173042578674,
+            "y": 750.4570600911002,
+            "pose": "walk",
+            "hat": true
+          },
+          {
+            "x": 1440.6705122866827,
+            "y": 948.6027985818638,
+            "pose": "dig",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          },
+          "teacup": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          },
+          "crown": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          }
+        },
+        "flights": 1
+      },
+      {
+        "label": "half-build",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "dig",
+        "found": 94,
+        "total": 188,
+        "fT": 0,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 1449.645509007697,
+            "y": 795.5466113031356,
+            "pose": "dig",
+            "hat": true
+          },
+          {
+            "x": 1276.6151062746862,
+            "y": 880.1480236416218,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 883.9580929497312,
+            "y": 954.0123831804395,
+            "pose": "dig",
+            "hat": true
+          },
+          {
+            "x": 941.4491740422884,
+            "y": 863.3726881666518,
+            "pose": "run",
+            "hat": true
+          },
+          {
+            "x": 544.7555595401252,
+            "y": 749.3970808794954,
+            "pose": "dig",
+            "hat": true
+          },
+          {
+            "x": 668.5622503752909,
+            "y": 923.691073580656,
+            "pose": "walk",
+            "hat": true
+          },
+          {
+            "x": 623.1511761715929,
+            "y": 803.4471375457442,
+            "pose": "run",
+            "hat": true
+          },
+          {
+            "x": 1089.482745870312,
+            "y": 677.8113826364553,
+            "pose": "cheer",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": false,
+            "pend": false,
+            "show": 0
+          }
+        },
+        "flights": 1
+      },
+      {
+        "label": "wake",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "wake",
+        "found": 197,
+        "total": 188,
+        "fT": 0.033200000000004365,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 1268.2042746555742,
+            "y": 844.3475174411005,
+            "pose": "cheer",
+            "hat": true
+          },
+          {
+            "x": 1033.77976325894,
+            "y": 911.3684426808331,
+            "pose": "cheer",
+            "hat": true
+          },
+          {
+            "x": 1291.328691451554,
+            "y": 729.9469897208232,
+            "pose": "cheer",
+            "hat": true
+          },
+          {
+            "x": 1325.694413711622,
+            "y": 919.1252125025342,
+            "pose": "cheer",
+            "hat": true
+          },
+          {
+            "x": 471.2607646818287,
+            "y": 898.405019974375,
+            "pose": "cheer",
+            "hat": true
+          },
+          {
+            "x": 1346.6047493388744,
+            "y": 896.7119982044009,
+            "pose": "cheer",
+            "hat": true
+          },
+          {
+            "x": 1277.0725272995041,
+            "y": 793.1625022470091,
+            "pose": "cheer",
+            "hat": true
+          },
+          {
+            "x": 277.98428546125945,
+            "y": 693.1467799214847,
+            "pose": "cheer",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "dance",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "dance",
+        "found": 197,
+        "total": 188,
+        "fT": 1.6331000000000144,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 696.7752010634644,
+            "y": 693.855263371829,
+            "pose": "walk",
+            "hat": true
+          },
+          {
+            "x": 839.8853106649118,
+            "y": 666.177756295299,
+            "pose": "dance",
+            "hat": true
+          },
+          {
+            "x": 1092.531082540994,
+            "y": 662.5530940431777,
+            "pose": "clap",
+            "hat": true
+          },
+          {
+            "x": 1334.9193378414434,
+            "y": 667.930151914608,
+            "pose": "dance",
+            "hat": true
+          },
+          {
+            "x": 578.8368263882244,
+            "y": 814.7903916773346,
+            "pose": "clap",
+            "hat": true
+          },
+          {
+            "x": 842.450947757401,
+            "y": 811.0718007959446,
+            "pose": "dance",
+            "hat": true
+          },
+          {
+            "x": 1091.9611443471315,
+            "y": 808.1811920340302,
+            "pose": "clap",
+            "hat": true
+          },
+          {
+            "x": 856.7497501805248,
+            "y": 757.2557545584617,
+            "pose": "walk",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "ahh",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "ahh",
+        "found": 197,
+        "total": 188,
+        "fT": 6.482600000000038,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [],
+        "ents": [
+          {
+            "x": 592.0984045817108,
+            "y": 662.1500149795945,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 839.8853106649118,
+            "y": 666.177756295299,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 1092.531082540994,
+            "y": 662.5530940431777,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 1334.9193378414434,
+            "y": 667.930151914608,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 578.8368263882244,
+            "y": 814.7903916773346,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 842.450947757401,
+            "y": 811.0718007959446,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 1091.9035752300629,
+            "y": 809.9668718869408,
+            "pose": "idle",
+            "hat": true
+          },
+          {
+            "x": 1327.5627795306307,
+            "y": 809.1244828475756,
+            "pose": "idle",
+            "hat": true
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "hat-flight",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "laugh",
+        "found": 197,
+        "total": 188,
+        "fT": 7.7321000000000515,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [
+          {
+            "x": 567.5182556383864,
+            "y": 664.4394988658453,
+            "z": 106.09461696859758,
+            "landed": false
+          },
+          {
+            "x": 825.3205510366947,
+            "y": 668.2444959988046,
+            "z": 106.65420622947396,
+            "landed": false
+          },
+          {
+            "x": 1106.336956739388,
+            "y": 665.5484083129693,
+            "z": 103.72952804910261,
+            "landed": false
+          },
+          {
+            "x": 1351.9214357863161,
+            "y": 669.2135245049705,
+            "z": 101.09222980800261,
+            "landed": false
+          },
+          {
+            "x": 560.6626480229337,
+            "y": 816.0035282898382,
+            "z": 110.47270017949239,
+            "landed": false
+          },
+          {
+            "x": 827.7234365585265,
+            "y": 813.8550965056612,
+            "z": 115.28308442469475,
+            "landed": false
+          },
+          {
+            "x": 1098.7372168301913,
+            "y": 812.576648474832,
+            "z": 117.85179564153934,
+            "landed": false
+          },
+          {
+            "x": 1345.943728842216,
+            "y": 811.8465394398661,
+            "z": 116.1530840887436,
+            "landed": false
+          }
+        ],
+        "ents": [
+          {
+            "x": 562.0984045817108,
+            "y": 662.1500149795945,
+            "pose": "surprised",
+            "hat": false
+          },
+          {
+            "x": 809.8853106649118,
+            "y": 666.177756295299,
+            "pose": "surprised",
+            "hat": false
+          },
+          {
+            "x": 1062.531082540994,
+            "y": 662.5530940431777,
+            "pose": "surprised",
+            "hat": false
+          },
+          {
+            "x": 1364.9193378414434,
+            "y": 667.930151914608,
+            "pose": "surprised",
+            "hat": false
+          },
+          {
+            "x": 548.8368263882244,
+            "y": 814.7903916773346,
+            "pose": "surprised",
+            "hat": false
+          },
+          {
+            "x": 812.450947757401,
+            "y": 811.0718007959446,
+            "pose": "surprised",
+            "hat": false
+          },
+          {
+            "x": 1061.9035752300629,
+            "y": 809.9668718869408,
+            "pose": "surprised",
+            "hat": false
+          },
+          {
+            "x": 1357.5627795306307,
+            "y": 809.1244828475756,
+            "pose": "surprised",
+            "hat": false
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "laugh",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "laugh",
+        "found": 197,
+        "total": 188,
+        "fT": 7.8320000000000505,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [
+          {
+            "x": 506.72338473583096,
+            "y": 671.3286386320026,
+            "z": 165.91071866527085,
+            "landed": false
+          },
+          {
+            "x": 789.3797780995617,
+            "y": 674.463390468087,
+            "z": 166.58917063640394,
+            "landed": false
+          },
+          {
+            "x": 1149.4767780219156,
+            "y": 674.5614172151418,
+            "z": 170.17803663901003,
+            "landed": false
+          },
+          {
+            "x": 1400.441281212316,
+            "y": 673.0752390163317,
+            "z": 163.8239027751177,
+            "landed": false
+          },
+          {
+            "x": 516.9341097945824,
+            "y": 819.6539002051718,
+            "z": 172.33032184891812,
+            "landed": false
+          },
+          {
+            "x": 794.3057503196627,
+            "y": 822.2301338972469,
+            "z": 174.3623121920392,
+            "landed": false
+          },
+          {
+            "x": 1128.3830491325698,
+            "y": 820.4295605570701,
+            "z": 191.88048142771467,
+            "landed": false
+          },
+          {
+            "x": 1392.3146226257008,
+            "y": 820.0373061136545,
+            "z": 184.1217539389437,
+            "landed": false
+          }
+        ],
+        "ents": [
+          {
+            "x": 562.0984045817108,
+            "y": 662.1500149795945,
+            "pose": "surprised",
+            "hat": false
+          },
+          {
+            "x": 809.8853106649118,
+            "y": 666.177756295299,
+            "pose": "surprised",
+            "hat": false
+          },
+          {
+            "x": 1062.531082540994,
+            "y": 662.5530940431777,
+            "pose": "surprised",
+            "hat": false
+          },
+          {
+            "x": 1364.9193378414434,
+            "y": 667.930151914608,
+            "pose": "surprised",
+            "hat": false
+          },
+          {
+            "x": 548.8368263882244,
+            "y": 814.7903916773346,
+            "pose": "surprised",
+            "hat": false
+          },
+          {
+            "x": 812.450947757401,
+            "y": 811.0718007959446,
+            "pose": "surprised",
+            "hat": false
+          },
+          {
+            "x": 1061.9035752300629,
+            "y": 809.9668718869408,
+            "pose": "surprised",
+            "hat": false
+          },
+          {
+            "x": 1357.5627795306307,
+            "y": 809.1244828475756,
+            "pose": "surprised",
+            "hat": false
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "hat-landed",
+        "scene": "PlayScene",
+        "state": "play",
+        "phase": "finale",
+        "stage": "laugh",
+        "found": 197,
+        "total": 188,
+        "fT": 9.38210000000002,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [
+          {
+            "x": 70,
+            "y": 773.617537682467,
+            "z": 0,
+            "landed": true
+          },
+          {
+            "x": 489.2585393952126,
+            "y": 766.8005893298167,
+            "z": 0,
+            "landed": true
+          },
+          {
+            "x": 1517.9493825944885,
+            "y": 814.4119187092165,
+            "z": 0.6474788398845708,
+            "landed": false
+          },
+          {
+            "x": 1807.9657363489541,
+            "y": 731.0589403881235,
+            "z": 0,
+            "landed": true
+          },
+          {
+            "x": 147.55157221625888,
+            "y": 875.074511656493,
+            "z": 0,
+            "landed": true
+          },
+          {
+            "x": 513.6262828388672,
+            "y": 947.9814460832214,
+            "z": 0,
+            "landed": true
+          },
+          {
+            "x": 1381.598679573842,
+            "y": 942.279400583867,
+            "z": 13.594791934108146,
+            "landed": false
+          },
+          {
+            "x": 1788.3849701790189,
+            "y": 947.1294724904275,
+            "z": 3.1807745565486494,
+            "landed": false
+          }
+        ],
+        "ents": [
+          {
+            "x": 562.0984045817108,
+            "y": 662.1500149795945,
+            "pose": "laugh",
+            "hat": false
+          },
+          {
+            "x": 809.8853106649118,
+            "y": 666.177756295299,
+            "pose": "laugh",
+            "hat": false
+          },
+          {
+            "x": 1062.531082540994,
+            "y": 662.5530940431777,
+            "pose": "laugh",
+            "hat": false
+          },
+          {
+            "x": 1364.9193378414434,
+            "y": 667.930151914608,
+            "pose": "laugh",
+            "hat": false
+          },
+          {
+            "x": 548.8368263882244,
+            "y": 814.7903916773346,
+            "pose": "laugh",
+            "hat": false
+          },
+          {
+            "x": 812.450947757401,
+            "y": 811.0718007959446,
+            "pose": "laugh",
+            "hat": false
+          },
+          {
+            "x": 1061.9035752300629,
+            "y": 809.9668718869408,
+            "pose": "laugh",
+            "hat": false
+          },
+          {
+            "x": 1357.5627795306307,
+            "y": 809.1244828475756,
+            "pose": "laugh",
+            "hat": false
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      },
+      {
+        "label": "gallery",
+        "scene": "PlayScene",
+        "state": "gallery",
+        "phase": "finale",
+        "stage": "done",
+        "found": 197,
+        "total": 188,
+        "fT": 10.282100000000007,
+        "head": "skull",
+        "tail": "teapot",
+        "hats": [
+          {
+            "x": 70,
+            "y": 773.617537682467,
+            "z": 0,
+            "landed": true
+          },
+          {
+            "x": 489.2585393952126,
+            "y": 766.8005893298167,
+            "z": 0,
+            "landed": true
+          },
+          {
+            "x": 1519.9405620288505,
+            "y": 815.9185978750452,
+            "z": 0,
+            "landed": true
+          },
+          {
+            "x": 1807.9657363489541,
+            "y": 731.0589403881235,
+            "z": 0,
+            "landed": true
+          },
+          {
+            "x": 147.55157221625888,
+            "y": 875.074511656493,
+            "z": 0,
+            "landed": true
+          },
+          {
+            "x": 513.6262828388672,
+            "y": 947.9814460832214,
+            "z": 0,
+            "landed": true
+          },
+          {
+            "x": 1396.8292971899862,
+            "y": 957.9852247483434,
+            "z": 0,
+            "landed": true
+          },
+          {
+            "x": 1796.7649902941682,
+            "y": 952.5981825719264,
+            "z": 0,
+            "landed": true
+          }
+        ],
+        "ents": [
+          {
+            "x": 562.0984045817108,
+            "y": 662.1500149795945,
+            "pose": "celebrate",
+            "hat": false
+          },
+          {
+            "x": 809.8853106649118,
+            "y": 666.177756295299,
+            "pose": "celebrate",
+            "hat": false
+          },
+          {
+            "x": 1062.531082540994,
+            "y": 662.5530940431777,
+            "pose": "celebrate",
+            "hat": false
+          },
+          {
+            "x": 1364.9193378414434,
+            "y": 667.930151914608,
+            "pose": "celebrate",
+            "hat": false
+          },
+          {
+            "x": 548.8368263882244,
+            "y": 814.7903916773346,
+            "pose": "celebrate",
+            "hat": false
+          },
+          {
+            "x": 812.450947757401,
+            "y": 811.0718007959446,
+            "pose": "celebrate",
+            "hat": false
+          },
+          {
+            "x": 1061.9035752300629,
+            "y": 809.9668718869408,
+            "pose": "celebrate",
+            "hat": false
+          },
+          {
+            "x": 1357.5627795306307,
+            "y": 809.1244828475756,
+            "pose": "celebrate",
+            "hat": false
+          }
+        ],
+        "extras": {
+          "sock": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "teacup": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          },
+          "crown": {
+            "found": true,
+            "pend": false,
+            "show": 1
+          }
+        },
+        "flights": 0
+      }
+    ],
+    "passed": true
+  }
+]

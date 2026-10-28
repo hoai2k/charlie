@@ -1,0 +1,141 @@
+{
+  "key": "prop/dino-spine-3",
+  "box": [
+    645,
+    210,
+    785,
+    285
+  ],
+  "size": [
+    140,
+    75
+  ],
+  "templatePoints": [
+    [
+      650,
+      234
+    ],
+    [
+      770,
+      262
+    ]
+  ],
+  "localPoints": [
+    [
+      5,
+      24
+    ],
+    [
+      125,
+      52
+    ]
+  ],
+  "prompt": "Use case: stylized-concept. Asset type: isolated transparent2D toy dinosaur skeleton piece. Image1 is the approved WHOLE SKELETON STYLE reference only. Image2 is a GEOMETRIC PLACEMENT GUIDE for this single piece; guide coordinates below use a local140x75 canvas. DO NOT draw the whole dinosaur. Draw ONLY this one named piece: dino-spine-3. Only ONE chain of exactly THREE knobbly vertebra blocks, each with a small rounded plate on top, arranged on a gently falling line LEFT to RIGHT from (5,24) to (125,52), leading to shoulders. No ribs or attached legs. Match master exact warm cream ivory #f6ecd2, soft shade #d9c7a0, bold navy #24163f outlines, clean soft cel shading, chubby rounded toy bone anatomy, friendly not scary. Flat2D illustrated game style, no3D no realism. Fill the local canvas proportionally as guide shows, entire piece complete with overlapping bone ends, never remove occluded sections. One isolated piece only. Genuine alpha transparency around and inside any open spaces. No guide dots, no lines or labels, no text, no background, no ground, no cast shadow, no glow, no dust or motion lines.",
+  "mode": "built-in imagegen",
+  "status": "intaken-and-static-assembled-reviewed-pending-consumer-check",
+  "styleReference": "reference/sources/oct28-dino-skeleton/master-template.webp",
+  "guide": "reference/sources/oct28-dino-skeleton/dino-spine-3-guide.png",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a18497-8c77-7aa0-b43a-77e8a66c5891/exec-09eecbf6-b5b0-4a6d-bef4-b0f438681be4.png",
+  "nativeSize": [
+    1714,
+    918
+  ],
+  "source": "reference/sources/oct28-dino-skeleton/dino-spine-3-native.webp",
+  "runtime": "assets/art/prop/dino-spine-3.webp",
+  "outputSize": [
+    140,
+    75
+  ],
+  "registration": {
+    "sourcePoints": [
+      [
+        136.0,
+        288.0
+      ],
+      [
+        1603.0,
+        733.0
+      ]
+    ],
+    "targetPoints": [
+      [
+        8.0,
+        24.0
+      ],
+      [
+        125.0,
+        52.0
+      ]
+    ],
+    "sourceToLocal": [
+      [
+        0.08575881850837873,
+        -0.019793678093913736,
+        2.03737997390765
+      ],
+      [
+        -0.035691885585124795,
+        0.18058426101882713,
+        -23.154170733845238
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "localToSource": [
+      [
+        12.217969091872224,
+        1.3392005803910731,
+        6.115433335636433
+      ],
+      [
+        2.4148414288675464,
+        5.80226974366061,
+        129.42679472120494
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "alphaBounds": [
+      1,
+      5,
+      132,
+      69
+    ],
+    "registrationError": 1.4210854715202004e-14,
+    "unclippedAlphaBounds": [
+      1,
+      5,
+      132,
+      69
+    ],
+    "clippedSignificantPixels": 0,
+    "renderOffset": [
+      0,
+      0
+    ],
+    "sourceAlphaBounds": [
+      53,
+      202,
+      1675,
+      823
+    ]
+  },
+  "processing": "Native RGBA archived lossless WebP exact=True, verified byte-identical. Measured whole-part geometric registration only; no creative pixels painted. Bicubic affine transform into exact requested box canvas.",
+  "runtimeSha256": "584ae848f25c1d7cd10e6ef4a47aadba8e3561f198e263f8e1b06202c1c8449f",
+  "runtimeBytes": 9374,
+  "decodedBytes": 42000,
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "nativeArchivePixelsIdentical": true,
+  "runtimePixelsReproducedExactly": true,
+  "review": "Native and runtime inspected. Complete sourcepart registered geometrically and reviewed in assembled normal/sneeze templates.",
+  "assembledReview": "reference/pending/OCT28-DINO-SKELETON-contact-review.jpg"
+}

@@ -43,10 +43,10 @@ export const PIECES = {
   'spine-1':       { key: 'prop/dino-spine-1', box: [395, 225, 535, 285], grow: 'right', rig: 'body' },
   'spine-2':       { key: 'prop/dino-spine-2', box: [520, 200, 660, 260], grow: 'right', rig: 'body' },
   'spine-3':       { key: 'prop/dino-spine-3', box: [645, 210, 785, 285], grow: 'right', rig: 'body' },
-  'rib-1':         { key: 'prop/dino-rib-1', box: [520, 235, 580, 375], grow: 'down', rig: 'body' },
-  'rib-2':         { key: 'prop/dino-rib-2', box: [575, 228, 640, 395], grow: 'down', rig: 'body' },
-  'rib-3':         { key: 'prop/dino-rib-3', box: [635, 230, 700, 395], grow: 'down', rig: 'body' },
-  'rib-4':         { key: 'prop/dino-rib-4', box: [690, 240, 750, 370], grow: 'down', rig: 'body' },
+  'rib-1':         { key: 'prop/dino-rib-1', box: [520, 235, 580, 375], grow: 'down', rig: 'body', renderOffset: [0, -8] },
+  'rib-2':         { key: 'prop/dino-rib-2', box: [575, 228, 640, 395], grow: 'down', rig: 'body', renderOffset: [6, -3] },
+  'rib-3':         { key: 'prop/dino-rib-3', box: [635, 230, 700, 395], grow: 'down', rig: 'body', renderOffset: [15, -3] },
+  'rib-4':         { key: 'prop/dino-rib-4', box: [690, 240, 750, 370], grow: 'down', rig: 'body', renderOffset: [2, -2] },
   'neck-1':        { key: 'prop/dino-neck-1', box: [735, 150, 870, 285], grow: 'up', rig: 'neck1' },
   'neck-2':        { key: 'prop/dino-neck-2', box: [820, 70, 935, 190], grow: 'up', rig: 'neck2' },
   head:            { key: 'prop/dino-skull', box: [870, 20, 1090, 175], grow: 'right', rig: 'head' },
@@ -76,6 +76,62 @@ export const SILLY = {
 };
 export const SILLY_HOST = { duck: 'head', teapot: 'tail-3', sock: 'leg-front', crown: 'head', teacup: 'spine-2' };
 export function sillyTarget(id) { const s = SILLY[id]; return toScreen(s.at[0], s.at[1] - (s.center ? 0 : s.w * 0.4)); }
+
+/** Conservative world-space top of the head and its crown through the actual rig. */
+export function dinoHeadTop(p, head = 'skull', crowned = false) {
+  const rotations = [
+    [J.head, p.head || 0], [J.neck2, (p.neck || 0) * 0.7],
+    [J.neck, p.neck || 0], [[585, 300], (p.sway || 0) + (p.lean || 0)],
+  ].map(([at, a]) => ({ at, c: Math.cos(a), s: Math.sin(a) }));
+  const points = [];
+  const rect = (x, y, w, h, angle = 0) => {
+    const c = Math.cos(angle), s = Math.sin(angle);
+    for (const dx of [-w / 2, w / 2]) for (const dy of [-h, 0]) points.push([x + dx * c - dy * s, y + dx * s + dy * c]);
+  };
+  if (head === 'duck') rect(975, 190, 190, 190);
+  else rect(980, 175, 220, 155);
+  // A square encloses both the painted crown and the procedural crown.
+  if (crowned) {
+    const a = SILLY.crown.rot, dx = head === 'duck' ? 14 : 0, dy = head === 'duck' ? -10 : 0;
+    rect(952 + dx * Math.cos(a) - dy * Math.sin(a), 34 + dx * Math.sin(a) + dy * Math.cos(a), 92, 92, a);
+  }
+  return Math.min(...points.map(([x, y]) => {
+    for (const r of rotations) {
+      const dx = x - r.at[0], dy = y - r.at[1];
+      x = r.at[0] + dx * r.c - dy * r.s; y = r.at[1] + dx * r.s + dy * r.c;
+    }
+    return DINO.y + (y - (p.bob || 0) - (p.hop || 0) - DINO.oy) * DINO.k;
+  }));
+}
+
+/** Bound finale lift/tilt at the viewport top, retaining leg and tail dancing. */
+export function fitDinoHead(pose, head, crowned, minY = 12) {
+  if (dinoHeadTop(pose, head, crowned) >= minY) return pose;
+  const fields = ['bob', 'hop', 'sway', 'neck', 'head', 'lean'];
+  let nod = 0;
+  const scaled = (k) => {
+    const p = { ...pose };
+    for (const field of fields) p[field] = (pose[field] || 0) * k;
+    p.neck += nod * (1 - k);
+    return p;
+  };
+  // The sneeze punch can put the viewport top below a tall crown even at rest.
+  // A small forward nod keeps it visible without moving the feet or the camera.
+  if (dinoHeadTop(scaled(0), head, crowned) < minY) {
+    let lo = 0, hi = 0.6;
+    for (let i = 0; i < 14; i++) {
+      nod = (lo + hi) / 2;
+      if (dinoHeadTop(scaled(0), head, crowned) >= minY) hi = nod; else lo = nod;
+    }
+    nod = hi;
+  }
+  let lo = 0, hi = 1;
+  for (let i = 0; i < 14; i++) {
+    const mid = (lo + hi) / 2;
+    if (dinoHeadTop(scaled(mid), head, crowned) >= minY) lo = mid; else hi = mid;
+  }
+  return scaled(lo);
+}
 
 // ---------------------------------------------------------------- small path helpers
 function rr(g, x, y, w, h, r) {
@@ -308,8 +364,10 @@ function drawPiece(g, id, f, pop, opts) {
     if (id === 'tail-3' && opts.tail === 'teapot') { drawTeapot(g); return; }
     const im = art(P.key);
     if (im) {
-      if (P.far) { g.save(); try { g.filter = 'brightness(0.82)'; } catch (e) { /* older Safari */ } g.drawImage(im, b[0], b[1], b[2] - b[0], b[3] - b[1]); g.restore(); }
-      else g.drawImage(im, b[0], b[1], b[2] - b[0], b[3] - b[1]);
+      // Register painted rib caps inside the existing rig transform; keep logical joints fixed.
+      const x = b[0] + (P.renderOffset?.[0] || 0), y = b[1] + (P.renderOffset?.[1] || 0);
+      if (P.far) { g.save(); try { g.filter = 'brightness(0.82)'; } catch (e) { /* older Safari */ } g.drawImage(im, x, y, b[2] - b[0], b[3] - b[1]); g.restore(); }
+      else g.drawImage(im, x, y, b[2] - b[0], b[3] - b[1]);
     } else PROC[id](g);
   };
   g.save();
@@ -427,7 +485,8 @@ export function drawMound(g, m, t) {
   }
   g.restore();
   // the hint on top
-  const topY = m.y - 4 - w * 0.36 * hk;
+  // The authored mound rises 80 px inside its 320 px canvas; the fallback is taller.
+  const topY = m.y - 4 - w * (im ? 80 / 320 : 0.36) * hk;
   if (d < 0.9) {
     if (m.hint === 'bone') {
       g.save(); g.translate(m.x + w * 0.12, topY + 6); g.rotate(-0.7 + Math.sin(t * 2 + m.ph) * 0.05);
@@ -457,7 +516,12 @@ export function drawHole(g, x, y, w, depth = 1, alpha = 1) {
 /** Explorer hat, origin = top of the head, S = head width, facing right. */
 export function drawHat(g, S) {
   const w = S * 1.25, im = art('prop/dino-explorer-hat');
-  if (im) { const h = w * im.height / im.width; g.drawImage(im, -w / 2, -h * 0.82, w, h); return; }
+  if (im) {
+    const h = w * im.height / im.width;
+    // Measured central brim underside: (120, 134) on the 240 x 160 art canvas.
+    g.drawImage(im, -w / 2, -h * (134 / 160), w, h);
+    return;
+  }
   g.beginPath(); g.ellipse(0, -w * 0.02, w * 0.5, w * 0.1, 0, 0, TAU); inkFill(g, '#c9a463', Math.max(3, w * 0.035));
   g.beginPath(); g.moveTo(-w * 0.33, -w * 0.04); g.bezierCurveTo(-w * 0.33, -w * 0.48, w * 0.33, -w * 0.48, w * 0.33, -w * 0.04); g.closePath();
   inkFill(g, '#dcbb7a', Math.max(3, w * 0.035));
