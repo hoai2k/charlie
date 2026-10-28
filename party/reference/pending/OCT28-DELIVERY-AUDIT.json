@@ -1,5 +1,5 @@
 {
-  "status": "45 delivered;4 gopher-dependent images await canonical approval",
+  "status": "All52images delivered:49requestedkeys plus3additional mole animation frames.",
   "assets": [
     {
       "key": "bg/gopher-garden",
@@ -675,6 +675,111 @@
         255
       ],
       "sha256": "51cba924c4fede9f7cff2c11d875658fc9c1135fdacf37338585cdd5a59101b9"
+    },
+    {
+      "key": "prop/gopher-up",
+      "runtime": "party/assets/art/prop/gopher-up.webp",
+      "size": [
+        320,
+        320
+      ],
+      "decodedBytes": 409600,
+      "bytes": 13424,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "3b82350858748812c3964b4bb87a7b8878eaac14d62bc9ae984aef663cb2cf77"
+    },
+    {
+      "key": "prop/gopher-peek-left",
+      "runtime": "party/assets/art/prop/gopher-peek-left.webp",
+      "size": [
+        320,
+        320
+      ],
+      "decodedBytes": 409600,
+      "bytes": 13936,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "4193516c1e28325d9035fe9484fca001ac250033a37a85a8ddcb8b992e9744af"
+    },
+    {
+      "key": "prop/gopher-peek-right",
+      "runtime": "party/assets/art/prop/gopher-peek-right.webp",
+      "size": [
+        320,
+        320
+      ],
+      "decodedBytes": 409600,
+      "bytes": 13958,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "8c8b4c40c1d377756c0ae744d88532e55fa6c46747f234909a5c478046a0778d"
+    },
+    {
+      "key": "prop/gopher-up-2",
+      "runtime": "party/assets/art/prop/gopher-up-2.webp",
+      "size": [
+        320,
+        320
+      ],
+      "decodedBytes": 409600,
+      "bytes": 14084,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "130de3da529450c691c4f57a5df6010b2f0e7d12c0670fb3ae3089bee031df55"
+    },
+    {
+      "key": "prop/gopher-blink",
+      "runtime": "party/assets/art/prop/gopher-blink.webp",
+      "size": [
+        320,
+        320
+      ],
+      "decodedBytes": 409600,
+      "bytes": 13772,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "08e58af3d275bf82b5ccda528ebbeb85b3aee9ce27663201cd21f6fc80ef091d"
+    },
+    {
+      "key": "prop/gopher-bonked",
+      "runtime": "party/assets/art/prop/gopher-bonked.webp",
+      "size": [
+        320,
+        320
+      ],
+      "decodedBytes": 409600,
+      "bytes": 14612,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "sha256": "ad1ae500ea0359aa478229f54909f93b3258d2ab88110149ce9e6cb2a6ea62bf"
+    },
+    {
+      "key": "thumb/gopher-garden",
+      "runtime": "party/assets/art/thumb/gopher-garden.webp",
+      "size": [
+        800,
+        500
+      ],
+      "decodedBytes": 1600000,
+      "bytes": 94088,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sha256": "35910d89615cdb90c8e730a5a906777c7f1b265e5229da14528e636d1b508ca7"
     }
   ],
   "groups": {
@@ -684,8 +789,8 @@
       "includesReusedArt": true
     },
     "gopher-garden": {
-      "decodedBytes": 10368000,
-      "decodedMiB": 9.8876953125,
+      "decodedBytes": 14425600,
+      "decodedMiB": 13.75732421875,
       "includesReusedArt": true
     },
     "gingerbread-house": {
@@ -699,20 +804,18 @@
       "includesReusedArt": true
     }
   },
-  "nativeArchiveRechecks": 40,
+  "nativeArchiveRechecks": 47,
   "otherNativeValidation": "Five gopher native sources verified byte-exact in OCT28-GOPHER-PROPS-INTAKE.json; front lip is exact extracted alpha from hole source.",
   "checks": [
     "17 Party Node test files passed",
     "Beach Ball Soccer4/8CPUResultsScene, no errors",
     "Gopher Gardens4/8CPUResultsScene; measured authoredTroll tug review",
     "Gingerbread House1/8CPUbuild/night/gallery, no errors",
-    "Plushie Workshop1/8layouts/tools/shelf, natural8CPUgallery, no errors; cache cleanup test passed"
+    "Plushie Workshop1/8layouts/tools/shelf, natural8CPUgallery, no errors; cache cleanup test passed",
+    "Mole Madness1/8CPUResultsScene, zero pageerrors; authoredpeek/scan/blink/tease/bonk reviewed",
+    "All22PartyNode tests pass, including5molemotion/visibility tests"
   ],
-  "pending": [
-    "prop/gopher-up",
-    "prop/gopher-up-2",
-    "prop/gopher-bonked",
-    "thumb/gopher-garden"
-  ],
-  "canonical": "party/reference/pending/OCT28-GOPHER-CANONICAL.webp"
+  "pending": [],
+  "canonical": "party/reference/canonical/mole.webp",
+  "moleReview": "OCT28-MOLE-GAMEPLAY-QA.md"
 }

@@ -1,0 +1,244 @@
+{
+  "generator": "built-in imagegen; separate identity-preserving edits",
+  "canonical": "party/reference/canonical/mole.webp",
+  "approval": "User approved creature-only mole with smaller hands and requested sneaky peeking/look-around plus contrast review.",
+  "entries": [
+    {
+      "key": "prop/gopher-up",
+      "prompt": "Targeted proportion edit of this APPROVED Charlie Party mole. Preserve its exact grumpy face, long fleshy pink mole snout, tiny narrowed eyes, chocolate-brown short velvety fur, no ears, stout torso, navy outlines and soft cel shading. ONLY reduce the dominant hands and claws: make EACH digging hand about HALF its current width and height; claws about HALF their current length. Tuck forearms close to the lower sides of the torso, low and slightly behind body, so the HEAD and NOSE dominate the silhouette as a creature poking upward from underground. Both small hands still visible near bottom of torso, recognizable pink mole paws with ivory claws. Keep torso and head size the same, no ground or dirt. Aim total width similar to body+snout rather than wide spread claws. Keep clear lighter warm-cocoa cel highlights on forehead/cheeks so dark brown body remains readable against the garden's dark burrow and vivid green lawn, without changing approved palette or adding glows. Entire creature inside transparent square with generous margin; body flat cut at lower edge for burrow placement. No effects, text, shadows, soil, hole, mound or ground.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-7fee0c27-6142-4465-81e8-4352629bad84.png",
+      "source": "party/reference/sources/oct28-mole/gopher-up-native.webp",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "sourcePixelExact": true,
+      "sourceCrop": [
+        119,
+        190,
+        1232,
+        1070
+      ],
+      "sourceAnchor": [
+        627.5,
+        1067
+      ],
+      "commonScale": 0.23357664233576642,
+      "placement": [
+        41,
+        111
+      ],
+      "runtimeFile": "party/assets/art/prop/gopher-up.webp",
+      "runtimeSize": [
+        320,
+        320
+      ],
+      "alphaBounds": [
+        41,
+        111,
+        301,
+        317
+      ],
+      "runtimeBytes": 13424,
+      "sha256": "3b82350858748812c3964b4bb87a7b8878eaac14d62bc9ae984aef663cb2cf77"
+    },
+    {
+      "key": "prop/gopher-peek-left",
+      "prompt": "Identity-preserving sprite edit of the exact approved Charlie Party MOLE. Preserve chocolate-brown velvety fur, long pink fleshy snout, tiny narrowed dark eyes, grumpy heavy brows, no external ears, short thick torso, navy outlines and cel shading. KEEP THE NEW SMALL HANDS low beside torso with short ivory claws; do not enlarge hands. Same canvas, exact same torso size/position, bottom body/support line and camera as reference. Keep fur/head body scale consistent, no extra creature. Character-only on true transparent square, no soil, ground, hole, shadows, stars, motion effects, props or text. LOOK-LEFT sprite: keep torso/paws still, turn ONLY head and long snout toward screen-LEFT, pupils looking suspiciously to LEFT, one eyebrow cocked, tight grumpy mouth. This is a cautious sneaky glance while peeking from a hole. The nose must point LEFT. No full body mirroring, no body turning.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-6b1647ed-727c-41d9-8ac2-46d94287c133.png",
+      "source": "party/reference/sources/oct28-mole/gopher-peek-left-native.webp",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "sourcePixelExact": true,
+      "sourceCrop": [
+        38,
+        187,
+        1129,
+        1069
+      ],
+      "sourceAnchor": [
+        645.5,
+        1067
+      ],
+      "commonScale": 0.23357664233576642,
+      "placement": [
+        18,
+        110
+      ],
+      "runtimeFile": "party/assets/art/prop/gopher-peek-left.webp",
+      "runtimeSize": [
+        320,
+        320
+      ],
+      "alphaBounds": [
+        18,
+        110,
+        273,
+        316
+      ],
+      "runtimeBytes": 13936,
+      "sha256": "4193516c1e28325d9035fe9484fca001ac250033a37a85a8ddcb8b992e9744af"
+    },
+    {
+      "key": "prop/gopher-peek-right",
+      "prompt": "Identity-preserving sprite edit of the exact approved Charlie Party MOLE. Preserve chocolate-brown velvety fur, long pink fleshy snout, tiny narrowed dark eyes, grumpy heavy brows, no external ears, short thick torso, navy outlines and cel shading. KEEP THE NEW SMALL HANDS low beside torso with short ivory claws; do not enlarge hands. Same canvas, exact same torso size/position, bottom body/support line and camera as reference. Keep fur/head body scale consistent, no extra creature. Character-only on true transparent square, no soil, ground, hole, shadows, stars, motion effects, props or text. LOOK-RIGHT sprite: keep torso/paws still, turn head and snout farther toward screen-RIGHT than reference, pupils looking to far RIGHT, a suspicious narrowed side-eye and grumpy tight mouth. Calm sneaky glance. Retain both little paws at same bottom positions, nose fully in canvas.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-441cf367-e13f-4965-9008-84acfb4c3e50.png",
+      "source": "party/reference/sources/oct28-mole/gopher-peek-right-native.webp",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "sourcePixelExact": true,
+      "sourceCrop": [
+        120,
+        192,
+        1249,
+        1068
+      ],
+      "sourceAnchor": [
+        629.5,
+        1067
+      ],
+      "commonScale": 0.23357664233576642,
+      "placement": [
+        41,
+        112
+      ],
+      "runtimeFile": "party/assets/art/prop/gopher-peek-right.webp",
+      "runtimeSize": [
+        320,
+        320
+      ],
+      "alphaBounds": [
+        41,
+        112,
+        305,
+        317
+      ],
+      "runtimeBytes": 13958,
+      "sha256": "8c8b4c40c1d377756c0ae744d88532e55fa6c46747f234909a5c478046a0778d"
+    },
+    {
+      "key": "prop/gopher-up-2",
+      "prompt": "Identity-preserving sprite edit of the exact approved Charlie Party MOLE. Preserve chocolate-brown velvety fur, long pink fleshy snout, tiny narrowed dark eyes, grumpy heavy brows, no external ears, short thick torso, navy outlines and cel shading. KEEP THE NEW SMALL HANDS low beside torso with short ivory claws; do not enlarge hands. Same canvas, exact same torso size/position, bottom body/support line and camera as reference. Keep fur/head body scale consistent, no extra creature. Character-only on true transparent square, no soil, ground, hole, shadows, stars, motion effects, props or text. TEASING sprite: keep torso/paws still. Head turned gently toward viewer, long snout still obvious and pink. One eye squints in a teasing wink, one corner of mouth raised into a smug mischievous smirk with a tiny tongue peeking out. Remain comically grouchy, not a cheerful pet. One SMALL paw low at side curls a little taunting beckon, not raised high. Same body scale.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-6f0b15d5-2390-4dd2-9623-806f08c7e51c.png",
+      "source": "party/reference/sources/oct28-mole/gopher-up-2-native.webp",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "sourcePixelExact": true,
+      "sourceCrop": [
+        114,
+        190,
+        1238,
+        1068
+      ],
+      "sourceAnchor": [
+        634.0,
+        1067
+      ],
+      "commonScale": 0.23357664233576642,
+      "placement": [
+        39,
+        111
+      ],
+      "runtimeFile": "party/assets/art/prop/gopher-up-2.webp",
+      "runtimeSize": [
+        320,
+        320
+      ],
+      "alphaBounds": [
+        39,
+        111,
+        302,
+        316
+      ],
+      "runtimeBytes": 14084,
+      "sha256": "130de3da529450c691c4f57a5df6010b2f0e7d12c0670fb3ae3089bee031df55"
+    },
+    {
+      "key": "prop/gopher-blink",
+      "prompt": "Identity-preserving sprite edit of the exact approved Charlie Party MOLE. Preserve chocolate-brown velvety fur, long pink fleshy snout, tiny narrowed dark eyes, grumpy heavy brows, no external ears, short thick torso, navy outlines and cel shading. KEEP THE NEW SMALL HANDS low beside torso with short ivory claws; do not enlarge hands. Same canvas, exact same torso size/position, bottom body/support line and camera as reference. Keep fur/head body scale consistent, no extra creature. Character-only on true transparent square, no soil, ground, hole, shadows, stars, motion effects, props or text. BLINK sprite: change ONLY both eyes into fully closed short squinting lid lines, retaining grumpy brows and exact snout/mouth pose. Every other part, fur, smallhands, head/body, outline, camera and placement unchanged. No smile, no extra effects.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-15fc98bb-2a2b-451b-b8ec-781c7e1a3c7c.png",
+      "source": "party/reference/sources/oct28-mole/gopher-blink-native.webp",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "sourcePixelExact": true,
+      "sourceCrop": [
+        118,
+        189,
+        1232,
+        1069
+      ],
+      "sourceAnchor": [
+        627.5,
+        1067
+      ],
+      "commonScale": 0.23357664233576642,
+      "placement": [
+        41,
+        111
+      ],
+      "runtimeFile": "party/assets/art/prop/gopher-blink.webp",
+      "runtimeSize": [
+        320,
+        320
+      ],
+      "alphaBounds": [
+        41,
+        111,
+        301,
+        317
+      ],
+      "runtimeBytes": 13772,
+      "sha256": "08e58af3d275bf82b5ccda528ebbeb85b3aee9ce27663201cd21f6fc80ef091d"
+    },
+    {
+      "key": "prop/gopher-bonked",
+      "prompt": "Identity-preserving sprite edit of the exact approved Charlie Party MOLE. Preserve chocolate-brown velvety fur, long pink fleshy snout, tiny narrowed dark eyes, grumpy heavy brows, no external ears, short thick torso, navy outlines and cel shading. KEEP THE NEW SMALL HANDS low beside torso with short ivory claws; do not enlarge hands. Same canvas, exact same torso size/position, bottom body/support line and camera as reference. Keep fur/head body scale consistent, no extra creature. Character-only on true transparent square, no soil, ground, hole, shadows, stars, motion effects, props or text. BONKED sprite for a harmless cartoon squeaky-toy bop: same body scale and small hands, body dips down only slightly, eyes as loose dizzy spirals, brow still grumpy/annoyed, silly crooked mouth with tongue slightly to one side. Funny dazed reaction, clearly not injured. NO bump, bruise, tears, injury, stars or sparkles. Engine draws orbiting stars itself. Preserve long pink snout shape and dark velvety fur. Keep feet/body support line unchanged.",
+      "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-4206e8bf-9f41-4dff-9b0e-04f83a7821fc.png",
+      "source": "party/reference/sources/oct28-mole/gopher-bonked-native.webp",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "sourcePixelExact": true,
+      "sourceCrop": [
+        119,
+        192,
+        1234,
+        1071
+      ],
+      "sourceAnchor": [
+        627.0,
+        1067
+      ],
+      "commonScale": 0.23357664233576642,
+      "placement": [
+        41,
+        112
+      ],
+      "runtimeFile": "party/assets/art/prop/gopher-bonked.webp",
+      "runtimeSize": [
+        320,
+        320
+      ],
+      "alphaBounds": [
+        41,
+        112,
+        301,
+        317
+      ],
+      "runtimeBytes": 14612,
+      "sha256": "ad1ae500ea0359aa478229f54909f93b3258d2ab88110149ce9e6cb2a6ea62bf"
+    }
+  ],
+  "runtimeGroundLine": 316,
+  "visibleBodyHeight": 206,
+  "notes": "Same body scale and bottom torso centres; no dirt is baked into character images. Left/right scans are authored frames, not procedural paper flips."
+}

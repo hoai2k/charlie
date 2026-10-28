@@ -1354,7 +1354,14 @@
     "prop/plushie-stuffing": "prop/plushie-stuffing-v1.webp",
     "prop/plushie-tag": "prop/plushie-tag-v1.webp",
     "thumb/plushie-workshop": "thumb/plushie-workshop-v1.webp",
-    "bg/plushie-workshop": "bg/plushie-workshop-v1-compact.webp"
+    "bg/plushie-workshop": "bg/plushie-workshop-v1-compact.webp",
+    "prop/gopher-up": "prop/gopher-up.webp",
+    "prop/gopher-peek-left": "prop/gopher-peek-left.webp",
+    "prop/gopher-peek-right": "prop/gopher-peek-right.webp",
+    "prop/gopher-up-2": "prop/gopher-up-2.webp",
+    "prop/gopher-blink": "prop/gopher-blink.webp",
+    "prop/gopher-bonked": "prop/gopher-bonked.webp",
+    "thumb/gopher-garden": "thumb/gopher-garden.webp"
   },
   "groups": {
     "plushie-workshop": [
@@ -2221,7 +2228,14 @@
       "prop/gopher-hole-front",
       "prop/gopher-mallet",
       "prop/gopher-troll-up",
-      "prop/gopher-troll-tug"
+      "prop/gopher-troll-tug",
+      "prop/gopher-up",
+      "prop/gopher-peek-left",
+      "prop/gopher-peek-right",
+      "prop/gopher-up-2",
+      "prop/gopher-blink",
+      "prop/gopher-bonked",
+      "thumb/gopher-garden"
     ]
   }
 }

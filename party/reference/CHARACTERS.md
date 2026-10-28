@@ -217,3 +217,9 @@ selectable party players. Preserve each approved silhouette across variants.
 
 Exact prompts and native PNG provenance: canonical/studio-generation-manifest.json.
 Visual review: pending/STUDIO-CANONICAL-REVIEW.html.
+
+## Mole — Mole Madness
+
+[Approved canonical](canonical/mole.webp). A comically grumpy garden pest, rendered as game-owned props rather than a selectable player. The owner approved the mole design and requested smaller hands, sneaky peeking/look-around poses and clear contrast against the garden. Keep the chocolate-brown short velvety fur, long fleshy pink snout with visible nostrils, narrowed dark eyes under heavy brows, stout torso and **small low digging paws** with ivory claws. No visible ears, gopher beard, rodent buck teeth or oversized hands. Body pictures contain no dirt, burrow, shadow or effects; the game supplies those layers.
+
+Neutral, left/right glances, blink, teasing and dizzy-bonk pictures share body scale and a bottom torso anchor. The peek rises head-first, pauses with eyes/nose visible, then emerges; scan poses hold calmly. The bonk is silly and unharmed. Existing `gopher-garden` and `prop/gopher-*` identifiers remain stable while the visible game name is **Mole Madness**. Exact prompts and native archives: `pending/OCT28-MOLE-SPRITES.json`, `OCT28-MOLE-THUMBNAIL.json` and `canonical/mole-generation-manifest.json`.
