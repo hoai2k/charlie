@@ -186,7 +186,7 @@ export class Game {
 
   nozzle(st) {
     const s = this.seatPos(st), k = st.L.size / CH;
-    return { x: s.x - 270 * k, y: s.y - 110 * k, k: k * 0.72 };
+    return { x: s.x - 230 * k, y: s.y - 84 * k, k: k * 0.56 };
   }
 
   updateStuff(st, c, dt) {
