@@ -1366,6 +1366,20 @@
     "prop/plushie-heart-pillow": "prop/plushie-heart-pillow-v1.webp"
   },
   "groups": {
+    "dino-dig": [
+      "prop/sand-spade",
+      "prop/sand-hole",
+      "prop/rubber-duck",
+      "prop/fhs-teapot",
+      "prop/beach-sock",
+      "prop/treasure-crown"
+    ],
+    "leaf-pile-leap": [
+      "bg/fairy-hide-seek",
+      "prop/mm-granny",
+      "prop/mm-granny-gasp",
+      "prop/mm-granny-huff"
+    ],
     "plushie-workshop": [
       "bg/plushie-workshop",
       "bg/plushie-shelf",
