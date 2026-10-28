@@ -5,7 +5,7 @@
 import { art } from '../../engine/art.js';
 import { RAINBOW } from '../../engine/particles.js';
 import { clamp, ease, TAU } from '../../engine/util.js';
-import { NAVY, CW, CH, F, FLAT, squashAt, BODIES, FABRICS, SEW_ROWS, DRESS_ROWS, bowHome, bowTilt } from './data.js';
+import { NAVY, CW, CH, F, FLAT, squashAt, BODIES, FABRICS, SEW_ROWS, DRESS_ROWS, bowTilt, moveRule, moveLean, itemOff } from './data.js';
 
 const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
 function hex(c) { const v = parseInt(c.slice(1), 16); return [(v >> 16) & 255, (v >> 8) & 255, v & 255]; }
@@ -498,13 +498,32 @@ function drawPaw(g, fab, x, y) {
   g.restore();
 }
 
-/** Where a movable head item (a bow) sits: P.bow, or the item's own spot. */
-export function bowAt(P, it) { return (P && P.bow) || bowHome(it); }
-
-/** One clothes item (row, item) in frame px. P (optional): the plush (bow spot, paws' fabric). */
+/**
+ * One clothes item (row, item) in frame px. P (optional): the plush (where its worn items
+ * were moved to: P.pos, data.js moveRule; the paws' fabric). Without P: at its home spot.
+ */
 export function drawClothes(g, row, idx, t = 0, P = null) {
   const it = DRESS_ROWS[row].items[idx];
   if (!it || !it.name || idx === 0) return;
+  const rule = P ? moveRule(row, idx) : null, off = rule ? itemOff(P, row, idx) : null;
+  const ax = rule ? rule.home.x + off.dx : 0, ay = rule ? rule.home.y + off.dy : 0;
+  g.save();
+  // A moved item (bows aside: they sit and lean themselves below): shifted, leaning about its moving point.
+  if (rule && !it.move && (off.dx || off.dy || rule.grip)) {
+    const lean = moveLean(row, idx, ax);
+    g.translate(ax, ay); if (lean) g.rotate(lean); g.translate(-rule.home.x, -rule.home.y);
+  }
+  drawClothesAt(g, it, t, rule && it.move ? { x: ax, y: ay } : null);
+  g.restore();
+  if (it.paws && P) {
+    const fab = FABRICS[P.fabric];
+    // a held stick's paw goes with it; a hugged pillow (two paws) slides between the paws
+    if (rule && rule.grip) drawPaw(g, fab, ax, ay);
+    else for (const [x, y] of it.paws) drawPaw(g, fab, x, y);
+  }
+}
+
+function drawClothesAt(g, it, t, bow) {
   if (it.atlas) {
     const [key, cols, rows, col, arow] = it.atlas;
     const img = art(key);
@@ -520,7 +539,7 @@ export function drawClothes(g, row, idx, t = 0, P = null) {
   const img = it.key ? art(it.key) : null;
   if (it.flare && img) { drawCape(g, img, it.top, t); return; }
   let [bx, by, bw] = it.box, rot = it.rot || 0;
-  if (it.move) { const b = bowAt(P, it); bx = b.x; by = b.y; rot = bowTilt(it, bx); }
+  if (bow) { bx = bow.x; by = bow.y; rot = bowTilt(it, bx); }
   g.save();
   if (img) {
     const k = bw / img.width, h = img.height * k;
@@ -541,7 +560,6 @@ export function drawClothes(g, row, idx, t = 0, P = null) {
     else drawClothesProc(g, kind, c, c2, bw * (kind === 'bow' ? 0.9 : kind === 'cape' ? 1 : kind === 'wings' || kind === 'bat' ? 0.9 : 1), t);
   }
   g.restore();
-  if (it.paws && P) { const fab = FABRICS[P.fabric]; for (const [x, y] of it.paws) drawPaw(g, fab, x, y); }
 }
 
 // ---------------------------------------------------------------------------
