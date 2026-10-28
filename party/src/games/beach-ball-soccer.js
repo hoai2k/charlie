@@ -24,7 +24,7 @@ import { depthScale } from '../engine/camera.js';
 import { Dash } from '../engine/dash.js';
 import { spread, bodyRadius } from '../engine/crowd.js';
 import { aiProfile, reactionTime, makesMistake, Brain } from '../engine/ai.js';
-import { randomFreeCharacter } from '../state.js';
+import { randomFreeCharacter, playerName } from '../state.js';
 import { clamp, lerp, damp, rand, pick, chance, ease, TAU } from '../engine/util.js';
 
 import { meta } from './beach-ball-soccer.meta.js';
@@ -478,7 +478,7 @@ export class Game {
     if (scorer) scorer.goals++;
     this.lastScorer = team;
     const T = TEAMS[team];
-    const sub = scorer ? (scorer.ghost ? null : `${scorer.p.tag} scores!`) : own ? 'Oops! An own goal!' : null;
+    const sub = scorer ? `${scorer.p.isAI ? playerName(scorer.p) : scorer.p.tag} scores!` : own ? 'Oops! An own goal!' : null;
     this.showBanner('GOAL!', T.color, sub, GOAL_T);
     // confetti from the goal mouth and the sky
     const gx = goalX(conceded);

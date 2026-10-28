@@ -495,7 +495,7 @@ export class Game {
   shelfLayout() {
     const n = this.n, rows = n <= 4 ? [n] : [Math.ceil(n / 2), Math.floor(n / 2)];
     const boards = n <= 4 ? [760] : [430, 760];
-    const size = n <= 4 ? 330 : 300;
+    const size = n === 1 ? 420 : n <= 4 ? 330 : 300;
     const out = [];
     rows.forEach((cnt, ri) => {
       const sp = 1260 / cnt;
@@ -642,16 +642,21 @@ export class Game {
     const crank = Math.sin(st.crankT) * 0.5;
     if (img) { const s = 384 * k * 0.9; g.drawImage(img, nz.x - 40 * s / 384, nz.y - 300 * s / 384, s, s); return; }
     g.save(); g.translate(nz.x, nz.y); g.scale(k, k);
-    // tank, dome, crank, nozzle (the tip is at 0, 0)
-    g.lineWidth = 6; g.strokeStyle = NAVY; g.lineJoin = 'round';
-    const tx = -150, ty = -110;
-    g.fillStyle = '#ffb3d6'; g.beginPath(); g.ellipse(tx, ty + 60, 90, 120, 0, 0, TAU); g.fill(); g.stroke();
-    g.fillStyle = 'rgba(220,240,255,0.85)'; g.beginPath(); g.arc(tx, ty - 50, 70, Math.PI, 0); g.closePath(); g.fill(); g.stroke();
-    drawFluff(g, tx - 20, ty - 70, 30, 0.3); drawFluff(g, tx + 22, ty - 64, 26, 1.4);
-    g.save(); g.translate(tx + 90, ty + 40); g.rotate(crank); g.fillStyle = '#ffd23f'; g.fillRect(-6, -50, 12, 50); g.strokeRect(-6, -50, 12, 50);
+    // tank, dome, crank, nozzle (the tip is at 0, 0; the table is about 150 below it)
+    g.lineWidth = 6; g.strokeStyle = NAVY; g.lineJoin = 'round'; g.lineCap = 'round';
+    const tx = -200, ty = 30;
+    g.fillStyle = '#ff8ec4'; for (const dx of [-45, 45]) { g.beginPath(); g.ellipse(tx + dx, ty + 112, 24, 13, 0, 0, TAU); g.fill(); g.stroke(); }
+    // the hose
+    const hose = new Path2D(); hose.moveTo(tx + 70, ty + 30); hose.quadraticCurveTo(-60, ty + 50, -8, 4);
+    g.lineWidth = 30; g.stroke(hose); g.lineWidth = 20; g.strokeStyle = '#c6a6ff'; g.stroke(hose);
+    g.lineWidth = 6; g.strokeStyle = NAVY;
+    g.fillStyle = '#ffb3d6'; g.beginPath(); g.ellipse(tx, ty, 82, 96, 0, 0, TAU); g.fill(); g.stroke();
+    g.fillStyle = 'rgba(255,255,255,0.35)'; g.beginPath(); g.ellipse(tx - 34, ty - 30, 18, 40, 0.2, 0, TAU); g.fill();
+    g.fillStyle = 'rgba(220,240,255,0.9)'; g.beginPath(); g.arc(tx, ty - 80, 62, Math.PI, 0); g.closePath(); g.fill(); g.stroke();
+    drawFluff(g, tx - 22, ty - 106, 28, 0.3); drawFluff(g, tx + 20, ty - 100, 24, 1.4); drawFluff(g, tx, ty - 124, 20, 2.1);
+    g.save(); g.translate(tx - 82, ty); g.rotate(crank); g.fillStyle = '#ffd23f'; g.fillRect(-6, -50, 12, 50); g.strokeRect(-6, -50, 12, 50);
     g.beginPath(); g.arc(0, -50, 14, 0, TAU); g.fill(); g.stroke(); g.restore();
-    g.fillStyle = '#c6a6ff'; g.beginPath(); g.moveTo(tx + 70, ty + 90); g.quadraticCurveTo(-30, ty + 60, 0, -14); g.lineTo(0, 14); g.quadraticCurveTo(-40, ty + 110, tx + 60, ty + 130); g.closePath(); g.fill(); g.stroke();
-    g.fillStyle = '#ff8ec4'; for (const dx of [-60, 40]) { g.beginPath(); g.ellipse(tx + dx, ty + 180, 22, 12, 0, 0, TAU); g.fill(); g.stroke(); }
+    g.fillStyle = '#c6a6ff'; g.beginPath(); g.ellipse(-6, 2, 14, 18, -0.6, 0, TAU); g.fill(); g.stroke();
     g.restore();
   }
 
@@ -1010,7 +1015,7 @@ export class Game {
     const books = ['#ff8ec4', '#7fbfff', '#ffd23f', '#93e3bf'];
     books.forEach((c, i) => { g.fillStyle = c; g.fillRect(L + 20 + i * 30, 430 - 120 + i * 6, 26, 120 - i * 6); g.lineWidth = 3; g.strokeRect(L + 20 + i * 30, 430 - 120 + i * 6, 26, 120 - i * 6); });
     g.fillStyle = '#ff6f91'; g.fillRect(R - 120, 760 - 70, 70, 70); g.strokeRect(R - 120, 760 - 70, 70, 70);
-    ui.text(g, 'A', R - 85, 725, { size: 44, color: '#fff' });
+    g.fillStyle = '#ffd23f'; g.fill(starPath(new Path2D(), R - 85, 725, 24)); g.lineWidth = 3; g.stroke(starPath(new Path2D(), R - 85, 725, 24));
     g.fillStyle = '#f2b38a'; g.fillRect(0, 900, W, H - 900);
     g.lineWidth = 4; g.strokeStyle = 'rgba(120,70,30,0.3)'; g.beginPath(); g.moveTo(0, 900); g.lineTo(W, 900); g.stroke();
   }
