@@ -59,7 +59,7 @@ Re-generation table (code falls back to existing art + drawn extras until they l
 ### Art watch (2026-10-13): DONE
 All requested Molly images delivered and checked in game by 07:00Z (QA agents A–G); every open
 request and re-generation row is closed. All six fairy sprite sets (glimmer, garden-fairy-*) have
-every pose the 23 Molly games use. Check-in timers stopped. Molly menu song: 'molly'
+every pose the 23 Molly games use. Check-in timers stopped. Molly menu song: resting since 2026-10-28 (MOLLY_SONG = false in audio.js: Sister menus play the default menu song); when on, 'molly'
 (music/molly-time.mp3, new version from party/intake 2026-10-28, 2:02), resumes (RESUMES in audio.js).
 
 ### Molly Party code (lead session) — all 23 on the shelf (2026-10-13)
