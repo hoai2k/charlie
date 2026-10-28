@@ -1116,7 +1116,7 @@ All Play Studio, Molly, grown-up reaction, October16 audit, October27 Dance Stud
 
 ### gopher-garden — Gopher Gardens   (requested by the gopher-garden agent, 2026-10-28, priority: nice-to-have)
 
-**Pending: new gopher canonical approval.** Preview: `reference/pending/OCT28-GOPHER-CANONICAL.webp`. Hold the three gopher expressions and their thumbnail until the user approves. Six environment/prop images are delivered and reviewed in four/eight-player gameplay; measured geometry is integrated on main.
+**Pending: new gopher canonical approval.** Revised preview: `reference/pending/OCT28-GOPHER-GRUMPY-CANONICAL.webp`. Latest user direction: a grumpy-looking garden pest. Carry the scowling brows and grouchy attitude through the poses and thumbnail; the teasing pose can be smug, and the bopped pose comically annoyed/dizzy rather than hurt. The earlier friendly design was rejected. Hold the three gopher expressions and their thumbnail until the user approves. Six environment/prop images are delivered and reviewed in four/eight-player gameplay; measured geometry is integrated on main.
 
 A sunny whack-a-mole party game (Charlie Party, 1–8 players, 60 s): everyone
 runs around **one shared garden** full of dirt-mound holes and bops the cheeky

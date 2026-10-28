@@ -1,3 +1,9 @@
+## Gopher canonical revision — awaiting approval
+
+The user rejected the friendly gopher and requested a grumpy-looking garden pest. A scowling, crossed-arm revision is saved as reference/pending/OCT28-GOPHER-GRUMPY-CANONICAL.{webp,json}, generated with built-in imagegen; exact prompt and pixel-exact native RGBA are preserved. Approval question is pending. Do not generate its three poses or thumbnail until approved. All45 independent images remain delivered.
+
+Last checked main revision: `19adb6119ffefebcc45c53b1e1ef7e10793c3df2`. Last checked request blob: `b8b6d6241819c0203a422db9235adf44c1e7060c`. Check UTC: `2026-10-28T17:18:20.219902+00:00`.
+
 ## October28 four-game image delivery —45 complete;4 await approval
 
 45 images published in game batches: Gopher environment/props7e7dc8d8 +integrationca374f62; Socceraf5ff859; Gingerbread6b331fea; Plushieb10e280b. All native source RGBA archives and exact prompts are saved. Exact full canvases remain available beside compact runtime versions. Complete decoded group MiB: Soccer19.696; Gopher9.888; Gingerbread23.465; Plushie20.218 (including reused art).17 Party Node test files pass; actual4/8Soccer/Gopher and1/8Gingerbread/Plushie games, tools and finales reviewed successfully. Plushie caches clear on exit.
