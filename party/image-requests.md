@@ -1112,3 +1112,39 @@ fine; the code uses one of each pair.
 
 
 All Play Studio, Molly, grown-up reaction, October16 audit, October27 Dance Studio, nail-hand and Charlie Sister action image requests are delivered and checked. Add new requests or regeneration feedback above; delivery details are in image-requests-history.md and reference/IMAGE-WORK-QUEUE.md.
+
+### beach-ball-soccer — Beach Ball Soccer   (requested by the beach-ball-soccer agent, 2026-10-28, priority: nice-to-have)
+
+Pink Team vs Blue Team on a sunny beach: everyone runs about bumping one
+giant, light, bouncy beach ball into the other team's goal (A kicks, B
+dashes). Goals get confetti and a cheer, then a reset to kickoff. Every key
+has a procedural fallback that ships today, and the code already asks for
+every key below. House style: navy `#24163f` outlines, soft cel shading,
+bright candy colours, slightly softer than the characters, **no text, no
+characters, no animals**. The code draws the ball's shadow, its spin and
+squash, the confetti and the net wobble, so none of that is baked in.
+
+**Reuses (keep alive):** `bg/sandcastle-beach` (today's background: the code
+draws the pitch lines and goals on its sand), `prop/confetti`.
+
+**Layout (the bg must match; screen px on the 1920×1080 canvas, high
+three-quarter view looking down at the sand):** sky and sea across the top
+(y 0 to ≈330, keep the top 150 px calm for the team scores and the clock),
+wet sand to ≈400, the pitch on dry sand: sidelines at y = 420 (far) and
+y = 1010 (near), goal lines at x = 150 (pink, left) and x = 1770 (blue,
+right), halfway line x = 960, centre circle radius ≈150 px around (960, 715)
+(drawn as an ellipse ≈300 × 210 for the angle). Goal mouths span y = 595 to
+835 on each goal line; the goals themselves are separate props (leave the
+area x < 150 and x > 1770 between y 430 and 870 plain sand).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/beach-ball-soccer` | 1920×1080, opaque | Full screen, under everything. Pitch lines exactly as in the layout above; otherwise plain, low-contrast sand inside the pitch | A sunny cartoon beach from a high three-quarter view: blue sky with two soft clouds and a calm turquoise sea with a white foam line across the top third, then smooth golden sand with a beach soccer pitch marked in it by a low white rope on little wooden stakes along both sidelines, raked white sand lines for the goal lines, halfway line and centre circle; a striped beach umbrella and a bucket in the top-left corner off the pitch, a rolled beach towel and a few shells in the top-right corner off the pitch. No goals, no ball, no characters |
+| `prop/bbs-goal-pink` | 320×860, transparent | The Pink goal on the left end, opening to screen-right, drawn into the box x 30–190, y 430–860 (half size). In the image: the front post's foot at about (300, 840), the far post's foot at about (300, 330), posts about 280 px tall in the image with a crossbar between their tops, the net sloping back and down to the image's left edge. The code wobbles the net when a goal goes in | A cheerful beach soccer goal for a kids' game seen from the side at a high three-quarter angle, opening to the right: two rounded candy-pink posts and a crossbar wrapped in white stripes like a candy cane, a soft white rope net with big diamond holes, little pink pennant at the top of each post, posts planted in the sand |
+| `prop/bbs-goal-blue` | 320×860, transparent | The Blue goal on the right end. Draw it opening to screen-right like the pink one (same anchor points); the code mirrors it to open to the left | The same goal with sky-blue posts and crossbar wrapped in white stripes, white rope net, little blue pennants |
+| `prop/bbs-beach-ball` | 256×256, transparent | The giant ball, centred, drawn about 110–130 px across; the code spins it in plane as it rolls, squashes it on bounces and draws its shadow | A big glossy inflatable beach ball seen straight on: six curved panels in pink, white, sky blue, sunny yellow, white and mint meeting at a small white cap in the middle, a soft white shine highlight at the top left. Round, fully visible, no shadow |
+| `thumb/beach-ball-soccer` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A giant pink-white-and-blue beach ball flying into a candy-pink beach soccer goal with the net bulging, confetti bursting, sand spraying, sunny sea behind. No characters. Subject centred |
+
+Player poses used: `run`, `walk`, `idle`, `dash` (B), `push` (the kick, A),
+`windup` (charging a kick), `cheer`, `celebrate`, `pout`, `surprised`. No new
+poses needed.
