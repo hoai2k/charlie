@@ -1,3 +1,11 @@
+## October28 late delivery — complete (authoritative current checkpoint)
+
+All40new requested images are delivered: Plushie Workshop2, Leaf Pile Leap15 and Dino Dig23. Published batches: `0378f317`, `791c4a57`, `826429fb`. Exact prompts and lossless native RGBA archives retained. Full requested canvases preserved alongside compact runtime derivatives where required. Current audit: reference/pending/OCT28-LATE-IMAGE-DELIVERY.json.
+
+All24Party tests pass. Actual merged-main1/8-player natural runs pass; six plush bodies, Leaf ladder/rake registration and Dino joint/hat/crown camera bounds reviewed. Complete decoded art including reuse: Plushie22.196472MiB, Leaf24.601379MiB, Dino14.154140MiB. Common boot props remain available to existing consumers.
+
+Latest delivered artwork revision: `826429fb8adc99f3401a26abf283d4dd30162b98`. Delivery/check UTC: `2026-10-28T23:27:35.380679+00:00`. Last checked main revision: `826429fb8adc99f3401a26abf283d4dd30162b98`. Last checked request blob after completed brief archival: `7cd1d4e30d1339b4b4077a69b62fc81ffbb369b9`. Immediate post-delivery fetch/check was clear; no new semantic requests. Open requests: none. No pending approvals or active generation. No timer requested or created. All earlier active/approval sections below are historical and superseded.
+
 ## New requests active — Leaf Pile Leap and Plushie revisions
 
 Main b2e507a9 adds17newimagekeys: two Plushie Workshop items and15Leaf Pile Leap assets. Root owns shared registration/budgets/intake publication and consumer review. oct28_scarf_revision owns front-worn scarf atlas + heart pillow and minimal own consumer changes; oct28_leaf_environment owns nine backdrop/leaf/pile/rake/ladder assets; oct28_leaf_characters owns six squirrel/Granny/thumbnail assets. Do not duplicate these claims. Molly approvals are waived; existing Granny/fairy identities are preserved. Exact prompts/nativeRGBA archives and measured registration are being saved under OCT28-PLUSHIE-REVISION and OCT28-LEAF*. Reviewed batches will publish regularly.
