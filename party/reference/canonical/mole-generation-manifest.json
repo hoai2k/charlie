@@ -1,0 +1,9 @@
+{
+  "prompt": "Targeted proportion edit of this APPROVED Charlie Party mole. Preserve its exact grumpy face, long fleshy pink mole snout, tiny narrowed eyes, chocolate-brown short velvety fur, no ears, stout torso, navy outlines and soft cel shading. ONLY reduce the dominant hands and claws: make EACH digging hand about HALF its current width and height; claws about HALF their current length. Tuck forearms close to the lower sides of the torso, low and slightly behind body, so the HEAD and NOSE dominate the silhouette as a creature poking upward from underground. Both small hands still visible near bottom of torso, recognizable pink mole paws with ivory claws. Keep torso and head size the same, no ground or dirt. Aim total width similar to body+snout rather than wide spread claws. Keep clear lighter warm-cocoa cel highlights on forehead/cheeks so dark brown body remains readable against the garden's dark burrow and vivid green lawn, without changing approved palette or adding glows. Entire creature inside transparent square with generous margin; body flat cut at lower edge for burrow placement. No effects, text, shadows, soil, hole, mound or ground.",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-7fee0c27-6142-4465-81e8-4352629bad84.png",
+  "canonical": "party/reference/canonical/mole.webp",
+  "reference": "party/reference/pending/OCT28-MOLE-CREATURE-CANONICAL.webp",
+  "approval": "User approved creature-only mole and requested smaller hands, peeking/look-around sprites and sufficient garden contrast. This image implements the authorized hand reduction.",
+  "sourcePixelExact": true,
+  "generator": "built-in imagegen"
+}

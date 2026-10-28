@@ -1,4 +1,4 @@
-// Gopher Gardens - one shared garden full of dirt-mound holes. Cheeky gophers pop
+// Mole Madness - one shared garden full of dirt-mound holes. Grumpy moles pop
 // up; run over and bop them with your squeaky mallet (A) for a point: sparkles,
 // a cute bonk, and the gopher ducks down dazed and giggly. Sometimes a garden
 // fairy pops up instead: don't bop her! (she goes dizzy, you say "oops" and lose a
@@ -51,6 +51,44 @@ const FAIRY_GLOW = { pink: '#ff9ad5', blue: '#8fd3ff', yellow: '#ffe066', green:
 // prop/gopher-troll-tug (400x400): the mallet head sits at his grip point
 const TUG_GRIP = [350, 174];
 const TROLL_WAIST = { up: [200, 353], tug: [190, 383] };
+
+const MOLE_RISE_TIME = 0.6;
+// The authored 320 px square contains a 206 px tall mole, grounded at its bottom.
+const MOLE_CONTENT_HEIGHT = 206 / 320;
+const smooth = (k) => { k = clamp(k, 0, 1); return k * k * (3 - 2 * k); };
+
+/** A little head-first peek, a pause to check the garden, then a gentle emergence. */
+export function moleRise(t) {
+  if (t < 0.16) return 0.52 * smooth(t / 0.16);
+  if (t < 0.3) return 0.52;
+  return 0.52 + 0.48 * smooth((t - 0.3) / (MOLE_RISE_TIME - 0.3));
+}
+
+/** Authored poses hold still long enough to read; every glance returns to centre. */
+export function moleLook(t, seed = 0) {
+  const first = seed < Math.PI ? 'left' : 'right';
+  const other = first === 'left' ? 'right' : 'left';
+  const k = Math.max(0, t) % 2.7;
+  if (k < 0.3) return 'neutral';
+  if (k < 0.85) return first;
+  if (k < 1.15) return 'neutral';
+  if (k < 1.75) return other;
+  return 'neutral';
+}
+
+export function moleArtKey(c, available = art) {
+  let key = 'prop/gopher-up';
+  if (c.phase === 'bonked' || c.mood === 'bonked') key = 'prop/gopher-bonked';
+  else if (c.phase === 'tease' || c.mood === 'tease' || c.mood === 'wink') key = 'prop/gopher-up-2';
+  else if (c.phase === 'up' && c.blink < 0) key = 'prop/gopher-blink';
+  else {
+    const look = c.phase === 'rise' ? (c.seed < Math.PI ? 'left' : 'right') : moleLook(c.t, c.seed);
+    if (look !== 'neutral') key = `prop/gopher-peek-${look}`;
+  }
+  // A missing reaction still uses the procedural dazed/teasing face below.
+  if (key === 'prop/gopher-bonked' || key === 'prop/gopher-up-2') return key;
+  return available(key) ? key : 'prop/gopher-up';
+}
 
 // Tiny avatars (e.g. the 54 px garden fairies) are drawn bigger so they read next to the holes.
 const sizeFix = (a) => Math.max(1, 120 / (a.char.members[0].h || 120));
@@ -159,7 +197,7 @@ export class Game {
     const h = pick(free);
     const k = this.busy;
     const life = (kind === 'troll' ? rand(2.4, 3.0) : kind === 'fairy' ? rand(2.2, 3.0) : rand(2.1, 3.0) * (1 - 0.3 * k)) * lifeMul;
-    const c = { h, kind, phase: 'rise', t: 0, rise: 0, life, sq: 0, wob: 0, seed: rand(TAU), blink: rand(1, 3), mood: chance(0.5) ? 'up' : 'wink', by: null };
+    const c = { h, kind, phase: 'rise', t: 0, rise: 0, life, sq: 0, wob: 0, seed: rand(TAU), blink: rand(1, 3), mood: 'up', by: null };
     if (kind === 'fairy') {
       c.color = pick(FAIRIES);
       c.actor = new Actor(`garden-fairy-${c.color}`, { scale: 2.9 * DS(h.y) });
@@ -188,6 +226,11 @@ export class Game {
       if (c.actor) c.actor.update(dt);
       switch (c.phase) {
         case 'rise': {
+          if (c.kind === 'gopher') {
+            c.rise = moleRise(c.t);
+            if (c.t >= MOLE_RISE_TIME) { c.phase = 'up'; c.t = 0; }
+            break;
+          }
           const k = clamp(c.t / (c.kind === 'troll' ? 0.35 : 0.24), 0, 1);
           c.rise = ease.outBack(k);
           if (k >= 1) { c.phase = 'up'; c.t = 0; c.sq = -0.2; }
@@ -545,7 +588,7 @@ export class Game {
       g.save(); g.globalAlpha = clamp(this.hint, 0, 1);
       ui.panel(g, W / 2 - 520, 120, 1040, 66, { r: 33, fill: '#fff8ec' });
       ui.glyph(g, 'a', W / 2 - 480, 153, 46, { pulse: true });
-      ui.text(g, 'Bop the gophers!  Not the fairies or the troll!', W / 2 - 446, 155, { size: 34, color: NAVY, stroke: false, weight: 700, align: 'left', maxWidth: 930 });
+      ui.text(g, 'Bop the moles!  Not the fairies or the troll!', W / 2 - 446, 155, { size: 34, color: NAVY, stroke: false, weight: 700, align: 'left', maxWidth: 930 });
       g.restore();
     }
   }
@@ -598,16 +641,18 @@ export class Game {
     // dazed stars over a bonked gopher / dizzy fairy (outside the clip)
     if (c && (c.phase === 'bonked' || (c.kind === 'gopher' && c.phase === 'sink' && c.t < 0.15))) {
       const s = DS(h.y);
-      g.save(); g.translate(h.x, h.y - 170 * s * c.rise); drawDazeStars(g, 50 * s, this.t); g.restore();
+      const starHeight = c.kind === 'gopher' && art(moleArtKey(c)) ? 110 : 170;
+      g.save(); g.translate(h.x, h.y - starHeight * s * c.rise); drawDazeStars(g, 50 * s, this.t); g.restore();
     }
   }
 
   drawGopherAt(g, c) {
     const h = c.h, s = DS(h.y), w = 150 * s;
     const O = this.opening(h);
-    const baseY = O.cy + 14 * s + (1 - clamp(c.rise, -0.2, 1.3)) * w * 1.35;
+    const key = moleArtKey(c);
+    const travel = art(key) ? w * 1.07 * MOLE_CONTENT_HEIGHT : w * 1.35;
+    const baseY = O.cy + 14 * s + (1 - clamp(c.rise, 0, 1)) * travel;
     g.save(); g.translate(h.x, baseY); g.rotate(c.wob); g.scale(1 + c.sq * 0.3, 1 - c.sq * 0.3);
-    const key = c.mood === 'bonked' ? 'prop/gopher-bonked' : c.mood === 'wink' || c.mood === 'tease' ? 'prop/gopher-up-2' : 'prop/gopher-up';
     if (!drawArt(g, key, 0, 0, w * 1.07, w * 1.07, { anchor: 'bottom' })) drawGopher(g, w, c.mood, { t: this.t, blink: c.blink < 0 });
     g.restore();
   }

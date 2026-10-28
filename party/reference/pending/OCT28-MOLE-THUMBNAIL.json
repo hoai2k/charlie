@@ -1,0 +1,14 @@
+{
+  "prompt": "Use case: illustration-story. Game shelf thumbnail for Charlie Party MOLE MADNESS. Image1 is the APPROVED mole identity: reproduce exact chocolate-brown velvety mole, long pink snout, tiny grumpy eyes/heavy brows, small low pink hands with short ivory digging claws, no ears. Image2 is approved pink Garden Fairy, preserve flowercap/skin/wings. Image3 is the approved Troll, only his huge olive-green spotted hand needs appear. Image4 is actual garden backdrop/style. A sunny green garden lawn, three crumbly dirt-mound burrow holes across middle. Main subject centered large: the grumpy mole poking up from middle hole, looking sideways suspiciously, a bright candy-pink squeaky toy mallet with white ends and tiny yellow star descending from upper right toward him (NO player/arm attached, no injury). Tiny approved pink flowerfairy peeks out of LEFT hole; the Troll's huge green spotted hand reaches up from RIGHT hole. Charming funny energetic2D composition, same bold smooth navy outlines and soft cel shading as actual game, warm clear colors. Mole face and nose readable, hands not oversized. Opaque wide8:5 composition for800x500, all key subjects centered in safe area. No text, title, labels, watermark, extra characters or effects that obscure faces.",
+  "key": "thumb/gopher-garden",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-1b5d7aa2-4657-4bf2-a66d-f977784d6be2.png",
+  "source": "party/reference/sources/oct28-mole/thumbnail-native.webp",
+  "runtimeFile": "party/assets/art/thumb/gopher-garden.webp",
+  "runtimeSize": [
+    800,
+    500
+  ],
+  "sourcePixelExact": true,
+  "runtimeBytes": 94088,
+  "sha256": "35910d89615cdb90c8e730a5a906777c7f1b265e5229da14528e636d1b508ca7"
+}
