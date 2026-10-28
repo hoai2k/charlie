@@ -29,7 +29,7 @@ import { NAVY, holeOpening, drawHoleBack, drawHoleFront, drawGopher, drawDazeSta
 import { meta } from './gopher-garden.meta.js';
 export { meta };
 
-const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && hasSound(fb) && sfx(fb, o));
+const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 const poseName = (n, ...fb) => [n, ...fb].find((p) => POSE_NAMES.includes(p)) || 'action';
 
 // --- tuning -----------------------------------------------------------------
@@ -145,7 +145,7 @@ export class Game {
       if (this.spawn('troll')) return;
     }
     if (this.spawnT <= 0 && active < want) {
-      this.spawnT = rand(0.45, 0.8) * (1 - 0.45 * k);
+      this.spawnT = rand(0.45, 0.8) * (1 - 0.45 * k) * (this.n >= 6 ? 0.6 : this.n >= 3 ? 0.8 : 1);   // a lively board for a crowd
       const fairies = this.critters.filter((c) => c.kind === 'fairy' && c.phase !== 'sink').length;
       const kind = fairies < 2 && chance(0.15 + 0.07 * k) ? 'fairy' : 'gopher';
       this.spawn(kind);
@@ -161,7 +161,7 @@ export class Game {
     const c = { h, kind, phase: 'rise', t: 0, rise: 0, life, sq: 0, wob: 0, seed: rand(TAU), blink: rand(1, 3), mood: chance(0.5) ? 'up' : 'wink', by: null };
     if (kind === 'fairy') {
       c.color = pick(FAIRIES);
-      c.actor = new Actor(`garden-fairy-${c.color}`, { scale: 2.3 * DS(h.y) });
+      c.actor = new Actor(`garden-fairy-${c.color}`, { scale: 2.9 * DS(h.y) });
       c.actor.setPose('wave');
       c.actor.facing = h.x < W / 2 ? 1 : -1;
     } else if (kind === 'troll') {
@@ -365,7 +365,7 @@ export class Game {
     const h = c.h, s = DS(h.y);
     c.phase = 'tug'; c.t = 0; c.by = e;
     const side = e.x < h.x ? -1 : 1;   // which side of the hole the player stands
-    c.actor.facing = -side;
+    c.actor.facing = side;   // he faces the player
     c.actor.setPose('grab', { restart: true });
     e.tug = { c, t: 0, dur: rand(TUG_MIN + 0.2, TUG_MAX), side, mash: 0 };
     e.swingT = -1; e.lunge = 0; e.vx = e.vy = 0; e.streak = 0; e.streakT = 0;
@@ -389,6 +389,12 @@ export class Game {
     T.t += dt;
     e.vx = e.vy = 0;
     a.facing = -T.side;
+    // hold on at the mallet's length from his fists (the handle reaches her hands)
+    if (c.actor && T.t > 0.05) {
+      const tg = this.trollGrip(c), hd = a.anchor('hand');
+      const want = tg.x + T.side * this.malletLen(e) * 0.8 - (hd.x - e.x);
+      e.x = clamp(lerp(e.x, want, 1 - Math.exp(-12 * dt)), MOVE.x0, MOVE.x1);
+    }
     if (!a._once) a.setPose(poseName('pull', 'knockback', 'balance'));
     // mashing A tugs harder: the mallet comes back a little sooner (never before TUG_MIN)
     if (!this.done && e.p.ctrl.pressed('a')) {
@@ -456,6 +462,8 @@ export class Game {
           // gentle: leave it to a human who's nearer
           for (const o of this.ents) if (!o.p.isAI && this.bopDist(o, cr) < d * 0.85) { u *= lvl === 0 ? 0.25 : lvl === 1 ? 0.5 : 0.8; break; }
           for (const o of this.ents) if (o !== e && o.p.isAI && o.target === cr) { u *= 0.2; break; }
+          // spread out: a pop-up somebody else is already standing at is less tempting
+          for (const o of this.ents) if (o !== e && this.bopDist(o, cr) < 170) { u *= 0.45; break; }
           if (u > bu) { bu = u; best = cr; }
         }
         e.target = best;
@@ -641,7 +649,7 @@ export class Game {
       return;
     }
     // the sprite: sunk to the waist in the hole
-    a.x = h.x; a.y = O.cy + a.height * 0.5 + (1 - clamp(c.rise, -0.2, 1.3)) * a.height * 0.6;
+    a.x = h.x; a.y = O.cy + a.height * 0.3 + (1 - clamp(c.rise, -0.2, 1.3)) * a.height * 0.75;
     a.snap();
     g.save(); g.translate(h.x, O.cy); g.rotate(c.wob); g.translate(-h.x, -O.cy);
     a.draw(g, { shadow: false });
@@ -650,12 +658,15 @@ export class Game {
 
   drawTugMallet(g, e) {
     const c = e.tug.c, hd = e.a.anchor('hand'), tg = this.trollGrip(c);
-    const ang = Math.atan2(tg.y - hd.y, tg.x - hd.x);
-    const L = Math.max(40, Math.hypot(tg.x - hd.x, tg.y - hd.y) / 0.84);
-    g.save(); g.translate(hd.x, hd.y); g.rotate(ang + Math.sin(this.t * 22) * 0.05);
+    const ang = Math.atan2(tg.y - hd.y, tg.x - hd.x) + Math.sin(this.t * 22) * 0.05;
+    const L = this.malletLen(e);
+    // the head in his fists, the handle pointing back at the player's hands
+    g.save(); g.translate(tg.x - Math.cos(ang) * L * 0.84, tg.y - Math.sin(ang) * L * 0.84); g.rotate(ang);
     this.drawMalletShape(g, L, e.p.color);
     g.restore();
   }
+
+  malletLen(e) { return Math.max(80, e.a.height * 0.78); }
 
   drawMalletShape(g, L, color) {
     // prop/gopher-mallet: 480x200, grip at (96, 100), head at the right end
@@ -665,9 +676,10 @@ export class Game {
 
   drawMalletAttach(g, info, e, behindLayer) {
     if (e.tug) return;   // the troll has it (drawTugMallet)
-    const L = Math.max(70, info.h * 0.62);
+    const L = Math.max(80, info.h * 0.78);
     const rear = info.hand.x < info.eyes.x - info.h * 0.04;
-    const REST = rear ? -2.15 : -0.8, BACK = -2.75, END = 0.35;
+    // rest: hanging low and forward (clear of the face); a far-side hand rests it over the back
+    const REST = rear ? -2.15 : 0.75, BACK = -2.75, END = 0.45;
     let ang = REST + Math.sin(this.t * 3 + e.i) * 0.05;
     const s = e.swingT;
     if (e.stun > 0) ang = REST + Math.sin(this.t * 14) * 0.3;
