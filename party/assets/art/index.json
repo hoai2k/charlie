@@ -1315,7 +1315,12 @@
     "prop/gopher-hole-front": "prop/gopher-hole-front.webp",
     "prop/gopher-mallet": "prop/gopher-mallet.webp",
     "prop/gopher-troll-up": "prop/gopher-troll-up.webp",
-    "prop/gopher-troll-tug": "prop/gopher-troll-tug.webp"
+    "prop/gopher-troll-tug": "prop/gopher-troll-tug.webp",
+    "prop/bbs-goal-pink": "prop/bbs-goal-pink.webp",
+    "prop/bbs-beach-ball": "prop/bbs-beach-ball.webp",
+    "prop/bbs-goal-blue": "prop/bbs-goal-blue.webp",
+    "thumb/beach-ball-soccer": "thumb/beach-ball-soccer.webp",
+    "bg/beach-ball-soccer": "bg/beach-ball-soccer.webp"
   },
   "groups": {
     "plushie-workshop": [
@@ -1362,7 +1367,8 @@
       "bg/sandcastle-beach",
       "prop/bbs-goal-pink",
       "prop/bbs-goal-blue",
-      "prop/bbs-beach-ball"
+      "prop/bbs-beach-ball",
+      "thumb/beach-ball-soccer"
     ],
     "puppet-theater": [
       "bg/puppet-theater",

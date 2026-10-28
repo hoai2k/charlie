@@ -734,7 +734,12 @@ export class Game {
       // goal box (pink end): x 0-160, y 445-875 (posts at (150, 565) and (150, 865)); the blue end is its mirror image
       const sxw = 1 + Math.max(0, w) * 0.004;
       g.translate(160, 875); g.scale(sxw, 1); g.translate(-160, -875);
-      g.drawImage(img, 0, 445, 160, 430);
+      // Register the measured native post feet to the scoring mouth.
+      const a = 0.5, d = 300 / (834 - 294);
+      const c = 0.5 * (244 - 219) / (834 - 294);
+      const e = 150 - a * 219 - c * 834, f = 865 - d * 834;
+      g.transform(a, 0, c, d, e, f);
+      g.drawImage(img, 0, 0);
       g.restore();
       return;
     }

@@ -40617,6 +40617,51 @@
       "source": "party/reference/sources/oct28-gopher-props/prop-gopher-hole-native.webp",
       "intake": "party/reference/pending/OCT28-GOPHER-PROPS-LIP-TRACE.json",
       "bytes": 35602
+    },
+    {
+      "key": "prop/bbs-goal-pink",
+      "prompt": "Use case: illustration-story. 2D cartoon game art in exactly the attached beach reference's style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colours, simple clean soft cel shading, no photorealism, no3D. No text, no watermark, no people, no animals. Single beach soccer goal, candy-PINK posts wrapped in white stripes, white soft diamond rope net, two pink pennants. TRUE transparent backdrop. Very tall narrow sprite composition aspect320:860, almost edge-on from high three-quarter view. Goal opens to RIGHT, net recedes LEFT. Match these image coordinates on final320x860canvas: front/near post foot(300,840), far/back post foot(300,240); post tops lean slightly left, near top(260,560), far top(260,30) staying inside. Long diagonal/near-vertical crossbar joins post tops along mouth; net roof and side extend LEFT to x20 behind the posts. The near and far post feet share x300, widely separated vertically600px, NOT a front-facing rectangular horizontal goal. Entire goal inside canvas, small margins; no sand patch, ground shadow, ball, text or extras. Smooth clear navy outlines, soft semitransparent white net strands and real transparent holes. Geometry important for end-line gameplay.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-77888146-3aa0-4552-a022-22be99bf4c3e.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/goal-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 77182,
+      "intake": "party/reference/pending/OCT28-BEACH-BALL-SOCCER.json"
+    },
+    {
+      "key": "prop/bbs-beach-ball",
+      "prompt": "Use case: illustration-story. 2D cartoon game art in exactly the attached beach reference's style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colours, simple clean soft cel shading, no photorealism, no3D. No text, no watermark, no people, no animals. Single isolated glossy inflatable BEACH BALL, straight-on round silhouette, centered on square true transparent background with margin. Six curved panels pink,white,skyblue,sunnyyellow,white,mint converging on small white cap at centre, soft white shine top-left. Fully visible round circle, no ground or shadow, no spin lines, no other objects. Runtime256x256.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-5a8ab149-f940-4b44-a13a-22612f344aac.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/ball-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 14956,
+      "intake": "party/reference/pending/OCT28-BEACH-BALL-SOCCER.json"
+    },
+    {
+      "key": "prop/bbs-goal-blue",
+      "prompt": "Precise-object-edit. Reproduce this EXACT soccer goal silhouette, perspective, net, both foot positions, canvas and all outlines. Change ONLY all candy-pink coloured post sections, pennants and knobs to bright sky BLUE #54bcf3, shaded with softer cyan and deeper blue. White stripes and white net completely unchanged, navy outlines unchanged. Preserve true transparent background and every empty net hole. No extra elements.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-85a973b7-59b0-46f3-b047-5d07bcf0b9c5.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/blue-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 82474,
+      "intake": "party/reference/pending/OCT28-BEACH-BALL-SOCCER.json"
+    },
+    {
+      "key": "thumb/beach-ball-soccer",
+      "prompt": "Use case: illustration-story. 2D cartoon game art in exactly the attached beach reference's style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colours, simple clean soft cel shading, no photorealism, no3D. No text, no watermark, no people, no animals. Game shelf thumbnail, wide8:5. A giant glossy pink-white-skyblue-yellow-mint beach ball flying into a candy-pink-and-white striped soccer goal, the white rope net bulging, colorful confetti bursting, sand spraying, calm turquoise sea and blue sky behind. Happy energetic composition centered, no characters, no animals, no text or letters. Entire ball and most goal visible. Opaque illustration.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-e936594d-7b0b-4e3c-a254-bbdc6ba58652.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/thumb-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 77704,
+      "intake": "party/reference/pending/OCT28-BEACH-BALL-SOCCER.json"
+    },
+    {
+      "key": "bg/beach-ball-soccer",
+      "prompt": "Precise-object-edit for game collision alignment. Image1 is the art target; image2 is EXACT layout guide only, not style. Preserve Image1's charming sunny beach illustration style and colors, sky, water and sand. Replace/reposition ONLY its pitch lines and ropes so they MATCH image2 exactly in normalized coordinates on final1920x1080: sidelines horizontal at y420 and1010, goal lines STRICTLY VERTICAL x150 and1770 (NO perspective taper/convergence), halfway x960, centre ellipse x810-1110,y610-820. Field is RECTANGULAR in screen pixels, NOT trapezoid. Move rope/stakes to these two horizontal sidelines. Keep everything else clear; move umbrella/bucket/towel outside field above y400. REMOVE the small extra beach ball at right completely, no ball anywhere. Retain16:9 composition, no goals, people, animals, letters, text. Opaque illustration. The second image gives only exact field geometry; reproduce the first image's illustrated beach art.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-a07b1760-43df-4e7a-9f99-53ca7e01fd44.png",
+      "archive": "party/reference/sources/oct28-beach-ball-soccer/background-revised-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 103852,
+      "intake": "party/reference/pending/OCT28-BEACH-BALL-SOCCER.json"
     }
   ]
 }
