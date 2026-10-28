@@ -1312,6 +1312,52 @@
     "prop/oballet-teacher-moonwalk": "prop/oballet-teacher-moonwalk.webp"
   },
   "groups": {
+    "plushie-workshop": [
+      "bg/plushie-workshop",
+      "bg/plushie-shelf",
+      "thumb/plushie-workshop",
+      "prop/plushie-body-bear",
+      "prop/plushie-body-bunny",
+      "prop/plushie-body-unicorn",
+      "prop/plushie-body-kitty",
+      "prop/plushie-body-puppy",
+      "prop/plushie-body-dragon",
+      "prop/plushie-face",
+      "prop/plushie-patches",
+      "prop/plushie-clothes",
+      "prop/plushie-stuffing",
+      "prop/plushie-stuffer",
+      "prop/plushie-needle",
+      "prop/plushie-tag",
+      "prop/snowman-bowtie"
+    ],
+    "gingerbread-house": [
+      "bg/gingerbread-house",
+      "bg/gingerbread-house-night",
+      "thumb/gingerbread-house",
+      "prop/gh-cottage-wall",
+      "prop/gh-cottage-roof-left",
+      "prop/gh-cottage-roof-right",
+      "prop/gh-cottage-chimney",
+      "prop/gh-tall-wall",
+      "prop/gh-tall-roof-left",
+      "prop/gh-tall-roof-right",
+      "prop/gh-tall-porch",
+      "prop/gh-castle-tower-left",
+      "prop/gh-castle-tower-right",
+      "prop/gh-castle-keep",
+      "prop/gh-castle-cone-left",
+      "prop/gh-castle-cone-right",
+      "prop/gh-candy",
+      "prop/gh-gingerbread-person"
+    ],
+    "beach-ball-soccer": [
+      "bg/beach-ball-soccer",
+      "bg/sandcastle-beach",
+      "prop/bbs-goal-pink",
+      "prop/bbs-goal-blue",
+      "prop/bbs-beach-ball"
+    ],
     "puppet-theater": [
       "bg/puppet-theater",
       "prop/pt-booth",
