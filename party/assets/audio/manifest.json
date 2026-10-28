@@ -1172,9 +1172,9 @@
  },
  "music": {
   "molly": {
-   "file": "music/molly-time.mp3",
+   "file": "music/sister-party.mp3",
    "stream": true,
-   "label": "Molly Time"
+   "label": "Sister Party"
   },
   "title": {
    "file": "music/charlies-party.mp3",
