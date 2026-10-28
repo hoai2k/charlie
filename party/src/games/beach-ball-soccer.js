@@ -39,6 +39,7 @@ const BAR = 150;                                      // crossbar height
 const LEAN = 14;                                      // posts lean back a little (reads as 3D)
 // --- ball ------------------------------------------------------------------------------
 const BALL_R = 58;            // drawn radius
+const NET_ROOM = 120;         // screen px from the goal line to the back of the goal art's net, at rest
 const BR = 44;                // footprint radius on the sand (collisions)
 const GRAV = 1250;            // floaty
 const MAX_V = 1500;
@@ -72,6 +73,7 @@ export class Game {
     this.score = [0, 0];
     this.scorePop = [0, 0];
     this.netWob = [0, 0];
+    this.netStretch = [1, 1];   // how far each net is pushed back by a ball in it (1 = at rest)
     this.banner = null;           // { text, sub, color, t }
     this.ghosts = [];
     this.finished = false;
@@ -219,6 +221,12 @@ export class Game {
   tickFx(dt) {
     this.scorePop = this.scorePop.map((v) => Math.max(0, v - dt * 1.6));
     this.netWob = this.netWob.map((v) => Math.max(0, v - dt * 0.9));
+    // a ball in the net pushes it back so the net holds it (springs back when the ball is gone)
+    for (let team = 0; team < 2; team++) {
+      const b = this.ball, past = (b.x - goalX(team)) * -atk(team);
+      const want = !b.hidden && past > -BALL_R ? clamp((past + BALL_R + 18) / Math.max(60, NET_ROOM - b.z * 0.5), 1, 2.4) : 1;   // the net is shallower up high
+      this.netStretch[team] += (want - this.netStretch[team]) * Math.min(1, dt * (want > this.netStretch[team] ? 18 : 5));
+    }
     if (this.banner) { this.banner.t += dt; if (this.banner.t > (this.banner.dur || 2)) this.banner = null; }
   }
 
@@ -728,12 +736,18 @@ export class Game {
     const wob = this.netWob[team], w = wob > 0 ? Math.sin(this.t * 28) * wob * 10 : 0;
     const img = art(T.goal);
     if (img) {
-      if (part !== 'back') return;
       g.save();
+      if (part !== 'back') {
+        // front: the goal again, but only behind the goal line (no one but the ball goes there),
+        // so a ball in the net is drawn inside it, behind the posts and the netting
+        const b = this.ball;
+        if (b.hidden || (team === 0 ? b.x - BALL_R * 1.2 > gx : b.x + BALL_R * 1.2 < gx)) { g.restore(); return; }
+        g.beginPath(); g.rect(team === 0 ? 0 : gx, 0, team === 0 ? gx : W - gx, H); g.clip();
+      }
       if (team === 1) { g.translate(W, 0); g.scale(-1, 1); }
       // goal box (pink end): x 0-160, y 445-875 (posts at (150, 565) and (150, 865)); the blue end is its mirror image
-      const sxw = 1 + Math.max(0, w) * 0.004;
-      g.translate(160, 875); g.scale(sxw, 1); g.translate(-160, -875);
+      const sxw = this.netStretch[team] * (1 + Math.max(0, w) * 0.004);   // pushed back by the ball, plus the wobble
+      g.translate(150, 875); g.scale(sxw, 1); g.translate(-150, -875);   // about the goal line, so the posts stay put
       // Register the measured native post feet to the scoring mouth.
       const a = 0.5, d = 300 / (834 - 294);
       const c = 0.5 * (244 - 219) / (834 - 294);
@@ -745,7 +759,7 @@ export class Game {
     }
     const yF = CY - MOUTH, yN = CY + MOUTH;
     const lx = s * LEAN;                       // post tops lean back
-    const bx = gx + s * DEPTH + s * w;         // back of the net
+    const bx = gx + s * DEPTH * this.netStretch[team] + s * w;   // back of the net (pushed back by a ball in it)
     const backH = BAR * 0.5;
     const Ft = { x: gx + lx, y: yF - BAR }, Nt = { x: gx + lx, y: yN - BAR };
     const BF = { x: bx, y: yF + 12 }, BN = { x: bx, y: yN - 6 };

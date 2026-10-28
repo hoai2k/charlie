@@ -248,11 +248,13 @@ export class Game {
           c.wob = Math.sin(c.t * 28) * 0.08;
           if (c.t > 0.35) this.sink(c);
           break;
-        case 'bonked':  // happy-dazed wobble, then duck down
-          c.rise = 1 - 0.18 * ease.outQuad(clamp(c.t / 0.2, 0, 1));
-          c.wob = Math.sin(c.t * 16) * 0.14 * (1 - clamp(c.t / 0.9, 0, 1));
-          if (c.t > 0.85) this.sink(c);
+        case 'bonked': {  // bonk! straight back down the hole (dazed stars hang over it a moment)
+          const k = clamp((c.t - 0.06) / 0.24, 0, 1);
+          c.rise = 1 - k * k;
+          c.wob = Math.sin(c.t * 16) * 0.14 * (1 - k);
+          if (c.t > 0.7) { c.dead = true; c.h.busy = null; c.h.cool = 0.45; }
           break;
+        }
         case 'dizzy':   // a bopped fairy: woozy wobble with stars, then she flutters back down
           c.rise = 1;
           c.wob = Math.sin(c.t * 7) * 0.16;
