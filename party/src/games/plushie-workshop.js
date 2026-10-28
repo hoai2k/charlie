@@ -111,7 +111,7 @@ export class Game {
       plush: { body, fabric: FABRIC_IDX[BODIES[body].fabric], puff: 0, pieces: [], dress: [0, 0, 0, 0], bow: null, name: null },
       sewRow: 0, sewItem: SEW_ROWS.map(() => 0), dressRow: 0, undo: [], sewAnim: null, sewQ: false, bowMoving: false,
       names: [], nameIdx: 0, named: false,
-      cur: { x: F.cx, y: F.eyeY }, bob: 0, stitchT: 9,
+      cur: { x: F.cx, y: F.eyeY },
       wob: 0, shift: 0, full: false, fluff: [], fluffT: 0, crankT: 0, squeakT: 0,
       nudge: null, ai: null, aiStick: 0,
     };
@@ -479,7 +479,7 @@ export class Game {
         case T.body: this.updateBody(st, c); break;
         case T.stuff: this.updateStuff(st, c, dt); break;
         case T.sew: this.updateSew(st, c, dt); break;
-        case T.dress: this.updateDress(st, c); break;
+        case T.dress: this.updateDress(st, c, dt); break;
         case T.name: this.updateName(st, c); break;
         default:
           if (c.pressed('a')) this.setReady(st, true);
@@ -492,8 +492,8 @@ export class Game {
   tickStation(st, dt) {
     st.tabBump = Math.max(0, st.tabBump - dt); st.listBump = Math.max(0, st.listBump - dt);
     st.wob = Math.max(0, st.wob - dt * 2.2);
-    st.shift += ((st.tab === T.stuff && !st.ready ? 1 : 0) - st.shift) * Math.min(1, dt * 8); st.squeakT -= dt; st.stitchT += dt;
-    st.bob = st.stitchT < 0.6 ? Math.abs(Math.sin(st.stitchT * 16)) * st.L.size * 0.05 : 0;
+    st.shift += ((st.tab === T.stuff && !st.ready ? 1 : 0) - st.shift) * Math.min(1, dt * 8); st.squeakT -= dt;
+    this.tickSew(st, dt);
     for (const pc of st.plush.pieces) pc.st = (pc.st ?? 9) + dt;
     for (const f of st.fluff) f.t += dt;
     st.fluff = st.fluff.filter((f) => f.t < f.life);
@@ -510,7 +510,7 @@ export class Game {
     for (const id of ['eyes', 'nose', 'mouth']) { const row = SEW_IDX[id], a = SEW_ROWS[row].at(); pl.sew.push({ row, i: randInt(0, 7), x: a.x + rand(-6, 6), y: a.y + rand(-6, 6) }); }
     const spots = shuffle([[256, 425], [205, 455], [310, 400], [256, 120], [185, 395], [330, 470]]);
     for (let k = randInt(1, 3); k > 0; k--) { const [x, y] = spots.pop(); pl.sew.push({ row: chance(0.5) ? SEW_IDX.heart : SEW_IDX.patch, i: randInt(0, 7), x: x + rand(-8, 8), y: y + rand(-8, 8) }); }
-    for (const row of shuffle([0, 1, 2, 3]).slice(0, randInt(1, 3)).sort()) pl.dress.push({ row, item: randInt(1, DRESS_ROWS[row].items.length - 1) });
+    for (const row of shuffle([0, 1, 2, 3]).slice(0, randInt(1, 3)).sort()) pl.dress.push({ row, item: randInt(1, DRESS_ROWS[row].items.length - 1), bow: chance(0.6) ? rand(-1, 1) : 0 });
     st.ai = { plan: pl, t: rand(0.8, 1.6), sewK: 0, dressK: 0, browsed: 0, renamed: false };
   }
 
@@ -533,37 +533,41 @@ export class Game {
     ai.t -= dt;
     if (ai.t > 0) return;
     ai.t = rand(0.25, 0.55) / aiProfile(st.p).speed * (hurry ? 0.4 : 1);
+    // A design game: each step's A / X does its thing and stays, so a CPU moves on with RB when it's happy
     switch (st.tab) {
       case T.body:
-        if (st.bodyRow === 0 && P.body !== pl.body) c.press('right');
-        else if (st.bodyRow === 0) c.press('down');
-        else if (P.fabric !== pl.fabric) c.press('right');
-        else c.press('a');
+        if (P.body !== pl.body) c.press('right');
+        else if (P.fabric !== pl.fabric) c.press('down');
+        else if (!ai.squeezed) { ai.squeezed = true; c.press('a'); }
+        else c.press('rb');
         break;
       case T.stuff:
-        if (pl.tap && P.puff < 1) c.press('x');
-        else if (P.puff >= 1) { c.press('a'); ai.t += 0.4; }
+        if (pl.tap && P.puff < 1) c.press(chance(0.5) ? 'a' : 'x');
+        else if (P.puff >= 1) { c.press('rb'); ai.t += 0.4; }
         break;
       case T.sew: {
+        if (st.sewAnim) break;
         const goal = pl.sew[ai.sewK];
-        if (!goal) { c.press('a'); break; }
+        if (!goal) { c.press('rb'); break; }
         if (st.sewRow !== goal.row) { c.press(goal.row > st.sewRow ? 'down' : 'up'); break; }
         if (st.sewItem[goal.row] !== goal.i) { c.press(chance(0.25) ? 'rt' : 'right'); break; }
-        if (Math.hypot(goal.x - st.cur.x, goal.y - st.cur.y) <= 5) { c.press('x'); ai.sewK++; ai.t += rand(0.4, 0.9); }
+        if (Math.hypot(goal.x - st.cur.x, goal.y - st.cur.y) <= 5) { c.press(chance(0.5) ? 'a' : 'x'); ai.sewK++; ai.t += rand(0.4, 0.9); }
         break;
       }
       case T.dress: {
         const goal = pl.dress[ai.dressK];
-        if (!goal) { c.press('a'); break; }
+        if (!goal) { c.press('rb'); break; }
         if (st.dressRow !== goal.row) c.press(goal.row > st.dressRow ? 'down' : 'up');
-        else if (P.dress[goal.row] !== goal.item) c.press('right');
-        else { ai.dressK++; if (chance(0.5)) st.wob = 0.6; }
+        else if (P.dress[goal.row] !== goal.item) c.press(chance(0.3) ? 'a' : 'right');
+        else if (goal.bow && this.movable(st) && !goal.moved) {   // nudge the bow somewhere else on the head
+          goal.moved = true; c.move(goal.bow, rand(-0.6, 0.4)); st.aiStick = rand(0.2, 0.45);
+        } else { ai.dressK++; if (chance(0.5)) st.wob = 0.6; }
         break;
       }
       case T.name:
-        if (pl.newNames && !ai.renamed) { ai.renamed = true; c.press('x'); ai.t += 0.6; }
+        if (pl.newNames && !ai.renamed) { ai.renamed = true; c.press(chance(0.5) ? 'a' : 'x'); ai.t += 0.6; }
         else if (ai.browsed < pl.names) { ai.browsed++; c.press('right'); }
-        else c.press('a');
+        else c.press('rb');
         break;
       default: c.press('a');
     }
@@ -576,6 +580,7 @@ export class Game {
     const P = st.plush;
     if (P.puff < 1) { P.puff = 1; st.full = true; }
     const has = (id) => P.pieces.some((pc) => SEW_ROWS[pc.row].id === id);
+    for (const pc of P.pieces) pc.st = 9;
     if (!has('eyes')) P.pieces.push({ row: SEW_IDX.eyes, i: 0, x: F.cx, y: F.eyeY, st: 9 });
     if (!has('nose')) P.pieces.push({ row: SEW_IDX.nose, i: [0, 1, 2, 4, 5, 6][P.body] ?? 0, x: F.nose.x, y: F.nose.y, st: 9 });
     if (!has('mouth')) P.pieces.push({ row: SEW_IDX.mouth, i: 0, x: F.mouth.x, y: F.mouth.y, st: 9 });
@@ -589,6 +594,7 @@ export class Game {
     const n = this.n, spacing = Math.min(340, (W - 160) / n);
     const targetH = n <= 3 ? 500 : n <= 5 ? 360 : 270;
     this.stations.forEach((st, i) => {
+      st.sewAnim = null; st.sewQ = false;
       this.finishOff(st);
       st.ready = true;
       const a = new Actor(st.p, { x: W / 2 + (i - (n - 1) / 2) * spacing, y: 930, facing: 1 });
@@ -596,6 +602,7 @@ export class Game {
       a.snap(); a.setPose('cuddle');
       a.attach((g, info) => this.drawHugged(g, st, info));
       st.actor = a; st.hugT = rand(0, 1);
+      st.walk = { vz: 0, ph: 0, aiT: rand(0.6, 1.4), aiM: 0, home: a.x, range: Math.max(90, spacing * 0.7) };
     });
     sfx('aww'); snd('crowd-aww', null, { vol: 0.5 });
     fx.flash('#ffffff', 0.2);
@@ -644,12 +651,13 @@ export class Game {
       for (const st of this.stations) {
         const a = st.actor;
         st.hugT += dt;
-        if (st.hugT > 1.6) { st.hugT = rand(-0.4, 0); a.playOnce('cuddle', 1.2, 'cuddle'); a.squash(0.12); }
-        if (chance(dt * 1.6)) this.addHeart(a.x + rand(-40, 40), a.y - a.height * 0.6, st.p.color);
+        const moving = this.hugWalk(st, dt);
+        if (st.hugT > 1.6 && !moving && a.z <= 0) { st.hugT = rand(-0.4, 0); a.playOnce('cuddle', 1.2, 'cuddle'); a.squash(0.12); }
+        if (chance(dt * 1.6)) this.addHeart(a.x + rand(-40, 40), a.y - a.z - a.height * 0.6, st.p.color);
         a.update(dt);
       }
       if (this.phaseT > 0.4 && !this.hugCheer) { this.hugCheer = true; sfx('giggle'); }
-      if (this.phaseT > HUG_T) this.startShelf();
+      if (this.phaseT > (this.cpuOnly ? HUG_T : HUG_T_PLAY)) this.startShelf();
     } else if (this.phase === 'shelf') {
       for (const st of this.stations) {
         const f = st.fly;
@@ -664,6 +672,41 @@ export class Game {
     }
     for (const st of this.stations) { st.wob = Math.max(0, st.wob - dt * 2); for (const pc of st.plush.pieces) pc.st = 9; }
     this.updateHearts(dt);
+  }
+
+  /**
+   * Big hugs: the stick walks you about and A jumps, still hugging your plushie (the cuddle
+   * pose throughout, with a little waddle as you go; the plush stays at the chest). CPUs wander.
+   */
+  hugWalk(st, dt) {
+    const a = st.actor, c = st.p.ctrl, w = st.walk;
+    if (!w || this.phaseT < 0.6) return false;
+    let mx = Math.abs(c.x) > 0.2 ? c.x : 0, jump = c.pressed('a');
+    if (st.p.isAI) {
+      w.aiT -= dt;
+      if (w.aiT <= 0) {
+        w.aiT = rand(0.7, 1.6);
+        w.aiM = chance(0.5) ? rand(-0.7, 0.7) : 0;
+        if (chance(0.3)) jump = true;
+      }
+      mx = w.aiM;
+      if (Math.abs(a.x - w.home) > w.range) mx = Math.sign(w.home - a.x) * 0.6;
+    }
+    const sp = 330 * clamp(a.scale * a.leader.h / 400, 0.6, 1.2);
+    a.x = clamp(a.x + mx * sp * dt, 70, W - 70);
+    if (Math.abs(mx) > 0.15) a.facing = mx > 0 ? 1 : -1;   // turns at once (no paper flip)
+    w.jz = w.jz || 0;
+    if (jump && w.jz <= 0) { w.vz = 820; sfx('jump', { vol: 0.4 }); a.squash(-0.2); }
+    if (w.jz > 0 || w.vz > 0) {
+      w.vz -= 2600 * dt; w.jz = Math.max(0, w.jz + w.vz * dt);
+      if (w.jz <= 0) { if (w.vz < -300) a.squash(0.16); w.vz = 0; }
+    }
+    // the waddle: little hops in the hug as you go
+    if (Math.abs(mx) > 0.15 && w.jz <= 0) { w.ph += dt * 9 * Math.abs(mx); w.hop = Math.abs(Math.sin(w.ph)) * 12 * a.scale * a.leader.h / 400; }
+    else w.hop = Math.max(0, (w.hop || 0) - dt * 200);
+    a.z = w.jz + w.hop;
+    if (a.pose !== 'cuddle' && !a._once) a.setPose('cuddle');
+    return Math.abs(mx) > 0.15 || w.jz > 0;
   }
 
   addHeart(x, y, color) {
@@ -717,7 +760,7 @@ export class Game {
     ui.panel(g, -400, -40, 800, 80, { r: 40, fill: '#ff8ec4' });
     ui.text(g, 'Plushie Workshop', 0, 2, { size: 52, weight: 800 });
     g.restore();
-    if (this.n <= 2) ui.hints(g, [['lb', ''], ['rb', 'Step'], ['a', 'OK!']], 250, 54, { size: 34 });
+    if (this.n <= 2) ui.hints(g, [['lb', ''], ['rb', 'Steps']], 250, 54, { size: 34 });
     for (const st of this.stations) this.drawStation(g, st);
   }
 
@@ -807,7 +850,7 @@ export class Game {
     const sewing = st.tab === T.sew && !st.ready;
     drawPlush(g, st.plush, s.x, s.y, L.size, {
       t: this.t + st.i, wob: st.wob,
-      extra: sewing ? (gg) => {   // the piece in hand, exactly where X will sew it
+      extra: sewing && !st.sewAnim ? (gg) => {   // the piece in hand, exactly where A / X will sew it
         const on = onPlush(st.plush.body, st.cur.x, st.cur.y);
         drawPiece(gg, st.sewRow, st.sewItem[st.sewRow], st.cur.x, st.cur.y, { alpha: on ? 0.85 : 0.45 });
       } : null,
@@ -822,9 +865,12 @@ export class Game {
         drawFluff(g, x, y, f.r * (1 - q * 0.5), f.rot + f.spin * f.t, q > 0.8 ? (1 - q) / 0.2 : 1);
       }
     }
-    if (sewing) {
-      const n = this.plushScreen(st, st.cur.x, st.cur.y);
-      drawNeedle(g, n.x, n.y, clamp(L.size * 0.32, 60, 150), st.bob);
+    if (sewing || st.sewAnim) {
+      const ns = clamp(L.size * 0.32, 60, 150);
+      if (st.sewAnim) {   // the needle dips in and out round the piece's edge
+        const q = this.sewNeedle(st), n = this.plushScreen(st, q.x, q.y);
+        drawNeedle(g, n.x, n.y, ns, q.lift * ns * 0.16);
+      } else { const n = this.plushScreen(st, st.cur.x, st.cur.y); drawNeedle(g, n.x, n.y, ns, 0); }
     }
     if (st.nudge) this.drawNudge(g, st);
     if (st.plush.name && (st.tab >= T.name)) { const tw = clamp(L.size * 0.42, 100, 220); this.drawNameTag(g, L.ca.x + tw / 2 + 14, L.tableY + (r.y + r.h - L.tableY) * 0.25, tw, st.plush.name, st.p.color); }
@@ -849,7 +895,7 @@ export class Game {
     if (N.pre) {
       ui.text(g, N.text, x - sz * 2.1, y + 1, { size: sz, color: NAVY, stroke: false, maxWidth: w - sz * 4.6 });
       const gx = x + w / 2 - sz * 3.9;
-      ui.glyph(g, N.pre === 'hold' ? 'x' : N.pre, gx + sz * 0.6, y, sz * 1.1);
+      ui.glyph(g, N.pre === 'hold' ? 'a' : N.pre, gx + sz * 0.6, y, sz * 1.1);
       ui.text(g, N.pre === 'hold' ? 'hold' : N.post, gx + sz * 1.3, y + 1, { size: sz * 0.8, color: NAVY, stroke: false, align: 'left', maxWidth: sz * 2.4 });
     } else ui.text(g, N.text, x, y + 1, { size: sz, color: NAVY, stroke: false, maxWidth: w - 20 });
     g.restore();
@@ -916,10 +962,11 @@ export class Game {
     const headH = clamp(lr.h * 0.085, 24, 46);
     ui.text(g, title, lr.x + lr.w / 2, lr.y + headH * 0.62, { size: headH * 0.72, color: st.p.color, strokeWidth: 5, maxWidth: lr.w - 20 });
     const areaY = lr.y + headH + 4, areaH = lr.h - headH - 10;
-    const big = 2.6, unit = areaH / (rows.length - 1 + big);
+    const isOn = (ri) => (Array.isArray(sel) ? sel.includes(ri) : ri === sel);
+    const big = 2.6, nOn = rows.filter((_, ri) => isOn(ri)).length, unit = areaH / (rows.length + nOn * (big - 1));
     let y = areaY;
     rows.forEach((row, ri) => {
-      const on = ri === sel, h = unit * (on ? big : 1);
+      const on = isOn(ri), h = unit * (on ? big : 1);
       const bw = lr.w - 14, bx = lr.x + 7;
       const bump = on ? st.listBump * 0.4 : 0;
       g.save(); g.translate(bx + bw / 2, y + h / 2); g.scale(1 + bump * 0.3, 1 + bump * 0.3);
@@ -970,7 +1017,9 @@ export class Game {
       const it = DRESS_ROWS[row].items[i];
       if (!i) { g.save(); g.strokeStyle = 'rgba(36,22,63,0.4)'; g.lineWidth = 3; g.beginPath(); g.arc(x, y, s * 0.3, 0, TAU); g.moveTo(x - s * 0.2, y + s * 0.2); g.lineTo(x + s * 0.2, y - s * 0.2); g.stroke(); g.restore(); return; }
       let cx = F.cx, cy, w;
-      if (it.atlas) { const scarf = it.atlas[4] === 0; w = scarf ? 260 : 310; cy = scarf ? F.neck.y + 40 : F.waist.y + 50; }
+      if (it.atlas) { w = 260; cy = F.neck.y + 40; }
+      else if (it.flare) { w = 560; cy = 430; }
+      else if (it.grip) { const [gx, gy] = it.paws[0]; cx = gx + it.box[2] * 0.35; cy = gy - it.box[2] * (it.box[2] > 120 ? 1.05 : 0.75); w = Math.max(200, it.box[2] * 2.4); }
       else { [cx, cy, w] = it.box; if (it.bottom != null) cy = it.bottom - w * 0.35; else if (it.top != null) cy = it.top + w * 0.45; }
       g.save(); g.translate(x, y); const k = s / (w * 1.05); g.scale(k, k); g.translate(-cx, -cy);
       drawClothes(g, row, i, this.t);
@@ -983,9 +1032,9 @@ export class Game {
     if (st.tab === DONE) { drawDoneCard(g, st.L.list, st.p.color); return; }
     if (st.tab === T.body) {
       this.drawRows(g, st, 'Pick a plushie', [
-        { label: 'Body', cur: P.body, count: BODIES.length, name: BODIES[P.body].name, icon: (gg, i, x, y, s) => this.iconPlush(st, i, P.fabric)(gg, i, x, y, s) },
-        { label: 'Fabric', cur: P.fabric, count: FABRICS.length, name: FABRICS[P.fabric].name, icon: (gg, i, x, y, s) => this.swatch(gg, i, x, y, s) },
-      ], st.bodyRow);
+        { label: 'Body  ◀ ▶', cur: P.body, count: BODIES.length, name: BODIES[P.body].name, icon: (gg, i, x, y, s) => this.iconPlush(st, i, P.fabric)(gg, i, x, y, s) },
+        { label: 'Fabric  ▲ ▼', cur: P.fabric, count: FABRICS.length, name: FABRICS[P.fabric].name, icon: (gg, i, x, y, s) => this.swatch(gg, i, x, y, s), vertical: true },
+      ], [0, 1]);
     } else if (st.tab === T.stuff) this.drawStuffPanel(g, st);
     else if (st.tab === T.sew) {
       this.drawRows(g, st, 'Sew it on', SEW_ROWS.map((R, ri) => ({ label: R.name, cur: st.sewItem[ri], count: R.items.length, name: R.items[st.sewItem[ri]], icon: this.pieceIcon(ri) })), st.sewRow);
@@ -1011,8 +1060,7 @@ export class Game {
     const fs = clamp(lr.w * 0.1, 16, 30);
     const msg = st.full ? 'So fluffy!' : P.puff > 0.5 ? 'Nearly!' : 'Flat...';
     ui.text(g, msg, lr.x + lr.w / 2, by + bh + fs * 0.95, { size: fs, color: st.full ? '#36d17a' : NAVY, stroke: false, weight: 800 });
-    if (!st.full) ui.hints(g, [['x', 'Hold!']], lr.x + lr.w / 2, by + bh + fs * 2.4, { size: fs * 1.1 });
-    else ui.hints(g, [['a', 'Next!']], lr.x + lr.w / 2, by + bh + fs * 2.4, { size: fs * 1.1 });
+    ui.hints(g, [['a', st.full ? 'Squeeze!' : 'Hold!']], lr.x + lr.w / 2, by + bh + fs * 2.4, { size: fs * 1.1 });
   }
 
   drawNamePanel(g, st) {
@@ -1032,7 +1080,7 @@ export class Game {
       ui.text(g, nm, on ? rh * 0.2 : 0, 1, { size: clamp(rh * 0.45, 14, 32), color: on ? st.p.color : NAVY, stroke: on ? NAVY : false, strokeWidth: 4, weight: 800, maxWidth: bw - rh * 1.3 });
       g.restore();
     });
-    ui.hints(g, [['x', 'New ideas']], lr.x + lr.w / 2, lr.y + lr.h - foot / 2, { size: clamp(foot * 0.55, 18, 32) });
+    ui.hints(g, [['a', 'New ideas']], lr.x + lr.w / 2, lr.y + lr.h - foot / 2, { size: clamp(foot * 0.55, 18, 32) });
   }
 
   drawReady(g, st) {
@@ -1063,15 +1111,18 @@ export class Game {
     ui.text(g, p.tag, x + tw / 2, y + 1, { size: sz * 0.55, strokeWidth: 4, shadow: false });
     x += tw + 12;
     if (wide) { drawPortrait(g, p, x + sz * 0.55, y, sz * 0.55, { ring: p.color, ringWidth: 3 }); x += sz * 1.4; }
-    const pad = p.ctrl.kind === 'pad';
+    const c0 = p.ctrl, pad = c0.kind === 'pad';
     let items;
     if (st.ready) items = [['b', 'Not yet']];
-    else if (st.tab === T.body) items = [['dpad', wide ? '▲▼ Body / Fabric  ◀▶ Change' : ''], ['a', 'OK!']];
-    else if (st.tab === T.stuff) items = [['x', wide ? 'Hold: stuff it!' : 'Stuff'], ['a', 'Next']];
-    else if (st.tab === T.sew) items = pad ? [['stick', wide ? 'Needle' : ''], ['dpad', wide ? 'Pick' : ''], ['x', 'Stitch'], ['b', wide ? 'Unpick' : ''], ['a', 'Next']]
-      : [['stick', wide ? 'Needle' : ''], ['lt', ''], ['rt', wide ? 'Pick' : ''], ['x', 'Stitch'], ['b', wide ? 'Unpick' : ''], ['a', 'Next']];
-    else if (st.tab === T.dress) items = [['dpad', wide ? '▲▼ Spot  ◀▶ Try on' : ''], ['a', 'OK!']];
-    else if (st.tab === T.name) items = [['dpad', wide ? 'Pick' : ''], ['x', wide ? 'New ideas' : ''], ['a', 'That one!']];
+    else if (st.tab === T.body) items = [['dpad', wide ? '◀▶ Body  ▲▼ Fabric' : ''], ['a', 'Squeeze'], ['b', wide ? 'Undo' : '']];
+    else if (st.tab === T.stuff) items = [['a', st.full ? 'Squeeze' : wide ? 'Hold: stuff it!' : 'Stuff']];
+    else if (st.tab === T.sew) items = pad ? [['stick', wide ? 'Needle' : ''], ['dpad', wide ? 'Pick' : ''], ['a', 'Sew it on'], ['b', wide ? 'Unpick' : '']]
+      : [['stick', wide ? 'Needle' : ''], ['lt', ''], ['rt', wide ? 'Pick' : ''], ['a', 'Sew it on'], ['b', wide ? 'Unpick' : '']];
+    else if (st.tab === T.dress) {
+      const bow = !!this.movable(st);
+      items = this.kbBow(st, c0) ? [['stick', wide ? 'Move the bow' : ''], ['lt', ''], ['rt', wide ? 'Try on' : ''], ['a', 'Next one'], ['b', wide ? 'Undo' : '']]
+        : [['dpad', wide ? '▲▼ Spot  ◀▶ Try on' : ''], ...(bow ? [['stick', wide ? 'Move the bow' : '']] : []), ['a', 'Next one'], ['b', wide ? 'Undo' : '']];
+    } else if (st.tab === T.name) items = [['dpad', wide ? 'Pick' : ''], ['a', 'New ideas'], ['b', wide ? 'Undo' : '']];
     else items = [['lb', wide ? 'Change something' : ''], ['a', "I'm ready!"]];
     const avail = r.x + r.w - 16 - x, lab = sz * 0.62;
     let need = 0;
@@ -1116,6 +1167,7 @@ export class Game {
       this.drawNameTag(g, st.actor.x, 1000, tagW, st.plush.name, st.p.color);
     }
     this.drawHearts(g);
+    if (!this.cpuOnly && this.phaseT > 0.6) ui.hints(g, [['stick', 'Walk'], ['a', 'Jump']], W / 2, 172, { size: 34 });
   }
 
   drawHearts(g) {

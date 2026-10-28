@@ -314,6 +314,40 @@ export function drawPiece(g, row, i, x, y, { alpha = 1, k = 1 } = {}) {
   if (R.id === 'eyes') { one(F.eyeDX * k, false); one(-F.eyeDX * k, true); } else one(0, false);
   g.restore();
 }
+/**
+ * The needle's trip round a piece as it's sewn on (frame px): points round its edge, the
+ * last back at the first. Eyes go round one eye, hop across (`jump`: no thread there) and
+ * round the other.
+ */
+export function stitchPath(row, x, y) {
+  const R = SEW_ROWS[row], pts = [], jump = new Set();
+  const loop = (cx, cy, r, n, a0) => { for (let k = 0; k <= n; k++) { const a = a0 + (k / n) * TAU; pts.push({ x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r }); } };
+  if (R.id === 'eyes') {
+    loop(x - F.eyeDX, y, R.size * 0.52, 4, -Math.PI / 2);
+    jump.add(pts.length - 1);
+    loop(x + F.eyeDX, y, R.size * 0.52, 4, -Math.PI / 2);
+  } else if (R.id === 'mouth') {
+    const n = 6; for (let k = 0; k <= n; k++) { const a = -Math.PI / 2 + (k / n) * TAU; pts.push({ x: x + Math.cos(a) * R.size * 0.55, y: y + Math.sin(a) * R.size * 0.3 }); }
+  } else loop(x, y, pieceRadius(row) * 0.82, 7, -Math.PI / 2);
+  return { pts, jump };
+}
+
+/** The thread sewn so far: a running stitch along the path (frame px), `u` = 0..1 of the trip. */
+function drawThread(g, path, u, alpha = 1) {
+  const { pts, jump } = path, n = pts.length - 1, done = Math.min(n, Math.floor(u * n + 1e-4));
+  g.save(); g.globalAlpha *= alpha; g.lineCap = 'round';
+  for (let k = 0; k < done; k++) {
+    if (jump.has(k)) continue;
+    const a = pts[k], b = pts[k + 1];
+    const x0 = a.x + (b.x - a.x) * 0.16, y0 = a.y + (b.y - a.y) * 0.16, x1 = a.x + (b.x - a.x) * 0.84, y1 = a.y + (b.y - a.y) * 0.84;
+    g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1);
+    g.lineWidth = 7.5; g.strokeStyle = NAVY; g.stroke();
+    g.lineWidth = 4.5; g.strokeStyle = '#ff5fa2'; g.stroke();
+  }
+  for (let k = 0; k <= done; k++) { if (k && jump.has(k - 1) && k === done) continue; const p = pts[k]; g.fillStyle = NAVY; g.beginPath(); g.arc(p.x, p.y, 3.2, 0, TAU); g.fill(); }
+  g.restore();
+}
+
 /** Half-size of a piece (for "something already sewn here?" and the stitch ring). */
 export function pieceRadius(row) { const R = SEW_ROWS[row]; return R.id === 'eyes' ? F.eyeDX + R.size * 0.5 : R.size * 0.55; }
 
@@ -561,16 +595,17 @@ export function drawPlush(g, P, x, y, size, opts = {}) {
   drawBody(g, body, fab, p, t);
   inSquash(() => {
     for (const pc of P.pieces || []) {
-      const st = pc.st ?? 9;
-      const pop = st < 0.35 ? 1 + 0.3 * (1 - ease.outBack(st / 0.35)) : 1;
-      g.save(); g.translate(pc.x, pc.y); g.scale(pop, pop); g.translate(-pc.x, -pc.y);
-      drawPiece(g, pc.row, pc.i, pc.x, pc.y);
+      const st = pc.st ?? 9, sew = pc.sew || 0;
+      // While it's being sewn on it sits held in place (a touch big and see-through), the thread
+      // going on stitch by stitch; then it settles with a little pop and the thread tucks in.
+      const s2 = st - sew;
+      const k = s2 < 0 ? 1.06 : s2 < 0.32 ? 1 + 0.22 * Math.sin((s2 / 0.32) * Math.PI) * (1 - s2 / 0.32 * 0.5) : 1;
+      g.save(); g.translate(pc.x, pc.y); g.scale(k, k); g.translate(-pc.x, -pc.y);
+      drawPiece(g, pc.row, pc.i, pc.x, pc.y, { alpha: s2 < 0 ? 0.82 : 1 });
       g.restore();
-      if (st < 0.9) {   // the thread going round as it's stitched on
-        const rr = pieceRadius(pc.row), prog = clamp(st / 0.6, 0, 1), fade = st > 0.6 ? 1 - (st - 0.6) / 0.3 : 1;
-        g.save(); g.globalAlpha *= fade; g.setLineDash([10, 9]); g.lineWidth = 4; g.strokeStyle = '#ff5fa2';
-        g.beginPath(); g.ellipse(pc.x, pc.y, rr, SEW_ROWS[pc.row].id === 'eyes' ? rr * 0.5 : rr, 0, -Math.PI / 2, -Math.PI / 2 + prog * TAU); g.stroke();
-        g.restore();
+      if (sew && s2 < 0.45) {
+        if (!pc._path) pc._path = stitchPath(pc.row, pc.x, pc.y);
+        drawThread(g, pc._path, clamp(st / sew, 0, 1), s2 > 0.15 ? 1 - (s2 - 0.15) / 0.3 : 1);
       }
     }
     if (dress[1]) drawClothes(g, 1, dress[1], t, P);

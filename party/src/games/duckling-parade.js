@@ -115,9 +115,8 @@ export class Game {
       a.facing = x < W / 2 ? 1 : -1; a.snap();
       // characters with wings of their own (data/characters.js `wings`) fly over the pond
       const flier = !!a.leader.wings;
-      const flyPose = getSpriteSet(a.leader.asset)?.poses.fly ? 'fly' : 'float';
       return {
-        p, a, i, x, y, sizeK, flier, flyPose, hover: 0, vx: 0, vy: 0, line: [], trail: [{ x, y }], delivered: 0, delT: 0, batch: 0,
+        p, a, i, x, y, sizeK, flier, hover: 0, vx: 0, vy: 0, line: [], trail: [{ x, y }], delivered: 0, delT: 0, batch: 0,
         callCd: 0, swapCd: 0, callFx: 0, dash: new Dash(), brain: new Brain(p), target: null, goal: randInt(3, 6), wander: 0, wx: x, wy: y,
         cheerCd: 0, tx: x, ty: y,
         ezNear: 0,
@@ -487,7 +486,7 @@ export class Game {
     else if (this.done && moving < 40) { if (!a._once && a.pose !== 'celebrate') a.setPose('celebrate'); }
     else a.moveAnim(e.vx, e.vy, sp, { run: moving > sp * 0.6 });
     // over the water a winged player flies (her fly pose) instead of walking
-    if (e.hover > 0.4 && !a._once && !(this.done && moving < 40)) a.setPose(e.flyPose);
+    if (e.hover > 0.4 && !a._once && !(this.done && moving < 40)) a.setPose(getSpriteSet(a.leader.asset)?.poses.fly ? 'fly' : 'float');
   }
 
   /** A winged player over the pond: rise into a soft hover (sparkles and ripples below her). */
