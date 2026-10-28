@@ -1364,6 +1364,12 @@
     "thumb/gopher-garden": "thumb/gopher-garden.webp"
   },
   "groups": {
+    "leaf-pile-leap": [
+      "bg/fairy-hide-seek",
+      "prop/mm-granny",
+      "prop/mm-granny-gasp",
+      "prop/mm-granny-huff"
+    ],
     "plushie-workshop": [
       "bg/plushie-workshop",
       "bg/plushie-shelf",

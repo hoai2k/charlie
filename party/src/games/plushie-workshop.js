@@ -1,24 +1,29 @@
 // Plushie Workshop (Play Studio, everyone wins). Every player has a station on
-// a sewing-workshop table and makes a plushie in five steps (the category tabs;
-// the last tab is Done):
-//   1 Body   - d-pad up / down: Body or Fabric row; left / right: change it.
-//   2 Stuff  - hold (or tap) X to puff stuffing in: the flat empty skin plumps up
-//              to fluffy, with a squeak when it's full. A goes on (too soon: it
-//              says what's left; nearly full, A finishes it).
+// a sewing-workshop table and makes a plushie. It's a design game, so the steps (the
+// category tabs, LB / RB; the last tab is Done) are not a progression: on every step A
+// does the step's action exactly like X and you stay on the step. B undoes one thing.
+//   1 Body   - d-pad left / right: the body; up / down: the fabric. A / X: a squeeze.
+//   2 Stuff  - hold (or tap) A or X to puff stuffing in: the flat empty skin plumps up
+//              to fluffy, with a squeak when it's full (then A / X squeeze it).
 //   3 Sew    - the needle is the cursor (left or right stick; WASD on a keyboard);
 //              the piece in hand is drawn exactly where it will land, under the
 //              needle's point. D-pad up / down: Eyes, Nose, Mouth, Hearts, Patches;
-//              left / right (or LT / RT, which walk every piece): which one. X
-//              stitches it on (a face piece replaces the old one, then the next
-//              face row comes up); B unpicks the newest one.
-//   4 Dress  - d-pad up / down: Head, Neck, Tutu, Back; left / right: try things on.
-//   5 Name   - d-pad: pick a name idea; X: new ideas (the name generator).
-// A commits everywhere (does the step's thing once, then goes on), LB / RB move
-// between steps, B backs out (unpicks a stitch on Sew, else the previous step).
+//              left / right (or LT / RT, which walk every piece): which one. A / X
+//              sews it on: the needle dips in and out round its edge, the thread
+//              goes on stitch by stitch and the piece pops into place (~0.7 s; a press
+//              meanwhile waits its turn, the stick waits). A face piece replaces the
+//              old one, then the next face row comes up. B unpicks the newest one.
+//   4 Dress  - d-pad up / down: Head, Neck, Hug, Back; left / right: try things on;
+//              A / X: try the next one on. A bow goes where the left stick puts it
+//              (on the head or ears; keyboard: WASD while the Head row has a bow on,
+//              LT / RT then pick). Hug: something held to the tummy in the plush's paws.
+//   5 Name   - d-pad: pick a name idea; A / X: new ideas (the name generator).
 // On Done, A = "my plushie is ready" (B: not yet). The clock (always shown) asks
 // "Hug time!" at 0: Go! (default) or Stay in the workshop (+1 min).
-// Finale: every character hugs their plushie (the 'cuddle' pose) as hearts float
-// up, then the plushies hop onto a toy shelf with name tags: the gallery ending.
+// Finale: every character hugs their plushie (the 'cuddle' pose, the plush at the
+// chest) as hearts float up; players walk about with the stick and A jumps, still
+// hugging (CPUs wander), then the plushies hop onto a toy shelf with name tags: the
+// gallery ending.
 //
 // Drawing of the plushie itself: plushie-workshop/plush.js; data: data.js.
 import { playerName } from '../state.js';
@@ -32,8 +37,8 @@ import { art } from '../engine/art.js';
 import { aiProfile } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 import { drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
-import { NAVY, CW, CH, F, BODIES, FABRICS, FABRIC_IDX, SEW_ROWS, SEW_IDX, MAX_PIECES, DRESS_ROWS, nameIdeas } from './plushie-workshop/data.js';
-import { drawPlush, drawPiece, drawClothes, drawFluff, drawNeedle, onPlush, pieceRadius, toScreen, heartPath, starPath, mix, drawSwatch, clearPlushCaches } from './plushie-workshop/plush.js';
+import { NAVY, CW, CH, F, BODIES, FABRICS, FABRIC_IDX, SEW_ROWS, SEW_IDX, MAX_PIECES, DRESS_ROWS, DRESS_IDX, SEW_T, BOW_MIN_Y, BOW_MAX_Y, bowHome, nameIdeas } from './plushie-workshop/data.js';
+import { drawPlush, drawPiece, drawClothes, drawFluff, drawNeedle, onPlush, pieceRadius, stitchPath, toScreen, heartPath, starPath, mix, drawSwatch, clearPlushCaches } from './plushie-workshop/plush.js';
 import { meta } from './plushie-workshop.meta.js';
 
 export { meta };
@@ -45,7 +50,7 @@ const TABS = [
 const DONE = TABS.length;
 const T = Object.fromEntries(TABS.map((t, i) => [t.id, i]));
 const WORK_TIME = 240, WORK_MORE = 60;
-const HUG_T = 5.6;          // the hugs, then the toy shelf
+const HUG_T = 5.6, HUG_T_PLAY = 11;   // the hugs (longer with people walking about), then the toy shelf
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
 /** Split-screen station rects: 1 = big centre, 2 = halves, 3-4 = quadrants, 5-8 = 4 x 2. */
@@ -103,8 +108,8 @@ export class Game {
     const L = layoutStation(r, this.n);
     const st = {
       p, i, r, L, tab: 0, ready: false, readyT: 0, tabBump: 0, listBump: 0,
-      plush: { body, fabric: FABRIC_IDX[BODIES[body].fabric], puff: 0, pieces: [], dress: [0, 0, 0, 0], name: null },
-      bodyRow: 0, sewRow: 0, sewItem: SEW_ROWS.map(() => 0), dressRow: 0,
+      plush: { body, fabric: FABRIC_IDX[BODIES[body].fabric], puff: 0, pieces: [], dress: [0, 0, 0, 0], bow: null, name: null },
+      sewRow: 0, sewItem: SEW_ROWS.map(() => 0), dressRow: 0, undo: [], sewAnim: null, sewQ: false, bowMoving: false,
       names: [], nameIdx: 0, named: false,
       cur: { x: F.cx, y: F.eyeY }, bob: 0, stitchT: 9,
       wob: 0, shift: 0, full: false, fluff: [], fluffT: 0, crankT: 0, squeakT: 0,
@@ -139,22 +144,49 @@ export class Game {
     st.wob = Math.max(st.wob, 0.6);
   }
 
+  // --- undo (B): one thing back, on the step it was done on ------------------------
+  pushUndo(st, fn) { st.undo.push({ tab: st.tab, fn }); if (st.undo.length > 60) st.undo.shift(); }
+  undoOne(st, empty) {
+    let k = st.undo.length - 1;
+    while (k >= 0 && st.undo[k].tab !== st.tab) k--;
+    if (k < 0) { sfx('blip'); if (empty) this.say(st, empty, 1.8); return false; }
+    const [u] = st.undo.splice(k, 1);
+    u.fn(); sfx('back'); st.wob = Math.max(st.wob, 0.5); st.listBump = 0.15;
+    return true;
+  }
+
+  /** A / X where the step has nothing else to do: a squeezy squeak. */
+  squeeze(st) {
+    if (st.squeakT > 0) return;
+    snd('tiny-squeak', 'pop'); st.wob = 1; st.squeakT = 0.3;
+    const h = this.plushScreen(st, F.cx, 150);
+    particles.burst(h.x, h.y, { type: 'heart', count: 2 });
+  }
+
   // --- 1 Body ---------------------------------------------------------------
+  setBody(st, body, fabric) {
+    const P = st.plush;
+    if (body !== P.body) {
+      P.body = body;
+      if (!st.named) { st.names = nameIdeas(BODIES[P.body].id, this.usedNames()); st.nameIdx = 0; if (P.name) P.name = st.names[0]; }
+      this.fitBow(st);
+    }
+    P.fabric = fabric;
+  }
+
   updateBody(st, c) {
-    if (c.nav.y) { st.bodyRow = (st.bodyRow + c.nav.y + 2) % 2; st.listBump = 0.15; sfx('move'); }
-    if (c.nav.x) {
-      const P = st.plush;
-      if (st.bodyRow === 0) {
-        P.body = (P.body + c.nav.x + BODIES.length) % BODIES.length;
-        if (!st.named) { st.names = nameIdeas(BODIES[P.body].id, this.usedNames()); st.nameIdx = 0; if (P.name) P.name = st.names[0]; }
-        sfx('swap');
-      } else { P.fabric = (P.fabric + c.nav.x + FABRICS.length) % FABRICS.length; sfx('collect', { step: P.fabric % 12 }); }
+    const P = st.plush, dx = c.nav.x, dy = dx ? 0 : c.nav.y;
+    if (dx || dy) {
+      const was = [P.body, P.fabric];
+      this.pushUndo(st, () => this.setBody(st, was[0], was[1]));
+      if (dx) { this.setBody(st, (P.body + dx + BODIES.length) % BODIES.length, P.fabric); sfx('swap'); }
+      else { this.setBody(st, P.body, (P.fabric + dy + FABRICS.length) % FABRICS.length); sfx('collect', { step: P.fabric % 12 }); }
       st.wob = 0.8; st.listBump = 0.15;
       const s = this.plushScreen(st, F.cx, 300);
       particles.burst(s.x, s.y, { type: 'sparkle', count: 6, colors: ['#ffffff', FABRICS[P.fabric].c] });
     }
-    if (c.pressed('a')) { this.confirmSpark(st); sfx('select'); this.setTab(st, T.stuff); }
-    else if (c.pressed('b')) { sfx('blip'); this.say(st, 'Pick a body and a fabric!', 1.6); }
+    if (c.pressed('a') || c.pressed('x')) this.squeeze(st);
+    else if (c.pressed('b')) this.undoOne(st, 'Pick a body and a fabric!');
   }
 
   // --- 2 Stuff ----------------------------------------------------------------
@@ -192,9 +224,10 @@ export class Game {
     return { x: s.x - 230 * k, y, k: k * 0.56 };
   }
 
+  /** Stuff: A and X are the same (hold to puff stuffing in, tap for a puff; full: a squeak). */
   updateStuff(st, c, dt) {
     const P = st.plush;
-    if (c.held('x')) {
+    if (c.held('x') || c.held('a')) {
       st.crankT += dt * 8;
       if (P.puff < 1) this.puff(st, 0.38 * dt, false);
       st.fluffT -= dt;
@@ -203,18 +236,11 @@ export class Game {
         if (P.puff < 1) sfx('pump', { vol: 0.35 });
       }
     }
-    if (c.pressed('x')) {
+    if (c.pressed('x') || c.pressed('a')) {
       if (P.puff < 1) { this.puff(st, 0.06, true); sfx('pop', { vol: 0.5 }); }
-      else if (st.squeakT <= 0) {   // already full: a squeezy squeak
-        snd('tiny-squeak', 'pop'); st.wob = 1; st.squeakT = 0.35; this.spawnFluff(st);
-        const h = this.plushScreen(st, F.cx, 120);
-        particles.burst(h.x, h.y, { type: 'heart', count: 2 });
-      }
+      else if (st.squeakT <= 0) { this.squeeze(st); this.spawnFluff(st); }
     }
-    if (c.pressed('a')) {
-      if (P.puff >= 0.75) { if (P.puff < 1) { P.puff = 1; this.fullUp(st); } this.setTab(st, T.sew); }
-      else { this.puff(st, 0.08, true); sfx('blip'); this.say(st, 'More stuffing!', 2.6, 'hold', 'to stuff'); }
-    } else if (c.pressed('b')) this.setTab(st, T.body);
+    if (c.pressed('b')) { sfx('blip'); this.say(st, P.puff < 1 ? 'Stuff it full!' : 'So fluffy!', 1.6, P.puff < 1 ? 'hold' : null, 'to stuff'); }
   }
 
   // --- 3 Sew -------------------------------------------------------------------
@@ -231,33 +257,69 @@ export class Game {
     if (cross && (i < 0 || i >= R.items.length)) {   // LT / RT walk on into the next row
       st.sewRow = (st.sewRow + Math.sign(d) + SEW_ROWS.length) % SEW_ROWS.length;
       i = d > 0 ? 0 : SEW_ROWS[st.sewRow].items.length - 1;
-      st.sewItem[st.sewRow] = i; this.aimRow(st);
+      st.sewItem[st.sewRow] = i; if (!st.sewAnim) this.aimRow(st);
     } else st.sewItem[st.sewRow] = (i + R.items.length) % R.items.length;
     st.listBump = 0.15; sfx('swap');
   }
 
+  /** Sew the piece in hand on at the needle: the needle goes round its edge (sewAnim), then it pops into place. */
   stitch(st) {
     const P = st.plush, row = st.sewRow, R = SEW_ROWS[row];
     if (!onPlush(P.body, st.cur.x, st.cur.y)) { sfx('blip'); this.say(st, 'Point the needle at your plushie!', 1.8); return false; }
-    if (R.face) P.pieces = P.pieces.filter((pc) => pc.row !== row);
-    else if (P.pieces.length >= MAX_PIECES) { sfx('blip'); this.say(st, 'So many! B unpicks one.', 1.8); return false; }
-    P.pieces.push({ row, i: st.sewItem[row], x: st.cur.x, y: st.cur.y, st: 0 });
-    st.stitchT = 0; st.wob = Math.max(st.wob, 0.35);
-    sfx('stamp'); snd('bead-zip', 'tick', { vol: 0.5 });
-    const s = this.plushScreen(st, st.cur.x, st.cur.y);
-    particles.burst(s.x, s.y, { type: 'sparkle', count: 8, colors: ['#ffffff', '#ff8ec4', '#fff6a8'] });
-    if (R.face) {   // on to the next face row (its spot comes up under the needle)
+    const old = R.face ? P.pieces.filter((pc) => pc.row === row) : [];
+    if (!R.face && P.pieces.length >= MAX_PIECES) { sfx('blip'); this.say(st, 'So many! B unpicks one.', 1.8); return false; }
+    const pc = { row, i: st.sewItem[row], x: st.cur.x, y: st.cur.y, st: 0, sew: SEW_T, replaced: old };
+    P.pieces = P.pieces.filter((q) => !old.includes(q));
+    P.pieces.push(pc);
+    st.sewAnim = { pc, t: 0, path: stitchPath(row, pc.x, pc.y), done: 0 };
+    snd('bead-zip', 'tick', { vol: 0.45 });
+    if (R.face) {   // on to the next face row (its spot comes up under the needle once it's sewn)
       st.sewRow = row + 1; this.aimRow(st);
-      if (st.sewRow === SEW_IDX.heart && !P.pieces.some((pc) => !SEW_ROWS[pc.row].face)) { const a = SEW_ROWS[st.sewRow].at(); st.cur.x = a.x; st.cur.y = a.y; }
+      if (st.sewRow === SEW_IDX.heart && !P.pieces.some((q) => !SEW_ROWS[q.row].face)) { const a = SEW_ROWS[st.sewRow].at(); st.cur.x = a.x; st.cur.y = a.y; }
     }
-    if (row === SEW_IDX.eyes) { const h = this.plushScreen(st, F.cx, F.eyeY); particles.burst(h.x, h.y - 20, { type: 'heart', count: 3 }); }
     return true;
+  }
+
+  /** The needle's trip round the piece: a stitch tick each time it dips in; the pop at the end. */
+  tickSew(st, dt) {
+    const A = st.sewAnim;
+    if (!A) return;
+    A.t += dt;
+    const n = A.path.pts.length - 1, done = Math.min(n, Math.floor((A.t / SEW_T) * n + 0.0001));
+    while (A.done < done) { A.done++; if (!A.path.jump.has(A.done - 1)) sfx('tick', { vol: 0.35 }); }
+    if (A.t >= SEW_T) {
+      st.sewAnim = null;
+      const pc = A.pc;
+      st.wob = Math.max(st.wob, 0.45);
+      sfx('stamp'); snd('pop', null, { vol: 0.5 });
+      const s = this.plushScreen(st, pc.x, pc.y);
+      particles.burst(s.x, s.y, { type: 'sparkle', count: 8, colors: ['#ffffff', '#ff8ec4', '#fff6a8'] });
+      if (pc.row === SEW_IDX.eyes) { const h = this.plushScreen(st, F.cx, F.eyeY); particles.burst(h.x, h.y - 20, { type: 'heart', count: 3 }); }
+      if (st.sewQ) { st.sewQ = false; this.stitch(st); }
+    }
+  }
+
+  /** Where the needle's point is while it sews (frame px) and how high it's lifted (0..1). */
+  sewNeedle(st) {
+    const A = st.sewAnim, pts = A.path.pts, n = pts.length - 1;
+    const u = clamp(A.t / SEW_T, 0, 1) * n, k = Math.min(n - 1, Math.floor(u)), f = u - k;
+    const a = pts[k], b = pts[k + 1], e = ease.inOutQuad(f);
+    return { x: lerp(a.x, b.x, e), y: lerp(a.y, b.y, e), lift: Math.sin(f * Math.PI) * (A.path.jump.has(k) ? 1.6 : 1) };
   }
 
   unpick(st) {
     const P = st.plush;
+    if (st.sewAnim) {   // B while sewing: that piece comes off again (and what it replaced goes back)
+      const pc = st.sewAnim.pc; st.sewAnim = null; st.sewQ = false;
+      P.pieces = P.pieces.filter((q) => q !== pc);
+      for (const q of pc.replaced || []) P.pieces.push(q);
+      sfx('back');
+      st.sewRow = pc.row; st.sewItem[pc.row] = pc.i; st.cur.x = pc.x; st.cur.y = pc.y;
+      return true;
+    }
     const pc = P.pieces.pop();
     if (!pc) return false;
+    for (const q of pc.replaced || []) { q.st = 9; P.pieces.push(q); }   // the face piece it replaced comes back
     sfx('back'); sfx('pop', { vol: 0.4 });
     const s = this.plushScreen(st, pc.x, pc.y);
     particles.burst(s.x, s.y, { type: 'spark', count: 6, colors: ['#ffffff', '#ff8ec4'] });
@@ -267,68 +329,125 @@ export class Game {
 
   updateSew(st, c, dt) {
     const pad = c.kind !== 'kb';   // (CPUs use the pad's controls)
-    // the needle: left or right stick on a pad (the d-pad picks pieces), WASD on a keyboard
+    // the needle: left or right stick on a pad (the d-pad picks pieces), WASD on a keyboard;
+    // it's busy while it sews a piece on (the stick waits)
     let mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     if (pad && Math.hypot(c.rx, c.ry) > Math.hypot(mx, my)) { mx = c.rx; my = c.ry; }
-    if (Math.hypot(mx, my) > 0.15) {
+    if (!st.sewAnim && Math.hypot(mx, my) > 0.15) {
       const sp = 430;
       st.cur.x = clamp(st.cur.x + mx * sp * dt, 24, CW - 24);
       st.cur.y = clamp(st.cur.y + my * sp * dt, 12, CH - 14);
     }
     if (pad) {
       const dy = (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0);
-      if (dy) { st.sewRow = (st.sewRow + dy + SEW_ROWS.length) % SEW_ROWS.length; this.aimRow(st); st.listBump = 0.15; sfx('move'); }
+      if (dy) { st.sewRow = (st.sewRow + dy + SEW_ROWS.length) % SEW_ROWS.length; if (!st.sewAnim) this.aimRow(st); st.listBump = 0.15; sfx('move'); }
       const dx = (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0);
       if (dx) this.stepSewItem(st, dx, false);
     }
     const dt2 = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
     if (dt2) this.stepSewItem(st, dt2, true);
-    if (c.pressed('x')) this.stitch(st);
-    if (c.pressed('a')) {
-      // A: sew the piece in hand once (if the needle is on the plushie and nothing's there yet), then on
-      const near = st.plush.pieces.some((pc) => Math.hypot(pc.x - st.cur.x, pc.y - st.cur.y) < pieceRadius(pc.row) * 0.8);
-      if (!near && onPlush(st.plush.body, st.cur.x, st.cur.y)) this.stitch(st);
-      if (!st.plush.pieces.some((pc) => SEW_ROWS[pc.row].id === 'eyes')) { sfx('blip'); this.say(st, 'Sew on some eyes!', 2.4, 'x', 'stitches'); }
-      else { sfx('select'); this.setTab(st, T.dress); }
-    } else if (c.pressed('b')) { if (!this.unpick(st)) this.setTab(st, T.stuff); }
+    // A and X both sew (a press while the needle is busy waits for it)
+    if (c.pressed('x') || c.pressed('a')) { if (st.sewAnim) st.sewQ = true; else this.stitch(st); }
+    else if (c.pressed('b')) { if (!this.unpick(st)) { sfx('blip'); this.say(st, 'Nothing to unpick!', 1.6); } }
   }
 
   // --- 4 Dress -------------------------------------------------------------------
-  updateDress(st, c) {
-    if (c.nav.y) { st.dressRow = (st.dressRow + c.nav.y + DRESS_ROWS.length) % DRESS_ROWS.length; st.listBump = 0.15; sfx('move'); }
-    if (c.nav.x) {
-      const row = st.dressRow, len = DRESS_ROWS[row].items.length, d = st.plush.dress;
-      d[row] = (d[row] + c.nav.x + len) % len;
-      st.listBump = 0.15; st.wob = 0.6;
-      const spot = [F.headTop + 10, F.neck.y, F.waist.y, F.back.y][row];
-      const s = this.plushScreen(st, F.cx, spot);
-      if (d[row]) { sfx('swap'); particles.burst(s.x, s.y, { type: 'sparkle', count: 8, colors: ['#ffffff', '#ffc8f0', '#fff6a8'] }); }
-      else { sfx('whoosh'); particles.burst(s.x, s.y, { type: 'dust', count: 5 }); }
+  /** The worn head item, if it's one the player can move (a bow). */
+  movable(st) { const it = DRESS_ROWS[DRESS_IDX.head].items[st.plush.dress[DRESS_IDX.head]]; return it && it.move ? it : null; }
+
+  /** Is (x, y) a good spot for a bow: on the head or ears? */
+  bowOk(st, x, y) { return y >= BOW_MIN_Y && y <= BOW_MAX_Y && onPlush(st.plush.body, x, y); }
+
+  /** Keep the bow on the plush (a new body or bow): back towards its own spot, then the head's middle. */
+  fitBow(st) {
+    const P = st.plush, it = this.movable(st);
+    if (!it) return;
+    const b = P.bow || bowHome(it);
+    if (this.bowOk(st, b.x, b.y)) { P.bow = { x: b.x, y: b.y }; return; }
+    const h = bowHome(it), tries = [h, ...Array.from({ length: 12 }, (_, k) => ({ x: lerp(h.x, F.cx, (k + 1) / 12), y: lerp(h.y, F.head.y - 40, (k + 1) / 12) }))];
+    P.bow = { ...(tries.find((q) => this.bowOk(st, q.x, q.y)) || { x: F.cx, y: F.head.y - 60 }) };
+  }
+
+  /** Move the bow (stick or WASD), sliding along the head's edge rather than stopping dead. */
+  moveBow(st, mx, my, dt) {
+    const P = st.plush, it = this.movable(st);
+    if (!it) return;
+    const on = Math.hypot(mx, my) > 0.2;
+    if (!on) { st.bowMoving = false; return; }
+    if (!P.bow) this.fitBow(st);
+    if (!st.bowMoving) { st.bowMoving = true; const was = { ...P.bow }; this.pushUndo(st, () => { P.bow = was; }); }
+    const sp = 300 * dt, nx = P.bow.x + mx * sp, ny = P.bow.y + my * sp;
+    if (this.bowOk(st, nx, ny)) { P.bow.x = nx; P.bow.y = ny; }
+    else if (this.bowOk(st, nx, P.bow.y)) P.bow.x = nx;
+    else if (this.bowOk(st, P.bow.x, ny)) P.bow.y = ny;
+    st.bowT = (st.bowT || 0) + dt;
+    if (st.bowT > 0.12) { st.bowT = 0; const s = this.plushScreen(st, P.bow.x, P.bow.y); particles.burst(s.x, s.y, { type: 'sparkle', count: 1, colors: ['#ffffff', '#fff6a8'] }); }
+  }
+
+  setDress(st, row, item) {
+    const d = st.plush.dress, was = d[row];
+    if (was === item) return;
+    this.pushUndo(st, () => { d[row] = was; this.fitBow(st); });
+    d[row] = item;
+    if (row === DRESS_IDX.head) this.fitBow(st);
+    st.listBump = 0.15; st.wob = 0.6;
+    const spot = [F.headTop + 10, F.neck.y, F.tummy.y, F.back.y][row];
+    const s = this.plushScreen(st, F.cx, spot);
+    if (item) { sfx('swap'); particles.burst(s.x, s.y, { type: 'sparkle', count: 8, colors: ['#ffffff', '#ffc8f0', '#fff6a8'] }); }
+    else { sfx('whoosh'); particles.burst(s.x, s.y, { type: 'dust', count: 5 }); }
+  }
+
+  stepDress(st, d, cross) {
+    let row = st.dressRow, i = st.plush.dress[row] + d;
+    const len = DRESS_ROWS[row].items.length;
+    if (cross && (i < 0 || i >= len)) {   // LT / RT walk on into the next row
+      row = st.dressRow = (row + Math.sign(d) + DRESS_ROWS.length) % DRESS_ROWS.length;
+      i = d > 0 ? 0 : DRESS_ROWS[row].items.length - 1;
     }
-    if (c.pressed('a')) { this.confirmSpark(st); sfx('select'); this.setTab(st, T.name); }
-    else if (c.pressed('b')) this.setTab(st, T.sew);
+    this.setDress(st, row, (i + DRESS_ROWS[row].items.length) % DRESS_ROWS[row].items.length);
+  }
+
+  /** Is the keyboard's WASD moving the bow right now (Head row, a bow on)? */
+  kbBow(st, c) { return c.kind === 'kb' && st.dressRow === DRESS_IDX.head && !!this.movable(st); }
+
+  updateDress(st, c, dt) {
+    const kbBow = this.kbBow(st, c);
+    if (kbBow) this.moveBow(st, c.x, c.y, dt);
+    else {
+      let mx = c.sx, my = c.sy;
+      if (Math.hypot(c.rx, c.ry) > Math.hypot(mx, my)) { mx = c.rx; my = c.ry; }
+      this.moveBow(st, mx, my, dt);
+      if (c.nav.y) { st.dressRow = (st.dressRow + c.nav.y + DRESS_ROWS.length) % DRESS_ROWS.length; st.listBump = 0.15; sfx('move'); }
+      else if (c.nav.x) this.stepDress(st, c.nav.x, false);
+    }
+    const t2 = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
+    if (t2) this.stepDress(st, t2, true);
+    if (c.pressed('a') || c.pressed('x')) this.stepDress(st, 1, false);   // try the next one on
+    else if (c.pressed('b')) this.undoOne(st, 'Try things on!');
   }
 
   // --- 5 Name ----------------------------------------------------------------------
+  setNames(st, names, idx) { const P = st.plush; st.names = names; st.nameIdx = idx; P.name = names[idx]; }
+
   updateName(st, c) {
     const P = st.plush;
     const d = c.nav.x || c.nav.y;
-    if (d) { st.nameIdx = (st.nameIdx + d + st.names.length) % st.names.length; P.name = st.names[st.nameIdx]; st.listBump = 0.15; sfx('move'); }
-    if (c.pressed('x')) {
-      const used = this.usedNames(); used.delete(P.name);
-      st.names = nameIdeas(BODIES[P.body].id, used); st.nameIdx = 0; P.name = st.names[0];
-      st.listBump = 0.3; sfx('magic');
-      const s = this.plushScreen(st, F.cx, 120);
-      particles.burst(s.x, s.y, { type: 'star', count: 8 });
+    if (d) {
+      const was = [st.names, st.nameIdx, st.named];
+      this.pushUndo(st, () => { this.setNames(st, was[0], was[1]); st.named = was[2]; });
+      this.setNames(st, st.names, (st.nameIdx + d + st.names.length) % st.names.length);
+      st.named = true; st.listBump = 0.15; sfx('move');
     }
-    if (c.pressed('a')) {
-      P.name = st.names[st.nameIdx]; st.named = true;
-      sfx('correct'); st.wob = 1;
+    if (c.pressed('x') || c.pressed('a')) {   // new name ideas
+      const was = [st.names, st.nameIdx, st.named];
+      this.pushUndo(st, () => { this.setNames(st, was[0], was[1]); st.named = was[2]; });
+      const used = this.usedNames(); used.delete(P.name);
+      this.setNames(st, nameIdeas(BODIES[P.body].id, used), 0); st.named = true;
+      st.listBump = 0.3; sfx('magic'); st.wob = 0.8;
       const s = this.plushScreen(st, F.cx, 80);
-      particles.popText(s.x, s.y, P.name + '!', st.p.color, clamp(st.L.size * 0.12, 26, 52));
-      particles.burst(s.x, s.y + 40, { type: 'heart', count: 5 });
-      this.setTab(st, DONE);
-    } else if (c.pressed('b')) this.setTab(st, T.dress);
+      particles.burst(s.x, s.y, { type: 'star', count: 8 });
+      particles.popText(s.x, s.y, P.name + '!', st.p.color, clamp(st.L.size * 0.1, 24, 46));
+    } else if (c.pressed('b')) this.undoOne(st, 'Pick a name!');
   }
 
   setReady(st, on) {

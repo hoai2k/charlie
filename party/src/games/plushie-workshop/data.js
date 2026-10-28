@@ -69,6 +69,8 @@ export const SEW_ROWS = [
 ];
 export const SEW_IDX = Object.fromEntries(SEW_ROWS.map((r, i) => [r.id, i]));
 export const MAX_PIECES = 16;
+/** How long sewing one piece on takes (the needle's trip round its edge, s). */
+export const SEW_T = 0.7;
 
 // --- clothes ---------------------------------------------------------------------
 // Each item: art key (or atlas cell) + where it goes in the frame. `box`: [cx, cy, w]
