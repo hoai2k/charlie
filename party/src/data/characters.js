@@ -19,6 +19,8 @@
 //   facing   which way the base art looks: 1 right, -1 left, 0 front
 //   motion   procedural movement style used for the fallback animation:
 //            walk | trot | glide | bounce | clunk | hop | stomp
+//   wings    true: the character has wings of her own and can fly (Duckling
+//            Parade's fairies hover straight over the pond)
 
 export const CHARACTERS = [
   {
@@ -94,12 +96,12 @@ export const FELLOWFOX = {
 
 export const GLIMMER = {
   id: 'glimmer', name: 'Glimmer', color: '#7fe3d4', npc: true,
-  members: [{ asset: 'glimmer', h: 110, face: [0.46, 0.26, 0.17], top: 0.94, facing: 1, motion: 'glide' }],
+  members: [{ asset: 'glimmer', h: 110, face: [0.46, 0.26, 0.17], top: 0.94, facing: 1, motion: 'glide', wings: true }],
 };
 
 export const PROFESSOR_HOOT = {
   id: 'professor-hoot', name: 'Professor Hoot', color: '#7660ca', npc: true,
-  members: [{ asset: 'professor-hoot', h: 148, face: [0.44, 0.32, 0.20], top: 0.98, facing: 1, motion: 'hop' }],
+  members: [{ asset: 'professor-hoot', h: 148, face: [0.44, 0.32, 0.20], top: 0.98, facing: 1, motion: 'hop', wings: true }],
 };
 
 export const SHADOW_IMPS = [
@@ -108,7 +110,7 @@ export const SHADOW_IMPS = [
   ['shadow-imp-pink', 'Pink Shadow Imp', '#b94290'],
 ].map(([id, name, color]) => ({
   id, name, color, npc: true,
-  members: [{ asset: id, h: 100, face: [0.44, 0.25, 0.24], top: 0.97, facing: 1, motion: 'glide' }],
+  members: [{ asset: id, h: 100, face: [0.44, 0.25, 0.24], top: 0.97, facing: 1, motion: 'glide', wings: true }],
 }));
 
 export const SHADOW_IMP = SHADOW_IMPS[0];
@@ -120,7 +122,7 @@ export const GARDEN_FAIRIES = [
   ['purple', 'Violet', '#a96bf0'],
 ].map(([variant, flower, color]) => ({
   id: `garden-fairy-${variant}`, name: `${flower} Fairy`, color, npc: true,
-  members: [{ asset: `garden-fairy-${variant}`, h: 54, face: [0.35, 0.41, 0.21], top: 0.98, facing: 1, motion: 'glide' }],
+  members: [{ asset: `garden-fairy-${variant}`, h: 54, face: [0.35, 0.41, 0.21], top: 0.98, facing: 1, motion: 'glide', wings: true }],
 }));
 
 // Molly Party is played as the fairies: the same sprites as Glimmer and the
