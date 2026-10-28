@@ -81,6 +81,7 @@ import { meta as m73 } from './beach-ball-soccer.meta.js';
 import { meta as m74 } from './gopher-garden.meta.js';
 import { meta as m75 } from './gingerbread-house.meta.js';
 import { meta as m76 } from './plushie-workshop.meta.js';
+import { meta as m77 } from './leaf-pile-leap.meta.js';
 
 const LOADERS = {
   'sprinkle-catch': () => import('./sprinkle-catch.js'),
@@ -160,9 +161,10 @@ const LOADERS = {
   'gopher-garden': () => import('./gopher-garden.js'),
   'gingerbread-house': () => import('./gingerbread-house.js'),
   'plushie-workshop': () => import('./plushie-workshop.js'),
+  'leaf-pile-leap': () => import('./leaf-pile-leap.js'),
 };
 
-export const GAMES = [m0, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27, m28, m29, m30, m31, m32, m33, m34, m35, m36, m37, m38, m39, m40, m41, m42, m43, m44, m45, m46, m47, m48, m49, m50, m51, m52, m53, m54, m55, m56, m57, m58, m59, m60, m61, m62, m63, m64, m65, m66, m67, m68, m69, m70, m71, m72, m73, m74, m75, m76].map((m) => ({ ...m }));
+export const GAMES = [m0, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27, m28, m29, m30, m31, m32, m33, m34, m35, m36, m37, m38, m39, m40, m41, m42, m43, m44, m45, m46, m47, m48, m49, m50, m51, m52, m53, m54, m55, m56, m57, m58, m59, m60, m61, m62, m63, m64, m65, m66, m67, m68, m69, m70, m71, m72, m73, m74, m75, m76, m77].map((m) => ({ ...m }));
 export const PARTY_GAMES = GAMES.filter((g) => g.category === 'party');
 export const STUDIO_GAMES = GAMES.filter((g) => g.category === 'studio');
 // Party Games shows 11 games at a time; the 12th tile is "More Games", which
