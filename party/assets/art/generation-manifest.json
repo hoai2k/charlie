@@ -40565,6 +40565,58 @@
       "height": 640,
       "bytes": 73668,
       "intake": "party/reference/pending/OCT27-DANCE-ALONG.json"
+    },
+    {
+      "key": "bg/gopher-garden",
+      "prompt": "Use case: illustration-story. Asset type: opaque 1920x1080 background for Charlie Party Gopher Gardens. Style reference: attached rubber boot establishes smooth navy #24163f outlines, clean soft cel shading, bright candy colours, flat 2D game illustration. No 3D, no photorealism. A cheerful sunny back garden viewed from high three-quarter angle looking down at lawn: soft blue sky with two puffy clouds, neat green hedge across the back with a white picket gate, tulip and daisy beds, little red wheelbarrow and watering can at extreme far left, birdbath and sunflower patch at extreme far right. Layout: sky/hedge/flowers ONLY in upper band y0-330; keep top130 calm for clock. Wide smooth gently striped mown green lawn from y340 all the way to bottom, especially x200-1720 y380-1040 must be plain low contrast empty grass for gameplay. No holes, no animals, no characters. No text, shadows, sparkles, stars, motion lines, dust, UI, borders.",
+      "source": "/Users/hoai/.codex/generated_images/01a18324-1dcc-7670-89f8-38a41a38535b/exec-49771d99-3f27-46ba-a7c9-ee745076349c.png",
+      "archive": "party/reference/sources/oct28-gopher-props/bg-gopher-garden-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 120390,
+      "intake": "party/reference/pending/OCT28-GOPHER-PROPS.json"
+    },
+    {
+      "key": "prop/gopher-hole",
+      "prompt": "Use case: illustration-story. Asset type: ONE transparent 2D game prop, Gopher Gardens burrow mound. Style reference rubber boot: smooth navy #24163f outlines, clean soft cel shading, bright candy colours. No3D no photorealism. Wide 2:1 canvas nominal320x160 (higher resolution same proportions permitted). Small round warm brown crumbly dirt mound viewed high three-quarter, with dark deep soft brown-black oval opening at exact nominal centre(160,78), opening about170x64: left75,right245,top46,bottom110. Mound silhouette stays inside x8-312,y20-150. A few pebbles and two tiny grass tufts on the far side, restrained detail. The opening must have a clear elliptical edge so a matching foreground lip can be cropped exactly from this image. Completely genuine transparent background outside mound. No creatures, no text, no baked shadows, sparkles, stars, motion lines, dust, checkerboard or separate ground plane.",
+      "source": "/Users/hoai/.codex/generated_images/01a18324-1dcc-7670-89f8-38a41a38535b/exec-ccc6d79e-9329-46fc-b82d-490f3fdc2823.png",
+      "archive": "party/reference/sources/oct28-gopher-props/prop-gopher-hole-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 36422,
+      "intake": "party/reference/pending/OCT28-GOPHER-PROPS.json"
+    },
+    {
+      "key": "prop/gopher-mallet",
+      "prompt": "Use case: illustration-story. Asset type: single transparent horizontal soft squeaky toy mallet game prop for kids. Style reference attached rubber boot: flat 2D, smooth navy #24163f outlines, clean soft cel shading, candy colours; no3D, no photorealism. Wide 480x200 proportion canvas. Handle on LEFT along y100, yellow round knob near x30,y100. Short striped candy pink and white handle extends x40-350, hand grip at exactly nominal(96,100). Big chunky barrel-shaped squishy pastel pink rubber head at RIGHT centred around (390,100), white rounded end caps at top and bottom, a small yellow star emblem on side. Head approx x330-460,y22-178, complete silhouette with safe margins. Bouncy harmless toy, no real hammer. Transparent background. No hand, no character, no text, no baked cast shadow, sparkles, motion lines, dust or ground.",
+      "source": "/Users/hoai/.codex/generated_images/01a18324-1dcc-7670-89f8-38a41a38535b/exec-b13f5260-fae5-42f9-bf21-281441cc4566.png",
+      "archive": "party/reference/sources/oct28-gopher-props/prop-gopher-mallet-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 15578,
+      "intake": "party/reference/pending/OCT28-GOPHER-PROPS.json"
+    },
+    {
+      "key": "prop/gopher-troll-up",
+      "prompt": "Use case: illustration-story. Asset type: one transparent waist-up Gopher Gardens troll sprite, nominal400x400 square. Reference image is the approved Troll canonical: preserve his exact olive yellow green spotted skin, long shaggy dark brown hair, heavy dark eyebrows, yellow eyes, large broad nose, tusks, huge hands, brown ragged waist tunic. Change only pose and expression: popping up from a burrow waist up, facing viewer, both big hands low at left and right as if holding the hole rim (do NOT draw the hole or rim), huge mischievous toothy grin, eyebrows waggling, cheeky never scary. Body cut flat at canvas bottom, bottom centre anchor(200,400). Whole hair/head and hands within canvas; head centred x200. House style: flat 2D, smooth navy #24163f outlines, clean soft cel shading, no3D no photorealism. Transparent background. No mallet, no scenery, no text, no stars, sparkles, shadows, motion lines or effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a18324-1dcc-7670-89f8-38a41a38535b/exec-47970323-2585-4736-9f7a-0ea2dd8deb31.png",
+      "archive": "party/reference/sources/oct28-gopher-props/prop-gopher-troll-up-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 45586,
+      "intake": "party/reference/pending/OCT28-GOPHER-PROPS-TROLLS.json"
+    },
+    {
+      "key": "prop/gopher-troll-tug",
+      "prompt": "Use case: illustration-story. Asset type: one transparent Gopher Gardens troll waist-up sprite, 400x400 square nominal canvas. Reference image is approved Troll canonical. Preserve exact olive yellow green spotted skin, long shaggy dark brown hair, heavy dark eyebrows, yellow eyes, broad nose, tusks, huge hands, brown ragged tunic at waist. New pose: leaning backward toward image LEFT, facing three-quarter toward RIGHT, both arms reaching forward RIGHT, both closed fists together gripping an invisible mallet at nominal(300,170). Make combined fist grip centre exactly x300,y170 on400x400 canvas. Empty hands, NO mallet, NO object, NO hole. Cheeky playful grin tongue poking out, never scary. Head in upper-left around(150,105), torso descends to bottom-centre(200,400) and cut flat at canvas bottom; broad shoulders, arms and fists remain fully inside frame with safe margins. House style flat2D smooth navy #24163f outlines, clean soft cel shading; no3D no photorealism. Genuine transparent background. No text, no baked shadows, stars, sparkles, motion lines or effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a18324-1dcc-7670-89f8-38a41a38535b/exec-f5fe8aea-6b8b-4564-81e1-581572ff9c5f.png",
+      "archive": "party/reference/sources/oct28-gopher-props/prop-gopher-troll-tug-native.webp",
+      "tool": "built-in imagegen",
+      "bytes": 45088,
+      "intake": "party/reference/pending/OCT28-GOPHER-PROPS-TROLLS.json"
+    },
+    {
+      "key": "prop/gopher-hole-front",
+      "tool": "exact front-lip extraction of generated prop/gopher-hole; no repainting",
+      "source": "party/reference/sources/oct28-gopher-props/prop-gopher-hole-native.webp",
+      "intake": "party/reference/pending/OCT28-GOPHER-PROPS-LIP-TRACE.json",
+      "bytes": 35602
     }
   ]
 }

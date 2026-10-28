@@ -1309,7 +1309,13 @@
     "prop/oballet-teacher-cartwheel": "prop/oballet-teacher-cartwheel.webp",
     "prop/oballet-teacher-cancan": "prop/oballet-teacher-cancan.webp",
     "prop/oballet-teacher-splits": "prop/oballet-teacher-splits.webp",
-    "prop/oballet-teacher-moonwalk": "prop/oballet-teacher-moonwalk.webp"
+    "prop/oballet-teacher-moonwalk": "prop/oballet-teacher-moonwalk.webp",
+    "bg/gopher-garden": "bg/gopher-garden.webp",
+    "prop/gopher-hole": "prop/gopher-hole.webp",
+    "prop/gopher-hole-front": "prop/gopher-hole-front.webp",
+    "prop/gopher-mallet": "prop/gopher-mallet.webp",
+    "prop/gopher-troll-up": "prop/gopher-troll-up.webp",
+    "prop/gopher-troll-tug": "prop/gopher-troll-tug.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -2122,6 +2128,14 @@
       "prop/whoopee-guest-pig-laugh",
       "prop/whoopee-guest-kitty-laugh",
       "prop/whoopee-duchess-laugh"
+    ],
+    "gopher-garden": [
+      "bg/gopher-garden",
+      "prop/gopher-hole",
+      "prop/gopher-hole-front",
+      "prop/gopher-mallet",
+      "prop/gopher-troll-up",
+      "prop/gopher-troll-tug"
     ]
   }
 }

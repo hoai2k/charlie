@@ -1,0 +1,23 @@
+{
+  "status": "reviewed-native-and-runtime-ready-for-root-integration",
+  "entries": [
+    {
+      "key": "prop/gopher-troll-up",
+      "prompt": "Use case: illustration-story. Asset type: one transparent waist-up Gopher Gardens troll sprite, nominal400x400 square. Reference image is the approved Troll canonical: preserve his exact olive yellow green spotted skin, long shaggy dark brown hair, heavy dark eyebrows, yellow eyes, large broad nose, tusks, huge hands, brown ragged waist tunic. Change only pose and expression: popping up from a burrow waist up, facing viewer, both big hands low at left and right as if holding the hole rim (do NOT draw the hole or rim), huge mischievous toothy grin, eyebrows waggling, cheeky never scary. Body cut flat at canvas bottom, bottom centre anchor(200,400). Whole hair/head and hands within canvas; head centred x200. House style: flat 2D, smooth navy #24163f outlines, clean soft cel shading, no3D no photorealism. Transparent background. No mallet, no scenery, no text, no stars, sparkles, shadows, motion lines or effects.",
+      "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18324-1dcc-7670-89f8-38a41a38535b as /Users/hoai/.codex/generated_images/01a18324-1dcc-7670-89f8-38a41a38535b/exec-47970323-2585-4736-9f7a-0ea2dd8deb31.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "tool": "image_gen.imagegen",
+      "references": [
+        "party/reference/canonical/troll.webp"
+      ]
+    },
+    {
+      "key": "prop/gopher-troll-tug",
+      "prompt": "Use case: illustration-story. Asset type: one transparent Gopher Gardens troll waist-up sprite, 400x400 square nominal canvas. Reference image is approved Troll canonical. Preserve exact olive yellow green spotted skin, long shaggy dark brown hair, heavy dark eyebrows, yellow eyes, broad nose, tusks, huge hands, brown ragged tunic at waist. New pose: leaning backward toward image LEFT, facing three-quarter toward RIGHT, both arms reaching forward RIGHT, both closed fists together gripping an invisible mallet at nominal(300,170). Make combined fist grip centre exactly x300,y170 on400x400 canvas. Empty hands, NO mallet, NO object, NO hole. Cheeky playful grin tongue poking out, never scary. Head in upper-left around(150,105), torso descends to bottom-centre(200,400) and cut flat at canvas bottom; broad shoulders, arms and fists remain fully inside frame with safe margins. House style flat2D smooth navy #24163f outlines, clean soft cel shading; no3D no photorealism. Genuine transparent background. No text, no baked shadows, stars, sparkles, motion lines or effects.",
+      "output_hint": "Generated images are saved to /Users/hoai/.codex/generated_images/01a18324-1dcc-7670-89f8-38a41a38535b as /Users/hoai/.codex/generated_images/01a18324-1dcc-7670-89f8-38a41a38535b/exec-f5fe8aea-6b8b-4564-81e1-581572ff9c5f.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "tool": "image_gen.imagegen",
+      "references": [
+        "party/reference/canonical/troll.webp"
+      ]
+    }
+  ]
+}
