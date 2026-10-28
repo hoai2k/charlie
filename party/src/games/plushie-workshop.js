@@ -1,7 +1,8 @@
 // Plushie Workshop (Play Studio, everyone wins). Every player has a station on
 // a sewing-workshop table and makes a plushie. It's a design game, so the steps (the
-// category tabs, LB / RB; the last tab is Done) are not a progression: on every step A
-// does the step's action exactly like X and you stay on the step. B undoes one thing.
+// category tabs, LB / RB; the last tab is Done) are not a progression: on every step but
+// Dress, A does the step's action exactly like X and you stay on the step (on Dress, A puts
+// the row's item on and moves on to the next row). B undoes one thing.
 //   1 Body   - d-pad left / right: the body; up / down: the fabric. A / X: a squeeze.
 //   2 Stuff  - hold (or tap) A or X to puff stuffing in: the flat empty skin plumps up
 //              to fluffy, with a squeak when it's full (then A / X squeeze it).
@@ -13,10 +14,14 @@
 //              goes on stitch by stitch and the piece pops into place (~0.7 s; a press
 //              meanwhile waits its turn, the stick waits). A face piece replaces the
 //              old one, then the next face row comes up. B unpicks the newest one.
-//   4 Dress  - d-pad up / down: Head, Neck, Hug, Back; left / right: try things on;
-//              A / X: try the next one on. A bow goes where the left stick puts it
-//              (on the head or ears; keyboard: WASD while the Head row has a bow on,
-//              LT / RT then pick). Hug: something held to the tummy in the plush's paws.
+//   4 Dress  - left stick / d-pad up / down: Head, Neck, Hug, Back; left / right: try
+//              things on (X: the next one; LT / RT walk every item). The right stick moves
+//              the current row's item, each within its own limits (data.js moveRule: head
+//              things on the head or ears, neck things by the neck, hug things round the
+//              tummy and paws, back things behind the shoulders); each item keeps its own
+//              spot. A puts it on and goes on to the next row (Back wraps round to Head).
+//              Keyboard (no right stick): WASD moves the current item while it can move;
+//              X or 1 / 3 then pick, A goes on. Hug: something held in the plush's paws.
 //   5 Name   - d-pad: pick a name idea; A / X: new ideas (the name generator).
 // On Done, A = "my plushie is ready" (B: not yet). The clock (always shown) asks
 // "Hug time!" at 0: Go! (default) or Stay in the workshop (+1 min).
@@ -37,7 +42,7 @@ import { art } from '../engine/art.js';
 import { aiProfile } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 import { drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
-import { NAVY, CW, CH, F, BODIES, FABRICS, FABRIC_IDX, SEW_ROWS, SEW_IDX, MAX_PIECES, DRESS_ROWS, DRESS_IDX, SEW_T, BOW_MIN_Y, BOW_MAX_Y, bowHome, nameIdeas } from './plushie-workshop/data.js';
+import { NAVY, CW, CH, F, BODIES, FABRICS, FABRIC_IDX, SEW_ROWS, SEW_IDX, MAX_PIECES, DRESS_ROWS, DRESS_IDX, SEW_T, moveRule, posKey, nameIdeas } from './plushie-workshop/data.js';
 import { drawPlush, drawPiece, drawClothes, drawFluff, drawNeedle, onPlush, pieceRadius, stitchPath, toScreen, heartPath, starPath, mix, drawSwatch, clearPlushCaches } from './plushie-workshop/plush.js';
 import { meta } from './plushie-workshop.meta.js';
 
@@ -51,7 +56,50 @@ const DONE = TABS.length;
 const T = Object.fromEntries(TABS.map((t, i) => [t.id, i]));
 const WORK_TIME = 240, WORK_MORE = 60;
 const HUG_T = 5.6, HUG_T_PLAY = 11;   // the hugs (longer with people walking about), then the toy shelf
+// The toy shelf remembers the plushies made on this device (people's only, not the CPUs'):
+// the newest SHELF_MAX, the oldest bumped off; they're already sitting there next time.
+const SHELF_KEY = 'charlie-party-plushie-shelf', SHELF_MAX = 12;   // (two boards of 6)
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
+
+/** A finished plushie as plain data for the shelf memory. */
+function packPlush(P, color) {
+  const pos = {};
+  P.dress.forEach((idx, row) => { const o = P.pos && P.pos[posKey(row, idx)]; if (idx && o) pos[posKey(row, idx)] = { dx: Math.round(o.dx), dy: Math.round(o.dy) }; });
+  return {
+    body: BODIES[P.body].id, fabric: FABRICS[P.fabric].id, name: String(P.name || '').slice(0, 20), color,
+    pieces: P.pieces.map((pc) => [pc.row, pc.i, Math.round(pc.x), Math.round(pc.y)]), dress: [...P.dress], pos,
+  };
+}
+
+/** Back from storage (checked: anything odd is dropped rather than drawn). */
+function unpackPlush(d) {
+  if (!d || typeof d !== 'object') return null;
+  const body = BODIES.findIndex((b) => b.id === d.body), fabric = FABRIC_IDX[d.fabric];
+  if (body < 0 || fabric == null) return null;
+  const num = (v) => typeof v === 'number' && Number.isFinite(v);
+  const pieces = (Array.isArray(d.pieces) ? d.pieces : []).slice(0, MAX_PIECES + 3)
+    .filter((q) => Array.isArray(q) && q.every(num) && SEW_ROWS[q[0]] && q[1] >= 0 && q[1] < SEW_ROWS[q[0]].items.length)
+    .map(([row, i, x, y]) => ({ row, i, x: clamp(x, 0, CW), y: clamp(y, 0, CH), st: 9 }));
+  const dress = DRESS_ROWS.map((R, row) => { const v = Array.isArray(d.dress) ? d.dress[row] : 0; return Number.isInteger(v) && v >= 0 && v < R.items.length ? v : 0; });
+  const pos = {};
+  for (const [k, o] of Object.entries(d.pos && typeof d.pos === 'object' ? d.pos : {})) {
+    const [row, idx] = k.split(':').map(Number), rule = moveRule(row, idx);
+    if (rule && dress[row] === idx && o && num(o.dx) && num(o.dy)) pos[k] = { dx: clamp(o.dx, rule.lim[0], rule.lim[1]), dy: clamp(o.dy, rule.lim[2], rule.lim[3]) };
+  }
+  const color = typeof d.color === 'string' && /^#[0-9a-f]{3,8}$/i.test(d.color) ? d.color : '#ff6fb1';
+  const name = typeof d.name === 'string' && d.name ? d.name.slice(0, 20) : 'Snuggles';
+  return { body, fabric, puff: 1, pieces, dress, pos, name, color };
+}
+
+function loadShelf() {
+  try {
+    const list = JSON.parse(localStorage.getItem(SHELF_KEY) || '[]');
+    return Array.isArray(list) ? list.slice(-SHELF_MAX) : [];
+  } catch (e) { return []; }   // storage blocked or garbled
+}
+function saveShelf(list) {
+  try { localStorage.setItem(SHELF_KEY, JSON.stringify(list.slice(-SHELF_MAX))); } catch (e) { /* storage blocked or full */ }
+}
 
 /** Split-screen station rects: 1 = big centre, 2 = halves, 3-4 = quadrants, 5-8 = 4 x 2. */
 function stationRects(n) {
@@ -108,8 +156,8 @@ export class Game {
     const L = layoutStation(r, this.n);
     const st = {
       p, i, r, L, tab: 0, ready: false, readyT: 0, tabBump: 0, listBump: 0,
-      plush: { body, fabric: FABRIC_IDX[BODIES[body].fabric], puff: 0, pieces: [], dress: [0, 0, 0, 0], bow: null, name: null },
-      sewRow: 0, sewItem: SEW_ROWS.map(() => 0), dressRow: 0, undo: [], sewAnim: null, sewQ: false, bowMoving: false,
+      plush: { body, fabric: FABRIC_IDX[BODIES[body].fabric], puff: 0, pieces: [], dress: [0, 0, 0, 0], pos: {}, name: null },
+      sewRow: 0, sewItem: SEW_ROWS.map(() => 0), dressRow: 0, undo: [], sewAnim: null, sewQ: false, moving: null, kbArmed: false,
       names: [], nameIdx: 0, named: false,
       cur: { x: F.cx, y: F.eyeY },
       wob: 0, shift: 0, full: false, fluff: [], fluffT: 0, crankT: 0, squeakT: 0,
@@ -169,7 +217,7 @@ export class Game {
     if (body !== P.body) {
       P.body = body;
       if (!st.named) { st.names = nameIdeas(BODIES[P.body].id, this.usedNames()); st.nameIdx = 0; if (P.name) P.name = st.names[0]; }
-      this.fitBow(st);
+      this.fitDress(st);
     }
     P.fabric = fabric;
   }
@@ -352,47 +400,73 @@ export class Game {
   }
 
   // --- 4 Dress -------------------------------------------------------------------
-  /** The worn head item, if it's one the player can move (a bow). */
-  movable(st) { const it = DRESS_ROWS[DRESS_IDX.head].items[st.plush.dress[DRESS_IDX.head]]; return it && it.move ? it : null; }
+  // Up / down (left stick or d-pad): the row; left / right: try things on. The right stick moves
+  // the current row's item only (each item keeps its own spot: P.pos, data.js moveRule). A puts
+  // it on and goes on to the next row (from Back round to Head again); X tries the next one on.
+  /** The rule for moving the current row's worn item (null: it stays put). */
+  moveRuleNow(st) { return moveRule(st.dressRow, st.plush.dress[st.dressRow]); }
 
-  /** Is (x, y) a good spot for a bow: on the head or ears? */
-  bowOk(st, x, y) { return y >= BOW_MIN_Y && y <= BOW_MAX_Y && onPlush(st.plush.body, x, y); }
-
-  /** Keep the bow on the plush (a new body or bow): back towards its own spot, then the head's middle. */
-  fitBow(st) {
-    const P = st.plush, it = this.movable(st);
-    if (!it) return;
-    const b = P.bow || bowHome(it);
-    if (this.bowOk(st, b.x, b.y)) { P.bow = { x: b.x, y: b.y }; return; }
-    const h = bowHome(it), tries = [h, ...Array.from({ length: 12 }, (_, k) => ({ x: lerp(h.x, F.cx, (k + 1) / 12), y: lerp(h.y, F.head.y - 40, (k + 1) / 12) }))];
-    P.bow = { ...(tries.find((q) => this.bowOk(st, q.x, q.y)) || { x: F.cx, y: F.head.y - 60 }) };
+  /** Is (x, y) a good spot for this item (inside its box; head items on the head or ears)? */
+  spotOk(st, rule, x, y) {
+    const [x0, x1, y0, y1] = rule.lim, dx = x - rule.home.x, dy = y - rule.home.y;
+    if (dx < x0 || dx > x1 || dy < y0 || dy > y1) return false;
+    if (rule.y && (y < rule.y[0] || y > rule.y[1])) return false;
+    return !rule.on || onPlush(st.plush.body, x, y + (rule.onDY || 0));
   }
 
-  /** Move the bow (stick or WASD), sliding along the head's edge rather than stopping dead. */
-  moveBow(st, mx, my, dt) {
-    const P = st.plush, it = this.movable(st);
-    if (!it) return;
-    const on = Math.hypot(mx, my) > 0.2;
-    if (!on) { st.bowMoving = false; return; }
-    if (!P.bow) this.fitBow(st);
-    if (!st.bowMoving) { st.bowMoving = true; const was = { ...P.bow }; this.pushUndo(st, () => { P.bow = was; }); }
-    const sp = 300 * dt, nx = P.bow.x + mx * sp, ny = P.bow.y + my * sp;
-    if (this.bowOk(st, nx, ny)) { P.bow.x = nx; P.bow.y = ny; }
-    else if (this.bowOk(st, nx, P.bow.y)) P.bow.x = nx;
-    else if (this.bowOk(st, P.bow.x, ny)) P.bow.y = ny;
-    st.bowT = (st.bowT || 0) + dt;
-    if (st.bowT > 0.12) { st.bowT = 0; const s = this.plushScreen(st, P.bow.x, P.bow.y); particles.burst(s.x, s.y, { type: 'sparkle', count: 1, colors: ['#ffffff', '#fff6a8'] }); }
+  /** Keep a worn item on the plush (a new body or item): back towards its home, then the head's middle. */
+  fitItem(st, row) {
+    const P = st.plush, idx = P.dress[row], rule = moveRule(row, idx);
+    if (!rule || !rule.on) return;
+    const key = posKey(row, idx), o = P.pos[key] || { dx: 0, dy: 0 }, h = rule.home;
+    if (this.spotOk(st, rule, h.x + o.dx, h.y + o.dy)) return;
+    const tries = [];
+    for (let k = 1; k <= 12; k++) tries.push({ dx: o.dx * (1 - k / 12), dy: o.dy * (1 - k / 12) });
+    for (let k = 1; k <= 12; k++) tries.push({ dx: (F.cx - h.x) * k / 12, dy: (F.head.y - 40 - h.y) * k / 12 });
+    const ok = tries.find((q) => this.spotOk(st, rule, h.x + q.dx, h.y + q.dy));
+    if (ok && (ok.dx || ok.dy)) P.pos[key] = { dx: ok.dx, dy: ok.dy };
+    else delete P.pos[key];
+  }
+  fitDress(st) { for (let row = 0; row < DRESS_ROWS.length; row++) this.fitItem(st, row); }
+
+  /** Move the current row's item (right stick; WASD on a keyboard), sliding along its edge rather than stopping dead. */
+  moveItem(st, mx, my, dt) {
+    const P = st.plush, row = st.dressRow, idx = P.dress[row], rule = moveRule(row, idx);
+    if (!rule || Math.hypot(mx, my) <= 0.2) { st.moving = null; return; }
+    const key = posKey(row, idx);
+    if (st.moving !== key) {   // one undo per push of the stick
+      st.moving = key;
+      this.fitItem(st, row);
+      const was = P.pos[key] ? { ...P.pos[key] } : null;
+      this.pushUndo(st, () => { if (was) P.pos[key] = was; else delete P.pos[key]; });
+    }
+    const o = P.pos[key] || { dx: 0, dy: 0 }, h = rule.home, sp = 300 * dt;
+    const x = h.x + o.dx, y = h.y + o.dy, nx = x + mx * sp, ny = y + my * sp;
+    let to = null;
+    if (this.spotOk(st, rule, nx, ny)) to = [nx, ny];
+    else if (this.spotOk(st, rule, nx, y)) to = [nx, y];
+    else if (this.spotOk(st, rule, x, ny)) to = [x, ny];
+    if (to) P.pos[key] = { dx: to[0] - h.x, dy: to[1] - h.y };
+    st.moveT = (st.moveT || 0) + dt;
+    if (st.moveT > 0.12) { st.moveT = 0; const q = P.pos[key] || o, s = this.plushScreen(st, h.x + q.dx, h.y + q.dy); particles.burst(s.x, s.y, { type: 'sparkle', count: 1, colors: ['#ffffff', '#fff6a8'] }); }
+  }
+
+  /** Where the row's item is (frame px), for sparkles. */
+  dressSpot(st, row) {
+    const idx = st.plush.dress[row], rule = moveRule(row, idx);
+    if (!rule) return { x: F.cx, y: [F.headTop + 10, F.neck.y, F.tummy.y, F.back.y][row] };
+    const o = st.plush.pos[posKey(row, idx)] || { dx: 0, dy: 0 };
+    return { x: rule.home.x + o.dx, y: rule.home.y + o.dy };
   }
 
   setDress(st, row, item) {
     const d = st.plush.dress, was = d[row];
     if (was === item) return;
-    this.pushUndo(st, () => { d[row] = was; this.fitBow(st); });
-    d[row] = item;
-    if (row === DRESS_IDX.head) this.fitBow(st);
+    this.pushUndo(st, () => { d[row] = was; this.fitItem(st, row); });
+    d[row] = item; st.moving = null;
+    this.fitItem(st, row);
     st.listBump = 0.15; st.wob = 0.6;
-    const spot = [F.headTop + 10, F.neck.y, F.tummy.y, F.back.y][row];
-    const s = this.plushScreen(st, F.cx, spot);
+    const sp = this.dressSpot(st, row), s = this.plushScreen(st, sp.x, sp.y);
     if (item) { sfx('swap'); particles.burst(s.x, s.y, { type: 'sparkle', count: 8, colors: ['#ffffff', '#ffc8f0', '#fff6a8'] }); }
     else { sfx('whoosh'); particles.burst(s.x, s.y, { type: 'dust', count: 5 }); }
   }
@@ -407,22 +481,40 @@ export class Game {
     this.setDress(st, row, (i + DRESS_ROWS[row].items.length) % DRESS_ROWS[row].items.length);
   }
 
-  /** Is the keyboard's WASD moving the bow right now (Head row, a bow on)? */
-  kbBow(st, c) { return c.kind === 'kb' && st.dressRow === DRESS_IDX.head && !!this.movable(st); }
+  dressRowTo(st, row) {
+    st.dressRow = (row + DRESS_ROWS.length) % DRESS_ROWS.length;
+    st.moving = null; st.listBump = 0.15; sfx('move');
+  }
+
+  /** A: what's on this row stays on (a little sparkle), and on to the next row (Back wraps round to Head). */
+  putOn(st) {
+    const row = st.dressRow;
+    if (st.plush.dress[row]) {
+      const sp = this.dressSpot(st, row), s = this.plushScreen(st, sp.x, sp.y);
+      particles.burst(s.x, s.y, { type: 'sparkle', count: 10, colors: ['#ffffff', '#fff6a8', st.p.color] });
+      sfx('collect', { step: row * 2 }); st.wob = Math.max(st.wob, 0.5);
+    }
+    this.dressRowTo(st, row + 1);
+  }
+
+  /** Keyboard (no right stick): WASD moves the current row's item while it can move; X or 1 / 3 then pick, A goes on. */
+  kbMove(st, c) { return c.kind === 'kb' && !!this.moveRuleNow(st); }
 
   updateDress(st, c, dt) {
-    const kbBow = this.kbBow(st, c);
-    if (kbBow) this.moveBow(st, c.x, c.y, dt);
-    else {
-      let mx = c.sx, my = c.sy;
-      if (Math.hypot(c.rx, c.ry) > Math.hypot(mx, my)) { mx = c.rx; my = c.ry; }
-      this.moveBow(st, mx, my, dt);
-      if (c.nav.y) { st.dressRow = (st.dressRow + c.nav.y + DRESS_ROWS.length) % DRESS_ROWS.length; st.listBump = 0.15; sfx('move'); }
+    if (this.kbMove(st, c)) {
+      // (a key still down from picking the item doesn't push it: let go first)
+      if (!st.kbArmed) { st.kbArmed = Math.hypot(c.x, c.y) < 0.2; st.moving = null; }
+      else this.moveItem(st, c.x, c.y, dt);
+    } else {
+      st.kbArmed = false;
+      this.moveItem(st, c.rx, c.ry, dt);   // the right stick: the current row's item, nothing else
+      if (c.nav.y) this.dressRowTo(st, st.dressRow + c.nav.y);
       else if (c.nav.x) this.stepDress(st, c.nav.x, false);
     }
     const t2 = (c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0);
     if (t2) this.stepDress(st, t2, true);
-    if (c.pressed('a') || c.pressed('x')) this.stepDress(st, 1, false);   // try the next one on
+    if (c.pressed('a')) this.putOn(st);
+    else if (c.pressed('x')) this.stepDress(st, 1, false);   // try the next one on
     else if (c.pressed('b')) this.undoOne(st, 'Try things on!');
   }
 
@@ -510,13 +602,13 @@ export class Game {
     for (const id of ['eyes', 'nose', 'mouth']) { const row = SEW_IDX[id], a = SEW_ROWS[row].at(); pl.sew.push({ row, i: randInt(0, 7), x: a.x + rand(-6, 6), y: a.y + rand(-6, 6) }); }
     const spots = shuffle([[256, 425], [205, 455], [310, 400], [256, 120], [185, 395], [330, 470]]);
     for (let k = randInt(1, 3); k > 0; k--) { const [x, y] = spots.pop(); pl.sew.push({ row: chance(0.5) ? SEW_IDX.heart : SEW_IDX.patch, i: randInt(0, 7), x: x + rand(-8, 8), y: y + rand(-8, 8) }); }
-    for (const row of shuffle([0, 1, 2, 3]).slice(0, randInt(1, 3)).sort()) pl.dress.push({ row, item: randInt(1, DRESS_ROWS[row].items.length - 1), bow: chance(0.6) ? rand(-1, 1) : 0 });
+    for (const row of shuffle([0, 1, 2, 3]).slice(0, randInt(1, 3)).sort()) pl.dress.push({ row, item: randInt(1, DRESS_ROWS[row].items.length - 1), mv: chance(0.6) ? [rand(-1, 1), rand(-0.7, 0.5)] : null });
     st.ai = { plan: pl, t: rand(0.8, 1.6), sewK: 0, dressK: 0, browsed: 0, renamed: false };
   }
 
   updateAI(st, dt) {
     const c = st.p.ctrl, ai = st.ai, pl = ai.plan, P = st.plush;
-    if (st.aiStick > 0) { st.aiStick -= dt; if (st.aiStick <= 0) c.move(0, 0); }
+    if (st.aiStick > 0) { st.aiStick -= dt; if (st.aiStick <= 0) { c.move(0, 0); c.aim(0, 0); } }
     if (st.ready) return;
     const hurry = !this.cpuOnly && this.stations.every((s) => s.ready || s.p.isAI);
     // stuffing and the needle are continuous; everything else is a press now and then
@@ -558,10 +650,10 @@ export class Game {
         const goal = pl.dress[ai.dressK];
         if (!goal) { c.press('rb'); break; }
         if (st.dressRow !== goal.row) c.press(goal.row > st.dressRow ? 'down' : 'up');
-        else if (P.dress[goal.row] !== goal.item) c.press(chance(0.3) ? 'a' : 'right');
-        else if (goal.bow && this.movable(st) && !goal.moved) {   // nudge the bow somewhere else on the head
-          goal.moved = true; c.move(goal.bow, rand(-0.6, 0.4)); st.aiStick = rand(0.2, 0.45);
-        } else { ai.dressK++; if (chance(0.5)) st.wob = 0.6; }
+        else if (P.dress[goal.row] !== goal.item) c.press(chance(0.3) ? 'x' : 'right');
+        else if (goal.mv && this.moveRuleNow(st) && !goal.moved) {   // move it about a bit (the right stick)
+          goal.moved = true; c.aim(goal.mv[0], goal.mv[1]); st.aiStick = rand(0.2, 0.45); ai.t += st.aiStick + 0.1;
+        } else { ai.dressK++; c.press('a'); }   // put it on, on to the next row
         break;
       }
       case T.name:
@@ -590,7 +682,7 @@ export class Game {
   startFinale() {
     if (this.phase !== 'work') return;
     this.phase = 'hug'; this.phaseT = 0;
-    for (const p of this.players) if (p.isAI) { p.ctrl.hold('x', false); p.ctrl.move(0, 0); }
+    for (const p of this.players) if (p.isAI) { p.ctrl.hold('x', false); p.ctrl.move(0, 0); p.ctrl.aim(0, 0); }
     const n = this.n, spacing = Math.min(340, (W - 160) / n);
     const targetH = n <= 3 ? 500 : n <= 5 ? 360 : 270;
     this.stations.forEach((st, i) => {
@@ -621,24 +713,42 @@ export class Game {
     g.restore();
   }
 
-  shelfLayout() {
-    const n = this.n, rows = n <= 4 ? [n] : [Math.ceil(n / 2), Math.floor(n / 2)];
-    const boards = n <= 4 ? [760] : [430, 760];
-    const size = n === 1 ? 420 : n <= 4 ? 330 : 280;
-    const out = [];
-    rows.forEach((cnt, ri) => {
-      const sp = 1260 / cnt;
-      for (let k = 0; k < cnt; k++) out.push({ x: 330 + sp * (k + 0.5), y: boards[ri], size, tagW: Math.min(220, sp * 0.8) });
-    });
-    return out;
+  /**
+   * Shelf spots for n new plushies and m older ones: one board up to 4, else both (the front,
+   * lower board first for the new ones; the older ones fill the top board, then any room left
+   * below, at the ends of a row: the new ones in the middle).
+   */
+  shelfLayout(n, m) {
+    const T = n + m, rows = T <= 4 ? [{ y: 760, cnt: T }] : [{ y: 760, cnt: T - Math.floor(T / 2) }, { y: 430, cnt: Math.floor(T / 2) }];
+    const news = [], olds = [];
+    let nl = n;
+    for (const R of rows) { R.n = Math.min(nl, R.cnt); R.m = R.cnt - R.n; nl -= R.n; }   // new ones in front first
+    for (const R of rows) {
+      const sp = 1260 / R.cnt;
+      const size = rows.length === 1 ? (R.cnt === 1 ? 420 : 330) : Math.min(280, sp * 1.1);
+      const left = Math.floor(R.m / 2), spot = (k) => ({ x: 330 + sp * (k + 0.5), y: R.y, size, tagW: Math.min(220, sp * 0.8) });
+      for (let k = 0; k < R.cnt; k++) {
+        if (k < left || k >= left + R.n) olds.push({ ...spot(k), size: size * 0.86, tagW: Math.min(220, sp * 0.8) * 0.86 });
+        else news.push(spot(k));
+      }
+    }
+    return { news, olds };
   }
 
   startShelf() {
     if (this.phase === 'shelf') return;
     this.phase = 'shelf'; this.phaseT = 0;
-    const spots = this.shelfLayout();
+    // the shelf memory: earlier plushies (this device) sit there already; people's new ones join it
+    const stored = loadShelf(), room = Math.max(0, SHELF_MAX - this.n);
+    const olds = room ? stored.map(unpackPlush).filter(Boolean).slice(-room) : [];
+    if (!this.cpuOnly) {
+      const mine = this.stations.filter((st) => !st.p.isAI).map((st) => packPlush(st.plush, st.p.color));
+      saveShelf([...stored, ...mine]);
+    }
+    const { news, olds: oldSpots } = this.shelfLayout(this.n, olds.length);
+    this.oldShelf = olds.map((P, k) => ({ P, ...oldSpots[k] }));
     this.stations.forEach((st, i) => {
-      const s = spots[i];
+      const s = news[i];
       const a = st.actor;
       st.fly = { fromX: a ? a.x : s.x, fromY: H + 260, x: s.x, y: s.y, size: s.size, tagW: s.tagW, at: 0.35 + i * 0.28, landed: false, landT: 0 };
     });
@@ -1129,9 +1239,9 @@ export class Game {
     else if (st.tab === T.sew) items = pad ? [['stick', wide ? 'Needle' : ''], ['dpad', wide ? 'Pick' : ''], ['a', 'Sew it on'], ['b', wide ? 'Unpick' : '']]
       : [['stick', wide ? 'Needle' : ''], ['lt', ''], ['rt', wide ? 'Pick' : ''], ['a', 'Sew it on'], ['b', wide ? 'Unpick' : '']];
     else if (st.tab === T.dress) {
-      const bow = !!this.movable(st);
-      items = this.kbBow(st, c0) ? [['stick', wide ? 'Move the bow' : ''], ['lt', ''], ['rt', wide ? 'Try on' : ''], ['a', 'Next one'], ['b', wide ? 'Undo' : '']]
-        : [['dpad', wide ? '▲▼ Spot  ◀▶ Try on' : ''], ...(bow ? [['stick', wide ? 'Move the bow' : '']] : []), ['a', 'Next one'], ['b', wide ? 'Undo' : '']];
+      const mv = !!this.moveRuleNow(st), on = 'Put it on → next';
+      items = this.kbMove(st, c0) ? [['stick', wide ? 'Move it' : ''], ['x', wide ? 'Try on' : ''], ['a', on], ['b', wide ? 'Undo' : '']]
+        : [['dpad', wide ? '▲▼ Spot  ◀▶ Try on' : ''], ...(mv ? [['rstick', wide ? 'Move it' : '']] : []), ['a', on], ['b', wide ? 'Undo' : '']];
     } else if (st.tab === T.name) items = [['dpad', wide ? 'Pick' : ''], ['a', 'New ideas'], ['b', wide ? 'Undo' : '']];
     else items = [['lb', wide ? 'Change something' : ''], ['a', "I'm ready!"]];
     const avail = r.x + r.w - 16 - x, lab = sz * 0.62;
@@ -1223,6 +1333,8 @@ export class Game {
     ui.panel(g, -380, -46, 760, 92, { r: 46, fill: '#ff6fb1' });
     ui.text(g, 'Our Toy Shelf!', 0, 2, { size: 60, weight: 800 });
     g.restore();
+    const olds = this.oldShelf || [];
+    olds.forEach((o, k) => drawPlush(g, o.P, o.x, o.y, o.size, { t: this.t + k * 0.7, tilt: Math.sin(this.t * 2 + k * 1.3) * 0.02 }));   // already sitting there
     for (const st of this.stations) {
       const f = st.fly;
       if (!f) continue;
@@ -1233,6 +1345,7 @@ export class Game {
       const bob = f.landed ? Math.sin(this.t * 2 + st.i) * 0.02 : 0;
       drawPlush(g, st.plush, x, y, f.size, { t: this.t + st.i, wob: st.wob, tilt: bob });
     }
+    for (const o of olds) this.drawNameTag(g, o.x, o.y + 52 * o.size / 330, o.tagW, o.P.name, o.P.color);
     for (const st of this.stations) {   // the name tags on top (the row below may reach up past a shelf's lip)
       const f = st.fly;
       if (f && f.landed) {

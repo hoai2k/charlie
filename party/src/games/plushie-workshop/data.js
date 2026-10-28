@@ -129,12 +129,65 @@ export const DRESS_ROWS = [
 ];
 export const DRESS_IDX = Object.fromEntries(DRESS_ROWS.map((r, i) => [r.id, i]));
 
-// A movable head item (bows) sits where the player puts it: P.bow = { x, y } (frame px,
-// its centre), kept on the head or ears (onPlush, above BOW_MAX_Y).
+// --- moving what's worn (Dress: the right stick moves the current row's item) ---------
+// Each item sits at its home spot plus its own offset, P.pos[posKey(row, item)] = { dx, dy }
+// (frame px; every item keeps its own). moveRule(row, item) says where it may go:
+//   home: the point that moves (a bow's middle, a hat's brim, a held item's grip...);
+//   lim:  [dx0, dx1, dy0, dy1], the offset box it stays in;
+//   y:    [min, max] for that point (optional);
+//   on:   that point (onDY lower) must be on the plush itself (head items: the head or ears;
+//         the game checks it with onPlush).
+// null: the item stays put (the right stick does nothing). Bows are the model: anywhere on
+// the head or ears, leaning out the way they sit.
 export const BOW_MIN_Y = 24, BOW_MAX_Y = 236;
 export const bowHome = (it) => ({ x: it.box[0], y: it.box[1] });
 /** The bow's tilt: leaning out the way it sits (the art's default tilt on the right, mirrored on the left). */
 export const bowTilt = (it, x) => (it.rot ? clamp((x - F.cx) / 66, -1, 1) * it.rot : clamp((x - F.cx) / 110, -1, 1) * 0.3);
+
+export const posKey = (row, idx) => `${row}:${idx}`;
+const NO_OFF = Object.freeze({ dx: 0, dy: 0 });
+/** The worn item's offset from its home (frame px). */
+export const itemOff = (P, row, idx) => (P && P.pos && P.pos[posKey(row, idx)]) || NO_OFF;
+
+export function moveRule(row, idx) {
+  const R = DRESS_ROWS[row], it = R && R.items[idx];
+  if (!it || !idx || it.fixed) return null;
+  if (R.id === 'head') {
+    if (it.move) return { home: bowHome(it), lim: [-300, 300, -300, 300], y: [BOW_MIN_Y, BOW_MAX_Y], on: true, onDY: 0 };
+    // hats, crowns, tiaras: the brim's middle, anywhere on the top of the head or an ear
+    return { home: { x: it.box[0], y: it.bottom }, lim: [-110, 110, -76, 44], y: [30, 150], on: true, onDY: 12 };
+  }
+  if (R.id === 'neck') {
+    if (it.atlas) return { home: { ...F.neck }, lim: [-30, 30, -16, 26] };                      // scarves
+    if (it.pd && it.pd[0] === 'bowtie') return { home: { x: it.box[0], y: it.box[1] }, lim: [-50, 50, -20, 40] };
+    return { home: { x: it.box[0], y: it.box[1] }, lim: [-34, 34, -22, 30] };                    // necklaces
+  }
+  if (R.id === 'hug') {
+    // held in one paw (sticks, stems, strings): the grip, from that paw across the tummy to the other
+    // (a tall one, the balloon, stays on its own side: in the middle it would hide the face)
+    if (it.grip) return { home: { x: it.paws[0][0], y: it.paws[0][1] }, lim: [it.box[2] > 120 ? -24 : -100, 12, -36, 20], grip: true };
+    return { home: { x: it.box[0], y: it.box[1] }, lim: [-34, 34, -40, 22] };                    // hugged in both paws
+  }
+  if (R.id === 'back') {   // behind the shoulders
+    if (it.flare) return { home: { x: F.cx, y: it.top }, lim: [-16, 16, -24, 24] };
+    return { home: { x: it.box[0], y: it.box[1] }, lim: [-26, 26, -48, 20] };
+  }
+  return null;
+}
+
+/**
+ * The extra lean of a moved item at (x, y) (on top of the art's own `rot`; bows use bowTilt
+ * instead): hats lean out over the side of the head, a held stick leans out the side it's on.
+ */
+export function moveLean(row, idx, x) {
+  const R = DRESS_ROWS[row], it = R.items[idx], rule = moveRule(row, idx);
+  if (!rule) return 0;
+  const dx = x - rule.home.x;
+  if (R.id === 'head') return clamp((x - F.cx) / 110, -1, 1) * 0.35;
+  if (R.id === 'neck') return clamp(dx / 40, -1, 1) * 0.12;
+  if (R.id === 'hug') return rule.grip ? clamp((x - F.cx) / 16, -1, 1) * it.rot - it.rot : clamp(dx / 34, -1, 1) * 0.1;
+  return 0;
+}
 
 // --- names -----------------------------------------------------------------------
 const NAMES = ['Bubbles', 'Buttons', 'Snuggles', 'Pudding', 'Marshmallow', 'Biscuit', 'Cupcake', 'Peaches', 'Pickle', 'Noodle',
