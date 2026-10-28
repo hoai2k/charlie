@@ -158,6 +158,10 @@ function inHole(x, y, h) {
   if (x < h.x || x > h.x + h.w || y > h.y + h.h) return false;
   return y > h.y + r || Math.hypot(x - h.x - r, y - h.y - r) < r;
 }
+/** Is (x, y) inside the outline of a placed piece (windows and the door count as inside)? */
+export function inOutline(shape, built, x, y) {
+  return shape.pieces.some((pc) => pc.index < built && inPoly(x, y, pc.poly));
+}
 /** Is (x, y) on a placed piece of this house (not in a window or the door)? */
 export function onHouse(shape, built, x, y) {
   let hit = false;
