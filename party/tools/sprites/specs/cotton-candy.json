@@ -191,7 +191,7 @@
       "fps": 5,
       "loop": true,
       "motion": 0.65,
-      "facing": -1
+      "facing": 1
     },
     "celebrate": {
       "frames": [
@@ -565,7 +565,7 @@
       "fps": 9,
       "loop": true,
       "motion": 0.25,
-      "facing": -1
+      "facing": 1
     },
     "run": {
       "frames": [
