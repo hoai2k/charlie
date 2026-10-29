@@ -73,9 +73,6 @@ export function celebrateWalk(a, ctrl, dt, bounds = {}, o = {}) {
   return { moving, jumped, landed, air, x: pos.x, y: pos.y };
 }
 
-/** True while this actor is mid-celebration-jump (or dashing): a game's own idle bounce should wait. */
-export function celebrating(a) { return !!(a._cel && (a.z > 0 || a._cel.vz > 0 || (a._cel.dash && a._cel.dash.active))); }
-
 /**
  * Just the jump, for a game whose finale already walks the kids about (its own a.z, e.g. a
  * flier's hover, stays the game's): call per frame with whether the jump button went down,
