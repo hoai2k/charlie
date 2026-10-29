@@ -519,7 +519,7 @@ export class Game {
     const st = easySteer(e, e.p.ctrl, dt);
     // an A press with no duckling in range: walk to the nearest lost one, quack on arrival
     const go = easyErrandStep(e, dt, { x: e.x, y: e.y, steering: st.pushing });
-    if (this.phase !== 'play') return [0, 0];
+    if (this.phase !== 'play') return [st.x, st.y];   // the parade and the gallery: her own steering only (no errands)
     if (st.manual && !go) return [st.x, st.y];
     if (go) {
       const wp = this.aroundPond(e.x, e.y, go.x, go.y, e.flier);   // round the pond, not into it (fliers: straight over)
