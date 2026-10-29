@@ -1,5 +1,5 @@
-// Dino Dig drawings: the dig site, the jointed silly dinosaur skeleton, mounds, bones,
-// surprises, the explorer hat and the spade. Every piece of art is optional: each
+// Dino Dig drawings: the dig site, the jointed silly dinosaur skeleton, the dug-over sand,
+// bones, critters, surprises, the explorer hat and the spade. Every piece of art is optional: each
 // drawing uses its prop/<key> from assets/art/index.json once it exists (see the
 // dino-dig section of image-requests.md) and a procedural stand-in until then.
 //
@@ -446,7 +446,7 @@ export function drawDino(g, st) {
   g.restore();
 }
 
-// ---------------------------------------------------------------- bones, mounds, holes
+// ---------------------------------------------------------------- bones
 const BONE_CELLS = 8;
 /** One loose bone (atlas cell idx), centred, `size` px long. */
 export function drawBone(g, idx, size) {
@@ -460,56 +460,219 @@ export function drawBone(g, idx, size) {
   boneSeg(g, -L / 2, 0, L / 2, 0, w);
 }
 
-/** A sand mound at (x, y) (bottom centre), dug d = 0..1; hint 'bone' | 'sparkle'. */
-export function drawMound(g, m, t) {
-  const d = clamp(m.dug, 0, 1), w = 172 * m.s, sq = m.sq || 0;
-  // the hole (behind the shrinking heap, it opens in front)
-  if (d > 0) drawHole(g, m.x, m.y + 6, (60 + 110 * d) * m.s, d);
-  const hk = (1 - d * 0.75) * (1 + sq * 0.15), wk = 1 - sq * 0.08;
-  const im = art('prop/dino-mound');
-  g.save(); g.translate(m.x, m.y - 4);
-  g.scale(wk, hk);
-  if (im) { const h = w * im.height / im.width; g.drawImage(im, -w / 2, -h, w, h); }
-  else {
-    g.beginPath();
-    g.moveTo(-w / 2, 0);
-    g.bezierCurveTo(-w * 0.45, -w * 0.28, -w * 0.18, -w * 0.4, 0, -w * 0.38);
-    g.bezierCurveTo(w * 0.2, -w * 0.42, w * 0.46, -w * 0.25, w / 2, 0);
-    g.closePath();
-    g.fillStyle = '#e9c27a'; g.fill();
-    g.strokeStyle = 'rgba(122,84,40,0.55)'; g.lineWidth = 4; g.stroke();
-    g.fillStyle = '#f7dc9e';
-    g.beginPath(); g.ellipse(-w * 0.12, -w * 0.27, w * 0.2, w * 0.07, -0.2, 0, TAU); g.fill();
-    g.fillStyle = 'rgba(160,110,60,0.45)';
-    for (const [px, py, r] of [[-0.3, -0.08, 0.025], [0.22, -0.12, 0.02], [0.05, -0.2, 0.018], [0.33, -0.05, 0.022]]) { g.beginPath(); g.arc(px * w, py * w, r * w, 0, TAU); g.fill(); }
-  }
-  g.restore();
-  // the hint on top
-  // The authored mound rises 80 px inside its 320 px canvas; the fallback is taller.
-  const topY = m.y - 4 - w * (im ? 80 / 320 : 0.36) * hk;
-  if (d < 0.9) {
-    if (m.hint === 'bone') {
-      g.save(); g.translate(m.x + w * 0.12, topY + 6); g.rotate(-0.7 + Math.sin(t * 2 + m.ph) * 0.05);
-      g.beginPath(); g.rect(-60, -60, 120, 60); g.clip();
-      drawBone(g, m.bone, 62 * m.s);
-      g.restore();
-    } else {
-      const tw = (Math.sin(t * 4 + m.ph) + 1) / 2;
-      g.save(); g.translate(m.x - w * 0.08, topY - 4); g.rotate(t * 0.8 + m.ph); g.globalAlpha = 0.5 + tw * 0.5;
-      const r = (10 + tw * 9) * m.s;
-      g.fillStyle = '#fff8c8';
-      g.beginPath(); for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4, rr2 = i % 2 ? r * 0.32 : r; g.lineTo(Math.cos(a) * rr2, Math.sin(a) * rr2); } g.closePath(); g.fill();
-      g.restore();
+// ---------------------------------------------------------------- dug sand
+// Where players have dug, the sand turns darker, damp and turned-over: one continuous
+// patch that grows as they dig (no separate holes). Two soft masks (offscreen canvases
+// the size of the sandbox) collect blobs: `shallow` for every scoop, `deep` for spots dug
+// right out. Each is filled with a tiling texture (prop/dino-dug-sand once it exists, a
+// procedural one until then) and only the changed rectangle is recomposited.
+export const SANDBOX = { x0: 94, x1: 1826, y0: 570, y1: H };   // inside the plank frame
+export const DUG = ['#d6a865', '#c99a58', '#b98546', '#e3bb7a'];   // sand thrown up from dug ground
+
+function wrapTile(size, paint) {
+  const c = document.createElement('canvas'); c.width = c.height = size;
+  const g = c.getContext('2d');
+  paint(g, (fn) => { for (const dx of [-size, 0, size]) for (const dy of [-size, 0, size]) { g.save(); g.translate(dx, dy); fn(); g.restore(); } });
+  return c;
+}
+/** A procedural damp-sand tile (deep: darker, for spots dug right out). */
+function dugTile(deep) {
+  let seed = deep ? 7 : 3;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const pal = deep ? { base: '#c99856', dark: '#b4844a', light: '#d6a866', peb: '#8f6a48' }
+    : { base: '#dcae6b', dark: '#c99a58', light: '#ebc283', peb: '#a98763' };
+  return wrapTile(256, (g, wrap) => {
+    g.fillStyle = pal.base; g.fillRect(0, 0, 256, 256);
+    // soft clumps, light on top, dark underneath (turned-over sand)
+    for (let i = 0; i < 46; i++) {
+      const x = rnd() * 256, y = rnd() * 256, r = 6 + rnd() * 16, a = rnd() * TAU;
+      wrap(() => {
+        g.fillStyle = pal.dark; g.globalAlpha = 0.55; g.beginPath(); g.ellipse(x + 2, y + r * 0.35, r, r * 0.55, a * 0.1, 0, TAU); g.fill();
+        g.fillStyle = pal.light; g.globalAlpha = 0.6; g.beginPath(); g.ellipse(x, y, r * 0.9, r * 0.45, a * 0.1, 0, TAU); g.fill();
+        g.globalAlpha = 1;
+      });
     }
+    // little scoop marks
+    g.lineCap = 'round';
+    for (let i = 0; i < 14; i++) {
+      const x = rnd() * 256, y = rnd() * 256, w = 14 + rnd() * 20;
+      wrap(() => { g.strokeStyle = pal.dark; g.globalAlpha = 0.7; g.lineWidth = 3; g.beginPath(); g.moveTo(x - w / 2, y); g.quadraticCurveTo(x, y + w * 0.35, x + w / 2, y); g.stroke(); g.globalAlpha = 1; });
+    }
+    // a few tiny pebbles
+    for (let i = 0; i < 10; i++) {
+      const x = rnd() * 256, y = rnd() * 256, r = 2 + rnd() * 3;
+      wrap(() => { g.fillStyle = pal.peb; g.beginPath(); g.ellipse(x, y, r, r * 0.7, 0, 0, TAU); g.fill(); });
+    }
+  });
+}
+
+export class DugSand {
+  constructor() {
+    this.ok = false;
+    try {
+      this.w = SANDBOX.x1 - SANDBOX.x0; this.h = SANDBOX.y1 - SANDBOX.y0;
+      const mk = () => { const c = document.createElement('canvas'); c.width = this.w; c.height = this.h; return c; };
+      this.shallow = mk(); this.deep = mk(); this.out = mk(); this.tmp = mk();
+      this.dirty = null; this.ok = true;
+    } catch (e) { /* no canvas (tests): nothing to paint */ }
+  }
+  /** A soft blob of dug sand at screen (x, y), r px wide (squashed into the ground plane). */
+  paint(x, y, r, { deep = false, alpha = 0.6 } = {}) {
+    if (!this.ok) return;
+    const lx = x - SANDBOX.x0, ly = y - SANDBOX.y0, g = (deep ? this.deep : this.shallow).getContext('2d');
+    g.save(); g.translate(lx, ly); g.scale(1, 0.55);
+    const gr = g.createRadialGradient(0, 0, 0, 0, 0, r);
+    gr.addColorStop(0, `rgba(255,255,255,${alpha})`); gr.addColorStop(0.55, `rgba(255,255,255,${alpha * 0.8})`); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = gr; g.beginPath(); g.arc(0, 0, r, 0, TAU); g.fill();
+    g.restore();
+    const d = this.dirty, x0 = Math.floor(lx - r - 2), y0 = Math.floor(ly - r * 0.55 - 2), x1 = Math.ceil(lx + r + 2), y1 = Math.ceil(ly + r * 0.55 + 2);
+    this.dirty = d ? { x0: Math.min(d.x0, x0), y0: Math.min(d.y0, y0), x1: Math.max(d.x1, x1), y1: Math.max(d.y1, y1) } : { x0, y0, x1, y1 };
+  }
+  pattern(g, deep) {
+    const im = art('prop/dino-dug-sand');
+    if (im) {
+      if (this._im !== im) { this._im = im; this._pat = null; }
+      if (!this._pat) this._pat = g.createPattern(im, 'repeat');
+      return this._pat;
+    }
+    const k = deep ? '_pd' : '_ps';
+    if (!this[k]) this[k] = g.createPattern(dugTile(deep), 'repeat');
+    return this[k];
+  }
+  compose() {
+    const d = this.dirty; this.dirty = null;
+    const x = Math.max(0, d.x0), y = Math.max(0, d.y0), w = Math.min(this.w, d.x1) - x, h = Math.min(this.h, d.y1) - y;
+    if (w <= 0 || h <= 0) return;
+    const painted = !!art('prop/dino-dug-sand');
+    // each layer is masked in the scratch canvas (source-in wipes everything outside the rect
+    // it fills), then laid into `out`, which keeps every patch dug so far
+    const o = this.out.getContext('2d'), t = this.tmp.getContext('2d');
+    const layer = (mask, deep) => {
+      t.globalCompositeOperation = 'source-over'; t.clearRect(x, y, w, h);
+      t.drawImage(mask, x, y, w, h, x, y, w, h);
+      t.globalCompositeOperation = 'source-in';
+      t.fillStyle = this.pattern(t, deep); t.fillRect(x, y, w, h);
+      if (deep && painted) { t.globalCompositeOperation = 'source-atop'; t.fillStyle = 'rgba(90,50,20,0.28)'; t.fillRect(x, y, w, h); }
+      t.globalCompositeOperation = 'source-over';
+      o.drawImage(this.tmp, x, y, w, h, x, y, w, h);
+    };
+    o.clearRect(x, y, w, h);
+    layer(this.shallow, false);
+    layer(this.deep, true);
+  }
+  draw(g) {
+    if (!this.ok) return;
+    if (this.dirty) this.compose();
+    g.save(); g.globalAlpha *= 0.86; g.drawImage(this.out, SANDBOX.x0, SANDBOX.y0); g.restore();
   }
 }
-export function drawHole(g, x, y, w, depth = 1, alpha = 1) {
-  const im = art('prop/sand-hole');
-  g.save(); g.globalAlpha *= alpha;
-  if (im) { const h = w * im.height / im.width; g.drawImage(im, x - w / 2, y - h / 2, w, h); g.restore(); return; }
-  g.fillStyle = '#d9ae66'; g.beginPath(); g.ellipse(x, y, w * 0.56, w * 0.24, 0, 0, TAU); g.fill();
-  g.fillStyle = `rgba(110,70,30,${0.4 + depth * 0.35})`; g.beginPath(); g.ellipse(x, y + 2, w * 0.42, w * 0.16, 0, 0, TAU); g.fill();
+
+// ---------------------------------------------------------------- critters
+// A snake or a scorpion pops up out of a dug spot, surprised, then dashes off the screen.
+// Art: prop/dino-snake / prop/dino-scorpion, 4 x 1 atlases of 256 px cells (1-2 popping up
+// surprised, 3-4 on the run), facing right, anchor (128, 224) in each cell. Procedural
+// stand-ins below. Facing left is an instant mirror (no paper flips).
+export const CRITTER = { snake: { key: 'prop/dino-snake', w: 190 }, scorpion: { key: 'prop/dino-scorpion', w: 200 } };
+/** c = { kind, x, y (ground), dir: 1 | -1, state: 'pop' | 'run', t, lift (px above the ground), rise 0..1 (out of the sand) }. */
+export function drawCritter(g, c, t) {
+  const C = CRITTER[c.kind], im = art(C.key);
+  const run = c.state === 'run';
+  const frame = run ? 2 + (Math.floor(c.t / 0.09) % 2) : Math.floor(c.t / 0.12) % 2;
+  g.save();
+  g.translate(c.x, c.y);
+  // a shadow on the sand
+  g.fillStyle = 'rgba(80,50,20,0.25)'; g.beginPath(); g.ellipse(0, 2, C.w * 0.32, 10, 0, 0, TAU); g.fill();
+  // coming up out of the sand: clip at the ground
+  if ((c.rise ?? 1) < 1) { g.beginPath(); g.rect(-200, -400, 400, 404); g.clip(); }
+  g.translate(0, (1 - (c.rise ?? 1)) * C.w * 0.8 - (c.lift || 0));
+  g.scale(c.dir, 1);
+  if (im) {
+    const cw = im.width / 4, ch = im.height, w = C.w, h = w * ch / cw;
+    g.drawImage(im, frame * cw, 0, cw, ch, -w * 0.5, -h * (224 / 256), w, h);
+  } else if (c.kind === 'snake') drawSnake(g, run, frame, c.t);
+  else drawScorpion(g, run, frame, c.t);
   g.restore();
+}
+function eyes(g, x, y, r, look = 1) {
+  for (const dx of [-r * 0.9, r * 0.9]) {
+    g.fillStyle = '#ffffff'; g.strokeStyle = NAVY; g.lineWidth = 3;
+    g.beginPath(); g.arc(x + dx, y, r, 0, TAU); g.fill(); g.stroke();
+    g.fillStyle = NAVY; g.beginPath(); g.arc(x + dx + r * 0.25 * look, y + r * 0.05, r * 0.5, 0, TAU); g.fill();
+    g.fillStyle = '#ffffff'; g.beginPath(); g.arc(x + dx + r * 0.38 * look, y - r * 0.2, r * 0.18, 0, TAU); g.fill();
+  }
+}
+function tube(g, pts, w, fill) {
+  const path = () => { g.beginPath(); g.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) g.lineTo(pts[i][0], pts[i][1]); };
+  g.lineCap = 'round'; g.lineJoin = 'round';
+  path(); g.strokeStyle = NAVY; g.lineWidth = w + 7; g.stroke();
+  path(); g.strokeStyle = fill; g.lineWidth = w; g.stroke();
+}
+function drawSnake(g, run, frame, t) {
+  const GREEN = '#7fdca0', BELLY = '#fff0a6', SPOT = '#c9a7f0';
+  let pts, head;
+  if (run) {   // a low wave along the ground
+    pts = [];
+    for (let i = 0; i <= 16; i++) { const x = -80 + i * 9; pts.push([x, -14 + Math.sin(i * 0.7 - t * 22) * 9 * (0.4 + i / 16 * 0.6)]); }
+    head = [70, -20];
+  } else {   // a coil on the ground, the front reared up in an S
+    const back = frame ? -6 : 0;
+    pts = [[-58, -12], [-40, -4], [-10, -4], [6, -16], [-6, -40], [-18, -62], [-4, -86 + back], [20, -96 + back]];
+    head = [34 + back * 0.6, -100 + back];
+  }
+  tube(g, pts, 22, GREEN);
+  // belly stripe and spots
+  g.strokeStyle = BELLY; g.lineWidth = 6; g.beginPath(); g.moveTo(pts[0][0], pts[0][1] + 5); for (let i = 1; i < pts.length; i++) g.lineTo(pts[i][0] + (run ? 0 : 4), pts[i][1] + (run ? 6 : 0)); g.stroke();
+  g.fillStyle = SPOT; for (let i = 1; i < pts.length - 1; i += 2) { g.beginPath(); g.arc(pts[i][0], pts[i][1] - 4, 4, 0, TAU); g.fill(); }
+  // head
+  g.save(); g.translate(head[0], head[1]);
+  g.beginPath(); g.ellipse(0, 0, 26, 19, run ? 0.1 : -0.15, 0, TAU); inkFill(g, GREEN, 6);
+  eyes(g, 2, -12, run ? 8 : 10, 1);
+  // mouth: "o" when surprised, a sheepish grin on the run; a little tongue flick
+  g.fillStyle = NAVY;
+  if (run) { g.strokeStyle = NAVY; g.lineWidth = 3; g.beginPath(); g.arc(14, 4, 7, 0.2, Math.PI - 0.2); g.stroke(); }
+  else { g.beginPath(); g.ellipse(14, 6, 4.5, 6, 0, 0, TAU); g.fill(); }
+  if (!run && frame) { g.strokeStyle = '#ff7ac6'; g.lineWidth = 3; g.beginPath(); g.moveTo(24, 6); g.lineTo(36, 8); g.lineTo(41, 4); g.moveTo(36, 8); g.lineTo(41, 12); g.stroke(); }
+  g.fillStyle = 'rgba(255,140,170,0.5)'; g.beginPath(); g.ellipse(-8, 6, 6, 4, 0, 0, TAU); g.fill();
+  g.restore();
+}
+function drawScorpion(g, run, frame, t) {
+  const CORAL = '#ff9466', PEACH = '#ffd0b0', BULB = '#ff7ac6';
+  const step = run ? Math.sin(t * 40) : 0;
+  // legs (three a side, little scuttling steps)
+  g.lineCap = 'round';
+  for (let i = 0; i < 3; i++) {
+    const x = -20 + i * 18, s = (i % 2 ? 1 : -1) * step * 7;
+    g.strokeStyle = NAVY; g.lineWidth = 8; g.beginPath(); g.moveTo(x, -22); g.lineTo(x + 6 + s, -2); g.stroke();
+    g.strokeStyle = CORAL; g.lineWidth = 4; g.stroke();
+  }
+  // tail: a curl of round segments up and over the back, ending in a soft round bulb
+  const curl = run ? 0.85 : 1;
+  const seg = [[-44, -30], [-60, -50], [-62, -76], [-50, -98], [-30, -108]].map(([x, y]) => [x, -30 + (y + 30) * curl]);
+  seg.forEach(([x, y], i) => { g.beginPath(); circle(g, x, y, 13 - i); inkFill(g, CORAL, 5); });
+  const [bx, by] = seg[seg.length - 1];
+  g.beginPath(); circle(g, bx + 12, by + 6 + (frame && !run ? -3 : 0), 11); inkFill(g, BULB, 5);
+  // body
+  g.beginPath(); g.ellipse(-6, -30, 42, 21, 0, 0, TAU); inkFill(g, CORAL, 6);
+  g.fillStyle = PEACH; g.beginPath(); g.ellipse(-4, -22, 30, 9, 0, 0, TAU); g.fill();
+  g.strokeStyle = 'rgba(36,22,63,0.35)'; g.lineWidth = 3;
+  for (const x of [-26, -12, 2]) { g.beginPath(); g.moveTo(x, -48); g.quadraticCurveTo(x + 4, -36, x, -26); g.stroke(); }
+  // arms and mitten pincers: flung up when surprised, forward on the run
+  const up = !run, wave = frame ? 1 : -1;
+  for (const k of [0, 1]) {
+    const sx = 26 + k * 6, sy = -32 - k * 4;
+    const cx = up ? 48 + k * 26 + wave * (k ? 6 : -6) : 66 + k * 10 + step * 3, cy = up ? -86 + k * 8 : -36 - k * 10;
+    tube(g, [[sx, sy], [(sx + cx) / 2 + 6, (sy + cy) / 2 + 6], [cx, cy]], 8, CORAL);
+    g.save(); g.translate(cx, cy); g.rotate(up ? -1.2 : 0);
+    g.beginPath(); g.ellipse(0, 0, 15, 12, 0, 0, TAU); inkFill(g, CORAL, 5);
+    g.strokeStyle = NAVY; g.lineWidth = 3; g.beginPath(); g.moveTo(15, 0); g.lineTo(3, 0); g.stroke();
+    g.restore();
+  }
+  // face
+  eyes(g, 30, -50, run ? 7 : 9, 1);
+  g.fillStyle = NAVY;
+  if (run) { g.strokeStyle = NAVY; g.lineWidth = 3; g.beginPath(); g.arc(34, -32, 6, 0.2, Math.PI - 0.2); g.stroke(); }
+  else { g.beginPath(); g.ellipse(36, -32, 4, 5.5, 0, 0, TAU); g.fill(); }
+  g.fillStyle = 'rgba(255,90,140,0.4)'; g.beginPath(); g.ellipse(22, -36, 5, 3.5, 0, 0, TAU); g.fill();
 }
 
 // ---------------------------------------------------------------- worn & held
