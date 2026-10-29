@@ -258,25 +258,30 @@
 
   // ---------- roster grid ----------
   const columns = () => Math.max(COLS, Math.ceil(lobby.roster.length / 2));
+  // The two rows: the top one holds lobby.topCount cards (half, usually).
   const rows = () => {
-    const cols = columns();
-    return [lobby.roster.slice(0, cols).map((_, i) => i), lobby.roster.slice(cols).map((_, i) => i + cols)];
+    const top = lobby.topCount || columns();
+    return [lobby.roster.slice(0, top).map((_, i) => i), lobby.roster.slice(top).map((_, i) => i + top)];
   };
 
-  // A big roster (All Dolls) would squeeze each card thin in the grid's 650
-  // px. Then, on a wide screen with room along the bottom, the grid runs on
-  // to the right edge and the Settings box moves down above the corner
-  // buttons (ROOMY_RIGHT is the strip they take, kept clear of stalls).
+  // A very big roster (All Dolls) would squeeze each card thin in the grid's
+  // 650 px. Then, on a wide screen, the bottom row runs out under the logo and
+  // the Settings box (they're above it), towards both edges, holding more
+  // cards than the top row, all at a size that fits everyone (SQUISHED_CARD:
+  // the thinnest card left as it is; the usual roster stays well above it).
   const GRID_W = 650;
-  const ROOMY_RIGHT = 300;
-  const ROOMY_MIN_CARD = 80;
-  function stallCount() {
-    return lobby.slots.filter(Boolean).length + (canJoin() ? 1 : 0) + lobby.cpus.length;
-  }
-  function roomyRoster() {
-    if (root.classList.contains("portrait") || !lobby.roster.length) return false;
+  const GRID_LEFT = 322;
+  const SQUISHED_CARD = 60;
+  function longBottomRow(count) {
     const cols = columns();
-    return cols > COLS && GRID_W / cols - 6 < ROOMY_MIN_CARD && stallCount() * STALL - 5 <= lobby.stageW - ROOMY_RIGHT;
+    if (root.classList.contains("portrait") || cols <= COLS || GRID_W / cols - 6 >= SQUISHED_CARD) return null;
+    const middle = GRID_LEFT + GRID_W / 2;
+    const bottomW = 2 * Math.min(middle - 18, lobby.stageW - 18 - middle);
+    for (let step = 122; step > 40; step -= 1) {
+      const top = Math.floor(GRID_W / step), bottom = Math.floor(bottomW / step);
+      if (top + bottom >= count) return { step, top: Math.min(top, count) };
+    }
+    return null;
   }
 
   // Where a card's picture is cropped when it's narrow: about her face
@@ -301,26 +306,28 @@
     lobby.roster = [...ROSTER_ORDER.filter(key => visible.has(key)), RANDOM];
     const grid = $("#lbGrid");
     grid.innerHTML = "";
-    const [top, bottom] = rows();
     const cols = columns();
-    lobby.roomy = roomyRoster();
-    root.classList.toggle("roomy-roster", lobby.roomy);
-    const gridW = lobby.roomy ? lobby.stageW - 322 - 18 : GRID_W;
-    grid.style.width = `${gridW}px`;
+    const long = longBottomRow(lobby.roster.length);
+    lobby.longRow = Boolean(long);
+    lobby.topCount = long ? long.top : cols;
+    const [top, bottom] = rows();
     // A big roster spreads over the grid's full width with narrower gaps;
     // thin cards lose most of their padding too (tight-roster).
-    const step = cols > COLS ? gridW / cols : 122;
+    const step = long ? long.step : cols > COLS ? GRID_W / cols : 122;
     const tight = cols > COLS && step < 96;
     grid.style.setProperty("--lb-card-width", `${step - (cols > COLS ? (tight ? 3 : 6) : 12)}px`);
     grid.classList.toggle("wide-roster", cols > COLS);
     grid.classList.toggle("tight-roster", tight);
+    lobby.cardX = [];
     lobby.cards = lobby.roster.map((key, index) => {
-      const row = index < cols ? 0 : 1;
-      const col = row ? index - cols : index;
-      const offset = (cols - (row ? bottom : top).length) * step / 2;
+      const row = index < lobby.topCount ? 0 : 1;
+      const col = row ? index - lobby.topCount : index;
+      // Each row centred under the grid's middle (a long bottom row reaches past its sides).
+      const left = GRID_W / 2 - (row ? bottom : top).length * step / 2 + col * step;
+      lobby.cardX[index] = left + step / 2;
       const card = document.createElement("div");
       card.className = "lb-card";
-      card.style.left = `${offset + col * step}px`;
+      card.style.left = `${left}px`;
       card.style.top = `${row * 178 + 14}px`;
       card.innerHTML = `<div class="lb-pic${key === RANDOM ? " random" : ""}" style="background-image:url(${art(key)})"></div><div class="lb-name">${dollName(key)}</div><div class="lb-cursors"></div>`;
       card.addEventListener("pointerdown", event => { event.preventDefault(); tapCard(index); });
@@ -366,8 +373,8 @@
   }
 
   function renderStalls(bounceId) {
-    // (The grid widens, or narrows again, as stalls come and go.)
-    if (lobby.roster.length && roomyRoster() !== lobby.roomy) { buildGrid(); renderCursors(); }
+    // (Turned upright or back, the long bottom row comes or goes.)
+    if (lobby.roster.length && Boolean(longBottomRow(lobby.roster.length)) !== lobby.longRow) { buildGrid(); renderCursors(); }
     const order = [];
     lobby.slots.forEach((slot, index) => { if (slot) order.push(`p${index}`); });
     if (canJoin()) order.push("join");
@@ -379,8 +386,7 @@
     }
     // As many stalls per row as fit (8 in landscape, 4 in portrait); extra
     // rows stack upward, each row centred.
-    const stallW = lobby.roomy ? lobby.stageW - ROOMY_RIGHT : lobby.stageW; // (clear of the Settings box)
-    const perRow = Math.max(1, Math.floor((stallW + 5) / STALL));
+    const perRow = Math.max(1, Math.floor((lobby.stageW + 5) / STALL));
     const rows = Math.ceil(order.length / perRow);
     // Phone held upright with no controller: one player, maybe a few
     // computer racers. The player stands big in the middle and the computers
@@ -398,7 +404,7 @@
       } else {
         const row = Math.floor(n / perRow);
         const inRow = Math.min(perRow, order.length - row * perRow);
-        const x0 = (stallW - (inRow * STALL - 5)) / 2;
+        const x0 = (lobby.stageW - (inRow * STALL - 5)) / 2;
         el.style.left = `${x0 + (n - row * perRow) * STALL}px`;
         el.style.bottom = `${8 + (rows - 1 - row) * (lobby.stageH > lobby.stageW ? 255 : 300)}px`;
       }
@@ -718,15 +724,15 @@
     const slot = lobby.slots[index];
     if (!slot || slot.locked) return;
     const r = rows();
-    const cols = columns();
-    let row = slot.cursor < cols ? 0 : 1;
-    let col = row ? slot.cursor - cols : slot.cursor;
+    let row = slot.cursor < r[0].length ? 0 : 1;
+    let col = row ? slot.cursor - r[0].length : slot.cursor;
     if (dx) col = (col + dx + r[row].length) % r[row].length;
     if (dy && r[1].length) {
-      // Keep the cursor over roughly the same spot when the rows differ in length.
-      const x = col + (cols - r[row].length) / 2;
+      // To the card nearest the same spot in the other row (the rows can
+      // differ in length, the bottom one longer than the top).
+      const x = lobby.cardX[r[row][col]];
       row = 1 - row;
-      col = clamp(Math.round(x - (cols - r[row].length) / 2), 0, r[row].length - 1);
+      col = r[row].reduce((best, index, i) => Math.abs(lobby.cardX[index] - x) < Math.abs(lobby.cardX[r[row][best]] - x) ? i : best, 0);
     }
     slot.cursor = r[row][col];
     sound("ui_hover");
@@ -941,8 +947,7 @@
     const buttons = [...corner.children].filter(button => !button.hidden);
     const size = buttons[0]?.offsetWidth || 62;
     const width = buttons.length * size + (buttons.length - 1) * 12 + 30;
-    // (With a roomy roster the stalls keep clear of the corner by themselves.)
-    const crowded = !lobby.roomy && [...lobby.stallEls.values()].some(el => parseFloat(el.style.bottom) < 120 && parseFloat(el.style.left) + el.offsetWidth > lobby.stageW - width);
+    const crowded = [...lobby.stallEls.values()].some(el => parseFloat(el.style.bottom) < 120 && parseFloat(el.style.left) + el.offsetWidth > lobby.stageW - width);
     corner.classList.toggle("corner-up", crowded);
     const box = $("#lbTopRight");
     corner.style.top = crowded && !root.classList.contains("portrait") ? `${box.offsetTop + box.offsetHeight + 12}px` : "";

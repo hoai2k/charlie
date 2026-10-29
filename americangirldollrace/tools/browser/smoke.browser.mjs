@@ -495,26 +495,41 @@ test('Specials modes: None, All Unicorns, All Brooms, All Fairy Wings, All Dolls
   assert.equal(r.gone, 'none', 'a removed mode falls back to None');
 });
 
-test('A big roster on a wide screen (All Dolls, or by now the usual one): the doll list runs to the right edge (Settings box down by the corner buttons), cards a comfortable width, faces in view', { skip: skip() }, async () => {
+test('All Dolls on a wide screen: the bottom row runs out under the logo and Settings (top row as usual), cards a comfortable width, faces in view; the usual roster as it was', { skip: skip() }, async () => {
   const r = await page.evaluate(() => {
     const saved = state.specials; state.running = false; startPanel.classList.remove('hidden');
     const read = () => {
       const cards = [...document.querySelectorAll('#lbGrid .lb-card')];
-      const box = document.querySelector('#lbTopRight').getBoundingClientRect(), grid = document.querySelector('#lbGrid').getBoundingClientRect();
       const stage = document.querySelector('.lb-stage').getBoundingClientRect(), k = stage.width / 1280;
+      const tops = [...new Set(cards.map(c => Math.round(c.getBoundingClientRect().top)))].sort((a, b) => a - b);
+      const inRow = t => cards.filter(c => Math.round(c.getBoundingClientRect().top) === t);
+      const left = Math.min(...cards.map(c => c.getBoundingClientRect().left)), settings = document.querySelector('#lbTopRight').getBoundingClientRect();
       const bunny = cards.find(c => c.querySelector('.lb-name').textContent === 'Cornsilk')?.querySelector('.lb-pic');
-      return { roomy: document.querySelector('.start-panel').classList.contains('roomy-roster'), card: Math.round(cards[0].getBoundingClientRect().width / k),
-        settingsBelowGrid: box.top > grid.bottom, bunnyShift: bunny ? parseFloat(bunny.style.backgroundPosition) : null };
+      return { top: inRow(tops[0]).length, bottom: inRow(tops[1]).length, card: Math.round(cards[0].getBoundingClientRect().width / k),
+        reachesUnderLogo: (left - stage.left) / k < 300, settingsTopRight: settings.top - stage.top < 100 * k, bunnyShift: bunny ? parseFloat(bunny.style.backgroundPosition) : null };
     };
     setSpecials('all-dolls'); Lobby.showSelect();
     return new Promise(resolve => setTimeout(() => { const all = read(); setSpecials(saved); Lobby.showSelect(); resolve({ all, normal: read() }); }, 600));
   });
-  assert.equal(r.all.roomy, true);
+  assert.ok(r.all.bottom > r.all.top && r.all.reachesUnderLogo, JSON.stringify(r.all));
   assert.ok(r.all.card >= 75, `card ${r.all.card}px`);
-  assert.equal(r.all.settingsBelowGrid, true);
+  assert.equal(r.all.settingsTopRight, true, 'Settings stays top right');
   assert.ok(r.all.bunnyShift < 0, "Cornsilk's card is cropped about her face, right of the middle");
-  // (The usual roster is big enough by now to want the room too.)
-  assert.ok(r.normal.card >= 75 && r.normal.card > r.all.card, `usual roster card ${r.normal.card}px`);
+  assert.ok(r.normal.top >= r.normal.bottom && !r.normal.reachesUnderLogo, `usual roster: ${JSON.stringify(r.normal)}`);
+  // Up and down go to the nearest card in the other row.
+  await page.evaluate(() => { setSpecials('all-dolls'); Lobby.showSelect(); });
+  const key = async code => { await page.keyboard.down(code); await page.keyboard.up(code); };
+  for (let i = 0; i < 8 && (await page.evaluate(() => Lobby.players().length)); i++) await key('Escape');
+  await key('Space'); // WASD joins, on the first card
+  const name = () => page.evaluate(() => document.querySelector('#lbGrid .lb-card .lb-cursors:not(:empty)')?.closest('.lb-card').querySelector('.lb-name').textContent);
+  const first = await name();
+  await key('KeyS'); const below = await name();
+  await key('KeyW'); const back = await name();
+  for (let i = 0; i < 8 && (await page.evaluate(() => Lobby.players().length)); i++) await key('Escape');
+  await page.evaluate(saved => { setSpecials('none'); Lobby.showSelect(); });
+  assert.equal(first, 'Juliette');
+  assert.ok(below && below !== 'Felicity' && below !== 'Juliette', `down from Juliette lands under her, not at the row's start: ${below}`);
+  assert.equal(back, 'Juliette');
 });
 
 test('All Dolls: every hidden doll is listed after all the others (Random last)', { skip: skip() }, async () => {

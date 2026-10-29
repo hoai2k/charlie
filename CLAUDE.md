@@ -274,9 +274,10 @@ hook to get round it.
   ledge hold; her stall and podium portraits too). Toy frames are sized by
   height against the other dolls (`TOY_HEIGHT_TO_STANDING` in
   `tools/dolls/hidden/build.py`), not face area. The select screen's doll
-  list widens to the right edge once its cards would be thin (`roomyRoster`
-  in menu.js; the Settings box moves down above the corner buttons and the
-  stalls keep left of it), thin cards lose their padding, and each card's
+  list keeps its usual layout unless its cards would get very thin (All
+  Dolls): then its bottom row runs out under the logo and Settings box,
+  holding more cards than the top row (`longBottomRow` in menu.js; up/down
+  go to the nearest card). Thin cards lose their padding, and each card's
   picture is cropped about her face (`CARD_FOCUS` for off-centre portraits).
 
 - `party/` (Charlie Party): read `party/HANDOFF.md` first for in-progress work

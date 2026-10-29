@@ -1644,9 +1644,6 @@ html.ios-scroll.ios-scroll-play, html.ios-scroll.ios-scroll-play body { overflow
 #lbCorner.corner-up { bottom: auto; }
 .start-panel.lobby.portrait #lbCorner.corner-up { top: 12px; right: 12px; flex-direction: column; }
 
-/* A roomy roster (menu.js roomyRoster): the grid runs to the right edge and
-   the Settings box sits above the corner buttons, bottom right. */
-.start-panel.lobby.roomy-roster #lbTopRight { top: auto; bottom: 92px; }
 /* Thin cards (tight-roster) give their padding to the picture. */
 #lbGrid.tight-roster .lb-card { border-width: 2px; border-radius: 10px; }
 #lbGrid.tight-roster .lb-pic { left: 0; right: 0; top: 0; height: 134px; border-radius: 8px 8px 4px 4px; }
