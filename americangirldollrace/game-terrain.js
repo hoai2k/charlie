@@ -300,12 +300,12 @@ function updateCloudFall(racer, dt) {
 }
 
 // Fallen off the cloud, she comes back with nothing: whatever power-ups and
-// mount she had fell with her.
+// mount she had fell with her (except a wand, which stays until it's cast).
 function loseRacerPowerups(racer) {
   Object.assign(racer, {
     speedBoostStacks: [], speedBoostTimer: 0, highJumpStacks: [], highJumpTimer: 0,
     moonBootsTimer: 0, rideToys: [], snowballs: 0, oilTimer: 0, surfTimer: 0, wingsTimer: 0,
-    pegasusGliding: false, spellAim: null
+    pegasusGliding: false
   });
   if (isMounted(racer) && !isAlwaysMountedTrack()) {
     racer.horseTimer = 0;

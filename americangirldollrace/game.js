@@ -1004,8 +1004,11 @@ function resetRace(mode = state.mode) {
       character.riderXOffset
     );
     applyRacerOutfit(racer, state.raceOutfits?.[index] || 0);
+    // A wand she didn't use last race is still in her hand.
+    if (!ai && state.carriedWands?.has(index)) racer.spellAim = { t: 0, x: 0, y: 0 };
     state.racers.push(racer);
   }
+  state.carriedWands = null;
   // Two racers on the same doll never share an outfit (e.g. computer racers).
   dedupeRacerOutfits();
   updatePlayerLabels();
@@ -1724,6 +1727,14 @@ const STANDINGS_POINTS = [10, 8, 6, 5, 4, 3, 2, 1];
 
 function resetStandings() {
   state.standings = new Map();
+  state.carriedWands = null;
+}
+
+// A player who still holds a wand at the finish keeps it for the next race
+// (by the slot she'll have once the slots are compacted).
+function carryWandsToNextRace() {
+  const humans = state.racers.filter(racer => !racer.ai).sort((a, b) => a.playerIndex - b.playerIndex);
+  state.carriedWands = new Set(humans.flatMap((racer, slot) => racer.spellAim ? [slot] : []));
 }
 
 // Each racer's place in this race adds to her total: players by their slot,
@@ -1771,6 +1782,7 @@ function finishRace(winner) {
   // Places for the podium and the HUD, decided before the slots are compacted.
   state.finishOrder = state.racers.slice().sort((a, b) => (b === winner) - (a === winner) || b.x - a.x);
   addToStandings(state.finishOrder);
+  carryWandsToNextRace();
   clearJoinPickers();
   compactSlotsForNextRace();
   state.running = false;
@@ -2033,8 +2045,8 @@ function update(dt) {
     if (Math.abs(input.horizontal) > 0.05) {
       racer.facing = input.horizontal < 0 ? -1 : 1;
     }
-    if (racer.finished || frog) racer.spellAim = null;
-    updateSpellAim(racer, input, dt);
+    // The wand stays until she casts it (a frog can't, but keeps it).
+    if (!frog && !racer.finished) updateSpellAim(racer, input, dt);
     if (racer.castTimer > 0 && racer.castFacing) racer.facing = racer.castFacing;
 
     const previousX = racer.x;

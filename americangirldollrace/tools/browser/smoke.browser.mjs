@@ -210,6 +210,27 @@ test('the magic wand waits for X, then casts the way the player aims (or faces);
   assert.deepEqual([r.right.hit, r.left.hit, r.none.hit], ['monster ahead', 'racer behind', 'monster ahead']);
 });
 
+test('a wand stays until it is cast: through a frog spell, a cloud fall and into the next race', { skip: skip() }, async () => {
+  await onTrack('wizard');
+  const r = await page.evaluate(() => {
+    startRace('two'); state.running = false; state.obstacles = []; state.powerups = []; state.monsters = [];
+    let [a, b] = state.racers; b.ai = false; a.x = 3000; keys.clear();
+    applyPowerup(a, 'jump');
+    a.frogTimer = 2; for (let i = 0; i < 60; i++) update(1 / 60);
+    const frogged = Boolean(a.spellAim) && state.spells.length === 0;
+    a.frogTimer = 0; loseRacerPowerups(a);
+    const fell = Boolean(a.spellAim);
+    finishRace(b); clearNextRaceTimer(); resetRace(state.mode);
+    [a, b] = state.racers;
+    const next = [Boolean(a.spellAim), Boolean(b.spellAim)];
+    state.running = false; keys.add('KeyF'); update(1 / 60); keys.clear();
+    const cast = state.spells.length === 1 && !a.spellAim;
+    finishRace(b); clearNextRaceTimer(); resetRace(state.mode);
+    return { frogged, fell, next, cast, after: Boolean(state.racers[0].spellAim) };
+  });
+  assert.deepEqual(r, { frogged: true, fell: true, next: [true, false], cast: true, after: false });
+});
+
 test('a running horse gets past the troll and the ice giant, not the other monsters; the giant plucks her from a jump or the air', { skip: skip() }, async () => {
   const r = {};
   for (const key of ['farm', 'winter', 'wizard', 'autumn', 'horseshow']) {
