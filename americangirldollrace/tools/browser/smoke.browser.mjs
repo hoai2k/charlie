@@ -474,6 +474,49 @@ test('Moon Base gives a rover with nine calibrated rider frames in either direct
   assert.deepEqual(errors,[]);
 });
 
+test('Specials modes: None, All Unicorns, All Brooms, All Fairy Wings, All Dolls; Fairy Wings mode hands out fairy wings', { skip: skip() }, async () => {
+  await onTrack('farm');
+  const r = await page.evaluate(() => {
+    state.running = false; startPanel.classList.remove('hidden'); Lobby.showSelect();
+    const options = [...document.querySelector('#specialsSelect').options].map(o => o.textContent);
+    const saved = state.specials;
+    setSpecials('wings'); startRace('two'); state.running = false;
+    const kinds = [...new Set(state.powerups.filter(p => p.type === 'horse').map(p => p.horseType))];
+    const [a] = state.racers; a.horseType = null; a.horseTimer = 0;
+    applyPowerup(a, state.powerups.find(p => p.type === 'horse'));
+    const wearing = a.horseType;
+    setSpecials('amanda-mode'); const gone = state.specials;
+    setSpecials(saved);
+    return { options, kinds, wearing, gone };
+  });
+  assert.deepEqual(r.options, ['None', 'All Unicorns', 'All Brooms', 'All Fairy Wings', 'All dolls']);
+  assert.deepEqual(r.kinds, ['wings']);
+  assert.equal(r.wearing, 'wings');
+  assert.equal(r.gone, 'none', 'a removed mode falls back to None');
+});
+
+test('A big roster on a wide screen (All Dolls, or by now the usual one): the doll list runs to the right edge (Settings box down by the corner buttons), cards a comfortable width, faces in view', { skip: skip() }, async () => {
+  const r = await page.evaluate(() => {
+    const saved = state.specials; state.running = false; startPanel.classList.remove('hidden');
+    const read = () => {
+      const cards = [...document.querySelectorAll('#lbGrid .lb-card')];
+      const box = document.querySelector('#lbTopRight').getBoundingClientRect(), grid = document.querySelector('#lbGrid').getBoundingClientRect();
+      const stage = document.querySelector('.lb-stage').getBoundingClientRect(), k = stage.width / 1280;
+      const bunny = cards.find(c => c.querySelector('.lb-name').textContent === 'Cornsilk')?.querySelector('.lb-pic');
+      return { roomy: document.querySelector('.start-panel').classList.contains('roomy-roster'), card: Math.round(cards[0].getBoundingClientRect().width / k),
+        settingsBelowGrid: box.top > grid.bottom, bunnyShift: bunny ? parseFloat(bunny.style.backgroundPosition) : null };
+    };
+    setSpecials('all-dolls'); Lobby.showSelect();
+    return new Promise(resolve => setTimeout(() => { const all = read(); setSpecials(saved); Lobby.showSelect(); resolve({ all, normal: read() }); }, 600));
+  });
+  assert.equal(r.all.roomy, true);
+  assert.ok(r.all.card >= 75, `card ${r.all.card}px`);
+  assert.equal(r.all.settingsBelowGrid, true);
+  assert.ok(r.all.bunnyShift < 0, "Cornsilk's card is cropped about her face, right of the middle");
+  // (The usual roster is big enough by now to want the room too.)
+  assert.ok(r.normal.card >= 75 && r.normal.card > r.all.card, `usual roster card ${r.normal.card}px`);
+});
+
 test('All Dolls: every hidden doll is listed after all the others (Random last)', { skip: skip() }, async () => {
   const r = await page.evaluate(() => {
     const saved = state.specials; state.running = false; startPanel.classList.remove('hidden');
@@ -858,7 +901,8 @@ test('specials: a board win offers speed or high jump; Y uses it and it recharge
     // Snowballs (the Farm's apples), thrown on another board: 5, one back every 3 s.
     chooseSpecial(specialPicker.choices.indexOf('snow:farm'));
     setBackground('town'); startRace('two'); state.running = true; startPanel.classList.add('hidden');
-    const c = state.racers[0]; c.x = 3000; state.monsters = []; state.obstacles = []; keys.clear();
+    // (No pickups: one dealt where she stands could mount her, and riders can't throw.)
+    const c = state.racers[0]; c.x = 3000; state.monsters = []; state.obstacles = []; state.powerups = []; keys.clear();
     keys.add('KeyR'); update(1 / 60); keys.delete('KeyR'); update(1 / 60);
     keys.add('KeyR'); update(1 / 60); keys.delete('KeyR'); update(1 / 60);
     out.snow = { thrown: state.projectiles.filter(p => p.track === 'farm').length, left: specialStock(c).ammo };
@@ -870,7 +914,7 @@ test('specials: a board win offers speed or high jump; Y uses it and it recharge
     setBackground('winter'); out.fifth = await won();
     chooseSpecial(specialPicker.choices.indexOf('mount:winter'));
     setBackground('farm'); startRace('two'); state.running = true; startPanel.classList.add('hidden');
-    const d = state.racers[0]; d.x = 3000; state.monsters = []; state.obstacles = []; keys.clear();
+    const d = state.racers[0]; d.x = 3000; state.monsters = []; state.obstacles = []; state.powerups = []; keys.clear();
     keys.add('KeyR'); update(1 / 60); keys.delete('KeyR'); update(1 / 60);
     out.mount = [d.horseType, d.horseTimer > 0, d.specialWait > 14];
     // Where a board has no mount of its own (the Village), each ride is rolled
