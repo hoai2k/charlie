@@ -1268,7 +1268,7 @@ export class Game {
   /** A performer on the concert stage (and in the gallery after it): the stick walks, A / X jump. */
   stageMove(st, dt, ended) {
     if (st.actor.pose === 'walk' && !st.actor._cel) { st.actor.setPose('dance'); st.actor.facing = 1; }
-    celebrateWalk(st.actor, st.p.ctrl, dt, { x0: 140, x1: W - 140 }, { ended, dash: false, rest: ended ? 'celebrate' : 'dance', scale: st.actor.scale / 0.9 });
+    celebrateWalk(st.actor, st.p.ctrl, dt, { x0: 140, x1: W - 140 }, { ended, dash: false, rest: ended ? 'celebrate' : 'dance', jumpV: 640 });
   }
 
   beatNow() { const S = this.seq; return S.last ? (S.last.idx + (S.frac || 0)) / 2 : 0; }
