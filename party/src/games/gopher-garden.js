@@ -48,6 +48,10 @@ const DS = (y) => depthScale(y, { top: 380, near: 960, far: 0.8, nearScale: 1.04
 const HOLE_W = 222;                       // hole width at depth scale 1
 const FAIRIES = ['pink', 'blue', 'yellow', 'green', 'purple'];
 const FAIRY_GLOW = { pink: '#ff9ad5', blue: '#8fd3ff', yellow: '#ffe066', green: '#9be37a', purple: '#c9a6ff' };
+// prop/gopher-mallet (480x200, head at the right): a hand grips the handle at
+// `grip`, just past the knob; a muzzle (info.mouth: Fox, Unicorn...) holds the
+// knob end, `mouthGrip`, so the handle never crosses the face. headX: the head's middle.
+const MALLET = { w: 480, h: 200, grip: [96, 100], mouthGrip: [40, 100], headX: 399 };
 // prop/gopher-troll-tug (400x400): the mallet head sits at his grip point
 const TUG_GRIP = [350, 174];
 const TROLL_WAIST = { up: [200, 353], tug: [190, 383] };
@@ -723,7 +727,7 @@ export class Game {
     const ang = Math.atan2(tg.y - hd.y, tg.x - hd.x) + Math.sin(this.t * 22) * 0.05;
     const L = this.malletLen(e);
     // the head in his fists, the handle pointing back at the player's hands
-    const head = art('prop/gopher-mallet') ? (399 - 96) / 400 : 0.84;
+    const head = art('prop/gopher-mallet') ? (MALLET.headX - MALLET.grip[0]) / 400 : 0.84;
     g.save(); g.translate(tg.x - Math.cos(ang) * L * head, tg.y - Math.sin(ang) * L * head); g.rotate(ang);
     this.drawMalletShape(g, L, e.p.color);
     g.restore();
@@ -731,9 +735,15 @@ export class Game {
 
   malletLen(e) { return Math.max(80, e.a.height * 0.78); }
 
-  drawMalletShape(g, L, color) {
-    // prop/gopher-mallet: 480x200, grip at (96, 100), head at the right end
-    if (drawArt(g, 'prop/gopher-mallet', L * (240 - 96) / 400, 0, L * 480 / 400, L * 200 / 400)) return;
+  /** The mallet with its grip at the origin, head along +x. mouth: held by the knob end instead (a muzzle). */
+  drawMalletShape(g, L, color, mouth = false) {
+    const k = L / 400;   // the art's px -> screen (its handle-to-head length is ~400 px)
+    if (art('prop/gopher-mallet')) {
+      const grip = mouth ? MALLET.mouthGrip : MALLET.grip;
+      drawArt(g, 'prop/gopher-mallet', (MALLET.w / 2 - grip[0]) * k, (MALLET.h / 2 - grip[1]) * k, MALLET.w * k, MALLET.h * k);
+      return;
+    }
+    if (mouth) g.translate(L * 0.17, 0);   // the procedural knob sits at -0.17 L
     drawMallet(g, L, color);
   }
 
@@ -759,7 +769,7 @@ export class Game {
       g.beginPath(); g.arc(info.hand.x, info.hand.y, L * 0.8, Math.max(BACK, ang - 1.3), ang); g.stroke(); g.restore();
     }
     g.save(); g.translate(info.hand.x, info.hand.y); g.rotate(ang);
-    this.drawMalletShape(g, L, e.p.color);
+    this.drawMalletShape(g, L, e.p.color, info.mouth);
     g.restore();
   }
 }

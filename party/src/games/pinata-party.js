@@ -637,7 +637,9 @@ export class Game {
         g.beginPath(); g.arc(info.hand.x, info.hand.y, L * 0.78, Math.max(BACK, ang - 1.4), ang); g.stroke(); g.restore();
       }
     }
-    drawBat(g, info.hand.x, info.hand.y, ang, L, U.p.color);
+    // a muzzle (info.mouth) holds the bat by its knob end, so the handle never crosses the face
+    const m = info.mouth ? L * 0.18 : 0;
+    drawBat(g, info.hand.x + Math.cos(ang) * m, info.hand.y + Math.sin(ang) * m, ang, L, U.p.color);
   }
 
   draw(g) {
