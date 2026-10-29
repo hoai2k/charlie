@@ -1,3 +1,11 @@
+## Dino Dig critter artwork — complete (current checkpoint)
+
+Three newly requested assets delivered: prop/dino-snake, prop/dino-scorpion and optional prop/dino-dug-sand. Registered in dino-dig deferred group; complete decoded budget17.154140MiBincluding common reuse. Exact prompts/nativeRGBA archives retained in sources/oct28-dino-critters. Review and provenance: pending/OCT28-DINO-CRITTER-DELIVERY.json and related BROWSER/SNAKE/SCORPION/SAND records.
+
+All24Party tests pass. Isolated browser review shows all four creature frames in both directions against actual backdrop with correct ground and no errors. Dig-anywhere consumers were not published in checked main `e6da7616d628e2c0613321f1ceb94270e887ca68`; do not mistake isolated renderer proof for end-to-end new feature testing. Feature owner should use these registered keys and perform natural critter pop/flee + dug-mask checks once its code lands. No image generation or approval remains.
+
+Last checked main revision: `e6da7616d628e2c0613321f1ceb94270e887ca68`. Last checked request blob after completed brief archival: `7cd1d4e30d1339b4b4077a69b62fc81ffbb369b9`. Check UTC: `2026-10-28T23:56:34.794389+00:00`. No timer requested or created. Older checkpoints below are historical.
+
 ## October28 late delivery — complete (authoritative current checkpoint)
 
 All40new requested images are delivered: Plushie Workshop2, Leaf Pile Leap15 and Dino Dig23. Published batches: `0378f317`, `791c4a57`, `826429fb`. Exact prompts and lossless native RGBA archives retained. Full requested canvases preserved alongside compact runtime derivatives where required. Current audit: reference/pending/OCT28-LATE-IMAGE-DELIVERY.json.

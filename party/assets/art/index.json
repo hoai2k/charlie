@@ -1401,7 +1401,10 @@
     "prop/dino-spine-3": "prop/dino-spine-3.webp",
     "prop/dino-tail-1": "prop/dino-tail-1.webp",
     "prop/dino-tail-2": "prop/dino-tail-2.webp",
-    "prop/dino-tail-3": "prop/dino-tail-3.webp"
+    "prop/dino-tail-3": "prop/dino-tail-3.webp",
+    "prop/dino-snake": "prop/dino-snake.webp",
+    "prop/dino-scorpion": "prop/dino-scorpion.webp",
+    "prop/dino-dug-sand": "prop/dino-dug-sand.webp"
   },
   "groups": {
     "dino-dig": [
@@ -1429,7 +1432,10 @@
       "prop/dino-spine-3",
       "prop/dino-tail-1",
       "prop/dino-tail-2",
-      "prop/dino-tail-3"
+      "prop/dino-tail-3",
+      "prop/dino-snake",
+      "prop/dino-scorpion",
+      "prop/dino-dug-sand"
     ],
     "leaf-pile-leap": [
       "bg/fairy-hide-seek",
