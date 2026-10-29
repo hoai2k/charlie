@@ -553,7 +553,7 @@ test('All Dolls on a wide screen: the bottom row runs out under the logo and Set
   assert.equal(back, 'Juliette');
 });
 
-test('All Dolls: every hidden doll is listed after all the others (Random last)', { skip: skip() }, async () => {
+test('All Dolls: every hidden doll is listed after all the others, Amanda and Penelope first (Random last)', { skip: skip() }, async () => {
   const r = await page.evaluate(() => {
     const saved = state.specials; state.running = false; startPanel.classList.remove('hidden');
     setSpecials('all-dolls'); Lobby.showSelect();
@@ -568,6 +568,7 @@ test('All Dolls: every hidden doll is listed after all the others (Random last)'
   assert.deepEqual(r.hidden.slice(firstHidden, -1).filter(h => h !== 'hidden'), [], r.names.join());
   assert.equal(r.hidden.at(-1), 'random');
   assert.ok(r.names.includes('Munna') && r.names.includes('Penelope'));
+  assert.deepEqual(r.names.slice(firstHidden, firstHidden + 2), ['Amanda', 'Penelope'], r.names.join());
 });
 
 test('lobby: clicking Random adds keyboard players; Escape un-picks then removes each in turn; clicking an unpicked keyboard player removes her', { skip: skip() }, async () => {

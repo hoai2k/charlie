@@ -14,12 +14,12 @@
 (() => {
   // Top row first, then the bottom row (the grid splits the list in half).
   // Dolls added later go at the end of the bottom row; every hidden doll
-  // (Annie, Katniss, Cornsilk, Munna, Amanda, Penelope: shown with All Dolls)
-  // always comes after all the others.
+  // (Amanda, Penelope, then Annie, Katniss, Cornsilk, Munna: shown with All
+  // Dolls) always comes after all the others.
   const ROSTER_ORDER = [...new Set([
     "juliette", "whirlpool", "kaya", "claudia", "lily", "cinnamon", "marisol", "felicity",
-    "barbie", "rumi", "mira", "zoey", "hermione", "luna",
-    ...Object.keys(window.EXTRA_DOLLS || {}), "amanda", "penelope"
+    "barbie", "rumi", "mira", "zoey", "hermione", "luna", "amanda", "penelope",
+    ...Object.keys(window.EXTRA_DOLLS || {})
   ])].sort((a, b) => Boolean(characters[a]?.hidden) - Boolean(characters[b]?.hidden));
   const RANDOM = "random";
   const COLS = 5;
