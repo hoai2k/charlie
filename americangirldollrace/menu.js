@@ -410,7 +410,8 @@
       }
       if (id === "join") {
         const prompt = touchOnly() ? "Tap to join" : `Press <span class="lb-glyph" data-g="A"></span> to join`;
-        el.innerHTML = `<div class="lb-empty"></div><div class="lb-pnum">P${nextFree() + 1}</div><div class="lb-join">${prompt}</div>`;
+        // (Just an invitation: no "P3", as no third player may ever come.)
+        el.innerHTML = `<div class="lb-empty"></div><div class="lb-join">${prompt}</div>`;
         glyphs(el);
       } else if (id[0] === "p") {
         renderPlayer(el, Number(id.slice(1)), bounceId === id);

@@ -564,6 +564,9 @@ test('lobby: clicking Random adds keyboard players; Escape un-picks then removes
   await stall(); const unpicked = await players();
   await stall(); const gone = await players();
   assert.deepEqual({ added, steps, unpicked, gone }, { added: 'wasd+ arrows+', steps: ['wasd+ arrows', 'wasd+', 'wasd', ''], unpicked: 'wasd', gone: '' });
+  // The join stall just invites: no player number for someone who may never come.
+  const join = await page.evaluate(() => document.querySelector('#lbSlots .lb-slot[data-id="join"]')?.textContent || '');
+  assert.ok(join.includes('join') && !/P\d/.test(join), join);
   assert.deepEqual(errors, []);
 });
 

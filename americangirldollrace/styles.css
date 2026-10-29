@@ -684,7 +684,6 @@ button:focus-visible {
 .lb-slot.enter { animation: lb-slot-in 0.35s ease; }
 @keyframes lb-slot-in { from { opacity: 0; transform: translateY(30px); } }
 .lb-empty { position: absolute; left: 6px; bottom: 34px; width: 140px; height: 191px; opacity: 0.92; background: url(assets/ui/slot_empty.webp) center / contain no-repeat; }
-.lb-pnum { position: absolute; left: 0; right: 0; top: 74px; text-align: center; font-size: 22px; font-weight: 700; color: rgba(255, 255, 255, 0.85); text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5); }
 .lb-join { position: absolute; left: -20px; right: -20px; bottom: 6px; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 18px; font-weight: 700; color: #fff; text-shadow: 0 2px 3px rgba(0, 0, 0, 0.6); animation: lb-pulse 1.6s ease-in-out infinite; }
 .lb-glow { position: absolute; left: 6px; bottom: 26px; width: 140px; height: 40px; border-radius: 50%; filter: blur(10px); opacity: 0.85; }
 .lb-pedestal { position: absolute; left: 6px; bottom: 18px; width: 140px; height: 57px; background: url(assets/ui/slot_pedestal.webp) center / contain no-repeat; }
