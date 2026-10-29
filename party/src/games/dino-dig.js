@@ -228,13 +228,15 @@ export class Game {
     const kind = chance(0.5) ? 'snake' : 'scorpion';
     const dir = cell.x >= e.x ? 1 : -1;
     const seen = new Set([e]);
-    this.critters.push({ kind, x: cell.x, y: cell.y + 6, dir, state: 'pop', t: 0, rise: 0, lift: 0, vy: rand(-40, 40), seen });
+    // it pops up a little beyond the spade, clear of the digger
+    const cx = clamp(dir > 0 ? Math.max(cell.x + 50, e.x + bodyRadius(e.a) + 80) : Math.min(cell.x - 50, e.x - bodyRadius(e.a) - 80), ARENA.x0, ARENA.x1);
+    this.critters.push({ kind, x: cx, y: cell.y + 6, dir, state: 'pop', t: 0, rise: 0, lift: 0, vy: rand(-40, 40), seen });
     const a = e.a;
     a.facing = dir; a.playOnce('surprised', 0.8, 'laugh'); a.squash(0.35);
     snd('gg-peek', 'pop', { vol: 0.7, rate: 1.1 }); snd('mm-gasp', 'boing', { vol: 0.4 });
     setTimeout(() => sfx('giggle', { vol: 0.5, rate: 1.15 }), 450);
     particles.burst(cell.x, cell.y - 10, { type: 'drop', count: 16, colors: DUG, speed: [260, 520], angle: -Math.PI / 2, spread: 1, size: [6, 12], gravity: 1300, life: [0.45, 0.7] });
-    particles.popText(cell.x + dir * 30, cell.y - 150, '!', '#ff7ac6', 70);
+    particles.popText(cx + dir * 70, cell.y - 120, '!', '#ff7ac6', 64);
     this.pop(e, kind === 'snake' ? 'A wiggly snake!' : 'A scorpion!', '#ffd23f', 42);
     if (!e.p.isAI) e.p.ctrl.rumble(0.35, 100);
     // anyone close by jumps too
@@ -762,7 +764,8 @@ export class Game {
       if (this.easy && !e.p.isAI && this.phase === 'dig' && !this.rush && !e.ez.go) {
         // beside the fresh spot under the spade; over her head when it's all dug here (A again walks her on)
         const cell = this.digCell(e), child = { x: e.x, y: e.y - e.a.height };
-        if (cell && cell.layer === 0) easyPrompt(g, e.p, { target: { x: cell.x, y: cell.y - 50 }, child });
+        const hidesCritter = cell && this.critters.some((c) => c.state === 'pop' && Math.abs(c.x - cell.x) < 170 && Math.abs(c.y - cell.y) < 90);
+        if (cell && cell.layer === 0 && !hidesCritter) easyPrompt(g, e.p, { target: { x: cell.x, y: cell.y - 50 }, child });
         else easyPrompt(g, e.p, { child });
       }
     }

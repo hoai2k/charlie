@@ -26,7 +26,10 @@
 // The callback draws in "forward space": origin at the member's feet, +x is
 // the direction the character faces, -y is up, units are screen px. info has
 // { h, w, head, hand, eyes, neck, back (each {x, y}), headAngle, pose, facing,
-// frame (the sprite frame record: its .pose / .index in sprites.json, or null) }.
+// frame (the sprite frame record: its .pose / .index in sprites.json, or null),
+// mouth (true when the hand point is a muzzle: grip a held thing by its end,
+// so its handle doesn't cross the face; see handIsMouth) }.
+// A held item is drawn with its own grip point (in its art) at info.hand.
 // Sprite sets can supply per-pose/per-frame head, hand, eyes, neck, back
 // points and headAngle so attachments track the art. info.parts holds every
 // body part the frame shows (BODY_PARTS in bodyparts.js: head eyes earFront
@@ -1042,7 +1045,8 @@ export class Actor {
       // the authored rear-view eyes: null means the face is turned away
       if (fr.eyes === null) delete parts.eyes;
     }
-    return { h, w: aspect * h, head, hand, eyes, neck, back, parts, headAngle: fr0Angle(sp, t), pose, facing: m.facing, member: m.i, frame: sp ? pickFrame(sp, t) : null };
+    const mouth = !!sp && handIsMouth(getSpriteSet(def.asset), sp, pickFrame(sp, t));
+    return { h, w: aspect * h, head, hand, eyes, neck, back, parts, headAngle: fr0Angle(sp, t), pose, facing: m.facing, member: m.i, frame: sp ? pickFrame(sp, t) : null, mouth };
   }
 
   /**
@@ -1094,6 +1098,25 @@ export class Actor {
 
 /** Body-map points a frame record may carry (beyond head hand eyes neck back). */
 const FRAME_PARTS = ['belly', 'tail', 'earFront', 'earBack', 'footFront', 'footBack'];
+
+/**
+ * Whether this frame's hand point is the character's mouth. Animals (Fox,
+ * Unicorn, Cotton Candy, Hotdog) hold things in their muzzle: their idle hand
+ * point sits by the face. Their raised-hoof/paw frames (swing, pull) mark a
+ * real limb, so the frame itself must also have the hand at the face. A held
+ * item's handle should then not reach back across the face: grip it at its end
+ * (info.mouth in attachments).
+ */
+const MOUTH_SET = 0.2, MOUTH_FRAME = 0.22;   // hand-to-eyes distance, in frame body heights
+const handNearEyes = (fr, bh, k) => !!(fr && fr.hand && fr.eyes) && Math.hypot(fr.hand[0] - fr.eyes[0], fr.hand[1] - fr.eyes[1]) < k * bh;
+export function handIsMouth(set, sp, fr) {
+  if (!set || !sp || !fr) return false;
+  if (set.mouthHand === undefined) {
+    const idle = set.poses.idle, f0 = idle && idle.frames[0];
+    set.mouthHand = !!f0 && handNearEyes(f0, frameBodyHeight(idle, f0, set.bodyHeight), MOUTH_SET);
+  }
+  return set.mouthHand && handNearEyes(fr, frameBodyHeight(sp, fr, set.bodyHeight), MOUTH_FRAME);
+}
 
 /** Per-frame head tilt (radians) from the sprite set, 0 for base art. */
 function fr0Angle(sp, t) { return sp ? pickFrame(sp, t).headAngle || 0 : 0; }

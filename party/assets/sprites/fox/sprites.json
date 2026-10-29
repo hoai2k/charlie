@@ -659,7 +659,7 @@
         {
           "src": "run-00.webp",
           "anchor": [
-            132,
+            258,
             252
           ],
           "artHash": "437a46ef0634bc54d95248c8dbdd4f6aeb55c1d4b8ccd88b7705a4200b3853e3",
@@ -708,7 +708,7 @@
         {
           "src": "run-01.webp",
           "anchor": [
-            201,
+            203,
             231
           ],
           "artHash": "1def3d67c14fa929e1cf3fb6111b324359c1135069f73ecfa86c1ec245755223",
@@ -761,7 +761,7 @@
         {
           "src": "run-02.webp",
           "anchor": [
-            251,
+            229,
             213
           ],
           "artHash": "8f98d7b77537ab5e3aa38a95012ead78aaa562027597252ca769d6204fb2c414",
@@ -810,7 +810,7 @@
         {
           "src": "run-03.webp",
           "anchor": [
-            296,
+            189,
             247
           ],
           "artHash": "170105f8d6d7c973e8372c6afcc06eb2bf2464ea51df944f178567b6ad0c84f7",

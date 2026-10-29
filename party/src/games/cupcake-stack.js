@@ -414,9 +414,11 @@ export class Game {
       // in the gallery A goes on)
       if (this.phase === 'party' && !e.p.isAI) {
         const c = e.p.ctrl, sx = Math.abs(c.x) > 0.2 ? c.x : 0, r = this.rowPos(e), fa = e.fa;
+        const ended = !!this.api.ended?.();
+        if (e.rowEnded !== ended) { e.rowEnded = ended; e.rowDx = 0; e.rowFace = 0; }   // the gallery's row is beside the tower: start from her new spot
         e.rowDx = clamp((e.rowDx || 0) + sx * 420 * dt, 80 - r.x, W - 80 - r.x);
         if (sx) e.rowFace = sx > 0 ? 1 : -1;
-        const hop = celebrateHop(fa, c.pressed('x') || (!this.api.ended?.() && c.pressed('a')), dt);
+        const hop = celebrateHop(fa, c.pressed('x') || (!ended && c.pressed('a')), dt);
         fa.z = hop.z;
         if (hop.landed) particles.burst(r.x + e.rowDx, r.y, { type: 'sparkle', count: 4 });
         if (!hop.air) { if (sx) fa.moveAnim(sx * 420, 0, 420); else if (!fa._once) fa.setPose('celebrate'); }

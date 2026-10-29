@@ -130,7 +130,7 @@
       "fps": 8,
       "loop": true,
       "motion": 0.3,
-      "facing": 0,
+      "facing": -1,
       "frames": [
         {
           "src": "walk-00.webp",
@@ -354,7 +354,7 @@
       "fps": 12,
       "loop": true,
       "motion": 0.3,
-      "facing": 0,
+      "facing": -1,
       "frames": [
         {
           "src": "run-00.webp",
@@ -3167,7 +3167,7 @@
       "fps": 10,
       "loop": false,
       "motion": 0.3,
-      "facing": 0,
+      "facing": -1,
       "holdLast": true,
       "bodyHeight": 144.6,
       "frames": [

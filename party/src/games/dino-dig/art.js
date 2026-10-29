@@ -563,7 +563,7 @@ export class DugSand {
   draw(g) {
     if (!this.ok) return;
     if (this.dirty) this.compose();
-    g.save(); g.globalAlpha *= 0.92; g.drawImage(this.out, SANDBOX.x0, SANDBOX.y0); g.restore();
+    g.save(); g.globalAlpha *= 0.86; g.drawImage(this.out, SANDBOX.x0, SANDBOX.y0); g.restore();
   }
 }
 
@@ -572,7 +572,7 @@ export class DugSand {
 // Art: prop/dino-snake / prop/dino-scorpion, 4 x 1 atlases of 256 px cells (1-2 popping up
 // surprised, 3-4 on the run), facing right, anchor (128, 224) in each cell. Procedural
 // stand-ins below. Facing left is an instant mirror (no paper flips).
-export const CRITTER = { snake: { key: 'prop/dino-snake', w: 170 }, scorpion: { key: 'prop/dino-scorpion', w: 190 } };
+export const CRITTER = { snake: { key: 'prop/dino-snake', w: 190 }, scorpion: { key: 'prop/dino-scorpion', w: 200 } };
 /** c = { kind, x, y (ground), dir: 1 | -1, state: 'pop' | 'run', t, lift (px above the ground), rise 0..1 (out of the sand) }. */
 export function drawCritter(g, c, t) {
   const C = CRITTER[c.kind], im = art(C.key);
