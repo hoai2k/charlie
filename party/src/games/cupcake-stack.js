@@ -23,6 +23,7 @@ import { aiProfile, reactionTime } from '../engine/ai.js';
 import { drawSparkleShape } from '../engine/emotes.js';
 import { easyPrompt } from '../engine/easy.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, TAU, later } from '../engine/util.js';
+import { celebrateHop } from '../engine/celebrate.js';
 
 const NAVY = '#24163f';
 const PLAY_T = 45;            // stacking time; then the birthday finale
@@ -409,6 +410,18 @@ export class Game {
     }
     // finale row
     for (const e of this.ents) {
+      // the party (and the gallery): a kid walks along the row and jumps (A at the party, X always:
+      // in the gallery A goes on)
+      if (this.phase === 'party' && !e.p.isAI) {
+        const c = e.p.ctrl, sx = Math.abs(c.x) > 0.2 ? c.x : 0, r = this.rowPos(e), fa = e.fa;
+        e.rowDx = clamp((e.rowDx || 0) + sx * 420 * dt, 80 - r.x, W - 80 - r.x);
+        if (sx) e.rowFace = sx > 0 ? 1 : -1;
+        const hop = celebrateHop(fa, c.pressed('x') || (!this.api.ended?.() && c.pressed('a')), dt);
+        fa.z = hop.z;
+        if (hop.landed) particles.burst(r.x + e.rowDx, r.y, { type: 'sparkle', count: 4 });
+        if (!hop.air) { if (sx) fa.moveAnim(sx * 420, 0, 420); else if (!fa._once) fa.setPose('celebrate'); }
+        continue;
+      }
       if (this.phase === 'party' && !e.fa._once) e.fa.setPose('celebrate');
       else if (!e.fa._once && this.phase !== 'party') e.fa.setPose('ready');
     }
@@ -564,7 +577,7 @@ export class Game {
       g.fillStyle = grd; g.fillRect(0, 860, W, 220); g.restore();
       for (const e of this.ents) {
         const r = this.rowPos(e);
-        e.fa.x = r.x; e.fa.y = r.y; e.fa.facing = r.x < W / 2 ? 1 : -1;
+        e.fa.x = r.x + (e.rowDx || 0); e.fa.y = r.y; e.fa.facing = e.rowFace || (r.x < W / 2 ? 1 : -1);
         e.fa.draw(g, { ring: e.p.color });
       }
       for (const gu of this.gusts) this.drawGust(g, gu);

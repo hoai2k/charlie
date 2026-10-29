@@ -113,6 +113,10 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   scene's 'gallery' state keeps the game's last screen up with everyone's stars
   and A/Y to go on, so end such a game on the art itself (Fashion Show posts its
   runway photos on a wall). Pass `gallery: false` only to keep the podium.
+- Celebrations move (the owner's rule): a finale or ending scene lets the kids walk
+  (stick) and jump whenever that's possible, even briefly - A jumps, but in the
+  'gallery' state A goes on, so X jumps there (`engine/celebrate.js`:
+  `celebrateWalk`, `celebrateHop`). CPUs just keep celebrating in place.
 - A Play Studio contest (`competitive: true` in its meta: Sparkle Bead Shop, Memory
   Match) ends on the podium and has no pause-menu "All done!".
 - Voices are rare: `voice()` (engine/audio.js) rations them globally (1.6 s between

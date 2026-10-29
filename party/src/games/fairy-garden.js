@@ -18,6 +18,7 @@ import { charById } from '../data/characters.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU, dist, later } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape, drawHeartShape } from '../engine/emotes.js';
 import { Dash } from '../engine/dash.js';
+import { celebrateWalk } from '../engine/celebrate.js';
 import { meta } from './fairy-garden.meta.js';
 
 const NAVY = '#24163f';
@@ -765,7 +766,9 @@ export class Game {
     for (const m of this.movers) {
       const a = m.a;
       const d = Math.hypot(m.home.x - a.x, m.home.y - a.y);
-      if (d > 6) {
+      // a kid who steers (or is home) dances about freely: the stick walks, A jumps
+      if (!m.p.isAI && (m.free || d <= 6 || Math.hypot(m.p.ctrl.x, m.p.ctrl.y) > 0.3)) { m.free = true; this.finaleWalk(m, dt, false); }
+      else if (d > 6) {
         const v = Math.min(d / dt, SPEED * 1.2);
         const vx = ((m.home.x - a.x) / d) * v, vy = ((m.home.y - a.y) / d) * v;
         a.x += vx * dt; a.y += vy * dt;
@@ -806,9 +809,14 @@ export class Game {
     this.api.finishTogether({ stats, title: 'Magical!', focus: this.phase === 'finale' ? { x: W / 2, y: 880, zoom: 1.25 } : undefined });
   }
 
+  /** The fairy dance (and the gallery after it): a kid walks and jumps about (X jumps there: A goes on). */
+  finaleWalk(m, dt, ended) {
+    celebrateWalk(m.a, m.p.ctrl, dt, { x0: 60, x1: W - 60, y0: MOVE_TOP, y1: MOVE_BOTTOM }, { ended, speed: SPEED * 0.9, rest: 'dance' });
+  }
+
   postUpdate(dt) {
     this.t += dt; this.phaseT += dt;
-    for (const m of this.movers) m.a.update(dt);
+    for (const m of this.movers) { if (!m.p.isAI) this.finaleWalk(m, dt, true); m.a.update(dt); }
     this.updateFairies(dt);
     this.updateFireflies(dt);
   }

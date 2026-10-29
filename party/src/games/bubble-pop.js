@@ -114,7 +114,7 @@ export class Game {
     this.t += dt;
     this.updateMachine(dt);
     this.updateBubbles(dt); this.updateGoodies(dt);
-    for (const e of this.ents) { e.a.update(dt); }
+    for (const e of this.ents) { if (!e.p.isAI) { this.movePlayer(e, dt); e.a.x = e.x; e.a.z = e.z; } e.a.update(dt); }
   }
 
   updateMachine(dt) {
@@ -364,7 +364,9 @@ export class Game {
   movePlayer(e, dt) {
     const p = e.p, a = e.a, ctrl = p.ctrl;
     e.popT = Math.max(0, e.popT - dt);
-    let inX = this.done ? 0 : ctrl.x;
+    // the gallery: a kid still runs and jumps in the bubble bath (X jumps there: A goes on)
+    const free = !this.done || !p.isAI;
+    let inX = free ? ctrl.x : 0;
     if (this.easy && !p.isAI && !this.done) {
       // Molly Easy: either stick still runs her about (a touch gentler than Medium).
       // A jumps where she is; only A pressed again and again (no steering - easyAutoOk)
@@ -381,15 +383,15 @@ export class Game {
     }
     const target = inX * MAX_SPEED;
     e.vx = approach(e.vx, target, (Math.sign(target) !== Math.sign(e.vx) ? 6000 : 4200) * dt);
-    const dd = e.dash.update(dt, ctrl, { x: e.x, y: a.y, facing: a.facing, actor: e.z > 1 ? null : a, ok: !this.done && !p.isAI });   // B: a short dash left / right
+    const dd = e.dash.update(dt, ctrl, { x: e.x, y: a.y, facing: a.facing, actor: e.z > 1 ? null : a, ok: free && !p.isAI });   // B: a short dash left / right
     e.x = clamp(e.x + e.vx * dt + dd.x, 60, W - 60);
-    if (!this.done && ctrl.pressed('a') && e.z <= 0.5) {
+    if ((this.done ? !p.isAI && ctrl.pressed('x') : ctrl.pressed('a')) && e.z <= 0.5) {
       e.vz = JUMP_V; e.combo = 0; sfx('jump', { vol: 0.6 }); a.squash(-0.25);
       particles.burst(e.x, a.y, { type: 'dust', count: 4, color: '#fff', speed: [30, 90], size: [8, 14] });
     }
     if (e.z > 0 || e.vz > 0) {
       // holding A floats a little longer (feels great, not needed)
-      const g = JUMP_G * (ctrl.held('a') && e.vz > 0 ? 0.8 : 1);
+      const g = JUMP_G * (ctrl.held(this.done ? 'x' : 'a') && e.vz > 0 ? 0.8 : 1);
       e.vz -= g * dt; e.z += e.vz * dt;
       if (e.z > MAX_Z) { e.z = MAX_Z; e.vz = Math.min(e.vz, 0); }
       if (e.z <= 0) {

@@ -27,6 +27,7 @@ import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
 import { aiProfile, reactionTime, steer } from '../engine/ai.js';
+import { celebrateWalk } from '../engine/celebrate.js';
 import { clamp, damp, rand, randInt, pick, chance, shuffle, TAU, later, showstopper } from '../engine/util.js';
 import { SPRAY_LEN, TOOLS, TOOL_IDX, ACCESSORIES } from './pet-spa/data.js';
 import { SpaView } from './pet-spa/draw.js';
@@ -961,7 +962,8 @@ export class Game extends SpaView {
       } else if (chance(dt * 0.4)) pet.emote('heart', 1);
       pet.update(dt);
       const ch = s.char;
-      if (chance(dt * 0.8)) ch.playOnce(pick(['cheer', 'cheer', 'wave']), 0.6, 'clap');
+      if (!s.p.isAI) this.cheerWalk(s, dt, false);
+      else if (chance(dt * 0.8)) ch.playOnce(pick(['cheer', 'cheer', 'wave']), 0.6, 'clap');
       ch.update(dt);
     });
     if (t > 3.6 && !this.paradeConfetti) {
@@ -992,9 +994,14 @@ export class Game extends SpaView {
     this.api.finish({ showcase: true, highlight, stats, title: 'So Sparkly!', focus });
   }
 
+  /** In the audience at the parade (and in the gallery): a kid walks along the front row and jumps (X there: A goes on). */
+  cheerWalk(s, dt, ended) {
+    celebrateWalk(s.char, s.p.ctrl, dt, { x0: 80, x1: W - 80 }, { ended, rest: 'clap', scale: s.char.scale });
+  }
+
   postUpdate(dt) {
     this.t += dt;
-    for (const s of this.stations) { s.pet.update(dt); s.char.update(dt); }
+    for (const s of this.stations) { if (this.phase === 'parade' && !s.p.isAI) this.cheerWalk(s, dt, true); s.pet.update(dt); s.char.update(dt); }
   }
 
   onDone() {

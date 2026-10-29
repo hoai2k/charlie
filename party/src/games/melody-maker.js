@@ -40,6 +40,7 @@ import { art, drawArt } from '../engine/art.js';
 import { aiProfile } from '../engine/ai.js';
 import { playerName } from '../state.js';
 import { clamp, lerp, rand, randInt, pick, chance, ease, TAU } from '../engine/util.js';
+import { celebrateWalk } from '../engine/celebrate.js';
 import { drawSparkleShape } from '../engine/emotes.js';
 import { askOpen, askUpdate, drawAsk, drawDoneTab, drawDoneCard } from '../engine/studio-ui.js';
 import { meta } from './melody-maker.meta.js';
@@ -1215,7 +1216,7 @@ export class Game {
     this.concert = null;
     const S = this.seq; S.step = 0; S.stopped = false; S.last = null; this.events = []; S.nextAt = this.clock()[1] + 0.3;
     this.stations.forEach((st) => {
-      const a = st.actor; a.x = st.home.x; a.y = st.home.y; a.scale = st.home.s; a.setPose('idle'); a.snap();
+      const a = st.actor; a.x = st.home.x; a.y = st.home.y; a.z = 0; a._cel = null; a.scale = st.home.s; a.setPose('idle'); a.snap();
       st.gal = null;
     });
     sfx('back');
@@ -1238,6 +1239,9 @@ export class Game {
     C.t += dt;
     for (const st of this.stations) {
       const a = st.actor, G = st.gal, e = ease.inOutQuad(Math.min(1, C.t / 1.1));
+      // on stage a kid dances about and jumps (A while the song plays, X always: after it A
+      // ends the show and B goes back to composing, so no B dash here)
+      if (!st.p.isAI && C.t >= 1.1) { this.stageMove(st, dt, C.ended); if (!C.ended && a.pose === 'dance') a.poseTime = this.beatNow() / 2.2; continue; }
       a.x = lerp(G.from.x, G.to.x, e); a.y = lerp(G.from.y, G.to.y, e); a.scale = lerp(G.from.s, G.to.s, e);
       if (C.t < 1.1) { a.facing = G.to.x >= G.from.x ? 1 : -1; }
       else if (!C.ended) {
@@ -1259,6 +1263,12 @@ export class Game {
       }
       if (this.cpuOnly && C.endT > 3) this.finishGame();
     }
+  }
+
+  /** A performer on the concert stage (and in the gallery after it): the stick walks, A / X jump. */
+  stageMove(st, dt, ended) {
+    if (st.actor.pose === 'walk' && !st.actor._cel) { st.actor.setPose('dance'); st.actor.facing = 1; }
+    celebrateWalk(st.actor, st.p.ctrl, dt, { x0: 140, x1: W - 140 }, { ended, dash: false, rest: ended ? 'celebrate' : 'dance', scale: st.actor.scale / 0.9 });
   }
 
   beatNow() { const S = this.seq; return S.last ? (S.last.idx + (S.frac || 0)) / 2 : 0; }
@@ -1302,7 +1312,7 @@ export class Game {
     if (this.cpuOnly && this.t > 60) this.startConcert();
   }
 
-  postUpdate(dt) { this.t += dt; for (const st of this.stations) st.actor.update(dt); }
+  postUpdate(dt) { this.t += dt; for (const st of this.stations) { if (this.concert && st.gal && !st.p.isAI) this.stageMove(st, dt, true); st.actor.update(dt); } }
 
   destroy() {
     this.dead = true;

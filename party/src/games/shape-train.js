@@ -192,6 +192,9 @@ export class Game {
     this.updatePassengers(dt);
     this.updateFlyers(dt);
     this.updateWorld(dt);
+    // the gallery: a kid still walks the platform and hops (X: A goes on)
+    for (const U of this.units) if (!U.p.isAI) this.updateUnit(U, dt);
+    this.collide();
     for (const U of this.units) { this.placeActor(U); U.a.update(dt); }
   }
 
@@ -224,16 +227,19 @@ export class Game {
     if (mag > 1) { mx /= mag; my /= mag; }
     if (U.busy > 0) { mx *= 0.3; my *= 0.3; }
     U.vx = damp(U.vx, mx * WALK, 14, dt); U.vy = damp(U.vy, my * WALK, 14, dt);
-    const dd = U.dash.update(dt, p.ctrl, { x: U.x, y: U.y, facing: a.facing, actor: U.carry ? null : a, ok: !this.over && U.busy <= 0 && !p.isAI });   // B: a short dash
+    const dd = U.dash.update(dt, p.ctrl, { x: U.x, y: U.y, facing: a.facing, actor: U.carry ? null : a, ok: U.busy <= 0 && !p.isAI });   // B: a short dash
     U.x += U.vx * dt + dd.x; U.y += U.vy * dt + dd.y;
     if (p.ctrl.pressed('a') && !this.over) this.pressA(U);
+    else if (this.over && !p.isAI && p.ctrl.pressed('x') && U.hop <= 0) { U.hop = 0.42; a.squash(-0.2); sfx('jump', { vol: 0.35 }); }
     const sp = Math.hypot(U.vx, U.vy);
     if (sp > 200 && Math.random() < dt * 8) particles.burst(U.x, U.y, { type: 'dust', count: 1, colors: ['#e6d3c0', '#ffffff'] });
     if (U.carry) {
       if (!a._once) a.setPose(sp > 40 ? POSE.carryMove : POSE.carryStill);
       a.facing = Math.abs(U.vx) > 4 ? (U.vx > 0 ? 1 : -1) : a.facing;
       a.speed = clamp(sp / WALK, 0, 1);
-    } else a.moveAnim(U.vx, U.vy, WALK, { run: sp > WALK * 0.8 });
+    } else if (U.hop > 0 && this.over) { if (!a._once) a.setPose('jump'); if (Math.abs(U.vx) > 20) a.facing = U.vx > 0 ? 1 : -1; }
+    else if (this.over && sp < 40 && !p.isAI) { if (!a._once) a.setPose('celebrate'); }
+    else a.moveAnim(U.vx, U.vy, WALK, { run: sp > WALK * 0.8 });
     this.placeActor(U);
   }
 

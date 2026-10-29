@@ -17,6 +17,7 @@ import { aiProfile, steer } from '../engine/ai.js';
 import { easySteer, easyPrompt } from '../engine/easy.js';
 import { outfitItem } from '../engine/outfits.js';
 import { clamp, lerp, rand, pick, chance, TAU, ease, shuffle } from '../engine/util.js';
+import { celebrateWalk } from '../engine/celebrate.js';
 import {
   NAVY, CX, CY, SHAPES, SHAPE_ORDER, shapeDots, shapePath, drawSky, drawSparkle,
   drawFrogBubble, drawHeartBalloon, drawStarFace, drawSleepyMoon, drawRainbowArc,
@@ -378,6 +379,8 @@ export class Game {
   updateActors(dt) {
     for (const e of this.ents) {
       const a = e.a;
+      // the gallery: the wand sparkles are done, so a kid's stick walks her along the grass (X jumps: A goes on)
+      if (this.done && !e.p.isAI) { celebrateWalk(a, e.p.ctrl, dt, { x0: 80, x1: W - 80 }, { ended: true, rest: 'celebrate', scale: a.scale }); a.update(dt); continue; }
       const want = e.cx < a.x - 30 ? -1 : e.cx > a.x + 30 ? 1 : a.facing;
       a.facing = want;
       if (!a._once) a.setPose(e.moving > 0.5 ? 'wand-up' : 'idle');

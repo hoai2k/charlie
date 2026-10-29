@@ -24,6 +24,7 @@ import { drawSparkleShape, drawStarShape, drawHeartShape } from '../engine/emote
 import { easySteer, easyPrompt, easyAutoOk } from '../engine/easy.js';
 import { clamp, approach, lerp, rand, pick, chance, ease, TAU, later } from '../engine/util.js';
 import { Dash } from '../engine/dash.js';
+import { celebrateHop } from '../engine/celebrate.js';
 import { meta } from './rainbow-painter.meta.js';
 
 const NAVY = '#24163f';
@@ -178,7 +179,7 @@ export class Game {
 
   placeActor(e) {
     const a = e.a;
-    a.x = e.x; a.y = e.y - 20 + Math.sin(this.t * 2.4 + e.bob) * 4; a.z = 0;
+    a.x = e.x; a.y = e.y - 20 + Math.sin(this.t * 2.4 + e.bob) * 4; a.z = a._hop ? a._hop.z : 0;
   }
 
   // ------------------------------------------------------------------ update
@@ -263,13 +264,16 @@ export class Game {
 
   moveCloud(e, dt, playing) {
     const c = e.p.ctrl;
-    let ix = playing ? c.x : 0, iy = playing ? c.y : 0;
-    if (e.ez) [ix, iy] = playing ? this.easyPilot(e, dt) : [0, 0];
+    // the party (and the gallery after it): a kid still flies her cloud about, and hops up on it
+    // (A at the party, X always: in the gallery A goes on)
+    const free = playing || (this.phase === 'party' && !e.p.isAI);
+    let ix = free ? c.x : 0, iy = free ? c.y : 0;
+    if (e.ez && playing) [ix, iy] = this.easyPilot(e, dt);
     const len = Math.hypot(ix, iy), k = len > 1 ? 1 / len : 1;
     const tvx = ix * k * MAXV, tvy = iy * k * MAXV;
     e.vx = approach(e.vx, tvx, ACCEL * dt);
     e.vy = approach(e.vy, tvy, ACCEL * dt);
-    const dd = e.dash.update(dt, c, { x: e.x, y: e.y, facing: e.a.facing, ok: playing && !e.p.isAI });   // B: a short dash (she stays sitting on her cloud)
+    const dd = e.dash.update(dt, c, { x: e.x, y: e.y, facing: e.a.facing, ok: free && !e.p.isAI });   // B: a short dash (she stays sitting on her cloud)
     if (dd.x || dd.y) e.sq = 0.12;
     e.x += e.vx * dt + dd.x; e.y += e.vy * dt + dd.y;
     if (e.x < 90) { e.x = 90; e.vx = Math.abs(e.vx) * 0.4; }
@@ -285,7 +289,9 @@ export class Game {
     const was = e.spraying;
     e.spraying = playing && c.held('a');
     if (e.spraying && !was) { a.squash(0.15); }
-    if (!a._once) {
+    const hop = free && !playing ? celebrateHop(a, c.pressed('x') || (!this.api.ended() && c.pressed('a')), dt) : null;
+    if (hop && hop.landed) { e.sq = 0.25; particles.burst(e.x, e.y - 10, { type: 'sparkle', count: 5, colors: RAINBOW }); }
+    if (!a._once && !(hop && hop.air)) {
       if (this.phase === 'party') a.setPose(e.i % 2 ? 'dance' : 'celebrate');
       else a.setPose(e.spraying ? 'paint' : 'idle');
     }

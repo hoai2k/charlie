@@ -379,8 +379,15 @@ export class Game {
     e.spin = Math.max(0, e.spin - dt);
     const live = !this.finale && !this.done;
     let ix = live ? (e.auto ? e.auto.ix : p.ctrl.x) : 0, iy = live ? (e.auto ? e.auto.iy : p.ctrl.y) : 0;
+    // the finale and the gallery: a kid who steers swims about freely (A zooms in the finale,
+    // X or B zooms always: in the gallery A goes on); left alone she swims over to the chest
+    if (!live && !p.isAI) {
+      if (Math.hypot(p.ctrl.x, p.ctrl.y) > 0.3) e.freeSwim = true;
+      if (e.freeSwim) { ix = p.ctrl.x; iy = p.ctrl.y; }
+      if (e.zoomCd <= 0 && (p.ctrl.pressed('x') || p.ctrl.pressed('b') || (!this.done && p.ctrl.pressed('a')))) this.zoomOff(e, ix, iy);
+    }
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
-    if (this.finale) {
+    if (this.finale && !e.freeSwim) {
       // everyone swims over to admire the chest
       const k = e.i - (this.n - 1) / 2;
       const tx = CHEST.x - 380 + k * 70 * (this.n > 4 ? 0.9 : 1.4), ty = 560 + (e.i % 2) * 120;
