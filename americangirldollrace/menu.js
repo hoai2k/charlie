@@ -27,8 +27,8 @@
   const MAX_CPUS = 3;
   const SETTING_ROWS = 6;
   const MONSTER_SKILLS = [["easy", "Easy", "No grabbing riders; sometimes they miss you"], ["medium", "Medium", "Horses run past trolls and the ice giant"], ["hard", "Hard", "Any monster pulls you off any mount"]];
-  const SPECIAL_KEYS = ["none", "unicorn", "pegasus", "griffon", "broom", "all-dolls", "horsing", "amanda-mode"];
-  const SPECIAL_NAMES = ["None", "All Unicorns", "All Pegasi", "All Gryphons", "All Brooms", "All Dolls", "Horsing Around", "Amanda Mode"];
+  const SPECIAL_KEYS = ["none", "unicorn", "broom", "wings", "all-dolls"];
+  const SPECIAL_NAMES = ["None", "All Unicorns", "All Brooms", "All Fairy Wings", "All Dolls"];
   const GLYPHS = { A: 0, B: 1, X: 2, Y: 3, LB: 4, RB: 5 };
   const PAD_BUTTONS = { 0: "a", 1: "b", 2: "x", 3: "y", 9: "start", 12: "up", 13: "down", 14: "left", 15: "right" };
   const KEYMAP = {
@@ -263,6 +263,39 @@
     return [lobby.roster.slice(0, cols).map((_, i) => i), lobby.roster.slice(cols).map((_, i) => i + cols)];
   };
 
+  // A big roster (All Dolls) would squeeze each card thin in the grid's 650
+  // px. Then, on a wide screen with room along the bottom, the grid runs on
+  // to the right edge and the Settings box moves down above the corner
+  // buttons (ROOMY_RIGHT is the strip they take, kept clear of stalls).
+  const GRID_W = 650;
+  const ROOMY_RIGHT = 300;
+  const ROOMY_MIN_CARD = 80;
+  function stallCount() {
+    return lobby.slots.filter(Boolean).length + (canJoin() ? 1 : 0) + lobby.cpus.length;
+  }
+  function roomyRoster() {
+    if (root.classList.contains("portrait") || !lobby.roster.length) return false;
+    const cols = columns();
+    return cols > COLS && GRID_W / cols - 6 < ROOMY_MIN_CARD && stallCount() * STALL - 5 <= lobby.stageW - ROOMY_RIGHT;
+  }
+
+  // Where a card's picture is cropped when it's narrow: about her face
+  // (most portraits have it in the middle; the bunnies' are off to the right).
+  const CARD_FOCUS = { cornsilk: 0.7, munna: 0.61 };
+  function focusCardPicture(pic, key) {
+    const focus = CARD_FOCUS[characters[key]?.assetKey || key] ?? 0.5;
+    const image = new Image();
+    image.onload = () => {
+      const w = pic.clientWidth, h = pic.clientHeight;
+      if (!w || !h) return;
+      const scale = Math.max(w / image.naturalWidth, h / image.naturalHeight);
+      const shown = image.naturalWidth * scale;
+      const x = Math.min(0, Math.max(w - shown, w / 2 - focus * shown));
+      pic.style.backgroundPosition = `${x}px top`;
+    };
+    image.src = art(key);
+  }
+
   function buildGrid() {
     const visible = new Set(getVisibleCharacterEntries().map(([key]) => key));
     lobby.roster = [...ROSTER_ORDER.filter(key => visible.has(key)), RANDOM];
@@ -270,10 +303,17 @@
     grid.innerHTML = "";
     const [top, bottom] = rows();
     const cols = columns();
-    // A big roster spreads over the grid's full width with narrower gaps.
-    const step = cols > COLS ? 650 / cols : 122;
-    grid.style.setProperty("--lb-card-width", `${step - (cols > COLS ? 6 : 12)}px`);
+    lobby.roomy = roomyRoster();
+    root.classList.toggle("roomy-roster", lobby.roomy);
+    const gridW = lobby.roomy ? lobby.stageW - 322 - 18 : GRID_W;
+    grid.style.width = `${gridW}px`;
+    // A big roster spreads over the grid's full width with narrower gaps;
+    // thin cards lose most of their padding too (tight-roster).
+    const step = cols > COLS ? gridW / cols : 122;
+    const tight = cols > COLS && step < 96;
+    grid.style.setProperty("--lb-card-width", `${step - (cols > COLS ? (tight ? 3 : 6) : 12)}px`);
     grid.classList.toggle("wide-roster", cols > COLS);
+    grid.classList.toggle("tight-roster", tight);
     lobby.cards = lobby.roster.map((key, index) => {
       const row = index < cols ? 0 : 1;
       const col = row ? index - cols : index;
@@ -285,6 +325,7 @@
       card.innerHTML = `<div class="lb-pic${key === RANDOM ? " random" : ""}" style="background-image:url(${art(key)})"></div><div class="lb-name">${dollName(key)}</div><div class="lb-cursors"></div>`;
       card.addEventListener("pointerdown", event => { event.preventDefault(); tapCard(index); });
       grid.appendChild(card);
+      if (key !== RANDOM) focusCardPicture(card.querySelector(".lb-pic"), key);
       return card;
     });
     fitCardNames(grid);
@@ -325,6 +366,8 @@
   }
 
   function renderStalls(bounceId) {
+    // (The grid widens, or narrows again, as stalls come and go.)
+    if (lobby.roster.length && roomyRoster() !== lobby.roomy) { buildGrid(); renderCursors(); }
     const order = [];
     lobby.slots.forEach((slot, index) => { if (slot) order.push(`p${index}`); });
     if (canJoin()) order.push("join");
@@ -336,7 +379,8 @@
     }
     // As many stalls per row as fit (8 in landscape, 4 in portrait); extra
     // rows stack upward, each row centred.
-    const perRow = Math.max(1, Math.floor((lobby.stageW + 5) / STALL));
+    const stallW = lobby.roomy ? lobby.stageW - ROOMY_RIGHT : lobby.stageW; // (clear of the Settings box)
+    const perRow = Math.max(1, Math.floor((stallW + 5) / STALL));
     const rows = Math.ceil(order.length / perRow);
     // Phone held upright with no controller: one player, maybe a few
     // computer racers. The player stands big in the middle and the computers
@@ -354,7 +398,7 @@
       } else {
         const row = Math.floor(n / perRow);
         const inRow = Math.min(perRow, order.length - row * perRow);
-        const x0 = (lobby.stageW - (inRow * STALL - 5)) / 2;
+        const x0 = (stallW - (inRow * STALL - 5)) / 2;
         el.style.left = `${x0 + (n - row * perRow) * STALL}px`;
         el.style.bottom = `${8 + (rows - 1 - row) * (lobby.stageH > lobby.stageW ? 255 : 300)}px`;
       }
@@ -512,8 +556,13 @@
     atlasCell($("#lbMonsterIcon"), "assets/ui/difficulty_icons.webp", 4, difficultyIndex, 90, 90);
     $("#lbMonsterVal").textContent = DIFFICULTIES[difficultyIndex].label;
     const specialIndex = Math.max(0, SPECIAL_KEYS.indexOf(state.specials));
-    if (state.specials === "griffon") {
-      atlasCell($("#lbSpecialIcon"), "assets/griffon_sprites.webp", 3, 0, 90, 90, 3);
+    if (state.specials === "wings") {
+      // The wing sits in the top left of its 512 px cell (12..335 x 93..404):
+      // scaled to fill the 90 px icon.
+      const icon = $("#lbSpecialIcon"), k = 84 / 323;
+      atlasCell(icon, "assets/fairy_wings_sprites.webp", 6, 0, 90, 90, 2);
+      icon.style.backgroundSize = `${3072 * k}px ${1024 * k}px`;
+      icon.style.backgroundPosition = `${3 - 12 * k}px ${(90 - 311 * k) / 2 - 93 * k}px`;
     } else if (state.specials === "broom") {
       atlasCell($("#lbSpecialIcon"), "assets/broom.webp", 1, 0, 90, 32);
     } else {
@@ -892,7 +941,8 @@
     const buttons = [...corner.children].filter(button => !button.hidden);
     const size = buttons[0]?.offsetWidth || 62;
     const width = buttons.length * size + (buttons.length - 1) * 12 + 30;
-    const crowded = [...lobby.stallEls.values()].some(el => parseFloat(el.style.bottom) < 120 && parseFloat(el.style.left) + el.offsetWidth > lobby.stageW - width);
+    // (With a roomy roster the stalls keep clear of the corner by themselves.)
+    const crowded = !lobby.roomy && [...lobby.stallEls.values()].some(el => parseFloat(el.style.bottom) < 120 && parseFloat(el.style.left) + el.offsetWidth > lobby.stageW - width);
     corner.classList.toggle("corner-up", crowded);
     const box = $("#lbTopRight");
     corner.style.top = crowded && !root.classList.contains("portrait") ? `${box.offsetTop + box.offsetHeight + 12}px` : "";

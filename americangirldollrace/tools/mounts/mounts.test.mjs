@@ -21,7 +21,7 @@ test('normal pickups retain special odds and add a 5% broom chance',()=>{
  // Sample interval midpoints so floating-point boundary rounding cannot skew counts.
  for(let n=0;n<10000;n++){c.Math.random=()=>(n+.5)/10000;counts[c.chooseHorseType()]++;}
  assert.deepEqual(counts,{horse:7000,unicorn:1000,pegasus:1000,griffon:500,broom:500});
- for(const special of ['unicorn','pegasus','griffon','broom']){c.state.specials=special;c.Math.random=()=>.99;assert.equal(c.chooseHorseType(),special);}
+ for(const special of ['unicorn','pegasus','griffon','broom','wings']){c.state.specials=special;c.Math.random=()=>.99;assert.equal(c.chooseHorseType(),special);}
 });
 
 test('before a Wizard School finish, gryphons and broomsticks are left out of normal pickups',()=>{
@@ -105,7 +105,7 @@ test('all roster dolls have finite hand anchors and broom modes persist through 
  const keys=['lily','rumi','kaya','amanda','juliette','claudia','whirlpool','marisol','penelope','hermione','mira','luna'];
  for(const key of keys){const rows=c.window.BROOM_ART.carryHands[key];assert.equal(rows.length,2);for(const row of rows){assert.equal(row.length,3);for(const [x,y] of row){assert.ok(x>0&&x<418&&y>0&&y<418);}}}
  const html=fs.readFileSync(new URL('index.html',game),'utf8'),menu=fs.readFileSync(new URL('menu.js',game),'utf8');
- for(const label of ['All Gryphons','All Brooms']){assert.ok(menu.includes(label));assert.ok(html.includes(label));}
+ for(const label of ['All Brooms','All Fairy Wings']){assert.ok(menu.includes(label));assert.ok(html.includes(label));}
  assert.match(source,/const SPECIALS = new Set\([^\n]*"broom"/);
 });
 

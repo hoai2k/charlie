@@ -2,10 +2,6 @@
 // Part of the race's game code: these functions share game.js's constants and
 // state, and load before it (see the <script> order in index.html).
 
-function isAmandaMode() {
-  return state.specials === "amanda-mode";
-}
-
 function getAmandaHazardInterval() {
   const config = getModeConfig();
   const racerCount = config.humans + config.ais;
@@ -13,7 +9,7 @@ function getAmandaHazardInterval() {
     .slice(0, racerCount)
     .some((select, index) => getSelectedCharacter(select, CHARACTER_FALLBACKS[index])?.spriteKey === "amanda");
   if (amandaIsRacing) return 0;
-  return isAmandaMode() ? AMANDA_HAZARD_MODE_INTERVAL : AMANDA_HAZARD_DEFAULT_INTERVAL;
+  return AMANDA_HAZARD_DEFAULT_INTERVAL;
 }
 
 function updateAmandaHazards(dt) {

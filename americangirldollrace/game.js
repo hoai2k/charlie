@@ -183,7 +183,6 @@ const PUSH_RANGE_Z = 64; // px of height a push reaches (in wings, either side o
 const MOUNTED_PUSH_EXTRA_RANGE = 40;
 const PUSH_FORCE = 350;
 const AMANDA_HAZARD_DEFAULT_INTERVAL = 10;
-const AMANDA_HAZARD_MODE_INTERVAL = 2;
 const AMANDA_HAZARD_TRIGGER_X = 112;
 const AMANDA_HAZARD_TRIGGER_Y = 88;
 const AMANDA_HAZARD_PUSH_X = 118;
@@ -572,7 +571,7 @@ const RACER_STARTS = [
 ];
 
 const CHARACTER_FALLBACKS = ["whirlpool", "juliette", "claudia", "kaya", "lily", "marisol", "amanda", "rumi"];
-const SPECIALS = new Set(["none", "unicorn", "pegasus", "griffon", "broom", "all-dolls", "horsing", "amanda-mode"]);
+const SPECIALS = new Set(["none", "unicorn", "broom", "wings", "all-dolls"]);
 // dirtTop is the screen y (at the 720 render height) where the painted path
 // starts below the background's fence; fenceBase (optional) is where that
 // fence meets the ground, when there's a verge between the two.

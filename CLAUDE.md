@@ -273,7 +273,11 @@ hook to get round it.
   draws her larger or smaller (`withDollScale` in game-draw.js, about her feet, seat or
   ledge hold; her stall and podium portraits too). Toy frames are sized by
   height against the other dolls (`TOY_HEIGHT_TO_STANDING` in
-  `tools/dolls/hidden/build.py`), not face area.
+  `tools/dolls/hidden/build.py`), not face area. The select screen's doll
+  list widens to the right edge once its cards would be thin (`roomyRoster`
+  in menu.js; the Settings box moves down above the corner buttons and the
+  stalls keep left of it), thin cards lose their padding, and each card's
+  picture is cropped about her face (`CARD_FOCUS` for off-centre portraits).
 
 - `party/` (Charlie Party): read `party/HANDOFF.md` first for in-progress work
   and resume notes, then `party/PLAN.md`.
