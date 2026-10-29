@@ -148,7 +148,9 @@ export class Game {
   preUpdate(dt) { this.t += dt; this.idle(dt); }
   postUpdate(dt) { this.t += dt; this.idle(dt); this.updateFinale(dt); this.updateFlyers(dt); }
   idle(dt) {
-    for (const e of this.ents) { e.a.x = e.x; e.a.y = e.y + Math.sin(this.t * 3 + e.p.index) * 6; e.a.update(dt); }
+    for (const e of this.ents) {
+      if (!e.p.isAI && this.phase === 'done') { this.updateEnt(e, dt); continue; }
+      e.a.x = e.x; e.a.y = e.y + Math.sin(this.t * 3 + e.p.index) * 6; e.a.update(dt); }
     for (const c of this.clouds) { c.x -= c.v * dt; if (c.x < -200) c.x = W + 200; }
     this.updateBees(dt);
     this.updateFriends(dt);
@@ -203,8 +205,16 @@ export class Game {
     e.boopT = Math.max(0, e.boopT - dt); e.wheeT -= dt;
     let ix = play ? ctrl.x : 0, iy = play ? ctrl.y : 0;
     if (e.ez) { [ix, iy] = play ? this.easyPilot(e, dt) : [0, 0]; e.ez.after = Math.max(0, (e.ez.after || 0) - dt); }
+    // the finale and the gallery: a kid who steers flies about freely and loops (A in the
+    // finale, X or B always: in the gallery A goes on)
+    const free = !play && !e.p.isAI;
+    if (free) {
+      if (Math.hypot(ctrl.x, ctrl.y) > 0.3) e.freeFly = true;
+      if (e.freeFly) { ix = ctrl.x; iy = ctrl.y; }
+      if ((ctrl.pressed('x') || ctrl.pressed('b') || (this.phase === 'finale' && ctrl.pressed('a'))) && e.loopCd <= 0 && e.loopT <= 0) this.startLoop(e, ix, iy);
+    }
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
-    if (this.phase === 'finale') { ix = clamp((e.tx - e.x) / 200, -1, 1); iy = clamp((e.ty - e.y) / 200, -1, 1); }
+    if (this.phase === 'finale' && !e.freeFly) { ix = clamp((e.tx - e.x) / 200, -1, 1); iy = clamp((e.ty - e.y) / 200, -1, 1); }
     const k = 1 - Math.exp(-ACCEL * dt);
     e.vx += (ix * MAXV - e.vx) * k * (e.loopT > 0 ? 0.25 : 1);
     e.vy += (iy * MAXV - e.vy) * k * (e.loopT > 0 ? 0.25 : 1);

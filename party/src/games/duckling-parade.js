@@ -27,6 +27,7 @@ import { easySteer, easyNearest, easyErrand, easyErrandStep, easyPrompt } from '
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, damp, rand, randInt, pick, chance, shuffle, TAU, dist, lerp, later, showstopper } from '../engine/util.js';
 import { Dash } from '../engine/dash.js';
+import { celebrateHop } from '../engine/celebrate.js';
 import {
   NAVY, POND, NEST, drawDuckling, drawHat, drawMama, drawNest, drawLily, drawReeds, drawBoot,
   drawBush, drawMushroom, drawMeadow,
@@ -426,7 +427,7 @@ export class Game {
 
   syncActor(e) {
     const a = e.a;
-    a.x = e.x; a.y = e.y; a.z = this.hoverZ(e);
+    a.x = e.x; a.y = e.y; a.z = this.hoverZ(e) + (a._hop ? a._hop.z : 0);
     a.scale = this.baseScale * e.sizeK * depthScale(e.y, { top: 260, near: 1000, far: 0.84, nearScale: 1.04 });
   }
 
@@ -482,6 +483,12 @@ export class Game {
       this.quackCall(e);
     }
     const moving = Math.hypot(e.vx, e.vy);
+    // the parade and the gallery: X jumps for joy (A quacks; in the gallery A goes on)
+    if (!p.isAI && this.phase !== 'play') {
+      const hop = celebrateHop(a, c.pressed('x'), dt, { scale: this.baseScale });
+      if (hop.landed) particles.burst(e.x, e.y - 4, { type: 'dust', count: 4, color: '#ffffff', speed: [60, 160], size: [8, 14] });
+      if (hop.air) return;
+    }
     if (this.phase === 'parade' && p.isAI) { if (!a._once && a.pose !== 'dance') a.setPose('dance'); if (moving > 30) a.moveAnim(e.vx, e.vy, sp, { run: true }); }
     else if (this.done && moving < 40) { if (!a._once && a.pose !== 'celebrate') a.setPose('celebrate'); }
     else a.moveAnim(e.vx, e.vy, sp, { run: moving > sp * 0.6 });
@@ -512,7 +519,7 @@ export class Game {
     const st = easySteer(e, e.p.ctrl, dt);
     // an A press with no duckling in range: walk to the nearest lost one, quack on arrival
     const go = easyErrandStep(e, dt, { x: e.x, y: e.y, steering: st.pushing });
-    if (this.phase !== 'play') return [0, 0];
+    if (this.phase !== 'play') return [st.x, st.y];   // the parade and the gallery: her own steering only (no errands)
     if (st.manual && !go) return [st.x, st.y];
     if (go) {
       const wp = this.aroundPond(e.x, e.y, go.x, go.y, e.flier);   // round the pond, not into it (fliers: straight over)

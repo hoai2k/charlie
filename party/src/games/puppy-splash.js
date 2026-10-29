@@ -23,6 +23,7 @@ import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
 import { clamp, damp, rand, randInt, pick, chance, TAU, dist, lerp, later } from '../engine/util.js';
 import { Dash } from '../engine/dash.js';
+import { celebrateHop } from '../engine/celebrate.js';
 import {
   NAVY, POOL, PUDDLES, PORCH_Y, BREEDS, drawPuppy, drawMud, makeBlobs, drawBackyard, drawPuddle, drawPool, drawBed, drawNozzle,
 } from './puppy-splash/art.js';
@@ -313,7 +314,7 @@ export class Game {
   }
 
   syncActor(e) {
-    e.a.x = e.x; e.a.y = e.y;
+    e.a.x = e.x; e.a.y = e.y; e.a.z = e.a._hop ? e.a._hop.z : 0;
     e.a.scale = this.baseScale * e.sizeK * depthScale(e.y, { top: PORCH_Y, near: 1000, far: 0.84, nearScale: 1.04 });
   }
 
@@ -347,7 +348,9 @@ export class Game {
     e.wet = Math.max(0, e.wet - dt); e.giggleCd = Math.max(0, e.giggleCd - dt); e.poolCd = Math.max(0, e.poolCd - dt);
     if (e.mud > 0) { e.mud -= dt; if (e.mud <= 0) a.tint(null); }
     if (e.bubble > 0) e.bubble -= dt;
-    let ix = this.done ? 0 : c.x, iy = this.done ? 0 : c.y;
+    // the gallery: a kid still runs about the yard and jumps (X: A goes on); CPUs celebrate in place
+    const still = this.done && p.isAI;
+    let ix = still ? 0 : c.x, iy = still ? 0 : c.y;
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
     e.spraying = !this.done && c.held('a');
     // aim: the stick sets it; while standing still the aim stays put
@@ -357,7 +360,7 @@ export class Game {
     }
     const sp = MAX_SPEED * (p.isAI ? CPU_SPEED[clamp(p.aiLevel ?? 0, 0, 2)] / aiProfile(p).speed : 1) * (e.spraying ? SPRAY_SLOW : 1);
     e.vx = damp(e.vx, ix * sp, 10, dt); e.vy = damp(e.vy, iy * sp * 0.85, 10, dt);
-    const dd = e.dash.update(dt, c, { x: e.x, y: e.y, actor: a, ok: !this.done && !p.isAI });   // B: a short dash
+    const dd = e.dash.update(dt, c, { x: e.x, y: e.y, actor: a, ok: !p.isAI });   // B: a short dash
     e.x = clamp(e.x + e.vx * dt + dd.x, BOUNDS.x0, BOUNDS.x1); e.y = clamp(e.y + e.vy * dt + dd.y, BOUNDS.y0, BOUNDS.y1);
     // bubble pool: wade in for a bubble hose
     if (inEllipse(e.x, e.y, POOL, 1.05)) {
@@ -379,7 +382,8 @@ export class Game {
       if (!a._once) a.setPose(poseName('hose-spray'));
       a.facing = Math.cos(e.aim) >= 0 ? 1 : -1;
       a.speed = clamp(Math.hypot(e.vx, e.vy) / sp, 0, 1);
-    } else if (this.done) { if (!a._once && a.pose !== 'celebrate') a.setPose('celebrate'); }
+    } else if (this.done && !p.isAI && celebrateHop(a, c.pressed('x'), dt, { scale: this.baseScale }).air) { /* jumping for joy */ }
+    else if (this.done && (p.isAI || Math.hypot(e.vx, e.vy) < 40)) { if (!a._once && a.pose !== 'celebrate') a.setPose('celebrate'); }
     else a.moveAnim(e.vx, e.vy, sp, { run: Math.hypot(e.vx, e.vy) > sp * 0.6 });
   }
 

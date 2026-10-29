@@ -23,6 +23,7 @@ import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, rand, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
 import { art } from '../engine/art.js';
 import { Dash } from '../engine/dash.js';
+import { celebrateWalk } from '../engine/celebrate.js';
 import { PATTERNS, PAT_COLOR, drawSock, drawPuppy, drawBasket, drawLine, drawPin, drawYard, lineY, LINE } from './sock-match/draw.js';
 
 import { meta } from './sock-match.meta.js';
@@ -161,7 +162,11 @@ export class Game {
     this.t += dt;
     this.updateSocks(dt);
     this.updatePuppy(dt, true);
-    for (const e of this.ents) e.a.update(dt);
+    for (const e of this.ents) {
+      // the gallery: a kid still runs about the lawn and jumps (X: A goes on)
+      if (!e.p.isAI) { celebrateWalk(e.a, e.p.ctrl, dt, { x0: FLOOR.x0, x1: FLOOR.x1, y0: FLOOR.y0, y1: FLOOR.y1 }, { pos: e, ended: true, rest: 'celebrate', scale: e.a.scale }); e.a.x = e.x; e.a.y = e.y; }
+      e.a.update(dt);
+    }
   }
 
   startStorm() {

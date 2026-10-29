@@ -18,6 +18,7 @@ import { clamp, lerp, rand, pick, chance, shuffle, ease, TAU } from '../engine/u
 import { playerName } from '../state.js';
 import { drawStarShape } from '../engine/emotes.js';
 import { PHOTO_POSES, photoPosePressed, strikePhotoPose, randomPhotoPose } from '../engine/photo-poses.js';
+import { celebrateWalk } from '../engine/celebrate.js';
 import {
   NAVY, GOLD, RED, drawBigTop, drawSpotCones, drawStationRing, drawTrampoline, TRAMP_BED, drawRope, drawBar,
   drawTower, drawNet, drawBall, drawBalloon, drawParasol, drawActIcon, BALLOON_COLORS,
@@ -189,7 +190,7 @@ export class Game {
   postUpdate(dt) {
     this.t += dt;
     this.glimmer.update(dt);
-    for (const st of this.stations) st.actor.update(dt);
+    for (const st of this.stations) { if (!st.p.isAI && st.sh && st.sh.mode === 'bow') this.bowMove(st, dt, true); st.actor.update(dt); }
     if (this.troll) this.troll.actor.update(dt);
   }
 
@@ -989,11 +990,8 @@ export class Game {
         st.rot = 0; st.tw = 1;
         if (u >= 1) { sh.mode = 'bow'; a.setPose('idle'); a.facing = 1; sh.poseCD = 0; }
       } else if (sh.mode === 'bow') {
-        const c = st.p.ctrl;
-        sh.poseCD -= dt;
-        const pose = st.p.isAI ? null : photoPosePressed(c);
-        if (pose && sh.poseCD <= 0 && S.bowT > 1.6) { sh.poseCD = 0.35; strikePhotoPose(a, pose); }
-        if (st.p.isAI && S.bowT > 2 && chance(dt * 0.6)) strikePhotoPose(a, randomPhotoPose());
+        if (st.p.isAI) { if (S.bowT > 2 && chance(dt * 0.6)) strikePhotoPose(a, randomPhotoPose()); }
+        else if (S.bowT > 1.6) this.bowMove(st, dt, false);
       }
     }
     if (S.bowT < 0) {
@@ -1012,6 +1010,19 @@ export class Game {
       }
       if (S.bowT > 5.2) this.finishGame();
     }
+  }
+
+  /**
+   * After the group bow (and in the gallery): a kid walks along the ring, jumps (A; X in the
+   * gallery, where A goes on) and strikes photo poses with the other buttons.
+   */
+  bowMove(st, dt, ended) {
+    const a = st.actor, sh = st.sh, c = st.p.ctrl;
+    sh.poseCD -= dt;
+    let pose = photoPosePressed(c);
+    if (ended && pose && pose.btn === 'x') pose = null;   // X is the jump in the gallery
+    if (pose && sh.poseCD <= 0) { sh.poseCD = 0.35; strikePhotoPose(a, pose); }
+    celebrateWalk(a, c, dt, { x0: 100, x1: W - 100 }, { ended, jump: [ended ? 'x' : 'a'], rest: 'celebrate', scale: a.scale });
   }
 
   finishGame() {
