@@ -6,6 +6,11 @@ open `/party/workbench/`). It imports the game's own engine modules
 (`src/engine/sprites.js`, `outfits.js`, `outfit-fit.js`), so the frame, its
 landmarks and every outfit item are placed exactly as the game places them.
 
+**Audio Workbench:** the title at the top left is a menu. Pick "Audio
+Workbench" to go to the game's audio page (`/charlie/party/?scene=audio`),
+which plays every song (and every generated take, on the Takes tab), sound
+effect and voice clip.
+
 Nothing it does changes the game by itself: you **download an edits JSON**,
 hand it over, and the edits are applied with
 `tools/apply-workbench-edits.mjs`.
