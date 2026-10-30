@@ -5,6 +5,8 @@ from plans import plan, total_ms
 KEYF = os.path.join(os.path.dirname(D), '.elevenlabs_key')
 LOG = os.path.join(D, 'genlog.jsonl')
 def key():
+    # the environment's ELEVENLABS_API_KEY (environment settings), else the old key file outside the repo
+    if os.environ.get('ELEVENLABS_API_KEY'): return os.environ['ELEVENLABS_API_KEY'].strip()
     with open(KEYF) as f: return f.read().strip()
 def gen(sid, take, force_instr=True):
     out = os.path.join(D, 'raw', f'{sid}-{take}.mp3')

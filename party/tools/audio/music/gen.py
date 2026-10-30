@@ -5,6 +5,8 @@ sys.path.insert(0, D)
 from prompts import SONGS, TAIL
 KEYF = os.path.join(os.path.dirname(D), '.elevenlabs_key')
 def key():
+    # the environment's ELEVENLABS_API_KEY (environment settings), else the old key file outside the repo
+    if os.environ.get('ELEVENLABS_API_KEY'): return os.environ['ELEVENLABS_API_KEY'].strip()
     with open(KEYF) as f: return f.read().strip()
 LOG = os.path.join(D, 'genlog.jsonl')
 def gen(song, take, prompt=None):

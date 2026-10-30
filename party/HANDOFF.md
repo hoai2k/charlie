@@ -56,6 +56,24 @@ Hoity-toity comedy DONE (merged): whoopee-tea guests/Duchess/butler shocked, sco
 Mama Duck. Shared drawn extras in engine/fluster.js. 15 new reaction art keys requested in the
 Re-generation table (code falls back to existing art + drawn extras until they land).
 
+### Pending: alternate `bouncy` and `dance` takes (owner asked 2026-10-30)
+The owner finds `bouncy` and `dance` the weakest songs and wants alternates to choose from in
+`?scene=audio` (Takes tab), generated **the original way** (ElevenLabs API, like round 1) **as well
+as** the open request in `music-requests.md` ("Redo", R1/R2) that the owner generates by hand.
+Blocked in session 01AAvSQ: no API key in that container. The owner was asked to add it to the
+environment (Network secrets / env var **`ELEVENLABS_API_KEY`**); `tools/audio/music/gen.py`,
+`gen2.py` and `balance.py` now read that variable (else the old key file).
+Ready to run (prompts are in `tools/audio/music/prompts.py`, takes 4-6 of each; take 4 = the R1/R2
+prompt, 5-6 = variations; all K-pop-flavoured and calm per the owner's feedback):
+1. `cd party/tools/audio/music && python3 balance.py` (credit check), then
+   `python3 gen.py bouncy:4 bouncy:5 bouncy:6 dance:4 dance:5 dance:6` (raw files in `raw/`).
+2. `python3 process.py bouncy-4` ... `dance-6` (exact tempo, seamless loop; `dance` must keep
+   §6.3: exactly 120 BPM, kick every beat, 16/32 bars from a downbeat) and add each to
+   `assets/audio/music/takes/index.json` like the existing entries (`inGame: false`, notes).
+3. Check the Takes tab plays them, run the party tests, commit, deploy; tell the owner which take
+   numbers to audition. Swapping one in = point `music.<song>` in the manifest at it (for `dance`
+   also rebuild its "Shadow Banish" chart, `audio-requests.md` §12.8.3).
+
 ### Art watch (2026-10-13): DONE
 All requested Molly images delivered and checked in game by 07:00Z (QA agents A–G); every open
 request and re-generation row is closed. All six fairy sprite sets (glimmer, garden-fairy-*) have
