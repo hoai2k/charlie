@@ -786,15 +786,13 @@ test('Horse Show: riding trolls from half way (first time round) and one standin
     applyMonsterKnockback(m, 1, { unhorse: true });
     const horse = state.powerups.find(p => p.horseType === 'skeleton_horse');
     const flashing = horse?.cooldown > 0;
-    // He chases on foot first and won't take the horse back for 5 s, even standing on it.
-    let early = false; for (let i = 0; i < 60 * 4.8; i++) { a.x = 7000; if (i > 60) { m.x = horse.x; m.y = horse.y - 54; } update(1 / 60); early ||= m.riding; }
     let remounted = false; for (let i = 0; i < 600 && !remounted; i++) { a.x = 7000; update(1 / 60); remounted = m.riding; }
     state.amandaAlly = null; joinAmanda({ x: a.x - 100, y: a.y + 36, amandaState: 'sitting' }, a);
-    return { count: trolls.length, firstAt: trolls[0][0], riding: trolls.slice(0, -1).every(t => t[1]) && !trolls.at(-1)[1], flashing, early, remounted, amandaRides: state.amandaAlly.mounted };
+    return { count: trolls.length, firstAt: trolls[0][0], riding: trolls.slice(0, -1).every(t => t[1]) && !trolls.at(-1)[1], flashing, remounted, amandaRides: state.amandaAlly.mounted };
   });
   assert.ok(r.count >= 3, `trolls: ${r.count}`);
   assert.ok(r.firstAt >= 48 && r.firstAt <= 52, `first troll at ${r.firstAt}% (half way, the first time round)`);
-  assert.deepEqual({ ...r, count: 0, firstAt: 0 }, { count: 0, firstAt: 0, riding: true, flashing: true, early: false, remounted: true, amandaRides: true });
+  assert.deepEqual({ ...r, count: 0, firstAt: 0 }, { count: 0, firstAt: 0, riding: true, flashing: true, remounted: true, amandaRides: true });
 });
 
 test('Toy Room marshmallows barely roll, and stepping on one holds her an instant', { skip: skip() }, async () => {

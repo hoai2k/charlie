@@ -1,6 +1,6 @@
 # Charlie Party: music requests (new songs to generate)
 
-_Written 2026-10-27; prompts revised 2026-10-30 after the first takes._ This is the list of **new** songs that would make parts of
+_Written 2026-10-27._ This is the list of **new** songs that would make parts of
 Charlie Party come alive, ranked **most useful first**. Each request has one
 prompt block. Copy the block as it is into ElevenLabs Eleven Music (or a
 similar music generator). Each block is complete on its own, so there is
@@ -13,18 +13,6 @@ Specs, processing and earlier prompts are in
 existing song briefs) and §12 (what was delivered and how it was processed).
 The way to deliver is at the end of this file.
 
-**What we learned from the first takes (owner, 2026-10-30):** the songs came out
-the wrong kind of music. Charlie Party's own theme is **K-pop inspired, in the
-spirit of BLACKPINK and LISA**, so every prompt now asks for a little of that
-flavour: glossy synth-pop production, a round 808 sub-bass, a crisp snare, light
-trap hi-hats and a catchy synth hook, blended with each song's own instruments.
-Stronger in the party, show and results songs, just a touch in the gentle ones.
-They also lacked the **calm** of the music the game has now (*Cozy Craft Time*,
-*Splash Lagoon*, the menu loop), so every prompt now asks for a relaxed,
-laid-back groove with space and gentle dynamics, never hyper or harsh. If a take
-still comes out too busy, add "sparse arrangement, fewer instruments at once"
-to the prompt and generate again.
-
 ## Audit: what plays where now
 
 From `SONGS` in `src/engine/audio.js`, `music` in
@@ -36,7 +24,7 @@ games are in brackets.
 | --- | --- | --- | --- |
 | `title` | ✅ *Charlie's Party* (owner's, streamed) | Title screen. It plays out once into the menus | — |
 | `menu` | ✅ ElevenLabs `menu-1` (34 s loop) | Character select, game select, how-to screens; **Unicorn Memory Match**; Dance Studio's "Sunny Stroll" | 1 + all menus |
-| `molly` | ✅ *Sister Party* (owner's, streamed; *Molly Time* kept, unused) | Sister Party (Molly) menus and how-to screens | — |
+| `molly` | ✅ *Molly Time* (owner's, streamed) | Sister Party (Molly) menus and how-to screens | — |
 | `party` | ✅ *Bubblegum Radar* (licensed, streamed) | Balloon Pump, Muddy Mayhem, Paint Party, Piñata Party, Sprinkle Catch (Puppy Splash); Prank the Sleeping Troll's ending; Dance Studio | 5 |
 | `gameon` | ✅ *Game On Dash* (owner's) | Bumper Bounce, Cloud Hop, Crown Keeper, Mini-Golf, Pancake Tower, Treasure Dig, Tug-of-War (synced to its beat). Musical Cushions stops it at once | 7 |
 | `bouncy` | ✅ ElevenLabs `bouncy-1` (45 s loop) | Bubble Pop, Cake Bakery (and its feast), Cupcake Tower, Fairy Flutter, Silly Garden, Jump Rope (rope tuned to 128 BPM), Kitten Cuddles, Puppet Theater, Rainbow Painter, Sock Match, Unicorn Hop, Magic Wand Shapes (Acrobat Circus, Tea Party, Shape Train, Ladybug Spots); Dance Studio | **12 (+4)**: the most over-shared |
@@ -79,7 +67,7 @@ Moments that would come alive:
 | Musical Cushions, Sneaky Dance | A synth tune | #18 `cushions` (needs engine work) |
 
 Already well covered, no request: the title (the owner's song), the Sister
-Party menus (*Sister Party*, the owner's), Fashion Show's runway (*Runway Glam*),
+Party menus (*Molly Time*, the owner's), Fashion Show's runway (*Runway Glam*),
 the rhythm games (`rh-*`), Cake Bakery's birthday song (`jingle/happy-birthday`)
 and Pass the Present (`tense`).
 
@@ -105,7 +93,7 @@ names where.
   loop point, no intro.
 
 ```
-Warm, happy celebration music for the results podium of a kids' party game, 120 BPM, C major, 4/4. Light pop drums with soft claps on 2 and 4, a bouncy plucked bass, bright glockenspiel and marimba melody, gentle brass pads, a little shimmering bell sparkle. Proud and friendly, everyone did great, a cheerful glow rather than a big fanfare, medium-soft energy so cheers and chimes sit on top, with a lighter breakdown halfway through. Production style: modern K-pop girl-group pop in the spirit of BLACKPINK and LISA, softened for kids: a glossy, polished synth-pop sheen, a round warm 808 sub-bass, a crisp snappy snare, light trap hi-hat rolls now and then, and a catchy plucky synth hook, blended with the instruments above. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Warm, happy celebration music for the results podium of a kids' party game, 120 BPM, C major, 4/4. Light pop drums with soft claps on 2 and 4, a bouncy plucked bass, bright glockenspiel and marimba melody, gentle brass pads, a little shimmering bell sparkle. Proud and friendly, everyone did great, a cheerful glow rather than a big fanfare, medium-soft energy so cheers and chimes sit on top, with a lighter breakdown halfway through. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 2. Grand Finale Show (`finale`, new)
@@ -122,7 +110,7 @@ Warm, happy celebration music for the results podium of a kids' party game, 120 
   game's banner and applause do the opening).
 
 ```
-Sparkling grand finale music for a children's creative game, the moment everyone shows off what they made, 116 BPM, B-flat major, 4/4. Bright toy-box orchestra and pop: plucky pizzicato strings, glockenspiel and celesta melody, bouncy bass, soft marching snare and claps, warm French horns and a little brass swell, harp glissando sparkles. Proud, joyful and magical, like a curtain call with confetti and roses, with a softer section where only strings and bells play. Production style: modern K-pop girl-group pop in the spirit of BLACKPINK and LISA, softened for kids: a glossy, polished synth-pop sheen, a round warm 808 sub-bass, a crisp snappy snare, light trap hi-hat rolls now and then, and a catchy plucky synth hook, blended with the instruments above. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Sparkling grand finale music for a children's creative game, the moment everyone shows off what they made, 116 BPM, B-flat major, 4/4. Bright toy-box orchestra and pop: plucky pizzicato strings, glockenspiel and celesta melody, bouncy bass, soft marching snare and claps, warm French horns and a little brass swell, harp glissando sparkles. Proud, joyful and magical, like a curtain call with confetti and roses, with a softer section where only strings and bells play. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 3. Trick-or-Treat Parade (`halloween`, new)
@@ -137,7 +125,7 @@ Sparkling grand finale music for a children's creative game, the moment everyone
   A plain `meta.music` swap.
 
 ```
-Cute, silly Halloween costume party music for little children, 112 BPM, D minor with bright happy moments, 4/4. Bouncy plucked bass and pizzicato strings, a playful harpsichord and celesta tune, xylophone skeleton rattles, a cheeky bassoon, soft woodblock tick-tock, a friendly theremin-like synth used sparingly, light drums. Giggly trick-or-treating with pumpkins and friendly ghosts, more funny than spooky, never scary, with a lighter peekaboo section. Production style: modern K-pop girl-group pop in the spirit of BLACKPINK and LISA, softened for kids: a glossy, polished synth-pop sheen, a round warm 808 sub-bass, a crisp snappy snare, light trap hi-hat rolls now and then, and a catchy plucky synth hook, blended with the instruments above. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words, no screams. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Cute, silly Halloween costume party music for little children, 112 BPM, D minor with bright happy moments, 4/4. Bouncy plucked bass and pizzicato strings, a playful harpsichord and celesta tune, xylophone skeleton rattles, a cheeky bassoon, soft woodblock tick-tock, a friendly theremin-like synth used sparingly, light drums. Giggly trick-or-treating with pumpkins and friendly ghosts, more funny than spooky, never scary, with a lighter peekaboo section. Instrumental only, no vocals, no choir, no spoken words, no screams. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 4. Toybox Giggles (`toybox`, new)
@@ -152,7 +140,7 @@ Cute, silly Halloween costume party music for little children, 112 BPM, D minor 
   Softer and rounder than `bouncy`. A plain `meta.music` swap.
 
 ```
-Gentle, giggly toybox music for a game for preschool children, 108 BPM, F major, 4/4. Soft marimba and toy piano melody, a music box twinkle, ukulele strums, round bouncy bass, light shaker, soft kick and finger snaps, an occasional cute boing or bubble pop accent used sparingly. Happy, sunny and simple, like playing with toys on a rug, round and soft with no shrill sounds, with a calmer section where only ukulele and music box play. Production style: a gentle touch of modern K-pop in the spirit of BLACKPINK and LISA: a glossy synth-pop sheen, a soft round 808 sub-bass and a catchy little synth hook under the instruments above, kept subtle. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Gentle, giggly toybox music for a game for preschool children, 108 BPM, F major, 4/4. Soft marimba and toy piano melody, a music box twinkle, ukulele strums, round bouncy bass, light shaker, soft kick and finger snaps, an occasional cute boing or bubble pop accent used sparingly. Happy, sunny and simple, like playing with toys on a rug, round and soft with no shrill sounds, with a calmer section where only ukulele and music box play. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 5. Snow Day Romp (`snowy`, new)
@@ -166,7 +154,7 @@ Gentle, giggly toybox music for a game for preschool children, 108 BPM, F major,
   swap.
 
 ```
-Bright, playful winter snow day music for a kids' party game, 132 BPM, G major, 4/4. Jingling sleigh bells, sparkling glockenspiel and celesta melody, bouncy pizzicato strings, a cheerful clarinet answer, plucky bass, light snare and claps, twinkly snowflake chimes. Rosy cheeks, snowball fights and building snowmen, giggly and lively but cozy, with a softer snowfall section where only bells and strings play. Not a Christmas carol. Production style: modern K-pop girl-group pop in the spirit of BLACKPINK and LISA, softened for kids: a glossy, polished synth-pop sheen, a round warm 808 sub-bass, a crisp snappy snare, light trap hi-hat rolls now and then, and a catchy plucky synth hook, blended with the instruments above. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Bright, playful winter snow day music for a kids' party game, 132 BPM, G major, 4/4. Jingling sleigh bells, sparkling glockenspiel and celesta melody, bouncy pizzicato strings, a cheerful clarinet answer, plucky bass, light snare and claps, twinkly snowflake chimes. Rosy cheeks, snowball fights and building snowmen, giggly and lively but cozy, with a softer snowfall section where only bells and strings play. Not a Christmas carol. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 6. Tutu Twirl (`ballet`, new)
@@ -179,7 +167,7 @@ Bright, playful winter snow day music for a kids' party game, 132 BPM, G major, 
   grid. A plain `meta.music` swap.
 
 ```
-Light, playful ballet class waltz for children, in 3/4 time, 144 BPM, A major. Graceful piano melody with a music box and celesta, plucked and bowed strings, a gentle flute, soft harp arpeggios, light triangle. Tiptoeing ballerinas and twirling tutus, elegant but cheeky and fun, with a softer section where the piano plays alone over strings. Production style: a gentle touch of modern K-pop in the spirit of BLACKPINK and LISA: a glossy synth-pop sheen, a soft round 808 sub-bass and a catchy little synth hook under the instruments above, kept subtle. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, no rubato, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Light, playful ballet class waltz for children, in 3/4 time, 144 BPM, A major. Graceful piano melody with a music box and celesta, plucked and bowed strings, a gentle flute, soft harp arpeggios, light triangle. Tiptoeing ballerinas and twirling tutus, elegant but cheeky and fun, with a softer section where the piano plays alone over strings. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, no rubato, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 7. Pearl Reef (`undersea`, new)
@@ -193,7 +181,7 @@ Light, playful ballet class waltz for children, in 3/4 time, 144 BPM, A major. G
   plain `meta.music` swap.
 
 ```
-Dreamy, bubbly underwater music for a kids' mermaid and aquarium game, 96 BPM, E-flat major, 4/4. Shimmering vibraphone and marimba melody, soft steel drum, harp glissandos like rising bubbles, warm round bass, gentle hand percussion and shaker, airy pad, little water-drop plinks. Swimming with mermaids, fish and sparkling pearls, happy and floaty, with a calmer section where only harp and vibraphone play. Production style: a gentle touch of modern K-pop in the spirit of BLACKPINK and LISA: a glossy synth-pop sheen, a soft round 808 sub-bass and a catchy little synth hook under the instruments above, kept subtle. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Dreamy, bubbly underwater music for a kids' mermaid and aquarium game, 96 BPM, E-flat major, 4/4. Shimmering vibraphone and marimba melody, soft steel drum, harp glissandos like rising bubbles, warm round bass, gentle hand percussion and shaker, airy pad, little water-drop plinks. Swimming with mermaids, fish and sparkling pearls, happy and floaty, with a calmer section where only harp and vibraphone play. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 8. Puppet Booth Follies (`puppet`, new)
@@ -206,7 +194,7 @@ Dreamy, bubbly underwater music for a kids' mermaid and aquarium game, 96 BPM, E
   audience laughs, gasps and applause. A plain `meta.music` swap.
 
 ```
-Playful vaudeville puppet show music for children, 120 BPM, C major, 4/4. Bouncy honky-tonk piano, cheeky accordion, plucky banjo, oom-pah tuba bass, woodblocks and a light brushed snare, a silly slide whistle and squeaky toy horn used very sparingly. Silly puppets popping up behind a little theatre booth, comic and charming, with a quieter section of piano and pizzicato strings for peekaboo moments. Production style: a gentle touch of modern K-pop in the spirit of BLACKPINK and LISA: a glossy synth-pop sheen, a soft round 808 sub-bass and a catchy little synth hook under the instruments above, kept subtle. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Playful vaudeville puppet show music for children, 120 BPM, C major, 4/4. Bouncy honky-tonk piano, cheeky accordion, plucky banjo, oom-pah tuba bass, woodblocks and a light brushed snare, a silly slide whistle and squeaky toy horn used very sparingly. Silly puppets popping up behind a little theatre booth, comic and charming, with a quieter section of piano and pizzicato strings for peekaboo moments. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 9. Wand and Cauldron (`magic`, new)
@@ -219,7 +207,7 @@ Playful vaudeville puppet show music for children, 120 BPM, C major, 4/4. Bouncy
   of `tense` but warmer. A plain `meta.music` swap.
 
 ```
-Whimsical magic school music for a kids' wizard and potion game, 104 BPM, E minor with warm major moments, 4/4. Sparkling celesta and glockenspiel melody, plucked harp and pizzicato strings, a mysterious but friendly clarinet, soft bubbling marimba, gentle frame drum and shaker, magical chime swirls. Stirring a bubbling cauldron and waving wands, curious, enchanting and fun, never dark or scary, with a quieter section of harp and celesta. Production style: a gentle touch of modern K-pop in the spirit of BLACKPINK and LISA: a glossy synth-pop sheen, a soft round 808 sub-bass and a catchy little synth hook under the instruments above, kept subtle. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Whimsical magic school music for a kids' wizard and potion game, 104 BPM, E minor with warm major moments, 4/4. Sparkling celesta and glockenspiel melody, plucked harp and pizzicato strings, a mysterious but friendly clarinet, soft bubbling marimba, gentle frame drum and shaker, magical chime swirls. Stirring a bubbling cauldron and waving wands, curious, enchanting and fun, never dark or scary, with a quieter section of harp and celesta. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 10. Hurry-Up Stomp (`hurry`, new)
@@ -235,7 +223,7 @@ Whimsical magic school music for a kids' wizard and potion game, 104 BPM, E mino
   energy at sample 0, since it comes in mid-game. A clean loop point.
 
 ```
-Urgent, comic hurry-up music for the last ten seconds of a kids' party game, 160 BPM, A minor, 4/4. Stomping oom-pah tuba and bassoon, driving snare and tom fills, fast pizzicato strings, cheeky staccato brass stabs, a ticking clock woodblock on every beat. A grumpy cartoon troll stomping about, quick quick quick, funny and exciting, never scary, full energy from the very first beat. Production style: modern K-pop girl-group pop in the spirit of BLACKPINK and LISA, softened for kids: a glossy, polished synth-pop sheen, a round warm 808 sub-bass, a crisp snappy snare, light trap hi-hat rolls now and then, and a catchy plucky synth hook, blended with the instruments above. Mood and energy: playful hurry rather than stress: lively but rounded and friendly, never harsh, shrill or aggressive. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 30 seconds.
+Urgent, comic hurry-up music for the last ten seconds of a kids' party game, 160 BPM, A minor, 4/4. Stomping oom-pah tuba and bassoon, driving snare and tom fills, fast pizzicato strings, cheeky staccato brass stabs, a ticking clock woodblock on every beat. A grumpy cartoon troll stomping about, quick quick quick, funny and exciting, never scary, full energy from the very first beat. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 30 seconds.
 ```
 
 ## 11. Spotlight Showtime (`showtime`, new Dance Studio song)
@@ -252,7 +240,7 @@ Urgent, comic hurry-up music for the last ten seconds of a kids' party game, 160
   with `dance` in §6.3. Any key.
 
 ```
-Sparkly disco-pop dance showcase music for a kids' dance studio game, exactly 124 BPM, A minor, 4/4. Four-on-the-floor kick drum on every beat all the way through, claps on 2 and 4, funky octave synth bass, bright rhythm guitar chops, shiny string stabs, a catchy synth and glockenspiel hook, disco ball sparkle effects. Confident and joyful, dancing in the spotlight, with a lighter section where the kick keeps going. Quantized electronic production. Production style: modern K-pop girl-group pop in the spirit of BLACKPINK and LISA, softened for kids: a glossy, polished synth-pop sheen, a round warm 808 sub-bass, a crisp snappy snare, light trap hi-hat rolls now and then, and a catchy plucky synth hook, blended with the instruments above. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Sparkly disco-pop dance showcase music for a kids' dance studio game, exactly 124 BPM, A minor, 4/4. Four-on-the-floor kick drum on every beat all the way through, claps on 2 and 4, funky octave synth bass, bright rhythm guitar chops, shiny string stabs, a catchy synth and glockenspiel hook, disco ball sparkle effects. Confident and joyful, dancing in the spotlight, with a lighter section where the kick keeps going. Quantized electronic production. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 12. Mixing Bowl Bop (`bakery`, new)
@@ -265,7 +253,7 @@ Sparkly disco-pop dance showcase music for a kids' dance studio game, exactly 12
   swap (the feast's `music.play('bouncy')` stays).
 
 ```
-Happy, sweet kitchen baking music for a kids' cake decorating game, 116 BPM, B-flat major, 4/4. Bouncy jazzy upright bass, light swingless brushed drums, a cheerful whistle-like flute and vibraphone melody, plucky ukulele, playful pizzicato strings, little whisk-like shaker and spoon-clink percussion. Mixing batter, frosting and sprinkles, cozy and cheerful, with a softer section where only vibraphone and bass play. Production style: modern K-pop girl-group pop in the spirit of BLACKPINK and LISA, softened for kids: a glossy, polished synth-pop sheen, a round warm 808 sub-bass, a crisp snappy snare, light trap hi-hat rolls now and then, and a catchy plucky synth hook, blended with the instruments above. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Happy, sweet kitchen baking music for a kids' cake decorating game, 116 BPM, B-flat major, 4/4. Bouncy jazzy upright bass, light swingless brushed drums, a cheerful whistle-like flute and vibraphone melody, plucky ukulele, playful pizzicato strings, little whisk-like shaker and spoon-clink percussion. Mixing batter, frosting and sprinkles, cozy and cheerful, with a softer section where only vibraphone and bass play. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 13. Unicorn Think-Tank (`memory`, new)
@@ -278,7 +266,7 @@ Happy, sweet kitchen baking music for a kids' cake decorating game, 116 BPM, B-f
   swap.
 
 ```
-Light, sparkly thinking music for a children's unicorn memory card game, 100 BPM, G major, 4/4. Gentle plucked harp and celesta melody, soft marimba, warm pad, a tick-tock woodblock pulse, soft kick and shaker, little magical twinkles. Curious and focused, trying to remember where the cards are, calm and happy with a hint of friendly suspense, uncluttered with space for card chimes, and a quieter section with harp alone. Production style: a gentle touch of modern K-pop in the spirit of BLACKPINK and LISA: a glossy synth-pop sheen, a soft round 808 sub-bass and a catchy little synth hook under the instruments above, kept subtle. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Light, sparkly thinking music for a children's unicorn memory card game, 100 BPM, G major, 4/4. Gentle plucked harp and celesta melody, soft marimba, warm pad, a tick-tock woodblock pulse, soft kick and shaker, little magical twinkles. Curious and focused, trying to remember where the cards are, calm and happy with a hint of friendly suspense, uncluttered with space for card chimes, and a quieter section with harp alone. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 14. Glow Tank Night Show (`nightshow`, new)
@@ -292,7 +280,7 @@ Light, sparkly thinking music for a children's unicorn memory card game, 100 BPM
   lullaby with a pulse.
 
 ```
-Magical, glowing night-time aquarium show music for children, 84 BPM, D major, 4/4. Dreamy vibraphone and music box melody, soft harp arpeggios, warm string pad, a gentle steel-tongue drum, slow soft pulse of a quiet kick and shaker, twinkling chimes as lights glow one by one. Wonder and calm, glowing fish in a dark blue tank, beautiful and gentle but not sleepy, with a quieter section of harp and music box. Production style: a gentle touch of modern K-pop in the spirit of BLACKPINK and LISA: a glossy synth-pop sheen, a soft round 808 sub-bass and a catchy little synth hook under the instruments above, kept subtle. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Magical, glowing night-time aquarium show music for children, 84 BPM, D major, 4/4. Dreamy vibraphone and music box melody, soft harp arpeggios, warm string pad, a gentle steel-tongue drum, slow soft pulse of a quiet kick and shaker, twinkling chimes as lights glow one by one. Wonder and calm, glowing fish in a dark blue tank, beautiful and gentle but not sleepy, with a quieter section of harp and music box. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 15. Sunset Castle Tour (`sunset`, new)
@@ -305,7 +293,7 @@ Magical, glowing night-time aquarium show music for children, 84 BPM, D major, 4
 - **Tech:** loop, 16–24 bars, **88 BPM**, A major. Warm and golden.
 
 ```
-Warm golden sunset music on the beach for a kids' sandcastle game, 88 BPM, A major, 4/4. Gentle ukulele and nylon-string guitar, soft steel drum melody, warm bass, light hand percussion and shaker, soft ocean-wave cymbal swells, a mellow whistle-like flute. Proud and peaceful, admiring sandcastles as the sun sets, happy and glowing, with a quieter section of guitar alone. Production style: a gentle touch of modern K-pop in the spirit of BLACKPINK and LISA: a glossy synth-pop sheen, a soft round 808 sub-bass and a catchy little synth hook under the instruments above, kept subtle. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Warm golden sunset music on the beach for a kids' sandcastle game, 88 BPM, A major, 4/4. Gentle ukulele and nylon-string guitar, soft steel drum melody, warm bass, light hand percussion and shaker, soft ocean-wave cymbal swells, a mellow whistle-like flute. Proud and peaceful, admiring sandcastles as the sun sets, happy and glowing, with a quieter section of guitar alone. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 16. Champion of the Party (`champion`, new)
@@ -319,7 +307,7 @@ Warm golden sunset music on the beach for a kids' sandcastle game, 88 BPM, A maj
   jingle is the intro.
 
 ```
-Grand, triumphant champion anthem for the winner of a whole kids' party game marathon, 132 BPM, C major, 4/4. Bold brass fanfare melody with soaring trumpets and French horns, marching snare rolls and timpani, crash cymbals, tubular bells and glockenspiel sparkle, big punchy pop drums and bass, sweeping strings. Proud, glorious and joyful, like a trophy held high under confetti, with a short softer section of strings and bells before the brass returns. Production style: modern K-pop girl-group pop in the spirit of BLACKPINK and LISA, softened for kids: a glossy, polished synth-pop sheen, a round warm 808 sub-bass, a crisp snappy snare, light trap hi-hat rolls now and then, and a catchy plucky synth hook, blended with the instruments above. Mood and energy: proud and glowing rather than loud: a warm, confident groove with room to breathe, never harsh, blaring or aggressive. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Grand, triumphant champion anthem for the winner of a whole kids' party game marathon, 132 BPM, C major, 4/4. Bold brass fanfare melody with soaring trumpets and French horns, marching snare rolls and timpani, crash cymbals, tubular bells and glockenspiel sparkle, big punchy pop drums and bass, sweeping strings. Proud, glorious and joyful, like a trophy held high under confetti, with a short softer section of strings and bells before the brass returns. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 17. Treasure Island Dig (`treasure`, new)
@@ -330,7 +318,7 @@ Grand, triumphant champion anthem for the winner of a whole kids' party game mar
   chorus. A plain `meta.music` swap.
 
 ```
-Jolly pirate treasure hunt music for a kids' party game, 132 BPM, D minor with bright major moments, 4/4. Bouncy accordion and fiddle melody, a cheeky tin whistle, oom-pah tuba bass, stomping drums and tambourine, plucky mandolin, a little cartoon shovel-clink percussion. Digging for gold on a sunny island, adventurous, silly and exciting, never scary, with a lighter section of mandolin and whistle. Production style: modern K-pop girl-group pop in the spirit of BLACKPINK and LISA, softened for kids: a glossy, polished synth-pop sheen, a round warm 808 sub-bass, a crisp snappy snare, light trap hi-hat rolls now and then, and a catchy plucky synth hook, blended with the instruments above. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words, no shouting. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Jolly pirate treasure hunt music for a kids' party game, 132 BPM, D minor with bright major moments, 4/4. Bouncy accordion and fiddle melody, a cheeky tin whistle, oom-pah tuba bass, stomping drums and tambourine, plucky mandolin, a little cartoon shovel-clink percussion. Digging for gold on a sunny island, adventurous, silly and exciting, never scary, with a lighter section of mandolin and whistle. Instrumental only, no vocals, no choir, no spoken words, no shouting. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ## 18. Cushion Shuffle (`cushions`, new; needs engine work)
@@ -347,7 +335,7 @@ Jolly pirate treasure hunt music for a kids' party game, 132 BPM, D minor with b
   on a beat and keep its beat counter.
 
 ```
-Bouncy, cheerful musical-chairs party tune for kids, exactly 120 BPM, F major, 4/4. Four-on-the-floor kick on every beat, claps on 2 and 4, marimba and bell melody, off-beat piano chord stabs, bouncy octave synth bass, shaker. Happy party dancing that could stop at any moment, catchy and simple, the same steady groove all the way through. Quantized production. Production style: modern K-pop girl-group pop in the spirit of BLACKPINK and LISA, softened for kids: a glossy, polished synth-pop sheen, a round warm 808 sub-bass, a crisp snappy snare, light trap hi-hat rolls now and then, and a catchy plucky synth hook, blended with the instruments above. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+Bouncy, cheerful musical-chairs party tune for kids, exactly 120 BPM, F major, 4/4. Four-on-the-floor kick on every beat, claps on 2 and 4, marimba and bell melody, off-beat piano chord stabs, bouncy octave synth bass, shaker. Happy party dancing that could stop at any moment, catchy and simple, the same steady groove all the way through. Quantized production. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
 ---

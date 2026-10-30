@@ -1,11 +1,3 @@
-## October30 dug-sand revision — complete (authoritative current checkpoint)
-
-One regeneration request delivered: prop/dino-dug-sand now points to prop/dino-dug-sand-v2.webp. New organic softer material uses periodic-plus-smooth boundary synthesis without mirroring, reflections or duplicated quadrants. Exact built-in imagegen prompt and full native losslessRGBA archive retained under sources/oct30-dug-sand. Review/provenance: pending/OCT30-DUG-SAND.json and OCT30-DUG-SAND-TILED.jpg. Complete Dino art17.154140MiBdecoded including common reused art.
-
-All25Party tests pass; actual main renderer review covers joining dug patches and all snake/scorpion frames/facings. Dig-anywhere gameplay is now published on main; the old integration-blocked notes below are superseded. Natural8CPU review: pending/OCT28-DINO-GAMEPLAY-oct30-review.json.
-
-Last checked main revision: `21341d08cd47d5f35ef481980932de05c29140e5`. Last checked request blob after completed request archival: `7cd1d4e30d1339b4b4077a69b62fc81ffbb369b9`. Check UTC: `2026-10-30T16:39:32.931871+00:00`. Open image/regeneration requests: none. No approval or generation pending. No timer requested or created. Older checkpoints below are historical.
-
 ## Dino Dig critter artwork — complete (current checkpoint)
 
 Three newly requested assets delivered: prop/dino-snake, prop/dino-scorpion and optional prop/dino-dug-sand. Registered in dino-dig deferred group; complete decoded budget17.154140MiBincluding common reuse. Exact prompts/nativeRGBA archives retained in sources/oct28-dino-critters. Review and provenance: pending/OCT28-DINO-CRITTER-DELIVERY.json and related BROWSER/SNAKE/SCORPION/SAND records.

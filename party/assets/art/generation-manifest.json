@@ -41494,15 +41494,6 @@
       "tool": "built-in imagegen",
       "runtime": "party/assets/art/prop/dino-dug-sand.webp",
       "intake": "party/reference/pending/OCT28-DINO-SAND.json"
-    },
-    {
-      "asset": "prop/dino-dug-sand",
-      "prompt": "Use case: stylized-concept. Asset type: seamless repeating game terrain texture. Generate a square opaque tileable texture of freshly dug damp playground sand, viewed exactly from above, for a soft cheerful illustrated children's dinosaur dig game. Flat even lighting everywhere. Muted tan-brown palette about #c99a58 to #b4864a, average #c29559. VERY SOFT FLAT LOW CONTRAST surface: subtle irregular rounded sand clumps, a few shallow rounded scoop marks, only a few tiny pebbles. Fewer clumps than typical detailed dirt. Keep saturation restrained and tonal variation gentle so it blends into the soft golden sandbox at85percentopacity. Handpainted game material, no outlines. Organic non-symmetric random distribution, no radial or bilateral symmetry, no mirror tiling, no kaleidoscope, no butterfly patterns, no quadrant symmetry. Entire image seamlessly repeats across both axes, edge features continue naturally. No central composition, no border, no vignette, no light/shadow gradient. No holes, no objects, no bones, no tools, no footprints, no plants, no characters, no text. Full canvas entirely opaque. Intended final512x512 material texture.",
-      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-3aa5ac15-5ee7-416c-be7d-8706c25a73aa.png",
-      "archive": "party/reference/sources/oct30-dug-sand/native.webp",
-      "tool": "built-in imagegen",
-      "runtime": "party/assets/art/prop/dino-dug-sand-v2.webp",
-      "intake": "party/reference/pending/OCT30-DUG-SAND.json"
     }
   ]
 }

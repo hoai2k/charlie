@@ -440,7 +440,3 @@ Adding old props to a new deferred art group removes them from common boot loadi
 Small skeleton boxes can conflict with complete rounded joint caps. Preserve the full part, record a measured art-only draw offset inside the existing logical rotation, and keep gameplay pivots stable. Validate connected joints in multiple poses. Source dimensions and design coordinates are independent: measure ladder top steps, rake grips and platform supports from actual pixels. Crown/hat bounds must include camera focus and punch at maximum hop, not only the static rig.
 
 Review actual merged main or a coherent immutable preview. Mixing partial feature files from different revisions can manufacture missing-method errors. Archive exact sources/prompts and retain full requested canvases when runtime images need smaller derivatives.
-
-### Repeating ground textures: avoid mirrored quadrants
-
-A2×2mirror extension creates exact edges but obvious butterfly/kaleidoscope clumps when soft masks join. Generate a genuinely non-symmetric material and use periodic boundary synthesis rather than reflected copies. October30Dino sand uses a periodic-plus-smooth FFT decomposition, preserving authored organic detail while removing the boundary discontinuity field. Keep the native source unchanged. Compare decoded seam differences with interior neighbor differences after quality82WebP encoding, inspect a3×3tile contact, then review adjoining soft/deep DugSand.paint patches in the actual game renderer. Low contrast and restrained saturation matter at85%opacity over a light sandbox.
