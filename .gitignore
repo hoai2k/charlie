@@ -1,2 +1,6 @@
 __pycache__/
 *.pyc
+# ElevenLabs key file (never commit)
+.elevenlabs_key
+party/tools/audio/music/raw/
+party/tools/audio/music/genlog.jsonl
