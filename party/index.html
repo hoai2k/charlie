@@ -34,7 +34,10 @@
       @keyframes nudge { 50% { transform: translateY(-4px); } }
       noscript { color: #fff; font: 20px system-ui, sans-serif; position: absolute; inset: 40px; }
     </style>
-  </head>
+    <!-- Visit counting (GoatCounter: no cookies, no identifiers), read by games.hoai.net/stats/. -->
+  <script>window.goatcounter = { path: function () { return location.pathname; } };</script>
+  <script data-goatcounter="https://hoai.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
   <body>
     <canvas id="game" tabindex="0"></canvas>
     <div id="bars-hint" hidden><span class="arrow" aria-hidden="true">↑</span> Swipe up to hide Safari’s bars · or Share → Add to Home Screen</div>
