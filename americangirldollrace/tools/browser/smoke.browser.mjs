@@ -210,6 +210,27 @@ test('the magic wand waits for X, then casts the way the player aims (or faces);
   assert.deepEqual([r.right.hit, r.left.hit, r.none.hit], ['monster ahead', 'racer behind', 'monster ahead']);
 });
 
+test('a wand stays until it is cast: through a frog spell, a cloud fall and into the next race', { skip: skip() }, async () => {
+  await onTrack('wizard');
+  const r = await page.evaluate(() => {
+    startRace('two'); state.running = false; state.obstacles = []; state.powerups = []; state.monsters = [];
+    let [a, b] = state.racers; b.ai = false; a.x = 3000; keys.clear();
+    applyPowerup(a, 'jump');
+    a.frogTimer = 2; for (let i = 0; i < 60; i++) update(1 / 60);
+    const frogged = Boolean(a.spellAim) && state.spells.length === 0;
+    a.frogTimer = 0; loseRacerPowerups(a);
+    const fell = Boolean(a.spellAim);
+    finishRace(b); clearNextRaceTimer(); resetRace(state.mode);
+    [a, b] = state.racers;
+    const next = [Boolean(a.spellAim), Boolean(b.spellAim)];
+    state.running = false; keys.add('KeyF'); update(1 / 60); keys.clear();
+    const cast = state.spells.length === 1 && !a.spellAim;
+    finishRace(b); clearNextRaceTimer(); resetRace(state.mode);
+    return { frogged, fell, next, cast, after: Boolean(state.racers[0].spellAim) };
+  });
+  assert.deepEqual(r, { frogged: true, fell: true, next: [true, false], cast: true, after: false });
+});
+
 test('a running horse gets past the troll and the ice giant, not the other monsters; the giant plucks her from a jump or the air', { skip: skip() }, async () => {
   const r = {};
   for (const key of ['farm', 'winter', 'wizard', 'autumn', 'horseshow']) {
@@ -495,29 +516,44 @@ test('Specials modes: None, All Unicorns, All Brooms, All Fairy Wings, All Dolls
   assert.equal(r.gone, 'none', 'a removed mode falls back to None');
 });
 
-test('A big roster on a wide screen (All Dolls, or by now the usual one): the doll list runs to the right edge (Settings box down by the corner buttons), cards a comfortable width, faces in view', { skip: skip() }, async () => {
+test('All Dolls on a wide screen: the bottom row runs out under the logo and Settings (top row as usual), cards a comfortable width, faces in view; the usual roster as it was', { skip: skip() }, async () => {
   const r = await page.evaluate(() => {
     const saved = state.specials; state.running = false; startPanel.classList.remove('hidden');
     const read = () => {
       const cards = [...document.querySelectorAll('#lbGrid .lb-card')];
-      const box = document.querySelector('#lbTopRight').getBoundingClientRect(), grid = document.querySelector('#lbGrid').getBoundingClientRect();
       const stage = document.querySelector('.lb-stage').getBoundingClientRect(), k = stage.width / 1280;
+      const tops = [...new Set(cards.map(c => Math.round(c.getBoundingClientRect().top)))].sort((a, b) => a - b);
+      const inRow = t => cards.filter(c => Math.round(c.getBoundingClientRect().top) === t);
+      const left = Math.min(...cards.map(c => c.getBoundingClientRect().left)), settings = document.querySelector('#lbTopRight').getBoundingClientRect();
       const bunny = cards.find(c => c.querySelector('.lb-name').textContent === 'Cornsilk')?.querySelector('.lb-pic');
-      return { roomy: document.querySelector('.start-panel').classList.contains('roomy-roster'), card: Math.round(cards[0].getBoundingClientRect().width / k),
-        settingsBelowGrid: box.top > grid.bottom, bunnyShift: bunny ? parseFloat(bunny.style.backgroundPosition) : null };
+      return { top: inRow(tops[0]).length, bottom: inRow(tops[1]).length, card: Math.round(cards[0].getBoundingClientRect().width / k),
+        reachesUnderLogo: (left - stage.left) / k < 300, settingsTopRight: settings.top - stage.top < 100 * k, bunnyShift: bunny ? parseFloat(bunny.style.backgroundPosition) : null };
     };
     setSpecials('all-dolls'); Lobby.showSelect();
     return new Promise(resolve => setTimeout(() => { const all = read(); setSpecials(saved); Lobby.showSelect(); resolve({ all, normal: read() }); }, 600));
   });
-  assert.equal(r.all.roomy, true);
+  assert.ok(r.all.bottom > r.all.top && r.all.reachesUnderLogo, JSON.stringify(r.all));
   assert.ok(r.all.card >= 75, `card ${r.all.card}px`);
-  assert.equal(r.all.settingsBelowGrid, true);
+  assert.equal(r.all.settingsTopRight, true, 'Settings stays top right');
   assert.ok(r.all.bunnyShift < 0, "Cornsilk's card is cropped about her face, right of the middle");
-  // (The usual roster is big enough by now to want the room too.)
-  assert.ok(r.normal.card >= 75 && r.normal.card > r.all.card, `usual roster card ${r.normal.card}px`);
+  assert.ok(r.normal.top >= r.normal.bottom && !r.normal.reachesUnderLogo, `usual roster: ${JSON.stringify(r.normal)}`);
+  // Up and down go to the nearest card in the other row.
+  await page.evaluate(() => { setSpecials('all-dolls'); Lobby.showSelect(); });
+  const key = async code => { await page.keyboard.down(code); await page.keyboard.up(code); };
+  for (let i = 0; i < 8 && (await page.evaluate(() => Lobby.players().length)); i++) await key('Escape');
+  await key('Space'); // WASD joins, on the first card
+  const name = () => page.evaluate(() => document.querySelector('#lbGrid .lb-card .lb-cursors:not(:empty)')?.closest('.lb-card').querySelector('.lb-name').textContent);
+  const first = await name();
+  await key('KeyS'); const below = await name();
+  await key('KeyW'); const back = await name();
+  for (let i = 0; i < 8 && (await page.evaluate(() => Lobby.players().length)); i++) await key('Escape');
+  await page.evaluate(saved => { setSpecials('none'); Lobby.showSelect(); });
+  assert.equal(first, 'Juliette');
+  assert.ok(below && below !== 'Felicity' && below !== 'Juliette', `down from Juliette lands under her, not at the row's start: ${below}`);
+  assert.equal(back, 'Juliette');
 });
 
-test('All Dolls: every hidden doll is listed after all the others (Random last)', { skip: skip() }, async () => {
+test('All Dolls: every hidden doll is listed after all the others, Amanda and Penelope first (Random last)', { skip: skip() }, async () => {
   const r = await page.evaluate(() => {
     const saved = state.specials; state.running = false; startPanel.classList.remove('hidden');
     setSpecials('all-dolls'); Lobby.showSelect();
@@ -532,6 +568,7 @@ test('All Dolls: every hidden doll is listed after all the others (Random last)'
   assert.deepEqual(r.hidden.slice(firstHidden, -1).filter(h => h !== 'hidden'), [], r.names.join());
   assert.equal(r.hidden.at(-1), 'random');
   assert.ok(r.names.includes('Munna') && r.names.includes('Penelope'));
+  assert.deepEqual(r.names.slice(firstHidden, firstHidden + 2), ['Amanda', 'Penelope'], r.names.join());
 });
 
 test('lobby: clicking Random adds keyboard players; Escape un-picks then removes each in turn; clicking an unpicked keyboard player removes her', { skip: skip() }, async () => {
@@ -549,6 +586,9 @@ test('lobby: clicking Random adds keyboard players; Escape un-picks then removes
   await stall(); const unpicked = await players();
   await stall(); const gone = await players();
   assert.deepEqual({ added, steps, unpicked, gone }, { added: 'wasd+ arrows+', steps: ['wasd+ arrows', 'wasd+', 'wasd', ''], unpicked: 'wasd', gone: '' });
+  // The join stall just invites: no player number for someone who may never come.
+  const join = await page.evaluate(() => document.querySelector('#lbSlots .lb-slot[data-id="join"]')?.textContent || '');
+  assert.ok(join.includes('join') && !/P\d/.test(join), join);
   assert.deepEqual(errors, []);
 });
 

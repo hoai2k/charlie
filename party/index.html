@@ -34,7 +34,10 @@
       @keyframes nudge { 50% { transform: translateY(-4px); } }
       noscript { color: #fff; font: 20px system-ui, sans-serif; position: absolute; inset: 40px; }
     </style>
-  </head>
+    <!-- Visit counting (GoatCounter: no cookies, no identifiers), read by games.hoai.net/stats/. -->
+  <script>window.goatcounter = { path: function () { return location.pathname; } };</script>
+  <script data-goatcounter="https://hoai.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
   <body>
     <canvas id="game" tabindex="0"></canvas>
     <div id="bars-hint" hidden><span class="arrow" aria-hidden="true">↑</span> Swipe up to hide Safari’s bars · or Share → Add to Home Screen</div>
@@ -326,7 +329,7 @@
         "./src/scenes/play.js": "./src/scenes/play.js?v=aea6a82a",
         "./src/scenes/results.js": "./src/scenes/results.js?v=8cd5e70e",
         "./src/scenes/spriteviewer.js": "./src/scenes/spriteviewer.js?v=538de0ab",
-        "./src/scenes/title.js": "./src/scenes/title.js?v=82330f2a",
+        "./src/scenes/title.js": "./src/scenes/title.js?v=c42556e4",
         "./src/scenes/trophy.js": "./src/scenes/trophy.js?v=a9c8679f",
         "./src/state.js": "./src/state.js?v=6cf606a9"
       }
