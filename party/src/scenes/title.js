@@ -15,6 +15,8 @@ import { CHARACTERS } from '../data/characters.js';
 import { rand, pick, TAU, ease } from '../engine/util.js';
 
 const LOGO = 'Charlie Party';
+// Controller glyph for the "Xbox controller highly recommended" note (24x24 box).
+const PAD_ICON = new Path2D('M7 6h10a5 5 0 0 1 4.9 6l-1 4.6a2.6 2.6 0 0 1-4.5 1.2L14.6 16H9.4l-1.8 1.8a2.6 2.6 0 0 1-4.5-1.2l-1-4.6A5 5 0 0 1 7 6zm0 3v1.5H5.5v1.5H7v1.5h1.5V12H10v-1.5H8.5V9H7zm9.5.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z');
 
 export class TitleScene {
   enter() {
@@ -140,6 +142,25 @@ export class TitleScene {
     if (input.connectedPadCount() === 0 && this.t > 1.5) {
       ui.text(g, 'Plug in an Xbox controller and press any button — or press any key', W / 2, 770, { size: 30, color: '#fff', strokeWidth: 6 });
     }
+    if (input.connectedPadCount() === 0) this.drawPadNote(g);
+  }
+
+  // Small calm note centred at the bottom, between the song tag and the corner
+  // buttons; drawn only while no controller is connected (input polls the pads).
+  drawPadNote(g) {
+    const label = 'Xbox controller highly recommended';
+    const size = 30, icon = size * 1.25, gap = 10, y = H - 42;
+    const total = icon + gap + ui.measure(g, label, size);
+    const x0 = W / 2 - total / 2;
+    const alpha = Math.min(1, Math.max(0, (this.t - 0.8) / 0.6)) * 0.92;
+    g.save();
+    g.globalAlpha *= alpha;
+    g.translate(x0, y - icon / 2); g.scale(icon / 24, icon / 24);
+    g.lineJoin = 'round'; g.lineWidth = 6 * 24 / icon; g.strokeStyle = ui.NAVY;
+    g.stroke(PAD_ICON);
+    g.fillStyle = '#ffffff'; g.fill(PAD_ICON);
+    g.restore();
+    ui.text(g, label, x0 + icon + gap, y + 2, { size, align: 'left', color: '#fff', strokeWidth: 6, alpha });
   }
 
   drawLogo(g, appear) {

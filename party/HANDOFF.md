@@ -59,7 +59,7 @@ Re-generation table (code falls back to existing art + drawn extras until they l
 ### Art watch (2026-10-13): DONE
 All requested Molly images delivered and checked in game by 07:00Z (QA agents A–G); every open
 request and re-generation row is closed. All six fairy sprite sets (glimmer, garden-fairy-*) have
-every pose the 23 Molly games use. Check-in timers stopped. Sister Party menu song: 'molly' = music/sister-party.mp3 ("Sister Party", from party/intake 2026-10-28), resumes (RESUMES in audio.js); Molly Time (music/molly-time.mp3) is kept, unused.
+every pose the 23 Molly games use. Check-in timers stopped. Sister Party menu song: 'molly' = music/sister-party.mp3 ("Sister Party", new version from party/intake 2026-10-30), resumes (RESUMES in audio.js); Molly Time (music/molly-time.mp3) is kept, unused.
 
 ### Molly Party code (lead session) — all 23 on the shelf (2026-10-13)
 All Molly games merged. The cheeky round replaced six "do as you're told" games:
