@@ -124,7 +124,7 @@
    "bpmMeasured": 127.9986,
    "bpmFinal": 127.9998,
    "notes": "Tuba, xylophone, woodblocks and kazoo-like lead; 24 bars; clean seam",
-   "inGame": true
+   "inGame": false
   },
   {
    "song": "bouncy",
@@ -139,7 +139,8 @@
    "seamScore": 1.16,
    "bpmMeasured": 127.9899,
    "bpmFinal": 128.0002,
-   "notes": "Oom-pah tuba, marimba, muted trumpet; brighter (centroid ~930 Hz), small gaps in the groove"
+   "notes": "Oom-pah tuba, marimba, muted trumpet; brighter (centroid ~930 Hz), small gaps in the groove",
+   "inGame": false
   },
   {
    "song": "tense",
@@ -527,6 +528,141 @@
    "onsetFit16": 91.0,
    "notes": "Rumba flamenca with crisp palmas: rumba groove | contratiempo + castanets after a one-bar stop; tightest flamenco take",
    "inGame": true
+  },
+  {
+   "song": "bouncy",
+   "take": 4,
+   "file": "music/takes/bouncy-4.mp3",
+   "bpm": 128,
+   "bars": 24,
+   "loopStart": 0.2,
+   "loopEnd": 45.2,
+   "lufs": -16.2,
+   "truePeak": -4.2,
+   "bpmMeasured": 127.9979,
+   "notes": "Sunny K-pop-flavoured groove (open request R1 prompt) (2026-10-30)",
+   "inGame": true
+  },
+  {
+   "song": "bouncy",
+   "take": 5,
+   "file": "music/takes/bouncy-5.mp3",
+   "bpm": 128,
+   "bars": 16,
+   "loopStart": 0.2,
+   "loopEnd": 30.2,
+   "lufs": -16.3,
+   "truePeak": -4.5,
+   "bpmMeasured": 127.9987,
+   "notes": "Bubblegum K-pop with toy piano and ukulele (2026-10-30)",
+   "inGame": false
+  },
+  {
+   "song": "bouncy",
+   "take": 6,
+   "file": "music/takes/bouncy-6.mp3",
+   "bpm": 128,
+   "bars": 16,
+   "loopStart": 0.2,
+   "loopEnd": 30.2,
+   "lufs": -16.1,
+   "truePeak": -3.9,
+   "bpmMeasured": 127.9972,
+   "notes": "Breezy tropical K-pop groove (2026-10-30)",
+   "inGame": true
+  },
+  {
+   "song": "bouncy",
+   "take": 7,
+   "file": "music/takes/bouncy-7.mp3",
+   "bpm": 128,
+   "bars": 16,
+   "loopStart": 0.2,
+   "loopEnd": 30.2,
+   "lufs": -16.3,
+   "truePeak": -2.7,
+   "bpmMeasured": 127.9978,
+   "notes": "Sunny acoustic pop (no K-pop): ukulele, marimba, glockenspiel (2026-10-30)",
+   "inGame": false
+  },
+  {
+   "song": "bouncy",
+   "take": 8,
+   "file": "music/takes/bouncy-8.mp3",
+   "bpm": 128,
+   "bars": 16,
+   "loopStart": 0.2,
+   "loopEnd": 30.2,
+   "lufs": -16.2,
+   "truePeak": -4.0,
+   "bpmMeasured": 127.9992,
+   "notes": "Warm funky kids' pop (no K-pop): Rhodes, whistle-style lead (2026-10-30)",
+   "inGame": false
+  },
+  {
+   "song": "dance",
+   "take": 4,
+   "file": "music/takes/dance-4.mp3",
+   "bpm": 120,
+   "bars": 32,
+   "loopStart": 0.2,
+   "loopEnd": 64.2,
+   "lufs": -16.2,
+   "truePeak": -2.4,
+   "bpmMeasured": 119.9987,
+   "notes": "Feel-good K-pop girl-group dance, E-flat major (open request R2 prompt) (2026-10-30)"
+  },
+  {
+   "song": "dance",
+   "take": 5,
+   "file": "music/takes/dance-5.mp3",
+   "bpm": 120,
+   "bars": 16,
+   "loopStart": 0.2,
+   "loopEnd": 32.2,
+   "lufs": -16.3,
+   "truePeak": -5.2,
+   "bpmMeasured": 120.0004,
+   "notes": "Dreamy glittery K-pop synth-pop (2026-10-30)"
+  },
+  {
+   "song": "dance",
+   "take": 6,
+   "file": "music/takes/dance-6.mp3",
+   "bpm": 120,
+   "bars": 16,
+   "loopStart": 0.2,
+   "loopEnd": 32.2,
+   "lufs": -16.3,
+   "truePeak": -2.9,
+   "bpmMeasured": 120.0005,
+   "notes": "Funky disco K-pop (2026-10-30)"
+  },
+  {
+   "song": "dance",
+   "take": 7,
+   "file": "music/takes/dance-7.mp3",
+   "bpm": 120,
+   "bars": 32,
+   "loopStart": 0.2,
+   "loopEnd": 64.2,
+   "lufs": -16.3,
+   "truePeak": -4.9,
+   "bpmMeasured": 119.9996,
+   "notes": "Sunny disco-pop (no K-pop) (2026-10-30)"
+  },
+  {
+   "song": "dance",
+   "take": 8,
+   "file": "music/takes/dance-8.mp3",
+   "bpm": 120,
+   "bars": 32,
+   "loopStart": 0.2,
+   "loopEnd": 64.2,
+   "lufs": -16.1,
+   "truePeak": -4.2,
+   "bpmMeasured": 120.0001,
+   "notes": "Bright piano-house (no K-pop) (2026-10-30)"
   }
  ]
 }

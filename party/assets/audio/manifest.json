@@ -1239,17 +1239,18 @@
    "take": 1
   },
   "bouncy": {
-   "file": "music/takes/bouncy-1.mp3",
+   "file": "music/takes/bouncy-4.mp3",
    "loopStart": 0.2,
    "loopEnd": 45.2,
    "label": "Bouncy",
-   "take": 1,
+   "take": 4,
+   "rotate": true,
    "takes": [
     {
-     "file": "music/takes/bouncy-2.mp3",
-     "take": 2,
+     "file": "music/takes/bouncy-6.mp3",
+     "take": 6,
      "loopStart": 0.2,
-     "loopEnd": 45.2
+     "loopEnd": 30.2
     }
    ]
   },
