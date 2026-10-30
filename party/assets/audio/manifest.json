@@ -1251,6 +1251,24 @@
      "take": 6,
      "loopStart": 0.2,
      "loopEnd": 30.2
+    },
+    {
+     "file": "music/takes/bouncy-9.mp3",
+     "take": 9,
+     "loopStart": 0.2,
+     "loopEnd": 45.2
+    },
+    {
+     "file": "music/takes/bouncy-11.mp3",
+     "take": 11,
+     "loopStart": 0.2,
+     "loopEnd": 45.2
+    },
+    {
+     "file": "music/takes/bouncy-12.mp3",
+     "take": 12,
+     "loopStart": 0.2,
+     "loopEnd": 30.2
     }
    ]
   },

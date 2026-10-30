@@ -695,7 +695,8 @@
    "lufs": -16.2,
    "truePeak": -2.2,
    "bpmMeasured": 127.9998,
-   "notes": "Kitchen / baking pop (no K-pop): vibraphone, brushed drums (2026-10-30)"
+   "notes": "Kitchen / baking pop (no K-pop): vibraphone, brushed drums (2026-10-30)",
+   "inGame": true
   },
   {
    "song": "bouncy",
@@ -708,7 +709,8 @@
    "lufs": -16.3,
    "truePeak": -4.5,
    "bpmMeasured": 128.0001,
-   "notes": "Garden play pop (light K-pop): ukulele, marimba, whistle-synth (2026-10-30)"
+   "notes": "Garden play pop (light K-pop): ukulele, marimba, whistle-synth (2026-10-30)",
+   "inGame": false
   },
   {
    "song": "bouncy",
@@ -721,7 +723,8 @@
    "lufs": -16.1,
    "truePeak": -2.8,
    "bpmMeasured": 127.9954,
-   "notes": "Magic & sky pop (K-pop): celesta, harp, bell-synth hook (2026-10-30)"
+   "notes": "Magic & sky pop (K-pop): celesta, harp, bell-synth hook (2026-10-30)",
+   "inGame": true
   },
   {
    "song": "bouncy",
@@ -734,7 +737,8 @@
    "lufs": -16.2,
    "truePeak": -3.4,
    "bpmMeasured": 127.9985,
-   "notes": "Toybox pop (no K-pop): toy piano, music box, ukulele (2026-10-30)"
+   "notes": "Toybox pop (no K-pop): toy piano, music box, ukulele (2026-10-30)",
+   "inGame": true
   }
  ]
 }
