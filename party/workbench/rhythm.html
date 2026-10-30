@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <!-- Modules and assets resolve from party/, like the game page (tools/stamp-modules.mjs stamps the import map). -->
+    <base href="../">
+    <title>Rhythm Editor</title>
+    <link rel="icon" href="favicon.png">
+    <link rel="stylesheet" href="workbench/workbench.css">
+    <style>
+      .layout.rhythm { grid-template-columns: minmax(0, 1fr) 360px; grid-template-rows: minmax(0, 1fr); grid-template-areas: "viewer side"; }
+      .viewer canvas { cursor: default; }
+      .viewer canvas.add { cursor: copy; }
+      .viewer canvas.move { cursor: grab; }
+      .viewer canvas.seek { cursor: col-resize; }
+      .seg.modes button { font-weight: 600; }
+      .lv-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--dirty); margin-left: 4px; vertical-align: middle; }
+      .lv-dot[hidden] { display: none; }
+      .btnrow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+      .btnrow button { font-weight: 700; color: #fff; border: 0; }
+      .btnrow button[data-btn="a"] { background: #3ec43e; }
+      .btnrow button[data-btn="b"] { background: #e8423b; }
+      .btnrow button[data-btn="x"] { background: #2f7dfa; }
+      .btnrow button[data-btn="y"] { background: #f5b70f; color: #24163f; }
+      .controls-help { font-size: 12px; }
+      .controls-help .keys { gap: 3px 10px; }
+      .stats { font: 12px ui-monospace, monospace; white-space: pre-wrap; }
+      .changed { list-style: none; margin: 0; padding: 0; font-size: 12px; }
+      .changed li { padding: 2px 0; }
+      .mode-only[hidden] { display: none; }
+      .unlock { position: absolute; inset: 0; display: grid; place-items: center; background: #0006; color: #fff; font-size: 20px; cursor: pointer; z-index: 5; }
+      .unlock[hidden] { display: none; }
+      .field.inline { flex-direction: row; align-items: center; gap: 6px; }
+      .field.inline input { width: 80px; }
+      @media (max-width: 900px) {
+        .layout.rhythm { grid-template-columns: minmax(0, 1fr); grid-template-rows: 64vh auto; grid-template-areas: "viewer" "side"; }
+      }
+    </style>
+    <script type="module" src="workbench/rhythm.js"></script>
+  </head>
+  <body>
+    <header class="bar">
+      <h1><label class="tool"><span class="sr-only">Workbench</span><select id="tool" aria-label="Switch workbench" onchange="if (this.value) location.href = location.pathname.replace(/workbench\/?[^/]*$/, '') + this.value">
+        <option value="workbench/">Sprite Workbench</option>
+        <option value="?scene=audio">Audio Workbench (all music &amp; sounds)</option>
+        <option value="" selected>Rhythm Editor (play, record &amp; edit hits)</option>
+      </select></label></h1>
+      <label class="pick">Song <select id="song" aria-label="Song"></select></label>
+      <div class="seg" role="group" aria-label="Difficulty" id="levels">
+        <button data-lv="0" aria-pressed="true">Easy<span class="lv-dot" hidden></span></button>
+        <button data-lv="1">Normal<span class="lv-dot" hidden></span></button>
+        <button data-lv="2">Hard<span class="lv-dot" hidden></span></button>
+      </div>
+      <div class="seg modes" role="group" aria-label="Mode" id="modes">
+        <button data-mode="play" aria-pressed="true">Play</button>
+        <button data-mode="record">Record</button>
+        <button data-mode="edit">Edit</button>
+      </div>
+      <div class="group" role="group" aria-label="Transport">
+        <button id="play" class="primary" title="Play / stop (Enter, pad Start)">Play</button>
+        <button id="rewind" title="Back to the start of the range (Home)">&#9198;</button>
+      </div>
+      <div class="group end">
+        <button id="undo" title="Undo (Ctrl/Cmd+Z)">Undo</button>
+        <button id="redo" title="Redo (Ctrl/Cmd+Shift+Z, Ctrl+Y)">Redo</button>
+        <button id="download" class="primary" title="Download the changed charts as JSON (Ctrl/Cmd+S)">Download JSON</button>
+        <button id="load" title="Load a downloaded JSON back">Load&hellip;</button>
+        <input id="load-file" type="file" accept="application/json,.json" hidden>
+        <button id="help" title="Help (?)">?</button>
+      </div>
+    </header>
+
+    <main class="layout rhythm">
+      <section class="viewer" id="viewer">
+        <canvas id="view" tabindex="0" aria-label="Rhythm chart"></canvas>
+        <div class="status" id="status" aria-live="polite"></div>
+        <div class="unlock" id="unlock">Click (or press a key) to turn the sound on</div>
+      </section>
+
+      <aside class="side">
+        <details open class="panel">
+          <summary>Chart</summary>
+          <div id="chart-info" class="small"></div>
+          <div class="stats" id="chart-stats"></div>
+          <div class="row buttons">
+            <label class="check" title="Play the notes with the buttons the game folds them to at this difficulty (Easy: X plays as A, Y as B; Normal: Y plays as B, X joins late)"><input type="checkbox" id="fold" checked> Game buttons</label>
+            <button id="reset-auto" title="Throw away this level's edits and hand-made chart: back to the chart built from the song's onsets">Reset level</button>
+          </div>
+        </details>
+
+        <details open class="panel">
+          <summary>Range &amp; playback</summary>
+          <div class="grid2">
+            <label class="field">From beat <input type="number" id="range-a" step="1" min="0"></label>
+            <label class="field">To beat <input type="number" id="range-b" step="1" min="0"></label>
+          </div>
+          <div class="row buttons">
+            <button id="set-a" title="Range starts at the playhead (pad LT, key [)">A = here</button>
+            <button id="set-b" title="Range ends at the playhead (pad RT, key ])">B = here</button>
+            <button id="range-all" title="The whole song">Whole song</button>
+          </div>
+          <div class="row buttons">
+            <label class="check"><input type="checkbox" id="loop"> Loop the range</label>
+            <label class="check"><input type="checkbox" id="metro"> Metronome</label>
+          </div>
+          <div class="row buttons">
+            <label class="check" title="Play a note sound for every chart note as it passes (Edit mode), or when you hit one (Play mode)"><input type="checkbox" id="notesnd" checked> Note sounds</label>
+            <label class="field inline" title="Shift your presses if they are judged early or late on this computer: positive = you press late">Input offset <input type="number" id="offset" step="5" value="0"> ms</label>
+          </div>
+        </details>
+
+        <details open class="panel mode-only" data-for="play">
+          <summary>Play</summary>
+          <p class="small muted">The notes fall to the line like in Pop Star Stage: press their button as they reach it. Same hit windows as the game (Perfect within &plusmn;80 ms, Good within &plusmn;160 ms).</p>
+          <div class="stats" id="play-stats"></div>
+        </details>
+
+        <details open class="panel mode-only" data-for="record" hidden>
+          <summary>Record</summary>
+          <div class="grid2">
+            <label class="field">Snap <select id="snap"></select></label>
+            <label class="field">Into the range <select id="rec-mode">
+              <option value="replace">Replace its notes</option>
+              <option value="merge">Add to its notes</option>
+            </select></label>
+          </div>
+          <div class="row buttons">
+            <label class="check" title="Start a bar early so you can feel the beat first"><input type="checkbox" id="preroll" checked> Count-in bar</label>
+            <label class="check" title="Show the level's current notes while you record"><input type="checkbox" id="rec-guide" checked> Show notes</label>
+          </div>
+          <div class="row buttons">
+            <button id="record" class="primary" title="Start recording the range (pad Start in Record mode)">&#9679; Record</button>
+          </div>
+          <p class="small muted">Press A / B / X / Y (keys J K L I) in time. When the range ends (or each time it loops) the hits are snapped and put into this level. A second pass over a looping range adds to the first. Undo takes a whole recording back.</p>
+          <div class="stats" id="rec-stats"></div>
+        </details>
+
+        <details open class="panel mode-only" data-for="edit" hidden>
+          <summary>Edit</summary>
+          <div class="grid2">
+            <label class="field">Snap <select id="snap-edit"></select></label>
+            <label class="field">Zoom <input type="range" id="zoom" min="8" max="240" value="48"></label>
+          </div>
+          <div id="sel-info" class="small"></div>
+          <div class="btnrow" id="sel-btns" title="Change the selected notes' button (keys A B X Y)">
+            <button data-btn="a">A</button><button data-btn="b">B</button><button data-btn="x">X</button><button data-btn="y">Y</button>
+          </div>
+          <div class="row buttons">
+            <button id="del" class="danger" title="Delete the selected notes (Del)">Delete</button>
+            <button id="copy-sel" title="Copy the selected notes (Ctrl/Cmd+C); paste at the playhead with Ctrl/Cmd+V">Copy</button>
+            <button id="paste" title="Paste at the playhead (Ctrl/Cmd+V)">Paste</button>
+          </div>
+          <div class="row buttons">
+            <span class="muted small">Copy the selection to</span>
+            <button data-copyto="0">Easy</button><button data-copyto="1">Normal</button><button data-copyto="2">Hard</button>
+          </div>
+          <div class="row buttons">
+            <span class="muted small">Copy the whole level to</span>
+            <button data-copyall="0">Easy</button><button data-copyall="1">Normal</button><button data-copyall="2">Hard</button>
+          </div>
+        </details>
+
+        <details open class="panel">
+          <summary>Changed charts <span id="changed-count" class="count">0</span></summary>
+          <ul id="changed" class="changed"></ul>
+          <p class="small muted">Edits stay in this browser until you download them. Send the JSON over; it goes into the game with <code>node party/tools/apply-rhythm-edits.mjs file.json</code> (see <code>party/workbench/README.md</code>).</p>
+        </details>
+
+        <details open class="panel controls-help">
+          <summary>Controls</summary>
+          <div id="controls"></div>
+        </details>
+      </aside>
+    </main>
+
+    <div id="help-dlg" class="modal" hidden>
+      <div class="card" role="dialog" aria-modal="true" aria-labelledby="help-title">
+        <h2 id="help-title">Rhythm Editor</h2>
+        <p>Pick a song and a difficulty. <b>Play</b> it like the game, <b>Record</b> your own hits with the buttons, and <b>Edit</b> them on the timeline. <b>Download JSON</b> saves every chart you changed; <b>Load</b> brings one back.</p>
+        <div class="keys">
+          <div><kbd>Enter</kbd> / pad <kbd>Start</kbd></div><div>Play / stop (Record mode: record)</div>
+          <div><kbd>Tab</kbd> / pad <kbd>Back</kbd></div><div>Next mode (Play, Record, Edit)</div>
+          <div><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> / pad <kbd>LB</kbd> <kbd>RB</kbd></div><div>Easy / Normal / Hard</div>
+          <div><kbd>J</kbd> <kbd>K</kbd> <kbd>L</kbd> <kbd>I</kbd> (<kbd>Space</kbd> = A) / pad <kbd>A</kbd> <kbd>B</kbd> <kbd>X</kbd> <kbd>Y</kbd></div><div>Hit the notes (Play), record hits (Record), add / change / remove a note at the playhead (Edit)</div>
+          <div><kbd>[</kbd> <kbd>]</kbd> / pad <kbd>LT</kbd> <kbd>RT</kbd></div><div>Range start / end at the playhead</div>
+          <div><kbd>&larr;</kbd> <kbd>&rarr;</kbd> / d-pad</div><div>Move the playhead one snap step (<kbd>Shift</kbd>: a bar) while stopped</div>
+          <div><kbd>Home</kbd></div><div>Back to the start of the range</div>
+          <div>Mouse (Edit)</div><div>Click an empty lane to add a note; drag notes to move them (up / down changes the button); <kbd>Shift</kbd>+click adds to the selection, <kbd>Shift</kbd>+drag on empty space box-selects; right-click or double-click deletes; click the ruler to move the playhead, drag on it to set the range; wheel scrolls, <kbd>Ctrl</kbd>+wheel zooms</div>
+          <div><kbd>A</kbd> <kbd>B</kbd> <kbd>X</kbd> <kbd>Y</kbd> (Edit)</div><div>Change the selected notes' button</div>
+          <div><kbd>&uarr;</kbd> <kbd>&darr;</kbd> (Edit)</div><div>Move the selected notes up / down a lane; <kbd>,</kbd> <kbd>.</kbd> move them one snap step</div>
+          <div><kbd>Del</kbd> <kbd>Ctrl+C</kbd> <kbd>Ctrl+V</kbd> <kbd>Ctrl+A</kbd> <kbd>Esc</kbd></div><div>Delete, copy, paste at the playhead, select all, deselect</div>
+          <div><kbd>Ctrl/Cmd+Z</kbd> <kbd>Ctrl+Y</kbd> <kbd>Ctrl/Cmd+S</kbd></div><div>Undo, redo, download JSON</div>
+        </div>
+        <p class="note">The game builds each level from the song's measured onsets until a level has a hand-made chart; a downloaded file is applied with <code>node party/tools/apply-rhythm-edits.mjs</code>. Pop Star Stage also eases each player in at the start (and moves them between levels as they play); Play mode plays the level's whole chart.</p>
+        <button id="help-close" class="primary">Close</button>
+      </div>
+    </div>
+  </body>
+</html>

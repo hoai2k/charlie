@@ -21,7 +21,7 @@ import { art, drawArt } from '../engine/art.js';
 import { charById } from '../data/characters.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, ease, TAU, placementsFromScores } from '../engine/util.js';
 import { drawStarShape } from '../engine/emotes.js';
-import { loadRhythmSongs, chooseSong, buildChart, songPlan, musicKey } from './rhythm/songs.js';
+import { loadRhythmSongs, chooseSong, buildChart, songPlan, musicKey, foldXY, foldNormal, normalXAt } from './rhythm/songs.js';
 import { difficulty } from '../state.js';
 import { musicReady } from '../engine/audio.js';
 import { meta } from './pop-star-stage.meta.js';
@@ -58,18 +58,9 @@ const DIFFS = [
   { name: 'Normal', start: 1, max: 3 },
   { name: 'Hard', start: 3, max: 4 },
 ];
-/** Normal's buttons: A/B, then X from `xAt`; Y always rides X (or B before X). */
-const foldNormal = (list, xAt) => list.map((n) => ({ ...n, btn: n.btn === 'y' ? (n.beat >= xAt ? 'x' : 'b') : n.btn === 'x' && n.beat < xAt ? 'a' : n.btn }));
-/** Normal: X joins around the last quarter, clear of the finale's own banner. */
-function normalXAt(end, boss) {
-  let at = Math.round((end * 0.75) / 4) * 4;
-  if (Math.abs(at - boss) < 8) at = boss + 8;
-  return Math.min(at, end - 16);
-}
 const TIER_NAMES = ['Easy-peasy', 'Easy', 'Normal', 'Tricky', 'Superstar'];
 const TIER_PTS = [0.6, 0.8, 1, 1.3, 1.6];
 const UP_WINDOW = 12, UP_HITS = 11, DOWN_WINDOW = 8, DOWN_HITS = 5;
-const foldXY = (list) => list.map((n) => ({ ...n, btn: n.btn === 'x' ? 'a' : n.btn === 'y' ? 'b' : n.btn }));
 // The build-up at the start of each stage (beats after it starts):
 //   0-8   sparse: on the beat, 2+ beats apart, every other note the new button
 //         (the opening stage shows its buttons in turn)

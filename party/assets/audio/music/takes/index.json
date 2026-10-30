@@ -13,8 +13,7 @@
    "seamScore": 0.79,
    "bpmMeasured": 119.9992,
    "bpmFinal": 119.9998,
-   "notes": "Idol-pop anthem: punchy synth bass, bright lead hook, sparkles; tightest grid (max 3.7 ms off), kick on every beat, cleanest seam",
-   "inGame": true
+   "notes": "Idol-pop anthem: punchy synth bass, bright lead hook, sparkles; tightest grid (max 3.7 ms off), kick on every beat, cleanest seam (was the game's dance song \"Shadow Banish\" until 2026-10-30)"
   },
   {
    "song": "dance",
@@ -636,7 +635,9 @@
    "lufs": -16.3,
    "truePeak": -2.9,
    "bpmMeasured": 120.0005,
-   "notes": "Funky disco K-pop (2026-10-30)"
+   "notes": "Funky disco K-pop (2026-10-30); the game's dance song \"Disco Sparkle\" since 2026-10-30 (owner's pick): 120.000 BPM, 16 bars, kick on 61 of 64 beats (a 1-beat kick break ends bars 4, 8 and 12)",
+   "inGame": true,
+   "name": "Disco Sparkle"
   },
   {
    "song": "dance",
@@ -663,6 +664,25 @@
    "truePeak": -4.2,
    "bpmMeasured": 120.0001,
    "notes": "Bright piano-house (no K-pop) (2026-10-30)"
+  },
+  {
+   "song": "rh-party",
+   "take": 1,
+   "kind": "song",
+   "name": "Party Dance",
+   "style": "Dance pop",
+   "file": "music/rhythm/rh-party.mp3",
+   "bpm": 121,
+   "bars": 43,
+   "lengthBeats": 172,
+   "loopStart": 0.2,
+   "loopEnd": 90.084,
+   "lufs": -16.3,
+   "truePeak": -5.5,
+   "onsetFit12": 100.0,
+   "onsetFit16": 87.5,
+   "notes": "The owner's own song (Suno, party/intake \"Party Dance.mp3\"): bright dance pop in E-flat major; its tempo wandered 120.9-122.1 BPM, so it was time-warped onto an exact 121 BPM grid (warp_song.py) before processing",
+   "inGame": true
   }
  ]
 }

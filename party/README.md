@@ -48,6 +48,10 @@ Bay in `hoai2k/mini`):
   Audio Workbench, `?scene=audio`: every song, take, sound and voice): landmarks and
   outfit fit per frame, edits downloaded as JSON and applied with
   `node party/tools/apply-workbench-edits.mjs` (see `workbench/README.md`)
+- `workbench/rhythm.html` — Rhythm Editor (also in that title menu and the Audio
+  Workbench's Rhythm tab): play the rhythm-game charts at each difficulty, record
+  hits with a controller or keys, edit them on a timeline, download them as JSON
+  and apply with `node party/tools/apply-rhythm-edits.mjs` (see `workbench/README.md`)
 - `?game=<id>&players=4&humans=1` — jump into a minigame (`&auto=1` for all
   CPUs, `&skipintro=1`, `&speed=3`, `&level=0..2`)
 - `?nosprites=1` — ignore generated sprites

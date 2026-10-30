@@ -14,5 +14,6 @@
  "rh-flamenco-1": "Rumba flamenca: strum + palmas + cajon, then contratiempo palmas/castanets; one short break",
  "rh-flamenco-2": "Rumba flamenca as one long groove; beat hard to follow",
  "rh-bossa-3": "Nylon-guitar bossa | samba batucada | bossa+samba with flute, with drum stops between; steady beat",
- "rh-flamenco-3": "Rumba flamenca with crisp palmas: rumba groove | contratiempo + castanets after a one-bar stop; tightest flamenco take"
+ "rh-flamenco-3": "Rumba flamenca with crisp palmas: rumba groove | contratiempo + castanets after a one-bar stop; tightest flamenco take",
+ "rh-party-1": "The owner's own song (Suno, party/intake \"Party Dance.mp3\"): bright dance pop in E-flat major; its tempo wandered 120.9-122.1 BPM, so it was time-warped onto an exact 121 BPM grid (warp_song.py) before processing"
 }

@@ -193,3 +193,18 @@ for _sid, _extra in [('rh-bossa', ["crisp clear percussion", "clear pulse", "dis
         _secs.append((nm, bars, kind, text, pos))
     _t['sections'] = _secs
     SONGS[_sid]['takes'].append(_t)
+
+# The owner's own song (party/intake "Party Dance.mp3", made with Suno, 2026-10-30): not generated
+# from a plan. Its tempo wanders (120.9-122.1 BPM), so the raw take is time-warped onto an exact
+# 121 BPM grid first (warp_song.py), then processed like the others (process_song.py rh-party-1).
+# These sections are only a rough guide for naming; process_song.py measures the real ones.
+SONGS['rh-party'] = dict(name='Party Dance', style='Dance pop', bpm=121, key='E-flat major', owner=True, takes=[
+  dict(genre=["owner-supplied recording"], sections=[
+    ('intro', 4, 'breath', '', ["intro"]),
+    ('A', 16, 'groove', '', ["dance pop groove", "synth hook"]),
+    ('B', 14, 'groove', '', ["dance pop groove", "bigger chorus"]),
+    ('breath1', 1, 'breath', '', ["break"]),
+    ('C', 8, 'groove', '', ["dance pop groove", "final chorus"]),
+    ('ending', 2, 'breath', '', ["ending"]),
+  ]),
+])

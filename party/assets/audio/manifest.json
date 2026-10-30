@@ -1203,11 +1203,11 @@
    ]
   },
   "dance": {
-   "file": "music/takes/dance-1.mp3",
+   "file": "music/takes/dance-6.mp3",
    "loopStart": 0.2,
-   "loopEnd": 64.2,
-   "label": "Shadow Banish",
-   "take": 1
+   "loopEnd": 32.2,
+   "label": "Disco Sparkle",
+   "take": 6
   },
   "menu": {
    "file": "music/takes/menu-1.mp3",
@@ -1316,6 +1316,14 @@
    "label": "Spooky Scramble",
    "take": 1,
    "start": 0
+  },
+  "partydance": {
+   "file": "music/rhythm/rh-party.mp3",
+   "start": 0.2,
+   "loopStart": 6.150413,
+   "loopEnd": 85.489256,
+   "label": "Party Dance",
+   "take": 1
   },
   "sneaky": {
    "file": "music/takes/sneaky-1.mp3",

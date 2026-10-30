@@ -9,7 +9,9 @@ landmarks and every outfit item are placed exactly as the game places them.
 **Audio Workbench:** the title at the top left is a menu. Pick "Audio
 Workbench" to go to the game's audio page (`/charlie/party/?scene=audio`),
 which plays every song (and every generated take, on the Takes tab), sound
-effect and voice clip.
+effect and voice clip. Pick **Rhythm Editor** (also the Audio Workbench's
+Rhythm tab) for the rhythm-game charts: see [Rhythm Editor](#rhythm-editor)
+below.
 
 Nothing it does changes the game by itself: you **download an edits JSON**,
 hand it over, and the edits are applied with
@@ -146,3 +148,125 @@ adjustments follow alias and fallback poses too. Base art (no sprite set) and
   panels), `edits.js` (session, undo/redo, file format), `workbench.css`.
 - For tests and the console, `window.workbench` exposes the state, session and
   a few actions.
+
+## Rhythm Editor
+
+`/charlie/party/workbench/rhythm.html` (locally `/party/workbench/rhythm.html`;
+the title menu here, or the Audio Workbench's **Rhythm** tab). It plays,
+records and edits the notes of the rhythm-game songs (Pop Star Stage and
+Spotlight Dance-Off: the `rh-*` songs, *Disco Sparkle* (`dance`) and *Party
+Dance*). Like the sprite workbench, it changes nothing by itself: **Download
+JSON**, send the file over, and it is applied with
+`tools/apply-rhythm-edits.mjs`.
+
+**Why a page of its own** (not a tab inside the canvas audio scene): editing
+a timeline wants a mouse (drag, box-select, wheel zoom, right-click), real
+form controls (song and snap menus, number fields for the range) and file
+download/upload, which DOM controls do well and the game's 1920x1080 canvas UI
+does not. Everything still works from a controller (the Gamepad API is polled
+every frame) and the keyboard, and the notes, lanes and buttons are the
+game's: it imports `src/games/rhythm/chart.js`, the same code Pop Star Stage
+builds its charts with.
+
+- **Pick** a song and a difficulty (Easy / Normal / Hard = the game's
+  Settings > Difficulty; each has its own chart).
+- **Play**: the notes fall to the hit circle like in Pop Star Stage, with the
+  game's hit windows (Perfect +-80 ms, Good +-160 ms), the buttons the game
+  folds them to at that difficulty (Easy: X plays as A, Y as B; untick *Game
+  buttons* to see the raw ones), Perfect / Good / Miss / Oops, combo, score and
+  your average timing in ms. It plays the range (*From* / *To* beat, *Whole
+  song*), optionally looping it. The game also eases each player in at the
+  start of a stage and moves them between levels as they play; Play mode
+  plays the level's whole chart.
+- **Record**: play the range (with a count-in bar) and press A / B / X / Y
+  in time. When the range ends, the hits are snapped (1/4 = beats, 1/8, 1/16,
+  1/8 triplets, 1/12, or off) and either *replace* the range's notes or are
+  *added* to them. With *Loop the range* on, each pass is added to the last
+  (overdub). One recording is one undo step.
+- **Edit**: a timeline with bars, the song's sections (breathers shaded), its
+  waveform, its measured onsets (purple low / red high / green melody: what
+  the game's charts are built from) and a lane per button. Click an empty lane
+  to add a note; drag notes to move them (up / down changes the button);
+  Shift+click and Shift+drag select; right-click or double-click deletes; the
+  A B X Y buttons (or keys) change the selected notes' button; copy / paste at
+  the playhead; copy the selection or the whole level to another difficulty;
+  **Reset level** goes back to the chart built from the onsets. Space plays
+  from the playhead and sounds every note (*Note sounds*); *Metronome* clicks
+  the beats. Ctrl/Cmd+Z / Ctrl+Y undo and redo (per song).
+- Notes before beat 4 are shaded: the game starts its notes at beat 4.
+  Gold-ringed notes are in the finale (double points). A small `->A` next to a
+  note means the game plays it as that button at this difficulty.
+- Unsaved edits stay in this browser (and come back after a reload) until
+  you download them; **Load...** brings a downloaded file back.
+- *Input offset* (ms) shifts your presses if this computer judges you
+  consistently early or late (the playhead already allows for the audio
+  output latency).
+
+| | Keyboard | Gamepad |
+| --- | --- | --- |
+| Play / stop (Record mode: record) | Enter (Edit: also Space) | Start |
+| Next mode | Tab | Back |
+| Easy / Normal / Hard | 1 2 3 | LB / RB |
+| Hit (Play), record (Record), add / change / remove a note at the playhead (Edit) | J K L I (Space = A in Play / Record) | A B X Y |
+| Range start / end at the playhead | [ ] | LT / RT |
+| Move the playhead (one snap step; Shift: a bar) | Left / Right | D-pad left / right |
+| Previous / next note (Edit) | | D-pad up / down |
+| Selected notes: button / lane / time | A B X Y keys; Up / Down; , . | |
+| Delete, copy, paste, select all, deselect | Del, Ctrl+C, Ctrl+V, Ctrl+A, Esc | |
+| Undo, redo, download | Ctrl/Cmd+Z, Ctrl+Y (or Ctrl+Shift+Z), Ctrl/Cmd+S | |
+
+### The rhythm edits file (version 1)
+
+```json
+{
+  "format": "charlie-party-rhythm-edits",
+  "version": 1,
+  "exported": "2026-10-30T18:00:00.000Z",
+  "songs": [
+    {
+      "id": "rh-party", "name": "Party Dance",
+      "file": "music/rhythm/rh-party.mp3", "bpm": 121, "start": 0.2,
+      "charts": { "easy": [[4, "a"], [6, "b"], [8, "a"]] },
+      "auto": ["hard"]
+    }
+  ]
+}
+```
+
+- Only songs and levels you changed are in it. `charts.<level>` is the whole
+  chart for that level: `[beat, button]`, beats counted from the song's first
+  downbeat (`start` seconds into `file`; a looping song's beats run on past
+  its loop), buttons `a b x y`, sorted, one note per moment.
+- `auto` lists levels put back to "built from the onsets" (*Reset level*).
+- `file`, `bpm` and `start` say which audio the notes were timed against.
+
+### Applying a downloaded file
+
+```
+node party/tools/apply-rhythm-edits.mjs ~/Downloads/rhythm-edits-202610301800.json --dry-run
+node party/tools/apply-rhythm-edits.mjs ~/Downloads/rhythm-edits-202610301800.json
+```
+
+Each level becomes that song's hand-made chart in
+`assets/audio/music/rhythm/index.json` (`"charts": {"easy": [[beat, btn], ...]}`);
+`auto` levels lose theirs. The tool prints each level's notes per minute and
+busiest spots, and skips a song whose `file`, `bpm` or `start` changed since
+the edit (the notes were timed against other audio; `--force` applies it
+anyway). Only the `charts` change in the file (it is written the way the music
+tools write it). It is data only: no module stamps change. In the game,
+`src/games/rhythm/chart.js` `buildChart()` plays a level's hand-made chart
+exactly as written (the finale's gold notes still come from the song's
+timeline), and the other levels keep being built from the onsets. Pop Star
+Stage still folds buttons by difficulty (Easy: X/Y play as A/B) and eases
+players in. `tools/audio/music/assemble_rh.py` keeps a song's hand-made charts
+when it rebuilds the song from the same file.
+
+### Files
+
+- `rhythm.html` (page and its styles; `<base href="../">`, import map stamped by
+  `tools/stamp-modules.mjs` like `index.html`), `rhythm.js` (audio, input,
+  drawing, modes), `rhythm-data.js` (no DOM: charts, snapping, recording merge,
+  undo, the edits file; `tools/apply-rhythm-edits.mjs` and
+  `tools/rhythm-editor.test.mjs` use it too).
+- `window.rhythmEditor` exposes the state and a few actions for tests.
+
