@@ -54,6 +54,9 @@ kbd {
   background: var(--panel); border-bottom: 1px solid var(--line);
 }
 .bar h1 { font-size: 16px; margin: 0 6px 0 0; }
+.bar h1 select { font: inherit; font-weight: 700; color: inherit; background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 2px 4px; cursor: pointer; }
+.bar h1 select:hover, .bar h1 select:focus { border-color: currentColor; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .bar .group { display: flex; gap: 4px; flex-wrap: wrap; }
 .bar .end { margin-left: auto; }
 .pick { display: flex; gap: 6px; align-items: center; color: var(--muted); }

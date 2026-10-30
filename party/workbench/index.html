@@ -7,7 +7,7 @@
     <base href="../">
     <title>Sprite Workbench</title>
     <link rel="icon" href="favicon.png">
-    <link rel="stylesheet" href="workbench/workbench.css?v=d8c9aba3">
+    <link rel="stylesheet" href="workbench/workbench.css?v=14737f95">
     <script type="importmap">
     {
       "imports": {
@@ -308,7 +308,10 @@
   </head>
   <body>
     <header class="bar">
-      <h1>Sprite Workbench</h1>
+      <h1><label class="tool"><span class="sr-only">Workbench</span><select id="tool" aria-label="Switch workbench" onchange="if (this.value) location.href = location.pathname.replace(/workbench\/?[^/]*$/, '') + this.value">
+        <option value="" selected>Sprite Workbench</option>
+        <option value="?scene=audio">Audio Workbench (all music &amp; sounds)</option>
+      </select></label></h1>
       <label class="pick">Set <select id="set" aria-label="Sprite set"></select></label>
       <label class="pick">Pose <select id="pose" aria-label="Pose"></select></label>
       <div class="group" role="group" aria-label="Frames">
