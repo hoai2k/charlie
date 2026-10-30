@@ -46,6 +46,7 @@ export const MUSIC = [
   { id: 'victory', name: 'Superstar', bpm: 132, color: '#ffc12e' },
   { id: 'menu', name: 'Sunny Stroll', bpm: 112, color: '#5ddc6a' },
   { id: 'chill', name: 'Dreamy', bpm: 92, color: '#7fd3ff' },
+  { id: 'partydance', name: 'Party Dance', bpm: 121, color: '#ff5fa2' },
 ];
 
 export const LIGHTS = [

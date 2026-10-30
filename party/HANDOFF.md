@@ -4,9 +4,32 @@ Keep this file current while long jobs run. A new session (or a session whose
 context was compacted) should read this, `PLAN.md` (status + known issues),
 `image-requests.md` and `audio-requests.md` before continuing.
 
-_Last updated: 2026-10-12, after the completed Play Studio art delivery._
+_Last updated: 2026-10-30, after dance take 6, Party Dance and the Rhythm Editor._
 
 ## In progress right now
+
+### Rhythm songs: `dance` = take 6, the owner's Party Dance, retuned levels, Rhythm Editor (2026-10-30): DONE
+- `dance` is take 6, *Disco Sparkle* (owner's pick; manifest `music.dance`, takes/index.json `inGame`;
+  `dance-1` *Shadow Banish* stays a plain take). 120.000 BPM, 16 bars, kick on 61/64 beats (a
+  one-beat break ends bars 4, 8, 12), key measured A-flat major. Its rhythm chart was rebuilt
+  (`onsets2.py dance-6`; `assemble_rh.py` builds the `dance` entry from `DANCE_TAKE`). §12.9.
+- **Intake: "Party Dance.mp3"** (owner's Suno song) -> `assets/audio/music/rhythm/rh-party.mp3`
+  (`git mv`, then the processed file over it). Its tempo wandered 120.9-122.1 BPM (160 ms drift
+  against a fixed grid), so it was time-warped onto exactly 121 BPM (`tools/audio/music/warp_song.py`,
+  ±2 ms after) and processed like the rh-* songs. E-flat major, 172 beats. It is a rhythm song
+  (Pop Star Stage, Spotlight Dance-Off) and a Dance Studio music pick (`partydance` in the manifest
+  and `SONGS` in audio.js: intro once, then bars 3-43 loop). §12.9.
+- **Levels retuned** (`src/games/rhythm/chart.js`, now shared by songs.js, Pop Star Stage and the
+  editor): density set in time, not beats. Easy 42-59 notes/min (2 a bar, >= 0.6 s apart), Normal
+  69-93, Hard 119-164 (no 16th pairs above 100 BPM). Every note's audio alignment checked
+  (`chart_report.mjs` + `chart_check.py`: medians within ±6 ms). Table in audio-requests.md §12.9.
+- **Rhythm Editor**: `workbench/rhythm.html` (workbench title menu, Audio Workbench "Rhythm" tab).
+  Play / Record / Edit a song's chart per difficulty with a gamepad, keys or mouse; Download JSON;
+  the owner sends it and `node party/tools/apply-rhythm-edits.mjs file.json` writes the levels into
+  rhythm/index.json as hand-made `charts` (played as written). See workbench/README.md.
+  `tools/stamp-modules.mjs` now also stamps rhythm.html (run it before committing).
+- If the owner sends a rhythm edits file: apply it (`--dry-run` first), check it in the editor's
+  Play mode and in Pop Star Stage, run the party tests, commit.
 
 ### Six owner songs from party/intake (2026-10-15): DONE
 Recording-only songs (SONGS in audio.js + manifest music, files music/takes/<name>-1.mp3), each a
@@ -73,6 +96,7 @@ prompt, 5-6 = variations; all K-pop-flavoured and calm per the owner's feedback)
 3. Check the Takes tab plays them, run the party tests, commit, deploy; tell the owner which take
    numbers to audition. Swapping one in = point `music.<song>` in the manifest at it (for `dance`
    also rebuild its "Shadow Banish" chart, `audio-requests.md` §12.8.3).
+   (2026-10-30: `dance` is now take 6, chart rebuilt; see the DONE entry above.)
 
 ### Art watch (2026-10-13): DONE
 All requested Molly images delivered and checked in game by 07:00Z (QA agents A–G); every open

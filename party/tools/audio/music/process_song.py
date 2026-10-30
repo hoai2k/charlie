@@ -12,6 +12,7 @@ name = sys.argv[1]; sid = name.rsplit('-', 1)[0]; take = int(name.rsplit('-', 1)
 S = SONGS[sid]; tgt = S['bpm']; secs = S['takes'][take - 1]['sections']
 log = dict(id=sid, take=take)
 raw = os.path.join(D, 'raw', name + '.mp3')
+if not os.path.exists(raw): raw = os.path.join(D, 'raw', name + '.wav')   # e.g. a time-warped take (warp_song.py)
 x = mlib.decode(raw, SR, 2); xm = mlib.mono(x); dur = len(xm) / SR
 
 

@@ -50,9 +50,9 @@ for sid, S in SONGS.items():
             file = f'music/rhythm/{sid}.mp3'
             e = dict(id=sid, name=S['name'], style=S['style'], file=file, bpm=S['bpm'], key=S['key'])
             e.update(v2)
-            e['lufs'] = r['lufs_mp3']
+            e['lufs'] = r['lufs_mp3']; e['take'] = k
             # order keys as in the spec
-            order = ['id', 'name', 'style', 'file', 'bpm', 'start', 'lengthBeats', 'beatsPerBar', 'loop', 'sections', 'div', 'onsets', 'tags', 'key', 'lufs']
+            order = ['id', 'name', 'style', 'file', 'bpm', 'start', 'lengthBeats', 'beatsPerBar', 'loop', 'sections', 'div', 'onsets', 'tags', 'key', 'lufs', 'take']
             songs.append({kk: e[kk] for kk in order})
         else:
             file = f'music/takes/{t}.mp3'
@@ -61,18 +61,27 @@ for sid, S in SONGS.items():
                                 bars=r['lengthBeats'] // 4, lengthBeats=r['lengthBeats'], loopStart=r['start'], loopEnd=r['duration'],
                                 lufs=r['lufs_mp3'], truePeak=r['tp_mp3'], onsetFit12=st['within25_of_12th_pct'],
                                 onsetFit16=st['within25_of_section_grid_pct'], notes=notes[t], **({'inGame': True} if ing else {})))
-# Shadow Banish (dance loop) in v2
-dr = json.load(open(f'{D}/results/dance-1.json')); dv = json.load(open(f'{D}/results/rh2-dance-1.json'))
-vv = json.load(open(f'{D}/results/verify.json'))['dance-1']
-dance = dict(id='dance', name='Shadow Banish', style='K-pop dance', file='music/takes/dance-1.mp3', bpm=120, start=vv['loopStart'],
-             lengthBeats=128, beatsPerBar=4, loop=True, loopStart=vv['loopStart'], loopEnd=vv['loopEnd'], sections=dv['sections'],
-             div=12, onsets=dv['onsets'], tags=dv['tags'], key='C minor', lufs=vv['lufs'])
+# The `dance` loop's chart (v2). Take 6 since 2026-10-30 ("Disco Sparkle"; take 1 was "Shadow Banish").
+DANCE_TAKE, DANCE_NAME, DANCE_STYLE, DANCE_KEY = 6, 'Disco Sparkle', 'Funky disco K-pop', 'A-flat major'
+dt = f'dance-{DANCE_TAKE}'
+dr = json.load(open(f'{D}/results/{dt}.json')); dv = json.load(open(f'{D}/results/rh2-{dt}.json'))
+vv = json.load(open(f'{D}/results/verify.json'))[dt]
+dance = dict(id='dance', name=DANCE_NAME, style=DANCE_STYLE, file=f'music/takes/{dt}.mp3', bpm=dr['bpm'], start=vv['loopStart'],
+             lengthBeats=dr['bars'] * 4, beatsPerBar=4, loop=True, loopStart=vv['loopStart'], loopEnd=vv['loopEnd'], sections=dv['sections'],
+             div=12, onsets=dv['onsets'], tags=dv['tags'], key=DANCE_KEY, lufs=vv['lufs'], take=DANCE_TAKE)
 prev = {}
+pj = {}
 try:
     pj = json.load(open(f'{A}/music/rhythm/index.json'))
     if pj.get('version') == 2: prev = {x['id']: x for x in pj['songs'] if x['id'] != 'dance' and x['id'] not in chosen}
 except Exception: pass
 allsongs = list(prev.values()) + songs
+# Hand-made charts (Rhythm Editor -> tools/apply-rhythm-edits.mjs) follow one take's audio: keep them
+# only while the song keeps that file.
+old_all = {x['id']: x for x in pj.get('songs', [])}
+for x in [dance] + allsongs:
+    o = old_all.get(x['id'])
+    if o and o.get('charts') and o.get('file') == x['file'] and 'charts' not in x: x['charts'] = o['charts']
 allsongs.sort(key=lambda x: list(SONGS).index(x['id']))
 out = {'version': 2, 'songs': [dance] + allsongs}
 s = json.dumps(out, separators=(',', ':'))

@@ -45,13 +45,13 @@ games are in brackets.
 | `spooky` | ✅ *Spooky Scramble* (owner's) | Broomstick Dash, Ghost Giggles, Potion Class, Pumpkin Peekaboo, Trick or Treat!, Troll Trouble, Wizard Quick-Draw | 7 |
 | `splash` | ✅ *Splash Lagoon* (owner's) | Dream Aquarium (and its night show), Duckling Parade, Fishing Frenzy, Mermaid Pearls, Sandcastle Beach (and its sunset) | 5 |
 | `sneaky` | ✅ *Sneaky Tiptoes* (owner's) | Bed Bounce, Fairy Hide & Seek, Prank the Sleeping Troll, Whoopee Tea. Sneaky Dance stops it at once | 4 |
-| `dance` | ✅ ElevenLabs *Shadow Banish* (exactly 120 BPM) | **Opposite Ballet**, Dance Studio, Snowman Builder's dance finale; one of 8 songs in Pop Star Stage and Spotlight Dance-Off (Butterfly Ballet) | 4 |
+| `dance` | ✅ ElevenLabs *Disco Sparkle* (take 6, exactly 120 BPM; replaced *Shadow Banish* 2026-10-30) | **Opposite Ballet**, Dance Studio, Snowman Builder's dance finale; one of 8 songs in Pop Star Stage and Spotlight Dance-Off (Butterfly Ballet) | 4 |
 | `chase` | ✅ ElevenLabs `chase-1` (37 s loop) | Balloon Float, Cookie Crumble, **Snowball Splat**, **Snowflake Giggles** | 4 |
 | `chill` | ✅ ElevenLabs `chill-1` | Fairy Garden, **Snowman Builder** (Fairy Count); Dance Studio | 2 |
 | `runway` | ✅ *Runway Glam* (owner's) | Royal Fashion Show (runway and photo wall), Hair Salon | 2 |
 | `tense` | ✅ ElevenLabs `tense-1` | Pass the Present | 1 |
 | `victory` | ✅ ElevenLabs `victory-2` | **Only** the Marathon trophy and Dance Studio's "Superstar". It is **not** on the results podium | 0 |
-| `rh-*` (7) | ✅ ElevenLabs full songs | Pop Star Stage and Spotlight Dance-Off | 2 |
+| `rh-*` (7) + `rh-party` | ✅ ElevenLabs full songs; *Party Dance* (owner's, 2026-10-30, also `partydance` in Dance Studio) | Pop Star Stage and Spotlight Dance-Off | 2 |
 | `melody` | none (by design) | Melody Maker makes its own music | 1 |
 | `tune.js` (no key) | ❌ **synth only** | Musical Cushions, Sneaky Dance (Dance & Freeze): their stop-start party tune | 2 |
 | *(nothing)* | ❌ **silence** | **Results / podium**: the music stops, then only `jingle/results`, `fanfare` and the star chimes play | every competitive game |
@@ -379,6 +379,8 @@ Bouncy, sunny K-pop-flavoured pop groove for a kids' party game, exactly 128 BPM
 ```
 
 ### R2. Dance, redone (`dance`, replaces *Shadow Banish*)
+
+**Done 2026-10-30:** the owner picked take 6 (*Disco Sparkle*, generated from the take-6 prompt in `tools/audio/music/prompts.py`); its chart is rebuilt (`audio-requests.md` §12.9).
 
 - **Serves:** Pop Star Stage and Spotlight Dance-Off (the rhythm games sync
   their notes to its beat), Dance Studio, Dance Along, Snowman Builder's dance

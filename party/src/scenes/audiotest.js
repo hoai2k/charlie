@@ -6,6 +6,8 @@
 //   Mouse wheel / drag       scroll                 Click / tap a cell  play it
 //   Takes tab: every generated music take (assets/audio/music/takes/index.json),
 //   looping at its loop points; Y jumps to just before the loop seam.
+//   Rhythm tab: opens the Rhythm Editor (workbench/rhythm.html: play the
+//   rhythm-game charts, record and edit hits, download them as JSON).
 //
 // Every key in assets/audio/manifest.json is listed, plus the keys the audio
 // brief (audio-requests.md) still expects, so a missing recording shows up as
@@ -44,6 +46,7 @@ const TABS = [
   { id: 'synth', label: 'Synth', cols: 4 },
   { id: 'music', label: 'Music', cols: 3 },
   { id: 'takes', label: 'Takes', cols: 3 },
+  { id: 'rhythm', label: 'Rhythm', cols: 1 },
 ];
 
 const GRID = { x: 60, y: 250, w: W - 120, h: 730, gap: 10, cellH: 62 };
@@ -113,12 +116,14 @@ export class AudioTestScene {
     const songs = new Set([...SONG_NAMES, ...Object.keys(this.manifest.music)]);
     items.music = [...songs].map((n) => mk('music:' + n, n, 'music', { key: n }));
     items.takes = this.takes.map((tk) => mk('take:' + tk.file, `${tk.song} ${tk.take}`, 'take', { key: tk.file, tk }));
+    items.rhythm = [mk('link:rhythm', 'Open the Rhythm Editor: play, record and edit the rhythm-game hits', 'link', { key: 'workbench/rhythm.html' })];
     this.items = TABS.map((t) => items[t.id]);
     this.sel = this.sel.map((s, i) => Math.min(s, Math.max(0, this.items[i].length - 1)));
     this.loaded = true;
   }
 
   status(it) {
+    if (it.kind === 'link') return { text: 'opens page', col: '#1b5f9f', bg: '#cfe6ff' };
     if (it.kind === 'take') {
       // in game = the song's main take; in mix = also played at random while
       // Settings > Song tags is on (manifest "takes" / rhythm/takes.json).
@@ -180,6 +185,7 @@ export class AudioTestScene {
   }
 
   play(it, { variant = false } = {}) {
+    if (it.kind === 'link') { location.href = it.key; return; }   // another page (the Rhythm Editor)
     unlockAudio();
     if (!audioRunning()) { this.last = 'Audio is locked: press a key or click once, then try again'; return; }
     this.flash.set(it.id, 0.35);
@@ -382,13 +388,14 @@ export class AudioTestScene {
     if (it) {
       const files = this.filesOf(it.key);
       const tk = it.tk;
-      const detail = tk ? `${tk.file}  ·  ${tk.bpm} BPM, ${tk.bars} bars, loop ${(tk.loopEnd - tk.loopStart).toFixed(1)} s${tk.lufs ? `, ${tk.lufs} LUFS` : ''}`
+      const detail = it.kind === 'link' ? `${it.key}: a separate page (pick a song and a difficulty, then Play, Record or Edit; Download JSON)`
+        : tk ? `${tk.file}  ·  ${tk.bpm} BPM, ${tk.bars} bars, loop ${(tk.loopEnd - tk.loopStart).toFixed(1)} s${tk.lufs ? `, ${tk.lufs} LUFS` : ''}`
         : it.kind === 'music'
         ? `music/${it.key}: ${this.manifest.music[it.key] ? (typeof this.manifest.music[it.key] === 'string' ? this.manifest.music[it.key] : this.manifest.music[it.key].file) : 'built-in synth song'}`
         : `${it.key}: ${files.length ? files.join(',  ') : (it.kind === 'voice' ? 'no file, generic synth stand-in plays' : SFX_NAMES.includes(it.key) ? 'no file, built-in synth plays' : 'no file yet (silent)')}`;
       ui.text(g, detail, 60, 1000, { size: 24, align: 'left', color: '#fff', strokeWidth: 5, maxWidth: W - 120 });
     }
-    ui.text(g, this.last || 'Pick a sound and press A', 60, 1036, { size: 22, align: 'left', color: '#ffe58a', strokeWidth: 5, maxWidth: 1000 });
+    ui.text(g, this.last || (tab.id === 'rhythm' ? 'Press A (or click) to open the Rhythm Editor' : 'Pick a sound and press A'), 60, 1036, { size: 22, align: 'left', color: '#ffe58a', strokeWidth: 5, maxWidth: 1000 });
     const hintList = tab.id === 'takes'
       ? [['a', 'Play / stop'], ['y', 'Hear loop seam'], ['b', 'Stop'], ['lb', 'Tab'], ['rb', 'Tab']]
       : [['a', 'Play'], ['x', 'Next file'], ['b', 'Stop music'], ['lb', 'Tab'], ['rb', 'Tab'], ['start', 'Title']];

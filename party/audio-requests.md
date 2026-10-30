@@ -1645,7 +1645,7 @@ Each plan has 7 chunks of whole bars at the song's tempo: intro 4, A 8, breather
 
 #### 12.8.3 Rhythm data format v2 (`music/rhythm/index.json`)
 
-`{"version":2,"songs":[{id, name, style, file, bpm, start, lengthBeats, beatsPerBar:4, loop, sections, div:12, onsets, tags, key, lufs}]}`. Times are in beats from `start` (the first downbeat, in file seconds). `dance` (*Shadow Banish*) has `loop: true` plus `loopStart`/`loopEnd`.
+`{"version":2,"songs":[{id, name, style, file, bpm, start, lengthBeats, beatsPerBar:4, loop, sections, div:12, onsets, tags, key, lufs}]}`. Times are in beats from `start` (the first downbeat, in file seconds). `dance` (*Disco Sparkle*, take 6, since 2026-10-30; *Shadow Banish* before) has `loop: true` plus `loopStart`/`loopEnd`.
 
 - `sections`: `{name, start, end, kind: "breath"|"groove", feel: "straight"|"triplet"|"swing", pattern?, late16?, late8?, swing16?, swing8?}` with start/end in beats. Feel is measured from where the strong onsets fall within the beat:
   - `triplet`: positions 1/3 and 2/3 dominate.
@@ -1663,6 +1663,7 @@ Each plan has 7 chunks of whole bars at the song's tempo: intro 4, A 8, breather
   Onsets come from median-filter harmonic/percussive separation. A percussive event is timed at its broadband attack (25 % point of a 2 ms envelope). Melodic events within 25 ms of it are merged in. Events with every value below 0.15 are dropped.
 - `tags`: over strong onsets (any value ≥ 0.5), `onBeat` = share at pos % 12 == 0, `offBeat` = share at pos % 12 == 6, and `melodic` = share with mel ≥ 0.5.
 - **Start calibration:** if the median offset of the strong on-beat onsets is over 8 ms, `start` is moved by that amount. Only `rh-tango` needed it (−14.3 ms, so `start` = 0.185652).
+- `charts` (optional, since 2026-10-30): hand-made charts per level, `{"easy": [[beat, btn], ...], "normal": [...], "hard": [...]}` (beats from `start`, buttons `a b x y`). A level that has one is played exactly as written (`buildChart()` in `src/games/rhythm/chart.js`); the others are built from the onsets. They are made in the Rhythm Editor (`workbench/rhythm.html`) and merged with `tools/apply-rhythm-edits.mjs` (`workbench/README.md`).
 
 #### 12.8.4 Measurements of the chosen songs
 
@@ -1709,6 +1710,95 @@ Per section (beats; *offset* = median timing of the strong on-beat percussion re
 - `rh-hiphop` is swung (the "e" at about a triplet). The 1/12 grid represents it (the 4/12 step), but the game should allow swing positions in those sections.
 - The `pitch` values are rough (lead mixed with chord tones). Use them for contour only.
 - `start` is the measured attack of the first downbeat. On Safari, if the MP3 gapless header is ignored, every song would sit about 25–50 ms later than the beat clock (constant, so calibratable).
+
+### 12.9 `dance` take 6 and the owner's *Party Dance* (2026-10-30)
+
+**`dance` = take 6, *Disco Sparkle*** (the owner's pick; "funky disco K-pop", `music/takes/dance-6.mp3`; `dance-1` *Shadow Banish* stays on the Takes tab). It is a 16-bar loop: `loopStart` 0.2, `loopEnd` 32.2. §6.3 checks on the Chromium-decoded MP3 (`verify.py dance-6`, two loop cycles including the seam):
+
+- Tempo **120.000 BPM** (fold contrast and phase slope on three cycles; the fold phase moves 0.4 ms over the loop). The loop is exactly 1,411,200 samples (16 bars at 44.1 kHz); the decoded file is 1,428,840 samples (the loop plus the two 0.2 s pads), offset 0 samples.
+- Beat grid: the 2–8 kHz attack of every beat sits a median **+0.4 ms** from the 0.5 s grid (95th percentile 8.7 ms, max 11.0 ms, 98.4 % within ±10 ms, 125 of 127 beats strong). Full band: median +0.3 ms, p95 17 ms (the bass notes smear the full-band attack). First transient 0.6 ms after `loopStart` (2–8 kHz: 0.0 ms).
+- Kick: **61 of 64 beats**. The last beat of bars 4, 8 and 12 (beats 15, 31, 47) has no kick (the low band is 16–18 dB down there: a one-beat break before each 4-bar phrase; the hats keep the beat). Every other beat's kick rises at least 8.6 dB. That is within "no drop-outs longer than 2 beats" but not strictly "a kick on every beat".
+- Key: the prompt asked for E-flat major; the chroma profile says **A-flat major** (0.76; B-flat minor 0.74). The game's hit notes (C, E-flat, G, B-flat) are all in A-flat major.
+- −16.3 LUFS, −2.9 dBTP. Seam: level step 20.9 dB against 5.3–26.4 dB at the other bar lines; spectral distance at the 80th percentile of the bar lines (score 2.03, a little less smooth than take 1's 0.79).
+- Chart data (`onsets2.py dance-6`, one 64-beat groove section): 205 onsets (low 191 / high 172 / melody 150), median 2.8 ms from the 1/12-beat step, 87.5 % of the strong on-beat onsets within ±25 ms, tags on/off/melodic 0.36/0.32/0.72. `assemble_rh.py` now builds the `dance` entry from take 6 (`DANCE_TAKE`).
+
+***Party Dance*** (`rh-party`, the owner's own song, made with Suno; `party/intake/Party Dance.mp3`, 90.0 s, 48 kHz, 197 kbps). Measured:
+
+- **Key E-flat major** (chroma correlation 0.95), so the game's hit notes fit it.
+- **Tempo not constant: 120.9–122.1 BPM.** About 121.0 BPM for the first 37 s, then it speeds up to about 121.4, with a 14 ms jump at the break near 69 s. Against a fixed 121 BPM grid the beat drifts **160 ms** over the song (more than a 16th note), so the game's linear beat clock (`music.beat()`, one `bpm` per song) can't follow it as it is.
+- **Fix: time-warp the audio onto an exact grid** (`tools/audio/music/warp_song.py`). The beat-phase curve (2–8 kHz envelope folded over one beat, 6 s windows every 0.5 s) gives the local tempo error; rubberband's tempo is set every 0.5 s from it (ffmpeg `asendcmd`), pitch kept, and the remaining error is measured and folded back (two passes, always rendered from the original, so the audio is stretched once). The tempo changes by at most 0.9 %, which you can't hear; after it, the beat phase stays within **±2 ms** (6 s windows), and the onset regression on the finished MP3 gives −7 ms over the whole song (per-16-beat residuals within ±7 ms). A beat map in the engine was the other option, but it would have meant changing the beat clock and every beat-synced game, and the editor too; warping keeps one constant `bpm`.
+- Then processed like the `rh-*` songs (`process_song.py rh-party-1`, plan entry in `plans.py`): first downbeat at 0.241 s of the warped take, so `start` = 0.2 in the file; −16.3 LUFS, −5.5 dBTP; 90.08 s, 44.1 kHz, 192 kbps; `lengthBeats` 172 (43 bars; the final hit lands on beat 172).
+- Sections (bars from the measured level and rhythm-novelty peaks at bars 3, 18 and 34–35): intro 0–12 (breath), A 12–72, B 72–136, breath 136–144, C 144–172 (beats). The beat offsets per section are +2.6, −0.4, −4.4, −3.6 and −7.3 ms.
+- Onsets: 505 (low 464 / high 447 / melody 361), **93.6 %** of the strong on-beat onsets within ±25 ms (better than most `rh-*` songs), 87.5 % of all onsets within ±25 ms of their section's grid; tags 0.35/0.35/0.72.
+- Where it plays: Pop Star Stage and Spotlight Dance-Off (a rhythm song like the `rh-*` ones), and Dance Studio's music picks (`partydance` in the manifest: the intro plays once, then bars 3–43 loop, 160 beats, so the beat clock stays on the grid).
+
+**Difficulty retune (all songs).** The charts used to be set in beats, so a fast song was harder than a slow one at the same level, and Easy at 120 BPM had up to 86 notes a minute. Now `src/games/rhythm/chart.js` (shared by the games and the Rhythm Editor) sets each level's density in time: Easy at most 2 notes a bar, never closer than 0.6 s (so 2 beats apart above 100 BPM), the downbeat and beat 3 first; Normal about 1.6 notes a second, at most 2 in a beat, the beat first and then the off-beat percussion (about half each, not mostly off-beats as before); Hard about 2.6 a second, at most 3 in a beat, no 16th-note pairs above 100 BPM (pairs closer than 0.16 s), triplet pairs allowed. `tools/rhythm-editor.test.mjs` holds every song to these limits. The table is the chart each level plays at the top of that difficulty (Pop Star Stage, `levelPlan` and the game's button folds; `node tools/audio/music/chart_report.mjs`):
+
+| Song | BPM | Level | Notes | Notes/min | Max in 1 beat | Max in 2 s | Shortest gap | On the beat | On 8ths | A/B/X/Y |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `dance` | 120 | Easy | 62 | 58.6 | 1 | 2 | 2 beat (1000 ms) | 100% | 100% | 32/30/0/0 |
+| `dance` | 120 | Normal | 96 | 91.8 | 2 | 5 | 0.5 beat (250 ms) | 64% | 100% | 36/55/5/0 |
+| `dance` | 120 | Hard | 160 | 151.8 | 2 | 7 | 0.5 beat (250 ms) | 73% | 100% | 16/38/57/49 |
+| `rh-afro` | 104 | Easy | 61 | 41.7 | 1 | 2 | 2 beat (1154 ms) | 100% | 100% | 51/10/0/0 |
+| `rh-afro` | 104 | Normal | 124 | 85.4 | 2 | 5 | 0.5 beat (288 ms) | 65% | 100% | 70/52/2/0 |
+| `rh-afro` | 104 | Hard | 182 | 124.1 | 3 | 7 | 0.333 beat (192 ms) | 43% | 78% | 39/25/72/46 |
+| `rh-island` | 108 | Easy | 61 | 46.1 | 1 | 2 | 2 beat (1111 ms) | 100% | 100% | 27/34/0/0 |
+| `rh-island` | 108 | Normal | 123 | 92.9 | 2 | 6 | 0.5 beat (278 ms) | 34% | 100% | 17/97/9/0 |
+| `rh-island` | 108 | Hard | 181 | 136.7 | 2 | 8 | 0.5 beat (278 ms) | 37% | 99% | 9/34/67/71 |
+| `rh-hiphop` | 92 | Easy | 60 | 41.8 | 1 | 4 | 1 beat (652 ms) | 100% | 100% | 50/10/0/0 |
+| `rh-hiphop` | 92 | Normal | 100 | 69.4 | 2 | 6 | 0.5 beat (326 ms) | 63% | 100% | 37/56/7/0 |
+| `rh-hiphop` | 92 | Hard | 172 | 119.2 | 3 | 7 | 0.25 beat (163 ms) | 45% | 87% | 29/43/52/48 |
+| `rh-reggae` | 96 | Easy | 55 | 42.2 | 1 | 3 | 1 beat (625 ms) | 100% | 100% | 23/32/0/0 |
+| `rh-reggae` | 96 | Normal | 104 | 79.9 | 2 | 5 | 0.5 beat (313 ms) | 62% | 100% | 22/75/7/0 |
+| `rh-reggae` | 96 | Hard | 177 | 135.9 | 2 | 7 | 0.5 beat (313 ms) | 52% | 99% | 3/23/105/46 |
+| `rh-bossa` | 110 | Easy | 55 | 42 | 1 | 2 | 2 beat (1091 ms) | 100% | 100% | 32/23/0/0 |
+| `rh-bossa` | 110 | Normal | 90 | 68.8 | 2 | 5 | 0.5 beat (273 ms) | 56% | 100% | 23/61/6/0 |
+| `rh-bossa` | 110 | Hard | 174 | 132.9 | 2 | 8 | 0.5 beat (273 ms) | 55% | 100% | 24/24/53/73 |
+| `rh-tango` | 112 | Easy | 65 | 49.5 | 1 | 2 | 2 beat (1071 ms) | 100% | 100% | 45/20/0/0 |
+| `rh-tango` | 112 | Normal | 101 | 77 | 2 | 6 | 0.5 beat (268 ms) | 79% | 100% | 43/52/6/0 |
+| `rh-tango` | 112 | Hard | 193 | 147 | 2 | 8 | 0.5 beat (268 ms) | 65% | 100% | 3/6/87/97 |
+| `rh-flamenco` | 112 | Easy | 59 | 47.5 | 1 | 2 | 2 beat (1071 ms) | 100% | 100% | 21/38/0/0 |
+| `rh-flamenco` | 112 | Normal | 102 | 82.2 | 2 | 6 | 0.5 beat (268 ms) | 72% | 100% | 11/90/1/0 |
+| `rh-flamenco` | 112 | Hard | 203 | 163.6 | 3 | 8 | 0.333 beat (178 ms) | 48% | 78% | 6/31/96/70 |
+| `rh-party` | 121 | Easy | 70 | 53.6 | 1 | 3 | 2 beat (992 ms) | 100% | 100% | 46/24/0/0 |
+| `rh-party` | 121 | Normal | 114 | 88.1 | 2 | 6 | 0.5 beat (248 ms) | 43% | 100% | 43/69/2/0 |
+| `rh-party` | 121 | Hard | 189 | 144.3 | 2 | 8 | 0.5 beat (248 ms) | 50% | 99% | 22/36/75/56 |
+
+Before the retune, Easy ran 53–86 notes a minute (max 4–5 in 2 s), Normal 86–152 and Hard 119–211 (16th pairs 124 ms apart at 120 BPM).
+
+**Do the notes land on the music?** `chart_check.py` finds the attack nearest each note in the audio (±60 ms search, full band + 2–8 kHz envelope) and ranks how strong it is against attacks at 400 random times in the same song. No song needed an offset fix: every song's median is within ±6 ms.
+
+| Song | Level | Notes | Median offset | Within ±25 ms | Within ±50 ms | Attack strength (percentile) |
+| --- | --- | --- | --- | --- | --- | --- |
+| `dance` | Easy | 62 | -0.4 ms | 90% | 100% | 94% |
+| `dance` | Normal | 96 | +0.4 ms | 94% | 100% | 90% |
+| `dance` | Hard | 160 | -0.2 ms | 85% | 100% | 92% |
+| `rh-afro` | Easy | 61 | +4.7 ms | 100% | 100% | 95% |
+| `rh-afro` | Normal | 124 | +3.3 ms | 97% | 99% | 93% |
+| `rh-afro` | Hard | 182 | +2.6 ms | 95% | 98% | 87% |
+| `rh-island` | Easy | 61 | +1.8 ms | 89% | 97% | 90% |
+| `rh-island` | Normal | 123 | +1.5 ms | 93% | 98% | 93% |
+| `rh-island` | Hard | 181 | +1.3 ms | 94% | 99% | 89% |
+| `rh-hiphop` | Easy | 60 | +0.8 ms | 90% | 100% | 92% |
+| `rh-hiphop` | Normal | 100 | +1.2 ms | 95% | 99% | 92% |
+| `rh-hiphop` | Hard | 172 | +0.2 ms | 89% | 97% | 91% |
+| `rh-reggae` | Easy | 55 | +1.1 ms | 95% | 96% | 96% |
+| `rh-reggae` | Normal | 104 | +0.9 ms | 96% | 98% | 93% |
+| `rh-reggae` | Hard | 177 | +1.1 ms | 97% | 99% | 90% |
+| `rh-bossa` | Easy | 55 | +5.3 ms | 78% | 95% | 73% |
+| `rh-bossa` | Normal | 90 | +4.2 ms | 83% | 94% | 82% |
+| `rh-bossa` | Hard | 174 | +5.5 ms | 73% | 90% | 76% |
+| `rh-tango` | Easy | 65 | +3.1 ms | 78% | 95% | 90% |
+| `rh-tango` | Normal | 101 | +2.7 ms | 82% | 96% | 82% |
+| `rh-tango` | Hard | 193 | +1.9 ms | 82% | 94% | 78% |
+| `rh-flamenco` | Easy | 59 | -1.9 ms | 98% | 100% | 90% |
+| `rh-flamenco` | Normal | 102 | -2.9 ms | 95% | 97% | 87% |
+| `rh-flamenco` | Hard | 203 | -2.8 ms | 94% | 97% | 85% |
+| `rh-party` | Easy | 70 | -1.2 ms | 99% | 99% | 90% |
+| `rh-party` | Normal | 114 | -5.5 ms | 93% | 96% | 90% |
+| `rh-party` | Hard | 189 | -4.2 ms | 95% | 96% | 87% |
+
+`rh-bossa` (soft brushes, a laid-back pulse) and `rh-tango` (rubato phrasing) are the loosest, as measured in §12.8.4; they are still well inside the game's Good window (±160 ms) and mostly inside Perfect (±80 ms).
 
 ## Title song update — 2026-10-04
 

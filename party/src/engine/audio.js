@@ -468,6 +468,8 @@ const SONGS = {
   splash:  { bpm: 104, recordedOnly: true },      // water and beach games: Splash Lagoon
   spooky:  { bpm: 110, recordedOnly: true },      // witches, wizards, ghosts: Spooky Scramble
   sneaky:  { bpm: 100, recordedOnly: true },      // Sister Party pranks: Sneaky Tiptoes
+  // The owner's Party Dance (party/intake 2026-10-30): a rhythm-game song (rh-party), also a Dance Studio pick.
+  partydance: { bpm: 121, recordedOnly: true },
   victory: { bpm: 132, root: 60, scale: MAJOR, prog: [0, 3, 4, 0], seed: 5, drums: 'pop', lead: 'square', arp: true },
 };
 export const SONG_NAMES = Object.keys(SONGS);

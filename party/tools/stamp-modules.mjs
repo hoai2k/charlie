@@ -1,5 +1,6 @@
 // Cache-busting for the ES modules (GitHub Pages caches files for ~10 min).
-// Writes an import map into index.html that maps every module under src/ to
+// Writes an import map into index.html (and the workbench pages: workbench/index.html,
+// workbench/rhythm.html) that maps every module under src/ to
 // itself plus ?v=<hash of its contents>, and stamps the main.js <script> the
 // same way. Changed files get new URLs, unchanged ones stay cached, and a
 // visitor never mixes old and new modules. Run before committing code:
@@ -65,5 +66,19 @@ wb = wb.replace(wbMain, `<script type="module" src="workbench/main.js?v=${hash(p
 wb = wb.replace(/href="workbench\/workbench\.css(\?v=[^"]*)?"/, `href="workbench/workbench.css?v=${hash(path.join(root, 'workbench/workbench.css'))}"`);
 save(wbHtml, wb);
 if (!CHECK) console.log(`Stamped ${Object.keys(wbImports).length} modules in workbench/index.html`);
+// The Rhythm Editor (workbench/rhythm.html) uses the same map, with its own entry.
+const rhHtml = path.join(root, 'workbench', 'rhythm.html');
+let hasRh = true;
+try { statSync(rhHtml); } catch (e) { hasRh = false; }
+if (hasRh) {
+  const rhMain = /<script type="module" src="workbench\/rhythm\.js(\?v=[^"]*)?"><\/script>/;
+  let rh = readFileSync(rhHtml, 'utf8');
+  if (!rhMain.test(rh)) throw new Error('workbench/rhythm.js <script> not found in workbench/rhythm.html');
+  rh = block.test(rh) ? rh.replace(block, () => mapOf(wbImports).trimStart()) : rh.replace(rhMain, (m) => `${mapOf(wbImports).trimStart()}\n    ${m}`);
+  rh = rh.replace(rhMain, `<script type="module" src="workbench/rhythm.js?v=${hash(path.join(root, 'workbench/rhythm.js'))}"></script>`);
+  rh = rh.replace(/href="workbench\/workbench\.css(\?v=[^"]*)?"/, `href="workbench/workbench.css?v=${hash(path.join(root, 'workbench/workbench.css'))}"`);
+  save(rhHtml, rh);
+  if (!CHECK) console.log(`Stamped ${Object.keys(wbImports).length} modules in workbench/rhythm.html`);
+}
 }
 if (CHECK && stale.length) { console.error('Stale module stamps in ' + stale.join(', ') + ': run node party/tools/stamp-modules.mjs'); process.exit(1); }
