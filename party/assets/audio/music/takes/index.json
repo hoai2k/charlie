@@ -683,6 +683,58 @@
    "onsetFit16": 87.5,
    "notes": "The owner's own song (Suno, party/intake \"Party Dance.mp3\"): bright dance pop in E-flat major; its tempo wandered 120.9-122.1 BPM, so it was time-warped onto an exact 121 BPM grid (warp_song.py) before processing",
    "inGame": true
+  },
+  {
+   "song": "bouncy",
+   "take": 9,
+   "file": "music/takes/bouncy-9.mp3",
+   "bpm": 128,
+   "bars": 24,
+   "loopStart": 0.2,
+   "loopEnd": 45.2,
+   "lufs": -16.2,
+   "truePeak": -2.2,
+   "bpmMeasured": 127.9998,
+   "notes": "Kitchen / baking pop (no K-pop): vibraphone, brushed drums (2026-10-30)"
+  },
+  {
+   "song": "bouncy",
+   "take": 10,
+   "file": "music/takes/bouncy-10.mp3",
+   "bpm": 128,
+   "bars": 16,
+   "loopStart": 0.2,
+   "loopEnd": 30.2,
+   "lufs": -16.3,
+   "truePeak": -4.5,
+   "bpmMeasured": 128.0001,
+   "notes": "Garden play pop (light K-pop): ukulele, marimba, whistle-synth (2026-10-30)"
+  },
+  {
+   "song": "bouncy",
+   "take": 11,
+   "file": "music/takes/bouncy-11.mp3",
+   "bpm": 128,
+   "bars": 24,
+   "loopStart": 0.2,
+   "loopEnd": 45.2,
+   "lufs": -16.1,
+   "truePeak": -2.8,
+   "bpmMeasured": 127.9954,
+   "notes": "Magic & sky pop (K-pop): celesta, harp, bell-synth hook (2026-10-30)"
+  },
+  {
+   "song": "bouncy",
+   "take": 12,
+   "file": "music/takes/bouncy-12.mp3",
+   "bpm": 128,
+   "bars": 16,
+   "loopStart": 0.2,
+   "loopEnd": 30.2,
+   "lufs": -16.2,
+   "truePeak": -3.4,
+   "bpmMeasured": 127.9985,
+   "notes": "Toybox pop (no K-pop): toy piano, music box, ukulele (2026-10-30)"
   }
  ]
 }

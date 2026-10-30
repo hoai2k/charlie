@@ -535,7 +535,7 @@ function layout() {
   const gut = 46, ruler = 30, ons = showHw ? 16 : 26;
   let wave = showHw ? 34 : 64;
   let laneH = Math.max(22, (tl.h - ruler - wave - ons - 12) / 4);
-  if (laneH > 72) { wave += (laneH - 72) * 4 * 0.5; laneH = 72; }   // tall views: a bigger waveform, not giant lanes
+  if (laneH > 72) { wave += (laneH - 72) * 4; laneH = 72; }   // tall views: a bigger waveform, not giant lanes
   const laneTop = tl.y + ruler + wave + ons + 6;
   return { tl, hw, gut, ruler, wave, ons, laneTop, laneH, x0: tl.x + gut };
 }
