@@ -244,6 +244,7 @@ function updateMonsters(dt) {
     monster.frameTime += dt * (monster.state === "walk" ? 8 : 3);
     monster.frame = Math.floor(monster.frameTime) % 3;
     monster.dizzyTimer = Math.max(0, (monster.dizzyTimer || 0) - dt);
+    monster.remountTimer = Math.max(0, (monster.remountTimer || 0) - dt);
     monster.knockbackX *= Math.pow(0.04, dt);
     if (Math.abs(monster.knockbackX) < 6) monster.knockbackX = 0;
     if (monster.winged) updateWingedMonsterHeight(monster, dt);
@@ -609,10 +610,12 @@ function shakeOffSand(racer, dt) {
 }
 const SAND_COLORS = ["#e3c68a", "#cfa863", "#f0dcae"];
 
-// Knocked off his horse, a troll goes back to it and climbs on again, as
-// long as nobody is close enough to grab it first. True while he's at it.
+// Knocked off his horse, a troll chases racers on foot for a while
+// (TROLL_REMOUNT_DELAY: he won't climb on even if he walks into it), then goes
+// back to it and climbs on again, as long as nobody is close enough to grab it
+// first. True while he's at it.
 function monsterRemount(monster, dt) {
-  if (monster.riding || !monster.active || !getTrackTheme().trollMount) return false;
+  if (monster.riding || !monster.active || !getTrackTheme().trollMount || monster.remountTimer > 0) return false;
   const horse = state.powerups.find(p => p.loose && !p.taken && p.horseType === "skeleton_horse"
     && Math.abs(p.x - monster.x) < TROLL_REMOUNT_RANGE && Math.abs(p.y - 54 - monster.y) < 160);
   if (!horse) return false;
@@ -772,6 +775,7 @@ function applyMonsterKnockback(monster, direction, { unhorse = false } = {}) {
 function unhorseMonster(monster, direction) {
   monster.riding = false;
   monster.restTimer = 0;
+  monster.remountTimer = TROLL_REMOUNT_DELAY;
   monster.z = 0;
   monster.vy = 0;
   if (getTrackTheme().trollMount === "skeleton_horse") {
