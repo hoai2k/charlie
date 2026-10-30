@@ -1,3 +1,13 @@
+## 2026-10-30: Dino Dig dug-sand regeneration — delivered
+
+Replaced the mirrored material with a newly generated softer, flatter organic sand texture. Full native RGBA source and exact prompt archived in `reference/sources/oct30-dug-sand/`. Periodic-plus-smooth Fourier boundary synthesis removes the boundary discontinuity without mirroring or duplicated quadrants. Runtime `prop/dino-dug-sand-v2.webp` is512×512opaqueWebPquality82, registered under the same key. Native archive is pixel-exact. Decoded seam differences are comparable to interior neighboring pixels.
+
+Three-by-three tile contact and actual adjoining dug patches reviewed; no butterfly patterns or visible seams. All25Party tests pass. The dig-anywhere consumer is now on main, and the delivered snake/scorpion frames and new texture are checked through the real renderer. Current proof: `reference/pending/OCT30-DUG-SAND.json`, `OCT30-DUG-SAND-TILED.jpg`, `OCT30-DINO-INTEGRATION-*` and `OCT28-DINO-GAMEPLAY-oct30-*`. Complete game art budget remains17.154140MiBincluding common reuse.
+
+### Resolved regeneration request
+
+| `prop/dino-dug-sand` | Works in Dino Dig and reads as dug, damp sand. The tile was made by mirroring, though, so every patch shows symmetric "butterfly" and kaleidoscope shapes (most visible where a few spots run together), and the clumps are a little busy and saturated next to the soft golden sandbox. | Regenerate as a truly seamless 512×512 tile **without mirroring**: wrap it with an offset and repaint the seams, or use a texture-synthesis tool. Keep the colours (`#c99a58` to `#b4864a`), go a touch softer and flatter (fewer high-contrast clumps), keep the scoop marks and the few tiny pebbles, keep it evenly lit, and add no outlines. Same key and size, opaque. |
+
 ## 2026-10-28: Dino Dig snake, scorpion and dug sand — artwork delivered
 
 All three image requests are complete and registered in the Dino Dig art group. Snake/scorpion each have four distinct authored surprise/flee frames, exact1024×256atlases, shared(128,224)anchors and clear transparent gutters. The opaque512×512dug-sand texture uses a periodic mirrored intake and requested WebPquality82. Exact prompts and pixel-exact native archives are in `reference/sources/oct28-dino-critters`; delivery/budget proof: `reference/pending/OCT28-DINO-CRITTER-DELIVERY.json`.

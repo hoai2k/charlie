@@ -1,0 +1,568 @@
+{
+  "loaded": [
+    {
+      "key": "bg/dino-dig",
+      "loaded": true,
+      "src": "http://127.0.0.1:8602/party/assets/art/bg/dino-dig.webp",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "key": "prop/dino-snake",
+      "loaded": true,
+      "src": "http://127.0.0.1:8602/party/assets/art/prop/dino-snake.webp",
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "key": "prop/dino-scorpion",
+      "loaded": true,
+      "src": "http://127.0.0.1:8602/party/assets/art/prop/dino-scorpion.webp",
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "key": "prop/dino-dug-sand",
+      "loaded": true,
+      "src": "http://127.0.0.1:8602/party/assets/art/prop/dino-dug-sand-v2.webp",
+      "width": 512,
+      "height": 512
+    }
+  ],
+  "states": [
+    {
+      "kind": "snake",
+      "x": 190,
+      "y": 770,
+      "dir": 1,
+      "state": "pop",
+      "t": 0,
+      "rise": 0.48,
+      "lift": 0
+    },
+    {
+      "kind": "snake",
+      "x": 410,
+      "y": 770,
+      "dir": 1,
+      "state": "pop",
+      "t": 0.13,
+      "rise": 1,
+      "lift": 0
+    },
+    {
+      "kind": "snake",
+      "x": 630,
+      "y": 770,
+      "dir": 1,
+      "state": "run",
+      "t": 0,
+      "rise": 1,
+      "lift": 0
+    },
+    {
+      "kind": "snake",
+      "x": 850,
+      "y": 770,
+      "dir": 1,
+      "state": "run",
+      "t": 0.13,
+      "rise": 1,
+      "lift": 0
+    },
+    {
+      "kind": "snake",
+      "x": 1070,
+      "y": 770,
+      "dir": -1,
+      "state": "pop",
+      "t": 0,
+      "rise": 0.48,
+      "lift": 0
+    },
+    {
+      "kind": "snake",
+      "x": 1290,
+      "y": 770,
+      "dir": -1,
+      "state": "pop",
+      "t": 0.13,
+      "rise": 1,
+      "lift": 0
+    },
+    {
+      "kind": "snake",
+      "x": 1510,
+      "y": 770,
+      "dir": -1,
+      "state": "run",
+      "t": 0,
+      "rise": 1,
+      "lift": 0
+    },
+    {
+      "kind": "snake",
+      "x": 1730,
+      "y": 770,
+      "dir": -1,
+      "state": "run",
+      "t": 0.13,
+      "rise": 1,
+      "lift": 0
+    },
+    {
+      "kind": "scorpion",
+      "x": 190,
+      "y": 1000,
+      "dir": 1,
+      "state": "pop",
+      "t": 0,
+      "rise": 0.48,
+      "lift": 0
+    },
+    {
+      "kind": "scorpion",
+      "x": 410,
+      "y": 1000,
+      "dir": 1,
+      "state": "pop",
+      "t": 0.13,
+      "rise": 1,
+      "lift": 0
+    },
+    {
+      "kind": "scorpion",
+      "x": 630,
+      "y": 1000,
+      "dir": 1,
+      "state": "run",
+      "t": 0,
+      "rise": 1,
+      "lift": 0
+    },
+    {
+      "kind": "scorpion",
+      "x": 850,
+      "y": 1000,
+      "dir": 1,
+      "state": "run",
+      "t": 0.13,
+      "rise": 1,
+      "lift": 0
+    },
+    {
+      "kind": "scorpion",
+      "x": 1070,
+      "y": 1000,
+      "dir": -1,
+      "state": "pop",
+      "t": 0,
+      "rise": 0.48,
+      "lift": 0
+    },
+    {
+      "kind": "scorpion",
+      "x": 1290,
+      "y": 1000,
+      "dir": -1,
+      "state": "pop",
+      "t": 0.13,
+      "rise": 1,
+      "lift": 0
+    },
+    {
+      "kind": "scorpion",
+      "x": 1510,
+      "y": 1000,
+      "dir": -1,
+      "state": "run",
+      "t": 0,
+      "rise": 1,
+      "lift": 0
+    },
+    {
+      "kind": "scorpion",
+      "x": 1730,
+      "y": 1000,
+      "dir": -1,
+      "state": "run",
+      "t": 0.13,
+      "rise": 1,
+      "lift": 0
+    }
+  ],
+  "patches": [
+    {
+      "x": 200,
+      "y": 700,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 330,
+      "y": 700,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 460,
+      "y": 700,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 590,
+      "y": 700,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 720,
+      "y": 700,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 850,
+      "y": 700,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 980,
+      "y": 700,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 1110,
+      "y": 700,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 1240,
+      "y": 700,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 1370,
+      "y": 700,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 1500,
+      "y": 700,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 1630,
+      "y": 700,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 200,
+      "y": 810,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 330,
+      "y": 810,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 460,
+      "y": 810,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 590,
+      "y": 810,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 720,
+      "y": 810,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 850,
+      "y": 810,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 980,
+      "y": 810,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 1110,
+      "y": 810,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 1240,
+      "y": 810,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 1370,
+      "y": 810,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 1500,
+      "y": 810,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 1630,
+      "y": 810,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 200,
+      "y": 920,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 330,
+      "y": 920,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 460,
+      "y": 920,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 590,
+      "y": 920,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 720,
+      "y": 920,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 850,
+      "y": 920,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 980,
+      "y": 920,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 1110,
+      "y": 920,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 1240,
+      "y": 920,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 1370,
+      "y": 920,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 1500,
+      "y": 920,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 1630,
+      "y": 920,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 200,
+      "y": 1020,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 330,
+      "y": 1020,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 460,
+      "y": 1020,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 590,
+      "y": 1020,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 720,
+      "y": 1020,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 850,
+      "y": 1020,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 980,
+      "y": 1020,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 1110,
+      "y": 1020,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 1240,
+      "y": 1020,
+      "r": 135,
+      "deep": true,
+      "alpha": 0.86
+    },
+    {
+      "x": 1370,
+      "y": 1020,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 1500,
+      "y": 1020,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    },
+    {
+      "x": 1630,
+      "y": 1020,
+      "r": 135,
+      "deep": false,
+      "alpha": 0.86
+    }
+  ],
+  "patternUsesActualRuntime": true,
+  "sandbox": {
+    "x0": 94,
+    "x1": 1826,
+    "y0": 570,
+    "y1": 1080
+  },
+  "tileBoundaryMeanRGBDelta": {
+    "vertical": 3.3489583333333335,
+    "horizontal": 3.0944010416666745
+  },
+  "validationType": "Controlled drawCritter and DugSand instances imported from published game code; actual index/loader/game boot. Forced states are diagnostic, not a natural gameplay completion claim.",
+  "errors": [],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:8602/party/assets/art/prop/dino-snake.webp",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8602/party/assets/art/prop/dino-scorpion.webp",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8602/party/assets/art/prop/dino-dug-sand-v2.webp",
+      "status": 200
+    }
+  ],
+  "reviewedMain": "21341d08cd47d5f35ef481980932de05c29140e5",
+  "actualRendererSHA256": "6eddafdb6d8ab7e4f471028fe6105fa699f2052937ded612fa3ab5118836ddc1",
+  "runtimeTextureSHA256": "1ce526ff1ec14d9f6fa82e2c9a3ba0a0e69a63e97388c2403bcc79dbe3089aa5",
+  "visualReview": {
+    "scene": "Passed: both creatures face and mirror correctly, distinct surprise/run phases remain grounded.48%rise hides lower bodies at ground exactly as intended by actual published clip. Authored complete poses are unclipped.",
+    "dugMasks": "Passed:52adjoining paint patches cross local x512,1024,1536tile repeats; soft fronts join continuously. Deep central region naturally darker.",
+    "tile3x3": "Passed: actual DugSand.pattern repeated3x3 on expanded diagnostic canvas; no butterfly motifs, mirrored folds or obvious grid seams. Only ordinary periodic reuse remains.",
+    "textureAxes": "Expanded texture diagnostic covers both repeat axes. Actual game sandbox height510does not reach y512vertical repeat."
+  }
+}

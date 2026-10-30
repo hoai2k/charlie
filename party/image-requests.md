@@ -1104,7 +1104,6 @@ make it read better. Newest first; fixed items move to
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
-| `prop/dino-dug-sand` | Works in Dino Dig and reads as dug, damp sand. The tile was made by mirroring, though, so every patch shows symmetric "butterfly" and kaleidoscope shapes (most visible where a few spots run together), and the clumps are a little busy and saturated next to the soft golden sandbox. | Regenerate as a truly seamless 512×512 tile **without mirroring**: wrap it with an offset and repaint the seams, or use a texture-synthesis tool. Keep the colours (`#c99a58` to `#b4864a`), go a touch softer and flatter (fewer high-contrast clumps), keep the scoop marks and the few tiny pebbles, keep it evenly lit, and add no outlines. Same key and size, opaque. |
 
 Engine-side notes from the same review: several keys are aliases of one
 file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,

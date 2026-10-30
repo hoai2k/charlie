@@ -438,6 +438,7 @@ const TROLL_SPACING = EXPECTED_VIEW_WIDTH; // trolls at least a screen apart, so
 const LOOSE_MOUNT_COOLDOWN = 1.4; // s a troll's horse flashes, out of reach, after he's knocked off it
 const TROLL_REMOUNT_RANGE = 600; // px: a troll on foot goes back to his horse this near
 const TROLL_REMOUNT_CLEAR = 130; // unless a racer is this close to it (she'd get it first)
+const TROLL_REMOUNT_DELAY = 5; // s on foot after he's knocked off (chasing racers) before he'll get back on
 const STICKY_ROLL = 0.25; // a sticky throwable (tracks.js stickyProjectile) rolls off with this share of the speed
 const STICKY_HOLD_TIME = 0.3; // s stepping on one holds her
 const POWERUP_PARTS = 2; // the board is dealt its pickups in halves, each with some of every kind

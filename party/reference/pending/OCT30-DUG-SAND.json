@@ -1,0 +1,57 @@
+{
+  "prompt": "Use case: stylized-concept. Asset type: seamless repeating game terrain texture. Generate a square opaque tileable texture of freshly dug damp playground sand, viewed exactly from above, for a soft cheerful illustrated children's dinosaur dig game. Flat even lighting everywhere. Muted tan-brown palette about #c99a58 to #b4864a, average #c29559. VERY SOFT FLAT LOW CONTRAST surface: subtle irregular rounded sand clumps, a few shallow rounded scoop marks, only a few tiny pebbles. Fewer clumps than typical detailed dirt. Keep saturation restrained and tonal variation gentle so it blends into the soft golden sandbox at85percentopacity. Handpainted game material, no outlines. Organic non-symmetric random distribution, no radial or bilateral symmetry, no mirror tiling, no kaleidoscope, no butterfly patterns, no quadrant symmetry. Entire image seamlessly repeats across both axes, edge features continue naturally. No central composition, no border, no vignette, no light/shadow gradient. No holes, no objects, no bones, no tools, no footprints, no plants, no characters, no text. Full canvas entirely opaque. Intended final512x512 material texture.",
+  "native": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-3aa5ac15-5ee7-416c-be7d-8706c25a73aa.png",
+  "tool": "built-in imagegen",
+  "archive": "party/reference/sources/oct30-dug-sand/native.webp",
+  "sourceRGBAExact": true,
+  "runtime": "party/assets/art/prop/dino-dug-sand-v2.webp",
+  "key": "prop/dino-dug-sand",
+  "size": [
+    512,
+    512
+  ],
+  "intake": "Periodic-plus-smooth FFT removes boundary-discontinuity field without reflection or duplicated quadrants; then gentle palette/contrast normalization. quality82.",
+  "metrics": {
+    "horizontalSeamMean": 3.3489583333333335,
+    "verticalSeamMean": 3.0944010416666665,
+    "interiorHorizontalMean": 3.1032442514677103,
+    "interiorVerticalMean": 3.2639470706947162,
+    "meanRGB": [
+      189.72299575805664,
+      146.34202194213867,
+      85.90905380249023
+    ],
+    "stdRGB": [
+      7.4534659540384505,
+      7.304211646491826,
+      6.6241214822580305
+    ],
+    "mirrorXMeanDifference": 7.734586079915364,
+    "mirrorYMeanDifference": 7.780265808105469
+  },
+  "previousMetrics": {
+    "horizontalSeamMean": 3.0384114583333335,
+    "verticalSeamMean": 2.892578125,
+    "interiorHorizontalMean": 5.59285433993803,
+    "interiorVerticalMean": 6.349023310094585,
+    "meanRGB": [
+      183.51842880249023,
+      124.21925735473633,
+      60.91339874267578
+    ],
+    "stdRGB": [
+      14.039247128649501,
+      13.617278368927167,
+      11.97939565783038
+    ],
+    "mirrorXMeanDifference": 2.6944376627604165,
+    "mirrorYMeanDifference": 2.780980428059896
+  },
+  "sha256": "1ce526ff1ec14d9f6fa82e2c9a3ba0a0e69a63e97388c2403bcc79dbe3089aa5",
+  "checks": {
+    "partyTestsPassed": 25,
+    "naturalEightCPUReview": "OCT28-DINO-GAMEPLAY-oct30-review.json",
+    "actualConsumerDiagnostic": "OCT30-DINO-INTEGRATION-REVIEW.json",
+    "decodedMiBIncludingReuse": 17.15414047241211
+  }
+}
