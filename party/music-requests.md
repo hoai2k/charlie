@@ -350,6 +350,50 @@ Jolly pirate treasure hunt music for a kids' party game, 132 BPM, D minor with b
 Bouncy, cheerful musical-chairs party tune for kids, exactly 120 BPM, F major, 4/4. Four-on-the-floor kick on every beat, claps on 2 and 4, marimba and bell melody, off-beat piano chord stabs, bouncy octave synth bass, shaker. Happy party dancing that could stop at any moment, catchy and simple, the same steady groove all the way through. Quantized production. Production style: modern K-pop girl-group pop in the spirit of BLACKPINK and LISA, softened for kids: a glossy, polished synth-pop sheen, a round warm 808 sub-bass, a crisp snappy snare, light trap hi-hat rolls now and then, and a catchy plucky synth hook, blended with the instruments above. Mood and energy: calm and easygoing, a relaxed laid-back groove with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
 ```
 
+
+---
+
+## Redo: the two weakest current songs
+
+The owner's ear test (2026-10-30, the Takes tab in `?scene=audio`): `bouncy`
+and `dance` are the weakest songs in the game. Their old prompts are in
+`audio-requests.md` §12.2. `bouncy` was a tuba-and-kazoo cartoon romp, nothing
+like the K-pop theme, and it's the most shared song (12 shelf games). `dance`
+aimed at K-pop but in a minor key with a "banishing shadows" mood, so it comes
+out darker and harder than the rest. These replace them under the **same keys**,
+so nothing needs rewiring: the integrating agent just points the manifest at the
+new take.
+
+### R1. Bouncy, redone (`bouncy`, replaces `bouncy-1`)
+
+- **Serves:** the 12 shelf games on `bouncy` (Bubble Pop, Cake Bakery, Cupcake
+  Tower, Fairy Flutter, Silly Garden, Jump Rope, Kitten Cuddles, Puppet
+  Theater, Rainbow Painter, Sock Match, Unicorn Hop, Magic Wand Shapes) and
+  Dance Studio's picker.
+- **Tech:** loop, **exactly 128 BPM** (Jump Rope's rope is tuned to it), G major,
+  24–32 bars, a clean bar-line loop.
+
+```
+Bouncy, sunny K-pop-flavoured pop groove for a kids' party game, exactly 128 BPM, G major, 4/4. Production style: modern K-pop girl-group pop in the spirit of BLACKPINK and LISA, softened for little kids: a glossy, polished synth-pop sheen, a round warm 808 sub-bass with a playful bounce, a crisp snappy snare and soft claps on 2 and 4, light trap hi-hats with a few gentle rolls, a catchy plucky synth hook doubled by marimba and glockenspiel, little bubbly synth blips and a soft sparkle now and then. Cheerful, cute and playful, smiling rather than silly, with a lighter section where the drums thin out to hats and bells. Mood and energy: calm and easygoing, a relaxed laid-back bounce with airy space and gentle dynamics, unhurried, never hyper, harsh or aggressive, like cozy background music kids can play to for a long time. No tuba, no kazoo, no slide whistle. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+```
+
+### R2. Dance, redone (`dance`, replaces *Shadow Banish*)
+
+- **Serves:** Pop Star Stage and Spotlight Dance-Off (the rhythm games sync
+  their notes to its beat), Dance Studio, Dance Along, Snowman Builder's dance
+  finale.
+- **Tech (must hold, `audio-requests.md` §6.3):** **exactly 120.000 BPM**, kick on
+  **every** beat all the way through (the beat stays felt in the breakdown), key
+  **E-flat major** (the bright relative of C minor, so the game's tuned hit
+  notes still fit), cut to exactly 16 or 32 bars with the downbeat at sample 0
+  (`tools/audio/music/process.py` does the cut; check the beat grid as §6.3 and
+  §12.3 say). Its rhythm-game chart ("Shadow Banish" in `music/rhythm/index.json`)
+  must be rebuilt for the new take (`audio-requests.md` §12.8.3).
+
+```
+Sparkly, feel-good K-pop girl-group dance track for a kids' rhythm and dance game, exactly 120 BPM, E-flat major, 4/4. Production style: modern K-pop in the spirit of BLACKPINK and LISA, softened for kids: a glossy, polished synth-pop sheen, a steady four-on-the-floor kick on every single beat all the way through, crisp claps on 2 and 4, a round warm 808 sub-bass, light trap hi-hat rolls, a bright, catchy, hummable synth-pluck hook, shimmering chords and glittery bell sparkles. Happy, confident and friendly, like dancing with your best friends, with a lighter section where the music thins out but the kick keeps going. Mood and energy: easygoing and smiling, a relaxed groove with airy space and gentle dynamics, never hyper, harsh, dark or aggressive. Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady quantized tempo throughout, straight sixteenths, no swing, no tempo or key change, kick never drops out. Seamless loop: no intro, no fade-out, no ending. About 90 seconds.
+```
+
 ---
 
 ## How to deliver
