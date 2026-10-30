@@ -85,6 +85,8 @@ export function audioRunning() { return !!ctx && ctx.state === 'running'; }
 // Song tags (Settings): while on, a corner tag names the song playing, and
 // songs with alternate takes (manifest entry "takes": [{ file, take, ... }])
 // play a random one each time they start, so takes can be judged in play.
+// A song marked "rotate": true always picks one of its takes at random (the owner
+// kept several versions on purpose, e.g. bouncy), with or without song tags.
 const AUDITION_KEY = 'party.songTags';
 let audition = true;
 try { const v = localStorage.getItem(AUDITION_KEY); if (v != null) audition = v === '1'; } catch (e) { /* private mode */ }
@@ -99,7 +101,7 @@ const baseEntry = (name) => { const e = manifest.music[name]; return !e ? null :
 const allTakes = (name) => { const b = baseEntry(name); return b ? [b, ...(b.takes || []).map((t) => ({ ...b, stream: false, ...t }))] : []; };
 const musicEntry = (name) => {
   const base = baseEntry(name); // { file, loopStart, loopEnd, offset, stream, take, label, takes }
-  if (!base || !audition || !base.takes || !base.takes.length) return base;
+  if (!base || !base.takes || !base.takes.length || (!audition && !base.rotate)) return base;
   if (!takePicks.has(name)) {
     const all = allTakes(name);
     takePicks.set(name, all[Math.floor(Math.random() * all.length)]);
